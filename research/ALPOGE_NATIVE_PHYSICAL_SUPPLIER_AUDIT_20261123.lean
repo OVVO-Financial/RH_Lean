@@ -21,6 +21,8 @@ physical premises or certify the open critical signed-source bound.
 #check RHLean.Analysis.AlpogeThin.nativeDyadicLocalActivePowers_card_le_log
 #check RHLean.Analysis.AlpogeThin.nativeDyadicLocalExcludedSource_eq_lowCentralRemainder
 #check RHLean.Analysis.AlpogeThin.nativeDyadicDe_re_le_localRetainedSource
+#check RHLean.Analysis.AlpogeThin.nativeDyadicLocalShiftCost_sum_le_nativePsi
+#check RHLean.Analysis.AlpogeThin.nativeDyadicLocalLogShiftPrice_normalized_le
 
 open Lean Elab Command in
 run_cmd do
@@ -34,7 +36,9 @@ run_cmd do
     ``RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts_of_meanLoss,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicLocalActivePowers_card_le_log,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicLocalExcludedSource_eq_lowCentralRemainder,
-    ``RHLean.Analysis.AlpogeThin.nativeDyadicDe_re_le_localRetainedSource]
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicDe_re_le_localRetainedSource,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicLocalShiftCost_sum_le_nativePsi,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicLocalLogShiftPrice_normalized_le]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

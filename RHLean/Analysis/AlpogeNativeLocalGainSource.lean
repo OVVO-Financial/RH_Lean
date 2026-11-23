@@ -1,4 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostPrimePowerWeights
+import RHLean.Analysis.AlpogeNativeSubgroupProjection
+import RHLean.Analysis.NativePNTChebyshev
 
 /-!
 # The actual native source entering the local gain comparison
@@ -14,6 +16,14 @@ are at least `bTop`. The local comparison retains the remaining low
 central-prime exclusion sum and pays the shift from `a` to `a - 2*c`
 and from `w` to `w + c - heightShift` explicitly. The complete physical
 ASK theorem below retains the ramified d-prime correction.
+
+The accumulated logarithmic shift price is bounded by `6*c*nativePsi N`
+using the existing exact prime-power census. After the original top/lift
+sum and division by the original projection divisor it is at most
+`12*c*nativePsi N / (b*Delta)`. The elementary native Chebyshev bound
+also gives `12*(log 4+2)*c*N / (b*Delta)`. No assertion that this last
+quantity fits a particular scale budget is made without the actual
+parameter inequalities.
 
 This is the arithmetic comparison needed before an actual lattice can
 realize `g0`. It constructs no geometric gain, assumes no top-excess
@@ -377,8 +387,8 @@ theorem nativeDyadicLocalOddSource_le_retained_add_lowCentral
     e q d N p TT a c heightShift t w hInert hw hN hc hShift.2
   rw [nativeDyadicLocalExcludedSource_eq_lowCentralRemainder e q d N p TT
     a bTop t w hp hInert hbTop hTop] at h
-  exact h.trans (add_le_add_left
-    (nativeDyadicLocalShiftCost_le N p c heightShift hp hc hShift.1) _)
+  exact h.trans (add_le_add le_rfl
+    (nativeDyadicLocalShiftCost_le N p c heightShift hp hc hShift.1))
 
 /-- Exact identification with the existing native odd-class ASK. -/
 theorem nativeDyadicOddClassASK_re_eq_localSource
@@ -389,7 +399,8 @@ theorem nativeDyadicOddClassASK_re_eq_localSource
       ∑ p ∈ nativeDyadicInertPrimes e q d N,
         (2 * Real.log p) * nativeDyadicLocalOddSource e q d N p a t w := by
   simp [nativeDyadicOddClassASK, nativeDyadicLocalOddSource,
-    nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.mul_re, Finset.mul_sum]
+    nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.mul_re,
+    Complex.log_re, Complex.norm_natCast, Finset.mul_sum]
 
 /-- The complete original physical ASK, with all d powers retained,
 is controlled by the shifted retained source, its explicit low central
@@ -414,7 +425,7 @@ theorem nativeDyadicFullASK_re_le_localRetainedSource
   rw [nativeDyadicHost_fullASK_eq_oddClassSums_add_dCorrection
     e q d N hH a t w hw hN, Complex.add_re,
     nativeDyadicOddClassASK_re_eq_localSource]
-  apply add_le_add_right
+  apply add_le_add _ le_rfl
   apply Finset.sum_le_sum
   intro p hpMem
   change p ∈ ((Finset.range (N + 1)).filter Nat.Prime).filter
@@ -456,6 +467,141 @@ theorem nativeDyadicDe_re_le_localRetainedSource
   exact sub_le_sub_right
     (nativeDyadicFullASK_re_le_localRetainedSource e q d N hH TT a bTop c
       heightShift t w hw hN hbTop hTop hc hShift) _
+
+/-- The actual unramified inert primes form a subset of the existing
+native prime-coordinate set, with the same integer endpoint. -/
+theorem nativeDyadicInertPrimes_subset_nativePrimeSet (e q d N : ℕ) :
+    nativeDyadicInertPrimes e q d N ⊆ nativePrimeSet N := by
+  intro p hp
+  change p ∈ ((Finset.range (N + 1)).filter Nat.Prime).filter
+    (fun r => ¬ r ∣ alpogeNativeHostN e q d ∧ jacobiSym (-(d : ℤ)) r = -1) at hp
+  obtain ⟨hpBase, _hpClass⟩ := Finset.mem_filter.mp hp
+  obtain ⟨hpRange, hpPrime⟩ := Finset.mem_filter.mp hpBase
+  change p ∈ (Finset.Icc 1 N).filter Nat.Prime
+  exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr
+    ⟨hpPrime.one_le, Nat.lt_succ_iff.mp (Finset.mem_range.mp hpRange)⟩, hpPrime⟩
+
+/-- The logarithmic exponent multiplicity is bounded by the SAME native
+von Mangoldt mass, by its existing exact prime-power decomposition. -/
+theorem nativeDyadicInertLogMultiplicity_le_nativePsi (e q d N : ℕ) :
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+      Real.log p * (Nat.log p N : ℝ)) ≤ nativePsi N := by
+  rw [nativePsi_eq_sum_mul_log_prime]
+  calc
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+        Real.log p * (Nat.log p N : ℝ)) =
+        ∑ p ∈ nativeDyadicInertPrimes e q d N,
+          (Nat.log p N : ℝ) * Real.log p := by
+      apply Finset.sum_congr rfl
+      intro p _hp
+      exact mul_comm _ _
+    _ ≤ ∑ p ∈ nativePrimeSet N, (Nat.log p N : ℝ) * Real.log p :=
+      Finset.sum_le_sum_of_subset_of_nonneg
+        (nativeDyadicInertPrimes_subset_nativePrimeSet e q d N)
+        (fun p _hp _hnot =>
+          mul_nonneg (Nat.cast_nonneg _) (Real.log_natCast_nonneg p))
+
+/-- The precise accumulated shift price in the complete-source theorem
+is at most `6*c*psi(N)`; the prime-power count is not bounded one prime
+at a time by `log N`. -/
+theorem nativeDyadicLocalLogShiftPrice_le_nativePsi
+    (e q d N : ℕ) (c : ℝ) (hc : 0 ≤ c) :
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+      (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) ≤
+        6 * c * nativePsi N := by
+  calc
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+        (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) =
+        (6 * c) * ∑ p ∈ nativeDyadicInertPrimes e q d N,
+          Real.log p * (Nat.log p N : ℝ) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      ring
+    _ ≤ 6 * c * nativePsi N :=
+      mul_le_mul_of_nonneg_left
+        (nativeDyadicInertLogMultiplicity_le_nativePsi e q d N) (by positivity)
+
+/-- The unrounded shift sum itself satisfies the same prime-power
+budget whenever the original height shift is nonnegative. -/
+theorem nativeDyadicLocalShiftCost_sum_le_nativePsi
+    (e q d N : ℕ) (c heightShift : ℝ)
+    (hc : 0 ≤ c) (hShift : 0 ≤ heightShift) :
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+      (2 * Real.log p) * nativeDyadicLocalShiftCost N p c heightShift) ≤
+        6 * c * nativePsi N := by
+  calc
+    (∑ p ∈ nativeDyadicInertPrimes e q d N,
+        (2 * Real.log p) * nativeDyadicLocalShiftCost N p c heightShift) ≤
+        ∑ p ∈ nativeDyadicInertPrimes e q d N,
+          (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      have hpPrime : p.Prime :=
+        (Finset.mem_filter.mp
+          (nativeDyadicInertPrimes_subset_nativePrimeSet e q d N hp)).2
+      exact mul_le_mul_of_nonneg_left
+        (nativeDyadicLocalShiftCost_le N p c heightShift hpPrime hc hShift)
+        (mul_nonneg (by norm_num) (Real.log_natCast_nonneg p))
+    _ ≤ 6 * c * nativePsi N := nativeDyadicLocalLogShiftPrice_le_nativePsi e q d N c hc
+
+/-- Summing the proved shift price over the original tops and lifts,
+then dividing by the actual projection divisor, cancels exactly those
+two multiplicities. The density is the existing native density of T2. -/
+theorem nativeDyadicLocalLogShiftPrice_normalized_le_nativePsi
+    (e q d N m : ℕ) (TT T2 : Finset (AlpogeNativeDyadicH e))
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m)
+    (b c : ℝ) (hb : 0 < b) (hc : 0 ≤ c) :
+    (∑ _t ∈ TT, ∑ _j : Fin m,
+      ∑ p ∈ nativeDyadicInertPrimes e q d N,
+        (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) /
+        alpogeNativeProjectionDivisor TT T2 m b ≤
+      12 * c * nativePsi N / (b * alpogeNativeProjectionDensity T2) := by
+  have hSum :
+      (∑ _t ∈ TT, ∑ _j : Fin m,
+        ∑ p ∈ nativeDyadicInertPrimes e q d N,
+          (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) ≤
+        (TT.card : ℝ) * (m : ℝ) * (6 * c * nativePsi N) := by
+    calc
+      _ = (TT.card : ℝ) * (m : ℝ) *
+          (∑ p ∈ nativeDyadicInertPrimes e q d N,
+            (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+          nsmul_eq_mul, mul_assoc]
+      _ ≤ (TT.card : ℝ) * (m : ℝ) * (6 * c * nativePsi N) :=
+        mul_le_mul_of_nonneg_left
+          (nativeDyadicLocalLogShiftPrice_le_nativePsi e q d N c hc) (by positivity)
+  have hQ := alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm b hb
+  have ht : (0 : ℝ) < TT.card := by exact_mod_cast hTT.card_pos
+  have hm' : (0 : ℝ) < m := by exact_mod_cast hm
+  have hDelta : 0 < alpogeNativeProjectionDensity T2 := by
+    unfold alpogeNativeProjectionDensity
+    exact div_pos (by exact_mod_cast hT2.card_pos)
+      (by exact_mod_cast Fintype.card_pos)
+  refine (div_le_div_of_nonneg_right hSum hQ.le).trans_eq ?_
+  unfold alpogeNativeProjectionDivisor
+  field_simp [ht.ne', hm'.ne', hb.ne', hDelta.ne'] <;> ring
+
+/-- The existing elementary native Chebyshev bound makes the normalized
+shift price explicit in N. This uses no prime-distribution asymptotic. -/
+theorem nativeDyadicLocalLogShiftPrice_normalized_le
+    (e q d N m : ℕ) (TT T2 : Finset (AlpogeNativeDyadicH e))
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m)
+    (b c : ℝ) (hb : 0 < b) (hc : 0 ≤ c) :
+    (∑ _t ∈ TT, ∑ _j : Fin m,
+      ∑ p ∈ nativeDyadicInertPrimes e q d N,
+        (2 * Real.log p) * (3 * c * (Nat.log p N : ℝ))) /
+        alpogeNativeProjectionDivisor TT T2 m b ≤
+      12 * (Real.log 4 + 2) * c * (N : ℝ) /
+        (b * alpogeNativeProjectionDensity T2) := by
+  apply (nativeDyadicLocalLogShiftPrice_normalized_le_nativePsi
+    e q d N m TT T2 hTT hT2 hm b c hb hc).trans
+  apply div_le_div_of_nonneg_right _
+    (by unfold alpogeNativeProjectionDensity; positivity)
+  calc
+    12 * c * nativePsi N ≤ 12 * c * ((Real.log 4 + 2) * (N : ℝ)) :=
+      mul_le_mul_of_nonneg_left (nativePsi_le_const_mul N) (by positivity)
+    _ = 12 * (Real.log 4 + 2) * c * (N : ℝ) := by ring
 
 end AlpogeThin
 end RHLean.Analysis

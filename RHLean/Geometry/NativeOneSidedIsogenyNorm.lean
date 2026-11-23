@@ -51,7 +51,6 @@ theorem abs_norm_le_absNorm_of_reverse_integral
     change (((a : M) / (d : M))⁻¹ * (y : M)) * (a : M) =
       (d : M) * (y : M)
     field_simp [haM, hdM]
-    <;> ring
   have hId : Ideal.absNorm (Ideal.span {d}) ≠ 0 := by
     intro hz
     have hz' : Ideal.span {d} = ⊥ := Ideal.absNorm_eq_zero_iff.mp hz

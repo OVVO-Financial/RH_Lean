@@ -91,11 +91,68 @@ primes and every ramified `d`-power remain represented. The principal term
 is subtracted unchanged. No absolute-value relaxation is applied to MAIN.
 
 This discharges the elementary source-to-local-sum comparison, including
-the vanishing exclusion cases and finite shift price. It does not show that
-an actual restriction lattice realizes `R_p`, bound the remaining low
-central sum, or pay the weighted shift sum after division by `Q`. Those
-remain explicit quantitative obligations. In particular, the logarithmic
-exponent count by itself is not a root-scale estimate after summing primes.
+the vanishing exclusion cases and finite shift price. The weighted shift
+sum is also bounded using the existing exact native prime-power census:
+
+\[
+\sum_{p\in\mathrm{Inert}(N)}2\log p\,(3c\lfloor\log_pN\rfloor)
+\le6c\,\psi(N).
+\]
+
+The new `nativeDyadicLocalLogShiftPrice_normalized_le` sums over the original
+`TT` and `Fin m`, divides by the literal projection divisor, and uses the
+existing elementary `nativePsi_le_const_mul` to prove
+
+\[
+\frac{\text{total shift price}}{Q}
+\le\frac{12c\,\psi(N)}{b\Delta}
+\le\frac{12(\log4+2)cN}{b\Delta}.
+\]
+
+The actual unrounded shift sum has the same `6*c*psi(N)` bound when the
+height shift is nonnegative. The Chebyshev estimate uses the finite
+primorial bound and the square-root prime-power split, not a prime-number
+asymptotic.
+
+This explicit cost does not yet prove absorption at the critical scale.
+The constructed consumer uses `N = ceil(Amax/beta)` and only assumes
+`0 < beta <= b`, with `Amax/b <= x+1`. Its price is therefore at most
+
+\[
+\frac{12(\log4+2)c}{\Delta}
+\left(\frac{x+1}{\beta}+\frac1b\right).
+\]
+
+The needed control is on `c/beta`; the large top-width lower bound on `b`
+alone is insufficient. Existing thick-freezing estimates move only thick
+sites and use cutoff `floor(a/b)`. The local gain shift changes all retained
+widths, so those estimates cannot silently replace `beta` by `b` here.
+Constructing the actual local restriction gain and bounding the low-central
+remainder remain separate quantitative obligations.
+
+The original scale construction gives a sufficient concrete target for
+that width realization:
+
+\[
+\beta\ge\frac{b}{n\exp(x^{\varepsilon/3})},\qquad
+c\le4\exp(x^{\varepsilon/4}).
+\]
+
+These are the upstream thin-width minimum and `cG = 4*Sc` bound, not new
+assumptions about cancellation. If the same native profile realizes them,
+the existing host bound `n <= x^3`, density `Delta >= x^(-epsilon)`, and
+`b >= exp(x^epsilon)` give the elementary scalar estimate
+
+\[
+\frac{\text{total shift price}}{Q}
+\le144(\log4+2)x^{4+\varepsilon}
+\exp\!\left(x^{\varepsilon/4}+x^{\varepsilon/3}-x^\varepsilon\right).
+\]
+
+For fixed positive epsilon this tends to zero faster than any inverse
+power. This last absorption is a paper consequence of the displayed scale
+ties, not a claim that the native width family has been constructed or that
+an additional Lean scale-absorption theorem has been checked here.
 
 More precisely, sum the retained source over the actual `t`, `j`, and prime
 indices to obtain `R(u)`, and let `E(u)` contain the displayed exclusion,
@@ -191,8 +248,20 @@ inclusions give, for each ideal class `C` and embedding `sigma`,
 Unit discriminants and the product formula remove the discriminant row sum.
 The row correction is `lambda_b` above. Exact ideal-class permutation gives
 the column sum. Replacing the old equality of norm rows by `lambda_b <= 0`
-therefore yields the useful direction `P >= Omega`, hence `rho = 0`, after
-the same finite double sum and the original `log(pi)` normalization.
+therefore yields `P >= Omega_class` after the same finite double sum and
+the original `log(pi)` normalization. The committed class-period theorem
+identifies `Omega_class` with
+`gamma + log(2*pi/sqrt(d)) - Re(L'_chi_d(1)/L_chi_d(1))` without an extra
+analytic bound premise.
+
+To identify `Omega_class` with the physical `Data.logOm`, the same family
+must still supply `D0.v = sqrt(d)/2` and match its canonical `ell(chC)` to
+that quadratic-character logarithmic derivative. The exact seed scale
+`upperPeriod_im_exact` and the explicit Kronecker-character identity are
+already proved in the inspected branch; their physical-data attachment is
+not constructed by this work. With these matches, the one-sided period
+substitution has `rho = 0`. No extra analytic estimate is needed for the
+finite character identification.
 
 The tangent-coordinate identity
 `NativeCMWeierstrassTangentCoordinatePeriods.tangentCoordinatePeriods_log_covolume`
