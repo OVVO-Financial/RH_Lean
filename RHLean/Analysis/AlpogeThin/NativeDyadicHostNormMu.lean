@@ -42,12 +42,13 @@ theorem nativeDyadicHostRaw_no_primitive_d
     (he : 2 ≤ e) (hH : HostHyp q d) :
     let H := nativeDyadicHostRaw e q d he hH
     ∀ η : H.E, IsPrimitiveRoot η H.d → False := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro η hη
+  intro H η hη
   have : Fact H.d.Prime := ⟨H.hyp.2.1⟩
   have : IsGalois ℚ H.E := H.galois
   obtain ⟨⟨Q, hQp, hQl⟩⟩ :
       Nonempty ((span {(H.d : ℤ)}).primesOver (𝓞 H.E)) := inferInstance
+  let : Q.IsPrime := hQp
+  let : Q.LiesOver (span {(H.d : ℤ)}) := hQl
   have hge := mu_le_ram H.d Q (H.d - 1) (mu_mem_pow H.d Q η hη)
   have hle := mu_card_le_two (L := H.E) H.gal H.gal.injective
     (nativeDyadicFrame e).iod (Q.inertia (H.E ≃ₐ[ℚ] H.E))
@@ -64,8 +65,7 @@ theorem nativeDyadicHostRaw_iod_fix_rootOfUnity
     let H := nativeDyadicHostRaw e q d he hH
     ∀ (σ : H.E ≃ₐ[ℚ] H.E), H.gal σ = (nativeDyadicFrame e).iod →
       ∀ x : H.E, (∃ m : ℕ, 0 < m ∧ x ^ m = 1) → σ x = x := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro σ hσ x hx
+  intro H σ hσ x hx
   obtain ⟨n, hn, hxn⟩ := hx
   have hfin : IsOfFinOrder x := isOfFinOrder_iff_pow_eq_one.mpr ⟨n, hn, hxn⟩
   have hmpos : 0 < orderOf x := orderOf_pos_iff.mpr hfin
@@ -77,6 +77,8 @@ theorem nativeDyadicHostRaw_iod_fix_rootOfUnity
   have : Fact H.d.Prime := ⟨H.hyp.2.1⟩
   obtain ⟨⟨P, hPp, hPl⟩⟩ :
       Nonempty ((span {(H.d : ℤ)}).primesOver (𝓞 H.E)) := inferInstance
+  let : P.IsPrime := hPp
+  let : P.LiesOver (span {(H.d : ℤ)}) := hPl
   have hin := (nativeDyadicHostRaw_inertia_d e q d he hH P σ).mpr (Or.inr hσ)
   let X : 𝓞 H.E := ⟨x, hprim.isIntegral hmpos⟩
   have hX : X ^ orderOf x = 1 := by
@@ -97,8 +99,7 @@ theorem nativeDyadicHostRaw_rootOfUnity_mul_conj
     (he : 2 ≤ e) (hH : HostHyp q d) :
     let H := nativeDyadicHostRaw e q d he hH
     ∀ x : H.E, (∃ m : ℕ, 0 < m ∧ x ^ m = 1) → x * H.conj x = 1 := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro x hx
+  intro H x hx
   obtain ⟨n, hn, hxn⟩ := hx
   let ψ : H.E →+* ℂ := Classical.choice inferInstance
   apply ψ.injective
@@ -115,8 +116,7 @@ theorem nativeDyadicHostRaw_norm_mu
     let H := nativeDyadicHostRaw e q d he hH
     ∀ x : H.E, (∃ m : ℕ, 0 < m ∧ x ^ m = 1) → Algebra.norm H.K x = 1 := by
   classical
-  let H := nativeDyadicHostRaw e q d he hH
-  intro x hx
+  intro H x hx
   have : IsGalois ℚ H.E := H.galois
   have : IsGalois H.K H.E := IsGalois.tower_top_of_isGalois ℚ _ _
   obtain ⟨ι, hι⟩ := H.gal.surjective (nativeDyadicFrame e).iod

@@ -53,8 +53,7 @@ theorem nativeDyadicHostRaw_splitK
     ∀ p : ℕ, p.Prime →
       ((primesOver (span {(p : ℤ)}) (𝓞 H.K)).ncard = 2 ↔
         (p = 2 ∨ (p ≠ 2 ∧ jacobiSym (-(H.d : ℤ)) p = 1))) := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro p hp
+  intro H p hp
   exact NativeQuadraticSplitting.clause H.hyp.2.1
     (by have := H.hyp.2.2.2.1; omega) H.sqd_sq p hp
 

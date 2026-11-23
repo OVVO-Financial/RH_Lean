@@ -147,7 +147,8 @@ theorem exists_integral_of_isNormOne (M p : ℕ) (h : IsNormOne H.d M p) :
   refine ⟨⟨element H u v, element_mem_K H u v, ?_,
     element_sub_one_mem H M u v hu hv⟩, hmod⟩
   rw [element_norm]
-  exact_mod_cast hp.symm
+  have hnorm := congrArg (fun z : ℤ => (z : H.E)) hp.symm
+  simpa only [Int.cast_add, Int.cast_mul, Int.cast_pow, Int.cast_natCast] using hnorm
 
 /-- The original A,B normalization feeds the same actual construction. -/
 theorem exists_integral_of_halfRootCoordinates (M p : ℕ)

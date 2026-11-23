@@ -153,7 +153,7 @@
         "nativeDyadicHostRaw_principal"
       ],
       "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
-      "native_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3"
+      "native_sha256": "73dc5a42c5c8f705977ee59afaa621b33856caf22c92613893cbc5e16be10a04"
     }
   ],
   "proof_construction": "The explicit diagonal K=diag(i*sgn) is transported through the proved same-lattice real equivalence. K^2=-1 and K^*GK=G are direct identities. K^*G=-i*I gives EF_R(Jx,x)=sum_tau 2*Im(tau(xi))*sum_i normSq(theta(x)(tau)(i)), strictly positive for nonzero x by theta injectivity and proved xi_im_pos. The original coefficient action intertwines with scalar diagonal blocks; real traces are twice real parts of complex traces, and exact negTail cardinality yields the source multiplicities. Native canonical conjugation discharges the helper embedding identity and a single actually constructed B serves all k,m,j.",

@@ -53,8 +53,10 @@ theorem nativeDyadicHostRaw_ordinary
       (∀ σ τ : H.E ≃ₐ[ℚ] H.E, τ ∈ MulAction.stabilizer _ P →
         (H.gal (σ * τ) ∈ (nativeDyadicFrame e).Psi ↔ H.gal σ ∈ (nativeDyadicFrame e).Psi)) ↔
         (primesOver (span {(p : ℤ)}) (𝓞 H.K)).ncard = 2 := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro p hpf P _ _
+  intro H p hpf P hP hPl
+  let : Fact p.Prime := hpf
+  let : P.IsPrime := hP
+  let : P.LiesOver (span {(p : ℤ)}) := hPl
   have hp : p.Prime := hpf.out
   have hred : (∀ σ τ : H.E ≃ₐ[ℚ] H.E, τ ∈ MulAction.stabilizer _ P →
       (H.gal (σ * τ) ∈ (nativeDyadicFrame e).Psi ↔ H.gal σ ∈ (nativeDyadicFrame e).Psi)) ↔

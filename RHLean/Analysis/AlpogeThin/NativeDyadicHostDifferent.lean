@@ -123,8 +123,7 @@ theorem nativeDyadicHostRaw_diffSupport
     let H := nativeDyadicHostRaw e q d he hH
     ∀ P : Ideal (𝓞 H.E), P.IsPrime →
       P ∣ differentIdeal (𝓞 H.K) (𝓞 H.E) → ((H.QS * H.q : ℕ) : 𝓞 H.E) ∈ P := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro P hP hdvd
+  intro H P hP hdvd
   let : P.IsPrime := hP
   let : IsGalois ℚ H.E := H.galois
   let : IsGalois H.K H.E := IsGalois.tower_top_of_isGalois ℚ H.K H.E
@@ -166,8 +165,8 @@ theorem nativeDyadicHostRaw_below_ne_conj
     ∀ (P : Ideal (𝓞 H.E)) [P.IsPrime],
       ((H.QS * H.q : ℕ) : 𝓞 H.E) ∈ P →
         NativeRawHostDifferent.below H P ≠ NativeRawHostDifferent.below H (H.conj • P) := by
-  let H := nativeDyadicHostRaw e q d he hH
-  intro P _ hm heq
+  intro H P hP hm heq
+  let : P.IsPrime := hP
   let : IsGalois ℚ H.E := H.galois
   let : IsGalois H.K H.E := IsGalois.tower_top_of_isGalois ℚ H.K H.E
   have hA0 : H.QS * H.q ≠ 0 := Nat.mul_ne_zero H.QS_pos.ne' H.hyp.1.ne_zero
@@ -217,6 +216,7 @@ theorem nativeDyadicHostRaw_principal
     intro P hP
     have hPp : P.IsPrime :=
       Ideal.isPrime_of_prime (UniqueFactorizationMonoid.prime_of_normalized_factor P hP)
+    let : P.IsPrime := hPp
     have hPd : P ∣ differentIdeal (𝓞 H.K) (𝓞 H.E) :=
       UniqueFactorizationMonoid.dvd_of_mem_normalizedFactors hP
     have hne := nativeDyadicHostRaw_below_ne_conj e q d he hH P

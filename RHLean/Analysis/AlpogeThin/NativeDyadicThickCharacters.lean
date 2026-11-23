@@ -135,15 +135,11 @@ theorem nativePairGood_dyadicTwist_bound
     χ.primitiveCharacter (nativeDyadicTwoBitCharacter_induces e q d i j)
     y hyY hyX).1
   rw [hostResponse_eq_nativeResponse] at hb
-  change ‖alpogeNativeFrobInertiaGPsi
-    (alpogeNativeCftData (alpogeNativeHostN e q d) q d
-      (alpogeNativeRecMap e q d)).inertia
-    (alpogeNativeCftData (alpogeNativeHostN e q d) q d
-      (alpogeNativeRecMap e q d)).frob
-    (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
-    (nativeDyadicTwoBitCharacter e i j) y‖ ≤ _
-  rw [nativeCftGPsi_eq_nativeResponse q d (alpogeNativeRecMap e q d) hsurj]
-  exact hb
+  have hresponse := nativeCftGPsi_eq_nativeResponse
+    (H := AlpogeNativeDyadicH e) (N := alpogeNativeHostN e q d)
+    q d (alpogeNativeRecMap e q d) hsurj (nativeDyadicTwoBitCharacter e i j) y
+  rw [← hresponse] at hb
+  simpa only [alpogeNativeHostData] using hb
 
 /-- All three excluded thick characters are paid by the same selected pair.
 The complete signal retains its original `1+B-A-AB` signs before this bound. -/

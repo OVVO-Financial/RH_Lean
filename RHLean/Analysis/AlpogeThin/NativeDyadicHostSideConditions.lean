@@ -39,9 +39,10 @@ theorem nativeDyadicHostRaw_psQ
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     (he : 2 ≤ e) (hH : HostHyp q d) :
     (nativeDyadicHostRaw e q d he hH).PsQ := by
+  change ∀ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+    (((nativeDyadicArt e q d u).1.1 : ℤˣ) : ℤ) =
+      jacobiSym (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ℤ) q
   intro u
-  change (((nativeDyadicArt e q d u).1.1 : ℤˣ) : ℤ) =
-    jacobiSym (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ℤ) q
   rw [nativeDyadicArt_apply, NativeQuadraticRoot.legU_val,
     ← jacobiSym.legendreSym.to_jacobiSym]
   simp only [legendreSym, Int.cast_natCast]
@@ -62,9 +63,12 @@ theorem nativeDyadicArt_halfConductor_nontrivial
     exact pow_le_pow_right₀ (by decide) (by omega)
   have hspos : 0 < s := lt_of_lt_of_le (by decide : 0 < 4) hs4
   have hqdpos : 0 < q * d := Nat.mul_pos hH.1.pos hH.2.1.pos
+  have hqd_one : 1 ≤ q * d := by omega
   have hn4 : 4 ≤ n := hs4.trans (by
     change s ≤ s * (q * d)
-    simpa only [mul_one] using Nat.mul_le_mul_left s hqdpos)
+    calc
+      s = s * 1 := (Nat.mul_one s).symm
+      _ ≤ s * (q * d) := Nat.mul_le_mul_left s hqd_one)
   have hm : 2 ^ (e + 2) = s * 2 := by
     dsimp only [s]
     rw [show e + 2 = (e + 1) + 1 by omega, pow_succ]

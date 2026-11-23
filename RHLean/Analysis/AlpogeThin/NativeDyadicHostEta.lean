@@ -77,7 +77,8 @@ theorem nativeDyadicHostRaw_eta
       rfl
   have hetaiff : ∀ (P : Ideal (𝓞 H.E)) [P.IsPrime], P ≠ ⊥ →
       (H.etaF (P.comap (algebraMap (𝓞 H.F) (𝓞 H.E))) = 1 ↔ H.conj • P ≠ P) := by
-    intro P _ hP0
+    intro P hP hP0
+    let : P.IsPrime := hP
     have hk := NativeCMPrimeSplitting.ncard_eq_two_iff H.E P hP0
     rw [hsm] at hk
     unfold HostRaw.etaF
@@ -90,7 +91,10 @@ theorem nativeDyadicHostRaw_eta
   refine ⟨fun 𝔭 hp h0 => ?_, ?_, ?_⟩
   · let : 𝔭.IsPrime := hp
     exact NativeCMPrimeSplitting.split_or_inert H.E 𝔭 h0
-  · intro p hpf hN P _ _ σ hσ
+  · intro p hpf hN P hP hPl σ hσ
+    let : Fact p.Prime := hpf
+    let : P.IsPrime := hP
+    let : P.LiesOver (span {(p : ℤ)}) := hPl
     have hP0 := nativeEta_prime_ne_bot p hpf.out P
     have hm1 : H.etaF (P.comap (algebraMap (𝓞 H.F) (𝓞 H.E))) = -1 ↔ H.conj • P = P := by
       have h1 := hetaiff P hP0
@@ -123,7 +127,10 @@ theorem nativeDyadicHostRaw_eta
         rw [map_zpow, hk, NativeRawHostDifferent.gal_conj])
       rw [← hσc]
       exact Subgroup.zpow_mem _ hσ.mem_stabilizer k
-  · intro p hpf hN P _ _
+  · intro p hpf hN P hP hPl
+    let : Fact p.Prime := hpf
+    let : P.IsPrime := hP
+    let : P.LiesOver (span {(p : ℤ)}) := hPl
     exact (hetaiff P (nativeEta_prime_ne_bot p hpf.out P)).mpr
       (nativeDyadicHostRaw_decompConj e q d he hH p hpf.out hN P)
 

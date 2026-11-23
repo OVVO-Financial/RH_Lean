@@ -155,8 +155,8 @@
   },
   "native_path": "RHLean/Analysis/AlpogeThin/NativeDyadicRayNorm.lean",
   "initial_source_reconstruction_sha256": "39f87bbfbcb2afddf92869a5faff01cfe86ec9ef90998cbe4159cdb187c8e823",
-  "native_sha256": "39f87bbfbcb2afddf92869a5faff01cfe86ec9ef90998cbe4159cdb187c8e823",
-  "native_lines": 198,
+  "native_sha256": "ae2363a4a4087716647aee9017e63377784985a4876bb579102067c8cdb3727a",
+  "native_lines": 199,
   "axiom_guard_declarations": [
     "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.isNormOne_iff_halfRootCoordinates",
     "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_norm",

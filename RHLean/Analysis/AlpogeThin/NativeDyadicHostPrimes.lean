@@ -43,7 +43,10 @@ theorem nativeDyadicHostRaw_inertia
         ∃ u : (ZMod H.condN)ˣ,
           (u : ZMod H.condN).val ≡ 1 [MOD ordCompl[l] H.condN] ∧ H.gal σ = H.art u := by
   dsimp only
-  intro l _ P _ _ σ
+  intro l hl P hP hPl σ
+  let : Fact l.Prime := hl
+  let : P.IsPrime := hP
+  let : P.LiesOver (span {(l : ℤ)}) := hPl
   have hqmod := hH.2.2.1
   have hdmod := hH.2.2.2.1
   have hq2 : q ≠ 2 := by omega
@@ -70,7 +73,10 @@ theorem nativeDyadicHostRaw_frob_any
         ∃ u : (ZMod H.condN)ˣ,
           (u : ZMod H.condN).val ≡ l [MOD ordCompl[l] H.condN] ∧ H.gal σ = H.art u := by
   dsimp only
-  intro l _ P _ _ σ
+  intro l hl P hP hPl σ
+  let : Fact l.Prime := hl
+  let : P.IsPrime := hP
+  let : P.LiesOver (span {(l : ℤ)}) := hPl
   have hqmod := hH.2.2.1
   have hdmod := hH.2.2.2.1
   have hq2 : q ≠ 2 := by omega
