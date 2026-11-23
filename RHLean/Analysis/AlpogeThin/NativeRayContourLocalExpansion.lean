@@ -48,7 +48,6 @@ theorem logDeriv_pole {f : ℂ → ℂ} {p : ℂ} (hf : AnalyticAt ℂ f p)
       ((n : ℂ) * (s - p) ^ (n - 1) * 1 * g0 s + (s - p) ^ n * deriv g0 s) s := by
     have := (((hasDerivAt_id' s).sub_const p).pow n).mul h3.hasDerivAt
     convert this using 1
-    all_goals rfl
   have h2' : f =ᶠ[𝓝 s] fun z => (z - p) ^ n • g0 z := h2
   rw [h2'.deriv_eq, h4, hd.deriv, smul_eq_mul]
   rcases n with _ | k

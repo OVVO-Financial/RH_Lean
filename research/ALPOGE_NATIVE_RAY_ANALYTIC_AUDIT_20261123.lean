@@ -1,6 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativeRayAnalyticFamily
 import RHLean.Analysis.AlpogeThin.NativeRayNormPrimeCount
-import RHLean.Analysis.AlpogeThin.NativeRayHostLevelPrime
+import RHLean.Analysis.AlpogeThin.NativeRaySelectedHostLevelPrime
 
 /-!
 # Native ray analytic and actual level-prime terminal-axiom audit
@@ -186,3 +186,17 @@ info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_levelPrime_rayNormElement'
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_levelPrime_rayNormElement
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativePageN_modAt_eventually' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativePageN_modAt_eventually
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedDyadicHost_levelPrime_rayNormElement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedDyadicHost_levelPrime_rayNormElement

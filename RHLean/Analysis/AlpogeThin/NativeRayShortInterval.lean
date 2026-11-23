@@ -200,7 +200,7 @@ lemma sum_le_of_unique {ι : Type} [Fintype ι] (Z : ι → Finset ℝ) (f : ℝ
   have : ((((Finset.univ : Finset ι).sigma Z).card : ℕ) : ℝ) ≤ 1 := by exact_mod_cast hc
   nlinarith
 
-lemma err_le {B A c c₇ c₉ C L h : ℝ} (hB : 4 ≤ B) (hA : 0 < A) (hc : 0 < c) (hc₇ : 0 < c₇) (hc₉ : 0 < c₉)
+lemma err_le {B A c c₇ c₉ C L h : ℝ} (hB : 4 ≤ B) (hA : 0 < A) (hc : 0 < c) (_hc₇ : 0 < c₇) (hc₉ : 0 < c₉)
     (hC : 0 < C) (h1 : (A + 2) * c ≤ c₇ / 2) (h2 : c ≤ c₇ * c₉ / (24 * C))
     (hL : Real.log B ≤ c * L) (hh : Real.exp (-c * L) ≤ h) :
     3 * B * C * Real.exp (-c₇ * L) ≤ h * (c₉ / B ^ A) / 4 := by

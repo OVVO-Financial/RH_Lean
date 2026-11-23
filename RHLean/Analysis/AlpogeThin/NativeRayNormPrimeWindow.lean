@@ -141,7 +141,7 @@ theorem sqrt_le_short_main {A K c B X h : ℝ} (hA : 0 < A) (hK : 0 < K) (hc : 0
         rw [← hXe]; gcongr
 
 theorem normPrimes_short_interval_lower : ∃ A c c' : ℝ, 0 < A ∧ 0 < c ∧ 0 < c' ∧
-    ∀ (K : Type) [Field K] [NumberField K] (d M : ℕ) (r : K) (D : RayData K M) (X h : ℝ),
+    ∀ (K : Type) [Field K] [NumberField K] (d M : ℕ) (r : K) (_D : RayData K M) (X h : ℝ),
       d.Prime → d % 4 = 3 → 100 ≤ d → 3 ≤ M → r ^ 2 = -(d : K) →
       Module.finrank ℚ K = 2 → 1 ≤ X → Real.log (4 * (d : ℝ) * (M : ℝ) ^ 2) ≤ c * Real.sqrt (Real.log X) → Real.exp (-c * Real.sqrt (Real.log X)) ≤ h → h ≤ 1 → c' * h * X / ((4 * (d : ℝ) * (M : ℝ) ^ 2) ^ A * Real.log X) ≤ ((normPrimes d M X (X * (1 + h))).card : ℝ) := by
   obtain ⟨A, c₀, e, hA, hc₀, he, H⟩ := ShortInt.trivialClass_shortInterval

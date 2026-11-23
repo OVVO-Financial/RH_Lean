@@ -51,6 +51,7 @@ F, the prime-power summatory function and the explicit exceptional-zero predicat
 | NativeRayNormPrimeCount | Uniform dyadic lower count Y^(9/10), constructing the ray datum internally |
 | NativeRayLevelPrime | A prime in the specified window (Ts, (1+1/V)Ts] with modulus N(g1 g2)^2 and the original logarithmic costs |
 | NativeRayHostLevelPrime | That level prime and its integral norm element in the literal quadratic subfield of nativeDyadicHostRaw |
+| NativeRaySelectedHostLevelPrime | Discharge ModAt at the actual conductor of the same PageN/WinPair host, then construct its level prime and integral norm element |
 
 B remains 4 d M^2. The principal regularization is F_1(s)=(s-1)L(a_1,s);
 nonprincipal F_chi(s)=L(a_chi,s) on Re(s)>1. The logarithmic derivative includes
@@ -82,6 +83,16 @@ existing `nativeDyadicHostRaw_exists_rayNormElement` construction. N may be
 the actual host conductor. Its size regime and the other geometric window
 conditions remain explicit; this theorem does not assert they hold without
 the corresponding parameter construction.
+
+`nativeSelectedDyadicHost_levelPrime_rayNormElement` performs that arithmetic
+parameter construction for N = H.condN. The already native PageN conductor
+estimate has coefficient 2, which pays ModAt's coefficient 3. The selected
+WinPair supplies primality, d mod 4 = 3, and d >= 100 once Y >= exp(15).
+The native host constructor supplies its own prime instances, exponent lower
+bound, HostHyp, quadratic root, and degree. Thus this endpoint has no separate
+ModAt or host-existence input. Its x0 is chosen before Y, x, the selected
+primes, exponent, and geometric parameters. The original size conditions on
+g1, g2, m, V, and Ts remain explicit on those same parameters.
 
 The modulus cost is exactly
 log 4 + log d + 2 log N + 4 log g1 + 4 log g2.
@@ -134,9 +145,9 @@ for the native Mathlib pin. No proof budget is increased.
 Independent source and mathematical reviews check the principal normalization,
 literal coefficients, signed regrouping after absolute convergence, all positive
 character combinations, zero multiplicities, the exceptional cases and constants.
-`research/ALPOGE_NATIVE_RAY_ANALYTIC_AUDIT_20261123.lean` guards twenty-four
+`research/ALPOGE_NATIVE_RAY_ANALYTIC_AUDIT_20261123.lean` guards twenty-six
 quantitative or actual-family endpoints and accepts only propext,
-Classical.choice and Quot.sound. The root import manifest includes all 26 new
+Classical.choice and Quot.sound. The root import manifest includes all 27 new
 native modules. Hosted CI is the compiler acceptance gate; the draft's source
 review is not a claim that compilation has already succeeded.
 
@@ -151,3 +162,63 @@ consumer still needs those geometric inputs, the strong error-window bounds,
 and their common size regime.
 
 The final square-clock universal Gz bound and RH are not concluded here.
+
+## Next geometric supplier: actual rules and cusp density
+
+The native short harmonic family, finite level quotients, normalized jet
+expression, fixed-degree linearity, and equality of the corresponding
+polynomial evaluation image spans are already available. The coefficient
+L1-to-all-embedding norm estimate is also already native. These results do
+not identify the evaluation image with the independently defined cusp carrier.
+
+The next substantive source target is
+`GlobalTheory.shortThetaValue_existsUnique_natural` in
+`src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueExistsUniqueNaturalOfLaws.lean`.
+It constructs the actual theta value at framed points by a faithfully flat
+cover, agreement of the normalized expression in a common algebra, descent,
+uniqueness, and base-change naturality. Its identity-cover short rule then
+feeds `PrismSpan.cusp_sub_span_short` in
+`src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean`.
+The actual cusp-density input is `GlobalTheory.cusp_le_span_shortGen`, which
+uses `stableForms_eq_sum_thetaSeries_freeLowerRows`. Defining the cusp space
+to be the theta image would omit this proof.
+
+The eventual joint supplier of NativeGradedShortSectionData.short_mem,
+short_span, and short_bound is `GlobalTheory.ShortSpanComp.short_span_comp_mem`
+in `ShortSpanCompositionClosed.lean`. Its minimal-level construction uses
+three substantive suppliers: `CovGmin.span_thFam`,
+`RawThetaSup.homN_smul_raw_le`, and
+`T.exists_bounded_integer_goodCover_thetaSeries_integral`. The
+PublishedHodgeBundleTheorems argument of `minimal_level_cover_is_good` is
+unused in its proof and should not become a new native hypothesis.
+
+The geometric coefficient field of those component sections is distinct from
+the arithmetic CM host field. The actual cusp/support carrier, finite-place
+integral lattice, component Petersson norm, and their transport into one
+native section space must therefore be constructed and related explicitly.
+The source's original twisting and norm costs remain payable as stated; no
+stronger optional mean-energy estimate is required to begin this attachment.
+
+For the actual level-prime parameters, the original
+`exists_levCh_of_levelPrime` obtains m >= x^(1/3), V <= x^12, and
+log(g_i) <= 9 x^eps from its rank and auxiliary-prime constructions. Its
+remaining lower window is also supplied in the source: `Fc.recExP_of_recAtG`
+chooses the actual du and Ds, and calls `EX.WinLow.window_lower` with
+`DsLow.DsP_pos_and_lower`. The source paths are
+`Proofs/IwasawaDecomposition/ExistsLayeredDataOfGoodScaleContexts.lean`,
+`Proofs/GlobalInterpolation/WindowLower.lean`, and
+`Proofs/IwasawaDecomposition/DsPPosAndLower.lean` under
+`src/Development/AbelianVarietyTheory/`.
+The proof retains the actual mass and local-index identities and pays the
+full Gamma factor: a lower bound 15 m L before that factor, with at most
+m L deducted, leaves more than the required m L. Its actual ChOK, ranks,
+mass and dimension carriers still need native construction.
+
+There is a distinct free-size record-existence branch:
+`FinalJoin2.exists_window_start` in
+`Proofs/HeightProofs/ExistsRecordOverChoices.lean` sets du = 1 and
+Ds = exp((f k) m L + 2 log GamS), proving the window by equality.
+It is valid for that record consumer, but it does not identify Ds and du
+with the actual mass and formal-degree quantities in the constrained
+Ctx/RecEx branch. The downstream physical carrier determines which supplier
+can be used; no universal absence of a window supplier is claimed here.

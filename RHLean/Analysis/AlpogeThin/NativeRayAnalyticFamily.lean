@@ -34,32 +34,32 @@ local notation "𝓕" => ofRayData K d M r hp hd hd100 hr h2 hM D
 /-- Continuation, series identification, original polynomial growth and real
 symmetry for the actual ideal coefficients on the given ray datum. -/
 theorem ofRayData_continuation_growth (χ : AddChar (Additive D.G) ℂ) :
-    AnalyticOnNhd ℂ (𝓕.F χ) {s | 1 / 2 < s.re} ∧
-    (∀ s : ℂ, 1 < s.re → LSeriesSummable (𝓕.aChi χ) s ∧
-      𝓕.F χ s = (if χ = 1 then s - 1 else 1) * LSeries (𝓕.aChi χ) s) ∧
+    AnalyticOnNhd ℂ ((𝓕).F χ) {s : ℂ | 1 / 2 < s.re} ∧
+    (∀ s : ℂ, 1 < s.re → LSeriesSummable ((𝓕).aChi χ) s ∧
+      (𝓕).F χ s = (if χ = 1 then s - 1 else 1) * LSeries ((𝓕).aChi χ) s) ∧
     (∀ s : ℂ, 11 / 20 ≤ s.re →
-      ‖𝓕.F χ s‖ ≤ 300 * (4 * (d : ℝ) * (M : ℝ) ^ 2) * (‖s‖ + 1) ^ 2) ∧
+      ‖(𝓕).F χ s‖ ≤ 300 * (4 * (d : ℝ) * (M : ℝ) ^ 2) * (‖s‖ + 1) ^ 2) ∧
     (χ * χ = 1 → ∀ s : ℂ,
-      𝓕.F χ ((starRingEnd ℂ) s) = (starRingEnd ℂ) (𝓕.F χ s)) := by
+      (𝓕).F χ ((starRingEnd ℂ) s) = (starRingEnd ℂ) ((𝓕).F χ s)) := by
   simpa only [ofRayData_B] using RayCont.continuation_growth 𝓕 χ
 
 /-- The complete prime-power logarithmic derivative, including the principal
 pole correction, and nonvanishing to the right of one on the same family. -/
 theorem ofRayData_logDeriv (χ : AddChar (Additive D.G) ℂ) (s : ℂ)
     (hs : 1 < s.re) :
-    LSeriesSummable (𝓕.lamChi χ) s ∧
-    ((s.re - 1) / s.re) ^ 2 ≤ ‖LSeries (𝓕.aChi χ) s‖ ∧
-    𝓕.F χ s ≠ 0 ∧
-    -(deriv (𝓕.F χ) s / 𝓕.F χ s) +
-      (if χ = 1 then 1 / (s - 1) else 0) = LSeries (𝓕.lamChi χ) s := by
+    LSeriesSummable ((𝓕).lamChi χ) s ∧
+    ((s.re - 1) / s.re) ^ 2 ≤ ‖LSeries ((𝓕).aChi χ) s‖ ∧
+    (𝓕).F χ s ≠ 0 ∧
+    -(deriv ((𝓕).F χ) s / (𝓕).F χ s) +
+      (if χ = 1 then 1 / (s - 1) else 0) = LSeries ((𝓕).lamChi χ) s := by
   exact LogDeriv.logDeriv_F 𝓕 χ s hs
 
 /-- Real characters of the actual ray group have nonzero regularized value
 at one, using the original quantitative real-character lower bound. -/
 theorem ofRayData_real_nonvanishing (χ : AddChar (Additive D.G) ℂ)
-    (hχ : χ * χ = 1) : 𝓕.F χ 1 ≠ 0 := by
+    (hχ : χ * χ = 1) : (𝓕).F χ 1 ≠ 0 := by
   obtain ⟨A, c, _hA, hc, hbound⟩ := RealChar.norm_F_one_ge
-  have hB : 0 < 𝓕.B := lt_of_lt_of_le (by norm_num) 𝓕.B_ge
+  have hB : 0 < (𝓕).B := lt_of_lt_of_le (by norm_num) (𝓕).B_ge
   apply norm_pos_iff.mp
   exact (div_pos hc (Real.rpow_pos_of_pos hB A)).trans_le (hbound 𝓕 χ hχ)
 

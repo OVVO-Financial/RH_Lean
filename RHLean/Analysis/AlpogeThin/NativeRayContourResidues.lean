@@ -221,7 +221,7 @@ theorem residue_rectangle :
   rw [bdInt_congr hB (g := fun s => h s + ∑ q ∈ S, P q s) (fun s hs => by
       have ht' : s ∉ S := hs.2
       simp only [h, ite_eq_right ht']; ring),
-    bdInt_add hB (hh.continuousOn.mono Set.diff_subset) (continuousOn_finsetSum _ hPc), h0,
+    bdInt_add hB (hh.continuousOn.mono Set.sdiff_subset) (continuousOn_finsetSum _ hPc), h0,
     zero_add, bdInt_sum hB S hPc, Finset.mul_sum]
   refine Finset.sum_congr rfl fun p hp => ?_
   obtain ⟨h1, h2, h3, h4⟩ := hS p hp
