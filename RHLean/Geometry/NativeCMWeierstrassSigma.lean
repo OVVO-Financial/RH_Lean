@@ -224,9 +224,9 @@ open Classical in
 
 def sigmaSign (w : ℂ) : ℂ := if w / 2 ∈ L.lattice then 1 else -1
 
-theorem sigmaSign_of_mem {w : ℂ} (h : w / 2 ∈ L.lattice) : sigmaSign L w = 1 := if_pos h
+theorem sigmaSign_of_mem {w : ℂ} (h : w / 2 ∈ L.lattice) : sigmaSign L w = 1 := ite_eq_left h
 
-theorem sigmaSign_of_notMem {w : ℂ} (h : w / 2 ∉ L.lattice) : sigmaSign L w = -1 := if_neg h
+theorem sigmaSign_of_notMem {w : ℂ} (h : w / 2 ∉ L.lattice) : sigmaSign L w = -1 := ite_eq_right h
 
 @[simp] theorem sigmaSign_sq (w : ℂ) : sigmaSign L w ^ 2 = 1 := by
   unfold sigmaSign; split_ifs <;> simp

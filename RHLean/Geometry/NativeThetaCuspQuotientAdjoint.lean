@@ -63,7 +63,7 @@ private theorem exists_adjoint (s : R → R) (B : P → Q → Z)
     refine hnd _ _ fun u => ?_
     rw [LinearMap.comp_apply, ← ha, ← ha, h, LinearMap.id_apply]
   let adj : (P ≃ₗ[R] P) → (Q ≃ₗ[R] Q) := fun g =>
-    LinearEquiv.ofLinear (a g) (a g.symm) (hinv _ _ fun u => g.symm_apply_apply u)
+    LinearEquiv.ofLinearMap (a g) (a g.symm) (hinv _ _ fun u => g.symm_apply_apply u)
       (hinv _ _ fun u => g.apply_symm_apply u)
   have hadj : ∀ (g : P ≃ₗ[R] P) u v, B (g u) v = B u (adj g v) :=
     fun g u v => ha g u v
@@ -117,6 +117,7 @@ private theorem bar_mem (H : NativeGeometricHost E) {I : Ideal (𝓞 E)} {a : �
     (ha : a ∈ I.map (H.bar : 𝓞 E →+* 𝓞 E)) : H.bar a ∈ I := by
   obtain ⟨b, hb, rfl⟩ :=
     (Ideal.mem_map_iff_of_surjective (H.bar : 𝓞 E →+* 𝓞 E) H.bar.surjective).mp ha
+  change H.bar (H.bar b) ∈ I
   rwa [bar_bar]
 
 variable {H : NativeGeometricHost E} (D : NativeGeometricDatum H)
@@ -327,7 +328,11 @@ theorem exists_native_five_adjoint
   let _ : IsCMField H.E := H.der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
   let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
-  obtain ⟨P, hP1, hP0, hPc, hPo, hP5⟩ := SplitLevel.exists_five_split_level e q d he hH
+  obtain ⟨P, hP1, hP0, hPc, hPo, hP5⟩ :
+      ∃ P : Ideal (𝓞 H.E), P ≠ ⊤ ∧ P ≠ ⊥ ∧
+        IsCoprime P (H.conj • P) ∧ IsCoprime P (Ideal.span {(2 : 𝓞 H.E)}) ∧
+        P * (H.conj • P) = Ideal.span {(5 : 𝓞 H.E)} :=
+    SplitLevel.exists_five_split_level e q d he hH
   have hmap : P.map (G.bar : 𝓞 H.E →+* 𝓞 H.E) = H.conj • P := by
     rw [Ideal.pointwise_smul_def]
     congr 1

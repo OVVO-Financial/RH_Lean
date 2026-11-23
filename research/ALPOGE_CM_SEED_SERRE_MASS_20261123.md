@@ -336,9 +336,10 @@ pairing coordinates. On the literal Lie eigenmodule, this signed Gram is
 exactly the existing coordinate-line norm squared, with the coefficient
 coming from the actual sigma automorphy form at the same infinite place.
 This is an algebraic and differential comparison of the actual maps;
-identification with the globally descended bundle curvature, the cubical
-and Rosati identities, relative ampleness and trivial kernel of this
-tensor bundle still require their geometric proofs.
+the induced global tensor metric, cubical and Rosati identities, relative
+ampleness and trivial kernel of this tensor bundle still require their
+geometric proofs. Inversion symmetry is supplied by the later nested-chart
+construction below.
 
 ### Exact analytic Serre periods and the original polarization
 
@@ -664,9 +665,9 @@ law, and proves analytic regularity and nonvanishing on the stated opens.
 periodic, and the same integral tangent direction has exact squared
 length `pi |u|^2/covol(Lambda)`. This is the previously constructed
 `placeProfile` of the same integral equation; its negative logarithm is
-the native lattice period. Joining all these analytic frames to the whole
-algebraic origin atlas and certifying its curvature remains an explicit
-obligation. No height or class-group mean is assigned as a metric value.
+the native lattice period. The subsequent actual-atlas and section-jet joins below connect these
+frames to both algebraic charts. The final intrinsic Lie-norm and global
+holomorphic comparison remains an explicit obligation. No height or class-group mean is assigned as a metric value.
 
 ### Actual shifted lattice and one common phase
 
@@ -791,6 +792,71 @@ hosted compilation. The integral ideal-isogeny family and derivative
 integrality are still explicit geometric inputs; no desired mean or
 separate Galois equidistribution assertion is assumed.
 
+### One integral polarized seed and the actual atlas metric
+
+`NativeCMWeierstrassPolarizedSeed` joins the constructed integral equation,
+its actual origin polarization, the original exponential/kernel, and the
+literal dual-number first jet on one set of witnesses. Its all-place
+comparison uses the sigma automorphy form of that same equation.
+`NativeCMWeierstrassThetaAtlas` then proves that the explicit frames are
+analytic and nonzero on the inverse images of the actual two algebraic
+opens. Evaluating the literal canonical section gives sigma times these
+frames, and the actual transition unit gives the full frame compatibility.
+The proof uses sigma cancellation only away from its genuine lattice zeros;
+at a lattice point the available algebraic chart is the origin chart.
+
+`NativeCMWeierstrassThetaAtlasMetric` defines the norm of a local fiber
+coordinate `c` as the Gaussian norm of `c/frame`. It proves that the actual
+algebraic transition units are isometries, that period translations preserve
+the metric on the same scheme point, and that the actual origin section has
+the computed periodic sigma norm. The frame sign remains `-u^-1`.
+`NativeCMWeierstrassSectionJet` proves analyticity and the exact derivative
+of every regular section near the origin using the literal origin ring and
+localization. The derivative is `u^-1` times its epsilon coefficient.
+These constructions still require the final all-point holomorphic and
+intrinsic Lie-norm join, and hosted verification; no general theta
+uniformization theorem is assumed.
+
+### Geometry and symmetry of the actual tensor scheme and bundle
+
+`NativeCMSchemeRetract` proves smoothness, properness and geometric
+connectedness descend along a genuine scheme retraction.
+`NativeCMSerreSchemeGeometry` applies these proofs to the previously
+constructed trace-frame equalizer and retraction. Its inclusion in the
+finite power is a closed immersion, and the tensor scheme over the actual
+seed base is smooth, proper and geometrically connected. The genuine seed
+order action remains the stated input at this general endpoint.
+
+`NativeCMLineBundleNested` constructs explicit nested chart-unit products,
+retaining every signed integer exponent. `NativeCMSerreBundleSymmetry`
+pulls the actual seed inversion trivialization through the actual bundle
+maps and constructs an inversion isomorphism for the signed tensor bundle
+on the same scheme. Cubical/Rosati compatibility, relative ampleness and
+the trivial translation kernel of that tensor bundle remain open.
+
+### Actual finite coefficient data and component-section cuts
+
+`NativeThetaCuspFiniteCharacter` constructs a nontrivial determinant
+character of the prescribed projective split-five quotient, together with
+a number field containing its values. Integrality and unit norm hold at
+every complex embedding. `NativeThetaCuspFiniteCoefficients` joins that
+character to the actual quotient adjoint and constructs the normalized
+coefficient function on the original `cHalf` quotient. Its support is
+exactly the spanning first-row locus, and the original mod-five divisibility
+law proves inverse-character covariance. The same construction proves the
+normalization, integral values and norm at most one at every embedding.
+No coefficient character or those five arithmetic properties are assumed.
+
+`NativeThetaCuspComponentSections` glues a genuine global idempotent from
+a clopen set of the original scheme, and multiplies actual line-bundle
+sections by it with their unchanged transition units. It proves exact
+field-point evaluation, idempotence, scalar-extension compatibility and
+complex norm contraction. The moduli/period indexing that identifies the
+required clopen sets, the geometric finite-Fourier identity, the resulting
+global cusp spaces and their Petersson component masses remain to be
+constructed. An arbitrary clopen subset is not asserted to be the physical
+component required by the signed-slope comparison.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -799,11 +865,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual full CM order action over a finite extension, explicit sigma automorphy and section frames | Integral CM action, full analytic polarization-metric identification, arithmetic Lie-period comparison |
-| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank, literal signed origin-pullback bundle and intrinsic-eigenline Gram | Integral seed scheme action and its derivative compatibility; cubical/Rosati identities, tensor polarization and global arithmetic metric comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual full CM order action over a finite extension, explicit sigma automorphy, actual atlas metric descent and local regular-section derivatives | Integral CM action, final global holomorphic/intrinsic Lie-norm comparison and arithmetic Lie-period comparison |
+| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank, smooth/proper/geometrically connected tensor scheme, literal symmetric signed origin-pullback bundle and intrinsic-eigenline Gram | Integral seed scheme action and its derivative compatibility; cubical/Rosati identities, tensor polarization and global arithmetic metric comparison |
 | CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and two-sided derivative integrality |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus, explicit full-level finite theta sums and exact Haar norms, quotient adjoint and measured direct-sum rank | Coefficient-matched subgroup and character, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus, explicit full-level finite theta sums and exact Haar norms, quotient adjoint, constructed character and equivariant coefficient function, actual clopen-section cuts and measured direct-sum rank | Geometric coefficient tie, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -933,6 +999,20 @@ sigma, signed tensor-bundle and finite-level leaves still require hosted
 verification. The audit retains every prior declaration root; redundant
 direct imports are removed only when retained imports transitively cover
 them. No audit obligation or build gate is weakened.
+
+The twelfth snapshot `8934d152ea8ef0adc8c17d983f764e8d4428f2ff`, Actions
+run `45281314157`, passed all source audits. Hosted closure job
+`138066459085` failed and full build `138069732207` was skipped. Diagnostics
+compiled the elliptic polarization, line-bundle germs/powers/transport,
+origin divisor, coordinate cube and relative ampleness, origin global
+sections, intrinsic Serre tangent, period-norm invariance and double-sum
+isogeny mean, all six prior cusp repairs and rational Weil covariance.
+The remaining errors were in `GeometricPoints`, `QuasiPeriod`,
+`OriginSymmetry`, the integral equation's final coercion/sign calculation,
+`SerreTensor` and `QuotientAdjoint`, plus zeta deprecations. The thirteenth
+snapshot repairs these exact diagnostics and adds the actual atlas/jet,
+tensor geometry/symmetry and finite coefficient/component constructions.
+The integrated closure and transitive terminal-axiom audit remain unverified.
 
 ## Located continuation without inflated import closures
 

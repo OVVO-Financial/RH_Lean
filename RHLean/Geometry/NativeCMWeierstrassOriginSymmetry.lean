@@ -90,9 +90,10 @@ theorem originLB_rigidified {R : Type} [CommRing R] (W : WeierstrassCurve R) :
       · rfl
     obtain rfl := key i hp.1
     obtain rfl := key j hp.2
-    simp [LB.pull, LB.LinComb, originLB, LB.twoChart, pullU, res]
+    simp only [LB.pull, LB.LinComb, originLB, LB.twoChart, map_one,
+      one_zpow, Finset.prod_const_one, Units.val_one]
   change res _ 1 = ((originLB W).pull (zero W)).g i j * res _ 1
-  rw [map_one, map_one, hg, one_mul]
+  rw [map_one, map_one, hg, _root_.one_mul]
 
 theorem appLE_top_eq_zero_iff {X T : Scheme.{0}} (t : T ⟶ X) {U : X.Opens}
     (h : ⊤ ≤ t ⁻¹ᵁ U) (a : Γ(X, U)) :
@@ -146,7 +147,8 @@ theorem originLB_inversion_isomorphic {R : Type} [CommRing R] [_root_.IsReduced 
       (t.appLE ((originLB W).U i) ⊤ h).hom ((originSec W).f i) = 0 ↔
         t = t ≫ (schemeOver W).hom ≫ identitySection (schemeOver W) := by
     intro T t i h
-    simpa only [identitySection, one_left] using appLE_originSec_eq_zero_iff W t i h
+    change _ ↔ t = t ≫ toSpec W ≫ zero W
+    exact appLE_originSec_eq_zero_iff W t i h
   refine SectionIso.exists_isGen_linComb _ _ (originLB W) (originSec W)
     (GrpObj.inv : schemeOver W ⟶ schemeOver W).left (𝟙 _) (originLB_isLB W)
     (fun i V h => SectionSymmetry.appLE_mem_nonZeroDivisors _ _ _

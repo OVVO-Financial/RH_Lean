@@ -62,11 +62,11 @@ def globalOriginFrame (z : ℂ) : ℂ :=
 theorem globalOriginFrame_period {w : ℂ} (hw : w ∈ L.lattice) (z : ℂ) :
     globalOriginFrame L C (z + w) = globalOriginFrame L C z / multiplier L w z := by
   by_cases hz : z ∈ L.lattice
-  · rw [globalOriginFrame, if_pos (add_mem hz hw), globalOriginFrame, if_pos hz,
+  · rw [globalOriginFrame, ite_eq_left (add_mem hz hw), globalOriginFrame, ite_eq_left hz,
       deriv_canonicalSigma_add L hw hz]
     simp only [div_eq_mul_inv, mul_inv]
     ring
-  · rw [globalOriginFrame, if_neg (add_notMem_lattice hz hw), globalOriginFrame, if_neg hz,
+  · rw [globalOriginFrame, ite_eq_right (add_notMem_lattice hz hw), globalOriginFrame, ite_eq_right hz,
       affineX_periodic L C hw, affineY_periodic L C hw, canonicalSigma_automorphy L hw]
     simp only [div_eq_mul_inv, mul_inv]
     ring
@@ -81,7 +81,7 @@ theorem globalOriginFrame_eq_originFrame :
   · subst z
     rw [globalOriginFrame_zero, originFrame_zero]
   · have hzl : z ∉ L.lattice := fun h => hz ⟨h, hz0⟩
-    rw [globalOriginFrame, if_neg hzl, originFrame, canonicalSigma_eq_mul_unit,
+    rw [globalOriginFrame, ite_eq_right hzl, originFrame, canonicalSigma_eq_mul_unit,
       regularX_eq L C hz0, regularY_eq L C hz0]
     have hy' : affineY L C z ≠ 0 := by
       intro h
@@ -105,7 +105,7 @@ theorem globalOriginFrame_analytic_at_lattice {w : ℂ} (hw : w ∈ L.lattice) :
 
 theorem globalOriginFrame_ne_zero_at_lattice {w : ℂ} (hw : w ∈ L.lattice) :
     globalOriginFrame L C w ≠ 0 := by
-  rw [globalOriginFrame, if_pos hw]
+  rw [globalOriginFrame, ite_eq_left hw]
   exact div_ne_zero (neg_ne_zero.mpr (inv_ne_zero (Units.ne_zero C.u)))
     (deriv_canonicalSigma_ne_zero L hw)
 
@@ -118,16 +118,16 @@ theorem globalOriginFrame_analytic_of_notMem {z : ℂ} (hz : z ∉ L.lattice)
   apply ((hx.div hY hy).div ((differentiable_canonicalSigma L).analyticAt z)
     ((canonicalSigma_eq_zero_iff L).not.mpr hz)).congr
   filter_upwards [L.isClosed_lattice.isOpen_compl.mem_nhds hz] with y hy
-  exact (if_neg hy).symm
+  exact (ite_eq_right hy).symm
 
 theorem globalOriginFrame_ne_zero_of_notMem {z : ℂ} (hz : z ∉ L.lattice)
     (hx : affineX L C z ≠ 0) (hy : affineY L C z ≠ 0) :
     globalOriginFrame L C z ≠ 0 := by
-  rw [globalOriginFrame, if_neg hz]
+  rw [globalOriginFrame, ite_eq_right hz]
   exact div_ne_zero (div_ne_zero hx hy) ((canonicalSigma_eq_zero_iff L).not.mpr hz)
 
 theorem globalOriginFrame_affine_transition {z : ℂ} (hz : z ∉ L.lattice) :
     globalOriginFrame L C z = (affineX L C z / affineY L C z) * affineFrame L z := by
-  rw [globalOriginFrame, if_neg hz, affineFrame, div_eq_mul_inv]
+  rw [globalOriginFrame, ite_eq_right hz, affineFrame, div_eq_mul_inv]
 
 end RHLean.Geometry.NativeCM.WeierstrassTheta

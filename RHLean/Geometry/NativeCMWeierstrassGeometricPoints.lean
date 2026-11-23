@@ -100,7 +100,6 @@ theorem hom_ext_of_embedded_points {X Y S : Scheme.{u}}
   let : Algebra F (X.residueField y) := φ.hom.toAlgebra
   have hφ : φ.hom.IsIntegral := by
     rw [← IsIntegralHom.SpecMap_iff]
-    change IsIntegralHom (Spec.map φ)
     rw [Spec.map_preimage]
     infer_instance
   have : Algebra.IsIntegral F (X.residueField y) := ⟨hφ⟩
@@ -121,7 +120,7 @@ theorem over_hom_ext_of_embedded_points {A B : Over (Spec (.of F))}
     [LocallyOfFiniteType A.hom] [IsReduced A.left] [IsSeparated B.hom] {f g : A ⟶ B}
     (h : ∀ x : specOver F K ⟶ A, x ≫ f = x ≫ g) : f = g := by
   apply Over.OverMorphism.ext
-  refine hom_ext_of_embedded_points A.hom B.hom ((Over.w f).trans (Over.w g).symm) ?_
+  refine hom_ext_of_embedded_points (K := K) A.hom B.hom ((Over.w f).trans (Over.w g).symm) ?_
   intro x hx
   exact congrArg Over.Hom.left (h (Over.homMk x hx))
 

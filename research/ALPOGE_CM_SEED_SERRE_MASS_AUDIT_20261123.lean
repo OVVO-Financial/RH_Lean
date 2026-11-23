@@ -3,9 +3,14 @@ import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeCMIntegralClassPeriodMean
 import RHLean.Geometry.NativeCMWeierstrassCMOrderAction
 import RHLean.Geometry.NativeCMSerreSchemeMetric
-import RHLean.Geometry.NativeCMWeierstrassThetaDescent
 import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
-import RHLean.Geometry.NativeThetaCuspQuotientAdjoint
+import RHLean.Geometry.NativeCMWeierstrassPolarizedSeed
+import RHLean.Geometry.NativeCMWeierstrassThetaAtlasMetric
+import RHLean.Geometry.NativeCMWeierstrassSectionJet
+import RHLean.Geometry.NativeCMSerreBundleSymmetry
+import RHLean.Geometry.NativeCMSerreSchemeGeometry
+import RHLean.Geometry.NativeThetaCuspComponentSections
+import RHLean.Geometry.NativeThetaCuspFiniteCoefficients
 import Lean.Util.CollectAxioms
 
 /-!
@@ -234,7 +239,36 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteLevelNorm.exists_full_level_theta,
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteLevelNorm.exists_native_full_level_family,
     ``RHLean.Geometry.NativeTheta.Cusp.QuotientAdjoint.exists_adjoint_halves,
-    ``RHLean.Geometry.NativeTheta.Cusp.QuotientAdjoint.exists_native_five_adjoint]
+    ``RHLean.Geometry.NativeTheta.Cusp.QuotientAdjoint.exists_native_five_adjoint,
+    ``RHLean.Geometry.NativeCM.WeierstrassPolarizedSeed.exists_integral_polarized_seed_with_exact_period,
+    ``RHLean.Geometry.NativeCM.WeierstrassPolarizedSeed.exact_sigma_period_at_every_place,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.atlasFrame_analytic,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.atlasFrame_ne_zero,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.atlas_section_factorization,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.atlasFrame_compat,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.chartNormSq_transition,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.chartNormSq_period,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.chartNormSq_originSec,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.eventually_mem_open,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.analyticAt_eval_section,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.section_derivative,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LB.lcg_nested,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LB.isGen_nestedGen,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LB.exists_isGen_nested,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeOriginBundle_inversion_isomorphic,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_symmetric,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.Retract.smooth,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.Retract.isProper,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.Retract.geometricallyConnected,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeIncl_isClosedImmersion,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreScheme_geometricProperties,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCharacter.exists_five_character,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCharacter.exists_numberField_character,
+    ``RHLean.Geometry.NativeTheta.Cusp.ComponentSections.exists_indicator_function,
+    ``RHLean.Geometry.NativeTheta.Cusp.ComponentSections.mulSection_idempotent,
+    ``RHLean.Geometry.NativeTheta.Cusp.ComponentSections.exists_component_section,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCoefficients.exists_five_coefficients,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCoefficients.exists_native_five_coefficients]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

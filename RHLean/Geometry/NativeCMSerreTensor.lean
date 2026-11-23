@@ -91,6 +91,7 @@ def matrix : Matrix (Fin F.n) (Fin F.n) (OK H) :=
 theorem matrix_apply (i j : Fin F.n) :
     F.matrix i j = kLin D ε (F.x j) (F.y i) := by
   simp [matrix, LinearMap.toMatrix'_apply, incl, proj]
+  rfl
 
 theorem matrix_mul_self : F.matrix * F.matrix = F.matrix := by
   rw [matrix, ← LinearMap.toMatrix'_comp, LinearMap.comp_assoc,
@@ -162,7 +163,11 @@ theorem datum_complex_fibre_rank (D : NativeGeometricDatum H)
     [Algebra (OK H) ℂ] :
     Module.finrank ℂ (ℂ ⊗[OK H] D.La) =
       Module.finrank ℚ E / 2 * (D.p + D.q) := by
-  rw [complex_fibre_rank (traceLatticeOfDatum D), D.rank]
+  have hr := complex_fibre_rank (traceLatticeOfDatum D)
+  change Module.finrank ℂ (ℂ ⊗[OK H] D.La) =
+    Module.finrank ℚ E / 2 * Module.finrank (𝓞 E) D.La at hr
+  rw [D.rank] at hr
+  exact hr
 
 end RHLean.Geometry.NativeCM
 
@@ -246,8 +251,11 @@ theorem coefficient_complex_fibre_rank (G : NativeGeometricHost H.E)
     [Algebra (OK G) ℂ] :
     Module.finrank ℂ (ℂ ⊗[OK G] coefficientIdeal H B) =
       Module.finrank ℚ H.E / 2 := by
-  rw [complex_fibre_rank (coefficientTraceLattice H G hbar B hB),
-    coefficientIdeal_rank_over_integers H B hB, mul_one]
+  have hr := complex_fibre_rank (coefficientTraceLattice H G hbar B hB)
+  change Module.finrank ℂ (ℂ ⊗[OK G] coefficientIdeal H B) =
+    Module.finrank ℚ H.E / 2 * Module.finrank (𝓞 H.E) (coefficientIdeal H B) at hr
+  rw [coefficientIdeal_rank_over_integers H B hB, mul_one] at hr
+  exact hr
 
 end RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
 end

@@ -51,7 +51,7 @@ theorem add_notMem_lattice {L : PeriodPair} {z w : ℂ} (hz : z ∉ L.lattice) (
 theorem eventually_cofinite_le_norm (R : ℝ) : ∀ᶠ l : L.lattice in cofinite, R ≤ ‖(l : ℂ)‖ := by
   refine (isCompact_iff_finite.mp (isCompact_closedBall (0 : L.lattice) R)).subset ?_
   intro l hl
-  simp only [Set.mem_compl_iff, Set.mem_setOf_eq, not_le] at hl
+  simp only [Set.mem_compl_iff, Set.mem_ofPred_eq, not_le] at hl
   simpa using hl.le
 
 def zetaTerm (l z : ℂ) : ℂ := if l = 0 then 1 / z else 1 / (z - l) + 1 / l + z / l ^ 2
@@ -102,14 +102,14 @@ theorem hasSum_weierstrassZetaExcept (l₀ z : ℂ) :
 theorem weierstrassZetaExcept_of_notMem {l₀ : ℂ} (h : l₀ ∉ L.lattice) :
     weierstrassZetaExcept L l₀ = weierstrassZeta L := by
   ext z
-  refine tsum_congr fun l => if_neg ?_
+  refine tsum_congr fun l => ite_eq_right ?_
   rintro rfl
   exact h l.2
 
 theorem hasSumLocallyUniformly_weierstrassZeta :
     HasSumLocallyUniformly (fun (l : L.lattice) (z : ℂ) => zetaTerm l z) (weierstrassZeta L) := by
   convert hasSumLocallyUniformly_weierstrassZetaExcept L (L.ω₁ / 2) using 3 with l
-  · rw [if_neg]; exact fun e => L.ω₁_div_two_notMem_lattice (e ▸ l.2)
+  · rw [ite_eq_right]; exact fun e => L.ω₁_div_two_notMem_lattice (e ▸ l.2)
   · rw [weierstrassZetaExcept_of_notMem _ L.ω₁_div_two_notMem_lattice]
 
 theorem hasSum_weierstrassZeta (z : ℂ) :
@@ -195,7 +195,7 @@ theorem analyticOnNhd_weierstrassZeta :
 
 theorem weierstrassZeta_eq_inv_add (z : ℂ) :
     weierstrassZeta L z = 1 / z + weierstrassZetaExcept L 0 z := by
-  rw [← weierstrassZetaExcept_add L (zero_mem _), add_comm, zetaTerm, if_pos rfl]
+  rw [← weierstrassZetaExcept_add L (zero_mem _), add_comm, zetaTerm, ite_eq_left rfl]
 
 @[simp] theorem weierstrassZetaExcept_zero (l₀ : ℂ) : weierstrassZetaExcept L l₀ 0 = 0 := by
   simp [weierstrassZetaExcept, zetaTerm_eq]

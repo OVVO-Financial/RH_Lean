@@ -236,13 +236,13 @@ theorem exists_integral_equation_for_seed
   let w : 𝓞 M := ⟨⟨τ (H.w0 : E), hhost (H.w0 : E)⟩,
     (isIntegral_algHom_iff ((M.val : M →+* ℂ).toIntAlgHom) Subtype.val_injective).1 hω⟩
   refine ⟨M, inferInstance, W, w, hWΔ, hhost, ?_, ?_, ?_, ?_⟩
-  · simp [w, omega, embed_wK]
+  · rfl
   · rw [hWc4]
     exact hc4V
   · rw [hWc6]
     have hrel := V.c_relation
     rw [hΔV, hc4V] at hrel
-    linear_combination -hrel
+    linear_combination hrel
   · let _ : W.IsElliptic := ⟨hWΔ ▸ isUnit_one⟩
     have hj : W.j = W.c₄ ^ 3 := by simpa [hWΔ] using j_mul_Δ W
     change ((W.j : M) : ℂ) = modularJ (upperPeriod H τ)

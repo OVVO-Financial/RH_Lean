@@ -2,7 +2,8 @@ import RHLean.Geometry.NativeCMWeierstrassCanonicalTheta
 import RHLean.Geometry.NativeCMAllPlaceTangentPeriod
 import RHLean.Geometry.NativeCMWeierstrassSectionPoints
 
-/-!+# The actual origin-section theta frame and its tangent normalization
+/-!
+# The actual origin-section theta frame and its tangent normalization
 
 The canonical sigma function is joined to the actual coordinate functions
 of the same Weierstrass exponential. The quotient of the origin section by

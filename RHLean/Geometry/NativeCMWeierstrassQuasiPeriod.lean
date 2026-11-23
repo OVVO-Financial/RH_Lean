@@ -96,7 +96,6 @@ theorem quasiPeriod_ω₁_eq_eisenstein (τ : UpperHalfPlane) (hτ : (τ : ℂ) 
       (summable_right_one_div_linear_sub_one_div_linear_succ τ m),
       tsum_symmetricIco_linear_sub_linear_add_one_eq_zero] at s2
     convert (s1.sub s2).mul_left L.ω₁⁻¹ using 1
-    · rfl
     · ext n
       simp only [Function.comp_apply, he, zetaTerm_eq, eisSummand, Matrix.cons_val_zero,
         Matrix.cons_val_one, Matrix.cons_val_fin_one]

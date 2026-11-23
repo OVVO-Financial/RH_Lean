@@ -1036,6 +1036,7 @@ import RHLean.Geometry.NativeCMKroneckerLimit
 import RHLean.Geometry.NativeCMLineBundleAtlas
 import RHLean.Geometry.NativeCMLineBundleGerms
 import RHLean.Geometry.NativeCMLineBundleKernel
+import RHLean.Geometry.NativeCMLineBundleNested
 import RHLean.Geometry.NativeCMLineBundlePowers
 import RHLean.Geometry.NativeCMLineBundleRegularSection
 import RHLean.Geometry.NativeCMLineBundleSectionIso
@@ -1047,7 +1048,9 @@ import RHLean.Geometry.NativeCMPeriodNormInvariant
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeCMQuadraticOrder
 import RHLean.Geometry.NativeCMQuadraticZeta
+import RHLean.Geometry.NativeCMSchemeRetract
 import RHLean.Geometry.NativeCMSerreBundleGram
+import RHLean.Geometry.NativeCMSerreBundleSymmetry
 import RHLean.Geometry.NativeCMSerreEigenlattice
 import RHLean.Geometry.NativeCMSerreEigenlatticeAlgebra
 import RHLean.Geometry.NativeCMSerreEigenlatticeDegree
@@ -1059,6 +1062,7 @@ import RHLean.Geometry.NativeCMSerrePolarization
 import RHLean.Geometry.NativeCMSerreSchemeAction
 import RHLean.Geometry.NativeCMSerreSchemeBundle
 import RHLean.Geometry.NativeCMSerreSchemeEigenline
+import RHLean.Geometry.NativeCMSerreSchemeGeometry
 import RHLean.Geometry.NativeCMSerreSchemeLie
 import RHLean.Geometry.NativeCMSerreSchemeMetric
 import RHLean.Geometry.NativeCMSerreSchemeTangent
@@ -1098,6 +1102,7 @@ import RHLean.Geometry.NativeCMWeierstrassPeriodScaling
 import RHLean.Geometry.NativeCMWeierstrassPointChange
 import RHLean.Geometry.NativeCMWeierstrassPointUniformization
 import RHLean.Geometry.NativeCMWeierstrassPolarizedOrigin
+import RHLean.Geometry.NativeCMWeierstrassPolarizedSeed
 import RHLean.Geometry.NativeCMWeierstrassProjHelpers
 import RHLean.Geometry.NativeCMWeierstrassProjSections
 import RHLean.Geometry.NativeCMWeierstrassQExpansion
@@ -1110,12 +1115,15 @@ import RHLean.Geometry.NativeCMWeierstrassRationalSchemeOpen
 import RHLean.Geometry.NativeCMWeierstrassReducedGroup
 import RHLean.Geometry.NativeCMWeierstrassScheme
 import RHLean.Geometry.NativeCMWeierstrassSchemePointExt
+import RHLean.Geometry.NativeCMWeierstrassSectionJet
 import RHLean.Geometry.NativeCMWeierstrassSectionPoints
 import RHLean.Geometry.NativeCMWeierstrassSeed
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
 import RHLean.Geometry.NativeCMWeierstrassSeedPoints
 import RHLean.Geometry.NativeCMWeierstrassSigma
 import RHLean.Geometry.NativeCMWeierstrassSmooth
+import RHLean.Geometry.NativeCMWeierstrassThetaAtlas
+import RHLean.Geometry.NativeCMWeierstrassThetaAtlasMetric
 import RHLean.Geometry.NativeCMWeierstrassThetaDescent
 import RHLean.Geometry.NativeCMWeierstrassThetaFrame
 import RHLean.Geometry.NativeCMWeierstrassThetaMetric
@@ -1183,6 +1191,9 @@ import RHLean.Geometry.NativeThetaColumnActions
 import RHLean.Geometry.NativeThetaColumnLie
 import RHLean.Geometry.NativeThetaCuspAmbient
 import RHLean.Geometry.NativeThetaCuspAuxiliaryLattices
+import RHLean.Geometry.NativeThetaCuspComponentSections
+import RHLean.Geometry.NativeThetaCuspFiniteCharacter
+import RHLean.Geometry.NativeThetaCuspFiniteCoefficients
 import RHLean.Geometry.NativeThetaCuspFiniteLevel
 import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
 import RHLean.Geometry.NativeThetaCuspFiniteOverlap

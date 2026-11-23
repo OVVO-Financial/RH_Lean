@@ -71,7 +71,8 @@ theorem originLB_kTriv : KTriv (schemeOver W) (originLB W) := by
       (t.appLE ((originLB W).U i) ⊤ h).hom ((originSec W).f i) = 0 ↔
         t = t ≫ (schemeOver W).hom ≫ identitySection (schemeOver W) := by
     intro T t i h
-    simpa only [identitySection, one_left] using appLE_originSec_eq_zero_iff W t i h
+    change _ ↔ t = t ≫ toSpec W ≫ zero W
+    exact appLE_originSec_eq_zero_iff W t i h
   refine kTriv_of_sections_vanish_on_zero _ (schemeOver W) (originLB W)
     (originSec W) (originLB_isLB W) hz ?_
   intro R' _ f Y φ q H s T t j h e
