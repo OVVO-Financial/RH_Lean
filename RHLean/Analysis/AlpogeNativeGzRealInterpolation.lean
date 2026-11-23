@@ -71,11 +71,15 @@ theorem alpogeNativeUnitCellLogDefect_nonneg
     (hhi : x ≤ (n : ℝ) + 1) :
     0 ≤ alpogeNativeUnitCellLogDefect n x := by
   have hweight : 0 ≤ 1 - (x - (n : ℝ)) := by linarith
+  have hnmem : (n : ℝ) ∈ Set.Ici (0 : ℝ) := by
+    simpa only [Set.mem_Ici] using (Nat.cast_nonneg n : (0 : ℝ) ≤ (n : ℝ))
+  have hnnextmem : (n : ℝ) + 1 ∈ Set.Ici (0 : ℝ) := by
+    simp only [Set.mem_Ici]
+    positivity
   have hconvex := Real.convexOn_mul_log.2
-    (show (n : ℝ) ∈ Set.Ici (0 : ℝ) from Nat.cast_nonneg n)
-    (show (n : ℝ) + 1 ∈ Set.Ici (0 : ℝ) from
-      (show (0 : ℝ) ≤ (n : ℝ) + 1 by positivity))
-    hweight (sub_nonneg.mpr hlo)
+    (x := (n : ℝ)) (y := (n : ℝ) + 1)
+    (a := 1 - (x - (n : ℝ))) (b := x - (n : ℝ))
+    hnmem hnnextmem hweight (sub_nonneg.mpr hlo)
     (show (1 - (x - (n : ℝ))) + (x - (n : ℝ)) = 1 by ring)
   simp only [smul_eq_mul] at hconvex
   have hcoordinate :
@@ -100,7 +104,8 @@ theorem alpogeNativeUnitCellLogDefect_le_inv
   have hrightId :
       ((n : ℝ) + 1) * (((n : ℝ) + 1) / (n : ℝ) - 1) =
         ((n : ℝ) + 1) / (n : ℝ) := by
-    field_simp [hnpos.ne'] <;> ring
+    field_simp [hnpos.ne']
+    ring
   rw [hrightId] at hright
   have hrightWeighted :=
     mul_le_mul_of_nonneg_left hright (sub_nonneg.mpr hlo)
@@ -108,12 +113,13 @@ theorem alpogeNativeUnitCellLogDefect_le_inv
   rw [Real.log_div hnpos.ne' hxpos.ne'] at hlogLeft
   have hleft := mul_le_mul_of_nonneg_left hlogLeft hxpos.le
   have hleftId : x * ((n : ℝ) / x - 1) = (n : ℝ) - x := by
-    field_simp [hxpos.ne'] <;> ring
+    field_simp [hxpos.ne']
   rw [hleftId] at hleft
   have hratio :
       (x - (n : ℝ)) * (((n : ℝ) + 1) / (n : ℝ)) - (x - (n : ℝ)) =
         (x - (n : ℝ)) / (n : ℝ) := by
-    field_simp [hnpos.ne'] <;> ring
+    field_simp [hnpos.ne']
+    ring
   have hdefect :
       alpogeNativeUnitCellLogDefect n x ≤ (x - (n : ℝ)) / (n : ℝ) := by
     unfold alpogeNativeUnitCellLogDefect

@@ -32,7 +32,8 @@ theorem nativeSquareClock_rpow_le_endpoint (R : ℕ) (hR : 2 ≤ R)
     (R : ℝ) ^ (1 + 2 * η) = ((R : ℝ) ^ 2) ^ (1 / 2 + η) := by
       rw [← Real.rpow_natCast_mul (Nat.cast_nonneg R)]
       congr 1
-      norm_num <;> ring
+      norm_num
+      ring
     _ ≤ (2 * ((R ^ 2 - 1 : ℕ) : ℝ)) ^ (1 / 2 + η) :=
       Real.rpow_le_rpow (sq_nonneg _) hbase (by linarith)
     _ = (2 : ℝ) ^ (1 / 2 + η) * ((R ^ 2 - 1 : ℕ) : ℝ) ^ (1 / 2 + η) :=

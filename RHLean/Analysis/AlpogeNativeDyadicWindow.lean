@@ -64,7 +64,8 @@ theorem nativeAlpogeDyadicWindowWeight_middle (N : ℕ) (hN : 1 ≤ N) :
   rw [nativeAlpogeDyadicWindowWeight_lower N (2 * N) (by omega) le_rfl]
   have hn : (N : ℝ) ≠ 0 := by exact_mod_cast (by omega : N ≠ 0)
   push_cast
-  field_simp [hn] <;> ring
+  field_simp [hn]
+  ring
 
 /-- Both exterior endpoints have zero weight; the final sum is open at both. -/
 theorem nativeAlpogeDyadicWindowWeight_endpoints (N : ℕ) :
@@ -129,8 +130,10 @@ private theorem nativeDyadicRamp_coefficient
           ite_eq_left hhi, mul_zero, sub_zero, add_zero, Nat.cast_mul, Nat.cast_ofNat]
       · have heq : n = 4 * N := by omega
         have hn0 : (n : ℝ) ≠ 0 := by exact_mod_cast (by omega : n ≠ 0)
-        have hratio : (((4 * N : ℕ) : ℝ) / (n : ℝ)) = 1 := by
+        have hratioNat : (((4 * N : ℕ) : ℝ) / (n : ℝ)) = 1 := by
           rw [← heq, div_self hn0]
+        have hratio : 4 * (N : ℝ) / (n : ℝ) = 1 := by
+          simpa only [Nat.cast_mul, Nat.cast_ofNat] using hratioNat
         simp [nativeAlpogeDyadicWindowWeight, hlo, hmid, hhi, hratio]
 
 private theorem nativeDyadicWindow_sum_extend (N : ℕ) :
