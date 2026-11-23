@@ -580,7 +580,7 @@ theorem nativeDyadicLocalLogShiftPrice_normalized_le_nativePsi
       (by exact_mod_cast Fintype.card_pos)
   refine (div_le_div_of_nonneg_right hSum hQ.le).trans_eq ?_
   unfold alpogeNativeProjectionDivisor
-  field_simp [ht.ne', hm'.ne', hb.ne', hDelta.ne'] <;> ring
+  field_simp [ht.ne', hm'.ne', hb.ne', hDelta.ne']
 
 /-- The existing elementary native Chebyshev bound makes the normalized
 shift price explicit in N. This uses no prime-distribution asymptotic. -/
