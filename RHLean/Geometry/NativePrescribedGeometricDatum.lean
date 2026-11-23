@@ -64,17 +64,29 @@ theorem coefficientIdeal_eq_source_top (B : Ideal (𝓞 H.E)) :
 /-- The literal original efQ formula, before choosing an integer lift. -/
 def prescribedRationalTraceForm (B : Ideal (𝓞 H.E)) (k m j : ℕ) :
     prescribedLattice H B k m →ₗ[ℤ] prescribedLattice H B k m →ₗ[ℤ] ℚ :=
+  let hT : (Fin (k + m - 1) → H.E) →ₗ⋆[H.E]
+      (Fin (k + m - 1) → H.E) →ₗ[H.E] H.E :=
+    (prescribedSpace H k m j).hT
   LinearMap.mk₂ ℤ
-    (fun x y => Algebra.trace ℚ H.E (xi H * (prescribedSpace H k m j).hT
-      (x : Fin (k + m - 1) → H.E) (y : Fin (k + m - 1) → H.E)))
-    (fun x x' y => by simp [map_add, mul_add])
+    (fun x y => Algebra.trace ℚ H.E (xi H * hT x.1 y.1))
+    (fun x x' y => by
+      change Algebra.trace ℚ H.E (xi H * hT (x.1 + x'.1) y.1) =
+        Algebra.trace ℚ H.E (xi H * hT x.1 y.1) +
+          Algebra.trace ℚ H.E (xi H * hT x'.1 y.1)
+      rw [LinearMap.map_add₂, mul_add, map_add])
     (fun c x y => by
-      simp [map_zsmul]
-      rw [mul_left_comm, ← zsmul_eq_mul, map_zsmul, zsmul_eq_mul])
-    (fun x y y' => by simp [map_add, mul_add])
+      change Algebra.trace ℚ H.E (xi H * hT (c • x.1) y.1) =
+        c • Algebra.trace ℚ H.E (xi H * hT x.1 y.1)
+      rw [map_zsmul, LinearMap.smul_apply, mul_smul_comm, map_zsmul])
+    (fun x y y' => by
+      change Algebra.trace ℚ H.E (xi H * hT x.1 (y.1 + y'.1)) =
+        Algebra.trace ℚ H.E (xi H * hT x.1 y.1) +
+          Algebra.trace ℚ H.E (xi H * hT x.1 y'.1)
+      rw [map_add, mul_add, map_add])
     (fun c x y => by
-      simp [map_zsmul]
-      rw [mul_left_comm, ← zsmul_eq_mul, map_zsmul, zsmul_eq_mul])
+      change Algebra.trace ℚ H.E (xi H * hT x.1 (c • y.1)) =
+        c • Algebra.trace ℚ H.E (xi H * hT x.1 y.1)
+      rw [map_zsmul, mul_smul_comm, map_zsmul])
 
 theorem prescribedRationalTraceForm_apply (B : Ideal (𝓞 H.E)) (k m j : ℕ)
     (x y : prescribedLattice H B k m) :

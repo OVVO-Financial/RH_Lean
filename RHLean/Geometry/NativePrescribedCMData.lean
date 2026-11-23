@@ -111,6 +111,7 @@ theorem isCMUnram :
 theorem cmData :
     @CMData H.F H.E _ _ _ _ (conjugationStar H.toHostRaw) _ := by
   have : IsCMField H.E := H.der.cm
+  letI : StarRing H.E := conjugationStar H.toHostRaw
   refine
     { cmUnram := isCMUnram H
       totReal := inferInstance
@@ -121,7 +122,9 @@ theorem cmData :
   rw [← H.der.mem_F x]
   exact ⟨fun hx => ⟨⟨x, hx⟩, rfl⟩, fun ⟨y, hy⟩ => hy ▸ y.property⟩
 
-theorem cmData_sig_apply (x : H.E) : (cmData H).sig x = H.conj x := rfl
+theorem cmData_sig_apply (x : H.E) :
+    @CMData.sig H.F H.E _ _ _ _ (conjugationStar H.toHostRaw) _ (cmData H) x =
+      H.conj x := rfl
 
 end RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
 
@@ -147,7 +150,8 @@ theorem nativeDyadicHostCMData (he : 2 ≤ e) (hH : HostHyp q d) :
 /-- The record induces exactly the field involution used by the actual
 finite-adelic norm construction. -/
 theorem nativeDyadicHostCMData_sig (he : 2 ≤ e) (hH : HostHyp q d) :
-    (nativeDyadicHostCMData e q d he hH).sig =
+    @CMData.sig F E _ _ _ _ (conjugationStar (nativeDyadicHostRaw e q d he hH)) _
+        (nativeDyadicHostCMData e q d he hH) =
       NativeDyadicAdelicNorm.conjugation e q d he hH := by
   ext x
   change (nativeDyadicHostRaw e q d he hH).conj x =
@@ -157,7 +161,9 @@ theorem nativeDyadicHostCMData_sig (he : 2 ≤ e) (hH : HostHyp q d) :
 /-- Hence the original CMData tensor involution in the Spaces Gram field
 is the one in the already constructed diagonal finite-adelic isometry. -/
 theorem nativeDyadicHostCMData_sigR (he : 2 ≤ e) (hH : HostHyp q d) :
-    Signature.sigR (nativeDyadicHostCMData e q d he hH).sig Af =
+    Signature.sigR
+        (@CMData.sig F E _ _ _ _ (conjugationStar (nativeDyadicHostRaw e q d he hH)) _
+          (nativeDyadicHostCMData e q d he hH)) Af =
       NativeDyadicAdelicNorm.tensorConjugation e q d he hH := by
   rw [nativeDyadicHostCMData_sig]
   rfl
