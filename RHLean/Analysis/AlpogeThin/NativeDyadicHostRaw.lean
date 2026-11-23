@@ -276,6 +276,9 @@ theorem nativeDyadicHostRaw_kerChi
     UpperTheory.Top.KerChi PChar.one (nativeDyadicHostRaw e q d he hH) := by
   refine ⟨one_dvd _, ?_⟩
   intro a ha
+  change nativeDyadicArt e q d (ZMod.unitOfCoprime a ha) = 1 ↔
+    (a ≡ 1 [MOD 2 ^ (e + 2)] ∨ a + 1 ≡ 0 [MOD 2 ^ (e + 2)]) ∧
+      PChar.one.val a = 1 ∧ jacobiSym (a : ℤ) q = 1 ∧ jacobiSym (a : ℤ) d = 1
   have hprincipal : PChar.one.val a = 1 := by
     change (1 : DirichletCharacter ℂ 1) (a : ZMod 1) = 1
     rw [show (a : ZMod 1) = 1 from Subsingleton.elim _ _, map_one]
@@ -286,9 +289,13 @@ theorem nativeDyadicHostRaw_kerChi
     exact MulEquiv.map_eq_one_iff
       (M := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
       (N := (nativeDyadicFrame e).GG) (nativeDyadicFullHostEquiv e)
-  simpa only [hprincipal, true_and, nativeDyadicHostRaw_art,
-    nativeDyadicHostRaw_q, nativeDyadicHostRaw_d, nativeDyadicFrame_e] using
-    hmap.trans (nativeDyadicRecMap_unitOfCoprime_eq_one_iff e q d a ha)
+  have hker := hmap.trans (nativeDyadicRecMap_unitOfCoprime_eq_one_iff e q d a ha)
+  constructor
+  · intro hart
+    obtain ⟨hclass, hq, hd⟩ := hker.mp hart
+    exact ⟨hclass, hprincipal, hq, hd⟩
+  · rintro ⟨hclass, _, hq, hd⟩
+    exact hker.mpr ⟨hclass, hq, hd⟩
 
 /-- The same selected prime window already supplies the arithmetic HostHyp;
 its divisibility q | d+1 gives the required quadratic splitting sign. -/

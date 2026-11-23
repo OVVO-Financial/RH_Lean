@@ -93,6 +93,6 @@ theorem nativeSelectedDyadicGzPayment
     nativeDyadicThinBill_div_projectionDivisor e ⊤ TT T2 m a b
       (Real.exp (-(x ^ (eps / 8)))) hTT hT2 hm hb] at hproj
   exact (nativePairGood_dyadicGz_average_le_projection e q d hG TT a b hwindow).trans
-    (add_le_add_right hproj _)
+    (add_le_add hproj le_rfl)
 
 end RHLean.Analysis.AlpogeThin

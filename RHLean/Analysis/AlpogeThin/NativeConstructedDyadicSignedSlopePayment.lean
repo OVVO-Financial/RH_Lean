@@ -146,7 +146,7 @@ theorem nativeConstructedDyadicSignedSlopePayment
     T2 hTT hT2 hm hB0 hNc
   have hanalytic := hpaid x hx hYx m TT T2 hTT hT2 hm a b h Amax beta w
     hbeta hbetab hh hb hupper ha hAmax hmax hdensity hwbeta hwthick hwthin hwindow
-  have hfull := hanalytic.trans (add_le_add_right hgeom _)
+  have hfull := hanalytic.trans (add_le_add hgeom le_rfl)
   refine ⟨hfull, ?_⟩
   intro hSize
   exact hfull.trans (NativeGeometricCostWindows.normalizedCosts_add_analytic_le

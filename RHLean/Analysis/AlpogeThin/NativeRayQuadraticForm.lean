@@ -127,11 +127,11 @@ theorem exists_equiv (f₁ f₂ e₁ e₂ : ℂ) (hf : ((starRingEnd ℂ) f₁ *
       Set.range (fun v : ℤ × ℤ => (v.1 : ℂ) * e₁ + v.2 * e₂) := by
     rw [range_comb, range_comb, h]
   refine ⟨(Equiv.ofInjective _ (comb_injective f₁ f₂ hf)).trans
-    ((Equiv.setCongr hr).trans (Equiv.ofInjective _ (comb_injective e₁ e₂ he)).symm), fun v => ?_⟩
+    ((Set.equivOfEq hr).trans (Equiv.ofInjective _ (comb_injective e₁ e₂ he)).symm), fun v => ?_⟩
   have key := Equiv.apply_ofInjective_symm (comb_injective e₁ e₂ he)
-    (Equiv.setCongr hr (Equiv.ofInjective _ (comb_injective f₁ f₂ hf) v))
-  simp only [Equiv.setCongr_apply, Equiv.ofInjective_apply] at key
-  simp only [Equiv.trans_apply, Equiv.setCongr_apply, Equiv.ofInjective_apply]
+    (Set.equivOfEq hr (Equiv.ofInjective _ (comb_injective f₁ f₂ hf) v))
+  simp only [Set.equivOfEq_apply, Equiv.ofInjective_apply] at key
+  simp only [Equiv.trans_apply, Set.equivOfEq_apply, Equiv.ofInjective_apply]
   exact key.symm
 
 variable {K : Type} [Field K] [NumberField K]

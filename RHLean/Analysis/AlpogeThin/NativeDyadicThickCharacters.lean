@@ -71,12 +71,12 @@ twist. The dyadic quotient is retained and its character here is trivial. -/
 theorem nativeDyadicTwoBitCharacter_induces
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (i j : Fin 2) :
     Formalism.HC.An.Induces
-      (alpogeNativeDirChar (alpogeNativeRecMap e q d)
+      (alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
         (nativeDyadicTwoBitCharacter e i j)).primitiveCharacter
       (UpperTheory.Top.tw
         (fun a => (1 : DirichletCharacter ℂ 1) (a : ZMod 1)) q d i j)
       (2 * 1 * q * d) := by
-  let χ := alpogeNativeDirChar (alpogeNativeRecMap e q d)
+  let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
     (nativeDyadicTwoBitCharacter e i j)
   refine ⟨DirichletCharacter.primitiveCharacter_isPrimitive χ, ?_⟩
   intro a ha
@@ -101,7 +101,7 @@ theorem nativeDyadicTwoBitCharacter_induces
       (alpogeNativeSign2 (alpogeNativeLegU _ d (alpogeNativeD_dvd_hostN e q d) v))
         = 0 then (1 : ℂ) else -1) = _
     rw [dyadicSign_recover, dyadicLegU_nat]
-  change alpogeNativeDirChar (alpogeNativeRecMap e q d)
+  change alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
     (nativeDyadicTwoBitCharacter e i j) (a : ZMod _) = _
   rw [← hv, alpogeNativeDirChar_unit]
   simp only [nativeDyadicTwoBitCharacter, AddChar.add_apply, AddChar.nsmul_apply,
@@ -121,7 +121,7 @@ theorem nativePairGood_dyadicTwist_bound
         (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
         (nativeDyadicTwoBitCharacter e i j) y‖ ≤
       y ^ ((1 : ℝ) / 2 + eps / 2) := by
-  let χ := alpogeNativeDirChar (alpogeNativeRecMap e q d)
+  let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
     (nativeDyadicTwoBitCharacter e i j)
   let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
   have hq2 : q ≠ 2 := by have := hG.pair.q_mod; omega
@@ -197,7 +197,7 @@ theorem nativePairGood_dyadicGsig_sub_Gz_norm_le
   calc
     ‖F B y - F A y - F (A + B) y‖ ≤
         ‖F B y‖ + ‖F A y‖ + ‖F (A + B) y‖ :=
-      (norm_sub_le _ _).trans (add_le_add_right (norm_sub_le _ _) _)
+      (norm_sub_le _ _).trans (add_le_add (norm_sub_le _ _) le_rfl)
     _ ≤ 3 * y ^ ((1 : ℝ) / 2 + eps / 2) := by linarith
 
 /-- Scalar native Gz is recovered at the original varying heights. This
