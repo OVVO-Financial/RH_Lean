@@ -73,7 +73,7 @@
 - [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 175 records
 - [catalog-library-core.jsonl](catalog-library-core.jsonl) — 480 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
-- [catalog-code.jsonl](catalog-code.jsonl) — 419 records
+- [catalog-code.jsonl](catalog-code.jsonl) — 420 records
 - [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 381 records
 - [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 346 records
 - [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 528 records

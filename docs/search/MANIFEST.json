@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "669cc99422ae491907428f282e58b3d982646c9312bdde98035a43da7b0a205f",
+  "input_fingerprint": "a8756926021ada0d678729dfe8f81563458ab1c21e73d250b37c014b8bba7f14",
   "counts": {
     "catalog-research-lean-vf.jsonl": 226,
     "catalog-research-lean.jsonl": 554,
@@ -11,7 +11,7 @@
     "catalog-library-geometry.jsonl": 175,
     "catalog-library-core.jsonl": 480,
     "catalog-docs.jsonl": 155,
-    "catalog-code.jsonl": 419,
+    "catalog-code.jsonl": 420,
     "rewrite-families-a-k.jsonl": 381,
     "rewrite-families-l.jsonl": 346,
     "rewrite-families-m-r.jsonl": 528,

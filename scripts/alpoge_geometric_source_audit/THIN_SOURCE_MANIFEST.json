@@ -2616,7 +2616,7 @@
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "3c7c172c607e84df316ba1580f6d363aee977effaf251830a8bca2412251adfd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "a435e097da2325c86656b4ae92b7db392fad121707784af3f714ad1498be39c1",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "ecd5890ef4caf147315c3f5f1313690037614cc74c8f90db3de8e9400cfa3d39",
     "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "b7d67fcb714d4d1cd4a4656905bbe7d3452dc5edbe9fc1bf6bb59af41793fff3",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "50bc5728860502782f239655545a725d117486d01354c9c2905e0fcfa668d477",
