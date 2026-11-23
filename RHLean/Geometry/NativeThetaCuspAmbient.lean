@@ -94,7 +94,7 @@ def pair {N : ℕ} (neg : Fin N → Bool) (x y : Fin N → H.E) : ℚ :=
 
 theorem pair_add_left {N : ℕ} (neg : Fin N → Bool) (x x' y : Fin N → H.E) :
     pair H neg (x + x') y = pair H neg x y + pair H neg x' y := by
-  simp only [pair, LinearMap.map_add₂, mul_add, map_add]
+  simp only [pair, map_add, LinearMap.add_apply, mul_add]
 
 theorem pair_add_right {N : ℕ} (neg : Fin N → Bool) (x y y' : Fin N → H.E) :
     pair H neg x (y + y') = pair H neg x y + pair H neg x y' := by
@@ -105,7 +105,10 @@ theorem pair_smul_left {N : ℕ} (neg : Fin N → Bool) (q : ℚ)
   change Algebra.trace ℚ H.E
     (xi H * ∑ i, H.conj (q • x i) * sgn (neg i) * y i) =
       q * Algebra.trace ℚ H.E (xi H * ∑ i, H.conj (x i) * sgn (neg i) * y i)
-  simp only [map_smul, smul_mul_assoc, ← Finset.smul_sum, mul_smul_comm,
+  have hc : ∀ z : H.E, H.conj (q • z) = q • H.conj z := fun z => by
+    change H.conj ((q : H.E) * z) = (q : H.E) * H.conj z
+    rw [map_mul, map_ratCast]
+  simp only [hc, smul_mul_assoc, ← Finset.smul_sum, mul_smul_comm, map_smul,
     smul_eq_mul]
 
 theorem pair_smul_right {N : ℕ} (neg : Fin N → Bool) (q : ℚ)
@@ -138,7 +141,7 @@ theorem pair_self {N : ℕ} (neg : Fin N → Bool) (x : Fin N → H.E) :
       ∑ i, H.conj (x i) * sgn (neg i) * x i
     rw [map_sum]
     exact Finset.sum_congr rfl fun i _ => by
-      rw [map_mul, map_mul, conj_conj, map_sgn]
+      rw [map_mul, map_mul, conj_conj, map_sgn H.conj.toRingHom]
       ring
   have ht := Algebra.trace_eq_of_algEquiv H.conj (xi H * diagForm N neg x x)
   rw [map_mul, conj_xi, he, neg_mul, map_neg] at ht

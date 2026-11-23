@@ -235,6 +235,7 @@ theorem eq_ker_of_mem (φ : 𝓞 K →+* ZMod p) {c : ℤ} (hc : φ (b 1) = c) (
   push_cast
   ring
 
+omit [NumberField K] in
 theorem eq_ker_or (φ φ' : 𝓞 K →+* ZMod p) (h1 : φ (b 1) + φ' (b 1) = t)
     (h2 : φ (b 1) * φ' (b 1) = n) : P = RingHom.ker φ ∨ P = RingHom.ker φ' := by
   obtain ⟨c, hc⟩ := ZMod.intCast_surjective (φ (b 1))

@@ -113,7 +113,12 @@ theorem ofProjectivePoint_add (p q : (W.baseChange k).toProjective.Point) :
   rw [Hom.mul_def]
   change ofProjectivePoint W k (p + q) =
     lift (ofProjectivePoint W k p) (ofProjectivePoint W k q) ≫ addOfIsReduced W
-  rw [lift_addOfIsReduced, fieldAdd, Equiv.symm_apply_apply, Equiv.symm_apply_apply]
+  rw [lift_addOfIsReduced, fieldAdd]
+  change (projectivePointEquiv W k) (p + q) =
+    (projectivePointEquiv W k)
+      ((projectivePointEquiv W k).symm ((projectivePointEquiv W k) p) +
+        (projectivePointEquiv W k).symm ((projectivePointEquiv W k) q))
+  rw [Equiv.symm_apply_apply, Equiv.symm_apply_apply]
 
 def projectivePointMulEquiv :
     Multiplicative (W.baseChange k).toProjective.Point ≃* (specOver R k ⟶ schemeOver W) where

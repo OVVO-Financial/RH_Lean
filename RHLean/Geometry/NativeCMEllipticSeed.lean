@@ -219,7 +219,7 @@ theorem cmAction_mul (a b : OK H) :
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
   change QuotientAddGroup.mk' (period H τ).range (embed H τ (a * b) * z) =
     QuotientAddGroup.mk' (period H τ).range (embed H τ a * (embed H τ b * z))
-  rw [map_mul, mul_assoc]
+  rw [map_mul (embed H τ) a b, mul_assoc]
 
 theorem cmAction_add (a b : OK H) :
     cmAction H τ (a + b) = cmAction H τ a + cmAction H τ b := by

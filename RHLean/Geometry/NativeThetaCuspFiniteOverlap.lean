@@ -27,7 +27,7 @@ set_option maxHeartbeats 4000000
 noncomputable section
 
 open Matrix Complex NumberField
-open scoped ComplexConjugate BigOperators Classical
+open scoped ComplexConjugate BigOperators Classical Real
 
 namespace RHLean.Geometry.NativeTheta.Cusp.FiniteOverlap
 
@@ -210,33 +210,33 @@ theorem omega_swap (y y' : Position (κ := κ) (ι := ι)) : omega y' y = -omega
 def heis (y : Position (κ := κ) (ι := ι)) (φ : TestFunction (κ := κ) (ι := ι)) :=
   heisS y.1 y.2 φ
 
-theorem heis_smul (y : Position (κ := κ) (ι := ι)) (c : ℂ) (φ : TestFunction) :
+theorem heis_smul (y : Position (κ := κ) (ι := ι)) (c : ℂ) (φ : (TestFunction (κ := κ) (ι := ι))) :
     heis y (c • φ) = c • heis y φ := by
   funext x
   simp only [heis, heisS, Pi.smul_apply, smul_eq_mul, mul_assoc]
 
-theorem heis_sum (y : Position (κ := κ) (ι := ι)) (s : Finset TestFunction) :
+theorem heis_sum (y : Position (κ := κ) (ι := ι)) (s : Finset (TestFunction (κ := κ) (ι := ι))) :
     heis y (∑ φ ∈ s, φ) = ∑ φ ∈ s, heis y φ := by
   funext x
   simp only [heis, heisS, Finset.sum_apply, Finset.sum_mul]
 
 /-- The exact algebraic properties supplied by a self-dual lattice and
 its common integral quadratic phase. -/
-def Good (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup Position) : Prop :=
+def Good (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup (Position (κ := κ) (ι := ι))) : Prop :=
   A.FG ∧ (∀ y, y ∈ A ↔ ∀ y' ∈ A, ∃ k : ℤ, omega y y' = k) ∧
     ∀ y ∈ A, ε y ^ 2 = 1 ∧ ∀ y' ∈ A,
       ε (y + y') = ε y * ε y' * cexp (π * I * ((omega y y' : ℚ) : ℂ))
 
-def IsVac (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup Position)
-    (v : TestFunction) : Prop := IsSB v ∧ ip v v = 1 ∧ ∀ y ∈ A, ε y • heis y v = v
+def IsVac (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup (Position (κ := κ) (ι := ι)))
+    (v : (TestFunction (κ := κ) (ι := ι))) : Prop := IsSB v ∧ ip v v = 1 ∧ ∀ y ∈ A, ε y • heis y v = v
 
 /-- The actual finite-orbit average, with its actual cardinal denominator. -/
-def projA (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup Position)
-    (φ : TestFunction) : TestFunction :=
+def projA (ε : Position (κ := κ) (ι := ι) → ℂ) (A : AddSubgroup (Position (κ := κ) (ι := ι)))
+    (φ : (TestFunction (κ := κ) (ι := ι))) : (TestFunction (κ := κ) (ι := ι)) :=
   ((((fun y => ε y • heis y φ) '' A).ncard : ℕ) : ℂ)⁻¹ •
     ∑ᶠ ψ ∈ (fun y => ε y • heis y φ) '' A, ψ
 
-variable {ε : Position (κ := κ) (ι := ι) → ℂ} {A A' : AddSubgroup Position}
+variable {ε : Position (κ := κ) (ι := ι) → ℂ} {A A' : AddSubgroup (Position (κ := κ) (ι := ι))}
 
 theorem Good.eps_two (hA : Good ε A) {y} (hy : y ∈ A) : ε (2 • y) = 1 := by
   rw [two_nsmul, (hA.2.2 y hy).2 y hy, omega_self]
@@ -244,7 +244,7 @@ theorem Good.eps_two (hA : Good ε A) {y} (hy : y ∈ A) : ε (2 • y) = 1 := b
   rw [← sq]
   exact (hA.2.2 y hy).1
 
-theorem Good.vac (hA : Good ε A) : ∃ v : TestFunction, IsVac ε A v ∧
+theorem Good.vac (hA : Good ε A) : ∃ v : (TestFunction (κ := κ) (ι := ι)), IsVac ε A v ∧
     ∀ v', IsSB v' → (∀ y ∈ A, ε y • heis y v' = v') → ∃ c : ℂ, v' = c • v := by
   have hnorm : ∀ y ∈ A, ‖ε y‖ = 1 := by
     intro y hy
@@ -255,7 +255,7 @@ theorem Good.vac (hA : Good ε A) : ∃ v : TestFunction, IsVac ε A v ∧
     hnorm (fun y hy => (hA.2.2 y hy).2) ⟨2, two_pos, fun y hy => hA.eps_two hy⟩
   exact ⟨v, ⟨hv1, hv2, hv3⟩, hv4⟩
 
-theorem Good.uniq (hA : Good ε A) {v v' : TestFunction} (hv : IsVac ε A v)
+theorem Good.uniq (hA : Good ε A) {v v' : (TestFunction (κ := κ) (ι := ι))} (hv : IsVac ε A v)
     (hv' : IsSB v') (h : ∀ y ∈ A, ε y • heis y v' = v') : v' = ip v' v • v := by
   obtain ⟨v₀, hv₀, huniq⟩ := Good.vac hA
   obtain ⟨c, rfl⟩ := huniq v hv.1 hv.2.2
@@ -267,7 +267,7 @@ theorem Good.uniq (hA : Good ε A) {v v' : TestFunction} (hv : IsVac ε A v)
   congr 1
   linear_combination -c' * h1
 
-theorem laws (y : Position (κ := κ) (ι := ι)) {φ : TestFunction} (hφ : IsSB φ) :
+theorem laws (y : Position (κ := κ) (ι := ι)) {φ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) :
     IsSB (heis y φ) ∧ heis 0 φ = φ ∧
       (∀ y', heis y (heis y' φ) =
         cexp (π * I * ((omega y y' : ℚ) : ℂ)) • heis (y + y') φ) ∧
@@ -275,16 +275,16 @@ theorem laws (y : Position (κ := κ) (ι := ι)) {φ : TestFunction} (hφ : IsS
   obtain ⟨h1, _, h3, h4, h5⟩ := heisS_laws κ ι y.1 y.2 φ hφ
   exact ⟨h1, h4, fun y' => h3 y'.1 y'.2, h5⟩
 
-theorem rho_sb (y : Position (κ := κ) (ι := ι)) {φ : TestFunction} (hφ : IsSB φ) :
+theorem rho_sb (y : Position (κ := κ) (ι := ι)) {φ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) :
     IsSB (ε y • heis y φ) := sb_smul _ (laws y hφ).1
 
-theorem rho_zero (hε0 : ε 0 = 1) {φ : TestFunction} (hφ : IsSB φ) :
+theorem rho_zero (hε0 : ε 0 = 1) {φ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) :
     ε 0 • heis 0 φ = φ := by
   rw [hε0, one_smul]
   exact (laws 0 hφ).2.1
 
 theorem rho_ip (hεunit : ∀ y, ε y * conj (ε y) = 1)
-    (y : Position (κ := κ) (ι := ι)) {φ ψ : TestFunction} (hφ : IsSB φ) (hψ : IsSB ψ) :
+    (y : Position (κ := κ) (ι := ι)) {φ ψ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) (hψ : IsSB ψ) :
     ip (ε y • heis y φ) (ε y • heis y ψ) = ip φ ψ := by
   obtain ⟨h1, _, _, h4⟩ := laws y hφ
   have h1' := (laws y hψ).1
@@ -292,11 +292,11 @@ theorem rho_ip (hεunit : ∀ y, ε y * conj (ε y) = 1)
     hεunit, one_mul, h4 ψ hψ]
 
 theorem Good.rho_rho (hA : Good ε A) {y y'} (hy : y ∈ A) (hy' : y' ∈ A)
-    {φ : TestFunction} (hφ : IsSB φ) :
+    {φ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) :
     ε y • heis y (ε y' • heis y' φ) = ε (y + y') • heis (y + y') φ := by
   rw [heis_smul, (laws y hφ).2.2.1 y', smul_smul, smul_smul, (hA.2.2 y hy).2 y' hy']
 
-theorem Good.finite (hA : Good ε A) {φ : TestFunction} (hφ : IsSB φ) :
+theorem Good.finite (hA : Good ε A) {φ : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) :
     ((fun y => ε y • heis y φ) '' A).Finite := by
   obtain ⟨R, hR, hlev⟩ := hφ
   obtain ⟨D1, hD1, hD1'⟩ := Vac.exists_den_fg
@@ -336,9 +336,9 @@ theorem Good.finite (hA : Good ε A) {φ : TestFunction} (hφ : IsSB φ) :
   change ε (a + _) • heis (a + _) φ = ε a • heis a φ
   rw [← Good.rho_rho hA ha hNb ⟨R, hR, hlev⟩, hfix]
 
-theorem Good.proj (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) {φ v : TestFunction} (hφ : IsSB φ) (hv : IsVac ε A v) :
+theorem Good.proj (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) {φ v : (TestFunction (κ := κ) (ι := ι))} (hφ : IsSB φ) (hv : IsVac ε A v) :
     IsSB (projA ε A φ) ∧ projA ε A φ = ip φ v • v := by
-  set O := (fun y => ε y • heis y φ) '' (A : Set (Position)) with hO
+  set O := (fun y => ε y • heis y φ) '' (A : Set ((Position (κ := κ) (ι := ι)))) with hO
   have hfin : O.Finite := Good.finite hA hφ
   have hmemO : ∀ ψ ∈ hfin.toFinset, IsSB ψ := by
     intro ψ hψ
@@ -383,7 +383,7 @@ theorem Good.proj (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1) (h
   refine ⟨hproj ▸ sb_smul _ hsum, ?_⟩
   rw [hproj, hU, hip, smul_smul, inv_mul_cancel_left₀ hcard]
 
-theorem Good.ip_eq_zero (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) {v : TestFunction} (hv : IsVac ε A v) {y}
+theorem Good.ip_eq_zero (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) {v : (TestFunction (κ := κ) (ι := ι))} (hv : IsVac ε A v) {y}
     (hy : y ∉ A) : ip (ε y • heis y v) v = 0 := by
   have hnot : ¬ ∀ y' ∈ A, ∃ k : ℤ, omega y y' = k := fun H => hy ((hA.2.1 y).2 H)
   push Not at hnot
@@ -428,11 +428,11 @@ theorem Good.ip_eq_zero (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε 
   · exact absurd (sub_eq_zero.1 h) hl
   · exact h
 
-theorem Good.overlap (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) (hA' : Good ε A') {v v' : TestFunction}
+theorem Good.overlap (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1) (hA : Good ε A) (hA' : Good ε A') {v v' : (TestFunction (κ := κ) (ι := ι))}
     (hv : IsVac ε A v) (hv' : IsVac ε A' v') :
     (A'.relIndex A : ℝ) * ‖ip v v'‖ ^ 2 = 1 := by
   have hv's := hv'.1
-  have hfin : ((fun y => ε y • heis y v') '' (A : Set (Position))).Finite :=
+  have hfin : ((fun y => ε y • heis y v') '' (A : Set ((Position (κ := κ) (ι := ι))))).Finite :=
     Good.finite hA hv's
   have hinv : ∀ z ∈ A, ∀ ψ, IsSB ψ →
       ε (-z) • heis (-z) (ε z • heis z ψ) = ψ := fun z hz ψ hψ => by
@@ -474,15 +474,15 @@ theorem Good.overlap (hε0 : ε 0 = 1) (hεunit : ∀ y, ε y * conj (ε y) = 1)
       Good.rho_rho hA (neg_mem ha) hb hv's]
     have hc : -a + b ∈ A := add_mem (neg_mem ha) hb
     by_cases h : -a + b ∈ A'
-    · rw [hv'.2.2 _ h, hv'.2.1, if_pos (((hfeq a ha b hb).2 h).symm)]
-    · rw [Good.ip_eq_zero hεunit hA' hv' h, if_neg]
+    · rw [hv'.2.2 _ h, hv'.2.1, ite_eq_left (((hfeq a ha b hb).2 h).symm)]
+    · rw [Good.ip_eq_zero hεunit hA' hv' h, ite_eq_right]
       intro he
       exact h ((hfeq a ha b hb).1 he.symm)
   obtain ⟨hS, -⟩ := sum_sb_ip T hmemT hv's
   have hSψ : ∀ ψ ∈ T, ip (∑ χ ∈ T, χ) ψ = 1 := by
     intro ψ hψ
     rw [(sum_sb_ip T hmemT (hmemT ψ hψ)).2, Finset.sum_congr rfl fun χ hχ => horth χ hχ ψ hψ,
-      Finset.sum_ite_eq', if_pos hψ]
+      Finset.sum_ite_eq', ite_eq_left hψ]
   have hSS : ip (∑ χ ∈ T, χ) (∑ χ ∈ T, χ) = T.card := by
     rw [(sum_sb_ip T hmemT hS).2, Finset.sum_congr rfl fun ψ hψ => by
       rw [ip_conj hS (hmemT ψ hψ), hSψ ψ hψ, map_one], Finset.sum_const, nsmul_eq_mul, mul_one]

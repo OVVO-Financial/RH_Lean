@@ -57,7 +57,7 @@ theorem exists_specOver_nhds (T : Over (Spec (.of R))) {t : T.left} {V : T.left.
   obtain ⟨_, ⟨U, hU, rfl⟩, htU, hUV⟩ :=
     T.left.isBasis_affineOpens.exists_subset_of_mem_open ht V.2
   obtain ⟨ρ, hρ⟩ := Spec.map_surjective (hU.fromSpec ≫ T.hom)
-  letI : Algebra R Γ(T.left, U) := ρ.hom.toAlgebra
+  let : Algebra R Γ(T.left, U) := ρ.hom.toAlgebra
   refine ⟨Γ(T.left, U), inferInstance, inferInstance, Over.homMk hU.fromSpec hρ.symm,
     IsAffineOpen.isOpenImmersion_fromSpec hU, hU.range_fromSpec.ge htU, ?_⟩
   exact top_le_iff.mp fun y _ => hUV (hU.range_fromSpec.le ⟨y, rfl⟩)

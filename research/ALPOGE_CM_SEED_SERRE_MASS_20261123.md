@@ -287,9 +287,34 @@ kernel, and the full `O_E` action. The equations currently live in separate
 finite subfields of `C`; an arithmetic scheme construction must also place
 them in a common finite compositum.
 
-The point-module tensor still needs representability by the polarized
-abelian scheme and compatibility of its line bundle, Lie generator and
-finite-place model before the source's arithmetic CM-degree theorem applies.
+### Represent the original trace-frame tensor and its integral Lie module
+
+`NativeCMSerreSchemeAction`, `NativeCMSerreSchemeTensor`,
+`NativeCMSerreSchemeTangent`, and `NativeCMSerreSchemeLie` now construct the
+scheme representation directly. Given the actual seed group scheme with
+its genuine `O_K` endomorphisms, the same trace-frame matrix defines an
+idempotent on a finite power of that scheme. Its equalizer with the identity
+is a scheme with a proved retraction, commutative group structure, and a
+natural tensor-point equivalence on every test scheme. The coefficient
+module is still exactly `B^-1`; no free replacement or representability
+premise is used. The full `O_E` coefficient action is constructed by Yoneda
+from its action on this tensor functor.
+
+The dual-number construction splits reduction to the base and proves that
+the equalizer's intrinsic tangent module is `R tensor_{O_K} B^-1`. Its
+linear equivalence sends `r tensor m` to the actual integral seed tangent
+`[r*epsilon,-1,0]` followed by the tensor morphism for `m`. It is compatible
+with the full `O_E` action. The seed's scheme action and its action on the
+literal integral tangent vector are still explicit geometric inputs; those
+inputs are not supplied by the already proved complex point action.
+`NativeCMSerreSchemeEigenline` differentiates that full coefficient action
+by postcomposition and identifies its intrinsic Lie eigenmodule with the
+original second-factor eigenmodule. Its coordinate equivalence has the
+literal image `B^-1 D = conjugate(B)` after extension. The same integral
+equation's full embedding-period sum enters the existing all-place degree
+formula on that image. The induced ample line bundle and identification
+of its metric with this period profile remain to be constructed before
+the source's polarized arithmetic CM-degree theorem applies.
 
 ### Exact analytic Serre periods and the original polarization
 
@@ -560,9 +585,20 @@ explicit origin cofactor; the other is the affine `Z != 0` chart. Their
 union is proved to be the whole scheme. The transition is the actual unit
 `X/Y` on their intersection, and all transition cocycle laws are proved.
 The canonical section is `(X/Y,1)` and its nonzero locus is exactly the
-affine chart. These are actual scheme sections and units of their rings,
-not a formal label for a polarization. Relative ampleness, symmetry,
-rigidification and the principal translation kernel are subsequent proofs.
+affine chart. `NativeCMWeierstrassOriginDivisor` proves that this section
+is regular on every restricted open and, on every test scheme, vanishes
+exactly when the morphism factors through the identity section. This
+universal statement includes test rings with nilpotents.
+
+`NativeCMLineBundleSectionIso` derives the actual unit transition
+isomorphism from equality of the regular zero subschemes.
+`NativeCMWeierstrassOriginSymmetry` applies it to inversion on this same
+integral group scheme and constructs a unit generator along the zero
+section. `NativeCMWeierstrassOriginSections` uses explicit pole orders in
+the affine coordinate ring to prove every global section is a unique base
+scalar times the canonical origin section, over any commutative base ring.
+Relative ampleness and the principal translation kernel still require
+proof; symmetry and rigidification alone are not a principal polarization.
 
 ### Actual shifted lattice and one common phase
 
@@ -596,9 +632,25 @@ retains the genuine subgroup relative index:
 The native endpoint constructs the symplectic integer basis, actual split-five
 ideal, both vacua and their overlap together for the prescribed mixed-sign
 lattice. The integer basis is used for the rational Schrödinger coordinates;
-it does not replace `B^-1` by a free `O_E` module. The remaining cusp inputs
-include the complete auxiliary tensor-lattice family, Weil covariance,
-global theta/cusp realization, and geometric rank lower shares.
+it does not replace `B^-1` by a free `O_E` module.
+
+The additional `NativeThetaCuspPseudoBasis`, `NativeThetaCuspAuxiliaryLattices`,
+`NativeThetaCuspTensorLattices`, and `NativeThetaCuspTensorVacua` extend this
+to every actual auxiliary projective lattice in the source's Hermitian
+family. Dual pseudobases give the tensor lattice's self-duality and its
+common phase law. The same original basis and split-five ideal work
+throughout, and the overlap is the exact original relative index raised
+to the auxiliary rank. No compatible vacuum family is assumed.
+
+`NativeThetaCuspSeries` proves absolute convergence of the literal rational
+Schwartz theta transform. `NativeThetaCuspSeriesInjective` proves its
+injectivity by the already native Fourier uniqueness theorem. These are
+analytic inputs for constructing Weil covariance; they do not assume a
+Weil representation or a global cusp form. The finite subgroup `J` and its
+character still need construction: the existing full-level cardinality
+bound and the split-five quotient basis do not supply those objects.
+Global theta/cusp realization, its span and geometric rank lower shares
+also remain open.
 
 ### Exact arithmetic bridge identified by the source
 
@@ -633,11 +685,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, literal tangent generator and exact invariant comparison | Integral CM action, origin-bundle polarization properties and arithmetic Lie-period comparison |
-| Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, integral coefficient eigenmodule, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
-| CM degree | Original covolume, actual elliptic integral tangent scale, exact integral tensor eigenideal and finite correction, native analytic Chowla--Selberg mean including the original seed | Scheme-theoretic Lie-to-tensor identification, integral ideal-isogeny family and double-sum class-mean comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, regular origin section, rigidification and inversion symmetry | Integral CM action, origin-bundle relative ampleness and principal kernel, arithmetic Lie-period comparison |
+| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank | Constructed seed scheme action and its derivative compatibility; induced polarization and arithmetic metric comparison |
+| CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and double-sum class-mean comparison |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice, actual split-five coefficient modulus and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity, split-five modulus and measured direct-sum rank | Finite subgroup and character, Weil covariance and isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -730,6 +782,17 @@ rational-coordinate induction errors. Repairs retain the mathematical
 statements. The full native build was skipped; the combined closure and
 terminal-axiom audit still require a successful hosted run.
 
+The ninth snapshot `6ac90340e92491d331f2f391518d3e188886e02f`, Actions
+run `45275907302`, passed the source audits. Hosted diagnostics compiled
+the projective scheme, order identification, rational CM isogeny formulas,
+torsion algebraicity, rational lattice coordinates and derivative norm
+identity cleanly. The combined closure failed on a two-chart section
+normalization, seed/group coercions and the cusp ambient/finite-overlap
+API boundary, with additional warning-fatal fixes. Its full native build
+was skipped. The next snapshot carries the repairs and the newly
+constructed scheme tensor, origin-bundle properties and auxiliary vacuum
+family; their combined Lean closure is not yet certified.
+
 ## Located continuation without inflated import closures
 
 The CM-action branch now uses a smaller cut than the general division-polynomial
@@ -742,13 +805,20 @@ The numerator has leading coefficient `omega^-2`, its degree is the actual
 kernel cardinality, and the denominator degree is exactly one smaller.
 The derivative factor `omega^-1 (A'D-AD')/D^2` is retained in the y-coordinate.
 The point formula is intertwined with the original equation's CM action.
-It remains to construct the corresponding generic scheme morphism and
-prove extension over the integers; rational point formulas do not discharge
-those geometric obligations.
+`NativeCMWeierstrassNormalizedModel` proves that the rescaled lattice curve
+is the short Weierstrass model defined over the same original field: the
+coordinate change uses the algebraic coefficients `-a1/2`, `-b2/12`, and
+`(a1*b2-12*a3)/24`. No transcendental period is adjoined to that field.
+`NativeCMWeierstrassTranslationScheme` constructs the actual triangular
+projective scheme isomorphism and its inverse, matching the prior point
+comparison. The generic CM scheme morphism and its extension over the
+integers still require proof; rational point formulas and a model
+isomorphism do not discharge those obligations.
 
 For the cusp norm/overlap branch, the declaration cut now reaches the
-actual pair of normalized vacua and exact relative-index overlap above.
-It uses Heisenberg unitarity and cocycles, finite quotient projections and
-the literal shifted self-duality, while avoiding the unrelated scheme/Moduli
-import surface. Extending this pair to the complete auxiliary tensor-lattice
-system and proving its global automorphic realization remain open.
+actual auxiliary tensor-lattice family, normalized vacua, exact relative-index
+power overlap, and convergence/injectivity of its rational theta transform.
+It uses Heisenberg unitarity and cocycles, finite quotient projections,
+projective pseudobases and literal shifted self-duality. The next analytic
+cut is the genuine Fourier/Poisson generator of Weil covariance; its global
+automorphic realization and measured geometric rank shares remain open.

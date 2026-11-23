@@ -2,12 +2,15 @@ import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeCMAllPlaceEigenlineDegree
 import RHLean.Geometry.NativeCMIsogenyDerivativeNorm
-import RHLean.Geometry.NativeCMWeierstrassOriginBundle
-import RHLean.Geometry.NativeCMWeierstrassCMAction
+import RHLean.Geometry.NativeCMWeierstrassOriginSymmetry
+import RHLean.Geometry.NativeCMWeierstrassOriginSections
+import RHLean.Geometry.NativeCMWeierstrassTranslationScheme
+import RHLean.Geometry.NativeCMSerreSchemeEigenline
 import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
 import RHLean.Geometry.NativeCMArithmeticPeriod
 import RHLean.Geometry.NativeMeasuredComponentNorm
-import RHLean.Geometry.NativeThetaCuspShiftedVacua
+import RHLean.Geometry.NativeThetaCuspTensorVacua
+import RHLean.Geometry.NativeThetaCuspSeriesInjective
 import RHLean.Geometry.NativeThetaCuspHeisenberg
 import Lean.Util.CollectAxioms
 
@@ -154,7 +157,34 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteOverlap.Good.proj,
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteOverlap.Good.overlap,
     ``RHLean.Geometry.NativeTheta.Cusp.ShiftedVacua.good_lattice,
-    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedVacua.exists_native_shifted_vacua]
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedVacua.exists_native_shifted_vacua,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.isRegularSec_originSec,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.eq_comp_zero_iff,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_rigidified,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_inversion_isomorphic,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.existsUnique_eq_const_mul_originSec,
+    ``RHLean.Geometry.NativeCM.Weierstrass.rescaled_model_defined_over_same_field,
+    ``RHLean.Geometry.NativeCM.Weierstrass.normalized_change_defined_over_same_field,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.normalizedEquationPointEquiv_eq,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.translationIso,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.translationOverIso,
+    ``RHLean.Geometry.NativeCM.Weierstrass.normalized_seed_scheme_comparison,
+    ``RHLean.Geometry.NativeCM.SerreScheme.Pts.isLinearHom_homOfNat,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeIdempotent_comp_self,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeIsTensor,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreSchemeTensor,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreSchemeFullAction_tmul,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.epsScale_add_comp,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreScheme_exists_integralLie,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieEigenCoordinateEquiv,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieEigenCoordinate_actualPeriod_degree,
+    ``RHLean.Geometry.NativeTheta.Cusp.AuxiliaryLattices.exists_dual_family,
+    ``RHLean.Geometry.NativeTheta.Cusp.TensorLattices.tens_selfDual,
+    ``RHLean.Geometry.NativeTheta.Cusp.TensorLattices.phase_semichar,
+    ``RHLean.Geometry.NativeTheta.Cusp.TensorLattices.tens_relative_indices,
+    ``RHLean.Geometry.NativeTheta.Cusp.TensorVacua.exists_native_tensor_vacua,
+    ``RHLean.Geometry.NativeTheta.Cusp.SiegelSum.summable_norm_thetaTerm,
+    ``RHLean.Geometry.NativeTheta.Cusp.eq_of_thS_eq]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

@@ -232,7 +232,8 @@ def twoChartSec (a : Γ(X, U₀)) (b : Γ(X, U₁))
     (h : resG X inf_le_left a = (u : Γ(X, U₀ ⊓ U₁)) * resG X inf_le_right b) :
     (twoChart U₀ U₁ u).Sec where
   f := twoChartFn u a b
-  compat i j := (twoChartFn_compat u 1 (by rwa [pow_one]) i j).trans (by rw [pow_one])
+  compat i j := by
+    simpa only [pow_one, resG] using twoChartFn_compat u 1 (by rwa [pow_one]) i j
 
 end LB
 

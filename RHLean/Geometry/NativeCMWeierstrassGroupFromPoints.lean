@@ -93,7 +93,7 @@ theorem exists_over_hom_of_locally {T Y : Over (Spec (.of R))} [IsReduced T.left
     have := hj b
     let P : Over (Spec (.of R)) :=
       Over.mk (pullback.fst (j a).left (j b).left ≫ (j a).left ≫ T.hom)
-    haveI : IsReduced P.left :=
+    have : IsReduced P.left :=
       isReduced_of_isOpenImmersion (pullback.fst (j a).left (j b).left ≫ (j a).left)
     let p₁ : P ⟶ U a := Over.homMk (pullback.fst _ _) (by
       show _ = pullback.fst _ _ ≫ (j a).left ≫ T.hom
@@ -173,8 +173,8 @@ theorem isCommMonObj_of_isPullback [GrpObj G] [IsCommMonObj G]
     (h : IsPullback φ G'.hom G.hom f) :
     letI := grpObjOfIsPullback h
     IsCommMonObj G' := by
-  letI := grpObjOfIsPullback h
-  letI : CommMonoid ((Over.map f).obj (G' ⊗ G') ⟶ G) := Hom.commMonoid
+  let := grpObjOfIsPullback h
+  let : CommMonoid ((Over.map f).obj (G' ⊗ G') ⟶ G) := Hom.commMonoid
   refine ⟨(pullbackPointEquiv h _).injective ?_⟩
   have e1 : (β_ G' G').hom ≫ μ = snd G' G' * fst G' G' := by
     rw [Hom.mul_def]
