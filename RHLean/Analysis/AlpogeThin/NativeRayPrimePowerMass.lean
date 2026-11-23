@@ -25,7 +25,7 @@ The inspected mirror states no license; attribution assigns none.
 
 noncomputable section
 open NumberField ArithmeticFunction
-open scoped ArithmeticFunction.vonMangoldt BigOperators Classical
+open scoped BigOperators Classical
 
 namespace RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass
 
@@ -56,7 +56,7 @@ theorem exists_prime_mem_heightOneSpectrum {K : Type} [Field K] [NumberField K]
     (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)) :
     ∃ (p : ℕ), Nat.Prime p ∧ (↑p : NumberField.RingOfIntegers K) ∈
       IsDedekindDomain.HeightOneSpectrum.asIdeal v := by
-  haveI := v.isPrime
+  have := v.isPrime
   exact exists_prime_natCast_mem v.asIdeal (Ideal.absNorm v.asIdeal)
     (Ideal.absNorm_eq_zero_iff.not.mpr v.ne_bot) (Ideal.absNorm_mem _)
 

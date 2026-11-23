@@ -124,10 +124,10 @@ private lemma sum_range_neg_one_pow_eq_ite (n : ℕ) :
     rw [Finset.sum_range_succ, ih]
     by_cases h : Even n
     · have h' : ¬ Even (n + 1) := by rw [Nat.even_add_one]; exact not_not.2 h
-      rw [if_pos h, if_neg h', h.neg_one_pow]
+      rw [ite_eq_left h, ite_eq_right h', h.neg_one_pow]
       norm_num
     · have h' : Even (n + 1) := Nat.even_add_one.2 h
-      rw [if_neg h, if_pos h', (Nat.not_even_iff_odd.1 h).neg_one_pow]
+      rw [ite_eq_right h, ite_eq_left h', (Nat.not_even_iff_odd.1 h).neg_one_pow]
       norm_num
 
 lemma geom_bounds {x : ℝ} (hx : x = 0 ∨ x = 1 ∨ x = -1) (k : ℕ) :
@@ -142,7 +142,7 @@ lemma geom_bounds {x : ℝ} (hx : x = 0 ∨ x = 1 ∨ x = -1) (k : ℕ) :
     have h : ¬ Even (2 * k + 1) := by
       rw [Nat.even_add_one, not_not]
       exact even_two_mul k
-    rw [if_neg h]
+    rw [ite_eq_right h]
     refine ⟨?_, le_refl _⟩
     split_ifs <;> norm_num
 
@@ -249,7 +249,7 @@ lemma conv_eq (F : Ideal (𝓞 K) → Ideal (𝓞 K) → ℝ) {n : ℕ} (hn : n 
       rintro rfl
       exact hC0 (zero_mul c)
     have hch : (if h : J ∣ J * c then Exists.choose h else 0) = c := by
-      rw [dif_pos (dvd_mul_right J c)]
+      rw [dite_eq_left (dvd_mul_right J c)]
       exact mul_left_cancel₀ hJ0 (Exists.choose_spec (dvd_mul_right J c)).symm
     have hNJ : 0 < Ideal.absNorm J := by
       apply Nat.pos_of_ne_zero
@@ -272,7 +272,7 @@ lemma conv_eq (F : Ideal (𝓞 K) → Ideal (𝓞 K) → ℝ) {n : ℕ} (hn : n 
       rw [Ne, Ideal.absNorm_eq_zero_iff]
       exact hJ0
     have hch : (if h : J ∣ I * J then Exists.choose h else 0) = I := by
-      rw [dif_pos (dvd_mul_left J I)]
+      rw [dite_eq_left (dvd_mul_left J I)]
       apply mul_left_cancel₀ hJ0
       rw [← Exists.choose_spec (dvd_mul_left J I), mul_comm]
     dsimp only
@@ -289,7 +289,7 @@ lemma conv_eq (F : Ideal (𝓞 K) → Ideal (𝓞 K) → ℝ) {n : ℕ} (hn : n 
       rintro rfl
       exact hC0 (zero_mul c)
     have hch : (if h : J ∣ J * c then Exists.choose h else 0) = c := by
-      rw [dif_pos (dvd_mul_right J c)]
+      rw [dite_eq_left (dvd_mul_right J c)]
       exact mul_left_cancel₀ hJ0 (Exists.choose_spec (dvd_mul_right J c)).symm
     dsimp only
     rw [hch, mul_comm]
@@ -316,11 +316,11 @@ lemma sum_aRay (ε : D.G → ℝ) (n : ℕ) : ∑ g, ε g * aRay D g n = ∑ I �
       then ε g else 0 := by
     intro I
     by_cases h : I ≠ ⊥ ∧ IsCoprime I (Ideal.span {(M : 𝓞 K)})
-    · rw [chi, if_pos h]
-      simp only [ite_and, if_pos h]
+    · rw [chi, ite_eq_left h]
+      simp only [ite_and, ite_eq_left h]
       simp
-    · rw [chi, if_neg h]
-      simp only [ite_and, if_neg h, Finset.sum_const_zero]
+    · rw [chi, ite_eq_right h]
+      simp only [ite_and, ite_eq_right h, Finset.sum_const_zero]
   rw [Finset.sum_congr rfl (fun I _ => hchi I), Finset.sum_comm]
   refine Finset.sum_congr rfl fun g _ => ?_
   rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul, hcard g, mul_comm]
@@ -332,24 +332,24 @@ lemma chi_mul (ε : D.G → ℝ) (hε : ∀ g h, ε (g * h) = ε g * ε h) (I J 
     · have hIJ : I * J ≠ ⊥ ∧ IsCoprime (I * J) (Ideal.span {(M : 𝓞 K)}) :=
         ⟨mul_ne_zero hI.1 hJ.1, hI.2.mul_left hJ.2⟩
       simp only [chi]
-      rw [if_pos hIJ, if_pos hI, if_pos hJ, D.cls_mul I J hI.2 hJ.2 hI.1 hJ.1, hε]
+      rw [ite_eq_left hIJ, ite_eq_left hI, ite_eq_left hJ, D.cls_mul I J hI.2 hJ.2 hI.1 hJ.1, hε]
     · have hIJ : ¬ (I * J ≠ ⊥ ∧ IsCoprime (I * J) (Ideal.span {(M : 𝓞 K)})) := by
         rintro ⟨h1, h2⟩
         exact hJ ⟨fun h => h1 (by rw [h, Ideal.mul_bot]), h2.of_mul_left_right⟩
       simp only [chi]
-      rw [if_pos hI, if_neg hJ, if_neg hIJ, mul_zero]
+      rw [ite_eq_left hI, ite_eq_right hJ, ite_eq_right hIJ, mul_zero]
   · have hIJ : ¬ (I * J ≠ ⊥ ∧ IsCoprime (I * J) (Ideal.span {(M : 𝓞 K)})) := by
       rintro ⟨h1, h2⟩
       exact hI ⟨fun h => h1 (by rw [h, Ideal.bot_mul]), h2.of_mul_left_left⟩
     simp only [chi]
-    rw [if_neg hI, if_neg hIJ, zero_mul]
+    rw [ite_eq_right hI, ite_eq_right hIJ, zero_mul]
 
 lemma chi_one (ε : D.G → ℝ) (h1 : ε 1 = 1) : chi D ε 1 = 1 := by
   have hc : IsCoprime (1 : Ideal (𝓞 K)) (Ideal.span {(M : 𝓞 K)}) := isCoprime_one_left
   have hb : (1 : Ideal (𝓞 K)) ≠ ⊥ := by
     rw [Ideal.one_eq_top]
     exact top_ne_bot
-  rw [chi, if_pos ⟨hb, hc⟩, D.cls_one, h1]
+  rw [chi, ite_eq_left ⟨hb, hc⟩, D.cls_one, h1]
 
 lemma conv_aRay (ε : D.G → ℝ) {n : ℕ} (hn : n ≠ 0) :
     ∑ p ∈ n.divisorsAntidiagonal, (∑ g, aRay D g p.1) * ∑ g, ε g * aRay D g p.2 =
@@ -417,9 +417,9 @@ theorem conv_real_char : ∀ (K : Type) [Field K] [NumberField K] (M : ℕ), ∀
           by_cases h : I ≠ ⊥ ∧ IsCoprime I (Ideal.span {(M : 𝓞 K)})
           · have h2 : I ^ 2 ≠ ⊥ ∧ IsCoprime (I ^ 2) (Ideal.span {(M : 𝓞 K)}) :=
               ⟨pow_ne_zero 2 h.1, h.2.pow_left⟩
-            rw [h01, h01, if_pos h, if_pos h2, one_mul]
+            rw [h01, h01, ite_eq_left h, ite_eq_left h2, one_mul]
             exact (hr I h.1).2
-          · rw [h01 I, if_neg h]
+          · rw [h01 I, ite_eq_right h]
             exact hterm (I ^ 2)
       _ = ∑ C ∈ (normEq K n).image (· ^ 2), chi D (fun _ => 1) C * r (chi D ε) C := by
           rw [Finset.sum_image]
@@ -453,7 +453,7 @@ theorem conv_real_addChar
           ∑ g, (χ (Additive.ofMul g)).re * aRay D g p.2 := by
   apply conv_real_char K M D (fun g => (χ (Additive.ofMul g)).re) (by simp) ?_ ?_ n
   · intro g h
-    rw [Additive.ofMul_mul, AddChar.map_add_eq_mul]
+    rw [ofMul_mul, AddChar.map_add_eq_mul]
     rcases addChar_eq_one_or_neg_one χ hχ (Additive.ofMul g) with hg | hg <;>
       simp [hg]
   · intro g

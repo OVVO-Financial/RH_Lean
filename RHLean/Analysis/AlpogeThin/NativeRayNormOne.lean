@@ -43,7 +43,7 @@ theorem exists_generator_absNorm_formula {d : ℕ} (hp : d.Prime)
   obtain ⟨w, bar, hw, _, hgen, hemb, σ, hσr⟩ :=
     NativeQuadraticIntegers.ringOfIntegers_sqrt_neg_three_mod_four
       d (Irreducible.squarefree hp) hd K h2 r hr
-  letI : IsTotallyComplex K :=
+  let : IsTotallyComplex K :=
     ⟨fun v => InfinitePlace.isComplex_iff.mpr (hemb v.embedding).1⟩
   have hσw : σ (w : K) = (1 + Complex.I * Real.sqrt d) / 2 := by
     have h := congrArg σ hw

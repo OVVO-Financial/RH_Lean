@@ -428,7 +428,18 @@ mean-energy modules reported localized elaboration/linter errors: coercion
 alignment, finite-image index typing, a protected theorem name, explicit
 column energy, and unused section/simp arguments. The repair pass addresses
 these exact diagnostics without changing any estimate, budget or gate.
-The full hosted result remains pending until this revised head passes.
+The second hosted pass used commit
+`600d8b3f0b5cd5d8767df8ded45f009ae0dda2b0`:
+[native run 45184687948](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45184687948)
+and [targeted run 45184687957](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45184687957).
+Both reached the same remaining diagnostics. The lattice count and mean-energy
+proofs compiled. The class-number, norm-support and Gaussian theta proofs also
+compiled, with localized warnings. Repairs remove duplicate von Mangoldt
+notation, use the current conditional/additive-equivalence APIs, align the
+count comparison's quotient expression, and remove unused proof steps and
+propositional instance syntax. The statements and verification gates remain
+unchanged. The complete arithmetic-family constructor and terminal-axiom
+guards still require a successful hosted pass after these supplier repairs.
 
 - Main and #1194 source trees were read at the exact commits above.
 - Integration conflicts were confined to generated manifests/search metadata.

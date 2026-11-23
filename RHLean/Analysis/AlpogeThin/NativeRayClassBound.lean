@@ -36,7 +36,7 @@ native squarefree discriminant theorem applies without a new premise. -/
 theorem discr_eq_neg_of_sq_eq_neg {d : ℕ} (hp : d.Prime) (hd : d % 4 = 3)
     {r : K} (hr : r ^ 2 = -(d : K)) (h2 : Module.finrank ℚ K = 2) :
     NumberField.discr K = -(d : ℤ) := by
-  letI : IsSimpleOrder (IntermediateField ℚ K) :=
+  let : IsSimpleOrder (IntermediateField ℚ K) :=
     IntermediateField.isSimpleOrder_of_finrank_prime ℚ K (by
       rw [h2]
       exact Nat.prime_two)

@@ -132,7 +132,7 @@ theorem theta_qForm_all_time
         ((α * t) ^ 2 + (γ * t) ^ 2 + (α * t) ^ 2 * (γ * t) ^ 2)
         = Real.pi / Real.sqrt (α * γ) * t *
             (α ^ 2 + γ ^ 2 + α ^ 2 * γ ^ 2 * t ^ 2) := by
-          field_simp <;> ring
+          field_simp
       _ ≤ Real.pi / Real.sqrt (α * γ) * t * (3 * (α * γ) ^ 2) :=
         mul_le_mul_of_nonneg_left hpoly (by positivity)
       _ = _ := by ring

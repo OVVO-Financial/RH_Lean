@@ -29,7 +29,7 @@ set_option relaxedAutoImplicit false
 
 noncomputable section
 open NumberField Finset ArithmeticFunction
-open scoped Classical BigOperators ArithmeticFunction.vonMangoldt
+open scoped Classical BigOperators
 
 namespace RHLean.Analysis.AlpogeThin.NativeRay
 

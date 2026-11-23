@@ -35,7 +35,7 @@ theorem nativeRealMatrix_det_sq_le_column_energy (M : Matrix I I ℝ) :
     M.det ^ 2 ≤ ∏ j, ∑ i, (M i j) ^ 2 := by
   let v (j : I) : EuclideanSpace ℝ I := WithLp.toLp 2 (M.col j)
   have h := nativeGramDet_le_prod_norm_sq_fintype
-    (by simpa using (finrank_euclideanSpace (𝕜 := ℝ) (ι := I))) v
+    (finrank_euclideanSpace (𝕜 := ℝ) (ι := I)) v
   have hG : Matrix.gram ℝ v = M.conjTranspose * M :=
     Matrix.gram_eq_conjTranspose_mul (EuclideanSpace.basisFun I ℝ) v
   rw [hG, Matrix.det_mul, Matrix.det_conjTranspose, star_trivial] at h
@@ -69,7 +69,7 @@ energy with the energy of the original integral section. -/
 theorem nativeTranslationTrace_column_energy (u : G → ℤ) (i : G) :
     (∑ h, (nativeTranslationTraceMatrix u h i : ℝ) ^ 2) =
       nativeTranslationTraceEnergy u := by
-  exact (Equiv.addLeft i).sum_comp (fun h => (u h : ℝ) ^ 2)
+  exact Equiv.sum_comp (Equiv.addLeft i) (fun h => (u h : ℝ) ^ 2)
 
 /-- The genuine integer determinant is paid by section energy, not a
 repeated worst-direction operator estimate. -/
@@ -93,6 +93,7 @@ theorem nativeTranslationTrace_normalized_volume_le (u : G → ℤ) :
         (pow_nonneg (Nat.cast_nonneg _) _)
     _ = _ := (mul_pow _ _ _).symm
 
+omit [DecidableEq G] [AddGroup G] in
 theorem nativeTranslationTrace_energy_le (u : G → ℤ) (B : ℝ)
     (hB : 0 ≤ B) (hu : ∀ i, |(u i : ℝ)| ≤ B) :
     nativeTranslationTraceEnergy u ≤ (Fintype.card G : ℝ) * B ^ 2 := by

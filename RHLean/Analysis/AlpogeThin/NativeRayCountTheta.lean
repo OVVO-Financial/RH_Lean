@@ -166,7 +166,11 @@ theorem rayCountTheta
         _ = Real.sqrt y / M := by
           rw [Real.sqrt_div (by linarith : 0 ≤ y), Real.sqrt_sq hM0.le]
     rw [hsum, ← hC]
-    exact hc.2.trans (by linarith [hroot α hscale.1, hroot γ hγM])
+    refine hc.2.trans ?_
+    calc 2 * Real.sqrt (y / α) + 2 * Real.sqrt (y / γ) + 1
+        ≤ 4 * (Real.sqrt y / M) + 1 := by
+          linarith [hroot α hscale.1, hroot γ hγM]
+      _ = 4 * Real.sqrt y / M + 1 := by ring
   · have hM2 : 0 < (M : ℝ) ^ 2 := sq_pos_of_pos hM0
     have hαs : 1 ≤ α / (M : ℝ) ^ 2 := by
       rw [le_div_iff₀ hM2, one_mul]
@@ -176,7 +180,7 @@ theorem rayCountTheta
       exact hγM
     have hags : α / (M : ℝ) ^ 2 * (γ / (M : ℝ) ^ 2) = (d : ℝ) / 4 := by
       calc α / (M : ℝ) ^ 2 * (γ / (M : ℝ) ^ 2) =
-          (α * γ) / (M : ℝ) ^ 4 := by field_simp; ring
+          (α * γ) / (M : ℝ) ^ 4 := by field_simp
         _ = ((d : ℝ) * (M : ℝ) ^ 4 / 4) / (M : ℝ) ^ 4 := by rw [hαγ]
         _ = (d : ℝ) / 4 := by field_simp
     have hPs : 2 ≤ α / (M : ℝ) ^ 2 * (γ / (M : ℝ) ^ 2) := by
@@ -192,7 +196,6 @@ theorem rayCountTheta
           t * qForm α γ l θ₁ θ₂ v := by
       unfold qForm
       field_simp
-      ring
     have htheta := LatticeBounds.theta_qForm_all_time
       (α / (M : ℝ) ^ 2) (γ / (M : ℝ) ^ 2) l θ₁ θ₂
       ((M : ℝ) ^ 2 * t) hαs hγs hPs (mul_pos hM2 ht0)
