@@ -453,6 +453,14 @@ the local family notation in its accessor theorems and one unused instance
 in the translation column-energy lemma. The next revision fixes those exact
 interface details; the strict terminal-axiom guards remain pending.
 
+The fourth pass, commit `e314af5ec57bc1bc8e7cb1ab6f1301402c73f95f`,
+compiled the complete `NativeRayLFam` module in both
+[native run 45186640629](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45186640629)
+and [targeted run 45186640879](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45186640879).
+Its sole remaining error was the placement of `omit` after a declaration's
+documentation comment in the translation module. Moving `omit` before the
+comment preserves the theorem and repairs that parser error.
+
 - Main and #1194 source trees were read at the exact commits above.
 - Integration conflicts were confined to generated manifests/search metadata.
 - The new mathematical inequalities were independently reviewed on paper.

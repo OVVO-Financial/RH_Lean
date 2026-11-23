@@ -64,9 +64,9 @@ def nativeTranslationTraceMatrix (u : G → ℤ) : Matrix G G ℤ :=
 def nativeTranslationTraceEnergy (u : G → ℤ) : ℝ :=
   ∑ i, (u i : ℝ) ^ 2
 
+omit [DecidableEq G] in
 /-- Translation invariance of counting measure identifies every column
 energy with the energy of the original integral section. -/
-omit [DecidableEq G] in
 theorem nativeTranslationTrace_column_energy (u : G → ℤ) (i : G) :
     (∑ h, (nativeTranslationTraceMatrix u h i : ℝ) ^ 2) =
       nativeTranslationTraceEnergy u := by
