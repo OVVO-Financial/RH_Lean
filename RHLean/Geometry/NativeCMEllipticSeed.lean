@@ -208,27 +208,35 @@ theorem cmAction_one : cmAction H τ 1 = AddMonoidHom.id _ := by
   apply AddMonoidHom.ext
   intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
-  simp
+  change QuotientAddGroup.mk' (period H τ).range (embed H τ 1 * z) =
+    QuotientAddGroup.mk' (period H τ).range z
+  rw [map_one, one_mul]
 
 theorem cmAction_mul (a b : OK H) :
     cmAction H τ (a * b) = (cmAction H τ a).comp (cmAction H τ b) := by
   apply AddMonoidHom.ext
   intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
-  simp [mul_assoc]
+  change QuotientAddGroup.mk' (period H τ).range (embed H τ (a * b) * z) =
+    QuotientAddGroup.mk' (period H τ).range (embed H τ a * (embed H τ b * z))
+  rw [map_mul, mul_assoc]
 
 theorem cmAction_add (a b : OK H) :
     cmAction H τ (a + b) = cmAction H τ a + cmAction H τ b := by
   apply AddMonoidHom.ext
   intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
-  simp [add_mul]
+  change QuotientAddGroup.mk' (period H τ).range (embed H τ (a + b) * z) =
+    QuotientAddGroup.mk' (period H τ).range (embed H τ a * z) +
+      QuotientAddGroup.mk' (period H τ).range (embed H τ b * z)
+  rw [map_add, add_mul, map_add]
 
 theorem cmAction_zero : cmAction H τ 0 = 0 := by
   apply AddMonoidHom.ext
   intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
-  simp
+  change QuotientAddGroup.mk' (period H τ).range (embed H τ 0 * z) = 0
+  rw [map_zero, zero_mul, map_zero]
 
 /-- The analytic elliptic points carry the genuine order module structure
 required by the Serre tensor functor. -/

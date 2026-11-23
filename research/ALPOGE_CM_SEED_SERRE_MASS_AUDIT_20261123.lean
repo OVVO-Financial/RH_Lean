@@ -1,11 +1,13 @@
 import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMSerreEquationPoints
-import RHLean.Geometry.NativeCMSerreEigenlatticeDegree
+import RHLean.Geometry.NativeCMAllPlaceEigenlineDegree
+import RHLean.Geometry.NativeCMIsogenyDerivativeNorm
+import RHLean.Geometry.NativeCMWeierstrassOriginBundle
+import RHLean.Geometry.NativeCMWeierstrassCMAction
 import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
 import RHLean.Geometry.NativeCMArithmeticPeriod
 import RHLean.Geometry.NativeMeasuredComponentNorm
-import RHLean.Geometry.NativeThetaCuspRationalCoordinates
-import RHLean.Geometry.NativeThetaCuspSplitLevel
+import RHLean.Geometry.NativeThetaCuspShiftedVacua
 import RHLean.Geometry.NativeThetaCuspHeisenberg
 import Lean.Util.CollectAxioms
 
@@ -127,7 +129,32 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.commonPhase_add_of_integral,
     ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.five_prime_ne_conj,
     ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level,
-    ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level_generators]
+    ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level_generators,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originOpen_sup_coordOpen_two,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_isLB,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.nonzeroLocus_originSec,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.placeExponential_exact_tangent,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.placeExponential_ker,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.discriminant_scale,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.neg_log_placeProfile,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.embeddingProfile_conjugate,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.eigenCoordinate_actualPeriod_degree,
+    ``RHLean.Geometry.NativeCM.IsogenyDerivativeNorm.exists_span_singleton_eq_map_of_integral,
+    ``RHLean.Geometry.NativeCM.IsogenyDerivativeNorm.sum_log_norm_embedding_eq_finrank_mul_log_absNorm,
+    ``RHLean.Geometry.NativeTheta.Cusp.Ambient.equiv_pairing,
+    ``RHLean.Geometry.NativeTheta.Cusp.Ambient.equiv_action,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedLattice.exists_five_shifted_selfDual,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedPhase.prescribed_commonPhase,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedPhase.phase_add,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedPhase.phase_sq,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.rescaledPeriods_g₂_eq_invariant,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.rescaledPeriods_g₃_eq_invariant,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.rescaledCMAction_equationCMAction,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_seed_with_rational_cm_action,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteOverlap.Good.proj,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteOverlap.Good.overlap,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedVacua.good_lattice,
+    ``RHLean.Geometry.NativeTheta.Cusp.ShiftedVacua.exists_native_shifted_vacua]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

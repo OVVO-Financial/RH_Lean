@@ -283,7 +283,7 @@ theorem inverse_extended_mem_iff (I : FractionalIdeal (𝓞 H.E)⁰ H.E) (hI : I
     ((FractionalIdeal.extendedHom_eq_zero_iff F (𝓞 F)).not.mpr hI)]
   constructor
   · intro ht y hy
-    apply FractionalIdeal.mem_one_iff.mp
+    apply (FractionalIdeal.mem_one_iff _).mp
     apply ht
     rw [← FractionalIdeal.mem_coe, FractionalIdeal.coe_extendedHom_eq_span]
     exact Submodule.subset_span ⟨y, hy, rfl⟩
@@ -292,7 +292,7 @@ theorem inverse_extended_mem_iff (I : FractionalIdeal (𝓞 H.E)⁰ H.E) (hI : I
     induction hy using Submodule.span_induction with
     | mem y hy =>
       obtain ⟨x, hx, rfl⟩ := hy
-      exact FractionalIdeal.mem_one_iff.mpr (ht x hx)
+      exact (FractionalIdeal.mem_one_iff _).mpr (ht x hx)
     | zero => simp
     | add x y _ _ hx hy =>
       rw [mul_add]

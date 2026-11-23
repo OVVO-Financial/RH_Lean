@@ -761,14 +761,18 @@ theorem bijective_awayEval_origin : Function.Bijective (awayEval W 1 (algebraMap
   have hc : (-1 : AwayRing W 1) • awayCoord W 1 = ![-awayCoord W 1 0, -1, -awayCoord W 1 2] := by
     ext1 j
     fin_cases j
-    · exact neg_one_mul _
+    · change (-1 : AwayRing W 1) * awayCoord W 1 0 = -awayCoord W 1 0
+      exact neg_one_mul (awayCoord W 1 0)
     · simp
-    · exact neg_one_mul _
+    · change (-1 : AwayRing W 1) * awayCoord W 1 2 = -awayCoord W 1 2
+      exact neg_one_mul (awayCoord W 1 2)
   have he : (W.map (awayConst W 1)).toProjective.Equation
       ![-awayCoord W 1 0, -1, -awayCoord W 1 2] := by
     rw [← hc]
-    exact (WeierstrassCurve.Projective.equation_smul _
-      (isUnit_one.neg : IsUnit (-1 : AwayRing W 1))).2 (equation_awayCoord W 1)
+    have hunit : IsUnit (- (1 : AwayRing W 1)) :=
+      (isUnit_one : IsUnit (1 : AwayRing W 1)).neg
+    exact (WeierstrassCurve.Projective.equation_smul (awayCoord W 1) hunit).2
+      (equation_awayCoord W 1)
   have hm := awayEval_awayCoord_mul W 1 (algebraMap R _) ![originZ W, -1, originW W]
     (equation_originZ_originW W) isUnit_one.neg
   set ℓ := awayEval W 1 (algebraMap R _) ![originZ W, -1, originW W]
@@ -882,10 +886,10 @@ def awayCover : (scheme W).AffineOpenCover :=
     (irrelevant_eq_span_coord W).le
 
 instance finiteType_grading_zero : Algebra.FiniteType (grading W 0) (HomRing W) :=
-  have : IsScalarTower R (grading W 0) (HomRing W) := by
-    apply IsScalarTower.of_algebraMap_eq
-    intro r
-    rfl
+  have : IsScalarTower R (grading W 0) (HomRing W) :=
+    ⟨fun r a b => by
+      change (r • (a : HomRing W)) * b = r • ((a : HomRing W) * b)
+      exact smul_mul_assoc r (a : HomRing W) b⟩
   Algebra.FiniteType.of_restrictScalars_finiteType R (grading W 0) (HomRing W)
 
 instance isProper_toSpec : IsProper (toSpec W) := by

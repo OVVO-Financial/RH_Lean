@@ -517,6 +517,114 @@ The same module lifts a proved quotient basis to actual integral vectors
 generator condition without asserting that the projective coefficient
 ideal has a global integral basis.
 
+### Actual place periods in the literal integral eigenline degree
+
+`NativeCMAllPlaceTangentPeriod` uniformizes the **same** integral equation
+`W/O_F`, with `Delta(W)=1`, at each infinite place. Each constructed pair
+`(Lambda_v,C_v)` retains its actual equation comparison and
+`u_v^12 Delta(Lambda_v)=1`. The actual point exponential has kernel
+`Lambda_v`, and its origin-coordinate first jet in direction `u_v` is the
+scalar extension of the original integral vector `[epsilon,-1,0]`.
+
+Its positive place profile is constructed as
+
+\[
+n_v=\frac{\pi|u_v|^2}{\operatorname{covol}(\Lambda_v)},\qquad
+-\log n_v=\log\frac{\operatorname{covol}(\Lambda_v)}\pi
+ +\frac16\log|\Delta(\Lambda_v)|.
+\]
+
+Pullback along `InfinitePlace.mk` supplies the exact conjugation convention
+used by `AllWt`. `NativeCMAllPlaceEigenlineDegree` then proves, for the
+**literal image** of the previously constructed integral eigen-coordinate,
+
+\[
+2\deg=\frac{1}{[F:\mathbf Q]}
+ \sum_{\sigma:F\hookrightarrow\mathbf C}
+ \operatorname{latticeLogPeriod}(\Lambda_{[\sigma]})
+ +\log\operatorname{rd}(K)-\log\operatorname{rd}(E).
+\]
+
+No arbitrary norm parameters remain in this theorem. The full embedding
+sum is retained. Identifying the place profile with the polarized Serre
+scheme's Lie norm still requires its represented Lie comparison and the
+conjugate-chart/polarization compatibility. Those claims are not hidden in
+the definition of the profile.
+
+### The actual origin line-bundle atlas
+
+`NativeCMLineBundleAtlas`, `NativeCMWeierstrassProjSections`, and
+`NativeCMWeierstrassOriginBundle` construct the two-chart bundle on the
+same projective cubic. The first open is the invertibility locus of the
+explicit origin cofactor; the other is the affine `Z != 0` chart. Their
+union is proved to be the whole scheme. The transition is the actual unit
+`X/Y` on their intersection, and all transition cocycle laws are proved.
+The canonical section is `(X/Y,1)` and its nonzero locus is exactly the
+affine chart. These are actual scheme sections and units of their rings,
+not a formal label for a polarization. Relative ampleness, symmetry,
+rigidification and the principal translation kernel are subsequent proofs.
+
+### Actual shifted lattice and one common phase
+
+`NativeThetaCuspAmbient` identifies `Q tensor_Z La` with the original
+`E^N`, proves the exact rational trace-pairing formula, and intertwines the
+actual coefficient action. `NativeThetaCuspShiftedLattice` constructs the
+literal conjugate-level quotient
+
+\[
+\operatorname{idq}(\mathfrak m,\overline{\mathfrak m},L)
+ =\{x:\overline{\mathfrak m}x\subseteq\mathfrak mL\},
+\]
+
+and proves its self-duality from the original one and the actual split-five
+modulus. `NativeThetaCuspShiftedPhase` transports the single half-root phase
+through the same rationalization equivalence. Its square-one and
+semicharacter laws are proved on each constructed shifted lattice. The
+phase is defined on the whole rational ambient, so no inverse of an
+integral inclusion is evaluated outside its image.
+
+`NativeThetaCuspFiniteOverlap` supplies the finite averaging projection
+and its exact overlap calculation. `NativeThetaCuspShiftedVacua` proves
+all its lattice and phase hypotheses from the actual original and shifted
+modules, constructs their normalized vacua in common coordinates, and
+retains the genuine subgroup relative index:
+
+\[
+[A:A\cap A']\,|\langle v,v'\rangle|^2=1.
+\]
+
+The native endpoint constructs the symplectic integer basis, actual split-five
+ideal, both vacua and their overlap together for the prescribed mixed-sign
+lattice. The integer basis is used for the rational Schrödinger coordinates;
+it does not replace `B^-1` by a free `O_E` module. The remaining cusp inputs
+include the complete auxiliary tensor-lattice family, Weil covariance,
+global theta/cusp realization, and geometric rank lower shares.
+
+### Exact arithmetic bridge identified by the source
+
+The source's `MeanLogCovolumeEqMeanClassGroup` compares the arithmetic and
+class-group means by a double sum. It needs a common field `F`, integral
+unit-discriminant equations for all ideal classes, and actual ideal
+isogenies between them. Their derivatives `beta_C` must satisfy both
+`beta_C b_C^-1 subset O_F` and `beta_C^-1 b_C subset O_F`, together with the
+corresponding two-sided period-lattice inclusions.
+
+The narrow native `NativeCMIsogenyDerivativeNorm` proves directly from
+those two literal integrality conditions that
+
+\[
+b_C O_F=(\beta_C),\qquad
+\sum_\sigma\log|\sigma\beta_C|=[F:K]\log N(b_C).
+\]
+
+This is a derived arithmetic norm identity; the genuine derivative
+integrality remains a geometric obligation. In the source, the fixed-class
+row sum follows from this identity and the discriminant product formula;
+the fixed-embedding column sum follows from the permutation of ideal
+classes and scale/conjugation invariance of the period expression. Fubini
+then equates the means. A separate Galois equidistribution assertion is not
+required by this source route.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -525,9 +633,9 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, literal tangent generator and exact invariant comparison | Algebraic CM action, polarizing line bundle and arithmetic Lie-period comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, literal tangent generator and exact invariant comparison | Integral CM action, origin-bundle polarization properties and arithmetic Lie-period comparison |
 | Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, integral coefficient eigenmodule, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
-| CM degree | Original covolume, actual elliptic integral tangent scale, exact integral tensor eigenideal and finite correction, native analytic Chowla--Selberg mean including the original seed | Scheme-theoretic Lie-to-tensor identification, equality with the all-embedding arithmetic mean and source CM frame value |
+| CM degree | Original covolume, actual elliptic integral tangent scale, exact integral tensor eigenideal and finite correction, native analytic Chowla--Selberg mean including the original seed | Scheme-theoretic Lie-to-tensor identification, integral ideal-isogeny family and double-sum class-mean comparison |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
 | Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice, actual split-five coefficient modulus and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
@@ -611,23 +719,36 @@ are being repaired without changing their mathematical claims. The
 mandatory warning-fatal closure failed, and the full native build was
 correctly skipped. This is not a verified integrated proof closure.
 
+The eighth snapshot `5738de9d7757dbfd48adca9839b2db2e33d781ae`, Actions
+run `45274075194`, passed the source audits. Hosted diagnostics compiled
+`NativeMeasuredComponentNorm`, `NativeCMLineDegree`, `NativeCMIdealClassPeriods`,
+`NativeCMChowlaSelberg`, `NativeCMPureBlockPositivity`, `NativeCMHermitianForm`,
+and the projective helper/addition-polynomial/nonvanishing chain cleanly.
+The mandatory check stopped on two unused-number-field-instance warnings;
+independent diagnostics exposed remaining seed coercion/normalization and
+rational-coordinate induction errors. Repairs retain the mathematical
+statements. The full native build was skipped; the combined closure and
+terminal-axiom audit still require a successful hosted run.
+
 ## Located continuation without inflated import closures
 
-The source's next arithmetic CM-action descent can use two Mathlib-based
-division-polynomial files, `GroundTheory/ArithmeticGeometry/AbelianVarieties/`
-`DivisionPoints.lean` and `NormEDS.lean`. Their general torsion criterion,
-with the nonzero division polynomial in characteristic zero, proves
-algebraicity of the coordinates of the actual finite kernel. The generator
-satisfies `w0*(1-w0)=(1+d)/4`, so its kernel is killed by this explicit
-positive integer. One must first retain the actual `u^-1*Lambda` scale,
-whose invariants are `c4(W)/12` and `c6(W)/216`, before descending rational
-CM isogeny formulas. This is a located source continuation, not an
-already-proved native algebraic endomorphism.
+The CM-action branch now uses a smaller cut than the general division-polynomial
+closure: torsion-coordinate algebraicity from finite torsion and extension of
+field embeddings, followed by the exact rational lattice-isogeny formula.
+`NativeCMWeierstrassCMAction` retains `u^-1 Lambda`, proves its invariants
+are `c4(W)/12` and `c6(W)/216`, and constructs a number field containing the
+same integral equation and all coefficients of the CM generator's formula.
+The numerator has leading coefficient `omega^-2`, its degree is the actual
+kernel cardinality, and the denominator degree is exactly one smaller.
+The derivative factor `omega^-1 (A'D-AD')/D^2` is retained in the y-coordinate.
+The point formula is intertwined with the original equation's CM action.
+It remains to construct the corresponding generic scheme morphism and
+prove extension over the integers; rational point formulas do not discharge
+those geometric obligations.
 
-For the cusp norm/overlap branch, a declaration-level dependency cut uses
-Heisenberg unitarity and cocycles, finite quotient projections, exact
-vacuum overlaps, and actual tensor-lattice relative indices. It avoids the
-large unrelated scheme/Moduli import surface. The actual family still needs
-vacua for every shifted projective lattice in the source level, rather than
-only rows of the one original lattice constructed here. These precise
-obligations remain open in this revision.
+For the cusp norm/overlap branch, the declaration cut now reaches the
+actual pair of normalized vacua and exact relative-index overlap above.
+It uses Heisenberg unitarity and cocycles, finite quotient projections and
+the literal shifted self-duality, while avoiding the unrelated scheme/Moduli
+import surface. Extending this pair to the complete auxiliary tensor-lattice
+system and proving its global automorphic realization remain open.

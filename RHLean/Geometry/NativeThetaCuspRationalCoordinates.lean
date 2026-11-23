@@ -101,6 +101,7 @@ theorem coord_integral (b : Basis (ι ⊕ ι) ℤ M) (x : κ → M) :
       (b.repr (x k) (Sum.inr i) : ℚ)
     simp
 
+omit [Fintype ι] in
 /-- No denominators or arbitrary inverse choices enter the inclusion of
 the original integral module into its rationalization. -/
 theorem integral_injective (b : Basis (ι ⊕ ι) ℤ M) :
@@ -167,17 +168,15 @@ def action (a : 𝓞 E) : Space D.La →ₗ[ℚ] Space D.La :=
 
 theorem form_skew (x y : Space D.La) : form D y x = -form D x y := by
   induction x using TensorProduct.inductionOn with
-  | zero => simp
   | add x x' hx hx' =>
     simp only [map_add, LinearMap.add_apply, hx, hx', neg_add]
   | tmul a x =>
     induction y using TensorProduct.inductionOn with
-    | zero => simp
     | add y y' hy hy' =>
       simp only [map_add, LinearMap.add_apply, hy, hy', neg_add]
     | tmul a' y =>
-      simp only [form, LinearMap.BilinForm.baseChange_tmul, AppellHumbert.form_skew,
-        Int.cast_neg, zsmul_eq_mul]
+      simp only [form, LinearMap.BilinForm.baseChange_tmul, zsmul_eq_mul]
+      rw [AppellHumbert.form_skew D x y, Int.cast_neg]
       ring
 
 theorem form_alt : (form D).IsAlt := by
@@ -189,12 +188,10 @@ theorem form_alt : (form D).IsAlt := by
 theorem action_adjoint (a : 𝓞 E) (x y : Space D.La) :
     form D (action D a x) y = form D x (action D (H.bar a) y) := by
   induction x using TensorProduct.inductionOn with
-  | zero => simp
   | add x x' hx hx' =>
     simp only [map_add, LinearMap.add_apply, hx, hx']
   | tmul q x =>
     induction y using TensorProduct.inductionOn with
-    | zero => simp
     | add y y' hy hy' =>
       simp only [map_add, hy, hy']
     | tmul q' y =>
@@ -205,7 +202,6 @@ theorem action_adjoint (a : 𝓞 E) (x y : Space D.La) :
 theorem action_halfRoot (x : Space D.La) :
     action D H.w0 x + action D (H.bar H.w0) x = x := by
   induction x using TensorProduct.inductionOn with
-  | zero => simp
   | add x y hx hy =>
     simp only [map_add]
     calc

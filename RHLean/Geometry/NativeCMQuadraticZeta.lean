@@ -194,7 +194,7 @@ variable (b : Basis (Fin 2) ℤ (𝓞 K)) (h0 : b 0 = 1) {t n : ℤ} (hw : b 1 ^
   (hP : P.under ℤ = .span {(p : ℤ)})
 include h0 hw hp hPm hP
 
-omit hPm in
+omit hPm [NumberField K] in
 theorem eq_span_of_no_root (h : ∀ β : ZMod p, β ^ 2 ≠ t * β - n) :
     P = Ideal.span {(p : 𝓞 K)} := by
   refine le_antisymm (fun z hz => ?_) ?_
@@ -220,7 +220,7 @@ theorem eq_span_of_no_root (h : ∀ β : ZMod p, β ^ 2 ≠ t * β - n) :
   · rw [Ideal.span_singleton_le_iff_mem]
     exact_mod_cast (int_dvd_of_mem hP p).2 dvd_rfl
 
-omit hw in
+omit hw [NumberField K] in
 theorem eq_ker_of_mem (φ : 𝓞 K →+* ZMod p) {c : ℤ} (hc : φ (b 1) = c) (hm : b 1 - c ∈ P) :
     P = RingHom.ker φ := by
   have := Fact.mk hp

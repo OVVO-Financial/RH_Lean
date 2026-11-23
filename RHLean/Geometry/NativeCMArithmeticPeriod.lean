@@ -65,12 +65,12 @@ theorem seedPeriod_eq_image_one :
   constructor
   · rintro ⟨a, rfl⟩
     refine ⟨(orderIntegerRingEquiv G a : quadraticField G), ?_, ?_⟩
-    · exact FractionalIdeal.mem_one_iff.mpr ⟨orderIntegerRingEquiv G a, rfl⟩
+    · exact (FractionalIdeal.mem_one_iff _).mpr ⟨orderIntegerRingEquiv G a, rfl⟩
     · change τ (((algebraMap (𝓞 (quadraticField G)) (𝓞 E)
         (orderIntegerRingEquiv G a)) : 𝓞 E) : E) = τ ((a : 𝓞 E) : E)
       rw [orderIntegerRingEquiv_inclusion]
   · rintro ⟨a, ha, hz⟩
-    obtain ⟨b, rfl⟩ := FractionalIdeal.mem_one_iff.mp ha
+    obtain ⟨b, rfl⟩ := (FractionalIdeal.mem_one_iff _).mp ha
     exact ⟨quadraticIntegersToOrder G b, hz⟩
 
 /-- The nontrivial Weierstrass scale is retained in the original polarized

@@ -1018,6 +1018,8 @@ import RHLean.Geometry.NativeAdicQuadraticNorm
 import RHLean.Geometry.NativeAllPlaceDescent
 import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceShortGenerators
+import RHLean.Geometry.NativeCMAllPlaceEigenlineDegree
+import RHLean.Geometry.NativeCMAllPlaceTangentPeriod
 import RHLean.Geometry.NativeCMArithmeticPeriod
 import RHLean.Geometry.NativeCMChowlaSelberg
 import RHLean.Geometry.NativeCMEllipticPolarization
@@ -1025,8 +1027,10 @@ import RHLean.Geometry.NativeCMEllipticSeed
 import RHLean.Geometry.NativeCMFiniteDegreeCorrection
 import RHLean.Geometry.NativeCMHermitianForm
 import RHLean.Geometry.NativeCMIdealClassPeriods
+import RHLean.Geometry.NativeCMIsogenyDerivativeNorm
 import RHLean.Geometry.NativeCMKroneckerIntegral
 import RHLean.Geometry.NativeCMKroneckerLimit
+import RHLean.Geometry.NativeCMLineBundleAtlas
 import RHLean.Geometry.NativeCMLineDegree
 import RHLean.Geometry.NativeCMOrderIdentification
 import RHLean.Geometry.NativeCMPeriodComparison
@@ -1046,6 +1050,7 @@ import RHLean.Geometry.NativeCMWeierstrassAddLawOrigin
 import RHLean.Geometry.NativeCMWeierstrassAddLawPolynomial
 import RHLean.Geometry.NativeCMWeierstrassAdditionMorphism
 import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
+import RHLean.Geometry.NativeCMWeierstrassCMAction
 import RHLean.Geometry.NativeCMWeierstrassCMIntegrality
 import RHLean.Geometry.NativeCMWeierstrassFiniteModel
 import RHLean.Geometry.NativeCMWeierstrassGroupFromPoints
@@ -1054,11 +1059,16 @@ import RHLean.Geometry.NativeCMWeierstrassIntegralSchemeSeed
 import RHLean.Geometry.NativeCMWeierstrassIntegralTangent
 import RHLean.Geometry.NativeCMWeierstrassLatticeCurve
 import RHLean.Geometry.NativeCMWeierstrassModularJ
+import RHLean.Geometry.NativeCMWeierstrassOriginBundle
 import RHLean.Geometry.NativeCMWeierstrassPAddition
+import RHLean.Geometry.NativeCMWeierstrassPeriodScaling
 import RHLean.Geometry.NativeCMWeierstrassPointChange
 import RHLean.Geometry.NativeCMWeierstrassPointUniformization
 import RHLean.Geometry.NativeCMWeierstrassProjHelpers
+import RHLean.Geometry.NativeCMWeierstrassProjSections
 import RHLean.Geometry.NativeCMWeierstrassQExpansion
+import RHLean.Geometry.NativeCMWeierstrassRationalIsogeny
+import RHLean.Geometry.NativeCMWeierstrassRationalNumerator
 import RHLean.Geometry.NativeCMWeierstrassReducedGroup
 import RHLean.Geometry.NativeCMWeierstrassScheme
 import RHLean.Geometry.NativeCMWeierstrassSchemePointExt
@@ -1067,6 +1077,7 @@ import RHLean.Geometry.NativeCMWeierstrassSeedComparison
 import RHLean.Geometry.NativeCMWeierstrassSeedPoints
 import RHLean.Geometry.NativeCMWeierstrassSmooth
 import RHLean.Geometry.NativeCMWeierstrassTorsion
+import RHLean.Geometry.NativeCMWeierstrassTorsionAlgebraicity
 import RHLean.Geometry.NativeCharacterTraceMaps
 import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
@@ -1125,6 +1136,8 @@ import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement
 import RHLean.Geometry.NativeThetaColumnActions
 import RHLean.Geometry.NativeThetaColumnLie
+import RHLean.Geometry.NativeThetaCuspAmbient
+import RHLean.Geometry.NativeThetaCuspFiniteOverlap
 import RHLean.Geometry.NativeThetaCuspHaar
 import RHLean.Geometry.NativeThetaCuspHaarAlgebra
 import RHLean.Geometry.NativeThetaCuspHeisenberg
@@ -1132,6 +1145,9 @@ import RHLean.Geometry.NativeThetaCuspInnerProduct
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
 import RHLean.Geometry.NativeThetaCuspRationalCoordinates
 import RHLean.Geometry.NativeThetaCuspSchwartz
+import RHLean.Geometry.NativeThetaCuspShiftedLattice
+import RHLean.Geometry.NativeThetaCuspShiftedPhase
+import RHLean.Geometry.NativeThetaCuspShiftedVacua
 import RHLean.Geometry.NativeThetaCuspSplitLevel
 import RHLean.Geometry.NativeThetaCuspVacuum
 import RHLean.Geometry.NativeThetaEvaluatedFamily

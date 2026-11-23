@@ -42,11 +42,14 @@ theorem quadraticFieldRoot_sq (G : NativeGeometricHost E) :
     quadraticFieldRoot G ^ 2 = -(G.d : quadraticField G) := by
   apply Subtype.ext
   change (G.rt : E) ^ 2 = -(G.d : E)
-  exact_mod_cast G.rt_sq
+  simpa only [map_pow, map_neg, map_natCast] using
+    congrArg (algebraMap (𝓞 E) E) G.rt_sq
 
 theorem quadraticField_finrank (G : NativeGeometricHost E) :
     Module.finrank ℚ (quadraticField G) = 2 := by
-  have hsq : (G.rt : E) ^ 2 = -(G.d : E) := by exact_mod_cast G.rt_sq
+  have hsq : (G.rt : E) ^ 2 = -(G.d : E) := by
+    simpa only [map_pow, map_neg, map_natCast] using
+      congrArg (algebraMap (𝓞 E) E) G.rt_sq
   exact NativeQuadraticSplitting.finrank_K (b := (G.rt : E)) G.d_prime.pos hsq
 
 private theorem exists_quadratic_integer_generator (G : NativeGeometricHost E) :
