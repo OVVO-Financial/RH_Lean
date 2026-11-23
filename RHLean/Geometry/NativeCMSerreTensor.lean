@@ -185,7 +185,8 @@ points by acting on the inverse-ideal factor. It is not replaced by only
 the quadratic-order action on the elliptic seed. -/
 theorem coefficientSerrePoints_smul_tmul (G : NativeGeometricHost H.E)
     (τ : H.E →+* ℂ) (B : Ideal (𝓞 H.E)) (a : 𝓞 H.E)
-    (x : coefficientIdeal H B) (z : EllipticSeed.Torus G τ) :
+    (x : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E))
+    (z : EllipticSeed.Torus G τ) :
     (a • x) ⊗ₜ[OK G] z = a • (x ⊗ₜ[OK G] z : coefficientSerrePoints H G τ B) :=
   TensorProduct.smul_tmul' a x z
 

@@ -637,12 +637,12 @@ lemma map_diagX (f : R →+* S) (P Q : Fin 3 → R) :
 
 lemma map_negDiagY (f : R →+* S) (P Q : Fin 3 → R) :
     negDiagY (W.map f) (f ∘ P) (f ∘ Q) = f (negDiagY W P Q) := by
-  simp only [negDiagY, map_ofNat, map_neg, map_add, map_sub, map_mul, map_pow,
+  simp only [negDiagY, map_ofNat, map_add, map_sub, map_mul, map_pow,
     WeierstrassCurve.map, Function.comp_apply]
 
 lemma map_diagZ (f : R →+* S) (P Q : Fin 3 → R) :
     diagZ (W.map f) (f ∘ P) (f ∘ Q) = f (diagZ W P Q) := by
-  simp only [diagZ, map_ofNat, map_neg, map_add, map_sub, map_mul, map_pow,
+  simp only [diagZ, map_ofNat, map_add, map_mul, map_pow,
     WeierstrassCurve.map, Function.comp_apply]
 
 end RHLean.Geometry.NativeCM.SchemeTheory.AddLaw

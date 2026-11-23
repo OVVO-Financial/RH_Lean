@@ -23,7 +23,7 @@ set_option relaxedAutoImplicit false
 
 noncomputable section
 
-open NumberField
+open NumberField IntermediateField
 
 namespace RHLean.Geometry.NativeCM
 
@@ -41,12 +41,13 @@ def quadraticFieldRoot (G : NativeGeometricHost E) : quadraticField G :=
 theorem quadraticFieldRoot_sq (G : NativeGeometricHost E) :
     quadraticFieldRoot G ^ 2 = -(G.d : quadraticField G) := by
   apply Subtype.ext
+  change (G.rt : E) ^ 2 = -(G.d : E)
   exact_mod_cast G.rt_sq
 
 theorem quadraticField_finrank (G : NativeGeometricHost E) :
     Module.finrank ℚ (quadraticField G) = 2 := by
-  apply NativeQuadraticSplitting.finrank_K G.d_prime.pos
-  exact_mod_cast G.rt_sq
+  have hsq : (G.rt : E) ^ 2 = -(G.d : E) := by exact_mod_cast G.rt_sq
+  exact NativeQuadraticSplitting.finrank_K (b := (G.rt : E)) G.d_prime.pos hsq
 
 private theorem exists_quadratic_integer_generator (G : NativeGeometricHost E) :
     ∃ w : 𝓞 (quadraticField G),
@@ -73,12 +74,14 @@ theorem quadraticIntegerGenerator_spec (G : NativeGeometricHost E) :
   apply RingOfIntegers.coe_injective
   have h1 := congrArg (fun a : quadraticField G => (a : E))
     (quadraticIntegerGenerator_spec G).1
-  have h2 := congrArg (fun a : 𝓞 E => (a : E)) G.two_weight_eq_one_add_root
-  push_cast at h1 h2
+  have h2 := congrArg (algebraMap (𝓞 E) E) G.two_weight_eq_one_add_root
+  push_cast at h1
+  simp only [map_mul, map_ofNat, map_add, map_one] at h2
+  change (2 : E) * (G.w0 : E) = 1 + (G.rt : E) at h2
   change (2 : E) *
     ((algebraMap (𝓞 (quadraticField G)) (𝓞 E) (quadraticIntegerGenerator G) : 𝓞 E) : E) =
       1 + (G.rt : E) at h1
-  linear_combination (1 / 2 : E) * h1 - (1 / 2 : E) * h2
+  exact mul_left_cancel₀ (two_ne_zero : (2 : E) ≠ 0) (h1.trans h2.symm)
 
 theorem quadraticInteger_image_mem_order (G : NativeGeometricHost E)
     (a : 𝓞 (quadraticField G)) :
@@ -134,12 +137,14 @@ def orderIntegerRingEquiv (G : NativeGeometricHost E) :
       ((algebraMap (𝓞 (quadraticField G)) (𝓞 E)
         (quadraticIntegerGenerator G) : 𝓞 E) : E)
   rw [orderIntegerRingEquiv_inclusion, quadraticIntegerGenerator_image]
+  rfl
 
 /-- In particular the original scalar action on any O_E-module is unchanged. -/
 theorem orderIntegerRingEquiv_smul (G : NativeGeometricHost E)
     {M : Type} [AddCommGroup M] [Module (𝓞 E) M] (a : OK G) (x : M) :
     algebraMap (𝓞 (quadraticField G)) (𝓞 E) (orderIntegerRingEquiv G a) • x = a • x := by
   rw [orderIntegerRingEquiv_inclusion]
+  rfl
 
 end RHLean.Geometry.NativeCM
 

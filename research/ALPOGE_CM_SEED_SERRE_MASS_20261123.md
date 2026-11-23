@@ -149,6 +149,17 @@ point equivalence joins this scheme's points to the existing exponential
 with the exact original period kernel. Algebraicity of the transported CM
 action and the polarizing line bundle still require proofs.
 
+`NativeCMWeierstrassAnalyticTangent.lean` removes the actual poles of
+`wp` and `wp'` and computes the derivatives of the origin-chart coordinates
+`-x/y` and `-1/y`. They are exactly `1/u` and zero. Consequently the
+analytic direction `z=u`, with the original coordinate-change unit,
+has first jet `[epsilon,-1,0]`. The proof identifies this jet as a scheme
+morphism with the scalar extension of the specified integral tangent
+generator. A joint existence theorem retains the same field, equation,
+coordinate change, exponential and nearby coordinates throughout.
+Thus the tangent scale in the period formula is tied to the actual
+integral generator; the mean over its arithmetic conjugates remains open.
+
 ### Exact analytic CM period, with the original seed in the class-group mean
 
 The five modules from `NativeCMKroneckerIntegral.lean` through
@@ -237,6 +248,27 @@ It identifies the actual coefficient form with
 same quadratic root. In particular its rank-one coefficient is proved to
 be one. The criterion concerns the integral span over the base ring;
 passing to its field span would lose the different contribution.
+
+`NativeCMSerreEigenlattice.lean` then constructs the literal integral
+tensor `O_F tensor_OK B^-1`. The coefficient action is explicitly the
+base change of multiplication on the **second** factor. Scalar action
+through the first factor would make the eigencondition vacuous and is
+not used. The actual perfect dual frame proves that evaluation into all
+root-fixing embedding coordinates is injective and that its range is
+their integral `O_F` span. The identity-character axis is exactly
+
+\[
+\bigl(O_F\otimes_{O_K}B^{-1}\bigr)_{\mathrm{id}}
+\simeq_{O_F}
+\operatorname{ext}_{F/E}(B^{-1}\mathfrak D_{E/K})
+=\operatorname{ext}_{F/E}(\overline B).
+\]
+
+The criterion is the literal condition
+`t*conjugate(B^-1) subset O_F`; inversion and conjugation give the stated
+different orientation. This is an integral linear equivalence, including
+the lattice index, for every field extension of the same host. The native
+joint theorem chooses the half-different once before those extensions.
 
 `nativeDyadicHost_exists_coefficientSerreConstruction` chooses one actual
 half-different from the host assumptions, retains its coprimality and
@@ -350,9 +382,10 @@ degree is
 
 Extension of this actual fractional ideal to any number field containing
 `E` preserves the normalized correction; its extension degree is retained
-and cancelled explicitly. The theorem proves the finite-ideal term.
-Identifying this ideal with the integral Lie eigenspace remains necessary
-before combining it with the arithmetic archimedean term.
+and cancelled explicitly. The integral tensor eigenmodule above is now
+identified with this exact ideal. Identifying that tensor with the Lie
+module of the represented Serre scheme remains necessary before asserting
+the arithmetic Lie degree.
 
 `NativeCMLineDegree.lean` carries this calculation into the existing
 `AllWt.deg`, using its actual singleton Gram frame and the finite relative
@@ -369,6 +402,10 @@ Specializing to `I=B^-1*D(E/K)` and to its actual extensions gives
 `2*deg = -mean(log n) + log rd(K) - log rd(E)`. The metric family is an
 explicit input to this generic degree theorem; identifying it with the
 constructed arithmetic Lie metric is not replaced by a definition.
+`NativeCMSerreEigenlatticeDegree.lean` applies this theorem to the image
+of the actual integral tensor eigenmodule under its proved injective
+coordinate map. It retains the integral index in this passage to
+`AllWt.deg`.
 
 ## 6. Measured component ranks and arithmetic degrees
 
@@ -439,6 +476,17 @@ cocycle, the theta-series covariance identity and unitarity for the
 original inner product. The strict overlap bound and complete Weil action
 remain separate parts of the source `IsSystem` construction.
 
+`NativeThetaCuspRationalCoordinates.lean` constructs a single ambient
+rationalization `Q tensor_Z La`, the base change of the original pairing,
+and the base change of the actual half-root action. Its coordinate map
+extends the same integral symplectic basis and preserves the form exactly.
+The common phase `exp(pi*i*sum EF_Q(x,w0*x))` is defined on this entire
+space. Its restriction equals the canonical integral phase; its unit norm,
+quadratic-refinement identity and cocycle under integral cross-pairings
+are proved. This supplies the common coordinates needed to compare shifted
+vacua, avoiding an inverse used outside the integral image. Shifted
+self-duality and the strict overlap bound remain separate obligations.
+
 The remaining source `SW.IsSystem` also requires level test functions,
 unitary Weil covariance, exact Haar norm, the strict off-diagonal overlap
 bound, support outside the level, isotropic no-coinvariants and an admissible
@@ -478,8 +526,8 @@ ASK/MAIN recombination, finite-place gains and divisor
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
 | CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, literal tangent generator and exact invariant comparison | Algebraic CM action, polarizing line bundle and arithmetic Lie-period comparison |
-| Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
-| CM degree | Original covolume and tangent determinant, exact finite different correction, native analytic Chowla--Selberg mean including the original seed | Actual Lie-eigenlattice identification, equality with the all-embedding arithmetic mean and source CM frame value |
+| Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, integral coefficient eigenmodule, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
+| CM degree | Original covolume, actual elliptic integral tangent scale, exact integral tensor eigenideal and finite correction, native analytic Chowla--Selberg mean including the original seed | Scheme-theoretic Lie-to-tensor identification, equality with the all-embedding arithmetic mean and source CM frame value |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
 | Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice, actual split-five coefficient modulus and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
@@ -552,6 +600,16 @@ native-specialization errors in measured norm, split level, native vacuum
 and two subtype coercions in the quadratic-order involution. These are
 repaired for the next hosted snapshot, which also includes the actual
 group scheme, exact analytic class-group period and Heisenberg laws above.
+
+The seventh snapshot `c20912e1b0445f953f1a00fbd562faf64d9b6bd6`, Actions
+run `45271744917`, passed the source audits. Hosted diagnostics compiled
+the quadratic order, finite-degree correction, native vacuum, split-five
+level, Haar algebra and Heisenberg laws cleanly. The analytic period chain
+compiled with deprecation or unused-variable warnings. Seed, integral
+scheme, Hermitian-form, line-degree and pure-block specialization errors
+are being repaired without changing their mathematical claims. The
+mandatory warning-fatal closure failed, and the full native build was
+correctly skipped. This is not a verified integrated proof closure.
 
 ## Located continuation without inflated import closures
 

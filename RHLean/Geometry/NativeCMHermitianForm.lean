@@ -204,7 +204,10 @@ theorem kLin_dual_frame {H : NativeGeometricHost E} (D : TraceLattice H) (ε : �
       ∀ a, a = ∑ i, kLin D ε a (y i) • x i := by
   obtain ⟨h, hK, -, -, -, -, -, hf⟩ := exists_kForm E H D ε
   have heq : h = kLin D ε := by
-    ext x y
+    apply LinearMap.ext
+    intro x
+    apply AddMonoidHom.ext
+    intro y
     exact Subtype.ext ((hK x y).trans (kFun_coe D ε x y).symm)
   subst h
   exact hf
@@ -260,7 +263,7 @@ theorem coefficient_kFun_formula (G : NativeGeometricHost H.E)
     (hbar : ∀ a : 𝓞 H.E, G.bar a = H.conj • a)
     (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
-    (ε : ℤˣ) (x y : coefficientIdeal H B) :
+    (ε : ℤˣ) (x y : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     ((kLin (coefficientTraceLattice H G hbar B hB) ε x y : OK G) : 𝓞 H.E) =
       (((ε : ℤ) * (integralTraceForm H B hB (G.w0 • x) y -
         integralTraceForm H B hB x y) : ℤ) : 𝓞 H.E) +

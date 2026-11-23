@@ -187,6 +187,7 @@ section Degree
 
 variable {K : Type} [Field K] [NumberField K]
 
+omit [NumberField K] in
 /-- A nonzero fractional ideal spans its actual one-dimensional generic
 fiber; no integral basis or principality is used. -/
 theorem fractionalIdeal_rank (I : FractionalIdeal (𝓞 K)⁰ K) (hI : I ≠ 0) :
@@ -351,7 +352,7 @@ theorem coefficientDifferent_line_degree [IsTotallyComplex H.E]
       (differentIdeal (𝓞 H.K) (𝓞 H.E) : FractionalIdeal (𝓞 H.E)⁰ H.E) ≠ 0 :=
     mul_ne_zero (inv_ne_zero (halfDifferent_ne_zero H B hB).1)
       (FractionalIdeal.coeIdeal_ne_zero.2 differentIdeal_ne_bot)
-  rw [degree_lineNorm n hn hc _ hI]
+  rw [← FractionalIdeal.coe_mul, degree_lineNorm n hn hc _ hI]
   have hfinite := coefficientDifferent_degree_correction H B hB
   linear_combination hfinite
 

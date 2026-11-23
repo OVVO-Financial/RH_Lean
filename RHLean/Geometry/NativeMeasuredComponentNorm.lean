@@ -219,7 +219,7 @@ def restrictionNorm (σ : K →+* ℂ) (f : V) : ℝ := measuredNorm (μ σ) (F 
 def componentNorm (σ : K →+* ℂ) (f : V) : ℝ :=
   measuredNorm (normalizedRestriction (μ σ) (S σ)) (F σ f)
 
-omit [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
+omit [NumberField K] [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 /-- A nonzero component lattice forces positive measured mass, because a
 zero-mass component would annihilate its actual positive Gram norm. -/
 theorem componentMass_pos_of_rank

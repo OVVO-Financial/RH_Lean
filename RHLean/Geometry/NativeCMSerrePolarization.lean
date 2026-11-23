@@ -139,7 +139,8 @@ theorem nativeDyadic_coefficientSerreMetric_im
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := coefficientTraceLattice H.toHostRaw G
       (nativeDyadicGeometricHost_bar_eq e q d he hH) B hB
-    ∀ (τ : cmTypeFinset H.toHostRaw) (x y : coefficientIdeal H.toHostRaw B),
+    ∀ (τ : cmTypeFinset H.toHostRaw)
+      (x y : (coefficientIdeal H.toHostRaw B : Submodule (𝓞 H.E) H.E)),
       (EllipticSeed.hermitian G (τ : H.E →+* ℂ)
         (embed G (τ : H.E →+* ℂ) (kLin D 1 x y)) 1).im =
           (integralTraceForm H.toHostRaw B hB x y : ℝ) := by
@@ -165,7 +166,8 @@ theorem nativeDyadic_coefficientSerreMetric
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := coefficientTraceLattice H.toHostRaw G
       (nativeDyadicGeometricHost_bar_eq e q d he hH) B hB
-    ∀ (τ : H.E →+* ℂ) (x : coefficientIdeal H.toHostRaw B),
+    ∀ (τ : H.E →+* ℂ)
+      (x : (coefficientIdeal H.toHostRaw B : Submodule (𝓞 H.E) H.E)),
       (x ≠ 0 → 0 < (EllipticSeed.hermitian G τ
         (embed G τ (kLin D 1 x x)) 1).re) ∧
       Real.pi * (EllipticSeed.hermitian G τ

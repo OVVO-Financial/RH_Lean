@@ -122,7 +122,7 @@ theorem dedekindZeta_eq_sum_realEisenstein (h2 : finrank ℚ K = 2) (hD : discr 
         rw [inv_eq_iff_mul_eq_one, ← ClassGroup.mk_mk0 K]
         conv_rhs => rw [← hc c, ← map_mul, ClassGroup.mk_eq_one_iff]
         rfl
-      simp only [this, Finset.sum_ite_eq, Finset.mem_univ, if_true]
+      simp only [this, Finset.sum_ite_eq, Finset.mem_univ, ite_true]
       ring
   have h4 := Complex.hasSum_ofReal.2 (h3.tsum_fiberwise Ideal.absNorm)
   rw [dedekindZeta, LSeries]
@@ -142,7 +142,7 @@ theorem LFunction_one_and_mean_log_eta [NeZero d] (h2 : finrank ℚ K = 2) (hD :
     (((∑ c, Real.log ((τ c).im * ‖ModularForm.eta (τ c)‖ ^ 4)) / classNumber K : ℝ) : ℂ)
       = (Real.eulerMascheroniConstant - Real.log (2 * √d) : ℝ)
         - deriv χ.LFunction 1 / χ.LFunction 1 := by
-  have hd0 := discr_pos h2 hD
+  have hd0 := discr_pos hD
   have hh : (0 : ℝ) < classNumber K := by exact_mod_cast classNumber_pos K
   have hA := tendsto_finsetSum Finset.univ fun c _ => tendsto_realEisenstein_sub_pole (τ c)
   replace hA := hA.congr (f₂ := fun s : ℝ => (∑ c, ∑' p : {p : ℤ × ℤ // p ≠ 0},
@@ -211,7 +211,7 @@ theorem log_norm_lattice_discriminant {L : PeriodPair} {a : ℂ} {τ : ℍ} (ha 
   have h1 := norm_ne_zero_iff.2 (ModularForm.eta_ne_zero τ.2)
   have h2 := norm_ne_zero_iff.2 ha
   rw [← latticeCurve_Δ, latticeCurve_Δ_eq_discriminant ha h, ModularForm.discriminant, norm_mul,
-    norm_pow, norm_pow, norm_div, show ‖(2 * π : ℂ)‖ = 2 * π by simp [Real.pi_pos.le],
+    norm_pow, norm_pow, norm_div, show ‖(2 * π : ℂ)‖ = 2 * π by simp,
     Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow,
     Real.log_div (by positivity) h2]
   norm_num
@@ -245,7 +245,7 @@ theorem chowla_selberg_eta {τ : ClassGroup (𝓞 K) → ℍ} (hτ : ∀ c, IsId
       = (Real.eulerMascheroniConstant + Real.log (2 * π / √d) : ℝ)
         - deriv χ.LFunction 1 / χ.LFunction 1 := by
   have h := (LFunction_one_and_mean_log_eta h2 hD hd hχ σ hτ).2
-  have hd0 := discr_pos h2 hD
+  have hd0 := discr_pos hD
   have hh : (0 : ℝ) < classNumber K := by exact_mod_cast classNumber_pos K
   have e : ∀ c, Real.log (4 * π * (τ c).im * ‖ModularForm.eta (τ c)‖ ^ 4)
       = Real.log (4 * π) + Real.log ((τ c).im * ‖ModularForm.eta (τ c)‖ ^ 4) := fun c => by
@@ -283,7 +283,7 @@ theorem chowla_selberg_discriminant :
       = (12 * Real.log (2 * π) - 6 * Real.log d + 6 * Real.eulerMascheroniConstant : ℝ)
         - 6 * (deriv χ.LFunction 1 / χ.LFunction 1) := by
   have h0 := chowla_selberg_lattice h2 hD hd hχ σ h𝔞 hL
-  have hd0 := discr_pos h2 hD
+  have hd0 := discr_pos hD
   have hh : (0 : ℝ) < classNumber K := by exact_mod_cast classNumber_pos K
   have e : ∀ c, Real.log ((absNorm (𝔞 c).1 : ℝ) ^ 6 * ‖(L c).g₂ ^ 3 - 27 * (L c).g₃ ^ 2‖)
       = 6 * Real.log (2 * π / √d) + 6 * latticeLogPeriod (L c) := fun c => by

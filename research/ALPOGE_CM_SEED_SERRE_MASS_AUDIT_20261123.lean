@@ -1,23 +1,10 @@
-import RHLean.Geometry.NativeCMQuadraticOrder
-import RHLean.Geometry.NativeCMOrderIdentification
 import RHLean.Geometry.NativeCMPeriodComparison
-import RHLean.Geometry.NativeCMEllipticPolarization
-import RHLean.Geometry.NativeCMHermitianForm
-import RHLean.Geometry.NativeCMSerreTensor
-import RHLean.Geometry.NativeCMSerrePeriods
-import RHLean.Geometry.NativeCMSerrePolarization
-import RHLean.Geometry.NativeCMSerreMixedPeriods
 import RHLean.Geometry.NativeCMSerreEquationPoints
-import RHLean.Geometry.NativeCMSerreEigenlatticeAlgebra
-import RHLean.Geometry.NativeCMFiniteDegreeCorrection
-import RHLean.Geometry.NativeCMLineDegree
-import RHLean.Geometry.NativeCMWeierstrassSeedComparison
-import RHLean.Geometry.NativeCMWeierstrassSeedPoints
-import RHLean.Geometry.NativeCMWeierstrassIntegralSchemeSeed
+import RHLean.Geometry.NativeCMSerreEigenlatticeDegree
+import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
 import RHLean.Geometry.NativeCMArithmeticPeriod
-import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeMeasuredComponentNorm
-import RHLean.Geometry.NativeThetaCuspNativeVacuum
+import RHLean.Geometry.NativeThetaCuspRationalCoordinates
 import RHLean.Geometry.NativeThetaCuspSplitLevel
 import RHLean.Geometry.NativeThetaCuspHeisenberg
 import Lean.Util.CollectAxioms
@@ -59,6 +46,11 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassLie.integral_tangent_coordinate,
     ``RHLean.Geometry.NativeCM.SchemeTheory.schemeExponential_kernel,
     ``RHLean.Geometry.NativeCM.SchemeTheory.exists_integral_group_scheme_seed,
+    ``RHLean.Geometry.NativeCM.WeierstrassTangent.originZ_hasDerivAt,
+    ``RHLean.Geometry.NativeCM.WeierstrassTangent.originW_hasDerivAt,
+    ``RHLean.Geometry.NativeCM.WeierstrassTangent.scaled_origin_firstJet_eq_integralVector,
+    ``RHLean.Geometry.NativeCM.WeierstrassTangent.actual_exponential_origin_coordinates,
+    ``RHLean.Geometry.NativeCM.WeierstrassTangent.exists_integral_group_scheme_seed_with_exact_tangent,
     ``RHLean.Geometry.NativeCM.PeriodArithmetic.KroneckerLimit.summable_and_abs_tsum_sub_integral_le,
     ``RHLean.Geometry.NativeCM.PeriodArithmetic.tendsto_realEisenstein_sub_pole,
     ``RHLean.Geometry.NativeCM.PeriodArithmetic.dedekindZeta_eq_mul_LFunction,
@@ -97,6 +89,11 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SerreEigenlattice.single_mem_span_iff_of_pairing,
     ``RHLean.Geometry.NativeCM.SerreEigenlattice.relative_trace_root,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficient_kLin_sum,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralEvaluation_injective,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralEvaluation_range,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.eigenCoordinate_range,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.eigenCoordinateEquiv,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_integralSerreEigenlattice,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_eq_conjHalf,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_degree_correction,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_baseChange_logNorm,
@@ -105,6 +102,7 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.LineDegree.degree_lineNorm,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_line_degree,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_extended_line_degree,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.eigenCoordinate_line_degree,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedBlockSplit_trace,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twice_coefficient_trace_halfRoot_eq_sum_sq,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicHalfRoot_pureBlockPositivity,
@@ -122,6 +120,11 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_pairing,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_selfDual,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.exists_native_vacuum,
+    ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.coord_integral,
+    ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.coord_pairing,
+    ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.action_adjoint,
+    ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.commonPhase_integral,
+    ``RHLean.Geometry.NativeTheta.Cusp.RationalCoordinates.commonPhase_add_of_integral,
     ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.five_prime_ne_conj,
     ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level,
     ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level_generators]

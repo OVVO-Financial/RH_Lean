@@ -1033,7 +1033,9 @@ import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeCMQuadraticOrder
 import RHLean.Geometry.NativeCMQuadraticZeta
+import RHLean.Geometry.NativeCMSerreEigenlattice
 import RHLean.Geometry.NativeCMSerreEigenlatticeAlgebra
+import RHLean.Geometry.NativeCMSerreEigenlatticeDegree
 import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeCMSerreMixedPeriods
 import RHLean.Geometry.NativeCMSerrePeriods
@@ -1043,6 +1045,7 @@ import RHLean.Geometry.NativeCMWeierstrassAddLawNonvanishing
 import RHLean.Geometry.NativeCMWeierstrassAddLawOrigin
 import RHLean.Geometry.NativeCMWeierstrassAddLawPolynomial
 import RHLean.Geometry.NativeCMWeierstrassAdditionMorphism
+import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
 import RHLean.Geometry.NativeCMWeierstrassCMIntegrality
 import RHLean.Geometry.NativeCMWeierstrassFiniteModel
 import RHLean.Geometry.NativeCMWeierstrassGroupFromPoints
@@ -1127,6 +1130,7 @@ import RHLean.Geometry.NativeThetaCuspHaarAlgebra
 import RHLean.Geometry.NativeThetaCuspHeisenberg
 import RHLean.Geometry.NativeThetaCuspInnerProduct
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
+import RHLean.Geometry.NativeThetaCuspRationalCoordinates
 import RHLean.Geometry.NativeThetaCuspSchwartz
 import RHLean.Geometry.NativeThetaCuspSplitLevel
 import RHLean.Geometry.NativeThetaCuspVacuum

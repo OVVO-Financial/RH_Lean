@@ -68,13 +68,14 @@ section
 variable (h2 : finrank ℚ K = 2) (hD : discr K = -d) (σ : K →+* ℂ)
 include h2 hD
 
+omit h2 in
 theorem discr_pos : (0 : ℝ) < d := by
   have := discr_ne_zero K
   exact_mod_cast (by omega : 0 < d)
 
 theorem norm_eq_sq (x : K) : (Algebra.norm ℚ x : ℝ) = ‖σ x‖ ^ 2 := by
   obtain ⟨b, t, h0, -, hi⟩ := exists_basis_embedding h2 hD σ
-  have hd := discr_pos h2 hD
+  have hd := discr_pos hD
   have hi0 : (σ (b 1)).im ≠ 0 := fun h => by rw [h] at hi; linarith
   let b' : Basis (Fin 2) ℚ K := b.localizationLocalization ℚ ℤ⁰ K
   have e0 : b' 0 = 1 := by simp [b', h0]
@@ -148,7 +149,7 @@ theorem hasSum_ideal (hd : 4 < d) (𝔞 : (FractionalIdeal (𝓞 K)⁰ K)ˣ) {s 
   have hmem : ∀ x I, x ∈ Φ ⁻¹' {I} ↔
       (I * 𝔞 : FractionalIdeal (𝓞 K)⁰ K) = spanSingleton _ (x : K) := fun x I => by
     rw [← hΦ, Units.mul_left_inj, coeIdeal_inj, Set.mem_preimage, Set.mem_singleton_iff, eq_comm]
-  have hN : (absNorm 𝔞.1 : ℝ) ≠ 0 := by simp [absNorm_eq_zero_iff]
+  have hN : (absNorm 𝔞.1 : ℝ) ≠ 0 := by simp
   refine (h.tsum_fiberwise Φ).congr_fun fun I => ?_
   have hval : ∀ x : Φ ⁻¹' {I}, (‖σ x.1‖ ^ 2 / absNorm 𝔞.1) ^ (-s)
       = (Ideal.absNorm I : ℝ) ^ (-s) := fun x => by
@@ -214,6 +215,7 @@ theorem exists_basis_of_image {𝔞 : FractionalIdeal (𝓞 K)⁰ K} {ω : ℂ} 
   exact ⟨Basis.mk hi hs, by simp [v, eα], by simp [v, eβ]⟩
 
 omit h2 hD in
+omit [NumberField K] in
 theorem ne_zero_of_image {𝔞 : FractionalIdeal (𝓞 K)⁰ K} (h0 : 𝔞 ≠ 0) {ω : ℂ} {τ : ℍ}
     (h : ∀ z, z ∈ σ '' 𝔞 ↔ ∃ m n : ℤ, ω * (m * (τ : ℂ) + n) = z) : ω ≠ 0 := by
   rintro rfl
@@ -226,7 +228,7 @@ theorem absNorm_eq_of_image {𝔞 : FractionalIdeal (𝓞 K)⁰ K} {ω : ℂ} {�
     (absNorm 𝔞 : ℝ) = 2 * ‖ω‖ ^ 2 * τ.im / √d := by
   obtain ⟨b, e0, e1⟩ := exists_basis_of_image σ hω h
   have := absNorm_mul_sqrt h2 hD σ 𝔞 b
-  have hd := discr_pos h2 hD
+  have hd := discr_pos hD
   have hy := τ.im_pos
   rw [e0, e1, show (ω * conj (ω * τ)).im = -(‖ω‖ ^ 2 * τ.im) by
     simp [Complex.sq_norm, Complex.normSq_apply]; ring, abs_neg,
@@ -244,7 +246,7 @@ theorem hasSum_ideal_of_image (hd : 4 < d) (𝔞 : (FractionalIdeal (𝓞 K)⁰ 
       ((2 / √d) ^ s * ∑' p : {p : ℤ × ℤ // p ≠ 0},
         τ.im ^ s / ‖(p.1.1 * τ + p.1.2 : ℂ)‖ ^ (2 * s)) := by
   have hω := ne_zero_of_image σ 𝔞.ne_zero h
-  have hd0 := discr_pos h2 hD
+  have hd0 := discr_pos hD
   have hy := τ.im_pos
   obtain ⟨b, e0, e1⟩ := exists_basis_of_image σ hω h
   refine hasSum_ideal h2 hD σ hd 𝔞 (by linarith) ?_
@@ -270,10 +272,10 @@ theorem exists_periodPair (𝔞 : (FractionalIdeal (𝓞 K)⁰ K)ˣ) :
     ∃ L : PeriodPair, (L.lattice : Set ℂ) = σ '' 𝔞.1 := by
   let b : Basis (Fin 2) ℤ (𝔞.1 : Submodule (𝓞 K) K) := finBasisOfFinrankEq ℤ _
     ((fractionalIdeal_rank K 𝔞).trans ((RingOfIntegers.rank K).trans h2))
-  have hd0 := discr_pos h2 hD
+  have hd0 := discr_pos hD
   have h0 : (σ (b 1) * conj (σ (b 0))).im ≠ 0 := by
     rw [← abs_ne_zero, ← absNorm_mul_sqrt h2 hD σ]
-    have : (absNorm 𝔞.1 : ℝ) ≠ 0 := by simp [absNorm_eq_zero_iff]
+    have : (absNorm 𝔞.1 : ℝ) ≠ 0 := by simp
     positivity
   refine ⟨⟨σ (b 0), σ (b 1), ?_⟩, ?_⟩
   · rw [LinearIndependent.pair_iff]

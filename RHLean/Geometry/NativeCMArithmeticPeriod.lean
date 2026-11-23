@@ -2,7 +2,8 @@ import RHLean.Geometry.NativeCMChowlaSelberg
 import RHLean.Geometry.NativeCMOrderIdentification
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
 
-/-!+# The exact class-group period on the actual native quadratic field
+/-!
+# The exact class-group period on the actual native quadratic field
 
 The literal field Q(G.rt), its ring of integers, its quadratic character and
 its ideal-class period lattices are constructed together. The principal

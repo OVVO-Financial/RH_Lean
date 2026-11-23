@@ -185,7 +185,7 @@ theorem SpecMap_ofHom_eq_awayι (φ : A →+* B) (hφ : (irrelevant 𝒜).toIdea
     rw [reassoc_of% hl, ← SpecMap_ΓSpecIso_hom, ← Spec.map_comp, ← Spec.map_comp]
     congr 1
     ext a
-    simp [ψ', IsLocalization.Away.lift_eq]
+    simp [ψ']
   rw [h2, ← Spec.map_comp]
   congr 2
   rw [← CommRingCat.ofHom_comp, awayLift, ← RingHom.comp_assoc]

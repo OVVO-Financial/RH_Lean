@@ -54,8 +54,9 @@ theorem period_injective : Function.Injective (period H τ) := by
   exact τ.injective h
 
 theorem two_mul_omega : 2 * omega H τ = 1 + τ (H.rt : E) := by
-  have h := congrArg (fun a : 𝓞 E => τ (a : E)) H.two_weight_eq_one_add_root
-  simpa [omega, embed_wK] using h
+  have h := congrArg (τ.comp (algebraMap (𝓞 E) E)) H.two_weight_eq_one_add_root
+  simpa only [map_mul, map_ofNat, map_add, map_one, RingHom.comp_apply,
+    omega, embed_wK] using h
 
 theorem root_im_ne_zero : (τ (H.rt : E)).im ≠ 0 := by
   intro hzero
@@ -91,6 +92,7 @@ theorem omega_im_sq : 4 * (omega H τ).im ^ 2 = H.d := by
   have hre := congrArg Complex.re hsq
   have him := congrArg Complex.im (two_mul_omega H τ)
   simp [sq, root_re_eq_zero H τ] at hre him
+  rw [← him] at hre
   nlinarith
 
 theorem abs_omega_im : |(omega H τ).im| = Real.sqrt H.d / 2 := by
@@ -154,9 +156,10 @@ theorem lattice_eq_span_periodBasis :
     refine ⟨![x.1, x.2], ?_⟩
     have hx := period_coordinates H τ x
     rw [(coordEquiv H).apply_symm_apply] at hx
-    simpa [Fin.sum_univ_two, zsmul_eq_mul, hx]
+    simp [Fin.sum_univ_two, zsmul_eq_mul, hx]
   · rintro ⟨n, hn⟩
     refine ⟨coordEquiv H (n 0, n 1), ?_⟩
+    change period H τ (coordEquiv H (n 0, n 1)) = z
     rw [period_coordinates]
     simpa [Fin.sum_univ_two, zsmul_eq_mul] using hn
 
@@ -202,24 +205,28 @@ def cmAction (a : OK H) : Torus H τ →+ Torus H τ :=
       QuotientAddGroup.mk' (period H τ).range (embed H τ a * z) := rfl
 
 theorem cmAction_one : cmAction H τ 1 = AddMonoidHom.id _ := by
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
   simp
 
 theorem cmAction_mul (a b : OK H) :
     cmAction H τ (a * b) = (cmAction H τ a).comp (cmAction H τ b) := by
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
   simp [mul_assoc]
 
 theorem cmAction_add (a b : OK H) :
     cmAction H τ (a + b) = cmAction H τ a + cmAction H τ b := by
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
   simp [add_mul]
 
 theorem cmAction_zero : cmAction H τ 0 = 0 := by
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period H τ).range x
   simp
 
@@ -252,8 +259,9 @@ def hermitian (z w : ℂ) : ℂ :=
 
 theorem hermitian_self (z : ℂ) :
     (hermitian H τ z z).re = |(omega H τ).im|⁻¹ * ‖z‖ ^ 2 := by
-  rw [hermitian, mul_assoc, Complex.mul_conj, Complex.normSq_eq_norm_sq]
-  simp
+  rw [hermitian, mul_assoc, Complex.mul_conj]
+  simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, mul_zero,
+    sub_zero, Complex.normSq_eq_norm_sq]
 
 theorem hermitian_pos {z : ℂ} (hz : z ≠ 0) : 0 < (hermitian H τ z z).re := by
   rw [hermitian_self]

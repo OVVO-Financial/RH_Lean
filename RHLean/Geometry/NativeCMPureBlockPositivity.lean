@@ -92,19 +92,19 @@ theorem twistedBlockSplit_trace (B : Ideal (𝓞 H.E))
         (twistedCoordinates H B (p + q) y i)
   change (∑ i, f i) = _
   rw [← Equiv.sum_comp finSumFinEquiv f, Fintype.sum_sum_type]
-  have hl (i : Fin p) : negTail (p + q) q (finSumFinEquiv (Sum.inl i)) = false := by
+  have hl (i : Fin p) : negTail (p + q) q (Fin.castAdd q i) = false := by
     apply negTail_false
-    simpa using i.isLt
-  have hr (i : Fin q) : negTail (p + q) q (finSumFinEquiv (Sum.inr i)) = true := by
+    simp
+  have hr (i : Fin q) : negTail (p + q) q (Fin.natAdd p i) = true := by
     apply negTail_true
     simp
-  simp [f, hl, hr, Finset.sum_neg_distrib, sub_eq_add_neg]
+  simp [f, hl, hr, sub_eq_add_neg]
 
 theorem twice_coefficient_trace_halfRoot
     (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (w : 𝓞 H.E) (hw : (2 : H.E) * (w : H.E) = 1 + H.sqd)
-    (x : coefficientIdeal H B) :
+    (x : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     (2 : ℚ) * (integralTraceForm H B hB (w • x) x : ℚ) =
       Algebra.trace ℚ H.E (H.conj (x : H.E) * x) := by
   have hcw : H.conj (w : H.E) = 1 - (w : H.E) := by
@@ -116,7 +116,7 @@ theorem twice_coefficient_trace_halfRoot
   let z := xi H * H.conj ((w : H.E) * x) * x
   have hz : z + H.conj z = H.conj (x : H.E) * x := by
     dsimp [z]
-    simp only [map_mul, conj_xi, conj_conj, hcw]
+    simp only [map_mul, map_sub, map_one, conj_xi, conj_conj, hcw]
     linear_combination
       (-xi H * H.conj (x : H.E) * (x : H.E)) * hw +
       (-H.conj (x : H.E) * (x : H.E)) * hxi
@@ -131,7 +131,7 @@ theorem twice_coefficient_trace_halfRoot_eq_sum_sq
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (hconj : ∀ (τ : H.E →+* ℂ) (a : H.E), τ (H.conj a) = conj (τ a))
     (w : 𝓞 H.E) (hw : (2 : H.E) * (w : H.E) = 1 + H.sqd)
-    (x : coefficientIdeal H B) :
+    (x : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     (2 : ℝ) * (integralTraceForm H B hB (w • x) x : ℝ) =
       ∑ τ : H.E →+* ℂ, ‖τ (x : H.E)‖ ^ 2 := by
   have ht := congrArg (fun a : ℚ => (a : ℝ))
@@ -145,15 +145,16 @@ theorem twice_coefficient_trace_halfRoot_eq_sum_sq
   rw [hs]
   apply Finset.sum_congr rfl
   intro τ _
-  rw [map_mul, hconj, mul_comm, Complex.mul_conj']
-  simp [Complex.normSq_eq_norm_sq]
+  simp only [map_mul, hconj, Complex.mul_re, Complex.conj_re, Complex.conj_im,
+    Complex.sq_norm, Complex.normSq_apply]
+  ring
 
 theorem coefficient_trace_halfRoot_pos
     (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (hconj : ∀ (τ : H.E →+* ℂ) (a : H.E), τ (H.conj a) = conj (τ a))
     (w : 𝓞 H.E) (hw : (2 : H.E) * (w : H.E) = 1 + H.sqd)
-    (x : coefficientIdeal H B) (hx : x ≠ 0) :
+    (x : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) (hx : x ≠ 0) :
     0 < integralTraceForm H B hB (w • x) x := by
   have hxE : (x : H.E) ≠ 0 := fun h => hx (Subtype.ext h)
   obtain ⟨τ⟩ : Nonempty (H.E →+* ℂ) := inferInstance
@@ -221,7 +222,7 @@ theorem nativeDyadicHalfRoot_pureBlockPositivity
     let H := nativeDyadicHostAx e q d he hH
     let _ : IsCMField H.E := H.der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
-    (∀ x : coefficientIdeal H.toHostRaw B, x ≠ 0 →
+    (∀ x : (coefficientIdeal H.toHostRaw B : Submodule (𝓞 H.E) H.E), x ≠ 0 →
       0 < integralTraceForm H.toHostRaw B hB (G.w0 • x) x) ∧
     (∀ N : ℕ, ∀ x : twistedLattice H.toHostRaw B N, x ≠ 0 →
       0 < twistedTraceForm H.toHostRaw B hB (fun _ => false) (G.w0 • x) x) ∧
@@ -233,7 +234,10 @@ theorem nativeDyadicHalfRoot_pureBlockPositivity
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
   have hw : (2 : H.E) * (G.w0 : H.E) = 1 + H.sqd := by
     have ht := congrArg (algebraMap (𝓞 H.E) H.E) G.two_weight_eq_one_add_root
-    simpa only [map_mul, map_ofNat, map_add, map_one] using ht
+    simp only [map_mul, map_ofNat, map_add, map_one] at ht
+    change (2 : H.E) * (G.w0 : H.E) = 1 + (G.rt : H.E) at ht
+    have hroot : (G.rt : H.E) = H.sqd := rfl
+    rwa [hroot] at ht
   have hc := nativeDyadicHostRaw_prescribed_embedding_conj e q d he hH
   exact ⟨fun x hx => coefficient_trace_halfRoot_pos H.toHostRaw B hB hc G.w0 hw x hx,
     fun N x hx => positive_block_trace_halfRoot_pos H.toHostRaw B hB hc G.w0 hw N x hx,
