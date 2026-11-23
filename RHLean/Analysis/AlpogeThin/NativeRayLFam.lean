@@ -149,28 +149,35 @@ def ofRayData : LFam := by
     conv := fun g n => aRay_mul_log K M (by omega) D g.toMul n
     sq := fun χ hχ n => RealCharacter.conv_real_addChar D χ hχ n }
 
-local notation "𝓕" => ofRayData K d M r hp hd hd100 hr h2 hM D
-
-@[simp] theorem ofRayData_B : 𝓕.B = 4 * (d : ℝ) * (M : ℝ) ^ 2 := rfl
+@[simp] theorem ofRayData_B :
+    (ofRayData K d M r hp hd hd100 hr h2 hM D).B =
+      4 * (d : ℝ) * (M : ℝ) ^ 2 := rfl
 
 @[simp] theorem ofRayData_kappa :
-    𝓕.κ = 2 * Real.pi / (Real.sqrt d * (M : ℝ) ^ 2) := rfl
+    (ofRayData K d M r hp hd hd100 hr h2 hM D).κ =
+      2 * Real.pi / (Real.sqrt d * (M : ℝ) ^ 2) := rfl
 
 @[simp] theorem ofRayData_a (g : Additive D.G) (n : ℕ) :
-    𝓕.a g n = aRay D g.toMul n := rfl
+    (ofRayData K d M r hp hd hd100 hr h2 hM D).a g n =
+      aRay D g.toMul n := rfl
 
 @[simp] theorem ofRayData_lam (g : Additive D.G) (n : ℕ) :
-    𝓕.lam g n = lamRay D g.toMul n := rfl
+    (ofRayData K d M r hp hd hd100 hr h2 hM D).lam g n =
+      lamRay D g.toMul n := rfl
 
 /-- Keep the sharper all-time estimate on this literal constructed family. -/
 theorem ofRayData_sharp_theta (g : Additive D.G) (t : ℝ) (ht : 0 < t) :
-    Summable (fun n : ℕ => 𝓕.a g n * Real.exp (-(t * n))) ∧
-    |∑' n : ℕ, 𝓕.a g n * Real.exp (-(t * n)) - 𝓕.κ / t| ≤
+    Summable (fun n : ℕ =>
+      (ofRayData K d M r hp hd hd100 hr h2 hM D).a g n * Real.exp (-(t * n))) ∧
+    |∑' n : ℕ,
+        (ofRayData K d M r hp hd hd100 hr h2 hM D).a g n * Real.exp (-(t * n)) -
+      (ofRayData K d M r hp hd hd100 hr h2 hM D).κ / t| ≤
       (3 * Real.pi / 8) * d * Real.sqrt d * (M : ℝ) ^ 2 * t := by
   exact (rayCountTheta K d M r hp hd hd100 hr h2 hM D g.toMul).2 t ht
 
 /-- The original prime-support consumer follows, in fact, at every norm. -/
-theorem ofRayData_normOne (n : ℕ) (hn : 𝓕.lam 0 n ≠ 0) :
+theorem ofRayData_normOne (n : ℕ)
+    (hn : (ofRayData K d M r hp hd hd100 hr h2 hM D).lam 0 n ≠ 0) :
     Formalism.HermitianLattices.ZeroFreeRegionGL2.IsNormOne d M n := by
   exact NormOne.isNormOne_of_lamRay_ne_zero hp hd hr h2 D n hn
 

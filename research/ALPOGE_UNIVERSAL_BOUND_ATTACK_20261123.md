@@ -441,6 +441,18 @@ propositional instance syntax. The statements and verification gates remain
 unchanged. The complete arithmetic-family constructor and terminal-axiom
 guards still require a successful hosted pass after these supplier repairs.
 
+The third hosted pass used commit
+`4bb29ec74bf1f364452de03c60b75429e8daf8e5`:
+[native run 45185740687](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45185740687)
+and [targeted run 45185740614](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45185740614).
+All arithmetic suppliers compiled without warnings, including prime-power
+mass, signed real-character convolution, class cardinality, norm support and
+the sharp same-coefficient count/theta estimate. The family constructor body
+also elaborated. The remaining diagnostics were qualified-name parsing of
+the local family notation in its accessor theorems and one unused instance
+in the translation column-energy lemma. The next revision fixes those exact
+interface details; the strict terminal-axiom guards remain pending.
+
 - Main and #1194 source trees were read at the exact commits above.
 - Integration conflicts were confined to generated manifests/search metadata.
 - The new mathematical inequalities were independently reviewed on paper.
