@@ -74,7 +74,7 @@
         "NativeRawHostPolarization.prescribedLattice"
       ],
       "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
-      "native_sha256": "71416ba70804705718d3382a8a8108e743f8086f33945d6ccb1c1f75c5bd8608"
+      "native_sha256": "f70983b1b2b53f91d59cf027eed856dca9742a481bf675bcd4ec8473ff1e4243"
     },
     {
       "path": "RHLean/Geometry/NativePolarizationCoefficientLattice.lean",

@@ -123,8 +123,8 @@
         "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedPolarizationLattices"
       ],
       "construction": "The same literal source product span AA*L0 is proved equal to the full product of the actual coefficient ideal B^-1. An explicit signed coordinate duality constructs its perfect alternating integral form with exact rational value Tr(xi*hT), plus finite projectivity, OE-rank k+m-1 and Z-rank (k+m-1)*(4*2^e). The native endpoint constructs one B and hB from nativeDyadicHostRaw_principal for all j. It assumes no isometry, complex structure or Datum.",
-      "native_sha256": "71416ba70804705718d3382a8a8108e743f8086f33945d6ccb1c1f75c5bd8608",
-      "native_lines": 416,
+      "native_sha256": "f70983b1b2b53f91d59cf027eed856dca9742a481bf675bcd4ec8473ff1e4243",
+      "native_lines": 420,
       "initial_source_reconstruction_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
     }
   ],

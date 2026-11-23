@@ -53,7 +53,8 @@ theta sections or a cusp-density premise. -/
 theorem span_rawShortValue_family
     (cc : T → T) (isX : T → Prop) (a : T → ℕ → ℕ)
     (S : Finset (MvPolynomial (Letter T r n) K))
-    (hspan : (Submodule.span K (S : Set _) : Set _) = HHa r n K cc isX a)
+    (hspan : (Submodule.span K
+      (S : Set (MvPolynomial (Letter T r n) K))).carrier = HHa r n K cc isX a)
     (β : K) (index N : ℕ) (w : Q → K)
     (jet : Q → J → Fin n → (Row T r →₀ ℕ) → A) :
     Submodule.span K (rawShortValue β index N w jet '' (S : Set _)) =
@@ -74,7 +75,8 @@ theorem span_rawShortValue_family
 theorem span_shortValueOfFormalGerms_family [Algebra ℚ A] {d : ℕ}
     (cc : T → T) (isX : T → Prop) (a : T → ℕ → ℕ)
     (S : Finset (MvPolynomial (Letter T r n) K))
-    (hspan : (Submodule.span K (S : Set _) : Set _) = HHa r n K cc isX a)
+    (hspan : (Submodule.span K
+      (S : Set (MvPolynomial (Letter T r n) K))).carrier = HHa r n K cc isX a)
     (β : K) (index N : ℕ) (w : Q → K)
     (F : Fin d → Series A 2 d) (actW0 : Fin d → Series A 1 d)
     (h : Series A 2 d) (u : Row T r → Fin d → A)
@@ -161,7 +163,8 @@ theorem exists_short_integral_HHa_evaluation_family
         P.IsHomogeneous D ∧
         (∀ ν : K →+* ℂ, ∑ m ∈ P.support, ‖ν (P.coeff m)‖ ≤ B) ∧
         CoeffNorm.allEmbeddingNorm P ≤ Real.sqrt (Module.finrank ℚ K) * B) ∧
-      (Submodule.span K (S : Set _) : Set _) =
+      (Submodule.span K
+        (S : Set (MvPolynomial (RHLean.Geometry.NativeTheta.Letter ι dim n) K))).carrier =
         RHLean.Geometry.NativeTheta.HHa dim n K σ Ψ a ∧
       S.card ≤ (dg + 1) ^ (r * (2 * p + q)) ∧
       Submodule.span K

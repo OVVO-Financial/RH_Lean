@@ -211,7 +211,7 @@ theorem twistedLattice_rank_int (B : Ideal (𝓞 H.E))
     _ = N * Module.finrank ℚ H.E := by
       rw [Module.finrank_pi_fintype]
       simp only [coefficientIdeal_rank H B hB, Finset.sum_const,
-        Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        Finset.card_univ, Fintype.card_fin, nsmul_eq_mul, Nat.cast_id]
 
 /-- Multiplication by the literal diagonal signs is an integral involution. -/
 def signedCoordinates {B : Ideal (𝓞 H.E)} {N : ℕ} (neg : Fin N → Bool) :
@@ -219,12 +219,16 @@ def signedCoordinates {B : Ideal (𝓞 H.E)} {N : ℕ} (neg : Fin N → Bool) :
       (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) where
   toFun x i := (sgn (neg i) : ℤ) • x i
   invFun x i := (sgn (neg i) : ℤ) • x i
-  left_inv x := funext fun i => by rw [smul_smul, sgn_mul_self, one_smul]
-  right_inv x := funext fun i => by rw [smul_smul, sgn_mul_self, one_smul]
+  left_inv x := funext fun i => by
+    change (sgn (neg i) : ℤ) • ((sgn (neg i) : ℤ) • x i) = x i
+    rw [smul_smul, sgn_mul_self, one_smul]
+  right_inv x := funext fun i => by
+    change (sgn (neg i) : ℤ) • ((sgn (neg i) : ℤ) • x i) = x i
+    rw [smul_smul, sgn_mul_self, one_smul]
   map_add' x y := funext fun i => smul_add _ _ _
   map_smul' c x := funext fun i => by
-    simp only [Pi.smul_apply, smul_smul]
-    rw [mul_comm]
+    change (sgn (neg i) : ℤ) • (c • x i) = c • ((sgn (neg i) : ℤ) • x i)
+    exact smul_comm _ _ _
 
 /-- The perfect coefficient form, coordinatewise, followed by the finite
 product/dual equivalence. This constructs the full signed perfect form. -/
@@ -289,7 +293,7 @@ theorem twistedTraceForm_cast (B : Ideal (𝓞 H.E))
   change ((sgn (neg i) : ℤ) : ℚ) *
       Algebra.trace ℚ H.E (xi H * H.conj (x.1 i) * y.1 i) =
     Algebra.trace ℚ H.E (xi H * (H.conj (x.1 i) * sgn (neg i) * y.1 i))
-  cases h : neg i <;> simp [h, sgn, mul_assoc]
+  cases neg i <;> simp [sgn, mul_assoc]
 
 theorem twistedTraceForm_bijective (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
