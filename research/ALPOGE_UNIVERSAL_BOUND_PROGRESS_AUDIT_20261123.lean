@@ -1,5 +1,10 @@
 import RHLean.Geometry.NativeTranslationTraceVolume
 import RHLean.Analysis.AlpogeThin.NativeRayCountTheta
+import RHLean.Analysis.AlpogeThin.NativeRayPrimePowerMass
+import RHLean.Analysis.AlpogeThin.NativeRayNormOne
+import RHLean.Analysis.AlpogeThin.NativeRayClassBound
+import RHLean.Analysis.AlpogeThin.NativeRayRealCharacter
+import RHLean.Analysis.AlpogeThin.NativeRayLFam
 
 /-!
 # Universal ray-count/theta and integral-volume terminal-axiom audit
@@ -45,4 +50,76 @@ set_option pp.width 240
 /-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.rayCountTheta' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.NativeRay.rayCountTheta
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.finite_mass_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.finite_mass_le
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.ray_mass_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.ray_mass_le
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.quadratic_ray_mass_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.PrimePowerMass.quadratic_ray_mass_le
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.NormOne.exists_generator_absNorm_formula' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.NormOne.exists_generator_absNorm_formula
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.NormOne.isNormOne_span' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.NormOne.isNormOne_span
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.NormOne.isNormOne_of_lamRay_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.NormOne.isNormOne_of_lamRay_ne_zero
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeIdealClassBound.ncard_ideal_absNorm_eq_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeIdealClassBound.ncard_ideal_absNorm_eq_le
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeIdealClassBound.classNumber_le_abs_discr_of_finrank_eq_two' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeIdealClassBound.classNumber_le_abs_discr_of_finrank_eq_two
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.discr_eq_neg_of_sq_eq_neg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.discr_eq_neg_of_sq_eq_neg
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayData.card_le_d_mul_sq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayData.card_le_d_mul_sq
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.card_ray_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.card_ray_le
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.r_bounds' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.r_bounds
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_aRay' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_aRay
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_real_char' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_real_char
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_real_addChar' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RealCharacter.conv_real_addChar
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_sharp_theta' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_sharp_theta
+
+/-- info: 'RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_normOne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_normOne
 

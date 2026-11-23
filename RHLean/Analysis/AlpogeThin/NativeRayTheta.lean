@@ -132,7 +132,7 @@ theorem theta_qForm_all_time
         ((α * t) ^ 2 + (γ * t) ^ 2 + (α * t) ^ 2 * (γ * t) ^ 2)
         = Real.pi / Real.sqrt (α * γ) * t *
             (α ^ 2 + γ ^ 2 + α ^ 2 * γ ^ 2 * t ^ 2) := by
-          field_simp
+          field_simp <;> ring
       _ ≤ Real.pi / Real.sqrt (α * γ) * t * (3 * (α * γ) ^ 2) :=
         mul_le_mul_of_nonneg_left hpoly (by positivity)
       _ = _ := by ring
@@ -142,7 +142,7 @@ theorem theta_qForm_all_time
         (mul_nonneg hγ0.le (sq_nonneg _))
     have hmono : (∑' v : ℤ × ℤ, Real.exp (-(t * qForm α γ l θ₁ θ₂ v))) ≤
         ∑' v : ℤ × ℤ, Real.exp (-(1 * qForm α γ l θ₁ θ₂ v)) := by
-      apply tsum_le_tsum _ h.1 hs1.1
+      apply Summable.tsum_le_tsum _ h.1 hs1.1
       intro v
       rw [Real.exp_le_exp]
       nlinarith [mul_le_mul_of_nonneg_right h1t (hq v)]

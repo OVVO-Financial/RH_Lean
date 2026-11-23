@@ -260,7 +260,7 @@ theorem qForm_count : ∀ α γ l θ₁ θ₂ x : ℝ, 0 < α → 0 < γ → 0 <
   have hset : {v : ℤ × ℤ | qForm α γ l θ₁ θ₂ v ≤ x}
       = ↑((Finset.range n).biUnion (fun i : ℕ => (F (k0 + i)).image (fun m => (m, k0 + (i : ℤ))))) := by
     ext ⟨m, k⟩
-    simp only [Set.mem_setOf_eq, Finset.coe_biUnion, Finset.coe_image, Set.mem_iUnion,
+    simp only [Set.mem_ofPred_eq, Finset.coe_biUnion, Finset.coe_image, Set.mem_iUnion,
       Set.mem_image, Finset.mem_coe, Prod.mk.injEq, qForm]
     constructor
     · intro hq
@@ -332,8 +332,7 @@ theorem qForm_count : ∀ α γ l θ₁ θ₂ x : ℝ, 0 < α → 0 < γ → 0 <
         apply Finset.eq_empty_iff_forall_notMem.mpr
         intro m hm
         have hm' := (hF (k0 + i) m).mp hm
-        have hp := mul_nonneg hα0.le (sq_nonneg ((m : ℝ) + (θ₁ + l * (k0 + (i : ℤ)))))
-        linarith
+        exact (not_le_of_gt hy) ((mul_nonneg hα0.le (sq_nonneg _)).trans hm')
       have hz : Real.sqrt ((x - γ * (((k0 + (i : ℤ) : ℤ) : ℝ) + θ₂) ^ 2) / α) = 0 :=
         Real.sqrt_eq_zero'.mpr (div_nonpos_of_nonpos_of_nonneg hy.le hα0.le)
       push_cast at hz
@@ -343,13 +342,13 @@ theorem qForm_count : ∀ α γ l θ₁ θ₂ x : ℝ, 0 < α → 0 < γ → 0 <
   have hinj : Function.Injective (fun i : ℕ => k0 + (i : ℤ)) := by
     intro i j hij
     exact_mod_cast (add_left_cancel hij)
-  have hsub : S.image (fun i => k0 + (i : ℤ)) ⊆ J := by
+  have hsub : S.image (fun i : ℕ => k0 + (i : ℤ)) ⊆ J := by
     intro k hk
     obtain ⟨i, hi, rfl⟩ := Finset.mem_image.mp hk
     exact (Finset.mem_filter.mp hi).2
   have hcard : S.card ≤ J.card := by
-    calc S.card = (S.image (fun i => k0 + (i : ℤ))).card :=
-        (Finset.card_image_of_injective _ hinj).symm
+    calc S.card = (S.image (fun i : ℕ => k0 + (i : ℤ))).card :=
+        (Finset.card_image_of_injective S hinj).symm
       _ ≤ J.card := Finset.card_le_card hsub
   have hsumJ : (∑ i ∈ Finset.range n,
       if k0 + (i : ℤ) ∈ J then (1 : ℝ) else 0) ≤ (J.card : ℝ) := by

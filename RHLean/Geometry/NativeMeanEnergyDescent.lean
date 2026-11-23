@@ -48,6 +48,7 @@ theorem product_le_power_of_sum_le (e : I → ℝ) (H : ℝ)
       (Real.rpow_nonneg hp _) (hg.trans hm) hi.le
     _ = H ^ Fintype.card I := Real.rpow_natCast H _
 
+omit [Fintype I] in
 /-- The diagonal of the Gram matrix is the original column energy. -/
 theorem gram_diagonal_re_eq_columnEnergy (M : Matrix J I ℂ) (i : I) :
     ((Mᴴ * M) i i).re = columnEnergy (M.col i) := by
@@ -78,8 +79,10 @@ theorem row_energy_le_of_operator_energy (M : Matrix J I ℂ) (H : ℝ)
   have hentry : (M *ᵥ z) j = (E : ℂ) := by
     simp [Matrix.mulVec, dotProduct, z, E, columnEnergy, Matrix.row,
       RCLike.star_def, RCLike.mul_conj, ← Complex.ofReal_pow]
-  have hsingle : ‖(M *ᵥ z) j‖ ^ 2 ≤ columnEnergy (M *ᵥ z) :=
-    Finset.single_le_sum (fun _ _ => sq_nonneg _) (Finset.mem_univ j)
+  have hsingle : ‖(M *ᵥ z) j‖ ^ 2 ≤ columnEnergy (M *ᵥ z) := by
+    change ‖(M *ᵥ z) j‖ ^ 2 ≤ ∑ k : J, ‖(M *ᵥ z) k‖ ^ 2
+    exact Finset.single_le_sum (fun k _ => sq_nonneg ‖(M *ᵥ z) k‖)
+      (Finset.mem_univ j)
   have hbound := hM z
   rw [hz] at hbound
   have hsq : E ^ 2 ≤ H * E := by
@@ -115,7 +118,7 @@ def jointMapMatrix (φ : Q → Matrix J I ℂ) : Matrix (J × Q) I ℂ :=
 theorem jointMapMatrix_total_column_energy (φ : Q → Matrix J I ℂ) :
     (∑ i, columnEnergy ((jointMapMatrix φ).col i)) =
       ∑ h : Q, ∑ i, columnEnergy ((φ h).col i) := by
-  simp only [columnEnergy, jointMapMatrix, Matrix.col, Fintype.sum_prod_type]
+  simp only [columnEnergy, Matrix.col, Fintype.sum_prod_type]
   calc
     (∑ i : I, ∑ j : J, ∑ h : Q, ‖φ h j i‖ ^ 2) =
         ∑ i : I, ∑ h : Q, ∑ j : J, ‖φ h j i‖ ^ 2 := by
@@ -151,6 +154,7 @@ section IntegralDescent
 variable {K I J : Type*} [Field K] [NumberField K]
   [Fintype I] [DecidableEq I] [Fintype J] [DecidableEq J]
 
+omit [DecidableEq J] in
 /-- Replace the original worst-direction image estimate by a mean-energy
 estimate in the same metric. No lattice or source is redefined. -/
 theorem image_gram_bound_of_mean_energy (A : Metric K I) (σ : K →+* ℂ)

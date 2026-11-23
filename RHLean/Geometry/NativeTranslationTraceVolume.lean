@@ -100,8 +100,8 @@ theorem nativeTranslationTrace_energy_le (u : G → ℤ) (B : ℝ)
     _ ≤ ∑ _ : G, B ^ 2 := by
       apply Finset.sum_le_sum
       intro i _
-      have h := hu i
-      nlinarith [sq_abs (u i : ℝ), abs_nonneg (u i : ℝ)]
+      simpa only [sq_abs] using
+        (sq_le_sq₀ (abs_nonneg (u i : ℝ)) hB).2 (hu i)
     _ = _ := by simp
 
 /-- The q^2 volume price is valid even when the corresponding q^2
