@@ -53,8 +53,9 @@ theorem abs_norm_le_absNorm_of_reverse_integral
     field_simp [haM, hdM]
     <;> ring
   have hId : Ideal.absNorm (Ideal.span {d}) ≠ 0 := by
-    rw [Ideal.absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot]
-    exact hd0
+    intro hz
+    have hz' : Ideal.span {d} = ⊥ := Ideal.absNorm_eq_zero_iff.mp hz
+    exact hd0 (Ideal.span_singleton_eq_bot.mp hz')
   have hII : Ideal.absNorm I ≠ 0 := Ideal.absNorm_eq_zero_iff.not.mpr hI
   have hprod : 0 < Ideal.absNorm (Ideal.span {d} * I) := by
     rw [map_mul]
@@ -87,7 +88,9 @@ theorem abs_norm_le_absNorm_pow_of_reverse_integral
   let B : Ideal (𝓞 M) := b.map (algebraMap (𝓞 K) (𝓞 M))
   let J : Ideal (𝓞 M) :=
     { carrier := {y | IsIntegral ℤ (β⁻¹ * (y : M))}
-      zero_mem' := by simp
+      zero_mem' := by
+        change IsIntegral ℤ (β⁻¹ * (0 : M))
+        simpa only [mul_zero] using (isIntegral_zero : IsIntegral ℤ (0 : M))
       add_mem' := by
         intro y z hy hz
         change IsIntegral ℤ (β⁻¹ * ((y : M) + (z : M)))

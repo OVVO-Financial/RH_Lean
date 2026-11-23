@@ -97,6 +97,39 @@ central sum, or pay the weighted shift sum after division by `Q`. Those
 remain explicit quantitative obligations. In particular, the logarithmic
 exponent count by itself is not a root-scale estimate after summing primes.
 
+More precisely, sum the retained source over the actual `t`, `j`, and prime
+indices to obtain `R(u)`, and let `E(u)` contain the displayed exclusion,
+shift, and ramified terms. The new result supplies `ASK(u) <= R(u)+E(u)`.
+The first native mean-loss conjunct would follow from
+
+\[
+\operatorname{umean}(R-D_0.\mathrm{Ga})+
+\operatorname{umean}E
+\le c_{\mathrm{Loss}}|TT|mb\,x^{e_{\mathrm{Loss}}\varepsilon}.
+\]
+
+This is not asserted as a proved bound. In the upstream `GainBoundAtPairUniform`,
+the corresponding local estimate includes the orbitwise `dl` deduction,
+the `tauP` deduction, and the `lo` and `m*fl` allowances. The new retained
+positive-part sum precedes the `dl` deduction. A bare assertion `R <= Ga`
+would omit these costs. The same upstream family's `ParametersFill` ties
+the partner widths, `gainP`, `tauP`, and `ioP`; `admG1` then proves actual
+module-length and valuation statements for the local restriction submodule.
+No corresponding physical native instance has been constructed here.
+
+The quantitative local service `LPprimeAt` requires actual edge vanishing
+and an integral recovery relation, with served rank at least
+`(1-kappa)*dim V`. Its `MeanKappaBound` averages the actual defect over
+specified amplitude/height boxes. That average is not definitionally the
+native subgroup `umean`; transporting or replacing it requires a proved
+measure and parameter compatibility statement.
+
+The complete ramified correction already has the native estimate
+`nativeDyadicDPrimeASK_normalized_le`, with its hypotheses retained:
+`2*(x+1)*log(d)/(Delta*(d-1))`. The existing price should be reused when
+assembling the global budget, rather than counting the correction as an
+entirely unproved new task.
+
 ## 3. Reverse integrality suffices for the required norm direction
 
 The new Mathlib-only module
@@ -166,6 +199,12 @@ The tangent-coordinate identity
 retains the same integral model and identifies `log(covol(u^-1 L))-log(pi)`
 with its original `latticeLogPeriod`. Thus the proposed period application
 uses the actual coordinate normalization, including its scale.
+This identity is at the embedding chosen for an infinite place. The class
+double sum ranges over all complex embeddings, so a compatible identification
+for the conjugate representative is also needed; the existing conjugation
+invariance of the norm-discriminant provides the relevant numerical fact,
+but this work does not claim that the all-embedding lattice-family alignment
+has been constructed.
 
 This application still requires both analytic lattice inclusions and the
 actual reverse derivative integrality on the same models. It removes only
@@ -173,6 +212,20 @@ forward derivative **integrality**, not the forward analytic lattice
 inclusion. The present standalone norm module does not construct those
 geometric inputs and does not claim that the physical period theorem or
 `DIV` is now closed.
+
+The concrete arithmetic supplier to construct is the two-curve good-reduction
+derivative statement: the actual reverse homomorphism from the class model
+to the seed, with tangent scalar `beta_C^-1 * y` for `y` in the class ideal,
+has integral tangent scalar. The committed native tangent theorem for an
+endomorphism of one equation does not supply that two-curve identification.
+The upstream mechanism is
+`GlobalTheory.T.isIntegral_derivative_curve_hom_good_reduction`, used in
+`MeanLogLieNormSqEqMeanLogEta.lean`; its period consumer is
+`GlobalTheory.PeriodMean.integral_and_conj` in
+`Proofs/FoundationProofs/MeanLogPeriodConjugatesEqChowlaSelberg.lean`.
+For a quadratic class ideal, it suffices to construct the reverse derivative
+integrality on its two-element integer basis; integral linear combinations
+then supply the required condition for the whole original ideal.
 
 For a lower bound `P >= Omega-rho`, the original `DIV` coefficient gives the
 exact normalized extra cost
