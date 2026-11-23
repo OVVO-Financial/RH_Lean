@@ -139,7 +139,7 @@
     "preserved_geometry": "Ds updates only scalar x,eps,b; physicalData then updates literal arithmetic entries; Ga and every geometric slope/trace field remain unchanged",
     "initial_source_reconstruction_sha256": "6e2f5173d78239f9508c372da3b4a9fedf37bb532af3064a9f2367e1670e7d8a",
     "native_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean",
-    "native_sha256": "25756e53f9e74810c6b43a8013d9912bad27c75d055c2b2e98857b53d267d5b9",
+    "native_sha256": "220394182acbab6bbff3cc3aee67292f1fb514811ca80887762b42efc702d3cc",
     "native_lines": 156,
     "scalar_window_followup": {
       "manifest": "scripts/alpoge_geometric_source_audit/native_geometric_cost_windows_source_manifest.json",

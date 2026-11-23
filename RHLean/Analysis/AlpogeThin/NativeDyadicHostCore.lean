@@ -107,7 +107,7 @@ theorem cmType {φ : Frame} (H : HostRaw φ)
       constructor
       · intro h
         refine ⟨_, (cmType_iff H ((starRingEnd ℂ).comp ψ)).mpr ?_, hinv ψ⟩
-        exact (hinv ψ).symm ▸ h
+        exact Eq.mpr (congrArg (fun χ : H.E →+* ℂ => χ ∉ H.cmType) (hinv ψ)) h
       · rintro ⟨χ, hχ, rfl⟩
         exact (cmType_iff H χ).mp hχ
     have hcard := Set.ncard_add_ncard_compl H.cmType

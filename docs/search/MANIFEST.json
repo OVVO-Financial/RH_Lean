@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "455d5126e4ec4e84daae5ac3452fa7c3749f576552a6d569a739bba97342c573",
+  "input_fingerprint": "d9434a3b643dcd9841f6d847126325de15604e24af6fc89931e1f81f5fe2befa",
   "counts": {
     "catalog-research-lean-vf.jsonl": 226,
     "catalog-research-lean.jsonl": 554,

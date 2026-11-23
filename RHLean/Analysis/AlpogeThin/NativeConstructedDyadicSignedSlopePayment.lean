@@ -131,8 +131,8 @@ theorem nativeConstructedDyadicSignedSlopePayment
   dsimp only
   intro m TT T2 hTT hT2 hm a b h Amax beta w
     hbeta hbetab hh hb hupper ha hAmax hmax hdensity hwbeta hwthick hwthin hwindow
-  intro f W _ _ D0 eP C Xpp eK K
-  intro hS hDIV hE hH hCount hSl hSN hLoss hSI hHH hFP hWin hLarge hB0 hNc
+    f W _ _ D0 eP C Xpp eK K
+    hS hDIV hE hH hCount hSl hSN hLoss hSI hHH hFP hWin hLarge hB0 hNc
   let Ds : Data (⊤ : AddSubgroup (AlpogeNativeDyadicH (exponent x))) W TT m f :=
     { D0 with x := x, ε := eps, b := b }
   have hgeom := AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts

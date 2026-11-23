@@ -181,6 +181,7 @@ private theorem nativeRamifiedJacobi_typeI
     rw [Nat.cast_ofNat, jacobiSym.at_two (b := d) (Nat.odd_iff.mpr (by omega)),
       ZMod.χ₈_nat_eq_if_mod_eight]
     norm_num [hd8]
+    omega
   · have hlq' : l = q := (Nat.prime_dvd_prime_iff_eq hl hH.1).mp hlq
     subst l
     rw [jacobiSym.quadratic_reciprocity_three_mod_four hq4 hd4,
@@ -267,7 +268,8 @@ theorem nativeDyadicHostRaw_decompConj
     rw [nativeRamifiedLegU_of_modEq _ u (hu.of_dvd (dvd_mul_left q _)),
       Nat.cast_pow, jacobiSym.pow_left, nativeRamifiedJacobi_d_q hH]
   have hqpow : (-1 : ℤ) ^ k = -1 := by
-    rw [← hps, hcc] <;> rfl
+    rw [← hps, hcc]
+    rfl
   let v := ZMod.unitsMap (alpogeNativeTwo_dvd_hostN e q d) u
   have hv : (v : ZMod (2 ^ (e + 2))) =
       (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ZMod (2 ^ (e + 2))) := by
@@ -288,7 +290,8 @@ theorem nativeDyadicHostRaw_decompConj
       (hu.of_dvd (h16.trans (dvd_mul_right (2 ^ (e + 2)) q)))
   have hfv : ZMod.castHom h16 (ZMod 16) (v : ZMod (2 ^ (e + 2))) =
       (7 : ZMod 16) ^ k := by
-    rw [hv, map_natCast, hred, Nat.cast_pow, ← ZMod.natCast_mod d 16, hdmod] <;> rfl
+    rw [hv, map_natCast, hred, Nat.cast_pow, ← ZMod.natCast_mod d 16, hdmod]
+    rfl
   have hpm : (7 : ZMod 16) ^ k = 1 ∨ (7 : ZMod 16) ^ k = -1 := by
     have h0 := congrArg (fun x : (ZMod (2 ^ (e + 2)))ˣ =>
       ZMod.castHom h16 (ZMod 16) (x : ZMod (2 ^ (e + 2)))) hn
