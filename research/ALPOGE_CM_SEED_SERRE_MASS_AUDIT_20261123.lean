@@ -3,13 +3,15 @@ import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeCMSerreSchemeMetric
 import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
 import RHLean.Geometry.NativeThetaCuspComponentSections
-import RHLean.Geometry.NativeCMSerreGenericModel
-import RHLean.Geometry.NativeCMSerreSigmaMetric
 import RHLean.Geometry.NativeCMWeierstrassOriginalAction
 import RHLean.Geometry.NativeCMInverseIdealClassModels
-import RHLean.Geometry.NativeCMWeierstrassGraphClosure
 import RHLean.Geometry.NativeThetaCuspFlagHolomorphic
 import RHLean.Geometry.NativeThetaCuspFiniteFourierCoefficients
+import RHLean.Geometry.NativeCMWeierstrassTangentCoordinatePeriods
+import RHLean.Geometry.NativeCMSerreGenericLieMetric
+import RHLean.Geometry.NativeThetaCuspSchemeTorsion
+import RHLean.Geometry.NativeCMSerreBundlePairing
+import RHLean.Geometry.NativeCMWeierstrassGeometricKernel
 import Lean.Util.CollectAxioms
 
 /-!
@@ -338,7 +340,55 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.transform_norm_le,
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.transform_adjoint,
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourierCoefficients.exists_five_fourier_coefficients,
-    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourierCoefficients.exists_native_five_fourier_coefficients]
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourierCoefficients.exists_native_five_fourier_coefficients,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.finite_unitPoints_of_proper_closed,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.exists_nontrivial_small_torsion_schemePoint,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.finite_closed_subgroup_of_no_small_torsion,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_commutative_flat_graph,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.flat_of_surjective_quotient_sq,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.flat_of_flat_residueField_baseChange_dvr,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.ringHom_flat_of_square,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.flat_of_flat_fieldBaseChange,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.flat_of_flat_fibres_dvr,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.formallyUnramified_mulN,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.flat_of_formallyUnramified_grpEnd,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.etale_mulN_torsion_dvr,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finite_etale_torsion_dvr,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.graph_kernel_no_torsion,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_small_isUnit_of_isLocalRing,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinatePeriods_mem,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinatePeriods_discriminant,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinatePeriods_lattice_eq,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinate_exponential_eq,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinatePeriods_exact_length,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinatePeriods_log_covolume,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinateHolUnif_isAH,
+    ``RHLean.Geometry.NativeCM.Weierstrass.tangentCoordinateHolUnif_integral_tangent,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.tangentPeriods_discriminant,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.tangentPeriods_exact_profile,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.tangentPeriods_log_covolume,
+    ``RHLean.Geometry.NativeCM.TraceFrame.genericLieEquiv_projection,
+    ``RHLean.Geometry.NativeCM.TraceFrame.genericLieDirection_exponential_coordinate,
+    ``RHLean.Geometry.NativeCM.TraceFrame.sigmaGram_genericLieDirection,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficient_exists_genericSerreLieMetric,
+    ``RHLean.Geometry.NativeTheta.Cusp.SchemeTorsion.exists_half_quotient_equiv,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLevelPoint_scheme_formula,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLevelPoint_zero_iff,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficient_half_quotient_equiv,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficient_half_torsion_card,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_genericHalfLevel,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.HasCubeGenerator.linComb,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LBGerm.exists_gen,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LB.isGen_mulGen,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.PullClasses.hasGen_iff,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.PullClasses.lbIso_nested,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.PullClasses.diff₃_ptCls,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.CubicalPairing.lamForm_adj,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeBundle_pure_pairing,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_hasCubeGenerator,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_pure_pairing,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.relativePointMulEquiv_left,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finite_geometric_elliptic_graph_kernel]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

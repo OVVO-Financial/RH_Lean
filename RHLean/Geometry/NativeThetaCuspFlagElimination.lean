@@ -115,7 +115,7 @@ lemma uT_G_zero (G : Matrix (Fin n) (Fin n) ℂ) (c : Fin n) (hdet : (blk G c).d
   have hmain : ((uMat G)ᵀ * G) c m = G c m + ∑ j : Fin n, g j := by
     rw [Matrix.mul_apply]
     simp only [Matrix.transpose_apply, uMat_term, Finset.sum_add_distrib, Finset.sum_ite_eq',
-      Finset.mem_univ, if_true]
+      Finset.mem_univ, ite_true]
     rfl
   have hA : ∑ j' : Fin c, g (Fin.castLE c.isLt.le j') =
       -∑ j' : Fin c, Matrix.vecMul (rowc G c) (blk G c)⁻¹ j' * G (Fin.castLE c.isLt.le j') m := by

@@ -1022,6 +1022,96 @@ proved. The label ideal is retained separately, so the coefficient is
 defined at the larger cover level. Identification with the actual cover
 section and its geometric character component remains open.
 
+### Integral tangent-coordinate periods of the same equation
+
+`NativeCMWeierstrassTangentCoordinatePeriods` generalizes the seed
+normalization to every actual comparison `C • W = latticeCurve(L)`.
+The new periods are literally `u^-1 L`; their invariants are `c4(W)/12`
+and `c6(W)/216`, and their discriminant is `Delta(W)`. The original
+integral equation W is retained. Its translation `shortChange W`, with
+unit one, identifies the new period curve, and the new exponential at z
+is proved equal to the original exponential at `u*z`.
+
+The actual origin bundle has its proved Appell--Humbert law and integral
+tangent direction one in this coordinate. This gives the exact equality
+
+\[
+\frac{\pi}{\operatorname{covol}(u^{-1}\Lambda)}
+=\frac{\pi |u|^2}{\operatorname{covol}(\Lambda)}.
+\]
+
+Lattice uniqueness makes this normalized lattice independent of the
+auxiliary uniformization choice. For every place of the discriminant-one
+integral model, its discriminant is one and its log covolume minus log pi
+is the negative log of the original place profile. No algebraicity of the
+original scale u or of the different ideal-isogeny derivative ratios is
+inferred from normalization.
+
+### Actual torsion and local flatness for the graph projection
+
+`FiniteClosedPoints` proves that proper closed subsets of the actual
+Weierstrass curve have finitely many geometric points, by the norm in its
+affine coordinate ring. `SmallTorsion` constructs explicit nonzero 2- or
+3-torsion in the allowed residue characteristic. Hence a closed subgroup
+without this small torsion has finitely many points. `GraphGroup` equips
+the actual flat schematic graph closure with its commutative group law
+and proves that both projections are group morphisms.
+
+The `LocalFlatness`, `FieldFlatDescent` and `DvrFlatness` cuts prove the
+local flatness criterion and the actual generic/residue-fibre descent
+needed here. The finite-quotient argument does not import completed-stalk
+factorization. `GroupTorsion`, `MultiplicationUnramified`, `GroupEndFlat`
+and `MultiplicationEtale` construct the literal torsion equalizer and
+prove it finite etale for proper group schemes when its order is a unit.
+`GraphKernelTorsion` uses that result and actual generic-fibre faithfulness
+to rule out small torsion in the graph projection's kernel. `RelativePoints`
+and `GeometricKernel` then identify the actual base-changed Weierstrass
+points and prove the geometric graph kernel finite, using the actual
+closed image subgroup. The graph-projection isomorphism remains an
+explicit next obligation; integral extension has not been declared from
+flat closure or finite geometric kernel alone.
+
+### Actual cubical bundle calculus and the exact pure tensor pairing
+
+The six new leaves from `NativeCMLineBundleCube` through
+`NativeCMSerreBundlePairing` construct generator gluing, products and
+pullback classes using actual chart generators. The pullback-class
+relations contain only relations witnessed by actual generators.
+The eight-term cubical identity therefore gives a genuine bilinear
+four-term pairing, and the seed Rosati isomorphism transports its
+conjugate adjoint law.
+
+On the original trace-frame Serre construction the terminal result is an
+actual line-bundle isomorphism for the pure tensor pairing, with the
+literal `B^-1` and its exact `kLin`. It consumes genuine seed cube and
+Rosati data as explicit smaller geometric inputs. Those seed obligations
+are not replaced by a positivity assertion or an assigned pairing, and
+this calculus alone does not claim relative ampleness or trivial kernel
+of the signed tensor bundle.
+
+### Actual generic Serre Lie metric and half-level scheme marking
+
+`NativeCMSerreGenericLieMetric` joins the actual generic CM scheme action
+and its proved tangent character to the intrinsic Serre Lie equivalence.
+It keeps the same W, comparison C, field F, coefficient module `B^-1`,
+trace frame and coefficient action. Each actual projection derivative
+matches its tensor coordinate, so the actual Lie direction is `u` times
+the scalar-extended coefficient tensor. The signed bundle's previously
+constructed sigma metric therefore gives exactly the trace Gram with
+factor `pi*|u|^2/covol(L)`. This result is over the generic number field;
+it does not supply an unconstructed action over its integers.
+
+`NativeThetaCuspSchemeTorsion` constructs the CM-fiber level point as the
+actual Serre scheme exponential at `period/N`. The exact kernel is
+`N*Lambda`, and every N-torsion scheme point arises this way. The split
+half-level parameter gives an equivalence between the literal
+`Lambda/I` and the actual I-annihilated scheme points, and hence their
+precise quotient cardinality. The native existential endpoint constructs
+the generic Serre factor and its split-five half on the same original B.
+It retains the normalized Weierstrass inverse-u factor. A global varying
+moduli cover and its geometric finite-Fourier identity remain separate
+suppliers.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -1210,6 +1300,21 @@ and adds the exact comparison, ideal-family models, flat graph and
 holomorphic flag periods and actual finite Fourier coefficients above.
 Its retained and extended **309-root**
 terminal-axiom audit remains subject to a successful hosted run.
+
+The fifteenth snapshot `97387527db44dad60f8ee423e2a9901017a0602c`,
+[Actions run 45286656347](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45286656347),
+passed all source audits. Required closure job `138084864154` failed;
+full native build `138087932476` was skipped. Diagnostics compiled origin
+base change, the arithmetic character instance, Serre scheme geometry
+and Lie construction, flag Gram/Hermitian/free constructions and bounded
+triangular matrices. The reached failures were in nested bundle products,
+generic fibre faithfulness, transported seed-point modules, eigenlattice
+coercions, finite Fourier divisibility and native flag normalizations,
+plus exact class-mean denominator algebra and warning-fatal annotations.
+The sixteenth snapshot repairs these failures and includes the new
+actual local-flatness/torsion, normalized-period, generic Lie-metric and
+CM-fiber marking constructions. A successful combined hosted closure and
+transitive terminal-axiom audit are still required.
 
 ## Located continuation without inflated import closures
 

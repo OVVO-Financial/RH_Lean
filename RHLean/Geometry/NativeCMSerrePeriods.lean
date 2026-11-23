@@ -291,6 +291,7 @@ theorem pureSerreExponential_ker (B : Ideal (𝓞 H.E))
 
 /-- The quotient by the actual prescribed positive-type period image is
 the actual Serre tensor point module. -/
+set_option maxHeartbeats 800000 in
 def purePeriodQuotientEquiv (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ)
     (τ₀ : cmTypeFinset H) :

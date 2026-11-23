@@ -81,12 +81,12 @@ theorem reversal_transpose : (reversal L N)ᵀ = reversal L N := by
   simp only [Matrix.transpose_apply, reversal]
   have h : j.rev = i ↔ i.rev = j :=
     ⟨fun h => by rw [← h, Fin.rev_rev], fun h => by rw [← h, Fin.rev_rev]⟩
-  rw [h]
+  simp only [h]
 
 theorem reversal_map {L' : Type} [Field L'] (f : L →+* L') :
     (reversal L N).map f = reversal L' N := by
   ext i j
-  simp only [Matrix.map_apply, reversal, apply_ite, map_one, map_zero]
+  by_cases h : i.rev = j <;> simp [reversal, h]
 
 end Reversal
 
@@ -101,8 +101,9 @@ def matrix (N q : ℕ) : Matrix (Fin N) (Fin N) H.E :=
 theorem matrix_eq_neg_native_gram (N q : ℕ) :
     matrix H N q = -(dSpace (E := H.E) N q).gram := by
   ext i j
-  rw [Matrix.neg_apply, stdSpace_gram_apply]
-  change (if i = j then -(NativePrescribedHermitian.sgn (negTail N q i) : H.E) else 0) = _
+  change (if i = j then -(NativePrescribedHermitian.sgn (negTail N q i) : H.E) else 0) =
+    -((stdSpace (E := H.E) N (negTail N q) (N - q) q).gram i j)
+  rw [stdSpace_gram_apply]
   split_ifs <;> simp
 
 theorem matrix_det_ne_zero (N q : ℕ) : (matrix H N q).det ≠ 0 := by
@@ -148,7 +149,8 @@ theorem lattice_span (B : Ideal (𝓞 H.E))
     by_cases ha : a = i
     · subst a
       simpa using integer_mem_coefficientIdeal H B hB 1
-    · simpa [ha] using (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).zero_mem
+    · rw [Pi.single_eq_of_ne ha]
+      exact (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).zero_mem
   simpa only [Pi.basisFun_apply] using Submodule.subset_span hi
 
 /-- Source transvection depth at the fixed principal congruence modulus five. -/
@@ -165,7 +167,8 @@ theorem matrix_hermitian (N q : ℕ) (a b : Fin N) :
     FlagDomain.cc (matrix H N q a b) = matrix H N q b a := by
   by_cases h : a = b
   · subst b
-    simp [matrix, FlagDomain.cc, NativePrescribedHermitian.sgn, apply_ite]
+    cases ht : negTail N q a <;>
+      simp [matrix, FlagDomain.cc, NativePrescribedHermitian.sgn, ht]
   · simp [matrix, Matrix.diagonal_apply_ne, h, Ne.symm h, FlagDomain.cc]
 
 /-- Explicit convention bridge, before taking a trace. -/
@@ -259,7 +262,8 @@ theorem transvection_integral
     field_simp
   rw [hr]
   have h2 : IsIntegral ℤ (2 : H.E) := isIntegral_natCast 2
-  convert (h2.mul hi).neg using 1 <;> ring
+  convert (h2.mul hi).neg using 1
+  ring
 
 /-- Construct the full flag datum on the same prescribed projective lattice,
 with the trace sign, original q, exact congruence subgroup and denominator. -/
@@ -292,7 +296,7 @@ theorem exists_prescribed_data
       (by rw [FlagDomain.cc, ← hconj]; exact conj_xi H) (xi_ne_zero H)
       (Or.inr rfl) (fun τ hτ => by
         have hpos := xi_im_pos H τ ((mem_cmTypeFinset H τ).mp hτ)
-        simpa [map_mul, Complex.mul_im] using
+        simpa [map_mul, map_ofNat, Complex.mul_im] using
           (neg_lt_zero.mpr (mul_pos (by norm_num : (0 : ℝ) < 2) hpos)))
       (transvectionDepth_pos H)
       (fun x hx y hy => transvection_integral H hconj B hB _ _ ⟨x, hx⟩ ⟨y, hy⟩)

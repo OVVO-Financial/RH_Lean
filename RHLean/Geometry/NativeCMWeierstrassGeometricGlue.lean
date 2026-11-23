@@ -216,9 +216,9 @@ theorem exists_hom_of_kernel_open
 
 variable [IsReduced (G ⊗ G).left]
 
+omit [IsReduced G.left] in
 /-- The group law of the constructed morphism follows from the actual group
 homomorphism at the fixed geometric points. -/
-omit [IsReduced G.left] in
 theorem isMonHom_of_embedded_points (f : G ⟶ H)
     (Φ : (specOver F K ⟶ G) →* (specOver F K ⟶ H))
     (hf : ∀ x : specOver F K ⟶ G, x ≫ f = Φ x) : IsMonHom f where

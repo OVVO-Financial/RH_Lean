@@ -373,7 +373,7 @@ lemma hermForm_block {ι : Type} [Fintype ι] [DecidableEq ι] {g : ℕ} (idx : 
   refine Finset.sum_congr rfl fun τ _ => Finset.sum_congr rfl fun a _ => ?_
   rw [← idx.symm.sum_comp, Fintype.sum_prod_type, Finset.sum_eq_single τ]
   · refine Finset.sum_congr rfl fun b _ => ?_
-    simp only [Equiv.apply_symm_apply, if_true, Pi.star_apply]
+    simp only [Equiv.apply_symm_apply, ite_true, Pi.star_apply]
     ring
   · intro σ _ hσ
     simp [hσ.symm]

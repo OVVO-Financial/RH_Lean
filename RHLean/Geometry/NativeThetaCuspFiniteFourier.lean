@@ -150,7 +150,8 @@ theorem transform_adjoint {F : Type} [Field F] {n : ℕ}
   rw [← Finset.sum_sub_distrib]
   apply Finset.dvd_sum
   intro b _
-  have h := hpair (qRep (x b)) (qRep (k.symm (q b)))
-  simpa only [qRep_mk, LinearEquiv.apply_symm_apply] using h
+  obtain ⟨t, ht⟩ := hpair (qRep (x b)) (qRep (k.symm (q b)))
+  refine ⟨t, ?_⟩
+  simpa only [qRep_mk, LinearEquiv.apply_symm_apply] using ht
 
 end RHLean.Geometry.NativeTheta.Cusp.FiniteFourier

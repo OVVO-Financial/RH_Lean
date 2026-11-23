@@ -31,7 +31,7 @@ theorem transvMat_mulVec (G : Matrix (Fin r) (Fin r) E) (ξ x : Fin r → E) (α
     FlagDomain.transvMat G ξ α *ᵥ x = x + (α * FlagDomain.herm G x ξ) • ξ := by
   funext a
   simp only [FlagDomain.transvMat, FlagDomain.herm, Matrix.mulVec, dotProduct, Matrix.of_apply, add_mul,
-    Finset.sum_add_distrib, ite_mul, one_mul, zero_mul, Finset.sum_ite_eq, Finset.mem_univ, if_true,
+    Finset.sum_add_distrib, ite_mul, one_mul, zero_mul, Finset.sum_ite_eq, Finset.mem_univ, ite_true,
     Pi.add_apply, Pi.smul_apply, smul_eq_mul, Finset.mul_sum, Finset.sum_mul]
   congr 1
   refine Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun k _ => ?_

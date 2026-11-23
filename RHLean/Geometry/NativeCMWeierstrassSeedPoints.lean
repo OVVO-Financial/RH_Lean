@@ -82,7 +82,9 @@ def equationModule : Module (OK H) W.toAffine.Point :=
       rw [add_smul, map_add]
     zero_smul P := by
       change e ((0 : OK H) • e.symm P) = 0
-      rw [zero_smul, map_zero] }
+      have hzero : (0 : OK H) • e.symm P = 0 :=
+        DFunLike.congr_fun (cmAction_zero H τ) (e.symm P)
+      exact (congrArg e hzero).trans e.map_zero }
 
 /-- The equivalence is linear for this actual transported order action. -/
 def equationPointLinearEquiv :
@@ -119,7 +121,7 @@ theorem equationExponential_ker (z : ℂ) :
     ⟨fun h => e.injective (h.trans e.map_zero.symm), fun h => h ▸ e.map_zero⟩
   rw [hz]
   change (z : ℂ ⧸ (period H τ).range) = 0 ↔ z ∈ (period H τ).range
-  exact QuotientAddGroup.eq_zero_iff
+  exact QuotientAddGroup.eq_zero_iff (N := (period H τ).range) z
 
 theorem equationExponential_coordinates {z : ℂ} (hz : z ∉ lattice H τ) :
     ∃ h : W.toAffine.Nonsingular

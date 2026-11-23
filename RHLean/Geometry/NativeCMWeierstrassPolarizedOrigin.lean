@@ -53,13 +53,13 @@ variable {R : Type} [CommRing R] [_root_.IsReduced R]
 theorem originLB_symmetric : Sym (schemeOver W) (originLB W) := by
   intro _
   obtain ⟨t, ht⟩ := originLB_inversion_isomorphic W
-  let ι := (toSpec W ⁻¹ᵁ (⊤ : (Sp R).Opens)).ι
+  let jU := (toSpec W ⁻¹ᵁ (⊤ : (Sp R).Opens)).ι
   have h := LB.isGen_pullGen (originLB W)
     ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)]
-    ![1, -1] t ht ι
-  have e : (fun k : Fin 2 => ι ≫
+    ![1, -1] t ht jU
+  have e : (fun k : Fin 2 => jU ≫
       ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)] k) =
-      ![ι ≫ (GrpObj.inv : schemeOver W ⟶ schemeOver W).left, ι] := by
+      ![jU ≫ (GrpObj.inv : schemeOver W ⟶ schemeOver W).left, jU] := by
     funext k
     fin_cases k <;> simp
   rw [e] at h

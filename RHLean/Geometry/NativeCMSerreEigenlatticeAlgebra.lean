@@ -210,8 +210,8 @@ theorem coefficient_kLin_sum
   have hk := congrArg (algebraMap (𝓞 H.E) H.E)
     (coefficient_kFun_formula H G hbar B hB 1 x y)
   change v = _ at hk
-  simp only [map_add, map_mul, map_intCast, Units.val_one, one_mul, Int.cast_sub] at hk
-  rw [hEF, hEF] at hk
+  simp only [map_add, map_mul, map_sub, map_intCast, Units.val_one, one_mul, Int.cast_sub] at hk
+  simp only [hEF] at hk
   change v =
     (Algebra.trace ℚ H.E (((G.w0 : H.E) * x) * H.conj (y : H.E) / G.rt) : ℚ) -
       (Algebra.trace ℚ H.E ((x : H.E) * H.conj (y : H.E) / G.rt) : ℚ) +

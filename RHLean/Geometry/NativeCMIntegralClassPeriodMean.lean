@@ -42,10 +42,13 @@ theorem classPeriod_mean_eq_normDisc
         Real.log Real.pi := by
   have hh : (Fintype.card (ClassGroup (𝓞 K)) : ℝ) ≠ 0 := by
     exact_mod_cast Fintype.card_ne_zero
-  simp only [latticeLogPeriod_eq_normDisc, Finset.sum_sub_distrib, Finset.sum_div,
+  simp only [latticeLogPeriod_eq_normDisc, Finset.sum_sub_distrib, ← Finset.sum_div,
     Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
-  change _ / (Fintype.card (ClassGroup (𝓞 K)) : ℝ) = _
-  field_simp
+  set S : ℝ := ∑ C, Real.log (latticeNormDisc (Lc C))
+  change (S / 6 - (Fintype.card (ClassGroup (𝓞 K)) : ℝ) * Real.log Real.pi) /
+    (Fintype.card (ClassGroup (𝓞 K)) : ℝ) =
+      S / (6 * (Fintype.card (ClassGroup (𝓞 K)) : ℝ)) - Real.log Real.pi
+  field_simp [hh]
   ring
 
 /-- The arithmetic mean is now in the exact native period normalization.
@@ -76,7 +79,7 @@ theorem mean_log_covolume_sub_log_pi_eq_class_period
       (∑ C, PeriodArithmetic.latticeLogPeriod (Lc C)) / (classNumber K : ℝ) := by
   have h := mean_log_covolume_eq_mean_classGroup K M hK σ₀ h₀ b Lc hb hLc
     L₀ L δ β hst hδ hβ h₁ h₂
-  simp only [← latticeNormDisc_eq, ← latticeArea_eq_abs_im_mul_conj] at h
+  simp only [← latticeArea_eq_abs_im_mul_conj] at h
   rw [classPeriod_mean_eq_normDisc]
   exact congrArg (fun x : ℝ => x - Real.log Real.pi) h
 

@@ -84,8 +84,7 @@ theorem lcg_nested (j j' : J → K → L.ι) :
       rw [← zpow_mul, ← zpow_mul, mul_comm]
     _ = _ := by
       refine Finset.prod_congr rfl fun k _ => ?_
-      rw [← Finset.prod_zpow]
-      exact congrArg (· ^ ε k) (hright k).symm
+      exact (Finset.prod_zpow _ _ _).trans (congrArg (· ^ ε k) (hright k).symm)
 
 /-- An explicit generator on the nested atlas, formed from the given
 generators on every original signed pullback. -/
@@ -123,11 +122,23 @@ theorem isGen_nestedGen
       ((t k).s (fun b => j' b k))) ^ ε k) Finset.univ
   rw [hl, hr, ← Finset.prod_mul_distrib]
   refine Finset.prod_congr rfl fun k _ => ?_
-  rw [map_zpow, map_zpow, ← mul_zpow, res_res, res_res]
+  rw [map_zpow, map_zpow, ← mul_zpow]
   have h := congrArg (res (wchart_nested_inter_le L φ ε ψ j j' k))
     ((isGen_iff L (t k)).mp (ht k) (fun b => j b k) (fun b => j' b k))
-  simp only [map_mul, res_res] at h
-  exact congrArg (· ^ ε k) h
+  have hleft : res inf_le_left
+        (res (wchart_nested_le L φ ε ψ j k) ((t k).s (fun b => j b k))) =
+      res (wchart_nested_inter_le L φ ε ψ j j' k)
+        (res inf_le_left ((t k).s (fun b => j b k))) :=
+    (res_res (wchart_nested_le L φ ε ψ j k) inf_le_left _).trans
+      (res_res inf_le_left (wchart_nested_inter_le L φ ε ψ j j' k) _).symm
+  have hright : res (wchart_nested_inter_le L φ ε ψ j j' k)
+        (res inf_le_right ((t k).s (fun b => j' b k))) =
+      res inf_le_right
+        (res (wchart_nested_le L φ ε ψ j' k) ((t k).s (fun b => j' b k))) :=
+    (res_res inf_le_right (wchart_nested_inter_le L φ ε ψ j j' k) _).trans
+      (res_res (wchart_nested_le L φ ε ψ j' k) inf_le_right _).symm
+  exact congrArg (· ^ ε k) (hleft.trans (h.trans
+    ((map_mul _ _ _).trans (congrArg₂ (· * ·) rfl hright))))
 
 theorem exists_isGen_nested
     (ht : ∀ k, ∃ t : Gen (LinComb L (fun b => ψ b ≫ φ k) δ), t.IsGen) :
