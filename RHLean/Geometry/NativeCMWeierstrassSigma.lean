@@ -140,7 +140,7 @@ theorem summable_norm_sigmaFactor_sub_one (z : ℂ) :
 @[fun_prop] theorem differentiable_sigmaProd : Differentiable ℂ (sigmaProd L) :=
   differentiableOn_univ.1 <| TendstoLocallyUniformlyOn.differentiableOn
     (hasProdLocallyUniformlyOn_sigmaProd L)
-    (.of_forall fun _ => DifferentiableOn.fun_finset_prod fun l _ =>
+    (.of_forall fun _ => DifferentiableOn.fun_finsetProd fun l _ =>
       (differentiable_sigmaFactor l).differentiableOn) isOpen_univ
 
 @[simp] theorem sigmaProd_zero : sigmaProd L 0 = 1 := by simp [sigmaProd, sigmaFactor_eq]

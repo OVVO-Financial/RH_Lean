@@ -100,7 +100,7 @@ theorem quasiPeriod_ω₁_eq_eisenstein (τ : UpperHalfPlane) (hτ : (τ : ℂ) 
       simp only [Function.comp_apply, he, zetaTerm_eq, eisSummand, Matrix.cons_val_zero,
         Matrix.cons_val_one, Matrix.cons_val_fin_one]
       rw [show L.ω₁ - -(L.ω₁ * (m * τ + n)) = L.ω₁ * (m * τ + n + 1) by ring]
-      simp only [zpow_neg, zpow_ofNat, div_neg, inv_neg, neg_sq, mul_pow, div_eq_mul_inv, mul_inv, one_mul]
+      simp only [zpow_neg, zpow_ofNat, inv_neg, neg_sq, mul_pow, div_eq_mul_inv, mul_inv, one_mul]
       generalize ((m : ℂ) * τ + n + 1)⁻¹ = a
       generalize (((m : ℂ) * τ + n) ^ 2)⁻¹ = b
       linear_combination (L.ω₁⁻¹ * b) * mul_inv_cancel₀ h0

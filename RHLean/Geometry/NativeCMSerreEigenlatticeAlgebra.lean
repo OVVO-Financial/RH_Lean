@@ -110,8 +110,7 @@ theorem span_embeddings_eq_top
   intro g hg i
   have hi := hli (fun i => g i * σ i (e a₀)) (funext fun s => by
     have hs := congrFun hg (s • a₀)
-    simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, map_smul,
-      Algebra.smul_def, map_mul, Pi.zero_apply] at hs
+    simp only [Finset.sum_apply, Algebra.smul_def, Pi.zero_apply] at hs
     simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply,
       Function.comp]
     rw [← hs]
@@ -154,8 +153,12 @@ theorem relative_trace_root [IsGalois ℚ E] (G : NativeGeometricHost E) (z : E)
     (by simp) (fun σ : E ≃ₐ[ℚ] E => σ z), Finset.sum_filter,
     tr, tr, Finset.sum_mul, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
   refine Finset.sum_congr rfl fun σ _ => ?_
-  have hr : (G.rt : E) = 2 * (G.w0 : E) - 1 := by exact_mod_cast rt_eq G
-  have hsq : (G.rt : E) ^ 2 = -(G.d : E) := by exact_mod_cast G.rt_sq
+  have hr : (G.rt : E) = 2 * (G.w0 : E) - 1 := by
+    have h := congrArg (algebraMap (𝓞 E) E) (rt_eq G)
+    simpa only [map_sub, map_mul, map_ofNat, map_one] using h
+  have hsq : (G.rt : E) ^ 2 = -(G.d : E) := by
+    have h := congrArg (algebraMap (𝓞 E) E) G.rt_sq
+    simpa only [map_pow, map_neg, map_natCast] using h
   have h0 : σ (G.rt : E) ≠ 0 :=
     (map_ne_zero σ).2 (by exact_mod_cast rt_ne_zero G)
   have h3 : σ (G.rt : E) = 2 * σ (G.w0 : E) - 1 := by
@@ -186,25 +189,26 @@ theorem coefficient_kLin_sum
     (hbar : ∀ a : 𝓞 H.E, G.bar a = H.conj • a)
     (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
-    (x y : coefficientIdeal H B) :
+    (x y : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     (((kLin (coefficientTraceLattice H G hbar B hB) 1 x y : OK G) : 𝓞 H.E) : H.E) =
       ∑ σ : RootAut G, σ.1 ((x : H.E) * H.conj (y : H.E)) := by
   have := H.galois
-  have hEF (u v : coefficientIdeal H B) :
+  have hEF (u v : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
       (integralTraceForm H B hB u v : H.E) =
         (Algebra.trace ℚ H.E ((u : H.E) * H.conj (v : H.E) / G.rt) : ℚ) := by
     have hc : H.conj (xi H * H.conj (u : H.E) * (v : H.E)) =
         (u : H.E) * H.conj (v : H.E) / G.rt := by
-      simp only [map_mul, conj_xi, conj_conj, xi, ← hroot]
+      rw [map_mul, map_mul, conj_xi, conj_conj, xi, ← hroot]
       ring
-    have ht := congrArg (fun a : ℚ => (a : H.E))
+    have ht := congrArg (algebraMap ℚ H.E)
       (integralTraceForm_cast H B hB u v)
+    rw [map_intCast] at ht
     rw [← Algebra.trace_eq_of_algEquiv H.conj, hc] at ht
     exact ht
-  have hk := congrArg (fun a : 𝓞 H.E => (a : H.E))
+  have hk := congrArg (algebraMap (𝓞 H.E) H.E)
     (coefficient_kFun_formula H G hbar B hB 1 x y)
-  push_cast at hk
-  simp only [Units.val_one, Int.cast_one, one_mul] at hk
+  simp only [map_add, map_mul, map_intCast, Int.cast_sub, one_mul] at hk
+  dsimp only [coefficientTraceLattice] at hk ⊢
   rw [hEF, hEF] at hk
   change _ =
     (Algebra.trace ℚ H.E (((G.w0 : H.E) * x) * H.conj (y : H.E) / G.rt) : ℚ) -

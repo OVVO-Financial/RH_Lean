@@ -184,9 +184,9 @@ instance powPr.isMonHom (G : Over S) [GrpObj G] : ∀ {n : ℕ} (i : Fin n), IsM
     exact inferInstanceAs (IsMonHom (snd _ _ ≫ powPr G (n := n) ⟨i, Nat.lt_of_succ_lt_succ hi⟩))
 
 def powIsLimit (G : Over S) : ∀ n : ℕ, IsLimit (Fan.mk (powObj G n) (powPr G (n := n)))
-  | 0 => mkFanLimit _ (fun s => toUnit s.pt) (fun _ i => i.elim0) (fun _ _ _ => toUnit_unique _ _)
+  | 0 => Fan.IsLimit.mk _ (fun s => toUnit s.pt) (fun _ i => i.elim0) (fun _ _ _ => toUnit_unique _ _)
   | n + 1 =>
-    mkFanLimit _
+    Fan.IsLimit.mk _
       (fun s => lift (s.proj 0) ((powIsLimit G n).lift (Fan.mk s.pt (fun i => s.proj i.succ))))
       (fun s i => by
         refine Fin.cases ?_ (fun i => ?_) i
@@ -230,7 +230,7 @@ def powAct {n : ℕ} (p : IsPowGrp G' G n) (a : OAct O G) : OAct O G' where
   hom c := isMonHom_of_mul_comp _ fun _ _ _ => pow_hom_ext p fun i => by
     have := p.hom i
     have := a.hom c
-    simp [MonObj.mul_comp, MonObj.mul_comp_assoc]
+    simp [MonObj.mul_comp]
   one := pow_hom_ext p fun _ => by simp [a.one]
   mul _ _ := pow_hom_ext p fun _ => by simp [a.mul]
   add _ _ := pow_hom_ext p fun i => by
@@ -253,6 +253,13 @@ def Pts.powEquiv {n : ℕ} (p : IsPowGrp G' G n) (a : OAct O G) (T : Over S) :
   invFun y := Pts.mk _ (powLift p fun i => Pts.hom (y i))
   left_inv _ := Pts.ext (pow_hom_ext p fun _ => by simp)
   right_inv _ := by ext; simp
+
+@[reassoc (attr := simp)]
+theorem Pts.hom_powEquiv_symm_pr {n : ℕ} (p : IsPowGrp G' G n) (a : OAct O G)
+    (T : Over S) (y : Fin n → Pts a T) (i : Fin n) :
+    Pts.hom ((Pts.powEquiv p a T).symm y) ≫ p.pr i = Pts.hom (y i) := by
+  change powLift p (fun j => Pts.hom (y j)) ≫ p.pr i = _
+  exact powLift_pr p _ i
 
 def IsTensor.pow {n : ℕ} (p : IsPowGrp G' G n) (a : OAct O G) :
     IsTensor G' (powAct p a) G a (Fin n → O) where
@@ -396,7 +403,7 @@ def IsTensor.ofRetract {G : Over S} [GrpObj G] [IsCommMonObj G]
     (hi : IsLinearHom b c i) (hr : IsLinearHom c b r)
     (hir : i ≫ r = 𝟙 H) (hri : r ≫ i = k.mapLeft k (s ∘ₗ t)) :
     IsTensor H b G a M where
-  equiv T := LinearEquiv.ofLinear
+  equiv T := LinearEquiv.ofLinearMap
     (Pts.post hr T ∘ₗ (k.equiv T).toLinearMap ∘ₗ s.rTensor _)
     (t.rTensor _ ∘ₗ (k.equiv T).symm.toLinearMap ∘ₗ Pts.post hi T)
     (by
@@ -508,7 +515,8 @@ def schemeCoefficientAct : OAct (𝓞 E) (F.schemeObj a) where
       ext x
       change (c * d) • x = d • (c • x)
       rw [smul_smul, mul_comm]
-    rw [h, IsTensor.mapLeft_comp]
+    rw [h, (F.schemeIsTensor a).mapLeft_comp (F.schemeIsTensor a)
+      (F.schemeIsTensor a) (moduleScalar D c) (moduleScalar D d)]
   add c d := by
     have h : moduleScalar D (c + d) = moduleScalar D c + moduleScalar D d := by
       ext x

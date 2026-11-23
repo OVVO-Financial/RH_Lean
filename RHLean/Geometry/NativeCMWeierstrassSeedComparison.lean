@@ -62,7 +62,7 @@ theorem periodCurve_j :
 theorem periodCurve_discriminant :
     (Weierstrass.latticeCurve (periodPair H τ)).Δ =
       (2 * (Real.pi : ℂ)) ^ 12 * ModularForm.discriminant (upperPeriod H τ) := by
-  simpa using Weierstrass.latticeCurve_Δ_eq_discriminant one_ne_zero
+  simpa only [periodPair, div_one] using Weierstrass.latticeCurve_Δ_eq_discriminant one_ne_zero
     (Weierstrass.mem_lattice_periodPairOfTau (upperPeriod H τ))
 
 end RHLean.Geometry.NativeCM.EllipticSeed

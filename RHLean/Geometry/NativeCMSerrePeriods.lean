@@ -64,10 +64,12 @@ variable (G : NativeGeometricHost E) (τ : E →+* ℂ)
 
 /-- The actual elliptic quotient map, with its proved quadratic-order
 linearity for the selected complex embedding. -/
-def quotientLinear : ℂ →ₗ[OK G] Torus G τ :=
+def quotientLinear (hemb : algebraMap (OK G) ℂ = embed G τ) : ℂ →ₗ[OK G] Torus G τ :=
   { QuotientAddGroup.mk' (period G τ).range with
     map_smul' := by
       intro a z
+      change QuotientAddGroup.mk' (period G τ).range (a • z) =
+        a • QuotientAddGroup.mk' (period G τ).range z
       rw [Algebra.smul_def, hemb, torus_smul_mk] }
 
 theorem quotientLinear_surjective : Function.Surjective (quotientLinear G τ hemb) :=
@@ -137,7 +139,9 @@ variable {φ : Frame} (H : HostRaw φ) [IsCMField H.E]
 
 /-- The original positive CM-type period coordinates on the complete
 literal inverse-ideal lattice, now proved quadratic-order linear. -/
-def purePeriodLinear (B : Ideal (𝓞 H.E)) (N : ℕ) :
+def purePeriodLinear (hcompat : ∀ τ : cmTypeFinset H,
+    embed G (τ : H.E →+* ℂ) = algebraMap (OK G) ℂ)
+    (B : Ideal (𝓞 H.E)) (N : ℕ) :
     twistedLattice H B N →ₗ[OK G] (cmTypeFinset H → Fin N → ℂ) where
   toFun x τ i := (τ : H.E →+* ℂ) (x.1 i)
   map_add' _ _ := by
@@ -145,6 +149,7 @@ def purePeriodLinear (B : Ideal (𝓞 H.E)) (N : ℕ) :
     exact map_add (τ : H.E →+* ℂ) _ _
   map_smul' a x := by
     ext τ i
+    simp only [RingHom.id_apply, Submodule.coe_smul_of_tower, Pi.smul_apply]
     change (τ : H.E →+* ℂ) (((a : 𝓞 H.E) : H.E) * x.1 i) =
       algebraMap (OK G) ℂ a * (τ : H.E →+* ℂ) (x.1 i)
     rw [map_mul]
@@ -329,6 +334,8 @@ theorem nativeDyadic_quadraticEmbeddings_eq
   let H := nativeDyadicHostAx e q d he hH
   let _ : IsCMField H.E := H.der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
+  change ∀ τ σ : cmTypeFinset H.toHostRaw,
+    embed G (τ : H.E →+* ℂ) = embed G (σ : H.E →+* ℂ)
   intro τ σ
   apply embed_eq_of_inPsi G
   · exact (nativeDyadicGeometricHostOfDerived_inPsi e q d he hH τ).2

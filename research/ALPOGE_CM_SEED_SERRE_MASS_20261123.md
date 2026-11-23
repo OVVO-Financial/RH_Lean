@@ -813,8 +813,8 @@ the computed periodic sigma norm. The frame sign remains `-u^-1`.
 `NativeCMWeierstrassSectionJet` proves analyticity and the exact derivative
 of every regular section near the origin using the literal origin ring and
 localization. The derivative is `u^-1` times its epsilon coefficient.
-These constructions still require the final all-point holomorphic and
-intrinsic Lie-norm join, and hosted verification; no general theta
+The subsequent all-point holomorphic and exact tangent-norm join is
+constructed below. Hosted verification remains required; no general theta
 uniformization theorem is assumed.
 
 ### Geometry and symmetry of the actual tensor scheme and bundle
@@ -857,6 +857,101 @@ global cusp spaces and their Petersson component masses remain to be
 constructed. An arbitrary clopen subset is not asserted to be the physical
 component required by the signed-slope comparison.
 
+### All-point holomorphic sections and the actual Appell--Humbert tangent
+
+`NativeCMWeierstrassHolomorphic` transports the origin localization proof
+through actual group-scheme translations. It proves that the inverse image
+of every algebraic open is open and that every regular section is analytic
+at every point of its actual domain. The exponential is a genuine point
+over the tensor unit, is additive and surjective, and has exactly the
+original lattice as its kernel.
+
+`NativeCMWeierstrassAppellHumbert` joins these results to the actual sigma
+frames in the scalar one-dimensional `EllipticHolUnif` contract. Its form
+is `H(z,w)=z*conj(w)/covol(L)` and its character is the constructed
+`sigmaSign`. The frame automorphy, positivity, holomorphy, nonvanishing
+and actual algebraic transitions are all proved. On **every** regular
+section the actual epsilon vector has analytic direction `u`, so its
+positive Lie length is exactly `pi*|u|^2/covol(L)`.
+
+`NativeCMAllPlaceAppellHumbert` applies this construction to the literal
+complex base change of the same integral equation at each infinite-place
+representative. The vector equality is the actual base-change equality
+for `[epsilon,-1,0]`. It joins the proved Appell--Humbert law, the full
+regular-section differential, the positive `placeProfile` and its exact
+negative logarithm `latticeLogPeriod` on these same witnesses. This does
+not yet construct the integral ideal-isogeny family that supplies the
+arithmetic class-group mean.
+
+`NativeCMWeierstrassMorphismTangent` also applies the regular-section proof
+to an actual group-scheme morphism. Its exponential multiplication law
+forces its epsilon coefficient. `NativeCMWeierstrassCMOrderTangent`
+applies this to the constructed generic CM order action, constructs its
+integral-valued tangent character and proves the actual `IsLieComb` law.
+The scheme action itself still lives over the finite number field;
+integrality of its tangent character does not assert integral extension
+of that scheme morphism.
+
+`NativeCMWeierstrassTranslationGroup` proves that the explicit unit-one
+translation is a group-scheme isomorphism and preserves the literal
+epsilon vector. `NativeCMWeierstrassOriginalAction` uses that same
+isomorphism to transport the complete generic order action back to the
+**original** equation over the chosen finite field. It retains the same
+tangent character and the original exponential parameter, with the
+proved `u^-1` rescaling in the normalized lattice coordinates. This
+removes the normalized-model mismatch before the integral extension step.
+
+### One generic Serre seed and the metric of its actual signed bundle
+
+`NativeCMSerreGenericPoints`, `NativeCMSerreGenericPeriod` and
+`NativeCMSerreGenericModel` choose the half-different and integral polarized
+seed once. The genuine quadratic-order action on the specified normalized
+generic fibre is then tensored with the literal `B^-1`. The resulting
+scheme has the proved smooth/proper/geometrically connected structure,
+actual rigidified symmetric signed origin bundle, full coefficient action,
+correct dimension and original period kernel on the same witnesses.
+The endpoint constructs one pure CM factor; the mixed-signature product
+still requires its positive and conjugate negative factors.
+
+`NativeCMSerreGenericCoordinates` proves the actual scheme projections
+and all four signed bundle maps equal the normalized seed exponential
+at the derived complex linear coordinates. It also proves that original
+integral tensor periods land in the rescaled seed lattice. These are
+equalities of actual scheme-valued points, not stipulated coordinates.
+
+`NativeCMLineBundleSigmaMetric` and `NativeCMSerreSigmaMetric` form the
+literal product of the seed's actual chart norms with the original signed
+integer exponents. Evaluations of the actual `LinComb` transition units
+prove metric descent; the original integral periods prove its periodicity.
+Only afterward is its Gaussian exponent identified with the signed trace
+Gram, with factor one. The lattice `u^-1*Lambda` and argument `u^-1*z`
+cancel by the proved homothety formula on the original period space.
+The integral tangent direction remains `u`, with its original squared
+norm. Integral extension, the tensor bundle's principal polarization and
+the final arithmetic class mean remain separate requirements.
+
+### Actual flag family data, with the consumer's sign and denominator
+
+The nine `NativeThetaCuspFlagDomain` through `NativeThetaCuspNativeFlag`
+leaves construct the actual flag record on the prescribed lattice.
+The finite-index principal congruence subgroup and free action are proved
+using finite lattice quotients, bounded powers and lattice Minkowski
+torsion control; no such law is an input to the native endpoint.
+
+The source flag Hermitian convention is linear in its first argument.
+On the unchanged lattice the correct flag matrix is the **negative**
+native Gram, so `herm_flag(x,y)=-herm_native(y,x)`. Alternation gives
+`Tr(xi*herm_flag(x,y))=+EF(x,y)`. An explicit reversal matrix proves
+that its positive flag dimension is `Datum.q=m-j`. The CM type and `xi`
+are unchanged, and `kappa=-2*xi` has the required negative imaginary part.
+
+The subgroup is literally the principal congruence subgroup modulo five,
+with the trivial finite-order flag character. Its transvection depth is
+exactly `5*|discr(E)|`. Trace-dual integrality on the same `B^-1` lattice
+proves that this denominator suffices. This flag record does not identify
+the geometric coefficient tie, an algebraic theta section, or the physical
+Petersson measure and its lower-rank shares.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -865,11 +960,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual full CM order action over a finite extension, explicit sigma automorphy, actual atlas metric descent and local regular-section derivatives | Integral CM action, final global holomorphic/intrinsic Lie-norm comparison and arithmetic Lie-period comparison |
-| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank, smooth/proper/geometrically connected tensor scheme, literal symmetric signed origin-pullback bundle and intrinsic-eigenline Gram | Integral seed scheme action and its derivative compatibility; cubical/Rosati identities, tensor polarization and global arithmetic metric comparison |
+| CM seed | Actual quadratic order, integral smooth proper elliptic group scheme, all four origin-polarization properties, full generic CM order action with proved tangent character, all-point holomorphic regular sections, actual sigma frames/metric, exact all-place Appell--Humbert tangent and logarithmic period comparison | Integral extension of the CM scheme action; integral ideal-isogeny family and arithmetic class mean |
+| Serre construction | Original projective module and perfect trace form, actual trace-frame scheme and integral Lie tensor, full coefficient action, same-witness generic seed with original periods/rank and geometric properties, actual symmetric signed bundle, descended sigma product metric and its derived trace Gram | Integral seed scheme action; cubical/Rosati identities, principal tensor polarization, mixed-signature scheme assembly and global arithmetic metric integration |
 | CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and two-sided derivative integrality |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus, explicit full-level finite theta sums and exact Haar norms, quotient adjoint, constructed character and equivariant coefficient function, actual clopen-section cuts and measured direct-sum rank | Geometric coefficient tie, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Actual projective tensor vacua and exact overlap, common phase, rational theta holomorphy/injectivity and Weil covariance, split-five coefficients and Haar norms, clopen-section cuts and measured ranks, actual flag datum with correct trace sign/signature, finite-index free congruence action and explicit integral transvections | Geometric coefficient tie, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -1013,6 +1108,21 @@ The remaining errors were in `GeometricPoints`, `QuasiPeriod`,
 snapshot repairs these exact diagnostics and adds the actual atlas/jet,
 tensor geometry/symmetry and finite coefficient/component constructions.
 The integrated closure and transitive terminal-axiom audit remain unverified.
+
+The thirteenth snapshot `ffec57739f5c379ed13c551162373eb842ba4bfd`, Actions
+run `45282880070`, passed all source audits. Hosted closure job
+`138071839238` failed; full native build `138075562523` was skipped.
+Diagnostics compiled the integral equation, geometric point detection,
+projective Serre tensor algebra, scheme retraction, zeta and canonical
+theta construction. Quasi-period and sigma proofs compiled with warnings
+that remain fatal to the mandatory check. Errors were exposed in the
+nested bundle generators, origin rigidification, geometric gluing,
+seed discriminant comparison, integral eigenlattice algebra, represented
+scheme tensor, Serre period parameters and component/adjoint cuts.
+The fourteenth snapshot repairs these exact diagnostics and includes the
+new all-point analytic/tangent, generic Serre metric and actual flag
+constructions above. Neither the combined closure nor the transitive
+274-root terminal-axiom audit is yet certified.
 
 ## Located continuation without inflated import closures
 

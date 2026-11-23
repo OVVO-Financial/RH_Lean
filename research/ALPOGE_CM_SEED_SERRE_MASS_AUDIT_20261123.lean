@@ -1,16 +1,15 @@
 import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeCMIntegralClassPeriodMean
-import RHLean.Geometry.NativeCMWeierstrassCMOrderAction
 import RHLean.Geometry.NativeCMSerreSchemeMetric
 import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
-import RHLean.Geometry.NativeCMWeierstrassPolarizedSeed
-import RHLean.Geometry.NativeCMWeierstrassThetaAtlasMetric
-import RHLean.Geometry.NativeCMWeierstrassSectionJet
-import RHLean.Geometry.NativeCMSerreBundleSymmetry
-import RHLean.Geometry.NativeCMSerreSchemeGeometry
 import RHLean.Geometry.NativeThetaCuspComponentSections
 import RHLean.Geometry.NativeThetaCuspFiniteCoefficients
+import RHLean.Geometry.NativeCMAllPlaceAppellHumbert
+import RHLean.Geometry.NativeCMSerreGenericModel
+import RHLean.Geometry.NativeCMSerreSigmaMetric
+import RHLean.Geometry.NativeThetaCuspNativeFlag
+import RHLean.Geometry.NativeCMWeierstrassOriginalAction
 import Lean.Util.CollectAxioms
 
 /-!
@@ -268,7 +267,43 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.ComponentSections.mulSection_idempotent,
     ``RHLean.Geometry.NativeTheta.Cusp.ComponentSections.exists_component_section,
     ``RHLean.Geometry.NativeTheta.Cusp.FiniteCoefficients.exists_five_coefficients,
-    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCoefficients.exists_native_five_coefficients]
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteCoefficients.exists_native_five_coefficients,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.expOver_surjective,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.expOver_kernel,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet.holomorphic_regular_sections,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.canonicalHolUnif_isAH,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.canonicalHolUnif_integral_tangent,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.canonicalHolUnif_exact_tangent_norm,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.integralVector_place_baseChange,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.actual_polarized_tangent_period,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent.exists_tangent_scalar,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent.integralVector_comp_eq_vec,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_order_tangent,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_cm_scheme_order_action_with_tangent,
+    ``RHLean.Geometry.NativeCM.TraceFrame.genericExponential_ker,
+    ``RHLean.Geometry.NativeCM.TraceFrame.genericExponential_coefficient,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientGenericPeriodExponential_ker,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_genericSerreSeed,
+    ``RHLean.Geometry.NativeCM.TraceFrame.genericExponential_bundleMap,
+    ``RHLean.Geometry.NativeCM.TraceFrame.scaled_complexBundleMap_period,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeSigmaNormSq_transition,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeSigmaNormSq_period,
+    ``RHLean.Geometry.NativeCM.TraceFrame.sigmaGram_eq,
+    ``RHLean.Geometry.NativeCM.TraceFrame.schemeSigmaNormSq_gaussian,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagMinkowski.latMinkowski,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagCongruence.congruence_finiteIndex,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagFree.gam_free,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagConstruction.exists_data,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.matrix_signature,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.herm_matrix,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.trace_matrix,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.discr_mul_integral,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.transvection_integral,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlag.exists_native_data,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.vec_translation,
+    ``RHLean.Geometry.NativeCM.Weierstrass.shortModelSchemeIso_isMonHom,
+    ``RHLean.Geometry.NativeCM.Weierstrass.originalOrderAction_period,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_original_cm_scheme_action]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

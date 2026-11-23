@@ -71,6 +71,7 @@ theorem lcg_nested (j j' : J → K → L.ι) :
     exact res_lcg L (fun b => ψ b ≫ φ k) δ
       (fun b => j b k) (fun b => j' b k) _
   change (∏ b, (res _ (pullU (ψ b) _ ((LinComb L φ ε).g (j b) (j' b)))) ^ δ b) = _
+  dsimp only [LinComb] at *
   simp_rw [hleft, hright, Finset.prod_zpow]
   rw [Finset.prod_comm]
   refine Finset.prod_congr rfl fun k _ => ?_
@@ -90,12 +91,19 @@ theorem isGen_nestedGen
     (ht : ∀ k, (t k).IsGen) :
     (nestedGen L φ ε ψ δ t).IsGen := by
   intro j j'
-  change res inf_le_left (∏ k, (res (wchart_nested_le L φ ε ψ j k)
+  dsimp only [LinComb] at j j'
+  have htrans := lcg_nested L φ ε ψ δ j j'
+  change res (inf_le_left : wchart (LinComb L φ ε) ψ j ⊓
+      wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j)
+    (∏ k, (res (wchart_nested_le L φ ε ψ j k)
       ((t k).s (fun b => j b k))) ^ ε k) =
     lcg (LinComb L φ ε) ψ δ j j' *
-      res inf_le_right (∏ k, (res (wchart_nested_le L φ ε ψ j' k)
+      res (inf_le_right : wchart (LinComb L φ ε) ψ j ⊓
+        wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j')
+        (∏ k, (res (wchart_nested_le L φ ε ψ j' k)
         ((t k).s (fun b => j' b k))) ^ ε k)
-  rw [lcg_nested, map_prod, map_prod, ← Finset.prod_mul_distrib]
+  dsimp only [LinComb] at *
+  rw [htrans, map_prod, map_prod, ← Finset.prod_mul_distrib]
   refine Finset.prod_congr rfl fun k _ => ?_
   rw [map_zpow, map_zpow, ← mul_zpow, res_res, res_res]
   have h := congrArg (res (wchart_nested_inter_le L φ ε ψ j j' k))

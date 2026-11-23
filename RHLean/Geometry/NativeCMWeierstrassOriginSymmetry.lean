@@ -90,8 +90,11 @@ theorem originLB_rigidified {R : Type} [CommRing R] (W : WeierstrassCurve R) :
       · rfl
     obtain rfl := key i hp.1
     obtain rfl := key j hp.2
-    simp only [LB.pull, LB.LinComb, originLB, LB.twoChart, map_one,
-      one_zpow, Finset.prod_const_one, Units.val_one]
+    have hunit : ((originLB W).pull (zero W)).g (fun _ => true) (fun _ => true) = 1 := by
+      change (∏ _ : PUnit, (res _ (pullU (zero W) _
+        (1 : Γ(scheme W, originOpen W ⊓ originOpen W)ˣ))) ^ (1 : ℤ)) = 1
+      rw [Fintype.prod_unique, _root_.map_one, _root_.map_one, one_zpow]
+    rw [hunit]
   change res _ 1 = ((originLB W).pull (zero W)).g i j * res _ 1
   rw [map_one, map_one, hg, _root_.one_mul]
 

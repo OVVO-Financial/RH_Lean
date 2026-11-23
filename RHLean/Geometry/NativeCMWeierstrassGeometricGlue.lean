@@ -44,8 +44,8 @@ theorem exists_hom_of_geometric_cover
     {I : Type u} (U : I → Over (Spec (.of F))) (j : ∀ i, U i ⟶ T)
     (hj : ∀ i, IsOpenImmersion (j i).left) (fU : ∀ i, U i ⟶ Y)
     (Φ : (specOver F K ⟶ T) → (specOver F K ⟶ Y))
-    (hc : ∀ x, ∃ i (z : specOver F K ⟶ U i), z ≫ j i = x)
-    (hf : ∀ i (z : specOver F K ⟶ U i), z ≫ fU i = Φ (z ≫ j i)) :
+    (hc : ∀ x, ∃ i, ∃ z : specOver F K ⟶ U i, z ≫ j i = x)
+    (hf : ∀ i, ∀ z : specOver F K ⟶ U i, z ≫ fU i = Φ (z ≫ j i)) :
     ∃ f : T ⟶ Y, (∀ i, j i ≫ f = fU i) ∧
       ∀ x : specOver F K ⟶ T, x ≫ f = Φ x := by
   classical
@@ -124,26 +124,30 @@ def rightTranslation (p : 𝟙_ (Over S) ⟶ G) : G ≅ G where
   hom_inv_id := by
     have hc : ((𝟙 G) * (toUnit G ≫ p)) ≫ (toUnit G ≫ p⁻¹) =
         (toUnit G ≫ p)⁻¹ := by
-      rw [← Category.assoc, toUnit_unique _ (toUnit G), GrpObj.comp_inv]
+      rw [← Category.assoc,
+        show ((𝟙 G) * (toUnit G ≫ p)) ≫ toUnit G = toUnit G from toUnit_unique _ _,
+        GrpObj.comp_inv]
     rw [MonObj.comp_mul, Category.comp_id, hc]
     group
   inv_hom_id := by
     have hc : ((𝟙 G) * (toUnit G ≫ p⁻¹)) ≫ (toUnit G ≫ p) =
         toUnit G ≫ p := by
-      rw [← Category.assoc, toUnit_unique _ (toUnit G)]
+      rw [← Category.assoc,
+        show ((𝟙 G) * (toUnit G ≫ p⁻¹)) ≫ toUnit G = toUnit G from toUnit_unique _ _]
     rw [MonObj.comp_mul, Category.comp_id, hc, GrpObj.comp_inv]
     group
 
 theorem comp_rightTranslation_hom {T : Over S} (x : T ⟶ G)
     (p : 𝟙_ (Over S) ⟶ G) : x ≫ (rightTranslation p).hom = x * (toUnit T ≫ p) := by
   change x ≫ ((𝟙 G) * (toUnit G ≫ p)) = _
-  rw [MonObj.comp_mul, Category.comp_id, ← Category.assoc, toUnit_unique _ (toUnit T)]
+  rw [MonObj.comp_mul, Category.comp_id, ← Category.assoc,
+    show x ≫ toUnit G = toUnit T from toUnit_unique _ _]
 
 theorem comp_rightTranslation_inv {T : Over S} (x : T ⟶ G)
     (p : 𝟙_ (Over S) ⟶ G) : x ≫ (rightTranslation p).inv = x * (toUnit T ≫ p)⁻¹ := by
   change x ≫ ((𝟙 G) * (toUnit G ≫ p⁻¹)) = _
   rw [MonObj.comp_mul, Category.comp_id, ← Category.assoc,
-    toUnit_unique _ (toUnit T), GrpObj.comp_inv]
+    show x ≫ toUnit G = toUnit T from toUnit_unique _ _, GrpObj.comp_inv]
 
 end Translation
 
@@ -180,7 +184,7 @@ theorem exists_hom_of_kernel_open
   have hpK : Φ pK ≠ 1 := (hU pK).2
     ⟨toUnit (specOver F K) ≫ q, by simp only [pK, p, Category.assoc]⟩
   have hc : ∀ x : specOver F K ⟶ G,
-      ∃ b (z : specOver F K ⟶ U), z ≫ js b = x := by
+      ∃ b, ∃ z : specOver F K ⟶ U, z ≫ js b = x := by
     intro x
     by_cases hx : Φ x ≠ 1
     · obtain ⟨z, hz⟩ := (hU x).1 hx
@@ -193,14 +197,15 @@ theorem exists_hom_of_kernel_open
       rw [← Category.assoc, comp_rightTranslation_inv, hz]
       change (x * pK) * pK⁻¹ = x
       group
-  have hf : ∀ b (z : specOver F K ⟶ U), z ≫ fs b = Φ (z ≫ js b) := by
+  have hf : ∀ b, ∀ z : specOver F K ⟶ U, z ≫ fs b = Φ (z ≫ js b) := by
     rintro ⟨b⟩ z
     cases b
     · exact hfU z
     · change z ≫ (fU * (toUnit U ≫ (q ≫ fU)⁻¹)) =
         Φ (z ≫ j ≫ (rightTranslation p).inv)
       rw [MonObj.comp_mul, hfU, ← Category.assoc,
-        toUnit_unique _ (toUnit (specOver F K)), GrpObj.comp_inv]
+        show z ≫ toUnit U = toUnit (specOver F K) from toUnit_unique _ _,
+        GrpObj.comp_inv]
       have hq : toUnit (specOver F K) ≫ q ≫ fU = Φ pK := by
         rw [← Category.assoc, hfU]
         rfl
@@ -217,6 +222,12 @@ theorem isMonHom_of_embedded_points (f : G ⟶ H)
     (Φ : (specOver F K ⟶ G) →* (specOver F K ⟶ H))
     (hf : ∀ x : specOver F K ⟶ G, x ≫ f = Φ x) : IsMonHom f where
   one_hom := by
+    have : LocallyOfFiniteType (𝟙_ (Over (Spec (.of F)))).hom := by
+      change LocallyOfFiniteType (𝟙 (Spec (.of F)))
+      infer_instance
+    have : IsReduced (𝟙_ (Over (Spec (.of F)))).left := by
+      change IsReduced (Spec (.of F))
+      infer_instance
     apply over_hom_ext_of_embedded_points (K := K)
     intro x
     rw [← Category.assoc, MonObj.one_eq_one, MonObj.comp_one, hf, map_one,

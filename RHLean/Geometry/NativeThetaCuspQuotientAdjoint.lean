@@ -337,7 +337,8 @@ theorem exists_native_five_adjoint
     rw [Ideal.pointwise_smul_def]
     congr 1
     ext a
-    exact nativeDyadicGeometricHost_bar_eq e q d he hH a
+    exact congrArg (fun z : 𝓞 H.E => (z : H.E))
+      (nativeDyadicGeometricHost_bar_eq e q d he hH a)
   have hc : IsCoprime P (P.map (G.bar : 𝓞 H.E →+* 𝓞 H.E)) := by rw [hmap]; exact hPc
   have hp : P * P.map (G.bar : 𝓞 H.E →+* 𝓞 H.E) = Ideal.span {(5 : 𝓞 H.E)} := by
     rw [hmap]

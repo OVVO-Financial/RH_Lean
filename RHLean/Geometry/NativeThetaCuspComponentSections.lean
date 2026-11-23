@@ -45,7 +45,7 @@ def eval {S : Type} [CommRing S] (x : Spec (CommRingCat.of S) ⟶ X)
 
 theorem eval_res {S : Type} [CommRing S] (x : Spec (CommRingCat.of S) ⟶ X)
     {U V : X.Opens} (hVU : V ≤ U) (h : ⊤ ≤ x ⁻¹ᵁ V) (f : Γ(X, U)) :
-    eval x V h (resG X hVU f) = eval x U (fun p hp => hVU (h hp)) f := by
+    eval x V h (resG X hVU f) = eval x U (fun _ hp => hVU (h hp)) f := by
   unfold eval resG
   simp only [RingHom.comp_apply]
   congr 1
@@ -74,9 +74,9 @@ theorem exists_indicator_function (U : Set X) (hU : IsClopen U) :
     ∃ e : Γ(X, ⊤), IsIdempotentElem e ∧
       ∀ (K : Type) [Field K] (x : Spec (CommRingCat.of K) ⟶ X),
         (x (IsLocalRing.closedPoint K) ∈ U →
-          eval x ⊤ (by intro p hp; trivial) e = 1) ∧
+          eval x ⊤ (by intro _ _; trivial) e = 1) ∧
         (x (IsLocalRing.closedPoint K) ∉ U →
-          eval x ⊤ (by intro p hp; trivial) e = 0) := by
+          eval x ⊤ (by intro _ _; trivial) e = 0) := by
   let V : Bool → X.Opens := fun b => match b with
     | true => ⟨U, hU.2⟩
     | false => ⟨Uᶜ, hU.1.isOpen_compl⟩
@@ -120,13 +120,11 @@ theorem exists_indicator_function (U : Set X) (hU : IsClopen U) :
   · refine (eval_res x le_top (hpt K x true h) e).symm.trans ?_
     change eval x (V true) (hpt K x true h)
       (X.presheaf.map (homOfLE (le_top : V true ≤ ⊤)).op e) = 1
-    rw [he]
-    exact map_one _
+    exact (congrArg (eval x (V true) (hpt K x true h)) (he true)).trans (map_one _)
   · refine (eval_res x le_top (hpt K x false h) e).symm.trans ?_
     change eval x (V false) (hpt K x false h)
       (X.presheaf.map (homOfLE (le_top : V false ≤ ⊤)).op e) = 0
-    rw [he]
-    exact map_zero _
+    exact (congrArg (eval x (V false) (hpt K x false h)) (he false)).trans (map_zero _)
 
 private theorem section_ext {L : LB X} {s t : L.Sec} (h : ∀ i, s.f i = t.f i) : s = t := by
   cases s with
@@ -160,7 +158,7 @@ theorem mulSection_mul {L : LB X} (e f : Γ(X, ⊤)) (s : L.Sec) :
   rw [map_mul, mul_assoc]
 
 theorem mulSection_idempotent {L : LB X} {e : Γ(X, ⊤)} (he : IsIdempotentElem e) :
-    Function.Idempotent (mulSection (L := L) e) := by
+    ∀ s : L.Sec, mulSection e (mulSection e s) = mulSection e s := by
   intro s
   rw [mulSection_mul, he.eq]
 
@@ -168,7 +166,7 @@ theorem eval_mulSection {S : Type} [CommRing S] {L : LB X}
     (x : Spec (CommRingCat.of S) ⟶ X) (i : L.ι) (hi : ⊤ ≤ x ⁻¹ᵁ L.U i)
     (e : Γ(X, ⊤)) (s : L.Sec) :
     eval x (L.U i) hi ((mulSection e s).f i) =
-      eval x ⊤ (by intro p hp; trivial) e * eval x (L.U i) hi (s.f i) := by
+      eval x ⊤ (by intro _ _; trivial) e * eval x (L.U i) hi (s.f i) := by
   change eval x (L.U i) hi (resG X le_top e * s.f i) = _
   rw [map_mul, eval_res]
 
