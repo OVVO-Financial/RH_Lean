@@ -120,7 +120,7 @@
         "path": "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean",
         "declaration": "RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment_of_size_regime",
         "initial_attachment_sha256": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0",
-        "native_sha256": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0"
+        "native_sha256": "13a398e7535feda2267710727834ebdbbcd82f4b4e9a240aff76737d6a07261b"
       },
       {
         "path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",

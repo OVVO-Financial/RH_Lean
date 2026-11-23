@@ -186,7 +186,7 @@ theorem nativeDyadicAnalyticRemainder_le_of_costWindows
     calc
       _ ≤ (2 * b / x) / (b * δ) :=
         div_le_div_of_nonneg_right hthinNum (mul_pos hb hδ).le
-      _ = _ := by field_simp [hb.ne', hδ.ne', hx0.ne']; ring
+      _ = _ := by field_simp [hb.ne', hδ.ne', hx0.ne']
   have hC0 : 0 ≤ Real.log 4 + 2 := by
     have := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4)
     linarith
@@ -206,7 +206,7 @@ theorem nativeDyadicAnalyticRemainder_le_of_costWindows
     calc
       _ ≤ (2 * b / x) / (b * δ) :=
         div_le_div_of_nonneg_right hwidthNum (mul_pos hb hδ).le
-      _ = _ := by field_simp [hb.ne', hδ.ne', hx0.ne']; ring
+      _ = _ := by field_simp [hb.ne', hδ.ne', hx0.ne']
   have htwice : (2 : ℝ) ^ α ≤ 2 := by
     simpa only [Real.rpow_one] using
       Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 2) hα1
@@ -229,7 +229,10 @@ theorem nativeDyadicAnalyticRemainder_le_of_costWindows
       4 * h * (Real.log 4 + 2) * (Amax / b) / (b * δ) +
       (3 / (TT.card : ℝ)) * ∑ t ∈ TT, (a t / b) ^ α ≤
     4 / (δ * x) + 6 * x ^ α
-  linarith
+  calc
+    _ ≤ 2 / (δ * x) + 2 / (δ * x) + 6 * x ^ α :=
+      add_le_add (add_le_add hthinPaid hwidthPaid) hthickPaid
+    _ = _ := by ring
 
 /-- The complete analytic remainder is paid at the critical scale from
 the original polynomial host, width and density regime. All quantifiers

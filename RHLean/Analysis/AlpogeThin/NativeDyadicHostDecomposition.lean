@@ -41,21 +41,19 @@ theorem nativeDyadicHostRaw_decomp
           H.gal σ = H.art u := by
   dsimp only
   intro l hl P hP hPl σ
-  let : Fact l.Prime := hl
-  let : P.IsPrime := hP
-  let : P.LiesOver (span {(l : ℤ)}) := hPl
   have hqmod := hH.2.2.1
   have hdmod := hH.2.2.2.1
   have hq2 : q ≠ 2 := by omega
   have hd2 : d ≠ 2 := by omega
   have hqd : q ≠ d := by omega
+  have hnative := @alpogeNativeHostField_decomp_iff e q d _ _
+    hq2 hd2 hqd l hl P hP hPl σ
   constructor
   · intro h
-    obtain ⟨u, k, hu, hσ⟩ :=
-      (alpogeNativeHostField_decomp_iff e q d hq2 hd2 hqd l P σ).mp h
+    obtain ⟨u, k, hu, hσ⟩ := hnative.mp h
     exact ⟨u, k, hu, congrArg (nativeDyadicFullHostEquiv e) hσ⟩
   · rintro ⟨u, k, hu, hσ⟩
-    exact (alpogeNativeHostField_decomp_iff e q d hq2 hd2 hqd l P σ).mpr
+    exact hnative.mpr
       ⟨u, k, hu, (nativeDyadicFullHostEquiv e).injective hσ⟩
 
 end RHLean.Analysis.AlpogeThin
