@@ -222,3 +222,25 @@ It is valid for that record consumer, but it does not identify Ds and du
 with the actual mass and formal-degree quantities in the constrained
 Ctx/RecEx branch. The downstream physical carrier determines which supplier
 can be used; no universal absence of a window supplier is claimed here.
+
+The exact downstream distinction is recorded in FamP.ex / Extra and Lay:
+they require `duStar_def` and `Dstar_def`, identifying the chosen sizes with
+the actual mass quantities. Ctx supplies `du_eq` and `Ds_eq`, and
+`SizesEqCount.sizes_eq_count` transports these to the physical record.
+`MainSup.proviso_e` consumes those identities to prove the dimension
+normalization used by `TopDensityNGeSixteen.frameF_of` and `Lnk.linkCore`.
+Thus a free RichRec is useful for the geometric existence consumers that
+accept it, but it does not yet supply the complete signed-slope family.
+
+The scalar reason is visible before formalization. Writing the actual column
+dimension as d(u) = M_u (T^k - 1)^f and the window start as
+Tstar = (Ds/du)^(1/(f k)) Gamma^(-2/(f k)), positivity gives
+
+    d(u) Gamma^2 / Ds = (M_u/du) (T/Tstar)^(f k) (1-T^(-k))^f.
+
+Increasing a free Ds cancels from this normalized expression. Choosing du = 1
+leaves the actual mass factor M_u; the source's du = M_u identity removes it.
+This identifies the precise missing substitution for that source route. An
+independently proved native supplier of the complete rank/Gram normalization
+could use a different route; the native signed-slope consumer does not name
+Ctx or impose a universal mass-formula hypothesis.

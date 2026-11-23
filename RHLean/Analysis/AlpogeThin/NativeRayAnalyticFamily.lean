@@ -41,7 +41,11 @@ theorem ofRayData_continuation_growth (χ : AddChar (Additive D.G) ℂ) :
       ‖(𝓕).F χ s‖ ≤ 300 * (4 * (d : ℝ) * (M : ℝ) ^ 2) * (‖s‖ + 1) ^ 2) ∧
     (χ * χ = 1 → ∀ s : ℂ,
       (𝓕).F χ ((starRingEnd ℂ) s) = (starRingEnd ℂ) ((𝓕).F χ s)) := by
-  simpa only [ofRayData_B] using RayCont.continuation_growth 𝓕 χ
+  obtain ⟨ha, hls, hg, hr⟩ := RayCont.continuation_growth 𝓕 χ
+  refine ⟨ha, hls, ?_, hr⟩
+  intro s hs
+  change ‖(𝓕).F χ s‖ ≤ 300 * (𝓕).B * (‖s‖ + 1) ^ 2
+  exact hg s hs
 
 /-- The complete prime-power logarithmic derivative, including the principal
 pole correction, and nonvanishing to the right of one on the same family. -/
