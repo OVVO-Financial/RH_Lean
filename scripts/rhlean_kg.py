@@ -249,6 +249,7 @@ class Declaration:
     value: str = ""
     doc: str = ""
     statement_refs: list[str] = field(default_factory=list)
+    hypothesis_refs: list[str] = field(default_factory=list)
     conclusion_refs: list[str] = field(default_factory=list)
     proof_refs: list[str] = field(default_factory=list)
     external_refs: list[str] = field(default_factory=list)
@@ -509,18 +510,22 @@ def resolve_references(decls: list[Declaration], table: NameTable) -> None:
             if attr == "statement_refs":
                 decl.external_refs = sorted(unresolved)
 
-        # The conclusion is resolved separately: a reference appearing only in
-        # a hypothesis means the theorem *assumes* that proposition, while one
-        # in the conclusion means it *establishes* it. That distinction is what
-        # separates a proved result from a conditional reduction.
-        conclusion: list[str] = []
-        for tok in _tokens(statement_conclusion(decl.statement)):
-            full = table.resolve(tok, decl)
-            if full is None or full == decl.decl_id:
-                continue
-            if full not in conclusion:
-                conclusion.append(full)
-        decl.conclusion_refs = conclusion
+        # Resolve the two positions independently. A proposition can occur in
+        # both: `(h : P) : P` still assumes P. Subtracting conclusion references
+        # from all statement references would erase that premise and turn a
+        # restatement into a spurious unconditional proof.
+        for attr, source in (
+            ("hypothesis_refs", statement_hypotheses(decl.statement)),
+            ("conclusion_refs", statement_conclusion(decl.statement)),
+        ):
+            refs: list[str] = []
+            for tok in _tokens(source):
+                full = table.resolve(tok, decl)
+                if full is None or full == decl.decl_id:
+                    continue
+                if full not in refs:
+                    refs.append(full)
+            setattr(decl, attr, refs)
 
 
 def normalized_signature(decl: Declaration, table: NameTable) -> str:
@@ -790,6 +795,51 @@ def statement_shape(statement: str, conclusion_only: bool = True) -> list[str]:
     text = statement_conclusion(statement) if conclusion_only else statement
     return [g for g in ROLE_GLYPHS if g in text]
 
+
+def _literal_constant(text: str) -> str | None:
+    """A constant name, optionally with Lean's explicit universe arguments."""
+
+    name = re.sub(r"\.\{[^{}]*\}\s*$", "", text.strip())
+    return name if IDENT_RE.fullmatch(name) else None
+
+
+def statement_conclusion_form(statement: str) -> str:
+    """Recognize only direct named-Prop conclusions used by closure rules.
+
+    Mentioning P does not prove P: `P = P`, `P ∨ True`, and `∀ h : P, P`
+    must not close it. This is a conservative source-shape check, not a Lean
+    type checker. Unsupported syntax yields no proposition-closure rule.
+    """
+
+    def unwrap(text: str) -> str:
+        text = text.strip()
+        while text.startswith("(") and text.endswith(")"):
+            depth = 0
+            for i, ch in enumerate(text):
+                if ch == "(":
+                    depth += 1
+                elif ch == ")":
+                    depth -= 1
+                if depth == 0:
+                    break
+            if i != len(text) - 1:
+                break
+            text = text[1:-1].strip()
+        return text
+
+    text = unwrap(statement_conclusion(statement))
+    if _literal_constant(text):
+        return "named"
+    if text.startswith("¬") and _literal_constant(unwrap(text[1:])):
+        return "not"
+    idx = _split_top_level(text, "↔")
+    if idx >= 0 and all(
+        _literal_constant(unwrap(part)) for part in (text[:idx], text[idx + 1 :])
+    ):
+        return "iff"
+    return ""
+
+
 FACETS_PATH = Path(__file__).with_name("semantic_facets.json")
 
 # Split lowercase/digit -> uppercase (`PostRoot`), and also an acronym run
@@ -952,6 +1002,56 @@ def has_raw_hypothesis(statement: str) -> bool:
     return any(g in hyp for g in _RAW_HYPOTHESIS_GLYPHS)
 
 
+def has_unclassified_hypothesis(decl: Declaration, table: NameTable) -> bool:
+    """Block closure from visible inputs other than simple named premises.
+
+    In particular `(h : False)` and `(i : Fin 0)` cannot supply an unconditional
+    proposition. Named project premises are resolved here and checked against
+    closed propositions by compute_status. This source check does not elaborate
+    section variables, implicit instances, macros, or hidden definition bodies.
+    """
+
+    text = statement_hypotheses(decl.statement).strip()
+    header = DECL_NAME_RE.match(text)
+    if header is None:
+        return True
+    text = text[header.end():].strip()
+
+    def named_premise(part: str) -> bool:
+        name = _literal_constant(part)
+        return bool(name and table.resolve(name, decl))
+
+    # Explicit, implicit, strict implicit, and instance binders. Any complex or
+    # unresolved type is a hard blocker, even when it has no logical glyphs.
+    while text and text[0] in "({[⦃":
+        depth = 0
+        end = None
+        for i, ch in enumerate(text):
+            if ch in "([{⟨⦃":
+                depth += 1
+            elif ch in ")]}⟩⦄":
+                depth -= 1
+            if depth == 0:
+                end = i
+                break
+        if end is None:
+            return True
+        binder = text[1:end]
+        colon = _split_top_level(binder, ":")
+        premise = binder[colon + 1:] if colon >= 0 else binder
+        if not named_premise(premise):
+            return True
+        text = text[end + 1:].strip()
+
+    # statement_hypotheses retains each top-level arrow through the last one.
+    while text:
+        arrow = _split_top_level(text, "→")
+        if arrow < 0 or not named_premise(text[:arrow]):
+            return True
+        text = text[arrow + 1:].strip()
+    return False
+
+
 def prop_valued_defs(nodes: dict[str, dict]) -> set[str]:
     """Every `Prop`-valued definition, whether or not it takes binders.
 
@@ -996,8 +1096,9 @@ def compute_status(
     Closed `def X : Prop` declarations are the research propositions.  A theorem
     can close one only when every *hard* hypothesis is absent and every named
     closed proposition it assumes has already been closed.  Parameterised Prop
-    hypotheses and structure/class/inductive binders are hard blockers: they are
-    data the theorem requires, not globally discharged propositions.
+    hypotheses and other visible binders are hard blockers: they are data the
+    theorem requires, not globally discharged propositions. This remains a
+    conservative source-derived status, not a semantic proof audit.
 
     Exact unconditional `A ↔ B` theorems contribute both implication rules.  The
     least fixpoint therefore propagates proved status across compiled coordinate
@@ -1006,15 +1107,9 @@ def compute_status(
 
     closed = closed_propositions(nodes)
     all_props = prop_valued_defs(nodes)
-    carriers = {
-        n for n, e in nodes.items()
-        if e.get("kind") in ("structure", "class", "inductive")
-    }
-    parameterised_props = all_props - closed
-
     assumed_all: dict[str, list[str]] = {}
     rules: dict[str, list[tuple[set[str], str]]] = defaultdict(list)
-    refutes: dict[str, list[str]] = defaultdict(list)
+    refutes: dict[str, list[tuple[set[str], str]]] = defaultdict(list)
 
     for name, entry in nodes.items():
         if entry.get("kind") not in PROOF_KINDS:
@@ -1022,30 +1117,45 @@ def compute_status(
 
         stmt = set(entry.get("statement_refs", ()))
         concl = list(entry.get("conclusion_refs", ()))
-        hypothesis_refs = stmt - set(concl)
+        # Old graph records without a positional split cannot safely establish
+        # closure. Retain all their statement references as possible premises;
+        # fresh source and elaborated graphs both supply hypothesis_refs.
+        hypothesis_refs = set(entry.get("hypothesis_refs", stmt))
         prop_assumptions = sorted(hypothesis_refs & all_props)
         closed_assumptions = sorted(hypothesis_refs & closed)
 
-        hard_blocked = bool(entry.get("has_raw_hypothesis")) or bool(
-            hypothesis_refs & (parameterised_props | carriers)
+        hard_blocked = (
+            bool(entry.get("has_raw_hypothesis"))
+            or bool(entry.get("has_unclassified_hypothesis", True))
+            or bool(hypothesis_refs - closed)
         )
         assumed_all[name] = prop_assumptions
         entry["closed_assumes"] = closed_assumptions
         entry["hard_blocked"] = hard_blocked
 
         conclusion_props = [r for r in concl if r in closed]
-        shape = set(entry.get("shape") or ())
+        form = entry.get("conclusion_form")
 
-        if "¬" in shape and len(concl) == 1 and len(conclusion_props) == 1:
+        if (
+            not hard_blocked
+            and form == "not"
+            and len(concl) == 1
+            and len(conclusion_props) == 1
+        ):
             target = conclusion_props[0]
             entry["refutes_prop"] = target
-            refutes[target].append(name)
+            refutes[target].append((set(closed_assumptions), name))
             continue
 
         # B from A (or from several named closed propositions).  Raw/data
         # hypotheses block a global proposition rule, but named closed premises
         # are allowed to discharge later in the fixpoint.
-        if not hard_blocked and len(concl) == 1 and len(conclusion_props) == 1:
+        if (
+            not hard_blocked
+            and form == "named"
+            and len(concl) == 1
+            and len(conclusion_props) == 1
+        ):
             target = conclusion_props[0]
             entry["establishes_prop"] = target
             rules[target].append((set(closed_assumptions), name))
@@ -1055,7 +1165,7 @@ def compute_status(
         # manufacture this from a theorem that itself assumes another Prop.
         if (
             not hard_blocked
-            and "↔" in shape
+            and form == "iff"
             and len(concl) == 2
             and len(conclusion_props) == 2
             and not prop_assumptions
@@ -1089,7 +1199,7 @@ def compute_status(
         elif name in closed:
             if name in proved_props:
                 status[name] = STATUS_PROVED
-            elif refutes.get(name):
+            elif any(premises <= proved_props for premises, _ in refutes.get(name, ())):
                 status[name] = STATUS_REFUTED
             else:
                 status[name] = STATUS_OPEN
