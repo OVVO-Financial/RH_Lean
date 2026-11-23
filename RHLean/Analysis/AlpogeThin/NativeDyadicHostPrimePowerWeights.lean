@@ -51,8 +51,7 @@ theorem nativeDyadicFullHostEquiv_dInvolution (e : ℕ) :
   change ((nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (0 : ZMod 2)),
     nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2))),
       Multiplicative.ofAdd ((nativeDyadicFrameEquiv e).symm 0)) = ((1, -1), 1)
-  simp only [nativeDyadicSignEquiv_symm_zero, nativeDyadicSignEquiv_symm_one,
-    map_zero, ofAdd_zero]
+  simp only [nativeDyadicSignEquiv_symm_one, map_zero, ofAdd_zero, map_one]
 
 private theorem nativePrimePowerLegU_of_modEq
     {N p a : ℕ} [NeZero N] [Fact p.Prime] (hp : p ∣ N)
@@ -109,8 +108,7 @@ theorem nativeDyadicHostData_mem_inertia_d
     · left
       apply Multiplicative.ofAdd.injective
       apply (nativeDyadicFullHostEquiv e).injective
-      rw [← hug]
-      change nativeDyadicArt e q d u = 1
+      rw [← hug, ofAdd_zero, map_one]
       exact h
     · right
       apply Multiplicative.ofAdd.injective
@@ -141,9 +139,10 @@ theorem nativeDyadicHostData_inertia_d_card
       nativeDyadicHostData_mem_inertia_d e q d hH,
       Finset.mem_insert, Finset.mem_singleton]
   rw [hs]
-  simp only [Finset.card_insert_of_notMem
-    (by simpa only [Finset.mem_singleton] using (nativeDyadicDInvolution_ne_zero e).symm),
-    Finset.card_singleton]
+  have h0 : (0 : AlpogeNativeE0 × AlpogeNativeDyadicH e) ∉
+      ({nativeDyadicDInvolution e} : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) := by
+    simpa only [Finset.mem_singleton] using (nativeDyadicDInvolution_ne_zero e).symm
+  simp only [Finset.card_insert_of_notMem h0, Finset.card_singleton]
 
 /-- The existing CRT representative at d has trivial d-character.  This
 fixes the representative of the exceptional non-CM-type coset exactly. -/
@@ -317,7 +316,7 @@ theorem nativeDyadicHostPrimePowerWeight_unramified
         (alpogeNativeHostData e q d).inertia p ↔
       g = i • (alpogeNativeHostData e q d).frob p := by
     rw [hI, AddSubgroup.mem_bot]
-    exact sub_eq_zero
+    exact sub_eq_zero (a := g) (b := i • (alpogeNativeHostData e q d).frob p)
   have hc : (Finset.univ.filter (fun u : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
       u ∈ (alpogeNativeHostData e q d).inertia p)).card = 1 := by
     have hs : Finset.univ.filter
@@ -401,10 +400,12 @@ theorem nativeDyadicHostPrimePowerWeight_d
       · have heq : g = g0 := sub_eq_zero.mp h
         subst g
         exact (hg hg0).elim
-      · exact (sub_eq_iff_eq_add).mp h
+      · exact (sub_eq_iff_eq_add (a := g) (b := g0)
+          (c := nativeDyadicDInvolution e)).mp h
     · intro h
       right
-      exact (sub_eq_iff_eq_add).mpr h
+      exact (sub_eq_iff_eq_add (a := g) (b := g0)
+        (c := nativeDyadicDInvolution e)).mpr h
   unfold nativeDyadicHostPrimePowerWeight
   rw [nativeDyadicHostData_inertia_d_card e q d hH]
   norm_num only [Nat.cast_ofNat, div_self (by norm_num : (2 : ℂ) ≠ 0)]

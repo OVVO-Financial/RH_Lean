@@ -431,3 +431,13 @@ key for the full build and repair iterations; they cannot masquerade as a
 complete native-root cache hit. Obsolete preflight entries are trimmed to
 avoid evicting the dependency caches. All source, type, declaration-graph,
 warning and transitive-axiom acceptance checks remain in force.
+
+The failure path was exercised on published head
+2249f884987073e5f5ae0b9299613ce5a8c394f4, hosted run
+[45222581857](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45222581857).
+The targeted build reported the failing prime-power module at 17:02:19 UTC
+and returned failure at 17:02:20 UTC. It saved completed prerequisites;
+the full native build was skipped. The cancellation job succeeded and stopped
+eight other same-revision PR workflows. The remaining source diagnostics in
+that pass concern explicit group types, map-one normalization and finite-set
+cardinality applications; they do not establish a mathematical counterexample.
