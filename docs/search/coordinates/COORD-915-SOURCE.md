@@ -38,10 +38,10 @@
 | 28 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean) | Native first-bad v2 consumer: one exact missing arithmetic hypothesis |
 | 27 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 26 | [research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean](../../../research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean) | First-bad correlation descent |
+| 23 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 22 | [research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean](../../../research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean) | First-bad active source: exact raw-parent completed/incomplete splice |
 | 20 | [research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean](../../../research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean) | Terminal first-bad contradiction splice |
 | 19 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
-| 19 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 19 | [research/VF_MID_FINAL_GOALPOST.md](../../../research/VF_MID_FINAL_GOALPOST.md) | VF-mid final goalpost contract |
 | 17 | [research/VF_MID_915_SECTOR_SIX_CONE_AUDIT.md](../../../research/VF_MID_915_SECTOR_SIX_CONE_AUDIT.md) | #915 — Sector Six cone regression and revised proof contract |
 | 15 | [research/VF_MID_915_SOURCE_PAYMENT_STATUS.md](../../../research/VF_MID_915_SOURCE_PAYMENT_STATUS.md) | #915 original source-payment status |

@@ -10,32 +10,54 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 | --- | --- | --- |
 | 91 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 54 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 17 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 17 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
 | 16 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
-| 15 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
-| 15 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
+| 16 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 14 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
+| 14 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 14 | [scripts/test_coordinate_atlas.py](../../../scripts/test_coordinate_atlas.py) | Tests for the coordinate atlas and the static search corpus generator. |
-| 13 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 12 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 12 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
-| 10 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 10 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 10 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 9 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
+| 9 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
 | 9 | [research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean](../../../research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean) | CORR-4 to the subcritical q^2 terminal recurrence |
 | 9 | [research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean) | Post-#789 diagonal-subtracted quantitative target |
+| 8 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 8 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
+| 7 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 7 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
-| 7 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
+| 7 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 7 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
 | 7 | [research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean](../../../research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean) | CORR-4: a relaxed full-physical-remainder inlet |
+| 7 | [research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean](../../../research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean) | CORR-4 nested finite-C exact square completion and saturation reserves |
 | 7 | [research/POST789_SHARPENED_COEFFICIENT_CORRIDOR.md](../../../research/POST789_SHARPENED_COEFFICIENT_CORRIDOR.md) | Post-789 coefficient sharpening and current research state |
 | 6 | [AGENTS_POLICY_HISTORY_2026_10_15.md](../../../AGENTS_POLICY_HISTORY_2026_10_15.md) | RH_Lean research-agent instructions |
 | 6 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
+| 6 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 6 | [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](../../../docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | CROSS_ROUTE_SIGNED_RECOVERY_V1 — seven-agent proof triage and triangulation (2026-11-10) |
+| 6 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 6 | [research/CORR4_FRAME_ONLY_INVERSE_20261026.lean](../../../research/CORR4_FRAME_ONLY_INVERSE_20261026.lean) | Sharp frame-only inverse obstruction for CORR-4 |
 | 6 | [research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean](../../../research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean) | CORR-4: isolate the one unresolved signed mixed-tail power bill |
 | 6 | [research/CORR4_OAI_RELAXED_REMAINDER_20261024.md](../../../research/CORR4_OAI_RELAXED_REMAINDER_20261024.md) | CORR-4: OAI 7/8 guidepost and a genuinely relaxed physical remainder attack |
+| 6 | [research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean](../../../research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean) | Source-faithful CORR4 square-clock sampling |
 | 6 | [research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean) | The post-#789 signed remainder is the CORR square in disguise |
 | 6 | [research/oai_434/CORR4OpenAICertifiedRemainderGuidepost.lean](../../../research/oai_434/CORR4OpenAICertifiedRemainderGuidepost.lean) | Fully certified original OpenAI 7/8 -> physical CORR4 remainder |
-| 5 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 5 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 5 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 5 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 5 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| 5 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 5 | [research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean](../../../research/GLOBAL_RETURNED_CORE_SYNTHESIS.lean) | Global returned-core synthesis |
-| 5 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
+| 5 | [research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean](../../../research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean) | Completely paid O(R) CORR4 -> nearest-square nested finite-C boundary |
+| 5 | [research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean](../../../research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean) | Original CORR-4 daughters in nested finite-C square-root coordinates |
+| 5 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
+| 4 | [README.md](../../../README.md) | RH_Lean |
+| 4 | [docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md](../../../docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md) | MULTIPLICITY_VS_COST_TO_HALF_V1 — all-seven-agent source-faithful amplification attack (2026-11-20) |
+| 4 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
+| 4 | [docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md](../../../docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) | Established baseline, exact consumer, genuinely new arithmetic |
 | 4 | [research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean](../../../research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean) | CORR-4 genuine mixed tail: record obstruction and finite plateau |
 | 4 | [research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean](../../../research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean) | Buffered all-integer CORR-4 induction: original sharp daughter cutoff |
 | 4 | [research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean](../../../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean) | Deterministic q² daughter frame and the complete CORR-4 power biconditional |
@@ -46,25 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 | 4 | [research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean](../../../research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean) | The owner-two clipped exit is the whole top Mertens value |
 | 4 | [research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean](../../../research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean) | Exact reciprocal-prefix / far-tail split of the signed cell telescope |
 | 4 | [research/README.md](../../../research/README.md) | Research closeout map |
-| 4 | [scripts/proof_dag_falsifier_regressions.py](../../../scripts/proof_dag_falsifier_regressions.py) | Standard-library regressions for falsifiers recorded in the proof DAG. |
-| 3 | [MULTIROUTE_FORMALIZATION_PLAN.md](../../../MULTIROUTE_FORMALIZATION_PLAN.md) | Multi-route RH criterion formalization plan |
-| 3 | [README.md](../../../README.md) | RH_Lean |
-| 3 | [RHLean/Analysis/PrimeBoundaryDefectBridge.lean](../../../RHLean/Analysis/PrimeBoundaryDefectBridge.lean) | Prime-coordinate boundary defects |
-| 3 | [RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean](../../../RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean) | Canonical rough-prime covariance after the shallow crossing |
-| 3 | [RHLean/Analysis/SquareRootFixedCrossing18349.lean](../../../RHLean/Analysis/SquareRootFixedCrossing18349.lean) | Fixed eventual reciprocal crossing at depth 18349 |
-| 3 | [RHLean/Proof/CanonicalGapAncestryEnergyBridge.lean](../../../RHLean/Proof/CanonicalGapAncestryEnergyBridge.lean) | Canonical ancestry energy interface |
-| 3 | [RHLean/Proof/CanonicalRoughCriticalCorrelationContraction.lean](../../../RHLean/Proof/CanonicalRoughCriticalCorrelationContraction.lean) | Critical correlation contraction and exact Abel return |
-| 3 | [RHLean/Proof/FarSurvivorRenewal_is_LowerMertens.lean](../../../RHLean/Proof/FarSurvivorRenewal_is_LowerMertens.lean) | Far survivor renewal is lower-scale Mertens |
-| 3 | [RHLean/Proof/LargePrimeTerminalFlipLayers.lean](../../../RHLean/Proof/LargePrimeTerminalFlipLayers.lean) | Large-prime terminal flip layers |
-| 3 | [RHLean/Proof/LowWheelCanonicalRepeatedExternalTerminalMassBridge.lean](../../../RHLean/Proof/LowWheelCanonicalRepeatedExternalTerminalMassBridge.lean) | Prime-deletion Hall obstruction and rough-partner fresh-prime difference |
-| 3 | [RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean) | Exceptional-owner terminal synthesis |
-| 3 | [RHLean/Proof/SignedTransportAmplificationAudit.lean](../../../RHLean/Proof/SignedTransportAmplificationAudit.lean) | Signed transport and square-endpoint amplification audit |
-| 3 | [RHLean/Proof/SquareRootAmplificationClosure.lean](../../../RHLean/Proof/SquareRootAmplificationClosure.lean) | Fixed square-root amplification closes the Mertens energy exponent |
-| 3 | [RHLean/Proof/SquareRootCrossRegionAmplification.lean](../../../RHLean/Proof/SquareRootCrossRegionAmplification.lean) | Cross-region sufficient targets for square-root amplification |
-| 3 | [RHLean/Proof/SquareRootLowPrimeOneBlockTerminalBudget.lean](../../../RHLean/Proof/SquareRootLowPrimeOneBlockTerminalBudget.lean) | One-block terminal boundary budget |
-| 3 | [docs/RESEARCH_FRONTIER_DAG.md](../../../docs/RESEARCH_FRONTIER_DAG.md) | Current research frontier and import DAG |
-| 3 | [export_mobius_synthesis/CURRENT_PROOF_ROUTE.md](../../../export_mobius_synthesis/CURRENT_PROOF_ROUTE.md) | Current proof route |
-| 3 | [export_mobius_synthesis/MODULES.md](../../../export_mobius_synthesis/MODULES.md) | Principal modules |
-| 3 | [export_mobius_synthesis/README.md](../../../export_mobius_synthesis/README.md) | Möbius Synthesis |
-| 3 | [export_mobius_synthesis/SEAMS.md](../../../export_mobius_synthesis/SEAMS.md) | Exact seams between the proof layers |
-| 3 | [research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean](../../../research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean) | All-scale Li allocation and the exact prime-displacement remainder |

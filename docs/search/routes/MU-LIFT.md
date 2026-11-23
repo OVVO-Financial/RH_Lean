@@ -8,31 +8,54 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-EULER
 
 | Score | File | Title |
 | --- | --- | --- |
-| 21 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 23 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 19 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 12 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 12 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 12 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 9 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 9 | [research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean](../../../research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean) | The actual uncentered Mertens prefix budget |
+| 8 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 8 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
-| 7 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 7 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
+| 6 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 6 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 6 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 6 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 6 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
 | 5 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
+| 5 | [docs/MERTENS_AMPLIFICATION_BUDGET.md](../../../docs/MERTENS_AMPLIFICATION_BUDGET.md) | Mertens amplification: subpower loss and subcritical budget dependence |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
 | 4 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
 | 4 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
-| 4 | [docs/MERTENS_AMPLIFICATION_BUDGET.md](../../../docs/MERTENS_AMPLIFICATION_BUDGET.md) | Mertens amplification: subpower loss and subcritical budget dependence |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 4 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 4 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 4 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| 4 | [research/half_bootstrap_20261116/native_renewal.md](../../../research/half_bootstrap_20261116/native_renewal.md) | Native envelope renewal: the exact mixed-term obstruction and supplier threshold |
+| 3 | [docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md](../../../docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md) | Owner capacity and complete double-centering |
+| 3 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 3 | [docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md](../../../docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md) | MULTIPLICITY_VS_COST_TO_HALF_V1 — all-seven-agent source-faithful amplification attack (2026-11-20) |
+| 3 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
+| 3 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 3 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 3 | [research/MERTENS_HEATH_BROWN_SIGNED.lean](../../../research/MERTENS_HEATH_BROWN_SIGNED.lean) | Signed higher-order finite Mobius inversion |
 | 3 | [research/MERTENS_HEATH_BROWN_SIGNED.md](../../../research/MERTENS_HEATH_BROWN_SIGNED.md) | Signed finite extension: Heath-Brown, hyperbola, and the remaining norm |
+| 2 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
 | 2 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
 | 2 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 2 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 2 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
+| 2 | [docs/RHLEAN_SEVEN_AGENT_FROZEN_ROOT_PRIME_TWO_DIRECTIVE_20261108.md](../../../docs/RHLEAN_SEVEN_AGENT_FROZEN_ROOT_PRIME_TWO_DIRECTIVE_20261108.md) | Seven-agent directive: frozen square-root Möbius history, one prime coordinate |
 | 2 | [export_prime_wheel/paper/seeded_prime_comb_harmonic_reduction.tex](../../../export_prime_wheel/paper/seeded_prime_comb_harmonic_reduction.tex) | \vspace{-1.5em}\textbf{Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block M\"obius Sums}\\[0.45em] |
 | 2 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
 | 2 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 2 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
+| 2 | [research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean](../../../research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean) | A fixed gcd row does not pointwise dominate the original endpoint |
 | 2 | [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | Euler square-root bilinear form: one-sided historical Abel transport |
 | 2 | [research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean](../../../research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean) | The triangular signed historical Gram of the exact Euler hyperbola |
 | 2 | [research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md](../../../research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md) | Euler self-dual pointwise bridge and finite-C gate |
 | 2 | [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | Original finite-C to critical-energy amplification handoff |
+| 2 | [research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean](../../../research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean) | Actual Euler historical square-window sampling, with bounded moving gate |
 | 2 | [research/MERTENS_CONVERSE_ACCEPTANCE.lean](../../../research/MERTENS_CONVERSE_ACCEPTANCE.lean) | Exact bidirectional Mertens map acceptance |
 | 2 | [research/MERTENS_CONVERSE_IDENTIFICATION.lean](../../../research/MERTENS_CONVERSE_IDENTIFICATION.lean) | Bidirectional identification of Mertens growth and zeta-zero confinement |
 | 2 | [research/MERTENS_EXPONENT_DIAGNOSTICS.lean](../../../research/MERTENS_EXPONENT_DIAGNOSTICS.lean) | Endpoint regressions and the independent rightmost-zero coordinate |
@@ -43,28 +66,5 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-EULER
 | 2 | [research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean](../../../research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean) | Exact signatures of the finite-prefix lift and interval guard. |
 | 2 | [research/MERTENS_FINITE_PREFIX_EXTENSION.lean](../../../research/MERTENS_FINITE_PREFIX_EXTENSION.lean) | Exact finite-prefix extension for the genuine Mobius function |
 | 2 | [research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean](../../../research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean) | Original-source specialization of the conditional owner-prefix recurrence |
-| 2 | [scripts/Squared_Complex_Gram_4096/Square_Prefix_Squared_Complex_Cofactor_Parabolas_RH_Gram.tex](../../../scripts/Squared_Complex_Gram_4096/Square_Prefix_Squared_Complex_Cofactor_Parabolas_RH_Gram.tex) | \textbf{Square-Prefix Smooth--Transport Matching\\ |
-| 2 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
-| 1 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
-| 1 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
-| 1 | [MULTIROUTE_FORMALIZATION_PLAN.md](../../../MULTIROUTE_FORMALIZATION_PLAN.md) | Multi-route RH criterion formalization plan |
-| 1 | [README.md](../../../README.md) | RH_Lean |
-| 1 | [RHLean/Analysis/CanonicalHighSectorCore.lean](../../../RHLean/Analysis/CanonicalHighSectorCore.lean) | Canonical high-sector arithmetic core |
-| 1 | [RHLean/Analysis/ConcreteSquarePrefixGeometry.lean](../../../RHLean/Analysis/ConcreteSquarePrefixGeometry.lean) | Uniform local energy control for the concrete square-prefix Mertens sequence. |
-| 1 | [RHLean/Analysis/DeterministicTGreenKuboComparison.lean](../../../RHLean/Analysis/DeterministicTGreenKuboComparison.lean) | Deterministic T-sector Green--Kubo comparison |
-| 1 | [RHLean/Analysis/DyadicTransportCanonicalForm.lean](../../../RHLean/Analysis/DyadicTransportCanonicalForm.lean) | Canonical source form of dyadic transport compression |
-| 1 | [RHLean/Analysis/FrozenSquareRunDowncrossBridge.lean](../../../RHLean/Analysis/FrozenSquareRunDowncrossBridge.lean) | Frozen square runs as changes of the canonical Euler frontier |
-| 1 | [RHLean/Analysis/FrozenSquareRunKernel.lean](../../../RHLean/Analysis/FrozenSquareRunKernel.lean) | Frozen square-run kernel |
-| 1 | [RHLean/Analysis/MathlibMertensHook.lean](../../../RHLean/Analysis/MathlibMertensHook.lean) | Exact Möbius-zero covariance threshold |
-| 1 | [RHLean/Analysis/MertensCovarianceDescent.lean](../../../RHLean/Analysis/MertensCovarianceDescent.lean) | Covariance capacity: record descent, and what support exhaustion still owes |
-| 1 | [RHLean/Analysis/MertensEnergyRHForward.lean](../../../RHLean/Analysis/MertensEnergyRHForward.lean) | The forward Mertens-energy implication to the Riemann hypothesis |
-| 1 | [RHLean/Analysis/MertensMellinContinuation.lean](../../../RHLean/Analysis/MertensMellinContinuation.lean) | Mellin continuation attached to the Mertens summatory function |
-| 1 | [RHLean/Analysis/MertensMellinLSeriesBridge.lean](../../../RHLean/Analysis/MertensMellinLSeriesBridge.lean) | Identify the Mertens Mellin continuation with the Möbius L-series |
-| 1 | [RHLean/Analysis/MertensPowerGrowth.lean](../../../RHLean/Analysis/MertensPowerGrowth.lean) | Unsquared Mertens power growth from the energy criterion |
-| 1 | [RHLean/Analysis/MertensStepFunction.lean](../../../RHLean/Analysis/MertensStepFunction.lean) | The Mertens floor-step function for Abel and Mellin transforms |
-| 1 | [RHLean/Analysis/MertensStepGrowth.lean](../../../RHLean/Analysis/MertensStepGrowth.lean) | Power growth of the Mertens step function |
-| 1 | [RHLean/Analysis/MertensZetaIdentityContinuation.lean](../../../RHLean/Analysis/MertensZetaIdentityContinuation.lean) | Propagate the Mertens-zeta reciprocal identity to the critical half-plane |
-| 1 | [RHLean/Analysis/MobiusRenewalSquareWheelSynthesis.lean](../../../RHLean/Analysis/MobiusRenewalSquareWheelSynthesis.lean) | Renewal-telescope coordinates for the primorial square-wheel response |
-| 1 | [RHLean/Analysis/MobiusRenewalTelescope.lean](../../../RHLean/Analysis/MobiusRenewalTelescope.lean) | The Möbius renewal telescope |
-| 1 | [RHLean/Analysis/MobiusSynthesisBoundaryBridge.lean](../../../RHLean/Analysis/MobiusSynthesisBoundaryBridge.lean) | Bridge: synthesis boundary target ↔ projected renewal quadratic bound |
-| 1 | [RHLean/Analysis/NativePNTQuantitativeStatements.lean](../../../RHLean/Analysis/NativePNTQuantitativeStatements.lean) | Quantitative statements beyond the native PNT baseline |
+| 2 | [research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean](../../../research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean) | Reuse ANY established Mertens exponent on a complete 2ab band |
+| 2 | [research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean](../../../research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean) | Exact-type acceptance for the original arithmetic source. These examples |

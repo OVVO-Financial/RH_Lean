@@ -39,6 +39,7 @@
 | 26 | [RHLean/Proof/FarSurvivorRenewal_is_LowerMertens.lean](../../../RHLean/Proof/FarSurvivorRenewal_is_LowerMertens.lean) | Far survivor renewal is lower-scale Mertens |
 | 25 | [research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean](../../../research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean) | CORR-4 genuine mixed tail: record obstruction and finite plateau |
 | 25 | [research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean](../../../research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean) | Post-#791 closure in the existing unique-owner polarization currency |
+| 24 | [research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean](../../../research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean) | CORR-4 nested finite-C exact square completion and saturation reserves |
 | 20 | [research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean](../../../research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean) | Energy transfer between LOW-A correlation and the physical far census |
 | 19 | [research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean](../../../research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean) | q² daughter energy in first-separation Gram currency |
 | 15 | [research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean](../../../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean) | Deterministic q² daughter frame and the complete CORR-4 power biconditional |
@@ -51,9 +52,8 @@
 | 12 | [research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean](../../../research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean) | CORR-4 to the subcritical q^2 terminal recurrence |
 | 12 | [research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean](../../../research/GLOBAL_RETURNED_CORE_TOP_TWO_COMPLETED_BRANCH_ASSEMBLY.lean) | Complete branch energy through the global top-two Stokes telescope |
 | 12 | [research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean](../../../research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean) | Final conditional closure from a second-order PNT discrepancy hypothesis |
+| 11 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 11 | [research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean](../../../research/GLOBAL_RETURNED_CORE_THRESHOLD_MERTENS_WALL_ZERO_TARGET_GRAM.lean) | Threshold Mertens walls in zero-target Gram currency |
 | 11 | [research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean](../../../research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean) | Mellin-ledger form of the physical AMP remainder |
-| 10 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 10 | [research/CORR4_OAI_POWER_RENEWAL_20261025.lean](../../../research/CORR4_OAI_POWER_RENEWAL_20261025.lean) | CORR4: power remainder -> exact nearest-square endpoint renewal |
 | 10 | [research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean](../../../research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean) | Direct-sum dyadic dispersion bridge |
-| 10 | [research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_FIRST_OWNER_ENERGY.lean](../../../research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_FIRST_OWNER_ENERGY.lean) | Reciprocal q² prefix energy in first-owner currency |

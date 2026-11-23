@@ -24,12 +24,13 @@
 | Score | File | Title |
 | --- | --- | --- |
 | 11 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 5 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 5 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 5 | [research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean](../../../research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean) | PNT-first seam: exact Λ-normalized compensation, historical density model, |
 | 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 4 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 4 | [research/VF_WILES_ARITHMETIC_STABILITY_PROOF_CONTRACT.md](../../../research/VF_WILES_ARITHMETIC_STABILITY_PROOF_CONTRACT.md) | Wiles-style arithmetic stability: direct original-VF proof contract |
 | 3 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
 | 3 | [docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md](../../../docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) | PNT-first signed cofactor / historical-return seam — seven-agent directive |
+| 2 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 2 | [docs/RESEARCH_FRONTIER_DAG.md](../../../docs/RESEARCH_FRONTIER_DAG.md) | Current research frontier and import DAG |
 | 2 | [research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md](../../../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) | Two-scale signed renewal attack: from S = A - T to an independent arithmetic gain |

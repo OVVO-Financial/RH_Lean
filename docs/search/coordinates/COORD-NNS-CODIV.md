@@ -33,27 +33,27 @@
 | 42 | [research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean](../../../research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean) | Normalized NNS zero-target covariance on the physical Stokes carrier |
 | 38 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 27 | [research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean](../../../research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean) | Final Stokes boundary in NNS zero-target covariance currency |
-| 21 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
-| 19 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 19 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
-| 18 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 23 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 20 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 19 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 19 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 18 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 17 | [research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean](../../../research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean) | NNS zero-target normalization of the literal one-block correlation step |
 | 17 | [research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md](../../../research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md) | Can NNS LPM/UPM sharpen OpenAI's asymmetric 7/8 moment bounds? |
-| 15 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 16 | [RHLean/Analysis/AlpogeActualASKMainNNSMap.lean](../../../RHLean/Analysis/AlpogeActualASKMainNNSMap.lean) | The ACTUAL Alpöge ASK–MAIN map in native NNS coordinates |
+| 15 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 15 | [research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md](../../../research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md) | Pinned OpenAI moment vs sharp root-indexed Euler sampling: quantitative audit |
 | 15 | [research/VF_MID_AGGREGATE_CHILD_FORCING.lean](../../../research/VF_MID_AGGREGATE_CHILD_FORCING.lean) | Aggregate-to-child forcing for the native VF recursive descent |
 | 15 | [research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean](../../../research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean) | Zero-target partial moments on the exact covariance owner descent |
 | 13 | [scripts/vf_mid_first_bad_payment_v2_test.py](../../../scripts/vf_mid_first_bad_payment_v2_test.py) | Fast, stdlib-only, independently sieved ACTUAL-prime verification of the |
 | 12 | [research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md](../../../research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md) | VF_mid, actual prime owners, PNT, and the first-bad signed payment |
 | 12 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean) | First-bad minimal payment — exact parity-compressed algebra |
+| 11 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 11 | [numerics/floor_li_discrete_meboot/README.md](../../../numerics/floor_li_discrete_meboot/README.md) | Floor-Li discrete backlog NNS.meboot numerics |
+| 11 | [research/ALPOGE_NNS_SCHUR_PRINCIPAL_OVERSHOOT_20261121.md](../../../research/ALPOGE_NNS_SCHUR_PRINCIPAL_OVERSHOOT_20261121.md) | Alpöge × NNS Schur: the full positive covariance is **paid** |
 | 11 | [research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean](../../../research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean) | Sextic-ready complete and incomplete character sums without integration |
 | 11 | [research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md](../../../research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md) | One simultaneous ledger: sequential prime wheel, OpenAI Hecke compensation, and unnormalized NNS covariance |
 | 11 | [research/ZERO_TARGET_SQUARE_FINITE_DIFFERENCE_REDUCTION.lean](../../../research/ZERO_TARGET_SQUARE_FINITE_DIFFERENCE_REDUCTION.lean) | Reduce the post-root square finite difference to zero-target owner advantage |
 | 10 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
-| 10 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
-| 10 | [research/EXACT_LI_PURE_MODEL_CLOSURE.lean](../../../research/EXACT_LI_PURE_MODEL_CLOSURE.lean) | Pure exact-Li model closure spine |
-| 10 | [research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean](../../../research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean) | NNS zero-target Co/Div first-owner Fubini |
-| 10 | [research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md](../../../research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md) | OpenAI compensation and NNS covariance: ONE mechanism, side-by-side |
-| 10 | [research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean](../../../research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean) | The ACTUAL marked weighted Hecke kernel in unnormalized NNS covariance |
-| 9 | [research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean](../../../research/LOW_OWNER_RETURNED_CORE_ZERO_TARGET_GRAM.lean) | Returned-core square in global zero-target covariance currency |
-| 9 | [research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md](../../../research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md) | The QRH leaderboard leader: precise NNS covariance entry point (October 26, 2026) |
+| 10 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 10 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |

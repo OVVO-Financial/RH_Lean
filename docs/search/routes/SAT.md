@@ -10,26 +10,37 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 | --- | --- | --- |
 | 39 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 22 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
-| 8 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
-| 7 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 11 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 9 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 7 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 7 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 7 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 7 | [research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md](../../../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) | Two-scale signed renewal attack: from S = A - T to an independent arithmetic gain |
-| 5 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 5 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 5 | [docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md](../../../docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) | Cross-coordinate low-quotient program: complete seven-agent research instructions |
 | 5 | [research/TWOAB_SCALE_TRANSFER.md](../../../research/TWOAB_SCALE_TRANSFER.md) | Numerical and exact analytic test of the 2ab scale-transfer mechanism |
 | 4 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
 | 4 | [RHLean/Proof/SquareRootCanonicalDowncrossFinalSeam.lean](../../../RHLean/Proof/SquareRootCanonicalDowncrossFinalSeam.lean) | Canonical root-downcross final seam |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 4 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 4 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
+| 4 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 4 | [research/VF_919_NATIVE_FULL_MARKED_SPECTRUM_20261019.lean](../../../research/VF_919_NATIVE_FULL_MARKED_SPECTRUM_20261019.lean) | Native all-selected-prime marked spectrum on genuine Möbius owner sites |
 | 4 | [research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md](../../../research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md) | VF_mid, actual prime owners, PNT, and the first-bad signed payment |
+| 3 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 3 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 3 | [RHLean/Analysis/SquareRootTransportRealization.lean](../../../RHLean/Analysis/SquareRootTransportRealization.lean) | Realize the original square-root transport term |
 | 3 | [RHLean/Proof/LowWheelFrozenSecondContactRoughPrefix.lean](../../../RHLean/Proof/LowWheelFrozenSecondContactRoughPrefix.lean) | Exact rough-prefix fibre of the existing physical transport |
 | 3 | [RHLean/Proof/SquareRootLowPrimeSmoothTransportRecoupling.lean](../../../RHLean/Proof/SquareRootLowPrimeSmoothTransportRecoupling.lean) | Recouple the terminal low-prime state to the original smooth/transport residual |
 | 3 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
+| 3 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 3 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 3 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
 | 3 | [scripts/test_coordinate_atlas.py](../../../scripts/test_coordinate_atlas.py) | Tests for the coordinate atlas and the static search corpus generator. |
-| 3 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
+| 3 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
 | 2 | [BIG_PICTURE_PROOF_MAP.md](../../../BIG_PICTURE_PROOF_MAP.md) | Big-picture proof map |
+| 2 | [RHLean/Analysis/AlpogeSquareClockSignedHistorySampling.lean](../../../RHLean/Analysis/AlpogeSquareClockSignedHistorySampling.lean) | Direct signed Alpoge Gz: square-clock sampling at critical spacing |
 | 2 | [RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean](../../../RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean) | Square-stage realization of the signed log-square cells |
 | 2 | [RHLean/Analysis/NativePNTSignedSecondSelberg.lean](../../../RHLean/Analysis/NativePNTSignedSecondSelberg.lean) | Exact signed second Selberg recurrence |
 | 2 | [RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean](../../../RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean) | Möbius-native Selberg error mass on square prefixes |
@@ -57,14 +68,3 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 | 2 | [RHLean/Proof/SquareBlockIncrementEnergy.lean](../../../RHLean/Proof/SquareBlockIncrementEnergy.lean) | Strong global second-moment control of the exact square-block increments |
 | 2 | [RHLean/Proof/SquareBlockSmoothTransportGram.lean](../../../RHLean/Proof/SquareBlockSmoothTransportGram.lean) | The canonical square-block contribution from values whose largest prime |
 | 2 | [RHLean/Proof/SquareRootAncestrySuccessor.lean](../../../RHLean/Proof/SquareRootAncestrySuccessor.lean) | The ancestry successor is exactly the born-smooth correction |
-| 2 | [RHLean/Proof/SquareRootBornPostTailLowPrimeCollapse.lean](../../../RHLean/Proof/SquareRootBornPostTailLowPrimeCollapse.lean) | Low-prime collapse of the born post-crossing tail |
-| 2 | [RHLean/Proof/StableFarWallCrossingOwnerWindow.lean](../../../RHLean/Proof/StableFarWallCrossingOwnerWindow.lean) | Exact outer-owner window of the centered stable-far renewal |
-| 2 | [RHLean/Proof/StableFarWallCrossingRenewal.lean](../../../RHLean/Proof/StableFarWallCrossingRenewal.lean) | Crossing survivors are genuine lower-cofactor stable-wall occurrences |
-| 2 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
-| 2 | [export_square_block/paper/A_Squared-Complex_Framework_for_Square-Prefix_Mobius_Sums.tex](../../../export_square_block/paper/A_Squared-Complex_Framework_for_Square-Prefix_Mobius_Sums.tex) | \vspace{-1.5em}\textbf{A Squared-Complex Framework for Square-Prefix M\"obius Sums}\\[0.45em] |
-| 2 | [export_square_block/paper/sections/13.tex](../../../export_square_block/paper/sections/13.tex) | Two dyadic compression mechanisms: integer cells and transport fibers |
-| 2 | [paper/A_SquaredComplex_Framework_for_SquarePrefix_Mobius_Sums.tex](../../../paper/A_SquaredComplex_Framework_for_SquarePrefix_Mobius_Sums.tex) | \vspace{-1.5em}\textbf{A Squared-Complex Framework for Square-Prefix M\"obius Sums}\\[0.45em] |
-| 2 | [research/COMPLEMENTARY_MAIN_JOINT_GRAM.md](../../../research/COMPLEMENTARY_MAIN_JOINT_GRAM.md) | Complementary main term and joint-Gram architecture |
-| 2 | [research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean](../../../research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean) | Dyadic Buchstab/Othello splice: the joint packet is already an escape wall |
-| 2 | [research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean](../../../research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean) | Exact smooth/high joint packet on the top odd dyadic annulus |
-| 2 | [research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean](../../../research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean) | Consume the middle moving boundary inside the frozen base |

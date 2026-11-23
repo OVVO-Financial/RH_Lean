@@ -43,11 +43,11 @@
 | 12 | [research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean](../../../research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean) | CORR-4: isolate the one unresolved signed mixed-tail power bill |
 | 12 | [research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean](../../../research/GLOBAL_RETURNED_CORE_DIAGONAL_BOUND.lean) | Elementary q² diagonal bound on the one-amplitude clock |
 | 12 | [research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_CORRELATION_EQUIVALENCE.lean) | The post-#789 signed remainder is the CORR square in disguise |
-| 11 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 11 | [research/CORR4_FRAME_ONLY_INVERSE_20261026.lean](../../../research/CORR4_FRAME_ONLY_INVERSE_20261026.lean) | Sharp frame-only inverse obstruction for CORR-4 |
 | 9 | [research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean](../../../research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean) | Exact Stokes / Euler-memory split of the AMP remainder |
 | 9 | [research/CORR4_OAI_POWER_RENEWAL_20261025.lean](../../../research/CORR4_OAI_POWER_RENEWAL_20261025.lean) | CORR4: power remainder -> exact nearest-square endpoint renewal |
 | 9 | [research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean](../../../research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean) | Final Stokes boundary in NNS zero-target covariance currency |
+| 9 | [research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean](../../../research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean) | Completely paid O(R) CORR4 -> nearest-square nested finite-C boundary |
 | 8 | [research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean](../../../research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean) | CORR-4 genuine mixed tail: record obstruction and finite plateau |
 | 8 | [research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean](../../../research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean) | OpenAI 7/8 is a GUIDEPOST, not a fixed exponent |
 | 8 | [research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean](../../../research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean) | Exact original-CORR4 remainder in the restored OAI integer norm coordinate |
@@ -55,5 +55,5 @@
 | 8 | [research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean](../../../research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean) | The prefix-tail mixed remainder is the post-789 remainder |
 | 8 | [research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean](../../../research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean) | Mellin-ledger form of the physical AMP remainder |
 | 8 | [research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean](../../../research/LOW_OWNER_Q_MEMORY_REMAINDER_NORMAL_FORM.lean) | Zero-frequency AMP remainder in the q-owner physical coordinate |
-| 5 | [research/CORR4_OAI_RELAXED_REMAINDER_20261024.md](../../../research/CORR4_OAI_RELAXED_REMAINDER_20261024.md) | CORR-4: OAI 7/8 guidepost and a genuinely relaxed physical remainder attack |
-| 5 | [research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean](../../../research/GLOBAL_RETURNED_CORE_FINAL_STOKES_RH_BRIDGE.lean) | Final signed Stokes boundary to the existing RH consumer |
+| 8 | [research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean](../../../research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean) | Original CORR-4 daughters in nested finite-C square-root coordinates |
+| 6 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |

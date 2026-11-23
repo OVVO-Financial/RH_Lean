@@ -29,28 +29,31 @@
 | --- | --- | --- |
 | 186 | [research/VF_CANONICAL_SQRT_TWO.lean](../../../research/VF_CANONICAL_SQRT_TWO.lean) | CANONICAL VF: original square-band midpoint path + FIXED vertical sqrt(2) |
 | 43 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 31 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 31 | [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](../../../research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | Canonical sqrt2 VF preserves EXACTLY the classical von-Koch scale |
-| 30 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 20 | [scripts/vf_canonical_definition_autopsy.py](../../../scripts/vf_canonical_definition_autopsy.py) | Full repository-source inventory of VF definitions and canonical sqrt2 migration. |
 | 19 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 17 | [research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md](../../../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | FULL VF AUTOPSY — ONE CANONICAL SQRT(2)-ALIGNED DEFINITION |
 | 14 | [README.md](../../../README.md) | RH_Lean |
-| 11 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 11 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 10 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 9 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
-| 8 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 7 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 6 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
 | 6 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
+| 5 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
+| 5 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
 | 5 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 5 | [docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md](../../../docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) | PNT-first signed cofactor / historical-return seam — seven-agent directive |
 | 5 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
 | 4 | [AGENTS_POLICY_HISTORY_2026_10_15.md](../../../AGENTS_POLICY_HISTORY_2026_10_15.md) | RH_Lean research-agent instructions |
 | 4 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
-| 4 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 4 | [research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md](../../../research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md) | ChatGPT Agent Studio research campaign: original VF first-bad owner payment |
 | 4 | [research/README.md](../../../research/README.md) | Research closeout map |
 | 3 | [docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md](../../../docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) | Cross-coordinate low-quotient program: complete seven-agent research instructions |
-| 2 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 2 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 2 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
 | 2 | [research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md](../../../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md) | Exhaustive cross-coordinate audit: finite A/C and actual-prime VF source |
 | 2 | [research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md](../../../research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md) | Independent 7/8 programme: square-shell signed energy |
 | 2 | [research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md](../../../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) | Two-scale signed renewal attack: from S = A - T to an independent arithmetic gain |

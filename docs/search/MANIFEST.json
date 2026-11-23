@@ -1,21 +1,21 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "ba47f987342320fd5fde9a21e4b4145d0baeaf1ff597d7db0a94cbddc9920e8b",
+  "input_fingerprint": "08b2135c06bfe9a88f1db802ae330d66c0ce07341fc2af86a50907286a3d0d3d",
   "counts": {
-    "catalog-research-lean-vf.jsonl": 225,
-    "catalog-research-lean.jsonl": 385,
-    "catalog-research-notes.jsonl": 217,
-    "catalog-library-proof.jsonl": 444,
-    "catalog-library-core.jsonl": 386,
-    "catalog-docs.jsonl": 107,
-    "catalog-code.jsonl": 265,
-    "rewrite-families-a-k.jsonl": 247,
-    "rewrite-families-l.jsonl": 339,
-    "rewrite-families-m-r.jsonl": 454,
-    "rewrite-families-s.jsonl": 422,
-    "rewrite-families-t-z.jsonl": 286,
-    "rewrite_families": 1748,
-    "rewrite_theorems": 3171
+    "catalog-research-lean-vf.jsonl": 226,
+    "catalog-research-lean.jsonl": 555,
+    "catalog-research-notes.jsonl": 274,
+    "catalog-library-proof.jsonl": 450,
+    "catalog-library-core.jsonl": 441,
+    "catalog-docs.jsonl": 155,
+    "catalog-code.jsonl": 409,
+    "rewrite-families-a-k.jsonl": 339,
+    "rewrite-families-l.jsonl": 340,
+    "rewrite-families-m-r.jsonl": 496,
+    "rewrite-families-s.jsonl": 430,
+    "rewrite-families-t-z.jsonl": 288,
+    "rewrite_families": 1893,
+    "rewrite_theorems": 3367
   }
 }

@@ -26,16 +26,31 @@
 | --- | --- | --- |
 | 14 | [research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean](../../../research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean) | PNT-first seam: exact Λ-normalized compensation, historical density model, |
 | 10 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 8 | [RHLean/Analysis/AlpogeNativeSharpASKBalance.lean](../../../RHLean/Analysis/AlpogeNativeSharpASKBalance.lean) | Alpoge's ASK sharp cutoff rebuilt from NATIVE RHLean von Mangoldt |
 | 8 | [RHLean/Analysis/NativePNTErdosContraction.lean](../../../RHLean/Analysis/NativePNTErdosContraction.lean) | The generic Erdos cubic contraction |
 | 7 | [RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean](../../../RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean) | Endpoint form of the log-weighted child-fiber identity |
 | 7 | [RHLean/Analysis/NativePNTErrorMass.lean](../../../RHLean/Analysis/NativePNTErrorMass.lean) | Bounded reciprocal mass of the Chebyshev error |
 | 6 | [RHLean/Analysis/NativePNTSummatorySelberg.lean](../../../RHLean/Analysis/NativePNTSummatorySelberg.lean) | Summatory Selberg interface |
+| 5 | [RHLean/Analysis/AlpogeMobiusLogLift.lean](../../../RHLean/Analysis/AlpogeMobiusLogLift.lean) | Alpoge-to-finite-C exact signed von Mangoldt / Mobius source bridge |
+| 4 | [RHLean/Analysis/AlpogeNativeWindowMellin.lean](../../../RHLean/Analysis/AlpogeNativeWindowMellin.lean) | Mellin transform of the native weighted prime-power sum |
 | 4 | [RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean](../../../RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean) | Reciprocal cancellation in the signed second Selberg kernel |
+| 4 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
+| 4 | [research/MASULLO_FINITE_TRACE_GHOST_20261120.md](../../../research/MASULLO_FINITE_TRACE_GHOST_20261120.md) | Masullo x RH_Lean: exact high-prime restoration and finite-trace bypass |
+| 4 | [research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean](../../../research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean) | Finite arithmetic core of Coordinator C29, accepted with scope in |
+| 4 | [research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean](../../../research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean) | Actual Mobius HIGH: reciprocal Euler identity and log derivative algebra |
+| 3 | [RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean](../../../RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean) | Alpöge Gz is exactly RH_Lean's centered signed Erdős reciprocal history |
+| 3 | [RHLean/Analysis/AlpogeNativeDyadicWindow.lean](../../../RHLean/Analysis/AlpogeNativeDyadicWindow.lean) | An exact dyadic window for the native signed source |
+| 3 | [RHLean/Analysis/AlpogeNativeFourCharacterArithmetic.lean](../../../RHLean/Analysis/AlpogeNativeFourCharacterArithmetic.lean) | Alpoge's FOUR CHARACTER TRACE rebuilt over RHLean's arithmetic |
+| 3 | [RHLean/Analysis/AlpogeNativeSharpShell.lean](../../../RHLean/Analysis/AlpogeNativeSharpShell.lean) | Genuine prime-power cutoff shell in Alpoge's sharp ASK |
+| 3 | [RHLean/Analysis/AlpogeSharpASKCollar.lean](../../../RHLean/Analysis/AlpogeSharpASKCollar.lean) | Sharp midpoint collar for Alpoge's genuine ASK positive-part kernel |
+| 3 | [RHLean/Analysis/AlpogeSquareClockSignedHistorySampling.lean](../../../RHLean/Analysis/AlpogeSquareClockSignedHistorySampling.lean) | Direct signed Alpoge Gz: square-clock sampling at critical spacing |
 | 3 | [RHLean/Analysis/NativePNTSelberg.lean](../../../RHLean/Analysis/NativePNTSelberg.lean) | Native Selberg preparation |
+| 2 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
+| 2 | [RHLean/Analysis/AlpogeNNSMatchedSelbergKernel.lean](../../../RHLean/Analysis/AlpogeNNSMatchedSelbergKernel.lean) | Source-exact matched Selberg: kill the artificial quadratic prime principal mode |
+| 2 | [RHLean/Analysis/AlpogeNativeZetaBalance.lean](../../../RHLean/Analysis/AlpogeNativeZetaBalance.lean) | Zeta-only character balance for the native Alpoge source |
+| 2 | [RHLean/Analysis/AlpogeSquareClockSharpCollar.lean](../../../RHLean/Analysis/AlpogeSquareClockSharpCollar.lean) | Alpoge ASK at the exact native square clock: a root-width prime-power collar |
+| 2 | [RHLean/Analysis/AlpogeSquareRootArithmeticMultiplicity.lean](../../../RHLean/Analysis/AlpogeSquareRootArithmeticMultiplicity.lean) | A genuine square-root-length arithmetic jet, tested against Alpoge multiplicity |
 | 2 | [RHLean/Analysis/NativePNTEvolvingTailObstruction.lean](../../../RHLean/Analysis/NativePNTEvolvingTailObstruction.lean) | Structural obstruction for the absolute evolving-tail state |
 | 2 | [RHLean/Analysis/NativePNTMertens.lean](../../../RHLean/Analysis/NativePNTMertens.lean) | Architecture-native Mertens layer for PNT |
 | 2 | [RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean](../../../RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean) | Square-stage realization of the signed log-square cells |
 | 2 | [RHLean/Analysis/NativePNTSignedSecondSelberg.lean](../../../RHLean/Analysis/NativePNTSignedSecondSelberg.lean) | Exact signed second Selberg recurrence |
-| 2 | [RHLean/Analysis/NativePNTSquarePrefixCompensated.lean](../../../RHLean/Analysis/NativePNTSquarePrefixCompensated.lean) | Fully rederived compensated Selberg recurrence |
-| 2 | [RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean](../../../RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean) | Möbius-native Selberg error mass on square prefixes |
-| 2 | [research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean](../../../research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean) | PR #925: actual factor-range theta forcing and the spectral input boundary |

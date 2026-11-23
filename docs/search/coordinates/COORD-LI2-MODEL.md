@@ -38,6 +38,7 @@
 | 20 | [research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean](../../../research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean) | A genuine arithmetic-analytic synthesis: owner-column Abel transport |
 | 17 | [research/VF_CANONICAL_SQRT_TWO.lean](../../../research/VF_CANONICAL_SQRT_TWO.lean) | CANONICAL VF: original square-band midpoint path + FIXED vertical sqrt(2) |
 | 17 | [research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md](../../../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | FULL VF AUTOPSY — ONE CANONICAL SQRT(2)-ALIGNED DEFINITION |
+| 16 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
 | 16 | [research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md](../../../research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md) | One-sided Li-fan containment via weighted square-block composite removal |
 | 11 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 10 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
@@ -51,7 +52,6 @@
 | 6 | [scripts/vf_canonical_definition_autopsy.py](../../../scripts/vf_canonical_definition_autopsy.py) | Full repository-source inventory of VF definitions and canonical sqrt2 migration. |
 | 5 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 5 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
+| 5 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md) | Actual primes' square-root phases versus original signed square-block energy |
 | 5 | [research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean](../../../research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean) | VF-mid as a fractional prime cluster on the integer square lattice |
-| 4 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 4 | [README.md](../../../README.md) | RH_Lean |
-| 4 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
+| 4 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |

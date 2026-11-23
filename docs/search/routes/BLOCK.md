@@ -9,25 +9,47 @@ Coordinates: —
 | Score | File | Title |
 | --- | --- | --- |
 | 26 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 22 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 24 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 10 | [scripts/proof_obligation_dag.py](../../../scripts/proof_obligation_dag.py) | Validate and render the mathematical proof-obligation DAG. |
+| 7 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 6 | [RHLean/Proof/ExceptionalSignedPacketIdentification.lean](../../../RHLean/Proof/ExceptionalSignedPacketIdentification.lean) | Exact signed recovery on the exceptional physical carriers |
-| 6 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 6 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 6 | [research/VF_MID_INTEGER_BLOCK_CAPTURE.lean](../../../research/VF_MID_INTEGER_BLOCK_CAPTURE.lean) | Integer VF-mid square-block capture |
-| 5 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 3 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
-| 3 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 3 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 3 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 3 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 3 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 3 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
+| 2 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 2 | [README.md](../../../README.md) | RH_Lean |
 | 2 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
 | 2 | [RHLean/Analysis/PhysicalExceptionalLocalIntertwine.lean](../../../RHLean/Analysis/PhysicalExceptionalLocalIntertwine.lean) | Exceptional least-square local intertwining |
 | 2 | [RHLean/Proof/TwoWheelQ2GoCompatibility.lean](../../../RHLean/Proof/TwoWheelQ2GoCompatibility.lean) | Go / recovered q-square compatibility |
 | 2 | [docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md](../../../docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) | Create RH_Lean research agents in **ChatGPT Agent Studio** (browser) |
+| 2 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 2 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 2 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
+| 2 | [research/OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean](../../../research/OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean) | Exact finite theta Mellin coarsening, INCLUDING its discretization defect |
 | 2 | [research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md](../../../research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md) | One-sided lower VF channel is sufficient for RH; exact first-bad arithmetic gate |
-| 2 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
-| 2 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
-| 1 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 2 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
+| 1 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
+| 1 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 1 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 1 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
+| 1 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 1 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 1 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 1 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 1 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 1 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| 1 | [docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md](../../../docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md) | MULTIPLICITY_VS_COST_TO_HALF_V1 — all-seven-agent source-faithful amplification attack (2026-11-20) |
+| 1 | [docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent task selector |
+| 1 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
+| 1 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
+| 1 | [docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md](../../../docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md) | Source-faithful signed estimates that survive the complete return |
+| 1 | [research/OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028.lean](../../../research/OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028.lean) | Exact obstruction: global Mertens-size bounds do not imply shell L2 |
+| 1 | [research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean](../../../research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean) | Off-critical zero, canonical HIGH, and genuine-prime VF/theta coarsening |
 | 1 | [research/README.md](../../../research/README.md) | Research closeout map |
 | 1 | [research/VF_MID_LITERAL_BLOCK_CROSSING.lean](../../../research/VF_MID_LITERAL_BLOCK_CROSSING.lean) | Literal VF-mid square-block crossing |
 | 1 | [scripts/coordinate_atlas.py](../../../scripts/coordinate_atlas.py) | Coordinate atlas: one phenomenon, many repository coordinates. |

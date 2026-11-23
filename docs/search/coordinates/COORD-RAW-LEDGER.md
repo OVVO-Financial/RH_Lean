@@ -30,7 +30,7 @@
 | 4 | [research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean](../../../research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean) | Adjacent-block VF source-to-rank inlet |
 | 4 | [research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean](../../../research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean) | Wiles-style arithmetic owner stability: independent finite kernel |
 | 4 | [scripts/vf_mid_918_crossblock_moments.py](../../../scripts/vf_mid_918_crossblock_moments.py) | Empirical cross-block prime/odd-composite moment study for RH_Lean PR #918. |
-| 3 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 3 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 3 | [RHLean/Proof/OddResidualCofactorSupport.lean](../../../RHLean/Proof/OddResidualCofactorSupport.lean) | Odd residual cofactor support |
 | 3 | [research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean](../../../research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean) | Global Mobius-to-actual-VF physical owner weld, without proxy replacement |
 | 3 | [research/VF_MID_915_PARITY_REFINEMENT_PAYMENT_AUDIT.md](../../../research/VF_MID_915_PARITY_REFINEMENT_PAYMENT_AUDIT.md) | #915 — Signed quantitative audit of real middle owners and parity refinement |
@@ -40,7 +40,7 @@
 | 2 | [RHLean/Proof/RootWallCompleteFibre.lean](../../../RHLean/Proof/RootWallCompleteFibre.lean) | Complete greatest-prime fibres above the square-root wall |
 | 2 | [RHLean/Proof/StableFarWallCrossingRenewal.lean](../../../RHLean/Proof/StableFarWallCrossingRenewal.lean) | Crossing survivors are genuine lower-cofactor stable-wall occurrences |
 | 2 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
-| 2 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 2 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 2 | [export_mobius_synthesis/MODULES.md](../../../export_mobius_synthesis/MODULES.md) | Principal modules |
 | 2 | [research/SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md](../../../research/SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md) | Sequential Euler Prime Insertion, Mobius Densities, Square-Block CRT, and the Finite-C / Finite-A Criterion for RH |
 | 2 | [research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean](../../../research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean) | #915: exact NNS parity-refinement price; audit of proposed 2p payments |
