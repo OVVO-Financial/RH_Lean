@@ -357,6 +357,31 @@ unitary Weil covariance, exact Haar norm, the strict off-diagonal overlap
 bound, support outside the level, isotropic no-coinvariants and an admissible
 doubled theta kernel. Those premises are not inferred from the vacuum alone.
 
+`NativeThetaCuspSplitLevel.lean` supplies a genuine missing arithmetic
+input to that source level. The proved Frobenius at five has dyadic
+coordinate of order `2^e`; no power can be complex conjugation. Since the
+same native field is unramified at five, conjugation fixes no prime above
+five. The existing native prime-pairing constructor therefore gives an
+actual ideal `m`, proper and nonzero, with
+
+\[
+\mathfrak m\overline{\mathfrak m}=(5),\qquad
+\mathfrak m+\overline{\mathfrak m}=O_E,\qquad
+\mathfrak m+(2)=O_E.
+\]
+
+This uses a conjugate half of `(5)`, preserving the fixed-five arithmetic
+choice. The rational ideal `(5)` itself cannot meet the conjugate-coprime
+condition. This proves the ideal input to `SW.Level`; the stronger
+geometric level also asks for descent of a generator to the quadratic
+order, which is not inferred from this prime pairing.
+
+The same module lifts a proved quotient basis to actual integral vectors
+`beta : Fin N -> (B^-1)^N` and proves
+`span(beta) + m*(B^-1)^N = (B^-1)^N`. This supplies the source's arithmetic
+generator condition without asserting that the projective coefficient
+ideal has a global integral basis.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -369,7 +394,7 @@ ASK/MAIN recombination, finite-place gains and divisor
 | Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
 | CM degree | Original archimedean covolume, tangent determinant factors and exact finite different correction | Actual Lie-eigenlattice identification, all-embedding arithmetic period and source CM frame value |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice, actual split-five coefficient modulus and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -412,3 +437,34 @@ The next snapshot includes the finite-degree correction, algebraic-point
 uniformization and full mixed periods described above. Compilation and
 terminal-axiom verification remain required; the current PR Actions record
 is authoritative. No local Lean or Lake command has been executed.
+
+The fourth snapshot `4d1ebce91f43ea09f07702f42a08475c333a4da9` compiled
+`NativeThetaCuspSchwartz` cleanly, then stopped on an unnecessary-`simpa`
+warning in `NativeCMWeierstrassLatticeCurve`. The simplification is repaired.
+To collect independent supplier diagnostics without repeated cold runners,
+the reusable research workflow now has a narrowly guarded, three-minute
+diagnostic pass after this audit's failed mandatory preflight. That pass
+always returns failure, writes no research certificate and leaves the full
+native build blocked. The existing warning-fatal check, process cleanup,
+cache identity and standard terminal-axiom checks remain the acceptance gates.
+
+## Located continuation without inflated import closures
+
+The source's next arithmetic CM-action descent can use two Mathlib-based
+division-polynomial files, `GroundTheory/ArithmeticGeometry/AbelianVarieties/`
+`DivisionPoints.lean` and `NormEDS.lean`. Their general torsion criterion,
+with the nonzero division polynomial in characteristic zero, proves
+algebraicity of the coordinates of the actual finite kernel. The generator
+satisfies `w0*(1-w0)=(1+d)/4`, so its kernel is killed by this explicit
+positive integer. One must first retain the actual `u^-1*Lambda` scale,
+whose invariants are `c4(W)/12` and `c6(W)/216`, before descending rational
+CM isogeny formulas. This is a located source continuation, not an
+already-proved native algebraic endomorphism.
+
+For the cusp norm/overlap branch, a declaration-level dependency cut uses
+Heisenberg unitarity and cocycles, finite quotient projections, exact
+vacuum overlaps, and actual tensor-lattice relative indices. It avoids the
+large unrelated scheme/Moduli import surface. The actual family still needs
+vacua for every shifted projective lattice in the source level, rather than
+only rows of the one original lattice constructed here. These precise
+obligations remain open in this revision.

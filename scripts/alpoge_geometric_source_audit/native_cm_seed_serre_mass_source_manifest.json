@@ -11,6 +11,10 @@
       "sha256": "51906fcd1bcee80475c959f613724eb576a62efab157cb90e77312070eeac3d0"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/SpanningFamilies/IsSystem.lean",
+      "sha256": "c70af0066aa6a868bf9e13c3bf3856abb6f015f929f743d6ea367013dcf3c95a"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/ExistsCmEllipticCurveIntegersWithPeriod.lean",
       "sha256": "b7a835d24db9d2b174731907fc3742aaae0e7eb8ba178befd1ce96e19883a240"
     },
@@ -41,6 +45,10 @@
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/VolumeFundamentalDomainStdRealBasis.lean",
       "sha256": "427dd08be393abd578bd476d6b634dee726a4bdcd484e8fd61eea96698cbd28f"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CardLevGrpAndSpan.lean",
+      "sha256": "a4d5e6e265e95ee2a792c939fd63ef4311271f1395a5c5e8ac8f0932ecea2131"
     },
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ComponentRanksDegreesAddWithMasses.lean",
@@ -150,103 +158,6 @@
   "native_modules": [
     {
       "path": "RHLean/Geometry/NativeCMEllipticPolarization.lean",
-      "sha256": "e30ae1f15da24346d0f7b673b04131d2dd054b4418d5ff83fbaa034803aabc4f",
-      "lines": 190
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMEllipticSeed.lean",
-      "sha256": "76678a621fa32dffe40a36ffd151d7d4adb7b45ee6d387a2f1581dd6c231b1de",
-      "lines": 276
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMHermitianForm.lean",
-      "sha256": "e2f50ff188650010568cd1637f19cb683dd081a257396acb4072e18f68e28448",
-      "lines": 271
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMPeriodComparison.lean",
-      "sha256": "5d08bac710e38f638e939c5d2369656ea67556f1afae0b78dacb837202b4dd97",
-      "lines": 324
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMPureBlockPositivity.lean",
-      "sha256": "3db8a035442a8c15c328ff3cfb49f6796231ae4fb89d0c115f2a49a284138329",
-      "lines": 244
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMQuadraticOrder.lean",
-      "sha256": "31a9999e88de2331f49f0f8b2b663e08fe080cc8cc158b2a9e0730e4ef7084e9",
-      "lines": 356
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMSerreTensor.lean",
-      "sha256": "0f05b538737b69abe22198aa93af75e8ce33f6e479157b5b7e1999b3bd08fbae",
-      "lines": 311
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassCMIntegrality.lean",
-      "sha256": "97e3958e97d449c6c219666844c44fadcc2a26d8c143cb11ed2ac1dfc8135064",
-      "lines": 379
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassFiniteModel.lean",
-      "sha256": "1ae87493a6dd1e8f49f046faed8ab4220f56f851af5faf8a25cfcb9c224cebf4",
-      "lines": 144
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassIntegralModel.lean",
-      "sha256": "8f3d925e1cb815cc2752cf2c9ab5a776119608bafedd5306bfa7e721b4a6257e",
-      "lines": 186
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassModularJ.lean",
-      "sha256": "52dd3c1cc91d5b9e665257f8898a092c2622a430525a805265353704b4b2257f",
-      "lines": 220
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassPointChange.lean",
-      "sha256": "4ae9e0ca7772c86765f875ce9a40ed99b8ba66f1b4fbc864b96952dde642ede1",
-      "lines": 200
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassQExpansion.lean",
-      "sha256": "14fa03bf6ce581e3a0eb0ae10d3759c1573f65d215389252b0c3f0b70daa7a58",
-      "lines": 165
-    },
-    {
-      "path": "RHLean/Geometry/NativeCMWeierstrassTorsion.lean",
-      "sha256": "c23976ee041b61f236c7e5e8bd5e6da6c026ea06830856465adc824ca794aae6",
-      "lines": 386
-    },
-    {
-      "path": "RHLean/Geometry/NativeMeasuredComponentDegree.lean",
-      "sha256": "188b5bbee40be30d8c2b64071910d937a1112ff2d52acf4bd36dc7d82015f371",
-      "lines": 462
-    },
-    {
-      "path": "RHLean/Geometry/NativeMeasuredComponentNorm.lean",
-      "sha256": "13698eb8f776700afa87c47c67786097ea0d70561bf6ee2bd65eb8ff6e698922",
-      "lines": 375
-    }
-  ],
-  "unproved_suppliers": [
-    "Represented integral polarized elliptic scheme on the actual analytic seed",
-    "Arithmetic invariant differential/CM-period comparison",
-    "Represented Serre tensor with induced line bundle and all-place comparison",
-    "Genuine global cusp realization and span",
-    "Actual Petersson Gram component data and geometric lower-rank shares",
-    "Complete signed-slope hypotheses on one physical source"
-  ],
-  "normalizer": "Q=card(TT)*m*b*Delta/2; unchanged",
-  "axiom_audit": "research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean",
-  "permitted_terminal_axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-  ],
-  "native_files": [
-    {
-      "path": "RHLean/Geometry/NativeCMEllipticPolarization.lean",
       "sha256": "528b54cf3474d263ce244c42d618be2a31e1b0783e9ffb9b9635a9406ad30bba",
       "lines": 190
     },
@@ -302,8 +213,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMIntegrality.lean",
-      "sha256": "97e3958e97d449c6c219666844c44fadcc2a26d8c143cb11ed2ac1dfc8135064",
-      "lines": 379
+      "sha256": "7a1df13b3719f2fd0045b1d3867b0b961d19338963353bb3f01d2993431b83b5",
+      "lines": 386
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassFiniteModel.lean",
@@ -317,7 +228,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassLatticeCurve.lean",
-      "sha256": "e6dbdd8cc8ed1d83971f2b9848ef7b821417337efdb350236f457220dc1c28b5",
+      "sha256": "1722fffd59a189eada00ce8464f67471c1224ce5d491f1238ff7edf8bfe1549a",
       "lines": 209
     },
     {
@@ -396,17 +307,31 @@
       "lines": 102
     },
     {
+      "path": "RHLean/Geometry/NativeThetaCuspSplitLevel.lean",
+      "sha256": "07c5b6a83519dd7fab161f6f90dfa96ae51b338058a80336f585fadf9fe539d2",
+      "lines": 243
+    },
+    {
       "path": "RHLean/Geometry/NativeThetaCuspVacuum.lean",
       "sha256": "c04e74df7b9cc7476149993bd3f07b04e35310c305acc3e5c3a80dc48b951f11",
       "lines": 421
     }
   ],
-  "standard_terminal_axioms": [
+  "unproved_suppliers": [
+    "Represented integral polarized elliptic scheme on the actual analytic seed",
+    "Arithmetic invariant differential/CM-period comparison",
+    "Represented Serre tensor with induced line bundle and all-place comparison",
+    "Genuine global cusp realization and span",
+    "Actual Petersson Gram component data and geometric lower-rank shares",
+    "Complete signed-slope hypotheses on one physical source"
+  ],
+  "normalizer": "Q=card(TT)*m*b*Delta/2; unchanged",
+  "axiom_audit": "research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean",
+  "permitted_terminal_axioms": [
     "propext",
     "Classical.choice",
     "Quot.sound"
   ],
-  "audit_entry": "research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean",
   "hosted_attempts": [
     {
       "head": "9a9be760bb4448b7cf59c354b0606a59c0b0464a",
@@ -421,6 +346,11 @@
     {
       "head": "fc9f96bcecd870991a1de4cb7c79b711bbf5bbf2",
       "run_id": 45266689114,
+      "result": "PREFLIGHT_FATAL_WARNING_REPAIRED"
+    },
+    {
+      "head": "4d1ebce91f43ea09f07702f42a08475c333a4da9",
+      "run_id": 45267684469,
       "result": "PREFLIGHT_FATAL_WARNING_REPAIRED"
     }
   ]

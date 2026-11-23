@@ -1104,6 +1104,7 @@ import RHLean.Geometry.NativeThetaCuspHaar
 import RHLean.Geometry.NativeThetaCuspInnerProduct
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
 import RHLean.Geometry.NativeThetaCuspSchwartz
+import RHLean.Geometry.NativeThetaCuspSplitLevel
 import RHLean.Geometry.NativeThetaCuspVacuum
 import RHLean.Geometry.NativeThetaEvaluatedFamily
 import RHLean.Geometry.NativeThetaFaithfullyFlatDescent

@@ -33,7 +33,9 @@ def integralSeries : Subring ℂ⟦X⟧ where
     split_ifs
     exacts [isIntegral_one, isIntegral_zero]
   add_mem' {φ ψ} hφ hψ k := by simpa using (hφ k).add (hψ k)
-  zero_mem' k := by simpa using isIntegral_zero
+  zero_mem' k := by
+    rw [map_zero]
+    exact isIntegral_zero
   neg_mem' {φ} hφ k := by simpa using (hφ k).neg
 
 lemma C_mem_integralSeries {c : ℂ} (hc : IsIntegral ℤ c) : C c ∈ integralSeries := fun k ↦ by
@@ -51,7 +53,9 @@ def HasUnitLeadingExpansion (n : ℝ) (f : ℍ → ℂ) : Prop :=
     IsIntegral ℤ (constantCoeff ψ)⁻¹ ∧ HasQExpansion n (fun τ ↦ 𝕢 n τ ^ e * f τ) ψ
 
 lemma HasUnitLeadingExpansion.one (n : ℝ) : HasUnitLeadingExpansion n 1 :=
-  ⟨0, 1, one_mem _, by simp, by simpa using isIntegral_one,
+  ⟨0, 1, one_mem _, by simp, by
+    rw [map_one, inv_one]
+    exact isIntegral_one,
     by simpa using HasQExpansion.const n 1⟩
 
 lemma HasUnitLeadingExpansion.mul {n : ℝ} {f g : ℍ → ℂ} (hf : HasUnitLeadingExpansion n f)
@@ -158,7 +162,10 @@ lemma hasUnitLeadingExpansion_sub {n a d : ℕ} {b : ℤ} (hn : a * d = n) (hn0 
   rcases lt_trichotomy (a * a) n with h | h | h
   · obtain ⟨k, hk⟩ := Nat.exists_eq_add_of_lt h
     refine ⟨n, φ - C ζ⁻¹ * X ^ (k + 1) * ψ, sub_mem hφ1 (mul_mem (mul_mem (C_mem_integralSeries hζ2)
-      (pow_mem X_mem_integralSeries _)) hψ1), by simp [hφ2], by simpa [hφ2] using isIntegral_one,
+      (pow_mem X_mem_integralSeries _)) hψ1), by simp [hφ2], by
+        have hc : constantCoeff (φ - C ζ⁻¹ * X ^ (k + 1) * ψ) = 1 := by simp [hφ2]
+        rw [hc, inv_one]
+        exact isIntegral_one,
       (hφ3.sub (((HasQExpansion.const _ ζ⁻¹).mul (hq.pow (k + 1))).mul hψ3)).congr fun τ ↦ ?_⟩
     generalize 𝕢 n τ = q
     rw [hk, id]

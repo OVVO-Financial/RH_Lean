@@ -12,6 +12,7 @@ import RHLean.Geometry.NativeCMWeierstrassSeedPoints
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
+import RHLean.Geometry.NativeThetaCuspSplitLevel
 import Lean.Util.CollectAxioms
 
 /-!
@@ -84,7 +85,10 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.Vac.vacuum,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_pairing,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_selfDual,
-    ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.exists_native_vacuum]
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.exists_native_vacuum,
+    ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.five_prime_ne_conj,
+    ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level,
+    ``RHLean.Geometry.NativeTheta.Cusp.SplitLevel.exists_five_split_level_generators]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

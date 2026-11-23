@@ -73,6 +73,45 @@ jobs:
         uses: ./.github/actions/research-compile
         with:
           targets: ${{ steps.targets.outputs.targets }}
+      # This large, independent supplier batch otherwise reveals only one
+      # linter diagnostic per cold runner. This bounded pass is diagnostic
+      # only: the original warning-fatal step stays failed, no research
+      # certificate is emitted, and the full native build remains blocked.
+      - name: Collect independent CM supplier diagnostics after failure
+        if: >-
+          failure() && steps.compile.outcome == 'failure' &&
+          contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
+        timeout-minutes: 4
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import signal
+          import subprocess
+          from pathlib import Path
+
+          plan = json.loads(Path('/tmp/rhlean-research-plan.json').read_text())
+          prefixes = ('RHLean.Geometry.NativeCM',
+                      'RHLean.Geometry.NativeMeasuredComponent',
+                      'RHLean.Geometry.NativeThetaCusp')
+          targets = [target for target in plan['library']
+                     if target.startswith(prefixes)]
+          if not targets or len(targets) > 24:
+              raise SystemExit('Unexpected CM diagnostic target set')
+          print('DIAGNOSTIC ONLY; REQUIRED PREFLIGHT REMAINS FAILED', flush=True)
+          process = subprocess.Popen(['lake', 'build', *targets], start_new_session=True)
+          try:
+              process.wait(timeout=180)
+          except subprocess.TimeoutExpired:
+              os.killpg(process.pid, signal.SIGTERM)
+              try:
+                  process.wait(timeout=5)
+              except subprocess.TimeoutExpired:
+                  os.killpg(process.pid, signal.SIGKILL)
+                  process.wait()
+              print('CM diagnostic time limit reached', flush=True)
+          raise SystemExit(1)
+          PY
       # A second compiler pass must reuse exactly this PR's selected targets.
       - name: Verify selected closure reuses compiled artifacts
         if: github.event_name == 'pull_request'

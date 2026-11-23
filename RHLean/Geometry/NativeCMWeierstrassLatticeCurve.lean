@@ -149,7 +149,7 @@ theorem latticeCurve_j {L : PeriodPair} {a : ℂ} {τ : ℍ} (ha : a ≠ 0)
   rw [WeierstrassCurve.j, Units.val_inv_eq_inv_val, WeierstrassCurve.coe_Δ',
     latticeCurve_Δ_eq_discriminant ha h, latticeCurve_c₄, g₂_eq_E₄ ha h]
   have := discriminant_ne_zero τ
-  have : (π : ℂ) ≠ 0 := by simpa using Real.pi_ne_zero
+  have : (π : ℂ) ≠ 0 := by simp
   field_simp
   ring
 
