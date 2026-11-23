@@ -201,7 +201,7 @@ theorem periodImageForm_bijective (hP : Function.Injective P) :
     ext y
     change D.EF (e.symm (e x)) (e.symm y) = f y
     rw [e.symm_apply_apply, hx]
-    simp
+    simp only [LinearMap.comp_apply, LinearEquiv.coe_coe, LinearEquiv.apply_symm_apply]
 
 theorem periodImageForm_eq_im (hP : Function.Injective P)
     (Hm : Matrix (Fin g) (Fin g) ℂ)
@@ -285,6 +285,7 @@ end RHLean.Geometry.NativeCMPeriodComparison
 
 namespace RHLean.Analysis.AlpogeThin
 
+open NumberField
 open Formalism.HC Formalism.FrobeniusOrbits
 open RHLean.Geometry RHLean.Geometry.NativeGeometricPeriods
 open RHLean.Geometry.NativeCMPeriodComparison

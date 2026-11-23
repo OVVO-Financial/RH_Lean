@@ -1018,8 +1018,13 @@ import RHLean.Geometry.NativeAdicQuadraticNorm
 import RHLean.Geometry.NativeAllPlaceDescent
 import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceShortGenerators
+import RHLean.Geometry.NativeCMEllipticPolarization
+import RHLean.Geometry.NativeCMEllipticSeed
+import RHLean.Geometry.NativeCMHermitianForm
 import RHLean.Geometry.NativeCMPeriodComparison
+import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeCMQuadraticOrder
+import RHLean.Geometry.NativeCMSerreTensor
 import RHLean.Geometry.NativeCharacterTraceMaps
 import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
@@ -1052,6 +1057,8 @@ import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativeMeanEnergyDescent
+import RHLean.Geometry.NativeMeasuredComponentDegree
+import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeNumberFieldIntegralDescent
 import RHLean.Geometry.NativePeriodTypeCoordinates
 import RHLean.Geometry.NativePeterssonMultiplication
