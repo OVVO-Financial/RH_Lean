@@ -1,12 +1,15 @@
 import RHLean.Analysis.AlpogeThin.NativeRayAnalyticFamily
+import RHLean.Analysis.AlpogeThin.NativeRayNormPrimeCount
+import RHLean.Analysis.AlpogeThin.NativeRayHostLevelPrime
 
 /-!
-# Native ray analytic construction: exact terminal-axiom guards
+# Native ray analytic and actual level-prime terminal-axiom audit
 
-The actual LFam arithmetic constructor is used by the final three guarded
-declarations. The preceding guards cover the original continuation, full
-prime-power logarithmic derivative, signed positivity, real-character lower
-bound, local zeros, zero-free region and retained exceptional zero.
+The guarded endpoints include continuation, complete prime-power logarithmic
+differentiation, the real exception, Perron and its floor correction, actual
+identity-ray mass, norm-prime counting, and a prime plus integral norm element
+in the same constructed native host. Constants and thresholds precede the
+actual fields, ray data and windows as the theorem statements specify.
 Only propext, Classical.choice and Quot.sound are accepted.
 -/
 
@@ -99,3 +102,87 @@ info: 'RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_real_nonvanishing' de
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.NativeRay.LFam.ofRayData_real_nonvanishing
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.ChebyshevBounds.sum_vonMangoldt_le_two_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.ChebyshevBounds.sum_vonMangoldt_le_two_mul
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.ResRect.residue_rectangle' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.ResRect.residue_rectangle
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.ExplicitRect.expand_simple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.ExplicitRect.expand_simple
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.PerronCoeff.truncated_perron_of_le_two_vonMangoldt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.PerronCoeff.truncated_perron_of_le_two_vonMangoldt
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.LogDerivHalf.logDeriv_sub_exceptional_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.LogDerivHalf.logDeriv_sub_exceptional_le
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.PsiExc.psi_exceptional' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.PsiExc.psi_exceptional
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.ShortInt.trivialClass_shortInterval' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.ShortInt.trivialClass_shortInterval
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.normPrimes_short_interval_lower' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.normPrimes_short_interval_lower
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.NormPrimeCount.normPrimesN' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.NormPrimeCount.normPrimesN
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.LevelPrime.levelPrimeN' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.LevelPrime.levelPrimeN
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_levelPrime_rayNormElement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_levelPrime_rayNormElement

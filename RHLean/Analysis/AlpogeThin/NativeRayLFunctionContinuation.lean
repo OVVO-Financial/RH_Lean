@@ -33,7 +33,7 @@ variable {E : ℝ → ℂ} {C : ℝ}
 theorem mellin_indicator_eq (E : ℝ → ℂ) (s : ℂ) :
     mellin ((Set.Ioi (1 : ℝ)).indicator E) (-s) =
       ∫ t in Set.Ioi (1 : ℝ), E t * (t : ℂ) ^ (-s - 1) := by
-  rw [mellin, setIntegral_eq_of_subset_of_forall_diff_eq_zero measurableSet_Ioi
+  rw [mellin, setIntegral_eq_of_subset_of_forall_sdiff_eq_zero measurableSet_Ioi
     (s := Set.Ioi (1 : ℝ)) (fun t ht => Set.mem_Ioi.2 (zero_lt_one.trans (Set.mem_Ioi.1 ht)))]
   · refine setIntegral_congr_fun measurableSet_Ioi fun t ht => ?_
     simp only [smul_eq_mul, Set.indicator_of_mem ht]
@@ -237,7 +237,7 @@ theorem continuation_growth : ∀ (𝓕 : LFam) (χ : AddChar 𝓕.G ℂ), Analy
       simp at hs
     rw [LSeries_eq 𝓕 χ hs, LFam.F]
     split_ifs with h
-    · field_simp <;> ring
+    · field_simp; ring
     · simp [LFam.res, h]
   · have hB := 𝓕.B_ge
     have hm : ‖𝓕.mel χ s‖ ≤ 200 * 𝓕.B := by

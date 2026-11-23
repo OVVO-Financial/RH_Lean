@@ -120,7 +120,7 @@ theorem norm_logDeriv_le {r R K : ℝ} (hr : 0 < r) (hrR : r < R) (hK : 0 < K) {
       have := h0 v hv
       refine HasDerivAt.congr_deriv h2 ?_
       simp only [Pi.neg_apply]
-      field_simp <;> ring
+      field_simp; ring
     have := Metric.isOpen_ball.is_const_of_deriv_eq_zero (𝕜 := ℂ) (f := fun v => g v * cexp (-h v))
       (convex_ball (0 : ℂ) R).isPreconnected
       (fun v hv => (hD v hv).differentiableAt.differentiableWithinAt)
@@ -156,7 +156,7 @@ theorem norm_logDeriv_le {r R K : ℝ} (hr : 0 < r) (hrR : r < R) (hK : 0 < K) {
   rw [(hh z hzb).deriv] at hcau
   refine hcau.trans (le_of_eq ?_)
   have : R - r ≠ 0 := by linarith
-  field_simp <;> ring
+  field_simp; ring
 
 theorem norm_le_of_sphere {g : ℂ → ℂ} (hg : AnalyticOnNhd ℂ g (Metric.closedBall 0 1)) {B : ℝ}
     (hb : ∀ z : ℂ, ‖z‖ = 1 → ‖g z‖ ≤ B) {z : ℂ} (hz : ‖z‖ ≤ 1) : ‖g z‖ ≤ B := by
@@ -273,11 +273,11 @@ theorem main : ∀ r R : ℝ, 0 < r → r < R → R < 1 → ∃ C : ℝ, 0 < C �
       have e : f = fun z => (∏ w ∈ S, (z - w) ^ m w) * g z := funext hfg
       rw [← logDeriv_apply, ← logDeriv_apply]
       conv_lhs => rw [e]
-      rw [logDeriv_mul (f := fun z => ∏ w ∈ S, (z - w) ^ m w) z
+      rw [logDeriv_fun_mul (f := fun z => ∏ w ∈ S, (z - w) ^ m w) z
         (Finset.prod_ne_zero_iff.2 fun w hw => pow_ne_zero _ (hzw w hw)) (hgne z hzb)
         (by fun_prop) (hg z (hsub hzb)).differentiableAt]
       congr 1
-      rw [logDeriv_prod (f := fun w z => (z - w) ^ m w) (fun w hw => pow_ne_zero _ (hzw w hw))
+      rw [logDeriv_fun_prod (f := fun w z => (z - w) ^ m w) (fun w hw => pow_ne_zero _ (hzw w hw))
         (fun w hw => by fun_prop)]
       refine Finset.sum_congr rfl fun w hw => ?_
       rw [logDeriv_fun_pow (by fun_prop), logDeriv_apply]

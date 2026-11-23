@@ -45,7 +45,7 @@ theorem tsum_one_div_rpow_le {σ : ℝ} (hσ : 1 < σ) :
     rw [Nat.cast_one, integral_Ioi_rpow_of_lt (by linarith) zero_lt_one, Real.one_rpow]
     have : σ - 1 ≠ 0 := by linarith
     have : -σ + 1 ≠ 0 := by linarith
-    field_simp <;> ring
+    field_simp; ring
   rw [hI] at key
   have hs : Summable (fun n : ℕ => 1 / ((n : ℝ) + 1) ^ σ) := by
     have := (summable_nat_add_iff 1).mpr (Real.summable_one_div_nat_rpow.mpr hσ)
@@ -61,7 +61,7 @@ theorem tsum_one_div_rpow_le {σ : ℝ} (hσ : 1 < σ) :
   rw [h0]
   have : σ / (σ - 1) = 1 + 1 / (σ - 1) := by
     have : σ - 1 ≠ 0 := by linarith
-    field_simp <;> ring
+    field_simp; ring
   rw [this]
   linarith
 
@@ -362,12 +362,12 @@ theorem logDeriv_F : ∀ (𝓕 : LFam) (χ : AddChar 𝓕.G ℂ) (s : ℂ), 1 < 
             (s - 1) * (-(LSeries (𝓕.lamChi χ) s * LSeries (𝓕.aChi χ) s))) s :=
         ((hasDerivAt_id s).sub_const (1 : ℂ)).mul hder
       rw [hev.deriv_eq, hd.deriv, (hLS s hs).2, ite_eq_left h, ite_eq_left h]
-      field_simp <;> ring
+      field_simp; ring
     · have hev : 𝓕.F χ =ᶠ[𝓝 s] LSeries (𝓕.aChi χ) :=
         Filter.eventually_of_mem (hU.mem_nhds hs) fun z hz => by
           rw [(hLS z hz).2, ite_eq_right h, one_mul]
       rw [hev.deriv_eq, hder.deriv, (hLS s hs).2, ite_eq_right h, ite_eq_right h, one_mul]
-      field_simp <;> ring
+      field_simp; ring
 
 end RHLean.Analysis.AlpogeThin.NativeRay.LogDeriv
 

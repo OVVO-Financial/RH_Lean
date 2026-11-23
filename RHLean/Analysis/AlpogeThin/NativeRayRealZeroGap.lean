@@ -54,7 +54,7 @@ theorem LFam.norm_deriv_F_le_near_one (𝓕 : LFam) (χ : AddChar 𝓕.G ℂ) (z
     rw [closure_ball z (by norm_num)]
     intro w hw
     have := (key w hw).1
-    exact (han w (by simp only [Set.mem_setOf_eq]; linarith)).differentiableAt.differentiableWithinAt
+    exact (han w (by simp only [Set.mem_ofPred_eq]; linarith)).differentiableAt.differentiableWithinAt
   have h := Complex.norm_deriv_le_of_forall_mem_sphere_norm_le (C := 1800 * 𝓕.B) (by norm_num : (0 : ℝ) < 1 / 10) hd
     (by
       intro w hw
@@ -71,7 +71,7 @@ theorem LFam.real_zero_far_from_one : ∃ A c : ℝ, 0 < A ∧ 0 < c ∧ ∀ (�
   have hB : 0 < 𝓕.B := by linarith [𝓕.B_ge]
   have hβ1 : β ≤ 1 := by
     by_contra hlt
-    push_neg at hlt
+    push Not at hlt
     exact (LogDeriv.logDeriv_F 𝓕 χ β (by simpa using hlt)).2.2.1 h0
   obtain ⟨han, -, -, -⟩ := RayCont.continuation_growth 𝓕 χ
   have hn : ‖(1 : ℂ) - β‖ = 1 - β := by
@@ -84,7 +84,7 @@ theorem LFam.real_zero_far_from_one : ∃ A c : ℝ, 0 < A ∧ 0 < c ∧ ∀ (�
       rw [Metric.mem_closedBall, dist_eq_norm] at hz
       have h3 := (abs_le.1 ((Complex.abs_re_le_norm (z - 1)).trans hz)).1
       simp only [sub_re, one_re] at h3
-      exact (han z (by simp only [Set.mem_setOf_eq]; linarith)).differentiableAt)
+      exact (han z (by simp only [Set.mem_ofPred_eq]; linarith)).differentiableAt)
     (fun z hz => 𝓕.norm_deriv_F_le_near_one χ z hz)
     (by rw [Metric.mem_closedBall, dist_comm, dist_eq_norm, hn]; linarith)
     (Metric.mem_closedBall_self (by norm_num))

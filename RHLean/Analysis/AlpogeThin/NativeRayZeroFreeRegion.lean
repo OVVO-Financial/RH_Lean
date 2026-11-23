@@ -33,7 +33,7 @@ theorem re_one_div (a b : ℝ) : (1 / ((a : ℂ) + b * I)).re = a / (a ^ 2 + b ^
 
 theorem re_le_one {𝓕 : LFam} {χ : AddChar 𝓕.G ℂ} {w : ℂ} (hw : 𝓕.F χ w = 0) : w.re ≤ 1 := by
   by_contra h
-  push_neg at h
+  push Not at h
   exact (LogDeriv.logDeriv_F 𝓕 χ w h).2.2.1 hw
 
 theorem one_le_order {𝓕 : LFam} {χ : AddChar 𝓕.G ℂ} {ρ : ℂ} (h : 1 / 2 < ρ.re)
@@ -250,13 +250,13 @@ theorem inv_le_ell : ∃ K : ℝ, 0 < K ∧ ∀ (𝓕 : LFam) (χ : AddChar 𝓕
   · have hcase1 : χ = 1 → (30 * ε) ^ 2 ≤ γ ^ 2 := by
       intro h
       by_contra hc
-      push_neg at hc
+      push Not at hc
       exact hB ⟨by rw [h, mul_one], hc⟩
     have hcase2 : χ * χ = 1 → (30 * ε) ^ 2 ≤ (2 * γ) ^ 2 := by
       intro h
       have : (30 * ε) ^ 2 ≤ γ ^ 2 := by
         by_contra hc
-        push_neg at hc
+        push Not at hc
         exact hB ⟨h, hc⟩
       nlinarith [sq_nonneg γ]
     have ha0 : 0 < 6 * ε := by positivity
@@ -305,7 +305,7 @@ theorem zero_free_region : ∃ c : ℝ, 0 < c ∧ ∀ (𝓕 : LFam) (χ : AddCha
   refine ⟨1 / (4 * K + 400), by positivity, ?_⟩
   intro 𝓕 χ s _ hs hχ
   by_contra hlt
-  push_neg at hlt
+  push Not at hlt
   have hℓ2 := 𝓕.two_lt_ell s.im
   have hℓpos : 0 < 𝓕.ell s.im := by linarith
   have hpos : 0 < (2 * K + 200) * 𝓕.ell s.im := mul_pos (by linarith) hℓpos
