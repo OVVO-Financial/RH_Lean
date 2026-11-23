@@ -102,7 +102,7 @@ private theorem inverse_of_norm_neg_one {A : Type} [CommRing A]
     (σ : A →+* A) (u : A) (hu : σ u * u = -1) : u * -(σ u) = 1 := by
   rw [mul_neg, mul_comm u (σ u), hu, neg_neg]
 
-private theorem prescribed_gram_congr {φ : Formalism.HC.Frame} (H : HostRaw φ)
+private theorem prescribed_gram_congr {φ : Formalism.HC.Frame} (H : Formalism.HC.HostRaw φ)
     {A : Type} [CommRing A] (ι : H.E →+* A) (σ : A →+* A) (k m j : ℕ)
     (g : Matrix.GeneralLinearGroup (Fin (k + m - 1)) A)
     (hg : Signature.cT σ g.val *
@@ -110,11 +110,11 @@ private theorem prescribed_gram_congr {φ : Formalism.HC.Frame} (H : HostRaw φ)
           (sgn (negTail (k + m - 1) ((m - 0) / 2) i) : A)) * g.val =
         Matrix.diagonal (fun i : Fin (k + m - 1) =>
           (sgn (negTail (k + m - 1) (m - j) i) : A))) :
-    Signature.cT σ g.val *
-        ((prescribedBaseSpace H k m).gram.map ι :
-          Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) * g.val =
-      ((prescribedSpace H k m j).gram.map ι :
-        Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) := by
+    let baseGram : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A :=
+      (prescribedBaseSpace H k m).gram.map ι
+    let gradedGram : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A :=
+      (prescribedSpace H k m j).gram.map ι
+    Signature.cT σ g.val * baseGram * g.val = gradedGram := by
   have hbase :
       ((prescribedBaseSpace H k m).gram.map ι :
         Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) =
@@ -175,7 +175,8 @@ theorem diagonalChange_congr (he : 2 ≤ e) (hH : HostHyp q d) (N a b : ℕ) :
   simp only [diagonalChange_val]
   refine diagonal_congr _ _ _ _ (fun i => ?_)
   by_cases h : negTail N a i = negTail N b i
-  · simp only [ite_eq_left h, map_one, one_mul, mul_one, h]
+  · simp only [ite_eq_left h, map_one, one_mul, mul_one]
+    exact congrArg (fun b : Bool => (sgn b : AE)) h
   · simp only [ite_eq_right h]
     have hs : (sgn (negTail N b i) : AE) = -(sgn (negTail N a i)) := by
       cases h₁ : negTail N a i <;> cases h₂ : negTail N b i <;> simp_all [sgn]
@@ -187,13 +188,13 @@ using the SAME prescribed space as the inverse-ideal lattice construction. -/
 theorem baseSpace_congr_prescribed (he : 2 ≤ e) (hH : HostHyp q d) (k m j : ℕ) :
     let H := nativeDyadicHostRaw e q d he hH
     let g := diagonalChange e q d he hH (k + m - 1) ((m - 0) / 2) (m - j)
-    Signature.cT (tensorConjugation e q d he hH) g.val *
-      ((prescribedBaseSpace H k m).gram.map
-        (Algebra.TensorProduct.includeLeftRingHom : EH →+* AE) :
-          Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) AE) * g.val =
-      ((prescribedSpace H k m j).gram.map
-        (Algebra.TensorProduct.includeLeftRingHom : EH →+* AE) :
-          Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) AE) := by
+    let baseGram : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) AE :=
+      (prescribedBaseSpace H k m).gram.map
+        (Algebra.TensorProduct.includeLeftRingHom : EH →+* AE)
+    let gradedGram : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) AE :=
+      (prescribedSpace H k m j).gram.map
+        (Algebra.TensorProduct.includeLeftRingHom : EH →+* AE)
+    Signature.cT (tensorConjugation e q d he hH) g.val * baseGram * g.val = gradedGram := by
   exact prescribed_gram_congr (nativeDyadicHostRaw e q d he hH) (A := AE)
     (Algebra.TensorProduct.includeLeftRingHom : EH →+* AE)
     (tensorConjugation e q d he hH) k m j

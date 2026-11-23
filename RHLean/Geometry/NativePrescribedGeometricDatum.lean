@@ -65,7 +65,8 @@ theorem coefficientIdeal_eq_source_top (B : Ideal (𝓞 H.E)) :
 def prescribedRationalTraceForm (B : Ideal (𝓞 H.E)) (k m j : ℕ) :
     prescribedLattice H B k m →ₗ[ℤ] prescribedLattice H B k m →ₗ[ℤ] ℚ :=
   LinearMap.mk₂ ℤ
-    (fun x y => Algebra.trace ℚ H.E (xi H * (prescribedSpace H k m j).hT x y))
+    (fun x y => Algebra.trace ℚ H.E (xi H * (prescribedSpace H k m j).hT
+      (x : Fin (k + m - 1) → H.E) (y : Fin (k + m - 1) → H.E)))
     (fun x x' y => by simp [map_add, mul_add])
     (fun c x y => by
       simp [map_zsmul]
@@ -78,7 +79,8 @@ def prescribedRationalTraceForm (B : Ideal (𝓞 H.E)) (k m j : ℕ) :
 theorem prescribedRationalTraceForm_apply (B : Ideal (𝓞 H.E)) (k m j : ℕ)
     (x y : prescribedLattice H B k m) :
     prescribedRationalTraceForm H B k m j x y =
-      Algebra.trace ℚ H.E (xi H * (prescribedSpace H k m j).hT x y) := rfl
+      Algebra.trace ℚ H.E (xi H * (prescribedSpace H k m j).hT
+        (x : Fin (k + m - 1) → H.E) (y : Fin (k + m - 1) → H.E)) := rfl
 
 /-- Actual integrality follows from the previously constructed integer form. -/
 theorem prescribedRationalTraceForm_integral (B : Ideal (𝓞 H.E))
@@ -295,6 +297,8 @@ theorem nativeDyadicPrescribedGeometricDatum_spec
       differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) :
     let H := nativeDyadicHostRaw e q d he hH
+    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
+      (nativeDyadicHostAx e q d he hH).der.cm
     let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
     D.La = prescribedLattice H B k m ∧
       D.EF = prescribedTraceForm H B hB k m j ∧
@@ -315,6 +319,8 @@ theorem nativeDyadicHost_exists_prescribedGeometricData
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     (he : 2 ≤ e) (hH : HostHyp q d) :
     let H := nativeDyadicHostRaw e q d he hH
+    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
+      (nativeDyadicHostAx e q d he hH).der.cm
     ∃ (B : Ideal (𝓞 H.E))
       (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)),
       B ⊔ H.conj • B = ⊤ ∧
