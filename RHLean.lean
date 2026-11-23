@@ -1069,6 +1069,7 @@ import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
 import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
+import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement
 import RHLean.Geometry.NativeThetaColumnActions
@@ -1080,6 +1081,7 @@ import RHLean.Geometry.NativeThetaFiniteFlatCover
 import RHLean.Geometry.NativeThetaFock
 import RHLean.Geometry.NativeThetaFormalCalculus
 import RHLean.Geometry.NativeThetaFormalGroup
+import RHLean.Geometry.NativeThetaFullLevelCost
 import RHLean.Geometry.NativeThetaGridInterpolation
 import RHLean.Geometry.NativeThetaGridParametrization
 import RHLean.Geometry.NativeThetaHarmonicPolynomials
