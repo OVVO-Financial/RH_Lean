@@ -5,7 +5,10 @@ import RHLean.Geometry.NativeCMHermitianForm
 import RHLean.Geometry.NativeCMSerreTensor
 import RHLean.Geometry.NativeCMSerrePeriods
 import RHLean.Geometry.NativeCMSerrePolarization
+import RHLean.Geometry.NativeCMSerreMixedPeriods
+import RHLean.Geometry.NativeCMFiniteDegreeCorrection
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
+import RHLean.Geometry.NativeCMWeierstrassSeedPoints
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
@@ -37,6 +40,9 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.EllipticSeed.isIntegral_modularJ_upperPeriod,
     ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_equation_for_seed,
     ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_equation_with_exact_period_invariants,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_point_uniformization,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.equationExponential_coordinates,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.equationCMAction_quadratic,
     ``RHLean.Geometry.NativeCM.exists_kForm,
     ``RHLean.Geometry.NativeCM.kLin_dual_frame,
     ``RHLean.Geometry.NativeCM.kLin_diagonal,
@@ -60,6 +66,10 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_seedOrientation,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_coefficientSerreMetric_im,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_coefficientSerreMetric,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_mixedSerrePeriods,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_eq_conjHalf,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_degree_correction,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_baseChange_logNorm,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedBlockSplit_trace,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twice_coefficient_trace_halfRoot_eq_sum_sq,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicHalfRoot_pureBlockPositivity,

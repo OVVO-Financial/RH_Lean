@@ -87,7 +87,8 @@ variable (O : Type*) [CommRing O] (X : Type*) [AddCommGroup X] [Module O X]
 theorem torsion_eq_bot_of_int [IsDomain O] [Module.Finite ℤ O]
     [Module.IsTorsionFree ℤ X] : Submodule.torsion O X = ⊥ := by
   rw [eq_bot_iff]
-  rintro x ⟨⟨a, ha⟩, hx⟩
+  intro x hx
+  obtain ⟨⟨a, ha⟩, hx⟩ := (Submodule.mem_torsion_iff x).mp hx
   obtain ⟨n, hn, c, hc⟩ :=
     (Algebra.IsAlgebraic.isAlgebraic (R := ℤ) a).exists_nonzero_dvd ha
   have h : n • x = 0 := by

@@ -1020,10 +1020,12 @@ import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceShortGenerators
 import RHLean.Geometry.NativeCMEllipticPolarization
 import RHLean.Geometry.NativeCMEllipticSeed
+import RHLean.Geometry.NativeCMFiniteDegreeCorrection
 import RHLean.Geometry.NativeCMHermitianForm
 import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeCMQuadraticOrder
+import RHLean.Geometry.NativeCMSerreMixedPeriods
 import RHLean.Geometry.NativeCMSerrePeriods
 import RHLean.Geometry.NativeCMSerrePolarization
 import RHLean.Geometry.NativeCMSerreTensor
@@ -1032,10 +1034,13 @@ import RHLean.Geometry.NativeCMWeierstrassFiniteModel
 import RHLean.Geometry.NativeCMWeierstrassIntegralModel
 import RHLean.Geometry.NativeCMWeierstrassLatticeCurve
 import RHLean.Geometry.NativeCMWeierstrassModularJ
+import RHLean.Geometry.NativeCMWeierstrassPAddition
 import RHLean.Geometry.NativeCMWeierstrassPointChange
+import RHLean.Geometry.NativeCMWeierstrassPointUniformization
 import RHLean.Geometry.NativeCMWeierstrassQExpansion
 import RHLean.Geometry.NativeCMWeierstrassSeed
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
+import RHLean.Geometry.NativeCMWeierstrassSeedPoints
 import RHLean.Geometry.NativeCMWeierstrassTorsion
 import RHLean.Geometry.NativeCharacterTraceMaps
 import RHLean.Geometry.NativeComponentRegularSection

@@ -50,6 +50,7 @@ def haar (φ : Matrix κ ι K → ℂ) : ℂ := if h : IsSB φ then haarAt h.cho
 
 def ip (φ ψ : Matrix κ ι K → ℂ) : ℂ := haar fun x => φ x * conj (ψ x)
 
+omit [NumberField K] [Fintype κ] [Fintype ι] in
 theorem isSB_zero : IsSB (0 : Matrix κ ι K → ℂ) := by
   refine ⟨1, Nat.one_pos, fun x hx => ?_, fun x y _ => rfl⟩
   exact absurd rfl hx

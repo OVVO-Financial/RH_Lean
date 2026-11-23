@@ -53,6 +53,7 @@ def coordinates (b : Basis (ι ⊕ ι) ℤ M) :
   map_add' x y := by
     apply Prod.ext <;> funext k i <;> simp
 
+omit [Fintype κ] [Fintype ι] in
 theorem coordinates_injective (b : Basis (ι ⊕ ι) ℤ M) :
     Function.Injective (coordinates (κ := κ) b) := by
   intro x y h
@@ -65,6 +66,7 @@ theorem coordinates_injective (b : Basis (ι ⊕ ι) ℤ M) :
   | inr i =>
     exact_mod_cast congrFun (congrFun (congrArg Prod.snd h) k) i
 
+omit [Fintype κ] in
 theorem mem_coordinates_range (b : Basis (ι ⊕ ι) ℤ M)
     (p : Matrix κ ι ℚ × Matrix κ ι ℚ) :
     p ∈ (coordinates (κ := κ) b).range ↔ IntM p.1 ∧ IntM p.2 := by
@@ -189,6 +191,7 @@ def nativePhase (b : Basis (ι ⊕ ι) ℤ D.La)
     (p : Matrix κ ι ℚ × Matrix κ ι ℚ) : ℂ :=
   ∏ k, phase D ((Function.invFun (coordinates (κ := κ) b)) p k)
 
+omit [Fintype ι] in
 @[simp] theorem nativePhase_coordinates (b : Basis (ι ⊕ ι) ℤ D.La) (x : κ → D.La) :
     nativePhase D b (coordinates b x) = ∏ k, phase D (x k) := by
   simp only [nativePhase, Function.leftInverse_invFun (coordinates_injective b)]
