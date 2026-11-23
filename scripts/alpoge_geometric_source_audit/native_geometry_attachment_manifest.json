@@ -1,0 +1,940 @@
+{
+  "schema_version": 1,
+  "upstream_repository": "https://github.com/CocoSgt/riemann-hypothesis-lean",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "scope": "Native construction of the exact geometric host on the same fully derived arithmetic host, with literal CM-type orientation; short rational vectors in the original self-dual Hermitian lattice; finite integral harmonic polynomials spanning all dominant positive-degree HHa with exact cardinality and all-embedding coefficient bounds over independent K; and the existing reduced-test atlas-to-faithfulness, integral section, Petersson and all-place descent mechanisms. Actual D7/Spaces polarization data, moduli/atlas, theta evaluation/connection/good cover, compatible ranks and complete physical top-excess payment remain uninstantiated.",
+  "native_ports": [
+    {
+      "native_path": "RHLean/Geometry/NativeJetRankBudget.lean",
+      "native_sha256": "ceaa15133cc0b5421d9bed58154b3be7f7d9c52e6e82052572ac0bf92d4faef4",
+      "declarations": [
+        "RHLean.Geometry.NativeJetRank.exists_jet_order",
+        "RHLean.Geometry.NativeJetRank.rank_growth_of_component_jets"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ChooseAddLePowMulChooseAdd.lean",
+          "sha256": "d712ad7d9ecbd0600a4549349eec28cfb9bf702ba37c22cb2323851275e66e86"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/RankGrowthBoundSmallScale.lean",
+          "sha256": "3e388dc05f6e8ac9670d3d50a4339b9af989848f0c2f061922777199b379c1a1"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "transformations": [
+        "Native namespace and source-only Mathlib dependencies.",
+        "No original compiled artifacts, terminal RH theorem, or new axiom."
+      ]
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedSectionRegularity.lean",
+      "native_sha256": "145937def2b389c753778d10477f262727a6e6a33d4c9b333d3c892676e74322",
+      "declarations": [
+        "RHLean.Geometry.nativeWeightTorusCharacter_injective",
+        "RHLean.Geometry.nativeGradedSection_mul_eq_zero_imp_eq_zero",
+        "RHLean.Geometry.nativeGradedSection_groupDet_regular"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/IntegerExponentSectionMulEqZeroImpEqZero.lean",
+          "sha256": "0af5b6a9ebe78fb6afc73d742e234ace14c614363cebb14a8721d534be189740"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/MemLevEigenIffTransl.lean",
+          "sha256": "17f2d84763557b005a1d57482e00c51ba13ad91a9b065cb51df503f2799b2109"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "transformations": [
+        "Native namespace and source-only Mathlib dependencies.",
+        "No original compiled artifacts, terminal RH theorem, or new axiom."
+      ]
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
+      "native_sha256": "80a4a7740839358a95d166428709f06cccec73e6fe7f9ee7722d8397cc0e8bec",
+      "declarations": [
+        "RHLean.Geometry.nativeAllPlaceDescent_of_regular_groupDet"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedCharacterSlopeDescent.lean",
+      "native_sha256": "cf07c741368f840304157ee2c1f0ee6bbfb8ab9119b3b8329019b2f043844ff9",
+      "declarations": [
+        "RHLean.Geometry.nativeGradedSection_groupDet_generic_nonzero_of_component_points",
+        "RHLean.Geometry.nativeAllPlaceDescent_of_graded_component_section"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
+      "native_sha256": "02c1768a33b6f05e43a157dbaadb58e8d1511d0cb8804b56aa615bfd3f96faf1",
+      "declarations": [
+        "RHLean.Geometry.nativeExists_graded_short_integral_injective_section"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePeterssonMultiplication.lean",
+      "native_sha256": "5fbf29bb9a0583adfc0548c1a49af980cc22abcd41bdf5fb7e7d0c216b2a4df0",
+      "declarations": [
+        "RHLean.Geometry.nativePeterssonNorm_pull_eq",
+        "RHLean.Geometry.nativePeterssonNorm_mul_le",
+        "RHLean.Geometry.nativePeterssonNorm_mul_pull_le"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Use the same short integral section; identify its realization with weighted complex evaluation, derive Petersson multiplier and measure-preserving isometries, then supply the actual all-place descent operator bound. Geometric atlas, theta short spans, numerical section cost and rank/covolume realization remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedPeterssonConstruction.lean",
+      "native_sha256": "3b9c8c80db4a802f3cca147294026d16ce427c4d89ca664771a4ba41f5e95dd6",
+      "declarations": [
+        "RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier",
+        "RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct the same integral section, derive the weighted Petersson multiplier and invariant metrics, and derive total section-cost absorption from original separate scales before applying all-place descent. Actual theta/atlas, coefficient-field bounds, Gram/integral data and rank/covolume realization remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeSectionCostAbsorption.lean",
+      "native_sha256": "8ccd034d170abce5e65ffa8298d97a1865eb24767fdd9450400f82d7b2c89cd3",
+      "declarations": [
+        "RHLean.Geometry.nativeShortSectionCost_le_exp_of_source_scales"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+          "sha256": "d1e7f666e978962174826b8a243ca7a11e1804d157d149ed5c8ce13d0f8238b2"
+        },
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+          "sha256": "eb7af1bb145afa4fb6983a472854b946a01badf4db3cb54e245110ef4c6710ce"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Derive the literal finite section cost from the separate original degree, discriminant, rank, theta-span, Hodge-weight, comparison and translation-group scales. The all-place consumer uses this result directly; actual cover coefficient-field scale suppliers remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGenericFrameFaithfulness.lean",
+      "native_sha256": "b8e4361dda032f5df4aa8f5a908d091653c96d4017e3dc1e5ad89cd0b8c5fd1b",
+      "declarations": [
+        "RHLean.Geometry.NativeFramedRules.secZ_eq_zero_of_generic",
+        "RHLean.Geometry.NativeFramedRules.section_regular_of_atlas"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/AlgebraMapCAt.lean",
+          "sha256": "9bd5d736d09e07e1ae9f6f40433f7825208226cd2e1f455ce1f49c6ff02c9ac4"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/AllTest.lean",
+          "sha256": "1493a4431d2eaf73419351d41a79942b8a10c177869e6652e68359ff9eb87bc9"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+          "sha256": "3951bad4542aa62738d56c1f31d93348ca8578bffc940aaafba74e395973645d"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/RegularCharts/Reframe.lean",
+          "sha256": "8b65ba5f8dc954a06ea3121fe3c59cef8034b28e568e18655e5e6d8c80a8c522"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+          "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct the actual dependent rule ring and integer-weight spaces from reduced finite-type polynomial test rings. Derive homogeneous faithfulness using the original subalgebra charts and Jacobson reduction. Preserve the source AllTest restriction to reduced rings. Actual geometric points, evaluation/base-change laws and atlas remain to construct."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeFramedShortSectionConstruction.lean",
+      "native_sha256": "0ee49bd81f436649df1f5535b71da9723b62b2674e6b121ec1025d7b3ae6b3e5",
+      "declarations": [
+        "RHLean.Geometry.nativeComponentFramedEvaluation_eq_zero",
+        "RHLean.Geometry.nativeExists_framed_short_integral_injective_section"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+          "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/IntegerExponentSectionMulEqZeroImpEqZero.lean",
+          "sha256": "0af5b6a9ebe78fb6afc73d742e234ace14c614363cebb14a8721d534be189740"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Apply the same actual reduced-rule atlas to the integral short-section constructor. Component point evaluation is coefficient-linear evaluation at the chosen framed point; its own chart derives specialization. Free hfaithful/hspecialize/hweight premises are removed, retaining the exact finite lattice norm, determinant and trace-injection conclusions. The actual theta short spans, moduli/atlas, translations and component data remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaPolynomialNorm.lean",
+      "native_sha256": "d7d8706bb7c4e463fbfc62fdcc890536716deaa9cdb86641bdc047a74f8c7246",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.CoeffNorm.allEmbeddingNorm_le_of_l1Bound"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/SumFinsuppAntidiagProdPowDivMultiFactorial.lean",
+          "sha256": "d1db6c58d1525772387a7b11545d341c601386a154296c2a0c0eaae7b688c98e"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean",
+          "sha256": "54af8da355e9aeeca64ea019d1597966c0a2476d26f5495461625769d6476254"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Reconstruct finite coefficient l1 sum/product/power/determinant bounds and derive the joint all-embedding norm, retaining the exact sqrt([K:Q]) factor and independent coefficient field."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaHarmonicPolynomials.lean",
+      "native_sha256": "8f2baf885ec61704e7ed358120019d16b0849dd2bdab7949d6b4d314bca35551",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.exists_short_integral_harmonic_of_signature"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/RowDeg.lean",
+          "sha256": "5bfd910715a5fb61ac23df068f6e10106fa14c042cb3810fc1fc04003150ba9f"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/JetHarmonics/MinorsDisjointColumnsHarmonic.lean",
+          "sha256": "b86ef4370344745ba21df7919d270373114bc29e63a46dcf0d0c63bc594ad006"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsLastEntryPosNotLastPos.lean",
+          "sha256": "eaaf4909fcca2ee3f07bfc0ef4ccc0748e596c92b2fd7e63b00bea68c47ba555"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBlockProductMemIntegralHarmonic.lean",
+          "sha256": "835f2f3e9a25502c52e0c4f82023772bbb1377b3b1d67b94773576a42a58428c"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsIntegralHarmonicNeZeroAndIsHomogeneous.lean",
+          "sha256": "03173bdbf4f51bf67edf4e9b0da75bb4d83d22816ab023dff7293526f19dba7c"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct literal products of leading minors with integral coefficients, nonzero identity-matrix evaluation, mixed-Laplacian harmonicity, lower-row invariance, prescribed row degree and total degree. Prove the source coefficient bound in the exact p+q<=n regime."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeHostThetaPolynomial.lean",
+      "native_sha256": "025152e118846e97cb641741103c18e99627380a189bc53c9b54d7226b95e41e",
+      "declarations": [
+        "RHLean.Geometry.nativeDyadicThetaPositive_conjugate_not",
+        "RHLean.Geometry.nativeExists_host_short_integral_harmonic_polynomial",
+        "RHLean.Geometry.nativeDyadicThetaEmbedding_sqrtD",
+        "RHLean.Geometry.nativeDyadicThetaPositive_iff"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsLastEntryPosNotLastPos.lean",
+          "sha256": "eaaf4909fcca2ee3f07bfc0ef4ccc0748e596c92b2fd7e63b00bea68c47ba555"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBlockProductMemIntegralHarmonic.lean",
+          "sha256": "835f2f3e9a25502c52e0c4f82023772bbb1377b3b1d67b94773576a42a58428c"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Choose an actual complex embedding or its conjugate so the SAME Gauss root maps exactly to I*sqrt(d). Identify the positive theta signature with the original raw-host CM type and construct the unchanged nonzero integral harmonic polynomial and all-embedding bound over independent K."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeDerivedGeometricHost.lean",
+      "native_sha256": "8978467f5ee428e85763e417c7bacd15385ab3622d0419f1afd27d48f3a972ed",
+      "declarations": [
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_root",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_bar",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_inPsi"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean",
+          "sha256": "3646386e9cd25287a50eb1ad82456c5b26316207741b8ed7298d46aa4f9d7826"
+        },
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ConjEMemHostFIff.lean",
+          "sha256": "db32b7af86f38a66881c2345572c33156fdf027b2f0b2d6c64a6775f8e970647"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+          "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The complete derived host and the exact geometric-host record use the same field, integral root, conjugation and positive complex root. In particular, the geometric signature is the literal original CM type, not an independently selected half of the embeddings. All host inputs come from the original arithmetic regime; the geometric datum and its moduli remain further work."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGeometricHost.lean",
+      "native_sha256": "1c5781f8d72b522009b1cc642527f30e2abebb06df7e0018b95126486e3f1df1",
+      "declarations": [
+        "RHLean.Geometry.nativeDyadicGeometricHost",
+        "RHLean.Geometry.nativeDyadicGeometricHost_inPsi",
+        "RHLean.Geometry.nativeDyadicGeometricHost_weight_add_bar"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean",
+          "sha256": "3646386e9cd25287a50eb1ad82456c5b26316207741b8ed7298d46aa4f9d7826"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "This reconstructs the complete arithmetic `Geo.Tor.Host` record, including the actual integral root, integral half-root, CM involution and unramified extension over the maximal real subfield. Its complex root is the very same one used to define the positive embedding rows of the native theta polynomial. No field, root, integral element, involution or unramifiedness is assumed."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeHermitianLatticeSpan.lean",
+      "native_sha256": "73453154fd0edb88dfcb6cd188ac239c4639b603e0c9d9d30a02ec92cab90f5a",
+      "declarations": [
+        "RHLean.Geometry.NativeHermitianLattice.span_eq_top"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/IsLocalizedModuleSubtype.lean",
+          "sha256": "2af115b47d7289a0fe991bf4281a25b51761ec3a476f1d805fcd284abf802b41"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "For the same integral lattice used by the theta polynomial constructor, Hermitian self-duality and finite generation imply full span. The proof uses the actual canonical CM conjugation and does not assume a spanning family."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeHermitianShortVectors.lean",
+      "native_sha256": "5b483a1faa241761280963e3352e78f814b3aa8dfe7a650f4424ff5aa2fa3b7e",
+      "declarations": [
+        "RHLean.Geometry.NativeHermitianLattice.exists_short_vectors"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/TraceHermNondegenerate.lean",
+          "sha256": "21f059e4ed4b70af8e6efb60fa62d65a776dc93c18102372878ebaba8451d5a0"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Finite generation and integral Hermitian self-duality construct a rational basis inside the original lattice with the original bound at every complex embedding. The proof combines the actual trace form, the inverse-different minimum and the native Euclidean transference theorem. A short spanning family is a conclusion, never an input."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeHermitianTraceMinimum.lean",
+      "native_sha256": "51f266822505586b5107aff93b7b272fdcf5e83eb3aba400aa696cddb9503e55",
+      "declarations": [
+        "RHLean.Geometry.NativeHermitianLattice.trace_dual_min"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/EmbeddingHermSelf.lean",
+          "sha256": "9eb8d7a6dc665ac1357c52a1814b4b8df93381f3cb5c81f89e1e087d2d405169"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The canonical Hermitian norm of a nonzero trace-dual vector has the original lower bound in terms of the discriminant of the same CM field. Integral self-duality of the same lattice supplies the inverse-different membership; no short-vector or norm estimate is a hypothesis."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePolarizationCoefficientLattice.lean",
+      "native_sha256": "d327be6398df32d3a896f5011e8463e33c61cf0b1f8a0e4a847c9ca8a559a95e",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_projective",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_rank_over_integers",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm_alternating",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm_adjoint",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.mem_coefficientIdeal_iff",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm_bijective",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_polarizationCoefficientLattice"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HostInt.lean",
+          "sha256": "96b3e4c9e72cafaf9013c25550494484ced9985a16af3257df70b3de4e88e518"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+          "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "For the half-different ideal constructed on the native field, its inverse is a finite free integer lattice of the full field degree. The source imaginary generator gives a perfect alternating trace form on this exact lattice, with the original conjugate adjointness for the ring of integers."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaCapelli.lean",
+      "native_sha256": "1ef84bee604d198cdf4aedbabb70b76519e9104a709a7ca037d15b75c2fcf052",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Capelli.mixedOp_lie",
+        "RHLean.Geometry.NativeTheta.Capelli.casimir_mixedOp"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CommuteRowOpRightMixedOp.lean",
+          "sha256": "046659c73a81e8244cfeb25fe72f676357e912b4a0b8b43fe0447d0ee1af6c81",
+          "declarations": [
+            "GlobalTheory.Capelli.polar_lie",
+            "GlobalTheory.Capelli.mixedOp_lie",
+            "GlobalTheory.Capelli.casimir_mixedOp"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "These are the actual differential operators on the polynomial ring. Their commutator and quadratic identities are proved by differentiation; no representation-theoretic generation hypothesis is introduced."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaColumnActions.lean",
+      "native_sha256": "358510db42eab61995b478a75c73165a5ea17fefc779892f02c5b58770d337b0",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.colAct",
+        "RHLean.Geometry.NativeTheta.Paired.basePoly",
+        "RHLean.Geometry.NativeTheta.Paired.orbitSpan",
+        "RHLean.Geometry.NativeTheta.Paired.orbitSpan_le_rowHighest"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/IsWeightedHomogeneousOfMemOrbitSpan.lean",
+          "sha256": "7b78f03e24b450db83c4ac64c748ac1c06db24a47309c0513c64f6d4d29defdf",
+          "declarations": [
+            "GlobalTheory.Harm.colSubst",
+            "GlobalTheory.Harm.colAct",
+            "GlobalTheory.Harm.basePoly",
+            "GlobalTheory.Harm.orbitSpan"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/IsHarmonicProdOfDisjointColumns.lean",
+          "sha256": "d3b0153c2f3669737c08494455498ba4027b7b8df219a147c4bf828468597704",
+          "declarations": [
+            "GlobalTheory.Harm.IsHarmonic.colAct"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaValues/ExistsMemRowHighestTotalDegreeEqTwo.lean",
+          "sha256": "5a2f2883e3c0414a0b34761ed641a0d89fdc82b0ec82cfbbcc7504aaecdffc63",
+          "declarations": [
+            "GlobalTheory.Harm.colAct_mem_rowHighest",
+            "GlobalTheory.Harm.map_mem_rowHighest",
+            "GlobalTheory.Harm.orbitSpan_le_rowHighest"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct the actual GL action, the disjoint-column base polynomial and its orbit span. Laplacians, row degrees and row invariance are proved compatible with that action. No full-span or irreducibility premise occurs."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaColumnLie.lean",
+      "native_sha256": "8149c6753f544e7e87dd1f4a4c7eafc2febecf1ed94b2e275e6f24adcb9c09f0",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.colLie",
+        "RHLean.Geometry.NativeTheta.Paired.colLie_mem_of_colAct_mem",
+        "RHLean.Geometry.NativeTheta.Paired.colLie_mem_orbitSpan"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/SumSmulMemOfSumZpowSmulMem.lean",
+          "sha256": "76ef5890b638bfa42103f5d8024ee1b1d48dc4c4eab1322718cbba5a176d660c",
+          "declarations": [
+            "GlobalTheory.Harm.colLie",
+            "GlobalTheory.Harm.colLie_mem_of_colAct_mem",
+            "GlobalTheory.Harm.colLie_mem_orbitSpan"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Polynomial coefficient extraction differentiates the actual GL action. The resulting column Lie operators preserve each invariant subspace and the constructed orbit span; their integral diagonal eigenspaces are explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaFiniteFamily.lean",
+      "native_sha256": "5cb1dc101e36f5953d4660522c49127fd52656f1cb6fea799fbcae5aab3aa6e3",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.exists_integral_perpendicular_grid",
+        "RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_harmonic_family"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortHarmonicFamilyFewColumnsLinear.lean",
+          "sha256": "7c614ca35fa9cd52bdac114783ab4f9caeade15058b674553ce9e0901833d4c8"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/PushLettersIntCastOfIsHomogeneous.lean",
+          "sha256": "f73c9ee709b2a618c96f3e25256b79babd3ef5a96ecd93d557bfe897af6bf7db"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The family is the image of the literal bounded integer coefficient grid under the determinant-adjugate perpendicular construction. Every returned polynomial has the prescribed harmonicity, row degrees and row invariance and belongs to the symmetric algebra of the SAME lattice. Its coefficient norm, cardinality and finite-grid span are proved. The coefficient number field K remains independent of the CM field E."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaFock.lean",
+      "native_sha256": "95d62b081f9e6bad339f35a02ed7a79bb5a47148a98ace7ec44138a29802b2b9",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Fock.fockNormSq_eq_zero",
+        "RHLean.Geometry.NativeTheta.Fock.fockInner_X_mul_left",
+        "RHLean.Geometry.NativeTheta.Paired.exists_fockInner_sub_eq_zero"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/SumFinsuppAntidiagProdPowDivMultiFactorial.lean",
+          "sha256": "d1db6c58d1525772387a7b11545d341c601386a154296c2a0c0eaae7b688c98e",
+          "declarations": [
+            "GlobalTheory.MvPoly.fockNormSq",
+            "GlobalTheory.MvPoly.fockInner",
+            "GlobalTheory.MvPoly.fockInner_X_mul_left"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/EventuallyExistsMulIsLowerTriangular.lean",
+          "sha256": "3ed24f1eadba4347bc167d1cc9c3c82fc349290c8757d016a57138e833177878",
+          "declarations": [
+            "GlobalTheory.Harm.exists_fockInner_sub_eq_zero"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Only the finite factorial-weighted coefficient pairing, its derivative adjoints and its orthogonal projection onto a finite-dimensional polynomial space are needed here. Positivity is proved directly from the coefficient sum, so no analytic Gaussian integral construction is imported."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaGridInterpolation.lean",
+      "native_sha256": "acd2b9c9010ad746264eeed423e146ddebca05cc630a22e77dedb70b984e3696",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.GridInterpolation.span_grid_eq_span_range_of_eq_sum"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/EqZeroOfEvalGridEqZeroOfTotalDegreeLe.lean",
+          "sha256": "e508eeb10fd0487871bb90237d21dde9826bf1ec81974017e22028424e96f00d"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "A polynomial map has the same linear span on the displayed integral grid as on its entire coefficient domain, once the grid exceeds each variable degree. This is proved by polynomial interpolation and linear duality. It assumes no spanning family or geometric theta-density assertion."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaGridParametrization.lean",
+      "native_sha256": "db95994a6c531379759242f24cc489693519838c7b5347656f3bffc48f854cd0",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.span_grid_perpVec_eq_span_range_coordProd"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/SpanGridPerpVecEqOrbitSpanOfLe.lean",
+          "sha256": "e89b2e2fae5b4c19715d4f5dec321a25efe2bc533ae3e038daed8a5a9d042588"
+        },
+        {
+          "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/TaylorDiscriminants/PerpVecPerpSt.lean",
+          "sha256": "54018089e2427f03a671c21d67e026640268dfb389709c37200b0b815fac9dec"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The source determinant-adjugate construction is polynomial in its integral parameters. Its variable degree is bounded here, so interpolation proves that the displayed finite grid spans the entire parameterized polynomial family. This does not identify that family with all harmonic polynomials: the source highest-weight generation theorem is a separate remaining dependency."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaHighestMinor.lean",
+      "native_sha256": "6907c3163e993053e016277660126ffb5cb77253d77a7202847057d8d2c37f30",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.HighestUnique.weight_eq_mixedWeight",
+        "RHLean.Geometry.NativeTheta.Paired.exists_eq_smul_basePoly"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsEqMulProdMinors.lean",
+          "sha256": "78ba46f96bd4cbeeebfeb1b474fe310f3d039891ece8f38a84322d36aa9e8fab",
+          "declarations": [
+            "GlobalTheory.Harm.HighestUnique.weight_eq_mixedWeight",
+            "GlobalTheory.Harm.exists_eq_smul_basePoly"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The Capelli identity and exact column support force a joint highest vector in the prescribed harmonic row space to be a scalar multiple of the constructed base polynomial. This is a proof of uniqueness, not an assumed highest-weight classification."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaHighestWeights.lean",
+      "native_sha256": "ab827137c207151f42fe74e8e34342617e757a403f28b718fc5037c784eb0439",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.highest_weight_antitone",
+        "RHLean.Geometry.NativeTheta.exists_highest_vector"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/Sl2NonnegWeightOfHighestWeightVector.lean",
+          "sha256": "14f1f54e0737af4971f50fa0559c679f36bf815fb1c4db5ddcb4cfdec2fd4442",
+          "declarations": [
+            "GlobalTheory.sl2_nonneg_weight_of_highest_weight_vector",
+            "GlobalTheory.highest_weight_antitone"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsJointIntEigenvectorOfStable.lean",
+          "sha256": "e8d1cbe4e6e7eda770404849e9a348b2ae0b2b78a8cdaa939269211244bbb907",
+          "declarations": [
+            "GlobalTheory.exists_highest_vector"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Finite-dimensional invariant spaces admit actual joint highest vectors. The sl2 calculation proves dominance from the displayed operator identities and does not assume a target polynomial spanning theorem."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaLatticeGridBounds.lean",
+      "native_sha256": "2e7a93819d71d7851773fe0cd299a2e36b61844d99e8926ed072bf26448e9125",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.GridBounds.sum_sq_perpVec_le",
+        "RHLean.Geometry.NativeTheta.Paired.perpVec_hermPairing_mem"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/L1NormRowBlockLeadingMinorProductLe.lean",
+          "sha256": "29cf4db77d0b48ff9983cc753e121760fa861fa442963d95534ac266145b807b"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortHarmonicFamilyLinear.lean",
+          "sha256": "e76b43386bde7ce144a6038631ea1597036b4fa658cc8859d819aaac647047ed"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/SumFinsuppAntidiagProdPowDivMultiFactorial.lean",
+          "sha256": "d1db6c58d1525772387a7b11545d341c601386a154296c2a0c0eaae7b688c98e"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The Hermitian pairing is the canonical CM conjugate pairing. The integral perpendicular construction stays in the same supplied lattice, and the complex-embedding norm estimate retains the source factorial and degree cost. All coefficient-polynomial estimates use the independent target field's embeddings; the host field is used only for the input lattice vectors."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaLetterDictionary.lean",
+      "native_sha256": "43bb018ae8390fa2d139034c50cf6a063e9a82f11ba73f61624fbc110eb1f747",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.mem_HHa_iff_rowHighest_of_antitone"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/CoordLetterEquivApplyConjugate.lean",
+          "sha256": "749f82569a779194a9fde6653c907c7cf2c84a7c7a8dd8b7201d38a8af72e921"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ThetaLetterEquivConjugate.lean",
+          "sha256": "32f2f6917ea1bd42ca956893eb02ab2520a356a975509326f67548d018f66589"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The actual variable equivalence pairs each positive row with its conjugate row. Renaming transports the mixed Laplacians, lower row operations and individual row degrees exactly. For dominant weights it identifies the existing native HHa set with the prescribed paired row-highest submodule; there is no hypothesis asserting that a family spans either space."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaLetterFamily.lean",
+      "native_sha256": "bc866abe2b1436634c569e0008d7a67b143e31e0ab27aeac1a728e66d8d31abc",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_HHa_family"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortHarmonicFamilyUnimodular.lean",
+          "sha256": "a4b05555bbb8e0a7f58bb4c6e42ed0830498e8ce3a6ede953d2fb8622b1f06be"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "This endpoint constructs the same bounded integer grid and writes its output in the existing native theta letters. Every polynomial belongs to native HHa; renaming back retains the literal original lattice symmetric algebra. The degree, finite-grid span, cardinality and coefficient norm travel with the same witness, with no further scale factor."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaOrbitGeneration.lean",
+      "native_sha256": "38db0d1deda32a0571169b710f8a59763fbf23a747fe6c8dd478a2c5346aa8bb",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.rowHighest_eq_orbitSpan",
+        "RHLean.Geometry.NativeTheta.Paired.rowHighest_orbitSpan_main"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RowHighestLeSpanColWordComplex.lean",
+          "sha256": "16e7102f2a3a6fc6587d579b5bb84cd49c60398cdd1895ee91e4847b102e40f9",
+          "declarations": [
+            "GlobalTheory.Harm.rowHighest_le_span_colWord_complex",
+            "GlobalTheory.Harm.rowHighest_eq_orbitSpan",
+            "GlobalTheory.Harm.rowHighest_orbitSpan_main"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The constructed column-Lie words generate every prescribed harmonic polynomial. The proof constructs a highest vector in any invariant complement, identifies it with the actual leading-minor base polynomial, and eliminates the complement by the positive Fock pairing. Coefficient projection then descends the result from the complex numbers to every characteristic-zero coefficient field."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaOrbitSpanClosure.lean",
+      "native_sha256": "5733dabee5cabe234dbbefa1e88ef25c1b22d553c4892c39d73b18c595e192e0",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.exists_sum_mul_embedding_eq",
+        "RHLean.Geometry.NativeTheta.Paired.span_range_coordProd_eq_rowHighest"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/SpanGridPerpVecEqOrbitSpanOfLe.lean",
+          "sha256": "e89b2e2fae5b4c19715d4f5dec321a25efe2bc533ae3e038daed8a5a9d042588",
+          "declarations": [
+            "GlobalTheory.Harm.span_range_coordProd",
+            "GlobalTheory.Harm.exists_sum_mul_embedding_eq",
+            "GlobalTheory.Harm.span_grid_perpVec_eq_orbitSpan_of_le"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Distinct field embeddings and a rational spanning lattice family allow independent coefficient interpolation in every positive and conjugate row. The actual perpendicular construction therefore reaches every column orbit. The proved highest-weight theorem identifies this orbit span with the entire prescribed harmonic row space."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaPairedPolynomials.lean",
+      "native_sha256": "e9a826c84c57f8d7db050ee740f58aeb42c99899f6161494b9a9d1f75032b416",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.isHarmonic_minorProd",
+        "RHLean.Geometry.NativeTheta.Paired.minorProd_isHomogeneous"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/IsWeightedHomogeneousOfMemOrbitSpan.lean",
+          "sha256": "7b78f03e24b450db83c4ac64c748ac1c06db24a47309c0513c64f6d4d29defdf"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/IsHarmonicProdOfDisjointColumns.lean",
+          "sha256": "d3b0153c2f3669737c08494455498ba4027b7b8df219a147c4bf828468597704"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "These are the literal row-linear forms, leading minors, mixed Laplacians and partition degrees used by the source finite-family constructor. Orthogonal coefficient vectors give harmonic polynomials by the product rule. No span or theta-density conclusion is supplied as a premise here."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaPerpendicular.lean",
+      "native_sha256": "6bd63066f69df2ef407de83b8a75a3d0c7b92f12527d931c9a7c579734de212b",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Perpendicular.perpVector_mem",
+        "RHLean.Geometry.NativeTheta.Perpendicular.seminorm_perpVector_le"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/HermitianTraceForms/FormPerpVectorMemOfIntegral.lean",
+          "sha256": "5687f5dcf2e80fbb5fded53b16a2fea9c4d5e155656ad00ca2bb811ac781a921"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The vector is constructed using a determinant and adjugate, so no division or chosen inverse enters the integral lattice. The factorial size estimate is the one consumed by the source finite harmonic family."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaPerpendicularOrbit.lean",
+      "native_sha256": "aaa017a4c7a25ae9cc652b36109e79d5c88cd5d8392cdc8602cb1b6743afbba8",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.minorProd_mem_orbitSpan",
+        "RHLean.Geometry.NativeTheta.Paired.orbitSpan_eq_span_linearIndependent"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/ExistsMinorProdEqSmulColActBasePoly.lean",
+          "sha256": "370125b948b4123c1904f634876e03fef7a4c779c9bd7de3c72706e6a4bc3c13",
+          "declarations": [
+            "GlobalTheory.Harm.exists_minorProd_eq_smul_colAct_basePoly",
+            "GlobalTheory.Harm.minorProd_mem_orbitSpan",
+            "GlobalTheory.Harm.orbitSpan_eq_span_linearIndependent"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Linear algebra extends actual orthogonal vector flags and constructs the change of basis carrying the standard perpendicular pair to them. It proves that every perpendicular minor product lies in the displayed GL orbit span."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaRowDeterminants.lean",
+      "native_sha256": "26ac3e164562eee4e743c0437f47fd6b2ac810a76c7201a835cffafa7d05545b",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.casimir_value_strict",
+        "RHLean.Geometry.NativeTheta.rowAdd_invariant_iff",
+        "RHLean.Geometry.NativeTheta.column_degree_le",
+        "RHLean.Geometry.NativeTheta.eq_mul_prod_minors"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/EqZeroOfPartialSumsNonneg.lean",
+          "sha256": "81a959a3546b4ff8c737d16b4a4c8cc506c5e61293fccd3b836c81c1de0b7936",
+          "declarations": [
+            "GlobalTheory.Harm.casimir_value_strict",
+            "GlobalTheory.Harm.casimir_value_mixedWeight"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RowAddGenericRowAddTerm.lean",
+          "sha256": "d628903aa89ad9eadd28f35658537d62745e1162ed5a2687670e350ab329a9a2",
+          "declarations": [
+            "GlobalTheory.rowAdd_invariant_iff"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ColumnDegreeLe.lean",
+          "sha256": "2ea294e54ce6a993a94bf95cc743e1eb21dbc002f9e8dd53121dbbfdd8f7d707",
+          "declarations": [
+            "GlobalTheory.column_degree_le"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ProdLeadMinorDiagonal.lean",
+          "sha256": "7fcce5cc2417879fa01b6a85f8321d2b7475e13052977bd212193e2781d9524f",
+          "declarations": [
+            "GlobalTheory.eq_mul_prod_minors"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "These finite algebraic arguments recover exact column support and factor row-invariant polynomials into leading minors. No analytic theta or cover interface is imported."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaRowHighest.lean",
+      "native_sha256": "869d0d5e2e864e216328c034615a56778f8769b916e89c60efd3b66dcd91592d",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.minorProd_mem_rowHighest"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaValues/ExistsMemRowHighestTotalDegreeEqTwo.lean",
+          "sha256": "5a2f2883e3c0414a0b34761ed641a0d89fdc82b0ec82cfbbcc7504aaecdffc63"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The lower row operations preserve each leading-minor product. Together with its proved harmonicity and exact row degrees, this places every polynomial in the original prescribed row-highest submodule. This file proves membership; the separate highest-weight generation theorem is not assumed or claimed."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaShortLatticeFamily.lean",
+      "native_sha256": "2cca10e46950c149dfec3a799bceda8b0e2913ca559f46872ad2b9494c5c952a",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.exists_short_lattice_family"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/TraceHermNondegenerate.lean",
+          "sha256": "21f059e4ed4b70af8e6efb60fa62d65a776dc93c18102372878ebaba8451d5a0"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortHarmonicFamilyLinear.lean",
+          "sha256": "e76b43386bde7ce144a6038631ea1597036b4fa658cc8859d819aaac647047ed"
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "This composes the constructed short vectors with the finite integral harmonic family on the same lattice. The vector family, its rational basis property, all-embedding length bounds, the polynomial family and its coefficient bounds are all conclusions. The polynomial span is identified with the constructed parameter image; its identification with the entire highest-weight space is a separate algebraic theorem."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaSpanningFamily.lean",
+      "native_sha256": "4070294733aa4d1d09d64b0d2c9d0bee2d1402ebdd42b24896fe3e92e6029dbd",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.Paired.injective_liftedCMEmbeddings",
+        "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortHarmonicFamilyUnimodular.lean",
+          "sha256": "a4b05555bbb8e0a7f58bb4c6e42ed0830498e8ce3a6ede953d2fb8622b1f06be",
+          "declarations": [
+            "GlobalTheory.Harm.injective_embF_inPsi",
+            "GlobalTheory.Harm.exists_short_harmL_family"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/TraceHermNondegenerate.lean",
+          "sha256": "21f059e4ed4b70af8e6efb60fa62d65a776dc93c18102372878ebaba8451d5a0",
+          "declarations": [
+            "GlobalTheory.exists_short_vectors"
+          ]
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/RowHighestLeSpanColWordComplex.lean",
+          "sha256": "16e7102f2a3a6fc6587d579b5bb84cd49c60398cdd1895ee91e4847b102e40f9",
+          "declarations": [
+            "GlobalTheory.Harm.rowHighest_eq_orbitSpan"
+          ]
+        }
+      ],
+      "status": "STATIC_MATHEMATICAL_REVIEW_COMPLETE_HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "The same integral self-dual lattice supplies the short rational basis, the bounded integer parameter grid and its integral polynomial family. The proved column-orbit generation theorem identifies its span with the full harmonic row space, and the literal variable equivalence transports this family to the existing native HHa letters."
+    }
+  ],
+  "source_inspected_remaining_suppliers": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/IsHomogeneousCompIdeal.lean",
+      "sha256": "869c29522255ffbe00e08da3fd346a808e7b1dfc2dddbb9718869517d8df5102",
+      "declarations": [
+        "GlobalTheory.CompHt.genVal"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+      "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085",
+      "declarations": [
+        "GlobalTheory.CompHt.secZ_eq_zero_of_genVal",
+        "GlobalTheory.CompHt.genVal_eq_zero_iff"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GenericRegularity/EvaluationLawsGenericFramesAtlasHold.lean",
+      "sha256": "732c79af85eaeb78a6609256e19cae857e5a88002055dfec39fb4403a6036ea1",
+      "declarations": [
+        "GlobalTheory.Reg.evLaws_genFr_atlas"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GenericRegularity/GenFrExAndGenFromTest.lean",
+      "sha256": "0acca4b21c83fe9f64ece57ee498ea3f6e44a8594f1e2082b5ec064b066a97a5",
+      "declarations": [
+        "GlobalTheory.Reg.genFrEx_and_genFromTest"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/GenFrPf.lean",
+      "sha256": "460f9aed938a904183752b019f179ddeea202e45e8182611e6ad5925cd3c970f",
+      "declarations": [
+        "Formalism.L2.Pj.genFrEx_of"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/JetRankComplexLe.lean",
+      "sha256": "0c3a10e49869394921fb8a6eb3bb08bb89337f00e6faed0981d6cab884dc13d8",
+      "declarations": [
+        "GlobalTheory.JetRank.jet_bundle_rank_le",
+        "GlobalTheory.T.jet_rank_complex_le"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RankGrowthBoundSmallScale.lean",
+      "sha256": "eefcc223647ac8c48cbd2541c09908e12bf796eac3a8be9c6f9b0c5f6e841470",
+      "declarations": [
+        "GlobalTheory.CovTop.HodgeSteps.rk_le_alt_alt"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    }
+  ],
+  "harmonic_family_scope": {
+    "entry_declaration": "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family",
+    "source_lattice": "The SAME finitely generated integral Hermitian self-dual Lambda over O(E).",
+    "coefficient_field": "Independent NumberField K, intended to be Y.d.c2.F; never identified with E.",
+    "parameters": [
+      "0<n",
+      "p+q<=n",
+      "dominant weights",
+      "positive total degree D",
+      "actual distinct positive/conjugate coefficient embeddings"
+    ],
+    "constructed": [
+      "r=2*halfDegree(E)*n rationally independent vectors in Lambda spanning E^n over Q",
+      "rho=2*halfDegree(E)^(3/2)*n^2*rootDiscr(E), valid at every complex embedding",
+      "dg=(2*(p+q)+1)*D, R=r*dg*rho",
+      "B=((p+q)*sqrt(n)*(p+q+1)!*R^(2*(p+q)+1))^D",
+      "Finite S inside native HHa and SAME lattice polynomial algebra, homogeneous D",
+      "Literal span_K(S)=HHa; per-embedding coefficient l1<=B; joint norm<=sqrt([K:Q])*B",
+      "card(S)<=(dg+1)^(r*(2*p+q))"
+    ],
+    "remaining": "Realize the actual geometric Lambda, its theta section evaluation/connection and good cover, with common field, metrics, ranks and physical source identification."
+  }
+}

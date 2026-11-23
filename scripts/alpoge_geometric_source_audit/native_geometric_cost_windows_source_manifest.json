@@ -1,0 +1,127 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "base_commit": "baddf5afd886855a1c3600693573cd89dc85250e",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "source_license": "Source archive/mirror states no license; attribution retained without assigning one.",
+  "files": [
+    {
+      "previous_shared_sha256": null,
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeGeometricCostWindows.lean",
+      "initial_source_reconstruction_sha256": "27030ead008bb9b5a7c5556d55195ccdfc414a239bd93f36d9981174fadf3172",
+      "native_sha256": "27030ead008bb9b5a7c5556d55195ccdfc414a239bd93f36d9981174fadf3172",
+      "native_lines": 329
+    },
+    {
+      "previous_shared_sha256": "6e2f5173d78239f9508c372da3b4a9fedf37bb532af3064a9f2367e1670e7d8a",
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean",
+      "initial_source_reconstruction_sha256": "ac2995ff20a8497b0f87bcfe415311f8be8383737904d48c16123780ec2abd10",
+      "native_sha256": "220394182acbab6bbff3cc3aee67292f1fb514811ca80887762b42efc702d3cc",
+      "native_lines": 156
+    }
+  ],
+  "source_map": [
+    {
+      "path": "src/Formalism/SizeWindowBrackets/GrowthBoundGivesRiemannHypothesis.lean",
+      "sha256": "8143a96da8be39cf426ef142bccbff94bac7706e5bd8e97719a8feebf3272309",
+      "declarations": [
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SizeWindows",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.GrowthSizeBound"
+      ],
+      "extraction": "Only the named real-arithmetic definitions/proofs; no terminal RH imports or consumers."
+    },
+    {
+      "path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LipschitzWeightAndMinimum.lean",
+      "sha256": "90e749885560a742ca12305e0f028da32a95ef10bb42580986306387be48894d",
+      "declarations": [
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.rp",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.nT_bound",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.T1",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.T2",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.T3",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.SZ.T4",
+        "Formalism.LFunctionChainParameters.ThickSetMeanBounds.proposition_size_bound"
+      ],
+      "extraction": "Only the named real-arithmetic definitions/proofs; no terminal RH imports or consumers."
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",
+      "declarations": [
+        "RHLean.Analysis.alpogeNativeGeometricErrorBracket",
+        "RHLean.Analysis.alpogeNativeNormalizedGeometricCosts",
+        "RHLean.Analysis.alpogeNativeGeometricErrorBracket_div_projectionDivisor"
+      ],
+      "initial_attachment_sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c",
+      "native_sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeNativeSubgroupProjection.lean",
+      "declarations": [
+        "RHLean.Analysis.alpogeNativeProjectionDensity",
+        "RHLean.Analysis.alpogeNativeProjectionDivisor",
+        "RHLean.Analysis.alpogeNativeProjectionDivisor_pos"
+      ],
+      "initial_attachment_sha256": "6ff1b57d7eaff02a8621e28c0bcff12ed92eaed564f0b4cfe2359040eb5e6197",
+      "native_sha256": "6ff1b57d7eaff02a8621e28c0bcff12ed92eaed564f0b4cfe2359040eb5e6197"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts"
+      ],
+      "initial_attachment_sha256": "5a5a844540d712892ce1fa08a3b76b528e0080799b4edb0fd588abbc13d304f5",
+      "native_sha256": "3a72d1e5a428eb2bcee15a5cbce021fe24c6666caa33d5edfb225f41be5fb5d5"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment"
+      ],
+      "initial_attachment_sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
+      "native_sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0"
+    }
+  ],
+  "checks": {
+    "source_definitions_byte_exact": true,
+    "source_SZ_block_byte_exact": true,
+    "source_proposition_size_bound_byte_exact": true,
+    "existing_selected_host_witness_and_premise_prefix_byte_exact": true,
+    "whitespace_findings": 0,
+    "lean_executed_locally": false
+  },
+  "independent_review": {
+    "agent": "/root/ci_repair",
+    "result": "PASS static/math/pinned API; computed bracket, actual Q, positivity, hT, witness preservation checked; no local Lean."
+  },
+  "result": "Under all original 15 meaningful scalar size windows, x^(C*eps)*complete native normalized geometric costs + x^(1/2+eps) <= x^(1/2+(C+3)*eps). Source error-budget premise is proved by reflexivity for the explicit bracket. The same constructed dyadic host theorem returns its prior full-cost inequality and the conditional original-window exponent bound.",
+  "remaining": "The eleven physical geometric slope hypotheses, strong trace-error windows, B0/Nc estimates, and compatible original size windows on the same constructed family remain explicit. No existence of those geometric witnesses, unconditional final epsilon bound, pointwise recovery from the mean, or RH conclusion is claimed.",
+  "post_review_hardening": "Normalization conclusion uses explicit congrArg on the proved bracket/Q identity, matching the exact badd SignedSlopeComparison diagnostic repair; no statement or mathematical change.",
+  "source_and_native_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SizeWindows",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GrowthSizeBound",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.rp",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.nT_bound",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.T1",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.T2",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.T3",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.SZ.T4",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.proposition_size_bound",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GeometricSizeWindows",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.sourceErrorBracket",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GeometricSizeWindows.sizeWindows",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.sourceErrorBracket_eq_native",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add_analytic_le",
+    "RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.proposition_size_bound",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GeometricSizeWindows.sizeWindows",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.sourceErrorBracket_eq_native",
+    "RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add_analytic_le",
+    "RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment"
+  ]
+}

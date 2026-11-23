@@ -1,0 +1,170 @@
+{
+  "module": "RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm",
+  "native_base_commit": "f3d43c0c0d7fcd8cd440f07705b02e5210a30574",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "sources": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/RayPrimes.lean",
+      "sha256": "996ea76bcf67da5ded8d8bf2558d500e3dfdd6b3fc8dca8a94a4366688839723",
+      "declarations": [
+        "GlobalTheory.Mem.An.NormOne"
+      ],
+      "role": "Exact original coordinate predicate."
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean",
+      "sha256": "7b055c5bb583ff2ffc19c0891b468e05db7926f6039999f09a3d7615c90a171e",
+      "declarations": [
+        "Formalism.L2.GlobalTheoryTheory.Arith.CongOne"
+      ],
+      "role": "Exact original integer ray congruences."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/NormOneIffOfSqrt.lean",
+      "sha256": "460d8b149e13095c32ad8bbc0afd2e64e96540cb1ffe90dc23a75218993b0938",
+      "declarations": [
+        "GlobalTheory.Mem.An.normOne_iff_of_sqrt"
+      ],
+      "role": "Forward construction of the integral element, K membership, norm and ideal congruence."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormOnePrimeElements.lean",
+      "sha256": "9dd284219fc3527d2b3b2d54bb00718e18fb24f5c8e59a60791db6e1c79ed06f",
+      "declarations": [
+        "GlobalTheory.EX.normOne_host"
+      ],
+      "role": "Native same-host endpoint and p modulo M conclusion."
+    },
+    {
+      "path": "src/Formalism/GL3MeanSquares/SecondEstimateOfIntervalHypothesis.lean",
+      "sha256": "0e9ca3d5606ed5d1cb51146ad43124b5df25a4d1e376fef2a4153f92e2fc4a44",
+      "declarations": [
+        "Formalism.HermitianLattices.ZeroFreeRegionGL2.IsNormOne"
+      ],
+      "role": "Already-native integral-basis predicate, reused rather than redefined."
+    },
+    {
+      "path": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/WeightedVonMangoldtSumIdentity.lean",
+      "sha256": "6d9dba9ecff7a6def1f596fcdbfbbc0cc48486fb03cfb8a3797e7c29535de968",
+      "declarations": [
+        "Formalism.HermitianLattices.ZeroFreeRegionGL2.norm_one_congruence"
+      ],
+      "role": "Already-native numeric congruence supplier."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLevChOfLevelPrime.lean",
+      "sha256": "ef02fb2772718c5b81ea3b9d41fe205c1c78cead16892e9cabffb2cd7fda3b98",
+      "declarations": [
+        "GlobalTheory.EX.OB.exists_levCh_of_levelPrime"
+      ],
+      "role": "Actual subsequent physical short-window consumer, not imported or claimed closed."
+    }
+  ],
+  "existing_native_dependencies": [
+    {
+      "module": "RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot",
+      "path": "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean",
+      "initial_attachment_sha256": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
+      "native_sha256": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc"
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeDyadicHostRaw",
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean",
+      "initial_attachment_sha256": "d9f65d0eaa2c3934d1a8e1e8678c7b171681b1b69919881c54540ee7184bb848",
+      "native_sha256": "4ec6cedab90f03db5d1632d34286a0309a49dffc8f50ac5f9d49b6a1849575e0"
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.Formalism.GL3MeanSquares.HookFormulaTorsion.WeightedVonMangoldtSumIdentity",
+      "path": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/WeightedVonMangoldtSumIdentity.lean",
+      "initial_attachment_sha256": "c42be940304874dcf4a048af66dd0f24382747fed9f68c2e2b0e2bec35625a01",
+      "native_sha256": "c42be940304874dcf4a048af66dd0f24382747fed9f68c2e2b0e2bec35625a01"
+    }
+  ],
+  "pinned_api_receipts": [
+    {
+      "path": "Mathlib/Algebra/GroupWithZero/Defs.lean",
+      "sha256": "a9eae4c59296342085ee6dde0c167bfd6a0a6bfee6e1acb60cdf944445dc5a19",
+      "declarations": [
+        "mul_left_cancel₀"
+      ]
+    },
+    {
+      "path": "Mathlib/RingTheory/Ideal/Defs.lean",
+      "sha256": "656d5aabba0ca74ab1fc906dc9cdf93b9fc6c6b25f0f155b58f261ec461e80d1",
+      "declarations": [
+        "Ideal.mul_mem_right"
+      ]
+    },
+    {
+      "path": "Mathlib/RingTheory/Ideal/Span.lean",
+      "sha256": "217304ad0ad295d4ac8b38c191580f636a4448fbfdf0fac94a0b9fe2470aea5f",
+      "declarations": [
+        "Ideal.mem_span_singleton_self"
+      ]
+    },
+    {
+      "path": "Mathlib/FieldTheory/IntermediateField/Adjoin/Defs.lean",
+      "sha256": "acccf606573e67aeb67d1354c50e8f0531ede578922f22bc4fa376b74b22d967",
+      "declarations": [
+        "IntermediateField.mem_adjoin_simple_self"
+      ]
+    },
+    {
+      "path": "Mathlib/Data/Int/ModEq.lean",
+      "sha256": "85fdd5da9b8faba86f6841344965b472b52e406d5ffcae1e07e3256b288d1a7c",
+      "declarations": [
+        "Int.natCast_modEq_iff"
+      ]
+    }
+  ],
+  "public_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.isNormOne_iff_halfRootCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.halfRoot",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_coe",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_halfRootCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_norm",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_mem_K",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_sub_one_mem",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.exists_integral_of_isNormOne",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.exists_integral_of_halfRootCoordinates",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rayHalfRoot",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement_of_coordinates"
+  ],
+  "source_audit": {
+    "path": "scripts/alpoge_geometric_source_audit/native_dyadic_ray_norm_source_audit.json",
+    "initial_receipt_sha256": "577c04836fdba9ed57a108d5c1c68590341de24d9f7e2f0c5cdb847da76918b3"
+  },
+  "construction_status": "Actual integral element constructed from the existing arithmetic coordinates; same H.E, canonical sqrtD, H.K, actual H.conj and exact ray modulus M.",
+  "remaining_boundary": "Uniform short-window norm-prime existence on the original source size regime remains unported. No LevelPrime/PreCh/Spaces/D7 or theta section is asserted by this algebraic bridge. Source LevelPrime chooses T(u) after one common threshold; D7.sp_T ties Spaces.T to T(u0).",
+  "review": {
+    "root": "PASS: complete math/source/API read; source consumer namespace corrected before freeze.",
+    "ci_repair": "PASS: coordinate equivalence including M=0; both norm signs; ideal multiplication, Nat/Int modulo and canonical-half-root APIs."
+  },
+  "verification": {
+    "formal_status": "SOURCE_RECONSTRUCTED_UNCOMPILED; hosted Lean required.",
+    "local_Lean_or_Lake": false,
+    "shared_tree_edits": false,
+    "remote_writes": false,
+    "new_axioms_or_holes": false,
+    "budget_or_linter_overrides": false
+  },
+  "native_path": "RHLean/Analysis/AlpogeThin/NativeDyadicRayNorm.lean",
+  "initial_source_reconstruction_sha256": "39f87bbfbcb2afddf92869a5faff01cfe86ec9ef90998cbe4159cdb187c8e823",
+  "native_sha256": "ae2363a4a4087716647aee9017e63377784985a4876bb579102067c8cdb3727a",
+  "native_lines": 199,
+  "axiom_guard_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.isNormOne_iff_halfRootCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_norm",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_mem_K",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostRayNorm.element_sub_one_mem",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rayHalfRoot",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement_of_coordinates"
+  ],
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING"
+}

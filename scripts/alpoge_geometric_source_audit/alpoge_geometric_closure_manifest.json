@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned original-source audit/build target; not a claim of native Mathlib-4.34.1 port acceptance.",
+  "upstream": {
+    "repository": "https://github.com/CocoSgt/riemann-hypothesis-lean",
+    "commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "src_tree": "b41b516b1f7baee4d83ced235ecc71fd43c97695",
+    "config_git_blobs": {
+      "README.md": "4d69d4001175b15d9b5659b5022d01e4a042f964",
+      "lakefile.toml": "07e85dc8afcf28b4885a8f092154c8b74c8cf800",
+      "lake-manifest.json": "b4d1ec31575a26b2159ec3a262b482bc051f3f6f",
+      "lean-toolchain": "a8afa7d1b02d96f0671eba854a8dc4b416beb473"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.33.1",
+    "mathlib_commit": "0df444a360eaa60ab8c11dca51a86af692955474"
+  },
+  "provenance": {
+    "original_archive_sha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+    "original_archive_bytes": 239275554,
+    "archive_git_receipt": "upstream_archive_git_receipt.json",
+    "independent_verification_url": "https://math.mit.edu/~drew/grh/",
+    "independent_audit_url": "https://math.mit.edu/~drew/grh/audit.log",
+    "fresh_selected_source_build": "pending",
+    "native_version_port": "not asserted"
+  },
+  "allowed_external_roots": [
+    "Mathlib",
+    "Init",
+    "Lean",
+    "Std",
+    "Batteries",
+    "Aesop",
+    "Qq",
+    "Plausible",
+    "ProofWidgets",
+    "ImportGraph",
+    "LeanSearchClient",
+    "Cli"
+  ],
+  "denied_module_regexes": [
+    "^Main$",
+    "^Statements$",
+    "^Supplements(?:\\.|$)",
+    "(?:^|\\.)EveryCharacterOfLiteratureOfVWin$",
+    "(?:^|\\.)EveryCharacterOfLiterature$"
+  ],
+  "forbidden_code_patterns": {
+    "admitted_proof": "\\b(?:sorry|admit)\\b",
+    "project_axiom": "\\baxiom\\b",
+    "native_decide": "\\bnative_decide\\b",
+    "compiler_trust": "\\bLean\\.(?:ofReduceBool|ofReduceNat|trustCompiler)\\b"
+  },
+  "inventory_code_patterns": {
+    "unsafe": "\\bunsafe\\b",
+    "extern_or_implemented_by": "\\b(?:extern|implemented_by)\\b",
+    "environment_mutation": "\\b(?:addDecl|addAndCompile|addAndCompileUnsafe|mkAxiomVal)\\b",
+    "command_metaprogram": "\\b(?:run_cmd|elab_rules)\\b"
+  },
+  "local_modules": {
+    "AlpogeGeometryInputClosure": {
+      "file": "AlpogeGeometryInputClosure.lean",
+      "sha256": "22c5e267ce593d932ba0b6a59b63f689d5d382aef7b54d5b649fca304d0dcb34"
+    },
+    "AlpogeShortConstructorClosure": {
+      "file": "AlpogeShortConstructorClosure.lean",
+      "sha256": "f912774223e2a52dfb23d4af8a5ad43109b3fc2a1bd8e63d77eb9295b8078d3b"
+    },
+    "AlpogeGeometryAxiomGuard": {
+      "file": "AlpogeGeometryAxiomGuard.lean",
+      "sha256": "813111b28d437c717fd09d0aba174e9b15450ea85e6f535f170650f24e084027"
+    }
+  },
+  "profiles": {
+    "closed-inputs": [
+      "AlpogeGeometryInputClosure"
+    ],
+    "closed-short-constructor": [
+      "AlpogeGeometryAxiomGuard"
+    ],
+    "original-short-root": [
+      "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.HodgeBundleWeights.ExistsShortIntegralVectorOfDeterminantBound"
+    ],
+    "all-place-descent-roots": [
+      "Formalism.MeanHeightDescent.AverageDegreeBounds.DescentSlope",
+      "Formalism.MeanHeightDescent.AverageDegreeBounds.SpanMuMin",
+      "Formalism.MeanHeightDescent.CovolumeFullAssemblyWeighted",
+      "Development.AbelianVarietyTheory.Definitions.Foundations.IsProbabilityMeasureMuPart"
+    ]
+  },
+  "required_axiom_targets": [
+    "RHLean.UpstreamGeometryAudit.grothendieckDeformation",
+    "RHLean.UpstreamGeometryAudit.hodgeBundleTheorems",
+    "RHLean.UpstreamGeometryAudit.hsQuoted",
+    "RHLean.UpstreamGeometryAudit.siegelToroidalIntegral",
+    "RHLean.UpstreamGeometryAudit.toroidalForFanKS",
+    "RHLean.UpstreamGeometryAudit.semiAbelianLieSeminegative",
+    "RHLean.UpstreamGeometryAudit.existsShortIntegralVector"
+  ],
+  "allowed_terminal_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

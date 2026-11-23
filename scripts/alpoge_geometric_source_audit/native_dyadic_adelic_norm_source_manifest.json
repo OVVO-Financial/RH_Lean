@@ -1,0 +1,92 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "native_modules": [
+    {
+      "module": "RHLean.Geometry.NativeDyadicAdelicNorm",
+      "path": "RHLean/Geometry/NativeDyadicAdelicNorm.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Adelic.lean",
+          "sha256": "a018acd7d268fd661d3a41d6876dd488b002621c167d1df902d00fd5a97918b3",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.adel_conj_aE",
+            "Formalism.BasicNotions.Examples₂.adel_conj_bE",
+            "Formalism.BasicNotions.Examples₂.adelBeta",
+            "Formalism.BasicNotions.Examples₂.adelAlpha",
+            "Formalism.BasicNotions.Examples₂.adelTheta",
+            "Formalism.BasicNotions.Examples₂.adelic_alpha_beta_norm",
+            "Formalism.BasicNotions.Examples₂.adel_not_both",
+            "Formalism.BasicNotions.Examples₂.adel_local",
+            "Formalism.BasicNotions.Examples₂.adel_finite_d",
+            "Formalism.BasicNotions.Examples₂.adelS",
+            "Formalism.BasicNotions.Examples₂.adelT",
+            "Formalism.BasicNotions.Examples₂.adel_key",
+            "Formalism.BasicNotions.Examples₂.adel_alg",
+            "Formalism.BasicNotions.Examples₂.exists_adelic_neg_one"
+          ]
+        },
+        {
+          "path": "src/Formalism/SatakeDualWeyl/Statement.lean",
+          "sha256": "ff0b4971b2c44e6b9eeac44013ff35e5aeb7a126a87d7640d2fd72277147696c",
+          "declarations": [
+            "Formalism.UG.sigR",
+            "Formalism.UG.inclE"
+          ]
+        }
+      ],
+      "construction": "Constructs the real-field algebra conjugation from actual raw-host fixedness, uses the canonical native q- and d-Gauss roots, constructs both local norm branches and exact integrality away from d, then genuine restricted-product S/T and the explicit tensor element y=includeRight(S)+includeLeft((1+sqrtD)/2)*includeRight(T). Proves conjugate(y)*y=-1 and IsUnit y. No isometry, norm solution or complete Host/Ranks input is assumed.",
+      "native_sha256": "dbc0ee0514d00182c90fefcaa6433bba3b6692a279b4c00271e0d54f104a7573",
+      "native_lines": 348,
+      "initial_source_reconstruction_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906"
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativeDyadicAdelicNorm.conjugation_eq_host",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.theta_eq_integralHalfRoot",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.alpha_beta_norm",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.not_both",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.local_solution",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.finite_primes_over_d",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.adele_norm_equation",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_spec",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_isUnit",
+    "RHLean.Geometry.NativeDyadicAdelicNorm.exists_adelic_neg_one"
+  ],
+  "native_dependencies": [
+    "RHLean.Geometry.NativeAdicQuadraticNorm",
+    "RHLean.Analysis.AlpogeThin.NativeDyadicHostCore",
+    "RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot"
+  ],
+  "validation": {
+    "local_lean": "NOT_RUN_HOSTED_ONLY",
+    "hosted_build": "NOT_YET_RUN_FOR_THIS_FILE",
+    "root_independent_review": "PASS: full mathematical/source review plus pinned HostHyp, q-root action, maximal-real-field/conjugation bridge, tensor inclusion and algebra-instance checks.",
+    "sibling_api_review": "PASS: ci_repair independently compared actual Adelic global block and pinned tensor inclusion/map, finite_factors and completion norm APIs; reviewed both local branches, conjugation, restricted product and tensor witness; no concrete defect found.",
+    "self_api_review": "Pinned RestrictedProduct.ext has implicit x/y; corrected application. Pinned isUnit_of_mul_isUnit_right uses x; corrected named argument. Confirmed actual FiniteAdeleRing carrier, finite_factors and algebra tensor inclusion APIs.",
+    "no_proof_holes_or_overrides": true,
+    "whitespace_checked": true,
+    "source_hashes_rechecked": true,
+    "guard_names_checked": true
+  },
+  "next_actual_supplier": {
+    "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+    "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28",
+    "declarations": [
+      "Formalism.BasicNotions.Examples₂.dSpace_gram_map",
+      "Formalism.BasicNotions.Examples₂.dSpace_congr",
+      "Formalism.BasicNotions.Examples₂.spacesOfRanks.baseSpace_isometric_graded"
+    ],
+    "requirement": "Construct the actual diagonal GL matrix using 1 on agreeing signs and the new y on differing signs, with inverse 1 or -conjugate(y), then prove the literal mapped-Gram congruence. Original base-to-W specialization has rank r=k+m-1, base negative count (m-0)/2, and W negative count m-j."
+  },
+  "scope_notes": [
+    "The field is the existing native cyclotomic fixed field and F is its actual maximal real subfield; neither is replaced.",
+    "The half-root is literally the existing integral half-root, and the involution agrees with nativeDyadicHostRaw.conj.",
+    "No new lattice, signature, rank, independent theta cover field, Datum, moduli, chart, cusp-density or theta estimate is asserted."
+  ],
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "date_utc": "2026-11-22"
+}

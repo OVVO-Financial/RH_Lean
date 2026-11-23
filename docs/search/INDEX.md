@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | [ANCHOR-PRIME-DISCREPANCY](coordinates/ANCHOR-PRIME-DISCREPANCY.md) | anchor | Prime-counting discrepancy pi - Li_2 | 50 |
 | [ANCHOR-MERTENS](coordinates/ANCHOR-MERTENS.md) | anchor | Mertens function M | 321 |
-| [ANCHOR-ZETA-ZEROS](coordinates/ANCHOR-ZETA-ZEROS.md) | anchor | Nontrivial zeta zeros / rightmost real part | 68 |
+| [ANCHOR-ZETA-ZEROS](coordinates/ANCHOR-ZETA-ZEROS.md) | anchor | Nontrivial zeta zeros / rightmost real part | 114 |
 | [COORD-LI2-MODEL](coordinates/COORD-LI2-MODEL.md) | deterministic-model | Logarithmic integral model Li_2 | 49 |
 | [COORD-VF-MID](coordinates/COORD-VF-MID.md) | deterministic-model | Legacy midpoint VF (vfMid) | 79 |
 | [COORD-VF-CAN](coordinates/COORD-VF-CAN.md) | deterministic-model | Canonical VF (vfCanonical) | 30 |
@@ -25,7 +25,7 @@
 | [COORD-915-SOURCE](coordinates/COORD-915-SOURCE.md) | prime-side | Original #915 first-bad weighted source | 97 |
 | [COORD-RAW-LEDGER](coordinates/COORD-RAW-LEDGER.md) | prime-side | Raw odd-seat factor-depth ledger L_R = T_R + H_R | 25 |
 | [COORD-SAT-PRIME-CENSUS](coordinates/COORD-SAT-PRIME-CENSUS.md) | prime-side | Least-prime owner census P_R = R - C_R | 29 |
-| [COORD-VON-MANGOLDT](coordinates/COORD-VON-MANGOLDT.md) | prime-side | von Mangoldt / Chebyshev psi | 39 |
+| [COORD-VON-MANGOLDT](coordinates/COORD-VON-MANGOLDT.md) | prime-side | von Mangoldt / Chebyshev psi | 61 |
 | [COORD-PRIME-RECIPROCAL](coordinates/COORD-PRIME-RECIPROCAL.md) | prime-side | Mertens prime-reciprocal error E_prime | 31 |
 | [COORD-SQUARE-PREFIX-MERTENS](coordinates/COORD-SQUARE-PREFIX-MERTENS.md) | mobius-side | Mertens at square endpoints | 645 |
 | [COORD-MOBIUS-COVARIANCE](coordinates/COORD-MOBIUS-COVARIANCE.md) | covariance-statistic | Diagonal + signed pair covariance of mu | 95 |
@@ -34,9 +34,9 @@
 | [COORD-SQUARE-SHELL-MASS](coordinates/COORD-SQUARE-SHELL-MASS.md) | mobius-side | Square-shell Mobius mass | 52 |
 | [COORD-SAT-MERTENS](coordinates/COORD-SAT-MERTENS.md) | mobius-side | Signed smooth-minus-transport S = A - T | 62 |
 | [COORD-HECKE-A6](coordinates/COORD-HECKE-A6.md) | mobius-side | Excluded-six Hecke coefficient a6 and quotient kernel K | 129 |
-| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 326 |
+| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 339 |
 | [COORD-LEGAL-GRAM](coordinates/COORD-LEGAL-GRAM.md) | covariance-statistic | Legal live-packet ancestry Gram | 8 |
-| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 26 |
+| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 31 |
 | [COORD-CORR4-PARENT](coordinates/COORD-CORR4-PARENT.md) | mobius-side | CORR-4 rough correlation C_R | 93 |
 | [COORD-CORR4-DAUGHTERS](coordinates/COORD-CORR4-DAUGHTERS.md) | mobius-side | CORR-4 low q^2 daughters (E_R, U_R) | 83 |
 | [COORD-CORR4-REMAINDER](coordinates/COORD-CORR4-REMAINDER.md) | covariance-statistic | CORR-4 physical remainder B_R and first-owner Gram | 45 |
@@ -52,28 +52,30 @@
 
 | Route | Tagged files |
 | --- | --- |
-| [VF-LOW](routes/VF-LOW.md) | 435 |
-| [SAT](routes/SAT.md) | 806 |
-| [CODIV](routes/CODIV.md) | 1093 |
+| [VF-LOW](routes/VF-LOW.md) | 481 |
+| [SAT](routes/SAT.md) | 828 |
+| [CODIV](routes/CODIV.md) | 1158 |
 | [BLOCK](routes/BLOCK.md) | 48 |
-| [OAI-NNS](routes/OAI-NNS.md) | 823 |
+| [OAI-NNS](routes/OAI-NNS.md) | 870 |
 | [JOH](routes/JOH.md) | 132 |
-| [FINITE-AC](routes/FINITE-AC.md) | 935 |
-| [CORR4](routes/CORR4.md) | 965 |
-| [MU-LIFT](routes/MU-LIFT.md) | 388 |
-| [NYMAN](routes/NYMAN.md) | 109 |
+| [FINITE-AC](routes/FINITE-AC.md) | 953 |
+| [CORR4](routes/CORR4.md) | 978 |
+| [MU-LIFT](routes/MU-LIFT.md) | 393 |
+| [NYMAN](routes/NYMAN.md) | 155 |
 
 ## Machine-readable shards
 
 - [catalog-research-lean-vf.jsonl](catalog-research-lean-vf.jsonl) — 226 records
-- [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 555 records
-- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 274 records
+- [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 557 records
+- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 280 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
-- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 441 records
+- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 403 records
+- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 178 records
+- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 489 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
-- [catalog-code.jsonl](catalog-code.jsonl) — 409 records
-- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 339 records
-- [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 340 records
-- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 496 records
-- [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 430 records
-- [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 288 records
+- [catalog-code.jsonl](catalog-code.jsonl) — 421 records
+- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 384 records
+- [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 346 records
+- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 530 records
+- [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 437 records
+- [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 295 records

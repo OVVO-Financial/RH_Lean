@@ -1,0 +1,403 @@
+{
+  "owner": "/root/geometric_constructor",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "native_base_commit": "29b0470bf581026e40e8a2e259909e84bc33653b",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "modules": [
+    {
+      "module": "RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis",
+      "public_declarations": [
+        {
+          "name": "RHLean.Analysis.NativeQuadraticIntegers.exists_integer_generator_of_sq_eq_neg",
+          "kind": "theorem",
+          "signature": "theorem exists_integer_generator_of_sq_eq_neg {K : Type*} [Field K] [NumberField K] {d : ℕ}\n    (h2 : finrank ℚ K = 2) (hsq : Squarefree d) (hd : d % 4 = 3) {r : K} (hr : r ^ 2 = -d) :\n    ∃ w : 𝓞 K, 2 * (w : K) = 1 + r ∧ ∀ c : 𝓞 K, ∃ m n : ℤ, c = m + n * w"
+        },
+        {
+          "name": "RHLean.Analysis.NativeQuadraticIntegers.eq_I_mul_sqrt_or_of_sq_eq_neg",
+          "kind": "theorem",
+          "signature": "theorem eq_I_mul_sqrt_or_of_sq_eq_neg {d : ℕ} {z : ℂ} (hz : z ^ 2 = -d) :\n    z = Complex.I * √d ∨ z = -(Complex.I * √d)"
+        },
+        {
+          "name": "RHLean.Analysis.NativeQuadraticIntegers.ringOfIntegers_sqrt_neg_three_mod_four",
+          "kind": "theorem",
+          "signature": "theorem ringOfIntegers_sqrt_neg_three_mod_four (d : ℕ) (hsq : Squarefree d) (hd : d % 4 = 3)\n    (K : Type) [Field K] [NumberField K] (h2 : Module.finrank ℚ K = 2) (r : K)\n    (hr : r ^ 2 = -(d : K)) :\n    ∃ (w : 𝓞 K) (bar : 𝓞 K →+* 𝓞 K), 2 * (w : K) = 1 + r ∧ w + bar w = 1 ∧\n      (∀ c : 𝓞 K, ∃ m n : ℤ, c = m + n * w) ∧\n      (∀ σ : K →+* ℂ, ¬ ComplexEmbedding.IsReal σ ∧\n        ∀ c : 𝓞 K, σ (bar c : K) = starRingEnd ℂ (σ (c : K))) ∧\n      ∃ σ : K →+* ℂ, σ r = Complex.I * √d"
+        }
+      ],
+      "imports": [
+        "Mathlib"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeNativeQuadraticIntegerBasis.lean",
+      "initial_attachment_sha256": "d9474ecd2eaedac5162a6edc56b92cb535ef8e200d91e062c56be4235caf1771",
+      "native_sha256": "d9474ecd2eaedac5162a6edc56b92cb535ef8e200d91e062c56be4235caf1771",
+      "native_lines": 238
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayIdealLattice",
+      "public_declarations": [
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.place_unique",
+          "kind": "theorem",
+          "signature": "theorem place_unique [IsTotallyComplex K] (h2 : Module.finrank ℚ K = 2) (v w : InfinitePlace K) : v = w"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.normSq_eq",
+          "kind": "theorem",
+          "signature": "theorem normSq_eq [IsTotallyComplex K] (h2 : Module.finrank ℚ K = 2) (φ : K →+* ℂ) (x : 𝓞 K) :\n    ‖φ (x : K)‖ ^ 2 = (Ideal.absNorm (Ideal.span {x}) : ℝ)"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.abs_im_eq",
+          "kind": "theorem",
+          "signature": "theorem abs_im_eq (φ : K →+* ℂ) (b : Module.Basis (Fin 2) ℤ (𝓞 K)) (J : Ideal (𝓞 K))\n    (e : Module.Basis (Fin 2) ℤ J) :\n    |(starRingEnd ℂ (φ ((e 0 : 𝓞 K) : K)) * φ ((e 1 : 𝓞 K) : K)).im| =\n      Ideal.absNorm J * |(starRingEnd ℂ (φ (b 0 : K)) * φ (b 1 : K)).im|"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.cls_iff",
+          "kind": "theorem",
+          "signature": "theorem cls_iff {M : ℕ} (D : RayData K M) (c : D.G) (B I : Ideal (𝓞 K))\n    (hB : IsCoprime B (Ideal.span {(M : 𝓞 K)})) (hB0 : B ≠ ⊥) (hc : D.cls B = c⁻¹)\n    (hI : IsCoprime I (Ideal.span {(M : 𝓞 K)})) (hI0 : I ≠ ⊥) :\n    D.cls I = c ↔ ∃ x : 𝓞 K, x - 1 ∈ Ideal.span {(M : 𝓞 K)} ∧ Ideal.span {x} = I * B"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.lattice_bij",
+          "kind": "theorem",
+          "signature": "theorem lattice_bij (N B : Ideal (𝓞 K)) (hB : IsCoprime B N) (e : Module.Basis (Fin 2) ℤ ↥(N * B))\n    (x₀ : 𝓞 K) (h0 : x₀ ∈ B) (h1 : x₀ - 1 ∈ N) :\n    ∃ f : ℤ × ℤ ≃ {x : 𝓞 K // x ∈ B ∧ x - 1 ∈ N},\n      ∀ p, (f p : 𝓞 K) = x₀ + p.1 * (e 0 : 𝓞 K) + p.2 * (e 1 : 𝓞 K)"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.ne_bot_of_coprime",
+          "kind": "theorem",
+          "signature": "theorem ne_bot_of_coprime {M : ℕ} (hM : Ideal.span {(M : 𝓞 K)} ≠ ⊤) {I : Ideal (𝓞 K)}\n    (hI : IsCoprime I (Ideal.span {(M : 𝓞 K)})) : I ≠ ⊥"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.gen_bij",
+          "kind": "theorem",
+          "signature": "theorem gen_bij {M : ℕ} (hM : Ideal.span {(M : 𝓞 K)} ≠ ⊤) (D : RayData K M) (c : D.G)\n    (B : Ideal (𝓞 K))\n    (hB : IsCoprime B (Ideal.span {(M : 𝓞 K)})) (hB0 : B ≠ ⊥) (hc : D.cls B = c⁻¹) :\n    ∃ f : {I : Ideal (𝓞 K) // IsCoprime I (Ideal.span {(M : 𝓞 K)}) ∧ D.cls I = c} ×\n        {u : (𝓞 K)ˣ // (u : 𝓞 K) - 1 ∈ Ideal.span {(M : 𝓞 K)}} ≃\n        {x : 𝓞 K // x ∈ B ∧ x - 1 ∈ Ideal.span {(M : 𝓞 K)}},\n      ∀ p, Ideal.span {(f p : 𝓞 K)} = p.1 * B"
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.unit_eq_one",
+          "kind": "theorem",
+          "signature": "theorem unit_eq_one [IsTotallyComplex K] (h2 : Module.finrank ℚ K = 2) {M : ℕ} (hM : 3 ≤ M)\n    (u : (𝓞 K)ˣ) (hu : (u : 𝓞 K) - 1 ∈ Ideal.span {(M : 𝓞 K)}) : u = 1"
+        }
+      ],
+      "imports": [
+        "RHLean.Analysis.AlpogeThin.NativeRayClassData"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealLattice.lean",
+      "initial_attachment_sha256": "a82bfd97a32e40eae09bd250a3f5c7849999a435094b92d4ed6a1c17f4142e1b",
+      "native_sha256": "dc2b005a8b8c14a5ba9fb3c30017ec9b830fe80a0ffbd9016bdac37b6f2528b4",
+      "native_lines": 256
+    },
+    {
+      "module": "RHLean.Geometry.NativePlaneLatticeReduction",
+      "public_declarations": [
+        {
+          "name": "RHLean.Geometry.NativePlaneLattice.plane_lattice_reduction_step",
+          "kind": "theorem",
+          "signature": "theorem plane_lattice_reduction_step (e₁ e₂ : ℂ)\n    (h : 2 * |((starRingEnd ℂ) e₁ * e₂).im| < ‖e₁‖ ^ 2) :\n    ∃ f₁ f₂ : ℂ, Submodule.span ℤ {f₁, f₂} = Submodule.span ℤ {e₁, e₂} ∧\n      |((starRingEnd ℂ) f₁ * f₂).im| = |((starRingEnd ℂ) e₁ * e₂).im| ∧\n      2 * ‖f₁‖ ^ 2 ≤ ‖e₁‖ ^ 2"
+        },
+        {
+          "name": "RHLean.Geometry.NativePlaneLattice.plane_lattice_short_basis_of_bound_pow_two",
+          "kind": "theorem",
+          "signature": "theorem plane_lattice_short_basis_of_bound_pow_two (n : ℕ) : ∀ e₁ e₂ : ℂ,\n    ‖e₁‖ ^ 2 ≤ 2 ^ n * (2 * |((starRingEnd ℂ) e₁ * e₂).im|) →\n    ∃ f₁ f₂ : ℂ, Submodule.span ℤ {f₁, f₂} = Submodule.span ℤ {e₁, e₂} ∧\n      |((starRingEnd ℂ) f₁ * f₂).im| = |((starRingEnd ℂ) e₁ * e₂).im| ∧\n      ‖f₁‖ ^ 2 ≤ 2 * |((starRingEnd ℂ) e₁ * e₂).im|"
+        },
+        {
+          "name": "RHLean.Geometry.NativePlaneLattice.plane_lattice_short_basis",
+          "kind": "theorem",
+          "signature": "theorem plane_lattice_short_basis : ∀ e₁ e₂ : ℂ, ((starRingEnd ℂ) e₁ * e₂).im ≠ 0 →\n    ∃ f₁ f₂ : ℂ, Submodule.span ℤ {f₁, f₂} = Submodule.span ℤ {e₁, e₂} ∧\n      |((starRingEnd ℂ) f₁ * f₂).im| = |((starRingEnd ℂ) e₁ * e₂).im| ∧\n      ‖f₁‖ ^ 2 ≤ 2 * |((starRingEnd ℂ) e₁ * e₂).im|"
+        }
+      ],
+      "imports": [
+        "Mathlib"
+      ],
+      "native_path": "RHLean/Geometry/NativePlaneLatticeReduction.lean",
+      "initial_attachment_sha256": "b4fc057b7a6b8c1e4c16d658237e60660de67152172598f32df99da9a3ec5d0a",
+      "native_sha256": "9ccd8da1d917440b28b93c27b2b071819d8c86474261ef7d36a44ff145a15e65",
+      "native_lines": 123
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayQuadraticForm",
+      "public_declarations": [
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.qForm",
+          "kind": "def",
+          "signature": "def qForm (α γ l θ₁ θ₂ : ℝ) (v : ℤ × ℤ) : ℝ "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_qForm",
+          "kind": "theorem",
+          "signature": "theorem exists_qForm (f₁ f₂ x₀ : ℂ) (N : ℝ) (hN : N ≠ 0) (hA : ((starRingEnd ℂ) f₁ * f₂).im ≠ 0) :\n    ∃ l θ₁ θ₂ : ℝ, ∀ v : ℤ × ℤ,\n      qForm (‖f₁‖ ^ 2 / N) (((starRingEnd ℂ) f₁ * f₂).im ^ 2 / (‖f₁‖ ^ 2 * N)) l θ₁ θ₂ v =\n        ‖x₀ + (v.1 * f₁ + v.2 * f₂)‖ ^ 2 / N "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.comb_injective",
+          "kind": "theorem",
+          "signature": "theorem comb_injective (f₁ f₂ : ℂ) (hA : ((starRingEnd ℂ) f₁ * f₂).im ≠ 0) :\n    Function.Injective (fun v : ℤ × ℤ => (v.1 : ℂ) * f₁ + v.2 * f₂) "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.range_comb",
+          "kind": "theorem",
+          "signature": "theorem range_comb (f₁ f₂ : ℂ) :\n    Set.range (fun v : ℤ × ℤ => (v.1 : ℂ) * f₁ + v.2 * f₂) = (Submodule.span ℤ {f₁, f₂} : Submodule ℤ ℂ) "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_equiv",
+          "kind": "theorem",
+          "signature": "theorem exists_equiv (f₁ f₂ e₁ e₂ : ℂ) (hf : ((starRingEnd ℂ) f₁ * f₂).im ≠ 0)\n    (he : ((starRingEnd ℂ) e₁ * e₂).im ≠ 0)\n    (h : Submodule.span ℤ {f₁, f₂} = Submodule.span ℤ {e₁, e₂}) :\n    ∃ σ : ℤ × ℤ ≃ ℤ × ℤ, ∀ v, (v.1 : ℂ) * f₁ + v.2 * f₂ = (σ v).1 * e₁ + (σ v).2 * e₂ "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_basis_im",
+          "kind": "theorem",
+          "signature": "theorem exists_basis_im {d : ℕ} (hp : d.Prime) (hd : d % 4 = 3) {x : K} (hx : x ^ 2 = -(d : K))\n    (h2 : Module.finrank ℚ K = 2) (φ : K →+* ℂ) :\n    ∃ b : Module.Basis (Fin 2) ℤ (𝓞 K),\n      (starRingEnd ℂ (φ (b 0 : K)) * φ (b 1 : K)).im ^ 2 = d / 4 "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_quadratic_norm_coordinates_with_scale",
+          "kind": "theorem",
+          "signature": "theorem exists_quadratic_norm_coordinates_with_scale\n    (K : Type) [Field K] [NumberField K] (d M : ℕ) (x : K)\n    (hp : d.Prime) (hd : d % 4 = 3) (hd100 : 100 ≤ d)\n    (hx : x ^ 2 = -(d : K)) (h2 : Module.finrank ℚ K = 2) (hM : 3 ≤ M)\n    (D : RayData K M) (g : D.G) :\n    ∃ (α γ l θ₁ θ₂ : ℝ)\n      (Φ : (ℤ × ℤ) ≃ {I : Ideal (𝓞 K) //\n        IsCoprime I (Ideal.span {(M : 𝓞 K)}) ∧ D.cls I = g}),\n      1 ≤ α ∧ 1 ≤ γ ∧ α * γ = d * (M : ℝ) ^ 4 / 4 ∧\n      ((M : ℝ) ^ 2 ≤ α ∧\n        (M : ℝ) ^ 2 * Real.sqrt d / 4 ≤ γ ∧\n        α ≤ (M : ℝ) ^ 2 * Real.sqrt d) ∧\n      (∀ v, (Φ v).1 ≠ ⊥) ∧\n      ∀ v, qForm α γ l θ₁ θ₂ v = (Ideal.absNorm (Φ v).1 : ℝ) "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_quadratic_norm_coordinates",
+          "kind": "theorem",
+          "signature": "theorem exists_quadratic_norm_coordinates\n    (K : Type) [Field K] [NumberField K] (d M : ℕ) (x : K)\n    (hp : d.Prime) (hd : d % 4 = 3) (hd100 : 100 ≤ d)\n    (hx : x ^ 2 = -(d : K)) (h2 : Module.finrank ℚ K = 2) (hM : 3 ≤ M)\n    (D : RayData K M) (g : D.G) :\n    ∃ (α γ l θ₁ θ₂ : ℝ)\n      (Φ : (ℤ × ℤ) ≃ {I : Ideal (𝓞 K) //\n        IsCoprime I (Ideal.span {(M : 𝓞 K)}) ∧ D.cls I = g}),\n      1 ≤ α ∧ 1 ≤ γ ∧ α * γ = d * (M : ℝ) ^ 4 / 4 ∧\n      (∀ v, (Φ v).1 ≠ ⊥) ∧\n      ∀ v, qForm α γ l θ₁ θ₂ v = (Ideal.absNorm (Φ v).1 : ℝ) "
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.aRay_eq_ncard_qForm",
+          "kind": "theorem",
+          "signature": "theorem aRay_eq_ncard_qForm : ∀ (K : Type) [Field K] [NumberField K] (d M : ℕ) (x : K), d.Prime → d % 4 = 3 → 100 ≤ d → x ^ 2 = -(d : K) → Module.finrank ℚ K = 2 → 3 ≤ M → ∀ D : RayData K M, ∀ g : D.G, ∃ α γ l θ₁ θ₂ : ℝ, 1 ≤ α ∧ 1 ≤ γ ∧ α * γ = d * (M : ℝ) ^ 4 / 4 ∧ (∀ v : ℤ × ℤ, ∃ n : ℕ, 1 ≤ n ∧ qForm α γ l θ₁ θ₂ v = n) ∧ ∀ n : ℕ, aRay D g n = (({v : ℤ × ℤ | qForm α γ l θ₁ θ₂ v = n}.ncard : ℕ) : ℝ) "
+        }
+      ],
+      "imports": [
+        "RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis",
+        "RHLean.Analysis.AlpogeThin.NativeRayIdealCounts",
+        "RHLean.Analysis.AlpogeThin.NativeRayIdealLattice",
+        "RHLean.Geometry.NativePlaneLatticeReduction"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayQuadraticForm.lean",
+      "initial_attachment_sha256": "1b1904ead7d845c22c6550c40259735a3ea8edc8ff025d5404fc54d0e3e01522",
+      "native_sha256": "a6990002aed176b13839386b3608a120f32601671ba104f9c8b29be106983c41",
+      "native_lines": 410
+    }
+  ],
+  "source_files": [
+    {
+      "sha256": "a2d342664b08c27ce45078acc1849fcc5d99f0bda9ec6b4a3d292171584e7bff",
+      "lines": 212,
+      "declarations": [
+        "GlobalTheory.exists_integer_generator_of_sq_eq_neg",
+        "GlobalTheory.eq_I_mul_sqrt_or_of_sq_eq_neg",
+        "GlobalTheory.ringOfIntegers_sqrt_neg_three_mod_four"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/RingOfIntegersSqrtNegThreeModFour.lean"
+    },
+    {
+      "sha256": "43df45099c3d61394e7d05c57ac86904d5f42a1c30bbe7d68649576905ace738",
+      "lines": 435,
+      "declarations": [
+        "GlobalTheory.Mem.PartialZeta.place_unique",
+        "GlobalTheory.Mem.PartialZeta.normSq_eq",
+        "GlobalTheory.Mem.PartialZeta.abs_im_eq",
+        "GlobalTheory.Mem.PartialZeta.cls_iff",
+        "GlobalTheory.Mem.PartialZeta.lattice_bij",
+        "GlobalTheory.Mem.PartialZeta.ne_bot_of_coprime",
+        "GlobalTheory.Mem.PartialZeta.gen_bij"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/RayClassPartialZetaContinuation.lean"
+    },
+    {
+      "sha256": "366b127349f774700a1d1b38032c68f3c7995735a91a9ef82719dcd43f84aeee",
+      "lines": 91,
+      "declarations": [
+        "GlobalTheory.plane_lattice_reduction_step",
+        "GlobalTheory.plane_lattice_short_basis_of_bound_pow_two",
+        "GlobalTheory.plane_lattice_short_basis"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/PlaneLatticeShortBasisOfBoundPowTwo.lean"
+    },
+    {
+      "sha256": "e0f864a65bee165d83b6262a50665042280fe71921797b30589ba272c860e4dc",
+      "lines": 345,
+      "declarations": [
+        "GlobalTheory.Hk.RayForm.exists_qForm",
+        "GlobalTheory.Hk.RayForm.comb_injective",
+        "GlobalTheory.Hk.RayForm.range_comb",
+        "GlobalTheory.Hk.RayForm.exists_equiv",
+        "GlobalTheory.Hk.RayForm.unit_eq_one",
+        "GlobalTheory.Hk.RayForm.exists_basis_im",
+        "GlobalTheory.Hk.RayForm.aRay_eq_ncard_qForm"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayClassIdealCountEqNcardShiftedBinaryForm.lean"
+    },
+    {
+      "sha256": "2f84dfd5e4b49e93f8062e23f3b9e1dea72222d429c83458a9538b5d1224b236",
+      "lines": 286,
+      "declarations": [
+        "GlobalTheory.Hk.qForm"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/LamIdealOfNotPrimePow.lean"
+    },
+    {
+      "sha256": "9d8b2e2f7e074933fbae729a5c06215490c503a2f4f08dde0b9c2f8274158654",
+      "lines": 123,
+      "declarations": [
+        "GlobalTheory.Hk.rayCountTheta"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayCountThetaFibreCount.lean"
+    }
+  ],
+  "mathlib_api_files": [
+    {
+      "sha256": "fd2f40b42aac48256b11c2a395db0544cd441b04a9f75350d7c46f353fc7d912",
+      "lines": 465,
+      "declarations": [
+        "basisOfLinearIndependentOfCardEqFinrank"
+      ],
+      "path": "Mathlib/LinearAlgebra/FiniteDimensional/Lemmas.lean"
+    },
+    {
+      "sha256": "168b0e9c32bebbca24efd87eb10ba31c9c7395597c2abea70f043929beddcbbd",
+      "lines": 256,
+      "declarations": [
+        "isIntegral_algHom_iff",
+        "map_isIntegral_int"
+      ],
+      "path": "Mathlib/RingTheory/IntegralClosure/IsIntegral/Basic.lean"
+    },
+    {
+      "sha256": "d4818358821cc8b519cd9935148363d905529503a2bad380d9f4f2e915fc0e24",
+      "lines": 403,
+      "declarations": [
+        "IsIntegrallyClosed.isIntegral_iff"
+      ],
+      "path": "Mathlib/RingTheory/IntegralClosure/IntegrallyClosed.lean"
+    },
+    {
+      "sha256": "ed315c24b6c161f791abc0def7da2975850d081a0379297c9a186628f0e9195b",
+      "lines": 285,
+      "declarations": [
+        "Rat.coe_int_num_of_den_eq_one"
+      ],
+      "path": "Mathlib/Data/Rat/Defs.lean"
+    },
+    {
+      "sha256": "c7e04bb7c42c2eec6c0025061502ed135989c9c855f8a3200a779f2d63793c5d",
+      "lines": 628,
+      "declarations": [
+        "NumberField.InfinitePlace.prod_eq_abs_norm"
+      ],
+      "path": "Mathlib/NumberTheory/NumberField/InfinitePlace/Basic.lean"
+    },
+    {
+      "sha256": "c518f160f7bd751e562d4557480b4503c41b0fa35be4123d6734903c0f52bb29",
+      "lines": 578,
+      "declarations": [
+        "Ideal.natAbs_det_basis_change",
+        "Ideal.absNorm_span_singleton"
+      ],
+      "path": "Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean"
+    },
+    {
+      "sha256": "fef4e2fcb531222bc815fedab32b607a689bc4c72633554a97d4b0da01db8163",
+      "lines": 1501,
+      "declarations": [
+        "Ideal.inf_eq_mul_of_isCoprime"
+      ],
+      "path": "Mathlib/RingTheory/Ideal/Operations.lean"
+    },
+    {
+      "sha256": "8d598b47f02aed4241122a2f88c132fce6b3a26776f24086a5d1d5acb7795aff",
+      "lines": 744,
+      "declarations": [
+        "Ideal.selfBasis"
+      ],
+      "path": "Mathlib/LinearAlgebra/FreeModule/PID.lean"
+    },
+    {
+      "sha256": "f7c9ce5f69d25e776d856cc5f5ed13f7b753d2d97c25ba8c0a22ecdf1f0f3aa6",
+      "lines": 231,
+      "declarations": [
+        "abs_sub_round"
+      ],
+      "path": "Mathlib/Algebra/Order/Round.lean"
+    },
+    {
+      "sha256": "83c65d8314df5f64e2cef87179e52b9bdeed2301629307425330bb8b6656dfc8",
+      "lines": 537,
+      "declarations": [
+        "Equiv.prodUnique"
+      ],
+      "path": "Mathlib/Logic/Equiv/Prod.lean"
+    },
+    {
+      "sha256": "90eaaedccc63f81347c8918ffa50665fd01c8bca02585c104b3d3f484db673a7",
+      "lines": 644,
+      "declarations": [
+        "Equiv.apply_ofInjective_symm"
+      ],
+      "path": "Mathlib/Logic/Equiv/Set.lean"
+    },
+    {
+      "sha256": "3ccc595212141e4138dbef8d27388fc2e333cb8add9b9d3a1570832628c89a63",
+      "lines": 1431,
+      "declarations": [
+        "Set.ncard_image_of_injective"
+      ],
+      "path": "Mathlib/Data/Set/Card.lean"
+    }
+  ],
+  "native_dependencies": [
+    {
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
+      "initial_attachment_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_sha256": "2809e4c6336d9d287acfb0eae7e8195bc2c794b85d132b07555a0c610618e123",
+      "native_lines": 425
+    },
+    {
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
+      "initial_attachment_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
+      "native_sha256": "8f63154221bc9db0fd4341d80a77459e0771fe8de2ec1eb1b6fb685b340d6c73",
+      "native_lines": 263
+    }
+  ],
+  "exact_main_inputs": [
+    "K is a number field; d and M are natural numbers; x belongs to K.",
+    "d.Prime, d % 4 = 3, 100 <= d, x^2 = -(d:K), [K:Q]=2, and 3 <= M.",
+    "D is the full actual RayData K M from the previous constructive quotient; g is one of its ray classes. Canonical rayData supplies D, without an analytic premise."
+  ],
+  "proved_main_output": [
+    "A genuine equivalence Phi : Z^2 ≃ {I : Ideal O_K | IsCoprime I (M) and D.cls I = g}.",
+    "Every Phi(v) is nonzero and qForm(alpha,gamma,l,theta1,theta2,v)=absNorm(Phi(v)).",
+    "alpha>=1, gamma>=1, alpha*gamma=d*M^4/4.",
+    "The original all-n count identity aRay D g n = ncard {v | qForm(v)=n}, obtained by the same Phi image and injectivity."
+  ],
+  "construction_ledger": [
+    "Construct rational basis 1,x and field conjugation; integrality of trace/norm, squarefree denominator and parity produce the full integral generator (1+x)/2.",
+    "Construct an embedding with x mapped to i*sqrt(d); no embedding or basis premise.",
+    "Choose B in the inverse ray class from the proved cls_surj. cls_iff yields the literal principal relation (generator)=I*B.",
+    "gen_bij retains congruent-to-one units as a factor; unit_eq_one proves this factor trivial from M>=3 in the degree-two totally complex field.",
+    "Bezout produces x0 in B with x0=1 modM; the actual basis of (M)*B parametrizes exactly that affine coset.",
+    "Integral row reduction preserves the same lattice and area while supplying the genuine first-vector squared norm bound.",
+    "The exact area is M^2*Norm(B)*sqrt(d)/2. Divide the squared embedded generator norm by Norm(B) to obtain the original ideal norm.",
+    "Expose Phi and the norm identity in exists_quadratic_norm_coordinates; only then derive the source count equality."
+  ],
+  "adaptations": [
+    "Native namespaces and native actual RayData/aRay only; no upstream terminal theorem imports.",
+    "Removed unused DedekindZetaEqSumRealEisenstein import/QuadraticZeta opening from elementary integer-basis proofs.",
+    "Selected only finite arithmetic from RayClassPartialZetaContinuation; no Epstein/zeta continuation import.",
+    "Proof-local proposition instances use have; Unique unit data uses anonymous let, following the observed warning-fatal policy.",
+    "Omitted unused NumberField section assumptions in lattice_bij and ne_bot_of_coprime, whose ring/ideal proofs need only the remaining field structure.",
+    "After span-membership case substitution, refer to the explicit second generator instead of the removed x; same integral row operation.",
+    "Factored the actual coordinate-equivalence/norm construction into a stronger public theorem. The original count conclusion and all original number-theoretic hypotheses are retained.",
+    "No local Lean/Lake execution, new budgets, disabled checks, synthetic axioms, holes, count/theta assumptions or endpoint-valued coefficient assignment."
+  ],
+  "field_scope": "K is the ray-prime imaginary quadratic field. No identification with the independent coefficient field of a geometric cover is asserted.",
+  "first_remaining_dependencies": [
+    "The Gaussian plane-lattice count and theta estimates used by the original RayCountThetaFibreCount.rayCountTheta.",
+    "The class-number/discriminant estimate, actual prime-power weight upper bound and real-character positivity needed for the complete LFam constructor.",
+    "Unconditional LFam/Perron/exceptional-zero short-interval argument and its uniform common-x0 LevelPrime application.",
+    "No physical short-window prime or geometric moduli/cover has been produced merely by this arithmetic correspondence."
+  ],
+  "review": {
+    "self": "PASS static mathematics, exact source closure and pinned API review",
+    "ci_repair": "PASS NativePlaneLatticeReduction, NativeRayIdealLattice and NativeRayQuadraticForm; same Phi, unit factor, norm/area/coefficients and pinned APIs checked; no edits/local Lean",
+    "closure_audit": "PASS AlpogeNativeQuadraticIntegerBasis; actual basis/conjugation, squarefree denominator/parity and embedding orientation checked against source and pinned APIs; no edits/local Lean",
+    "root": "PASS full read/math review of all four files: actual unit-factor elimination, same affine ideal lattice, determinant/absNorm area, norm identity before ncard, exact alpha*gamma=d*M^4/4",
+    "hosted_lean": "PENDING; compilation is hosted only"
+  },
+  "metadata_revision": "Root PASS arrived after initial receipt generation; Lean bytes unchanged. This v2 records that final independent review.",
+  "status": "SOURCE_INSPECTED; actual ideal/lattice/norm correspondence implemented and independently reviewed; hosted verification and analytic count/theta bounds pending."
+}

@@ -1,0 +1,825 @@
+# Native geometry attachment and complete scalar source payment
+
+## Status and scope
+
+This continuation of PR #1194 reconstructs and connects these source-derived
+suppliers:
+
+1. `RHLean/Geometry/NativeJetRankBudget.lean` constructs the original integer jet order and derives its exact binomial rank budget.
+2. `RHLean/Geometry/NativeGradedSectionRegularity.lean` reconstructs the original generic-frame character-separation proof of regularity on the actual algebra of integer-weight sections.
+3. The graded short-section and Petersson constructors use one integral section for the determinant, trace injection, pointwise size, translated multiplication bounds and all-place descent.
+4. The actual dyadic reciprocity host, selected-prime character payments, constructed size/conductor windows and numerical cost windows compose into the complete native scalar inequality in section 9.
+5. The original cyclotomic kernel construction supplies a genuine CM host field, its Galois quotient, conjugation, degree and principal `IsChiField` identification.
+6. All thirty original `HostDer` fields are assembled on that same raw host, including actual quadratic splitting, ordinary primes, eta, the different, the discriminant and its original bounds, and root-of-unity norms.
+7. An actual integral self-dual Hermitian lattice supplies a short rational basis and a finite integral family spanning the full native harmonic space. The complete cardinality and coefficient bounds are retained; theta evaluation and geometric cover generation remain separate obligations.
+8. The complete arithmetic `Geo.Tor.Host` interface uses the same field, integral root, half-root, conjugation, unramified extension and positively oriented complex square root as the derived host and harmonic construction.
+9. The actual quadratic different and its tower formula supply the source principal polarization identity. The same inverse ideal is a projective rank-one `𝓞 E` module and a free integer lattice with a perfect alternating trace form and the original conjugate adjointness.
+
+These continuation statements are source-written and require hosted native Lean verification at their published commit. No local Lean execution was performed. The code introduces no proof admission, project axiom, external compiled artifact, or terminal RH import. The complete theta/cover instance, its source comparison and the unconditional critical estimate are **not** claimed here.
+
+Provenance is pinned to `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`. Exact source and native SHA-256 values and declaration names are in `scripts/alpoge_geometric_source_audit/native_geometry_attachment_manifest.json`.
+
+## 1. The exact jet-order supplier
+
+The native theorem `RHLean.Geometry.NativeJetRank.exists_jet_order` retains the original hypotheses
+
+\[
+ d\ge2,\qquad T\ge1000d^2,\qquad \rho\ge0,
+ \qquad 7(d^2/T+d\rho)\le\tfrac12.
+\]
+
+It constructs
+
+\[
+ a=\left\lfloor\frac{T+d+4}{1-\rho}\right\rfloor
+\]
+
+and proves **both** required inequalities:
+
+\[
+ T+d+4<(a+1)(1-\rho),\qquad
+ \binom{a+d}{d}\le
+ \bigl(1+7(d^2/T+d\rho)\bigr)\binom{T-1}{d}.
+\]
+
+The proof includes the source binomial comparison, the explicit exponential estimate, positivity of every denominator and the floor endpoint. It does not assume the desired rank comparison.
+
+`rank_growth_of_component_jets` then uses the same component degrees and shares to obtain
+
+\[
+ \sum_Z r_Z^+\le(1+\delta)\sum_Z r_Z^-,
+\]
+
+provided that the original component jet theorem bounds `rPlus Z` by the constructed binomial times `degree Z`, the lower share bounds the other binomial times **that same** degree by `rMinus Z`, and the computed loss is at most `delta`. Those geometric component facts remain explicit; they are not supplied by the binomial theorem itself.
+
+### Actual upstream substitution
+
+The supplying application is `GlobalTheory.CovTop.HodgeSteps.rk_le_alt_alt` in `ThirdPlaceSeries/RankGrowthBoundSmallScale.lean`:
+
+| Native variable/input | Actual source object/supplier |
+| --- | --- |
+| `d` | `CompHt.dimFlag (dat p i)` |
+| `T` | `lenT p i PP` |
+| `rho` | `CompHt.rhoB (dat p i) u1` |
+| component `Z` | `Comp Y.d.Xo₂ Y.d.c₂` |
+| `degree Z` | `Y.dg u1 Z` |
+| upper component rank | `Y.rkC (uW p i + s*cZero • hodgeWt) Z`, after the source weight identity |
+| lower component rank | `Y.rkC (uM p i) Z` |
+| jet bound | `GlobalTheory.T.jet_rank_complex_le`, supplied by `GlobalTheory.JetRank.jet_bundle_rank_le` |
+| degree comparison | `GlobalTheory.T.componentImageDegree_between_of_proportionality`, with the actual birationality and valuation/multiplicity witnesses |
+| lower share | `(hsh Z).1` obtained from the same `ShareCondition` |
+| permitted defect | `min (1/2) (b/(PP*kap p i))` |
+
+The actual jet theorem goes through a compactified flag variety, extension of cusp sections, base-point freeness, birationality, nefness, a resolution, and the global-section intersection bound. The native numerical result does not replace any of these objects by a formal rank variable.
+
+## 2. A concrete type mismatch in the previous regularity attachment
+
+The previous native component theorem is valid for a reduced ring `R` with an evaluation attached to **each minimal prime of R**, whose kernel contains that prime. Its application to the original geometric source was not automatic.
+
+The source distinguishes:
+
+- `Rul Xo c`, the ambient ring of rules on test rings;
+- `secZ Xo c e`, the submodule of sections of one integer exponent `e`;
+- `secRing Xo c`, the subalgebra generated by **all** those homogeneous section spaces;
+- actual geometric components `Comp Xo c` and their generic fields `Om Z`.
+
+The proved source conclusion is
+
+```text
+F ∈ secZ e →
+(∀ Z, ∃ y on Z, evR F y ≠ 0) →
+∀ f ∈ secRing, F*f = 0 → f = 0.
+```
+
+It is not a statement about multiplication against every arbitrary ambient rule. No identification of `Comp Xo c` with all minimal primes of `Rul Xo c` has been constructed. This is a restriction-of-domain mismatch, not a failure of the original geometric proof. The source test rings use radical ideals; no assertion that the source ambient ring is nonreduced is needed here.
+
+## 3. Reconstructing the actual supplying proof
+
+The new native theorem uses the original mechanism from `GlobalTheory.SecRingNonZeroDiv.eq_zero_of_mul_eq_zero`:
+
+1. Construct the section algebra as the supremum of the actual weight submodules, using their proved product closure.
+2. Write an arbitrary member as a **finite** sum of homogeneous sections, using `Submodule.mem_iSup_iff_exists_finsupp`.
+3. For each component field, form the explicit torus character
+   \[
+   \chi_e(t)=\prod_i t_i^{e_i}.
+   \]
+4. Prove distinctness of these characters by setting one torus coordinate to `2`; the integer powers are distinguished in the characteristic-zero field.
+5. Apply `linearIndependent_monoidHom` to separate every weight in the finite sum.
+6. Use faithfulness of generic evaluation on each homogeneous section space to conclude that every component of the sum is zero.
+
+`nativeGradedSectionAction` constructs the actual restricted action on this section algebra. `nativeGradedSection_det_mem` proves that a determinant of `q` entries of weight `e` belongs to weight `q • e`. The endpoint `nativeGradedSection_groupDet_regular` therefore gives the exact regular determinant needed by the already native twisted-trace theorem **in the constructed section algebra**.
+
+This supplies an attachment route that does not introduce an unproved identification of geometric components with ambient minimal primes.
+
+### Remaining evaluator inputs: exact types and existing suppliers
+
+The native theorem has dependent fields `F : Z → Type`, with a field and characteristic-zero instance for every `Z`. Its inputs are:
+
+```text
+generic : ∀ Z, R →+* F Z
+frame   : ∀ Z, (I → (F Z)ˣ) → R →+* F Z
+
+hweight : ∀ Z e f, f ∈ W e → ∀ t,
+  frame Z t f = (∏ i, t i ^ e i) * generic Z f
+
+hfaithful : ∀ e f, f ∈ W e →
+  (∀ Z, generic Z f = 0) → f = 0
+```
+
+The source substitution is `R=Rul Xo c`, `I=Ix Dw`, `W=secZ Xo c`, `F Z=Om Z`, and `generic Z=genVal Z` (as a ring hom). `frame Z t` is evaluation at the actual generic frame after the Borel/torus change constructed by `SecSeparation.exists_frBor`.
+
+The exact suppliers are:
+
+| Required fact | Existing supplying declaration |
+| --- | --- |
+| The generic component frame exists | `GlobalTheory.Reg.genFrEx_and_genFromTest`, constructed from `Formalism.L2.Pj.genFrEx_of` and the unconditional abelian-scheme laws |
+| Test-ring evaluation laws, generic frames and their covering atlas | `GlobalTheory.Reg.evLaws_genFr_atlas` |
+| Torus weight law at the changed frame | `evR_frBor` on the homogeneous section proof |
+| Homogeneous generic faithfulness | `GlobalTheory.CompHt.secZ_eq_zero_of_genVal` |
+| Nonzero at a chosen point implies generic nonzero | `GlobalTheory.CompHt.genVal_eq_zero_iff` |
+| Invariance of each weight under level translation | `GlobalTheory.LevDesc.pull_mem_secZ` |
+| Original restricted action and determinant transport | `GlobalTheory.LevDesc.pullSec`, `coe_det_pullSecOn` |
+
+`secZ_eq_zero_of_genVal` is itself proved from the actual atlas: first transport generic vanishing to every framed **field** point, then use reduced polynomial test rings and the Jacobson intersection of maximal ideals to conclude vanishing on every test rule. Its use is source-derived geometric faithfulness, not an arithmetic cancellation assumption.
+
+The new native regularity proof does not yet construct this atlas for a native theta cover. It tells us precisely which coherent evaluator datum must be ported next, and avoids demanding the stronger unrelated ambient-prime data.
+
+## 4. Size and dependency boundary of the next actual source attachment
+
+A static import traversal of the pinned source, counting original source modules and bytes and excluding Mathlib/external roots, gives:
+
+| Actual supplying root | Source modules | Source bytes |
+| --- | ---: | ---: |
+| `EvaluationLawsGenericFramesAtlasHold` | 776 | 7,289,217 |
+| `SecZEqZeroOfGenVal` | 1,607 | 15,239,079 |
+| `JetRankComplexLe` | 18,972 | 163,949,674 |
+| `ExistsGoodCoverAtMinimalLevel` | 15,902 | 144,860,864 |
+
+These are import-closure sizes, not minimal mathematical dependency sizes, proof-length lower bounds, or claims that the sources have been kernel-checked in the native toolchain. The many broad imports are a reason to retain source maps and locate the actual used declarations when reconstructing them; they do not establish that a smaller construction is impossible.
+
+The six-package original-source assembly does not by itself identify the native coefficient field, theta cover, weights, integral lattices, pointwise/Petersson norms, generic evaluations, ranks, or physical Frobenius/inertia data. Those data must belong to one constructed witness. After that attachment, the native regularity, maps, all-place norm payment and jet budget can be applied without an equation-to-bound shortcut.
+
+
+## 5. Connect the constructed section to the correct algebra
+
+The continuation now uses `NativeGradedCharacterSlopeDescent.lean` and
+`NativeGradedShortSectionConstruction.lean` to connect the actual finite
+section constructor to the integer-weight algebra.
+
+`nativeAllPlaceDescent_of_regular_groupDet` retains the original integral-map,
+collective-norm, short-span and rank costs without imposing reducedness on a
+larger ambient ring. The previous public component theorem is preserved as a
+specialization. The graded application proves its determinant regularity from
+the generic-frame laws already described above.
+
+`nativeExists_graded_short_integral_injective_section` constructs an integral
+section from the original component lattices and short spanning families. Its
+orbit evaluation is the actual composite `point Z (st h u)`, not a second
+unidentified linear map. Homogeneous specialization transports that same
+section's chosen-point nonvanishing to generic-point nonvanishing. Its norm
+bound and joint trace injection therefore refer to one witness.
+
+The constructor's component, orbit-separation, short-span, support and metric
+facts remain explicit. The native theta-cover atlas supplying them has not
+been constructed by packaging them in `NativeGradedShortSectionData`. The
+actual multiplication/Petersson norm comparison is also still required for
+the final slope application.
+
+## 6. Construct the actual arithmetic host and evaluate the thin bill
+
+`alpogeNativeRecMap_surjective` uses three-factor CRT on the original modulus
+`2^(e+2)*q*d`. It realizes the two independent quadratic sign bits and every
+class of the full dyadic unit quotient at once. Distinct odd primes are
+proved from the same `PairGood` witness in the selected-pair application.
+
+`alpogeNativeDyadicH_card` proves `n = |H_e| = 2^e`, and
+`alpogeNativeHostN_eq_four_card_mul` proves that the same modulus is `4*n*q*d`.
+The host size in the source count is consequently tied to this constructed
+host, rather than chosen independently.
+
+The complete thin bill, on the original widths and all primitive characters,
+is derived as
+
+\[
+ B_{\rm thin}=(4n-2s)m\theta\sum_{t\in TT} a_t,
+ \qquad s=|T2|,\quad \theta=e^{-x^{\varepsilon/8}}.
+\]
+
+With the previously derived `Q = |TT|*m*b*Delta/2` and `Delta=s/n`,
+`nativeThinBill_div_projectionDivisor` proves
+
+\[
+ \frac{B_{\rm thin}}{Q}
+ =\frac{(8n-4s)\theta\,\overline a}{b\Delta}.
+\]
+
+Every multiplicity and color count is accounted for before this cancellation.
+This identity alone does not make the bill small: the actual size regime must
+control `n`, the mean height, `b` and `Delta` jointly.
+
+## 7. Pay the three thick characters using the same selected prime pair
+
+`NativeDyadicThickCharacters.lean` identifies the three two-bit characters of
+the actual reciprocity map with the primitive induced q, d and q*d Jacobi
+twists. The relevant suppliers are `PairGood.bounds`, originating in
+`CharacterBoxes/BoundedTw.lean`, and the primitive-character response identity.
+The exact source equality retains every ramified prime power and the
+primitive logarithmic derivative.
+
+For each original argument `y` in the selected interval `[Y,X]`, the resulting
+bound is
+
+\[
+ \|G_{\rm sig}(y)-G_z(y)\|
+ \le 3y^{1/2+\varepsilon/2},
+ \qquad G_{\rm sig}=G_z+G_q-G_d-G_{qd}.
+\]
+
+The theorem uses the actual selected-pair response bounds on this polynomial
+window. It does not apply the exponentially large thin-argument bound at a
+thick argument. The averaging theorem retains every original `a_t/b` and
+requires those actual arguments to belong to that same window.
+
+The selected pair's existence is proved earlier in the native dependency
+chain; this application introduces no independent three-character error
+premise. Numerical conductor equalities q, d and q*d are not needed or claimed:
+the proved primitive induction identities are exactly what `PairGood.bounds`
+requires.
+
+## 8. The composed native scalar source inequality
+
+`nativeSelectedDyadicGzPayment` performs the composition on the same selected
+pair and the actual dyadic host. Write `y_t=a_t/b`, `n=2^e`, `s=|T2|`,
+`Delta=s/n`, and let `Egeom` be the literal complete physical subgroup top
+excess at the constructed cutoff `ceil(Amax/beta)`. The conclusion is
+
+\[
+ \overline{G_z(y_t)}
+ \le \frac{E_{\rm geom}}Q
+ +\frac{(8n-4s)e^{-x^{\varepsilon/8}}\overline a}{b\Delta}
+ +\frac{4h(\log4+2)A_{\max}}{b^2\Delta}
+ +3\overline{y_t^{1/2+\varepsilon/2}}.
+\]
+
+The same theorem constructs the selected pair and supplies both character
+bounds. The hypotheses retain the actual conductor/width size conditions,
+positive heights, thick-width interval, thin-argument lower bound and
+membership of every `y_t` in `[Y,Y^A]`. No bound on `Egeom` or on the final
+right-hand side is a premise. This is a finite source inequality; its final
+geometric application is the remaining construction task.
+
+## 9. Construct the host size family and pay every analytic remainder
+
+`nativeDyadicHost_windows` uses the existing source constructor
+`UpperTheory.Top.exists_pageN` once to choose an exponent `e(x)` at every
+scale. On the actual quotient host, it derives the original `SizeN` interval
+
+\[
+ x^{2+8\varepsilon-\varepsilon/100}
+ \le |H_{e(x)}|
+ \le x^{2+8\varepsilon+\varepsilon/100},
+ \qquad |H_{e(x)}|\le x^3
+\]
+
+eventually. For every original selected `WinPair` at `1 <= Y <= x`, it also
+derives the actual conductor bound
+
+\[
+ \log(2^{e(x)+2}qd)
+ \le 2x^{\varepsilon/5}\log^2x.
+\]
+
+The same exponent and prime pair appear in both the conductor and the source
+comparison. Neither a freely specified host cardinality nor an independent
+conductor bound remains a premise of `nativeConstructedDyadicGzPayment`.
+
+`NativeDyadicCostWindows.lean` reconstructs the numerical arguments of
+`ModelText.ev_rpow_le_exp`, `cost1` and `cost2` in the pinned source's
+`Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean`. It uses only
+those numerical proofs. It does not use `ModelText.family`, with its
+`Model.DA` and zero logarithmic derivative, as an actual geometric witness.
+
+For the original regime
+
+\[
+ b\ge e^{x^\varepsilon},\qquad
+ 0\le h\le e^{x^{\varepsilon/4}}+1,\qquad
+ A_{\max}/b\le x+1,\qquad \Delta\ge x^{-\varepsilon},
+\]
+
+the polynomial host bound derives the stronger numerical cost windows
+
+\[
+ 4n(x+1)e^{-x^{\varepsilon/8}}\le 1/x,
+ \qquad 12n(x+1)h\le b/x.
+\]
+
+They pay the thin and freezing terms together by `4/(Delta*x)`. The same
+selected pair pays the three thick characters by
+`6*x^(1/2+eps/2)`, retaining all varying `a_t/b`. The complete analytic sum is
+at most `x^(1/2+eps)` eventually. The combined native conclusion is therefore
+
+\[
+ \overline{G_z(a_t/b)}\le E_{\rm geom}/Q+x^{1/2+\varepsilon}.
+\]
+
+The actual positive-height, thick-width, thin-argument and character-window
+conditions remain explicit. This closes the analytic scalar remainder in
+that original regime; it does not construct a geometric family realizing it.
+
+## 10. The same short section pays the Petersson multiplication operators
+
+`NativePeterssonMultiplication.lean` reconstructs `petAt_mul_le` and
+`normW_mul_pull_le` from the pinned source's `CardLeOfDetEqZero.lean`.
+The metric is the actual weighted `eLpNorm` with exponent two. Its weight for
+a product is the product of the two pointwise factors. Finite source norm
+and measurable products are explicit, including the current Mathlib
+measurability requirement.
+
+`nativeExists_graded_regular_petersson_multiplier` consumes the SAME integral
+section constructed in section 5. Each realization is identified with
+weighted complex evaluation. The unchanged finite section cost
+
+\[
+ B=(2dr)q^2\beta
+   \max\{1,d^4r|\operatorname{Disc}K|^{1/d}A\}
+\]
+
+then supplies its pointwise size and proves
+`norm(f * st_h u) <= B * norm(f)` for every translated multiplication map.
+Here `q=|S|` is the number of level translations; it is not the arithmetic
+host cardinality `n`. Measure preservation, the evaluation identity and
+weight invariance derive the metric isometries. No multiplication-operator
+bound or norm-invariance conclusion is assumed.
+
+`nativeAllPlaceDescent_of_constructed_petersson_section` feeds this section
+and its derived multiplier estimate into the existing regular-determinant
+descent theorem. It removes the free section and free operator-bound
+premises.
+
+`nativeShortSectionCost_le_exp_of_source_scales` also removes a separate
+assumption that the displayed product `B` fits the descent budget. It uses
+the actual degree `d=[K:Q]`, discriminant, component-rank bound `r` and
+translation-group cardinality. The original separate scales are
+
+\[
+ \log d\le o,\quad \log|\operatorname{Disc}K|\le do,\quad o\le391z^2,
+ \quad \log r\le C_{\rm rank}z^3,
+\]
+
+\[
+ S\le z^5,\quad \log A\le C_{\theta}(z^3S+z^5),
+ \quad \beta\le e^{C_{\rm sup}z^3},\quad \log q\le120z^2.
+\]
+
+For `z >= 1` and nonnegative constants, these give
+
+\[
+ C_{\rm gen}=2000+C_{\rm rank}+C_{\theta},\qquad
+ B\le e^{C_0z^9},\qquad C_0=3C_{\rm gen}+240+C_{\rm sup}.
+\]
+
+The same descent endpoint now invokes this derived bound directly, with the
+source's original `2*C0+200 <= z` and `z^12 <= b` budget. Actual theta/component
+data and their separate size estimates, invariant measure, Gram norms,
+integral lattices, short target generators and the rank comparison remain
+geometric obligations.
+
+The coefficient field `K` here is the source's `Y.d.c₂.F`; its degree and
+discriminant estimates come from `Y.Good`. It must not be silently replaced
+by the cyclotomic arithmetic host field. A degree formula for that host
+does not establish the covering-coefficient estimates used by this theorem.
+
+## 11. Construct the genuine cyclotomic host field
+
+`AlpogeNativeCyclotomicHost.lean` defines the ambient field
+`L = CyclotomicField (alpogeNativeHostN e q d) Q` and the map
+
+\[
+ \operatorname{Gal}(L/\mathbb Q)
+ \xrightarrow{\mathrm{galEquivZMod}}(\mathbb Z/N\mathbb Z)^\times
+ \xrightarrow{\mathrm{nativeRecMap}}E_0\times H_e,
+ \qquad N=2^{e+2}qd.
+\]
+
+The actual host field is the fixed field of this map's kernel. Its number-field
+and Galois structures, quotient Galois equivalence, restriction map, and
+cyclotomic embedding specification are constructed. For distinct odd primes,
+
+\[
+ [E:\mathbb Q]=4\cdot2^e.
+\]
+
+The residue `-1` acts as complex conjugation in every complex embedding.
+Under the original prime congruences its native image is `((1,1),0)`, giving
+nontrivial conjugation, total complexity and the CM-field property. Native
+coordinate order is **d first, q second**; the proof does not silently coerce
+this host to a source frame with the opposite sign-coordinate order.
+
+`nativeDyadicHostField_isChiField` proves the original principal
+`UpperTheory.Top.IsChiField` predicate on that SAME field, modulus, embedding
+and primitive root. The fixed-subgroup criterion is exactly
+
+\[
+ (a\equiv1\pmod{2^{e+2}}\ \lor\ a+1\equiv0\pmod{2^{e+2}})
+ \ \land\ \left(\frac aq\right)=1
+ \ \land\ \left(\frac ad\right)=1.
+\]
+
+This is the original `CharData`/`CycBasic` mechanism reconstructed over the
+existing RH_Lean residue map. Section 14 proves the additional ideal-theoretic
+inertia and Frobenius correspondences on that same field. The CM abelian
+variety and its theta lattices remain to construct; the original cohomological
+`VAt` window estimate is not a consequence of field identification alone.
+
+## 12. Construct the original raw host on that same field
+
+`NativeDyadicFrame.lean` uses the literal class of the residue unit `5` in
+`H_e`. Its order is `2^e`: the pinned Mathlib theorem gives that order before
+taking the quotient by signs, and reduction modulo four proves that no power
+of `5` is `-1`. Transport through a finite equivalence constructs the original
+`Formalism.HC.Frame` with
+
+\[
+ \mathrm{ord}=\mathrm{n0}=2^e,\qquad A_0=A,\qquad o=1.
+\]
+
+The generator is the source generator, not an arbitrary element satisfying
+only the frame's weak projection interface. The full-host equivalence
+explicitly sends native `(d-bit,q-bit,h)` to source `(q-sign,d-sign,h)`.
+
+`AlpogeNativeQuadraticRoot.lean` constructs the finite quadratic Gauss sum
+at `zeta_N^(N/d)` in the actual cyclotomic field. The primitive-root square
+identity proves its square is `-d`; the multiplicative-shift identity proves
+its Galois action. The existing reciprocity kernel fixes it, so it descends
+to a named `alpogeNativeSqrtD` in the **same** native fixed field. Its action
+is exactly the first native sign bit, hence the source's `chD` after the
+explicit coordinate conversion. No square-root or action witness is a premise.
+
+`nativeDyadicHostRaw` constructs every field of the original `HostRaw`
+record from these objects and the original arithmetic `HostHyp`. In
+particular, `art_h`, `art_d` and `art_q` are proved from actual residue
+congruences. The conductor, embedding, primitive root, Galois equivalence
+and square root are the same data used in the native arithmetic comparison.
+The source's principal `KerChi` and `IsChiField` predicates are proved for
+this exact raw host.
+
+The selected `WinPair` supplies `HostHyp`, including the quadratic splitting
+condition from `q | d+1`. For `eps > 0` and `x >= 2`, the already-constructed
+`PageN` inequality gives `4 <= 2^e` and therefore `2 <= e`.
+`nativeDyadicHostRaw_of_pageN_winPair` consequently has no separate
+exponent-lower-bound, field, square-root, or Artin-compatibility premise.
+
+`NativeDyadicHostSideConditions.lean` proves the original `CoprimeFifteen`
+and `PsQ` predicates on this raw host. It also constructs the `Exact` witness:
+the actual residue unit `1+N/2` is one modulo `N/2` and its dyadic class is
+neither `1` nor `-1`. Its unit property and both exclusions are proved from
+the same odd prime pair and exponent. No Artin nontriviality premise is added.
+
+`AlpogeNativeIntegralQuadraticRoot.lean` supplies the integral elements for
+the geometric host. The canonical root gives `rt` in the actual ring of
+integers, and `w0=(1+rt)/2` is integral because it satisfies the explicit
+monic polynomial `X^2-X+(d+1)/4`. The same actual conjugation gives `bar`,
+with `bar(rt)=-rt`, `bar(w0)=1-w0` and `w0+bar(w0)=1`.
+Section 14 supplies the geometric host's relative unramified typeclass from
+the actual finite-prime calculation.
+
+The stronger `HostDer` record includes genuine prime-ideal, decomposition,
+discriminant and different statements. Section 14 supplies its actual
+inertia, Frobenius, decomposition and conjugation non-inertia fields.
+Section 16 completes the remaining suppliers and assembles all thirty fields
+on this exact raw host.
+
+## 13. Derive section faithfulness from the original reduced-test atlas
+
+`NativeGenericFrameFaithfulness.lean` now constructs the source's test rings
+and actual rule ring:
+
+\[
+ p=(n,I,\ I\text{ radical}),\qquad
+ R_p=K[X_1,\ldots,X_n]/I,\qquad
+ \mathrm{Rules}=\prod_p(\mathrm{pts}(R_p)\to R_p).
+\]
+
+The integer-weight section spaces consist of natural rules satisfying the
+original torus transformation law. Their product law and unit construct
+the graded section algebra used by the determinant argument. Evaluation at
+a tested point is an actual coefficient-linear algebra homomorphism.
+
+The source's field-point atlas now proves homogeneous faithfulness. A chart
+has a subalgebra of its component's generic field and actual base-change
+and torus relations. Generic vanishing gives zero in that subalgebra, hence
+zero at every field point reached by the chart. Applying the complete
+atlas to the maximal-ideal residue fields of each test ring, the Jacobson
+property and the radical ideal condition give zero in every original test
+ring. This proves `secZ_eq_zero_of_generic`; faithfulness is not assumed.
+The `AllTest` input retains the source's exact restriction to **reduced**
+rings, rather than requiring the stronger and unused statement for arbitrary
+rings.
+
+`NativeFramedShortSectionConstruction.lean` connects this proof to the
+existing short integral section constructor. Component evaluations are
+actual evaluations at the chosen framed points. Each such point retains
+its own chart and component identity, so homogeneous specialization comes
+from the same chart. The constructor derives the former `hweight`,
+`hfaithful` and `hspecialize` inputs, then supplies the resulting regular
+determinant and joint trace injection for the SAME chosen integral `u`,
+with the exact previous norm and rank constants.
+
+The original CM moduli, framed points, evaluation/base-change laws, and
+covering atlas have not yet been constructed natively. The new proof closes
+the atlas-to-faithfulness implication on the actual source rule algebra;
+it does not substitute a model family for those geometric objects. Actual
+short theta sections, translations and component/orbit data also remain
+explicit inputs. Section 17 now constructs the full harmonic polynomial
+span from an actual self-dual lattice, but its geometric evaluation is
+still to be supplied. All these new proof reconstructions await hosted
+Lean verification.
+
+## 14. Identify actual inertia and every arithmetic Frobenius coset
+
+`AlpogeNativePrimeLift.lean` chooses actual prime ideals in a number-field
+tower. It constructs an inertia lift by first fixing the chosen upper prime
+and then correcting its residue-field action. Arithmetic Frobenius descends
+along the same tower. These are ideal-theoretic statements, with no assumed
+identification between actual inertia and a finite modular subgroup.
+
+`AlpogeNativeCyclotomicResidue.lean` proves that the prime-to-`l` part of
+the actual integral cyclotomic root retains its exact order modulo every
+prime above `l`. It uses that root to generate the ring of integers, giving
+the actual inertia criterion and arithmetic Frobenius from residue-unit
+congruences. This includes primes dividing the conductor.
+
+`AlpogeNativeHostPrimes.lean` applies those results to the SAME native kernel
+fixed field. It identifies actual inertia with the literal pre-existing
+`alpogeNativeHostData.inertia l`, proves that the original CRT Frobenius
+representative is an arithmetic Frobenius, and identifies every such lift
+with its complete inertia coset. Ramified primes are retained. Conjugation
+is excluded from every finite inertia group because at least one of the two
+distinct quadratic characters is unramified at that prime.
+
+`NativeDyadicHostPrimes.lean` transports these results through the explicit
+native `(d,q)` to source `(q,d)` equivalence. The theorems have the exact
+original `HostDer.inertia`, `HostDer.frob_any` and `HostDer.unramEF`
+signatures on the already constructed `nativeDyadicHostRaw`. No replacement
+field or independent prime-ideal compatibility witness is introduced.
+
+`AlpogeNativePrimeDecomposition.lean` proves that a prime stabilizer acts on
+its actual finite residue field by a power of this same Frobenius. The
+remaining factor is in actual inertia. This derives the original unit-power
+congruence and `NativeDyadicHostDecomposition.lean` supplies the exact
+`HostDer.decomp` field, again including ramified primes.
+
+`unramEF` is the original assertion that conjugation is not in any nonzero
+prime's inertia group. `AlpogeNativeCMUnramified.lean` now promotes it to
+the geometric typeclass `Algebra.Unramified O(E⁺) O(E)`. At each maximal
+ideal, the proved non-inertia supplies an integral element separated from
+its conjugate. That element generates the quadratic extension; its
+minimal-polynomial derivative belongs to the relative different and avoids
+the chosen prime. The original local-to-global argument consequently
+proves the full unramifiedness class on the same CM field and its actual
+maximal real subfield. Neither an unramifiedness premise nor a bound on the
+different is assumed. Section 16 supplies the discriminant and different
+fields of `HostDer` using this same unramified extension.
+
+## 15. Construct an actual integral harmonic theta polynomial
+
+`NativeThetaHarmonicPolynomials.lean` constructs products of leading minors
+in the original row/column variables. Evaluation on an identity matrix
+proves that the polynomial is nonzero. Integer coefficients prove its
+integrality. Disjoint columns for conjugate rows make every mixed Laplacian
+zero; lower-row additions preserve the minors. Telescoping the adjacent
+dominant weights proves the prescribed row degrees and exact total degree.
+
+The construction retains the original range `pplus+pminus <= n`. It does
+not require disjoint columns for every pair of embedding rows. For total
+degree `D`, its coefficient sum at each embedding is at most
+`(pplus+pminus)^D`. `NativeThetaPolynomialNorm.lean` derives the full
+all-embedding bound
+
+\[
+ \|P\|_{\mathrm{all\ embeddings}}
+ \le \sqrt{[K:\mathbb Q]}\,(p_++p_-)^D.
+\]
+
+`NativeHostThetaPolynomial.lean` instantiates the signature using the SAME
+canonical Gauss root of the actual native host. The equation `rt^2=-d`
+separates conjugate embedding rows. The coefficient field `K` remains
+independent, so the later application can use the original `Y.d.c₂.F`
+without an unjustified identification with the arithmetic field `E`.
+
+This constructs one genuine nonzero integral harmonic polynomial with all
+its degree and coefficient estimates. Section 17 extends it to the full
+finite harmonic spanning family. Geometric theta evaluation, the canonical
+connection, theta density, short cusp-section spans and the cover still
+require their supplying proofs.
+
+## 16. Assemble all thirty fields of the original derived host
+
+`NativeDyadicHostDer.lean` constructs `nativeDyadicHostDer` and
+`nativeDyadicHostAx` from the already constructed `nativeDyadicHostRaw`.
+The field order and types are the literal original `Formalism.HC.HostDer`
+record. Its forgetful map is definitionally the same raw host. No derived
+host, discriminant bound, different factorization or prime compatibility
+witness is supplied as a new premise.
+
+| Original fields | Native supplying construction |
+| --- | --- |
+| `art_surj`, `cm`, `conj_iff`, `finrank_E`, `finrank_F`, `mem_F`, `cmType`, `ps_root`, `art_ch`, `ps_d` | Actual reciprocity quotient, both Gauss roots, actual conjugation and the literal source CM type |
+| `frob`, `frob_any`, `inertia`, `decomp` | Actual cyclotomic residue order and full prime-ideal Frobenius/inertia/decomposition calculations |
+| `inertia_d`, `decomp_typeI`, `decompConj` | Actual CRT inertia and decomposition at the selected ramified primes |
+| `unramEF`, `splitK`, `ordinary`, `eta` | Actual unramified CM extension, splitting in the literal quadratic subfield, and the original three ordinary-prime/eta cases |
+| `diffSupport`, `principal`, `unimodular` | Relative different over the same quadratic subfield and the same conjugate-coprime half ideal `B` |
+| `discr_sq`, `discr_primes`, `rd_ge`, `rd_le`, `rd_sq_ge` | Unramified discriminant identity, actual ramification support and original conductor/discriminant estimates |
+| `norm_mu` | Actual inertia excludes the offending primitive root; conjugate automorphism pairs give the norm identity |
+
+The different calculation constructs the source half ideal `B` with its
+conjugation and CM-type conditions and proves that the SAME `B⁻¹` is
+trace-self-dual in the required relative pairing. The field name
+`principal` is the source's polarization/different condition; it does not
+assert that `B` is a principal ideal.
+
+For the original host parameters, the root-discriminant bounds retain
+their exact constants:
+
+\[
+ 2^{e+1-2^{-e}}\sqrt d\le\operatorname{rd}(E),\qquad
+ \operatorname{rd}(E)\le\frac{2^{e+2}}2\sqrt{qd},\qquad
+ 4\,\mathrm{Frame.ord}\le\operatorname{rd}(E)^2.
+\]
+
+`nativeDyadicHostAx_of_winPair` and
+`nativeDyadicHostAx_of_pageN_winPair` keep the SAME selected `e,q,d`
+and raw-host witnesses. The already derived `KerChi`, `CoprimeFifteen`,
+`PsQ` and `Exact` conditions compose with this host. These source-written
+proofs still require exact-head hosted kernel verification.
+
+### Construct the actual polarization coefficient lattice
+
+`AlpogeNativeQuadraticDifferent.lean` derives the quadratic discriminant
+and principal different from the squarefree radicand and integral basis
+`1,(1+sqrt(-d))/2`. `NativeDyadicHostPolarizationArithmetic.lean` applies
+this to the literal subfield `K=Q(sqd)` and the SAME selected root. With
+the source host constructor's choice `ccK=top`, let
+
+\[
+ \xi=-1/\mathrm{sqd},\qquad A=B^{-1}.
+\]
+
+The actual different tower formula gives
+
+\[
+ (\xi)A\overline A\,\mathfrak D_{E/\mathbb Q}=1,
+\]
+
+and `xi_im_pos` proves positivity on the literal original CM type.
+`NativePolarizationCoefficientLattice.lean` then constructs
+
+\[
+ E_A(x,y)=\operatorname{Tr}_{E/\mathbb Q}
+   (\xi\,\overline x\,y)
+\]
+
+as an integer-valued bilinear form on this SAME `A`. It proves alternation,
+the original `𝓞 E` conjugate-adjointness, and bijectivity of the induced
+map to the integral dual. The proof uses an actual rational trace-dual
+basis extending the integer basis of this nonzero fractional ideal.
+The module is finite/projective of rank one over `𝓞 E` and finite/free
+of rank `4*2^e` over `Z`.
+
+`nativeDyadicHostRaw_exists_polarizationCoefficientLattice` constructs
+the ideal witness internally while retaining its conjugate coprimality
+and `Psi` invariance. This supplies the coefficient lattice, not yet the
+prescribed `D7.sp.W_j` Hermitian spaces, their integral base lattices,
+signatures, finite-place compatibility or real complex structures.
+
+## 17. Construct a short family spanning the full harmonic space
+
+`NativeHermitianShortVectors.lean` begins with a finitely generated,
+integral, Hermitian-self-dual `𝓞 E` lattice `Λ` in `Eⁿ`. It proves full
+rational span, constructs the actual trace-pairing Euclidean model and
+uses the inverse-different lower bound and transference to obtain a
+short rational basis in the SAME lattice. Neither that short basis nor
+its spanning conclusion is an input.
+
+Write `f=[E:Q]/2` and `r=2fn`. Each of the `r` basis vectors has, at every
+embedding, Euclidean norm at most
+
+\[
+ \rho=2f^{3/2}n^2\operatorname{rd}(E).
+\]
+
+Here `n` is the ambient Hermitian lattice dimension, not the cardinality
+of the arithmetic host. For positive dominant total weight `D`,
+`p+q<=n`, and distinct positive/conjugate coefficient embeddings, the
+adjugate/perpendicular parameterization and bounded integer grid supply
+a finite integral polynomial family. Capelli/highest-weight generation,
+column Lie actions, the Fock pairing and the perpendicular orbit proof
+identify its span with the ENTIRE original harmonic row space.
+
+`exists_short_integral_HHa_spanning_family` in
+`NativeThetaSpanningFamily.lean` (namespace
+`RHLean.Geometry.NativeTheta.Paired`) transports this family
+through the literal row/letter variable equivalence. Its endpoint is
+
+\[
+ \operatorname{span}_K S=\mathrm{HHa},
+\]
+
+as equality of the actual sets in the native polynomial space. Every
+member is homogeneous of degree `D`, belongs to the lattice polynomial
+space of the SAME `Λ`, and retains all coefficient bounds. In the exact
+source notation for the grid costs, set
+
+\[
+ d_g=(2(p+q)+1)D,\quad R=r d_g\rho,\quad
+ B=\left((p+q)\sqrt n\,(p+q+1)!\,R^{2(p+q)+1}\right)^D.
+\]
+
+Then
+
+\[
+ |S|\le(d_g+1)^{r(2p+q)},\qquad
+ \sum_m|\nu(P_m)|\le B,\qquad
+ \|P\|_{\mathrm{all\ embeddings}}\le\sqrt{[K:\mathbb Q]}B.
+\]
+
+The coefficient field `K` remains independent of `E`; the later cover
+application uses `Y.d.c₂.F`. The positive/conjugate embedding injectivity
+is derived from actual complex realizations and a disjoint CM type by
+`injective_liftedCMEmbeddings` when those realizations are provided.
+
+This is a harmonic polynomial construction with an explicit self-dual
+lattice input. It does not yet construct the complete geometric datum's
+lattices, evaluate theta functions on moduli, prove cusp-section density,
+or build a good cover. The positive-degree branch is the endpoint here;
+the complete geometric application must also handle its actual zero-weight
+cases where needed.
+
+## 18. Preserve one geometric host and record verification accurately
+
+`NativeGeometricHost.lean` retains all twelve fields of the original
+arithmetic `Geo.Tor.Host`. `NativeDerivedGeometricHost.lean` assembles that
+interface on the SAME `HostAx`, using its CM instance. The root, half-root,
+integral conjugation and unramified extension are those already constructed.
+
+`nativeDyadicThetaEmbedding` chooses the complex embedding with
+
+\[
+ \tau(\mathrm{sqrtD})=i\sqrt d.
+\]
+
+Its orientation is proved, and `nativeDyadicThetaPositive_iff` identifies
+the theta-positive rows with the actual raw host's CM type. No lattice is
+replaced by its conjugate to repair a signature mismatch.
+
+The preceding published head `940460d0e61d55d01aebb3a73c0635093a1d661c`
+failed both the full native and targeted hosted builds with the same seven
+errors and twenty-six owned warnings. The current continuation repairs all
+reported diagnostics, retains their failed-build evidence, and adds the
+complete host and harmonic-generation constructions above. Independent
+source and mathematical review is not a substitute for the next hosted
+Lean 4.34.1 build and standard-terminal-axiom audit. No local Lean/Lake
+execution was performed.
+
+## 19. Exact remaining construction obligation
+
+The reconstructed arithmetic comparison pays the cutoff, derived divisor,
+width movement, complete thin return and the three nonprincipal thick
+characters. It does not yet supply an upper bound for the literal physical
+`alpogeNativePhysicalSubgroupTopExcess`, nor does it construct a theta-cover
+family whose actual heights and widths satisfy all the stated scale conditions.
+
+The next geometric suppliers remain the prescribed Hermitian-space and
+integral base-lattice datum with its signature and finite-place compatibility,
+CM moduli, framed-point atlas and evaluation laws, the geometric
+short theta-section span and its separate degree/discriminant/rank/theta
+size estimates, component jet upper ranks and lower shares, and the
+resulting slope/covolume comparison with the complete physical ASK-MAIN source.
+The Petersson multiplication mechanism is now derived on the constructed
+section, but its actual weighted evaluations and invariant measure still
+have to be instantiated from that family. The final window-to-RH
+consumer remains conditional until that compatible family and payment are
+proved. This status is a statement about this native proof chain, not a claim
+that those source mechanisms are absent from Alpöge's original development.
+
+More precisely, the native section data do not yet construct the common
+`D7`/rank datum and its `TT`, `T2`, `a`, `w`, scalar `SizeData₂` and `IdentU`
+identification. The original `CoreAtH` and `Deduction.ch_top` consume those
+data with **strong** `ErrWindows`, `BNBoundsU` and `LargeX`. The trace-error
+condition
+
+\[
+ (\mathrm{etaBar}+4\sqrt{\mathrm{eBar}})
+ (x^{c_{\mathrm{HH}}}b)
+ \le Kx^\varepsilon(n_Ta)
+\]
+
+cannot be replaced by `etaBar <= 1` and `eBar <= 1`. Nor can the translation
+group of the section constructor be identified with the arithmetic host
+merely by notation: the source derives `card_HA D` only for its common
+constructed geometric datum.
+
+All continuation statements require hosted Lean 4.34.1 compilation and the
+standard-terminal-axiom guards at their published commit. Source review and
+static validation are not recorded as a successful kernel check.
