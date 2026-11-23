@@ -349,7 +349,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativePolarizationCoefficientLattice.lean",
-      "native_sha256": "f3f37fde5864c9947cb0fd6ebf64d41d35bbedb4125396463d49cdd8e944c21f",
+      "native_sha256": "d327be6398df32d3a896f5011e8463e33c61cf0b1f8a0e4a847c9ca8a559a95e",
       "declarations": [
         "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_projective",
         "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_rank_over_integers",

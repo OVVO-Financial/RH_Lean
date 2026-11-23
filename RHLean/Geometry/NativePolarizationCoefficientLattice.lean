@@ -196,7 +196,7 @@ theorem integralTraceForm_adjoint (B : Ideal (𝓞 H.E))
   rw [integralTraceForm_cast, integralTraceForm_cast]
   change Algebra.trace ℚ H.E (xi H * H.conj ((a : H.E) * x) * y) =
     Algebra.trace ℚ H.E (xi H * H.conj (x : H.E) * (H.conj (a : H.E) * y))
-  rw [map_mul]
+  rw [map_mul H.conj (a : H.E) (x : H.E)]
   congr 1
   ring
 
