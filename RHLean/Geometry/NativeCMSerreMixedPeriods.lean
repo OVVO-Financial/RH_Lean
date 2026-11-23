@@ -127,10 +127,10 @@ variable {φ : Frame} (H : HostRaw φ) [IsCMField H.E]
 def rawCoefficientAction (N : ℕ) (a : 𝓞 H.E) :
     (cmTypeFinset H → Fin N → ℂ) →ₗ[ℂ] (cmTypeFinset H → Fin N → ℂ) where
   toFun v τ i := (τ : H.E →+* ℂ) (a : H.E) * v τ i
-  map_add' v w := by
+  map_add' _ _ := by
     ext τ i
     exact mul_add _ _ _
-  map_smul' z v := by
+  map_smul' z _ := by
     ext τ i
     change _ * (z * _) = z * (_ * _)
     ring
@@ -370,10 +370,10 @@ def mixedCoefficientAction (p q : ℕ) (a : 𝓞 H.E) :
       (Fin ((cmTypeFinset H).card * (p + q)) → ℂ) where
   toFun v s := NativePeriodCoordinates.typeFn (cmTypeFinset H) (p + q) q s
     (a : H.E) * v s
-  map_add' v w := by
+  map_add' _ _ := by
     ext s
     exact mul_add _ _ _
-  map_smul' z v := by
+  map_smul' z _ := by
     ext s
     change _ * (z * _) = z * (_ * _)
     ring

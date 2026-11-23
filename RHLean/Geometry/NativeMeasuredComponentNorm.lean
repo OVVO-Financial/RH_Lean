@@ -164,8 +164,8 @@ section Nondegeneracy
 
 variable {K V : Type} [Field K] [NumberField K] [AddCommGroup V] [Module K V]
 
-/-- The original all-place Gram norm is nondegenerate at each infinite place. -/
 omit [NumberField K] in
+/-- The original all-place Gram norm is nondegenerate at each infinite place. -/
 theorem eq_zero_of_hasGram_norm_zero {N : (K →+* ℂ) → V → ℝ}
     (h : HasGram N) (v : InfinitePlace K) {x : V} (hx : N v.embedding x = 0) :
     x = 0 := by
@@ -188,6 +188,7 @@ theorem eq_zero_of_hasGram_norm_zero {N : (K →+* ℂ) → V → ℝ}
   have := congrFun h3 i
   simpa [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt] using this
 
+omit [NumberField K] in
 theorem hasGram_pos {N : (K →+* ℂ) → V → ℝ} (h : HasGram N)
     (hn : ∀ σ x, 0 ≤ N σ x)
     (hc : ∀ σ x, N ((starRingEnd ℂ).comp σ) x = N σ x)
@@ -218,6 +219,7 @@ def restrictionNorm (σ : K →+* ℂ) (f : V) : ℝ := measuredNorm (μ σ) (F 
 def componentNorm (σ : K →+* ℂ) (f : V) : ℝ :=
   measuredNorm (normalizedRestriction (μ σ) (S σ)) (F σ f)
 
+omit [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 /-- A nonzero component lattice forces positive measured mass, because a
 zero-mass component would annihilate its actual positive Gram norm. -/
 theorem componentMass_pos_of_rank

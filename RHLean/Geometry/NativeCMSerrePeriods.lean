@@ -140,7 +140,7 @@ literal inverse-ideal lattice, now proved quadratic-order linear. -/
 def purePeriodLinear (B : Ideal (𝓞 H.E)) (N : ℕ) :
     twistedLattice H B N →ₗ[OK G] (cmTypeFinset H → Fin N → ℂ) where
   toFun x τ i := (τ : H.E →+* ℂ) (x.1 i)
-  map_add' x y := by
+  map_add' _ _ := by
     ext τ i
     exact map_add (τ : H.E →+* ℂ) _ _
   map_smul' a x := by

@@ -70,8 +70,8 @@ def incl : D.La →ₗ[OK H] (Fin F.n → OK H) :=
 /-- The free-module projection uses the same integral frame vectors. -/
 def proj : (Fin F.n → OK H) →ₗ[OK H] D.La where
   toFun a := ∑ i, a i • F.x i
-  map_add' a b := by simp [add_smul, Finset.sum_add_distrib]
-  map_smul' c a := by simp [Finset.smul_sum, mul_smul]
+  map_add' _ _ := by simp [add_smul, Finset.sum_add_distrib]
+  map_smul' _ _ := by simp [Finset.smul_sum, mul_smul]
 
 theorem incl_apply (a : D.La) (i : Fin F.n) :
     F.incl a i = kLin D ε a (F.y i) := rfl
@@ -134,8 +134,8 @@ def tensorEquivFixed : D.La ⊗[OK H] A ≃ₗ[OK H] F.tensorFixed A where
     have hz := z.property
     change F.incl.rTensor A (F.proj.rTensor A z.1) - z.1 = 0 at hz
     exact sub_eq_zero.mp hz
-  map_add' x y := Subtype.ext (map_add _ _ _)
-  map_smul' c x := Subtype.ext (map_smul _ _ _)
+  map_add' x y := Subtype.ext (map_add (F.incl.rTensor A) x y)
+  map_smul' c x := Subtype.ext (map_smul (F.incl.rTensor A) c x)
 
 theorem tensorEquivFixed_tmul (x : D.La) (a : A) :
     (F.tensorEquivFixed A (x ⊗ₜ[OK H] a) :

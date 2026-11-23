@@ -49,9 +49,24 @@ def coordinates (b : Basis (ι ⊕ ι) ℤ M) :
     (κ → M) →+ (Matrix κ ι ℚ × Matrix κ ι ℚ) where
   toFun x := (fun k i => (b.repr (x k) (Sum.inl i) : ℚ),
     fun k i => (b.repr (x k) (Sum.inr i) : ℚ))
-  map_zero' := by simp
+  map_zero' := by
+    apply Prod.ext
+    · funext k i
+      change ((b.repr (0 : M) (Sum.inl i) : ℤ) : ℚ) = 0
+      simp
+    · funext k i
+      change ((b.repr (0 : M) (Sum.inr i) : ℤ) : ℚ) = 0
+      simp
   map_add' x y := by
-    apply Prod.ext <;> funext k i <;> simp
+    apply Prod.ext
+    · funext k i
+      change ((b.repr (x k + y k) (Sum.inl i) : ℤ) : ℚ) =
+        (b.repr (x k) (Sum.inl i) : ℚ) + (b.repr (y k) (Sum.inl i) : ℚ)
+      simp only [map_add, Finsupp.add_apply, Int.cast_add]
+    · funext k i
+      change ((b.repr (x k + y k) (Sum.inr i) : ℤ) : ℚ) =
+        (b.repr (x k) (Sum.inr i) : ℚ) + (b.repr (y k) (Sum.inr i) : ℚ)
+      simp only [map_add, Finsupp.add_apply, Int.cast_add]
 
 omit [Fintype κ] [Fintype ι] in
 theorem coordinates_injective (b : Basis (ι ⊕ ι) ℤ M) :
@@ -62,9 +77,13 @@ theorem coordinates_injective (b : Basis (ι ⊕ ι) ℤ M) :
   ext i
   cases i with
   | inl i =>
-    exact_mod_cast congrFun (congrFun (congrArg Prod.fst h) k) i
+    have he := congrFun (congrFun (congrArg Prod.fst h) k) i
+    change (b.repr (x k) (Sum.inl i) : ℚ) = (b.repr (y k) (Sum.inl i) : ℚ) at he
+    exact_mod_cast he
   | inr i =>
-    exact_mod_cast congrFun (congrFun (congrArg Prod.snd h) k) i
+    have he := congrFun (congrFun (congrArg Prod.snd h) k) i
+    change (b.repr (x k) (Sum.inr i) : ℚ) = (b.repr (y k) (Sum.inr i) : ℚ) at he
+    exact_mod_cast he
 
 omit [Fintype κ] in
 theorem mem_coordinates_range (b : Basis (ι ⊕ ι) ℤ M)
@@ -113,13 +132,16 @@ theorem coordinates_selfDual (b : Basis (ι ⊕ ι) ℤ M)
           (coordinates (κ := κ) b).range := by
         apply (mem_coordinates_range b _).2
         constructor
-        · intro a c; simp [IntM]
         · intro a c
-          by_cases ha : a = k <;> by_cases hc : c = i <;>
-            simp [Matrix.single, Pi.single_apply, ha, hc]
+          exact isIntegral_zero
+        · intro a c
+          simp only [Matrix.single_apply]
+          split_ifs
+          · exact isIntegral_one
+          · exact isIntegral_zero
       obtain ⟨m, hm⟩ := h _ hp'
       have hm' : p.1 k i = m := by
-        simpa [Vac.om_eq, Vac.pr, dotProduct, Matrix.single, Pi.single_apply] using hm
+        simpa [Vac.om_eq, Vac.pr, dotProduct, Matrix.single_apply, ite_and] using hm
       rw [hm']
       exact isIntegral_algebraMap
     · intro k i
@@ -128,12 +150,15 @@ theorem coordinates_selfDual (b : Basis (ι ⊕ ι) ℤ M)
         apply (mem_coordinates_range b _).2
         constructor
         · intro a c
-          by_cases ha : a = k <;> by_cases hc : c = i <;>
-            simp [Matrix.single, Pi.single_apply, ha, hc]
-        · intro a c; simp [IntM]
+          simp only [Matrix.single_apply]
+          split_ifs
+          · exact isIntegral_one
+          · exact isIntegral_zero
+        · intro a c
+          exact isIntegral_zero
       obtain ⟨m, hm⟩ := h _ hp'
       have hm' : -p.2 k i = m := by
-        simpa [Vac.om_eq, Vac.pr, dotProduct, Matrix.single, Pi.single_apply] using hm
+        simpa [Vac.om_eq, Vac.pr, dotProduct, Matrix.single_apply, ite_and] using hm
       have he : p.2 k i = (-m : ℤ) := by push_cast; linarith
       rw [he]
       exact isIntegral_algebraMap
@@ -173,9 +198,13 @@ theorem coordinates_pairing {B : LinearMap.BilinForm ℤ M} (hB : B.IsAlt)
         ((∑ k, B (x k) (y k) : ℤ) : ℚ) := by
   simp only [Int.cast_sum]
   refine Finset.sum_congr rfl fun k _ => ?_
+  change (∑ i, (b.repr (x k) (Sum.inl i) : ℚ) *
+      (b.repr (y k) (Sum.inr i) : ℚ)) -
+    (∑ i, (b.repr (y k) (Sum.inl i) : ℚ) *
+      (b.repr (x k) (Sum.inr i) : ℚ)) = (B (x k) (y k) : ℚ)
   rw [form_coordinates hB b hb]
-  simp only [coordinates, AddMonoidHom.coe_mk, AddHom.coe_mk, dotProduct,
-    Int.cast_sum, Int.cast_sub, Int.cast_mul, Finset.sum_sub_distrib]
+  push_cast
+  rw [Finset.sum_sub_distrib]
 
 end Coordinates
 
@@ -194,7 +223,7 @@ def nativePhase (b : Basis (ι ⊕ ι) ℤ D.La)
 omit [Fintype ι] in
 @[simp] theorem nativePhase_coordinates (b : Basis (ι ⊕ ι) ℤ D.La) (x : κ → D.La) :
     nativePhase D b (coordinates b x) = ∏ k, phase D (x k) := by
-  simp only [nativePhase, Function.leftInverse_invFun (coordinates_injective b)]
+  rw [nativePhase, Function.leftInverse_invFun (coordinates_injective b) x]
 
 /-- Construct the normalized rational vacuum on the original native lattice.
 The finite-adelic Haar norm is exactly one. -/
@@ -238,16 +267,17 @@ theorem exists_native_vacuum (n : ℕ) :
   have hord : ∀ p ∈ A, ε (2 • p) = 1 := by
     rintro p ⟨x, rfl⟩
     rw [← map_nsmul]
-    simp only [ε, nativePhase_coordinates, Pi.nsmul_apply]
-    have he (k : Fin n) : phase D (2 • x k) = 1 := by
-      simpa only [two_nsmul, two_zsmul] using phase_two_smul D (x k)
-    simp only [he, Finset.prod_const_one]
+    rw [show ε = nativePhase D (κ := Fin n) b from rfl, nativePhase_coordinates]
+    change (∏ k, phase D ((2 : ℕ) • x k)) = 1
+    apply Finset.prod_eq_one
+    intro k _
+    simpa only [two_nsmul, two_zsmul] using phase_two_smul D (x k)
   obtain ⟨v, hv, hip, hfix, huniq⟩ := Vac.vacuum (Fin n) _ A ε hfg
     (coordinates_selfDual b) hn hsemi ⟨2, two_pos, hord⟩
   have hv0 : v ≠ 0 := by
     intro h0
     have h := hip
-    simp [h0, ip, haar, haarAt, isSB_zero] at h
+    simp [h0, ip, haar, haarAt] at h
   refine ⟨b, hb, v, hv, hip, hv0, fun x => ?_, fun w hw hfw => ?_⟩
   · simpa only [ε, nativePhase_coordinates] using hfix _ ⟨x, rfl⟩
   · apply huniq w hw

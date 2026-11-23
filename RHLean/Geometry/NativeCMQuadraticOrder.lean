@@ -300,8 +300,8 @@ def barOK (H : NativeGeometricHost E) : OK H ≃+* OK H where
   invFun a := ⟨H.bar a, bar_mem_adjoin H a.2⟩
   left_inv a := Subtype.ext (bar_bar H a)
   right_inv a := Subtype.ext (bar_bar H a)
-  map_mul' a b := Subtype.ext (map_mul H.bar a b)
-  map_add' a b := Subtype.ext (map_add H.bar a b)
+  map_mul' a b := Subtype.ext (map_mul H.bar (a : 𝓞 E) (b : 𝓞 E))
+  map_add' a b := Subtype.ext (map_add H.bar (a : 𝓞 E) (b : 𝓞 E))
 
 theorem two_mul_finrank_OK (H : NativeGeometricHost E) (M : Type) [AddCommGroup M] [Module (𝓞 E) M] [Module.Finite (𝓞 E) M] :
     2 * Module.finrank (OK H) M = Module.finrank ℚ E * Module.finrank (𝓞 E) M := by

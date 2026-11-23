@@ -1,4 +1,4 @@
-import RHLean.Geometry.NativeCMSerreTensor
+import RHLean.Geometry.NativePolarizationCoefficientLattice
 
 /-!
 # The finite-place degree correction of the actual coefficient module

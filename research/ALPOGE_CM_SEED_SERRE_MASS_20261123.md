@@ -136,6 +136,44 @@ This proves a point-group and module comparison; it does not assert that
 every such point endomorphism has already been represented by an integral
 scheme morphism.
 
+### The actual integral group scheme and its tangent generator
+
+The twelve new scheme modules ending in
+`NativeCMWeierstrassIntegralSchemeSeed.lean` construct the actual projective
+Weierstrass scheme of that same equation over `O_M`. The algebraic addition
+charts are glued and their group identities proved over the reduced base.
+The resulting group scheme is smooth, proper and geometrically connected.
+Its integral dual-number tangent vector is literally `[epsilon,-1,0]`;
+every tangent vector is uniquely `[c*epsilon,-1,0]`. The complex affine
+point equivalence joins this scheme's points to the existing exponential
+with the exact original period kernel. Algebraicity of the transported CM
+action and the polarizing line bundle still require proofs.
+
+### Exact analytic CM period, with the original seed in the class-group mean
+
+The five modules from `NativeCMKroneckerIntegral.lean` through
+`NativeCMChowlaSelberg.lean` reconstruct the sum/integral estimate,
+Kronecker limit formula, quadratic ideal-count factorization, ideal-class
+period lattices and Chowla--Selberg analytic identity directly. The mean
+identity is proved from those calculations, not taken as a hypothesis.
+
+`NativeCMArithmeticPeriod.lean` specializes them to the actual quadratic
+subfield `Q(G.rt)`, proves its discriminant is `-d`, constructs its genuine
+quadratic Dirichlet character, and chooses period lattices for every ideal
+class. Its principal-class lattice is exactly the original seed lattice.
+For `P(Lambda)=log(covol(Lambda)/pi)+log|Delta(Lambda)|/6`, it proves
+
+\[
+\frac1{h_K}\sum_{c\in\mathrm{Cl}(O_K)}P(\Lambda_c)
+ =\gamma+\log(2\pi/\sqrt d)-\frac{L'(1,\chi)}{L(1,\chi)}.
+\]
+
+The equality is in `C`, with the real left side embedded explicitly. The
+same module proves the exact coordinate-scale identity
+`-log(pi*H0(u,u))=P(Lambda)` from `u^12*Delta(Lambda)=1` and the original
+covolume. Identifying the mean over embeddings of the integral Lie
+generator with this class-group mean remains the arithmetic CM step.
+
 ## 3. Exact period covolume and tangent determinant
 
 `NativeCMPeriodComparison.lean` transfers the **original** perfect integer
@@ -191,6 +229,14 @@ what the equivalence does to every pure tensor `x tensor [z]`. The `O_E`
 action remains the original action on the first tensor factor. A global
 free basis for `M` is never introduced. The number of dual-frame generators
 is not interpreted as a norm or rank saving.
+
+`NativeCMSerreEigenlatticeAlgebra.lean` proves the self-dual integral
+coordinate criterion needed to retain the finite index of an eigenline.
+It identifies the actual coefficient form with
+`sum_sigma sigma(x*conjugate(y))` over the host automorphisms fixing the
+same quadratic root. In particular its rank-one coefficient is proved to
+be one. The criterion concerns the integral span over the base ring;
+passing to its field span would lose the different contribution.
 
 `nativeDyadicHost_exists_coefficientSerreConstruction` chooses one actual
 half-different from the host assumptions, retains its coprimality and
@@ -308,6 +354,22 @@ and cancelled explicitly. The theorem proves the finite-ideal term.
 Identifying this ideal with the integral Lie eigenspace remains necessary
 before combining it with the arithmetic archimedean term.
 
+`NativeCMLineDegree.lean` carries this calculation into the existing
+`AllWt.deg`, using its actual singleton Gram frame and the finite relative
+index of the original fractional ideal. For a positive, conjugate-invariant
+family of squared norms `n_sigma`, the norm is literally
+`sqrt(n_sigma)*|sigma(x)|`, and the theorem proves
+
+\[
+\deg(I,n)=-\frac{\log N(I)}{[F:\mathbf Q]}
+ -\frac1{2[F:\mathbf Q]}\sum_\sigma\log n_\sigma.
+\]
+
+Specializing to `I=B^-1*D(E/K)` and to its actual extensions gives
+`2*deg = -mean(log n) + log rd(K) - log rd(E)`. The metric family is an
+explicit input to this generic degree theorem; identifying it with the
+constructed arithmetic Lie metric is not replaced by a definition.
+
 ## 6. Measured component ranks and arithmetic degrees
 
 `NativeMeasuredComponentDegree.lean` reconstructs norm scaling and
@@ -370,6 +432,13 @@ but a future complete analytic dictionary must prove that compatibility
 explicitly. This construction is a finite-adelic test function, not yet a
 global cusp form.
 
+`NativeThetaCuspHaarAlgebra.lean` and `NativeThetaCuspHeisenberg.lean`
+add exact Haar linearity and translation invariance on these same test
+functions, stability under the rational Heisenberg action, the exact
+cocycle, the theta-series covariance identity and unitarity for the
+original inner product. The strict overlap bound and complete Weil action
+remain separate parts of the source `IsSystem` construction.
+
 The remaining source `SW.IsSystem` also requires level test functions,
 unitary Weil covariance, exact Haar norm, the strict off-diagonal overlap
 bound, support outside the level, isotropic no-coinvariants and an admissible
@@ -408,9 +477,9 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral discriminant-one equation and exact invariant comparison | Integral polarized elliptic scheme and arithmetic Lie-period comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, literal tangent generator and exact invariant comparison | Algebraic CM action, polarizing line bundle and arithmetic Lie-period comparison |
 | Serre construction | Original projective module, perfect Hermitian form, retraction, actual point tensor, exact analytic period kernel and rank | Represented abelian scheme, induced ample line bundle and its integral Lie comparison |
-| CM degree | Original archimedean covolume, tangent determinant factors and exact finite different correction | Actual Lie-eigenlattice identification, all-embedding arithmetic period and source CM frame value |
+| CM degree | Original covolume and tangent determinant, exact finite different correction, native analytic Chowla--Selberg mean including the original seed | Actual Lie-eigenlattice identification, equality with the all-embedding arithmetic mean and source CM frame value |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
 | Cusp family and ranks | Existing polynomial span retained, normalized finite-adelic vacuum on the actual trace lattice, actual split-five coefficient modulus and measured direct-sum rank | Complete Weil/overlap/isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
@@ -475,6 +544,14 @@ and split-level branches. These are repaired in the next snapshot without
 weakening statements or disabling linters. The next snapshot also adds the
 quadratic-order identification and the actual equation-point tensor above.
 The combined closure and its terminal-axiom audit are not yet verified.
+
+The sixth snapshot `ff07672896b75f4ea095999fa942818087ecc50c` passed the
+source audits and compiled the measured-degree, Haar, inner-product,
+abstract vacuum and integral-model branches cleanly. It exposed remaining
+native-specialization errors in measured norm, split level, native vacuum
+and two subtype coercions in the quadratic-order involution. These are
+repaired for the next hosted snapshot, which also includes the actual
+group scheme, exact analytic class-group period and Heisenberg laws above.
 
 ## Located continuation without inflated import closures
 

@@ -77,7 +77,10 @@ theorem five_prime_ne_conj
   have hpow : (hcl e (u5 (e + 2))) ^ k = 1 := by
     have hh := congrArg (fun a : (nativeDyadicFrame e).GG =>
       (nativeDyadicFrame e).hH a.2) hgal
-    simpa only [Prod.pow_snd, map_pow, hd, Frame.cc, map_one] using hh
+    calc
+      _ = ((nativeDyadicFrame e).hH (H.gal F).2) ^ k :=
+        congrArg (fun a => a ^ k) hd.symm
+      _ = 1 := by simpa only [Prod.pow_snd, map_pow, Frame.cc, map_one] using hh
   have hord : orderOf (hcl e (u5 (e + 2))) = 2 ^ e :=
     nativeDyadicGenerator_order e
   have hdiv : 2 ^ e ∣ k := hord ▸ orderOf_dvd_of_pow_eq_one hpow
@@ -174,9 +177,10 @@ theorem exists_five_split_level
     rw [hprod, hm, Ideal.bot_mul]
   have hmtop : m ≠ ⊤ := by
     intro hm
-    apply nat_span_ne_top H.E 5 (by norm_num)
-    rw [hprod, hm]
-    simp only [← Ideal.one_eq_top, smul_one, mul_one]
+    have ht : span {(5 : 𝓞 H.E)} = ⊤ := by
+      rw [hprod, hm]
+      simp only [← Ideal.one_eq_top, smul_one, mul_one]
+    exact nat_span_ne_top H.E 5 (by norm_num) (by simpa only [Nat.cast_ofNat] using ht)
   have h5m : (5 : 𝓞 H.E) ∈ m := by
     apply (show span {(5 : 𝓞 H.E)} ≤ m from by
       rw [hprod]

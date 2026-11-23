@@ -8,22 +8,28 @@ import RHLean.Geometry.NativeCMSerrePeriods
 import RHLean.Geometry.NativeCMSerrePolarization
 import RHLean.Geometry.NativeCMSerreMixedPeriods
 import RHLean.Geometry.NativeCMSerreEquationPoints
+import RHLean.Geometry.NativeCMSerreEigenlatticeAlgebra
 import RHLean.Geometry.NativeCMFiniteDegreeCorrection
+import RHLean.Geometry.NativeCMLineDegree
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
 import RHLean.Geometry.NativeCMWeierstrassSeedPoints
+import RHLean.Geometry.NativeCMWeierstrassIntegralSchemeSeed
+import RHLean.Geometry.NativeCMArithmeticPeriod
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeThetaCuspNativeVacuum
 import RHLean.Geometry.NativeThetaCuspSplitLevel
+import RHLean.Geometry.NativeThetaCuspHeisenberg
 import Lean.Util.CollectAxioms
 
 /-!
 # Native CM and measured-degree supplier audit
 
-These roots retain the original projective module, periods, tensor points,
-pure-block signs, ranks and measured masses. They do not assert algebraic
-representability, the arithmetic Chowla--Selberg period, the global cusp
-family, or the complete signed-source inequality.
+These roots retain the original projective module, actual integral seed
+scheme, periods, tensor points, pure-block signs, ranks and measured masses.
+They do not assert a represented polarized Serre scheme, the arithmetic
+Lie-to-class-group mean comparison, the global cusp family, or the complete
+signed-source inequality.
 -/
 
 open Lean Elab Command in
@@ -50,6 +56,17 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.Weierstrass.exists_integral_point_uniformization,
     ``RHLean.Geometry.NativeCM.EllipticSeed.equationExponential_coordinates,
     ``RHLean.Geometry.NativeCM.EllipticSeed.equationCMAction_quadratic,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassLie.integral_tangent_coordinate,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.schemeExponential_kernel,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.exists_integral_group_scheme_seed,
+    ``RHLean.Geometry.NativeCM.PeriodArithmetic.KroneckerLimit.summable_and_abs_tsum_sub_integral_le,
+    ``RHLean.Geometry.NativeCM.PeriodArithmetic.tendsto_realEisenstein_sub_pole,
+    ``RHLean.Geometry.NativeCM.PeriodArithmetic.dedekindZeta_eq_mul_LFunction,
+    ``RHLean.Geometry.NativeCM.PeriodArithmetic.chowla_selberg_lattice,
+    ``RHLean.Geometry.NativeCM.quadraticField_discr,
+    ``RHLean.Geometry.NativeCM.seedPeriod_eq_image_one,
+    ``RHLean.Geometry.NativeCM.exact_metric_scale_log,
+    ``RHLean.Geometry.NativeCM.exists_idealClassPeriods_with_seed,
     ``RHLean.Geometry.NativeCM.exists_kForm,
     ``RHLean.Geometry.NativeCM.kLin_dual_frame,
     ``RHLean.Geometry.NativeCM.kLin_diagonal,
@@ -77,9 +94,17 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.EllipticSeed.equationTensorEquiv_smul,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.exists_prescribedEquationExponential,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_serreEquationPoints,
+    ``RHLean.Geometry.NativeCM.SerreEigenlattice.single_mem_span_iff_of_pairing,
+    ``RHLean.Geometry.NativeCM.SerreEigenlattice.relative_trace_root,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficient_kLin_sum,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_eq_conjHalf,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_degree_correction,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_baseChange_logNorm,
+    ``RHLean.Geometry.NativeCM.LineDegree.degree_baseNorm,
+    ``RHLean.Geometry.NativeCM.LineDegree.lineNorm_hasGram,
+    ``RHLean.Geometry.NativeCM.LineDegree.degree_lineNorm,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_line_degree,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_extended_line_degree,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedBlockSplit_trace,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twice_coefficient_trace_halfRoot_eq_sum_sq,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicHalfRoot_pureBlockPositivity,
@@ -92,6 +117,8 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.haar_eq_haarAt,
     ``RHLean.Geometry.NativeTheta.Cusp.ip_self_nonneg_and_bounds,
     ``RHLean.Geometry.NativeTheta.Cusp.Vac.vacuum,
+    ``RHLean.Geometry.NativeTheta.Cusp.isSB_algebra_haar_linear,
+    ``RHLean.Geometry.NativeTheta.Cusp.heisS_laws,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_pairing,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.coordinates_selfDual,
     ``RHLean.Geometry.NativeTheta.Cusp.NativeVacuum.exists_native_vacuum,
