@@ -211,7 +211,7 @@ theorem smul_mem_standard (Λ : Submodule (𝓞 E) (Fin n → E))
     ((N : E) • Pi.single i 1)
     (((span_nat_smul_le N _ _).mp hN _ hei).1)
   have he : hermPairing E n v ((N : E) • Pi.single i 1) = (N : E) * v i := by
-    simp [hermPairing_apply, Pi.single_apply, mul_comm]
+    simp [hermPairing_apply, Pi.single_apply, apply_ite, mul_comm]
   simpa only [Pi.smul_apply, smul_eq_mul, he] using hvi
 
 /-- Finite generation is derived from the source lattice conditions; it is

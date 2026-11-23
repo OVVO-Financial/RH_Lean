@@ -70,7 +70,7 @@
         "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_levelTuples_card_pos"
       ],
       "construction": "Literal source standard/intersection/level lattices; an admissible odd level N=s*M from the coprime denominator witness; finite generation and the existing genuine short-vector construction on the SAME unimodular Lambda; literal denominator and translation indices with their exact tower identity and positivity; actual finite level quotient of that Lambda and of the native inverse-ideal coefficient lattice. The original standard lattice is proved unimodular at every level. No full-geometric-genus claim is made.",
-      "native_sha256": "5fbc94cecf2ed7eb858123a9b207c799d5178eac69981e2fe0ecc468993bfde2",
+      "native_sha256": "538f0caf082e6c471554e30aa72447c6cba859eb7d1c2f67498783799feaa543",
       "native_lines": 341,
       "initial_source_reconstruction_sha256": "5fbc94cecf2ed7eb858123a9b207c799d5178eac69981e2fe0ecc468993bfde2"
     },

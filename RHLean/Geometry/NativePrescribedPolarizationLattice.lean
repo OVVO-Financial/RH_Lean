@@ -75,16 +75,20 @@ theorem twistedLattice_eq_pi (B : Ideal (𝓞 H.E)) (N : ℕ) :
   apply le_antisymm
   · refine Submodule.span_le.mpr ?_
     rintro _ ⟨a, ha, x, hx, rfl⟩
-    rw [Submodule.mem_pi]
+    change ∀ i ∈ (Set.univ : Set (Fin N)),
+      (a • x) i ∈ (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
     intro i _
     have hxi := (mem_stdLat_iff N x).mp hx i
-    change a * x i ∈ coefficientIdeal H B
-    simpa only [Algebra.smul_def, mul_comm] using
+    change a * x i ∈ (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
+    have hmem :=
       (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).smul_mem
         (⟨x i, hxi⟩ : 𝓞 H.E) ha
+    change x i * a ∈ (coefficientIdeal H B : Submodule (𝓞 H.E) H.E) at hmem
+    simpa only [mul_comm] using hmem
   · intro v hv
     have hvi : ∀ i, v i ∈ coefficientIdeal H B := by
-      simpa only [Submodule.mem_pi, Set.mem_univ, forall_const] using hv
+      simpa only [Submodule.mem_pi, Set.mem_univ, forall_const,
+        FractionalIdeal.mem_coe] using hv
     have he : v = ∑ i : Fin N, v i • (Pi.single i 1 : Fin N → H.E) := by
       ext j
       simp [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Pi.single_apply]
@@ -93,17 +97,20 @@ theorem twistedLattice_eq_pi (B : Ideal (𝓞 H.E)) (N : ℕ) :
       ⟨v i, hvi i, Pi.single i 1, ?_, rfl⟩
     apply (mem_stdLat_iff N _).mpr
     intro j
-    by_cases h : j = i <;> simp [Pi.single_apply, h]
+    by_cases h : j = i
+    · simpa [h] using (isIntegral_one : IsIntegral ℤ (1 : H.E))
+    · simpa [h] using (isIntegral_zero : IsIntegral ℤ (0 : H.E))
 
 theorem mem_twistedLattice (B : Ideal (𝓞 H.E)) (N : ℕ) (x : Fin N → H.E) :
     x ∈ twistedLattice H B N ↔ ∀ i, x i ∈ coefficientIdeal H B := by
   rw [twistedLattice_eq_pi]
-  simp only [Submodule.mem_pi, Set.mem_univ, forall_const]
+  simp only [Submodule.mem_pi, Set.mem_univ, forall_const, FractionalIdeal.mem_coe]
 
 /-- Coordinates identify the same source span with a finite product of the
 same coefficient ideal. -/
 def twistedCoordinates (B : Ideal (𝓞 H.E)) (N : ℕ) :
-    twistedLattice H B N ≃ₗ[𝓞 H.E] (Fin N → coefficientIdeal H B) where
+    twistedLattice H B N ≃ₗ[𝓞 H.E]
+      (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) where
   toFun x i := ⟨x.1 i, (mem_twistedLattice H B N x.1).mp x.2 i⟩
   invFun x := ⟨fun i => x i, (mem_twistedLattice H B N _).mpr fun i => (x i).2⟩
   left_inv _ := Subtype.ext rfl
@@ -198,7 +205,8 @@ theorem twistedLattice_rank_int (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ) :
     Module.finrank ℤ (twistedLattice H B N) = N * Module.finrank ℚ H.E := by
   calc
-    _ = Module.finrank ℤ (Fin N → coefficientIdeal H B) :=
+    _ = Module.finrank ℤ
+        (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :=
       ((twistedCoordinates H B N).restrictScalars ℤ).finrank_eq
     _ = N * Module.finrank ℚ H.E := by
       rw [Module.finrank_pi_fintype]
@@ -207,7 +215,8 @@ theorem twistedLattice_rank_int (B : Ideal (𝓞 H.E))
 
 /-- Multiplication by the literal diagonal signs is an integral involution. -/
 def signedCoordinates {B : Ideal (𝓞 H.E)} {N : ℕ} (neg : Fin N → Bool) :
-    (Fin N → coefficientIdeal H B) ≃ₗ[ℤ] (Fin N → coefficientIdeal H B) where
+    (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) ≃ₗ[ℤ]
+      (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) where
   toFun x i := (sgn (neg i) : ℤ) • x i
   invFun x i := (sgn (neg i) : ℤ) • x i
   left_inv x := funext fun i => by rw [smul_smul, sgn_mul_self, one_smul]
@@ -222,17 +231,19 @@ product/dual equivalence. This constructs the full signed perfect form. -/
 def coordinateTraceEquiv (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     {N : ℕ} (neg : Fin N → Bool) :
-    (Fin N → coefficientIdeal H B) ≃ₗ[ℤ]
-      ((Fin N → coefficientIdeal H B) →ₗ[ℤ] ℤ) :=
+    (Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) ≃ₗ[ℤ]
+      ((Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) →ₗ[ℤ] ℤ) :=
   (signedCoordinates H (B := B) neg).trans
     ((LinearEquiv.piCongrRight fun _ : Fin N =>
       LinearEquiv.ofBijective (integralTraceForm H B hB)
         (integralTraceForm_bijective H B hB)).trans
-      (LinearMap.lsum ℤ (fun _ : Fin N => coefficientIdeal H B) ℤ))
+      (LinearMap.lsum ℤ
+        (fun _ : Fin N => (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) ℤ))
 
 theorem coordinateTraceEquiv_apply (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
-    {N : ℕ} (neg : Fin N → Bool) (x y : Fin N → coefficientIdeal H B) :
+    {N : ℕ} (neg : Fin N → Bool)
+    (x y : Fin N → (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     coordinateTraceEquiv H B hB neg x y =
       ∑ i, (sgn (neg i) : ℤ) * integralTraceForm H B hB (x i) (y i) := by
   simp only [coordinateTraceEquiv, LinearEquiv.trans_apply,
@@ -349,6 +360,8 @@ theorem nativeDyadicHostRaw_prescribed_conj
     nativeDyadicHostRaw_cm e q d he hH
   intro x
   rw [nativeDyadicHostRaw_conj]
+  let _ : IsCMField (alpogeNativeHostField e q d) :=
+    nativeDyadicHostRaw_cm e q d he hH
   exact (RHLean.Analysis.alpogeNativeHostConj_complexConj e q d x).symm
 
 /-- One actually constructed half-different supplies all prescribed full-rank
