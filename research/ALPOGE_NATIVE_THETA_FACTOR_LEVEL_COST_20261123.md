@@ -30,7 +30,7 @@ published head was `8416870d3d99011f1493ad416a002ae5b14aecd6`.
 descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1
 tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1
 ROLE=Lean Verification; user-directed manual continuation
-STATUS=CONSTRUCTED_SOURCE_PENDING_HOSTED_VERIFICATION
+STATUS_AT_INITIAL_PUBLICATION=CONSTRUCTED_SOURCE_PENDING_HOSTED_VERIFICATION
 SOURCE=complete native signed ASK-MAIN/De and character-completed Gm/Gz
 NORMALIZER=Q=T*m*b*Delta/2; unchanged
 FIRST_UNPAID=actual global theta/cusp system with measured norms and shifted ranks
@@ -370,6 +370,98 @@ cannot be replaced by the normalized Haar mass of a torus fiber. The source's
 short-theta level `R^4` also serves its theta construction, so fixed-five
 stabilizer freeness alone does not authorize replacing every such level by five.
 
+### 4.1. The remaining arithmetic ties are independent of Petersson mass
+
+The source does not identify its finite-place gain with ASK by a definition.
+`SizeData₂.Ga` in `Formalism/LocalRingCardinality/DataParams₂.lean` is the
+ramification-weighted sum of actual local gains, less the local defects.
+`FrameCodeOfAdditive.askRec_at` and `askIsF` identify the complete prime-power
+expression, including the explicit ramified `d` contribution. The actual
+`LinkG_at` supplier and `LossRequirementsOfSmallShares.losses_of_small_share_weight`
+then prove an eventual bound of the form `ASK-Ga <= C*card(TT)*m*b`.
+
+The source's actual local counting chain is `LPprimeAt`, `LatticeSystems.jm_core`,
+`jSmith`, `jLocal`, `ja_restJ`, and `theta_kernel_expansion`, followed by
+`FormalGroupSystem.Pf.core`. It constructs exceptional coefficient sets from
+an integral matrix identity and neighboring Hecke lattices. The native
+`NativeServedPrimeLength` already proves the final length and saturation
+estimate once those sets and inclusions are given. The current complex Fock
+and characteristic-zero interpolation proofs do not supply the integral
+matrix identity, the reduction-mod-prime rank defect, or the valuation-preserving
+comparison with the original cusp lattice. These require the actual integral
+family or an equally strong direct native construction.
+
+On the main-term side, the source's `FlatDegProof.flatDegAt_of_st` uses the
+actual CM-period and arithmetic-degree theorem. Its concrete supplier is
+`GlobalTheory.CompanionTheory.Ar.Fl.flatDegree` in
+`Development/AutomorphicSpectrum/Proofs/GeometryProofs/FlatDegreeHolds.lean`,
+via the residue/GAGA route. Its proof uses the Chowla--Selberg period,
+actual CM frame value and finite-place height, archimedean Gram determinant,
+and the different-ideal correction. This yields the logarithmic period term
+
+\[
+\log\Omega=\gamma+\log(2\pi/\sqrt d)
+ -\operatorname{Re}\frac{L'(1,\chi)}{L(1,\chi)}.
+\]
+
+The actual covolume and column-map height comparisons feed `RecNums.divIneq`,
+`linkDIV_at_words` and `QuadraticLogDerivCongr.data_DIV`, supplying the
+MAIN side of the same signed slope comparison. A positive invariant metric
+or a normalized fiber integral alone does not establish that arithmetic
+degree formula. The residue/GAGA source route avoids rebuilding an older
+prismatic interface, but its actual period and valuation proofs remain needed.
+
+### 4.2. The existing analytic consumer needs only arbitrarily late windows
+
+The native composed slope theorem currently bounds the average of
+`Gz(a(t)/b)`. It constructs the dyadic host and selected primes, but it does
+not construct the entire geometric family and its valid size/height parameters
+at every required scale. Its upper-height hypothesis `Amax/b <= x+1` alone
+does not imply `abs(a(t)/b-x) <= 1`.
+
+Both comparisons needed after that family construction are already proved:
+
+- `alpogeNativePhysicalSubgroup_freezing_paid` and
+  `alpogeNativeCompleteProjection_at_constructed_cutoff` pay the width-freezing
+  cost on the complete signed source.
+- `alpogeNativeRetainedSignal_zero_ge`, with
+  `alpogeNativeDerivInt_moveConstant`, pays height movement. If `TT` is nonempty,
+  `x >= 2` and every normalized height is within one of `x`, then
+
+\[
+G_z(x)-(\log4+4)\le\frac1{|TT|}\sum_{t\in TT}G_z(a(t)/b).
+\]
+
+Thus there is no new cancellation theorem needed just to move this average
+back to `x`. The required height proximity must still be supplied by the
+same geometric family. An inner window of a larger selected-pair window
+preserves the character estimates under the movement.
+
+The weakest already-proved RH consumer is
+`RHLean.Analysis.riemannHypothesis_of_Gz_windows`. For one fixed `delta>0` it
+requires exactly
+
+\[
+\forall\eta>0\;\exists K\;\forall Y_0\;\exists Y\ge Y_0\;
+\forall x\in[Y,Y^{1+\delta}],\quad
+G_z(x)\le Kx^{1/2+\eta}.
+\]
+
+`riemannHypothesis_of_zetaWindowWitnesses` consumes the corresponding
+same-data witness formulation directly. A bound at every sufficiently large
+square endpoint is also sufficient, through
+`riemannHypothesis_of_eventual_squareClock_Gz_rpow`, but is stronger than
+this existing window entrance condition. Both global inputs remain open.
+
+The geometric error exponent must be bounded so that
+`(CErr+3)*epsilon <= eta` uniformly across the chosen window. The constants
+and thresholds may depend on `eta`. The new analytic theta theorem supplies
+neither that quantitative uniformity nor the whole-window family constructor.
+The exact remaining chain is: actual integral theta/cusp family and measured
+ranks; actual local-gain and CM-degree comparisons; complete signed-source
+inequality; compatible parameters throughout a window; the existing native
+Landau consumer.
+
 ## 5. Acceptance and verification
 
 The dedicated audit checks 57 construction roots, prints the native endpoint
@@ -393,6 +485,17 @@ one unnecessary tactic-sequencing lint in the Appell--Humbert file. The full
 build was skipped and the same-head cancellation job succeeded. Those exact
 proof errors are repaired without changing their statements or budgets;
 the next revision adds the Gaussian and nonzero-section constructions.
+
+The second hosted run,
+[45248764912](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45248764912),
+at `cf131086fcc8a49ae8f565ab7d343a9f0224b639` successfully compiled the
+Appell--Humbert, full-level cost and Gaussian-series modules. The nonzero
+section file then reported two elaboration/rewrite errors and three style
+lints. The repairs remove an already-closed trailing tactic, make the
+reindexed linear-equivalence coercion explicit, and use the current tactic
+and instance syntax. The mathematical statements, source data and budgets
+are unchanged. The complete closure and 57-root axiom audit remain the
+authoritative verification gate on the final PR revision.
 
 This provides three reusable non-RH constructions. Their verification status
 will be updated from actual hosted evidence. Tractability of the complete

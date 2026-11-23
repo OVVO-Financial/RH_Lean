@@ -101,7 +101,7 @@ theorem periodizationTerm_translate (hH : Hm.IsHermitian)
   rw [factor_add D P Hm hH hEF y x z, map_add, ← add_assoc]
   have h1 := factor_ne_zero D P Hm x (z + P y)
   have h2 := factor_ne_zero D P Hm y z
-  field_simp [h1, h2]; ring
+  field_simp [h1, h2]
 
 /-- Completing the Hermitian square keeps the exact pi normalization. -/
 theorem norm_periodizationTerm (hH : Hm.IsHermitian)
@@ -129,7 +129,7 @@ theorem summable_period_gaussian (hP : Function.Injective P)
     (hd : DiscreteTopology P.range) {a : ℝ} (ha : 0 < a) :
     Summable fun x : D.La => Real.exp (-a * ‖P x‖ ^ 2) := by
   let L : Submodule ℤ (Fin g → ℂ) := LinearMap.range P.toIntLinearMap
-  letI : DiscreteTopology L := hd
+  let : DiscreteTopology L := hd
   let e : D.La ≃ₗ[ℤ] L := LinearEquiv.ofInjective P.toIntLinearMap hP
   exact (e.toEquiv.summable_iff
     (f := fun x : L => Real.exp (-a * ‖(x : Fin g → ℂ)‖ ^ 2))).2
@@ -274,7 +274,7 @@ theorem exists_theta_centre_ne_zero (hP : Function.Injective P)
     ∃ w : Fin g → ℂ, theta D P Hm w w ≠ 0 := by
   classical
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   obtain ⟨bas, _⟩ := NativeGeometricSymplectic.exists_isSympBasis E H D
   choose d hd' using fun j =>
     D.unimod.2 ((LinearMap.proj j).comp bas.symm.toLinearMap)
@@ -283,7 +283,7 @@ theorem exists_theta_centre_ne_zero (hP : Function.Injective P)
     (c := fun n => coefficient D P Hm (bas n))
     ((bas.toEquiv.summable_iff (f := fun x => ‖coefficient D P Hm x‖)).2 hcs)
     (fun t => ?_) 0
-  · simpa using key
+  · simp at key
   · set v : Fin g → ℂ := ∑ j, (-(t j) : ℝ) • P (d j) with hv
     have h1 := theta_centre D P Hm hH v
     rw [hcon v, eq_comm, mul_eq_zero, or_iff_right (Complex.exp_ne_zero _)] at h1
@@ -300,6 +300,10 @@ theorem exists_theta_centre_ne_zero (hP : Function.Injective P)
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [h2]
       ring
+    change coefficient D P Hm (bas n) *
+        Complex.exp (2 * Real.pi * Complex.I * ((∑ j, (n j : ℝ) * t j : ℝ) : ℂ)) =
+      coefficient D P Hm (bas n) *
+        Complex.exp (-(2 * Real.pi * Complex.I * ((hermForm Hm v (P (bas n))).im : ℂ)))
     rw [h3]
     congr 2
     push_cast
