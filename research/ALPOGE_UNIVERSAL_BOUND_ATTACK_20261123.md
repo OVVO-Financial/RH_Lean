@@ -520,11 +520,21 @@ also compiled all library prerequisites and the inherited construction audit.
 All twenty-seven new axiom computations had exactly the expected
 `[propext, Classical.choice, Quot.sound]` dependencies. Its strict message
 comparison reported only an unsupported `pp.width` option and the consequent
-line wrapping in twenty expected messages. The audit now uses the registered
-Lean 4.34.1 option `format.width 240`; every expected axiom list and strict
-guard is unchanged. The resulting exact-head closure receipt is recorded in
-PR #1197. Neither this presentation-only correction nor any previous repair
-changes a theorem, proof budget or validation gate.
+line wrapping in twenty expected messages.
+
+The sixth pass, commit `f289a08a99b1f6cc2e0bdca93c495d976308041c`,
+again passed the full
+[native build, warning gate and exact graph, run 45188462190](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45188462190).
+Its [targeted closure, run 45188461894](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45188461894),
+confirmed that the registered `format.width` option does not change the
+guard-message renderer: only the same twenty line-wrapping comparisons
+failed. The audit now uses those exact observed multiline strings and no
+width option. A static token comparison verifies that all twenty-seven
+theorem names and expected axiom lists are unchanged; the seven already
+matching messages are byte-identical. Every strict guard is retained.
+The resulting exact-head closure receipt is recorded in PR #1197. These
+presentation-only corrections change no theorem, proof budget or validation
+gate.
 
 - Main and #1194 source trees were read at the exact commits above.
 - Integration conflicts were confined to generated manifests/search metadata.
@@ -536,7 +546,7 @@ changes a theorem, proof budget or validation gate.
 - Full hosted native compilation, the owned-warning gate and exact
   elaborated declaration checks pass at the fifth-pass commit above.
 - The strict terminal audit retains all twenty-seven original root checks;
-  PR #1197 records the current hosted closure result after its display-option correction.
+  PR #1197 records the current hosted closure result after its exact message-format correction.
 - No local Lean or Lake execution was used.
 
 No external terminal RH theorem supplies any of the new estimates. No source
