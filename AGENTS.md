@@ -1,3 +1,30 @@
+## #1201 — VerifyTask exact-supplier integration (2026-11-24)
+
+**NATIVE_VERIFYTASK_EXACT_SUPPLIERS_V1:** Follow the pinned
+[VerifyTask integration map](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md).
+Core 6's literal CM j-integrality first conjunct is already supplied by
+the native lattice normalization and modular integrality; use the
+existing actual ideal-class model proof, not a fresh CM reconstruction.
+The independent Mathlib-only challenge and native audit verify the
+literal j formula and the original centered all-prime-power window
+type; do not redefine the target or count conditional RH as closure.
+Core 8 local density, Core 9 multiplicity one, Core 10 trace formula,
+and Core 12 power-series rigidity are priority references only where
+their exact hypotheses match a surviving native recovery/cusp/measure
+obligation. Core 7/11 are reserve tools; the native graph normalization
+and explicit tangent proofs take precedence. Do not infer a global
+Petersson/rank/height estimate from a local theorem or a compression
+score. No external contestant code without license/permission clearance;
+no toolchain change, external terminal RH, duplicate arithmetic endpoint,
+or upstream proof rebuild. Use #1209's semantic audit and the independent
+Mathlib challenge/Comparator methodology on the final closed native
+theorem; cached builds and conditional type checks alone are not proof
+of unconditional RH. All seven roles must report the exact pinned
+statement, native object and remaining prerequisites, not scores.
+No agent runtime or schedule changes. String first.
+
+---
+
 ## #1201 — inherit the proved quantitative bound (latest user directive)
 
 **NATIVE_PROVED_BOUND_APPLICATION_V1 (2026-11-24):** The quantitative
