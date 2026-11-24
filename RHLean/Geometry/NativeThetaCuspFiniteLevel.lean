@@ -68,7 +68,7 @@ theorem exists_coprime_lift (L : Submodule O V) (P C : Ideal O)
   obtain ⟨p, hp, c, hc, hpc⟩ := Ideal.isCoprime_iff_exists.mp hPC
   obtain ⟨x, rfl⟩ := Submodule.Quotient.mk_surjective _ z
   refine ⟨c • x, Submodule.smul_mem_smul hc x.2, ?_⟩
-  apply Submodule.Quotient.eq.mpr
+  apply (Submodule.Quotient.eq (P • (⊤ : Submodule O L))).mpr
   have he : c • x - x = (-p) • x := by
     calc
       c • x - x = (c - 1) • x := by rw [sub_smul, one_smul]
@@ -125,7 +125,15 @@ def reduction : L →ₗ[𝓞 H.E] (Fin r → 𝓞 H.E ⧸ D.P) :=
 
 theorem reduction_eq_zero (x : L) : D.reduction x = 0 ↔ (x : Fin r → H.E) ∈ D.P • L := by
   change D.coordinates (Submodule.Quotient.mk x) = 0 ↔ _
-  rw [map_eq_zero_iff D.coordinates.injective, Submodule.Quotient.eq_zero_iff_mem]
+  have hzero : D.coordinates (Submodule.Quotient.mk x) = 0 ↔
+      (Submodule.Quotient.mk x : L ⧸ (D.P • (⊤ : Submodule (𝓞 H.E) L))) = 0 := by
+    constructor
+    · intro h
+      apply D.coordinates.injective
+      rw [h, map_zero]
+    · intro h
+      rw [h, map_zero]
+  rw [hzero, Submodule.Quotient.mk_eq_zero]
   exact mem_ideal_smul_top L D.P x
 
 /-- The quotient frame corresponding to an actual invertible matrix. -/

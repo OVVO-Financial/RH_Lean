@@ -14,6 +14,7 @@ import RHLean.Geometry.NativeCMSerreBundlePairing
 import RHLean.Geometry.NativeCMWeierstrassGeometricKernel
 import RHLean.Geometry.NativeCMWeierstrassIntegralExtension
 import RHLean.Geometry.NativeMeanEnergyDescent
+import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import Lean.Util.CollectAxioms
 
 /-!
@@ -425,7 +426,10 @@ run_cmd do
     ``RHLean.Geometry.NativeMeasuredComponentNorm.measuredNorm_sq_phi,
     ``RHLean.Geometry.NativeMeasuredComponentNorm.mass_mul_phi_integral,
     ``RHLean.Geometry.NumberFieldDescent.phiOperatorEnergy_iff,
-    ``RHLean.Geometry.NumberFieldDescent.jointMapMatrix_gram_det_le_of_rank_saturation_phi]
+    ``RHLean.Geometry.NumberFieldDescent.jointMapMatrix_gram_det_le_of_rank_saturation_phi,
+    ``RHLean.Analysis.AlpogeThin.nativePrincipalCyclicGm_eq_statementOCGz,
+    ``RHLean.Analysis.AlpogeThin.nativePrincipalCyclicGm_eq,
+    ``RHLean.Analysis.AlpogeThin.nativeSmallEpsilonWindowBound_of_principalCyclic]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

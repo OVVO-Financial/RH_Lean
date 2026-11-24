@@ -20,7 +20,8 @@ set_option relaxedAutoImplicit false
 
 noncomputable section
 
-open NumberField Filter PeriodPair AlgebraicGeometry CategoryTheory
+open NumberField Filter PeriodPair AlgebraicGeometry CategoryTheory Limits MonoidalCategory
+open CartesianMonoidalCategory MonObj
 open scoped Topology
 
 namespace RHLean.Geometry.NativeCM.WeierstrassPolarizedSeed

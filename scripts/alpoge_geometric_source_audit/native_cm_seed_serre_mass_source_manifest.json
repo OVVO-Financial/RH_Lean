@@ -1065,8 +1065,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePolarization.lean",
-      "sha256": "a34d6af0a12fb4eed796e24d8fb89dc8b041edcf531b73732b5331224ce77fae",
-      "lines": 191
+      "sha256": "b81c76e9a3c721e0b8fc0a0f1f55ae57990ab14f7b78ac2c23ddbb6f4b198c02",
+      "lines": 184
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeAction.lean",
@@ -1390,8 +1390,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPolarizedSeed.lean",
-      "sha256": "74b6b4bdf624e87a79f9b4370d8e70d928e2de84ac9ce227de6cd14522fb7ef5",
-      "lines": 99
+      "sha256": "54a245d9c5779f7a8cb5137953492ac3b1a66a55263fbe2f628bb652efeb3f0e",
+      "lines": 100
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassProjHelpers.lean",
@@ -1435,8 +1435,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalSchemeOpen.lean",
-      "sha256": "fb6965a479847080058f8d8d9cf2726627ef43832c970a7c446c3ebb88ba83b3",
-      "lines": 226
+      "sha256": "3de8263557477e27a99019b57d2edbc89d95fd43111f5cade3ee4067e3442511",
+      "lines": 237
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassReducedGroup.lean",
@@ -1460,8 +1460,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSectionJet.lean",
-      "sha256": "b9ce50117c9e399262abd417118528f1ab9e23c09e43e6b9d88d21f3d8f4a79a",
-      "lines": 498
+      "sha256": "3040e8f26ba0b93f2d9c82e6282813cdaa0342a49dce16569a4f44689ffacae1",
+      "lines": 509
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSectionPoints.lean",
@@ -1515,7 +1515,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaDescent.lean",
-      "sha256": "aab0be0e6e1a646fa8e2636b41962efa34214e6c66175bb9cc97aa29c333609c",
+      "sha256": "9a2286e4d30dfdf02d48260889b6c2cc520fcd52d5a164835477c1f3af9867b9",
       "lines": 133
     },
     {
@@ -1540,8 +1540,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationGroup.lean",
-      "sha256": "c78f3a73b044de6077209173f863eefdcd015ef9b87882a68b393aeb60fcef56",
-      "lines": 163
+      "sha256": "5a6c8195b9329aca214314d52718d615a6ae819328df51233dba59e2cffe0a31",
+      "lines": 167
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationScheme.lean",
@@ -1615,8 +1615,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFiniteLevel.lean",
-      "sha256": "7ebb48f3464cee84bd0023ea7d7dd6d5658f89db2cf1f45ba9c089d4a371f02e",
-      "lines": 192
+      "sha256": "c50fb20723882d81a047d25ef6517b941cea090fe8531d767703fac8fe70b1d2",
+      "lines": 200
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFiniteLevelNorm.lean",
@@ -1810,8 +1810,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspShiftedVacua.lean",
-      "sha256": "c703fbb31924fd3d3926448fbc2f85084bc286e81fad380bc5f3b3fcd1ba1eaf",
-      "lines": 278
+      "sha256": "889602c7e5427a277385332aab506117fe3c19ac4a9d9d3024afc499b8848e69",
+      "lines": 282
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSiegelAction.lean",

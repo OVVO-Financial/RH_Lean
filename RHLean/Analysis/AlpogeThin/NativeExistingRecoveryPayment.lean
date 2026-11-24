@@ -1,4 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
+import RHLean.Analysis.AlpogeNativeBoundHandoff
+import RHLean.Analysis.AlpogeThin.Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ExplicitFormulaErrorOfHostConditions
 import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeServedPrimeApplication
 
@@ -29,6 +31,68 @@ namespace RHLean.Analysis.AlpogeThin
 open RHLean.Geometry.AlpogeSignedSlope.Formalism.RankGapBounds.WeightedMeanData
 open RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds
 open RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.LErr
+
+/-- Specialize the actual terminal upstream cyclic-level source to the
+primitive principal character. This is a finite arithmetic identity,
+not a bound or a zero-free assertion. -/
+theorem nativePrincipalCyclicGm_eq_statementOCGz (x : ℝ) :
+    (Formalism.HC.Level.cyc Formalism.HC.PChar.one).Gm x =
+      RHLean.Analysis.AlpogeNativeBoundHandoff.statementOCGz x := by
+  classical
+  let L := Formalism.HC.Level.cyc Formalism.HC.PChar.one
+  have hkept : L.KEPT = {Formalism.HC.PChar.one} := by
+    ext ψ
+    rw [Finset.mem_singleton]
+    constructor
+    · intro hψ
+      obtain ⟨χ, hχ, heq⟩ := (Formalism.HC.Level.mem_ofSub
+        (Subgroup.zpowers Formalism.HC.PChar.one.χ) ψ).mp hψ
+      obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hχ
+      have hone : Formalism.HC.PChar.one.χ = 1 := rfl
+      rw [hone, one_zpow] at hj
+      rw [← hj, Formalism.HC.PChar.of_one] at heq
+      exact heq.symm
+    · intro hψ
+      subst ψ
+      exact Formalism.HC.Level.mem_cyc _
+  change L.Gm x = _
+  rw [Formalism.HC.Level.Gm, Formalism.HC.Level.Nt, hkept]
+  simp only [Finset.erase_singleton, Finset.sum_empty, add_zero]
+  rfl
+
+/-- The complete principal cyclic source is RH_Lean's literal prime-power
+source, including the Euler centering. -/
+theorem nativePrincipalCyclicGm_eq (x : ℝ) :
+    (Formalism.HC.Level.cyc Formalism.HC.PChar.one).Gm x =
+      RHLean.Analysis.alpogeNativeGzArithmetic x :=
+  (nativePrincipalCyclicGm_eq_statementOCGz x).trans
+    (RHLean.Analysis.AlpogeNativeBoundHandoff.statementOCGz_eq_native x)
+
+/-- The exact window normalization used by the published principal cyclic
+application. The genuine tied-window family and its quantitative supplier
+must still be supplied; this lemma only transports their existing conclusion.
+It does not require an eventual bound on every real x or a new cancellation
+estimate. Constants eD and eL are fixed before choosing epsilon. -/
+theorem nativeSmallEpsilonWindowBound_of_principalCyclic
+    (eD eL eps₁ : ℝ)
+    (h : ∀ eps : ℝ, 0 < eps → eps < eps₁ →
+      ∃ (S : Set ℝ) (x₁ : ℝ),
+        (∀ y : ℝ, ∃ Y : ℝ, y ≤ Y ∧
+          ∀ x : ℝ, Y ≤ x → x ≤ Y ^ ((3 : ℝ) / 2) → x ∈ S) ∧
+        (∀ x ≥ x₁, x ∈ S →
+          (Formalism.HC.Level.cyc Formalism.HC.PChar.one).Gm x ≤
+            x ^ (1 / 2 + (eD + eL + 7) * eps))) :
+    RHLean.Analysis.AlpogeNativeBoundHandoff.SmallEpsilonWindowBound
+      (eD + eL + 7) eps₁ := by
+  intro eps he he₁
+  obtain ⟨S, x₁, hwin, hbound⟩ := h eps he he₁
+  refine ⟨1, fun Y₀ => ?_⟩
+  obtain ⟨Y, hY, hS⟩ := hwin (max Y₀ (max x₁ 1))
+  refine ⟨Y, (le_max_left _ _).trans hY, fun y hy => ?_⟩
+  rw [one_mul, ← nativePrincipalCyclicGm_eq_statementOCGz]
+  exact hbound y
+    ((le_max_left x₁ 1).trans ((le_max_right Y₀ (max x₁ 1)).trans (hY.trans hy.1)))
+    (hS y hy.1 hy.2)
 
 /-- Use the existing original signed-slope comparison with averaged
 losses on precisely the original selected dyadic family. -/

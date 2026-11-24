@@ -125,7 +125,8 @@ theorem nativeDyadic_seedOrientation
   simp at hi
   have hd : 0 < Real.sqrt (d : ℝ) :=
     Real.sqrt_pos.2 (by exact_mod_cast (Fact.out : d.Prime).pos)
-  linarith
+  rw [← hi] at hd
+  exact (mul_pos_iff_of_pos_left (by norm_num : (0 : ℝ) < 2)).mp hd
 
 /-- On the actual native positive CM type, the seed and trace-Hermitian
 module give exactly the original integral alternating polarization. -/
@@ -147,7 +148,7 @@ theorem nativeDyadic_coefficientSerreMetric_im
           (integralTraceForm H.toHostRaw B hB x y : ℝ) := by
   intro H _ G D τ x y
   apply seed_metric_kLin_im D 1 (τ : H.E →+* ℂ)
-  simpa using nativeDyadic_seedOrientation e q d he hH τ
+  simpa [G, H] using nativeDyadic_seedOrientation e q d he hH τ
 
 /-- The actual coefficient tensor metric is positive. Its exact pi-scaled
 diagonal retains the original integral trace value and discriminant. -/
@@ -174,8 +175,9 @@ theorem nativeDyadic_coefficientSerreMetric
   constructor
   · intro hx
     apply seed_metric_kLin_diagonal_pos D 1 τ x
-    simpa using (nativeDyadicHalfRoot_pureBlockPositivity e q d he hH B hB).1 x hx
-  · simpa using seed_metric_kLin_pi D 1 τ x
+    simpa [D, G, H, coefficientTraceLattice] using
+      (nativeDyadicHalfRoot_pureBlockPositivity e q d he hH B hB).1 x hx
+  · simpa [D, coefficientTraceLattice] using seed_metric_kLin_pi D 1 τ x
 
 end RHLean.Analysis.AlpogeThin
 

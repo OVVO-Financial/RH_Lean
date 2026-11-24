@@ -179,9 +179,12 @@ theorem eventually_expPoint_origin :
     have ho := e.symm ▸ hp'.smul ha
     refine ⟨ho.equation, ?_⟩
     rw [expPoint, hep, ofAffinePoint_some, SpecMap_originEval_chartY]
-    change ptHom W (RingHom.id ℂ) _ _ = _
+    change ptHom W (RingHom.id ℂ)
+      ![WeierstrassTangent.affineX L C z, WeierstrassTangent.affineY L C z, 1] hp' =
+        ptHom W (RingHom.id ℂ)
+          ![WeierstrassTangent.originZ L C z, -1, WeierstrassTangent.originW L C z] ho
     exact (ptHom_smul W _ _ hp' ha).symm.trans
-      (ptHom_congr W _ _ _ rfl e.symm _)
+      (ptHom_congr W _ _ _ rfl e.symm ho)
 
 /-- The actual dual-number evaluation of the specified origin vector. -/
 def epsEval (c : ℂ) : OriginRing W →+* DualNumber ℂ :=

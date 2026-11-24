@@ -58,6 +58,10 @@ theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
           (translationChange_baseChange W V r s t hC k) P) := by
   cases P with
   | zero =>
+      change ofAffinePoint V k 0 ≫ (translationOverIso W V r s t hC).hom =
+        ofAffinePoint W k (Weierstrass.variableChangePoint
+          (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
+          (translationChange_baseChange W V r s t hC k) 0)
       rw [map_zero, ofAffinePoint_zero, ofAffinePoint_zero,
         zeroOver_eq_ptOver, zeroOver_eq_ptOver]
       apply Over.OverMorphism.ext
@@ -88,6 +92,8 @@ theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
         (q ≫ (translationOverIso W V r s t hC).hom) := by
   obtain ⟨P, rfl⟩ := (affinePointEquiv V k).surjective p
   obtain ⟨Q, rfl⟩ := (affinePointEquiv V k).surjective q
+  change (ofAffinePoint V k P * ofAffinePoint V k Q) ≫ _ =
+    (ofAffinePoint V k P ≫ _) * (ofAffinePoint V k Q ≫ _)
   rw [← ofAffinePoint_add, ofAffinePoint_translation, map_add, ofAffinePoint_add,
     ofAffinePoint_translation, ofAffinePoint_translation]
 
@@ -95,17 +101,15 @@ theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
 instance translationOverIso_isMonHom :
     IsMonHom (translationOverIso W V r s t hC).hom where
   one_hom := by
-    have : IsReduced (𝟙_ (Over (Spec (.of R)))).left := by
-      change IsReduced (Spec (.of R))
-      infer_instance
-    apply over_hom_eq_iff_forall_field_algebra.mpr
-    intro k _ _ x
-    rw [← Category.assoc, MonObj.one_eq_one, MonObj.comp_one,
-      MonObj.one_eq_one, MonObj.comp_one]
-    have hV : ofAffinePoint V k 0 = 1 := (affinePointMulEquiv V k).map_one
-    have hW : ofAffinePoint W k 0 = 1 := (affinePointMulEquiv W k).map_one
-    simpa only [map_zero, hV, hW] using!
-      ofAffinePoint_translation W V r s t hC k 0
+    -- The original zero section is the literal projective triple [0,1,0].
+    -- Check it over the base ring, not by reducing the chosen group law at all fields.
+    apply Over.OverMorphism.ext
+    change η[schemeOver V].left ≫ translationHom W V r s t hC = η[schemeOver W].left
+    rw [one_left, one_left]
+    simp only [zero, pt_eq_ptHom, ptHom_translationHom]
+    apply ptHom_congr W _ _ _ rfl
+    funext i
+    fin_cases i <;> simp [translationTriple]
   mul_hom := by
     apply over_hom_eq_iff_forall_field_algebra.mpr
     intro k _ _ x

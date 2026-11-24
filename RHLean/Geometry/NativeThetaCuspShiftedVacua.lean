@@ -241,7 +241,8 @@ theorem exists_native_shifted_vacua
       differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) (n : ℕ) :
     let H := nativeDyadicHostRaw e q d he hH
-    let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
+    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
+      (nativeDyadicHostAx e q d he hH).der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
     let g := finrank ℚ H.E / 2 * (D.p + D.q)
@@ -258,7 +259,8 @@ theorem exists_native_shifted_vacua
               (lattice (κ := Fin n) H B hB k m b L) : ℝ) *
             ‖ip v v'‖ ^ 2 = 1 := by
   let H := nativeDyadicHostRaw e q d he hH
-  let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
+  letI : IsCMField (nativeDyadicHostAx e q d he hH).E :=
+    (nativeDyadicHostAx e q d he hH).der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
   let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
   have := D.fin

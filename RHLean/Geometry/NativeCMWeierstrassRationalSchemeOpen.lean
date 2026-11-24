@@ -76,8 +76,12 @@ def rationalDenominatorInv (D : K[X]) : RationalOpenRing W D :=
 
 theorem rationalOpen_denom_mul_inv (D : K[X]) :
     aeval (rationalOpenX W D) D * rationalDenominatorInv W D = 1 := by
-  rw [rationalDenominatorInv, ← (rationalOpen_denominator_isUnit W D).unit_spec]
-  exact (rationalOpen_denominator_isUnit W D).unit.mul_inv
+  let u := (rationalOpen_denominator_isUnit W D).unit
+  have hu : (u : RationalOpenRing W D) = aeval (rationalOpenX W D) D :=
+    (rationalOpen_denominator_isUnit W D).unit_spec
+  change aeval (rationalOpenX W D) D * ((u⁻¹ : (RationalOpenRing W D)ˣ) : RationalOpenRing W D) = 1
+  exact (congrArg (fun v : RationalOpenRing W D =>
+    v * ((u⁻¹ : (RationalOpenRing W D)ˣ) : RationalOpenRing W D)) hu.symm).trans u.mul_inv
 
 theorem rationalOpen_equation (D : K[X]) :
     (W.baseChange (RationalOpenRing W D)).toAffine.Equation
@@ -95,14 +99,17 @@ theorem rationalOpenIncl_left (D : K[X]) :
     (rationalOpenIncl W D).left =
       Spec.map (CommRingCat.ofHom
         (algebraMap W.toAffine.CoordinateRing (RationalOpenRing W D))) ≫ chartZ W := by
-  rw [chartZ, SpecMap_pt W _ _
-    (IsScalarTower.toAlgHom K W.toAffine.CoordinateRing (RationalOpenRing W D))]
-  refine pt_congr W _ _ ?_ _
-  funext i
-  fin_cases i
-  · rfl
-  · rfl
-  · exact (map_one (algebraMap W.toAffine.CoordinateRing (RationalOpenRing W D))).symm
+  let g := IsScalarTower.toAlgHom K W.toAffine.CoordinateRing (RationalOpenRing W D)
+  have hp : (![rationalOpenX W D, rationalOpenY W D, 1] : Fin 3 → RationalOpenRing W D) =
+      g ∘ ![affineX W, affineY W, 1] := by
+    funext i
+    fin_cases i
+    · rfl
+    · rfl
+    · exact (map_one g).symm
+  exact (pt_congr W _ (isUnimodularSol_some (rationalOpen_equation W D)) hp
+    ((isUnimodularSol_some (equation_affineX_affineY W)).baseChange g)).trans
+      (SpecMap_pt W _ (isUnimodularSol_some (equation_affineX_affineY W)) g).symm
 
 instance isOpenImmersion_rationalOpenIncl (D : K[X]) :
     IsOpenImmersion (rationalOpenIncl W D).left := by
@@ -204,7 +211,9 @@ theorem rationalOpenHom_fieldPoint :
   refine ⟨hx, hy, ?_, ?_⟩
   · rw [rationalOpenIncl, specOverMap_ptOver, ofAffinePoint_some]
     apply Over.OverMorphism.ext
-    refine pt_congr W _ _ ?_ _
+    refine pt_congr W (g ∘ ![rationalOpenX W D, rationalOpenY W D, 1])
+      ((isUnimodularSol_some (rationalOpen_equation W D)).baseChange g)
+      ?_ (isUnimodularSol_some hx.left)
     funext i
     fin_cases i
     · rfl
@@ -212,7 +221,9 @@ theorem rationalOpenHom_fieldPoint :
     · exact map_one g
   · rw [rationalOpenHom, specOverMap_ptOver, ofAffinePoint_some]
     apply Over.OverMorphism.ext
-    refine pt_congr W _ _ ?_ _
+    refine pt_congr W (g ∘ ![rationalTargetX W A D, rationalTargetY W α A D, 1])
+      ((isUnimodularSol_some (rationalTarget_equation W α hα A D hshort hID)).baseChange g)
+      ?_ (isUnimodularSol_some hy.left)
     funext i
     fin_cases i
     · exact rationalOpen_map_targetX W A D g

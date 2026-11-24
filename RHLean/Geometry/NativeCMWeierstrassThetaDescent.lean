@@ -17,7 +17,7 @@ set_option maxHeartbeats 4000000
 noncomputable section
 
 open Filter Complex PeriodPair
-open scoped Topology ComplexConjugate Real
+open scoped Classical Topology ComplexConjugate Real
 
 namespace RHLean.Geometry.NativeCM.WeierstrassTheta
 
