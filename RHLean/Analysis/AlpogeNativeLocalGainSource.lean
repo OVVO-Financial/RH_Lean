@@ -400,7 +400,7 @@ theorem nativeDyadicOddClassASK_re_eq_localSource
         (2 * Real.log p) * nativeDyadicLocalOddSource e q d N p a t w := by
   simp [nativeDyadicOddClassASK, nativeDyadicLocalOddSource,
     nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.mul_re,
-    Complex.log_re, Complex.norm_natCast, Finset.mul_sum]
+    Complex.log_re, Finset.mul_sum]
 
 /-- The complete original physical ASK, with all d powers retained,
 is controlled by the shifted retained source, its explicit low central
@@ -581,6 +581,7 @@ theorem nativeDyadicLocalLogShiftPrice_normalized_le_nativePsi
   refine (div_le_div_of_nonneg_right hSum hQ.le).trans_eq ?_
   unfold alpogeNativeProjectionDivisor
   field_simp [ht.ne', hm'.ne', hb.ne', hDelta.ne']
+  ring
 
 /-- The existing elementary native Chebyshev bound makes the normalized
 shift price explicit in N. This uses no prime-distribution asymptotic. -/
