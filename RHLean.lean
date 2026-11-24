@@ -74,7 +74,6 @@ import RHLean.Analysis.AlpogeNativeQuadraticDifferent
 import RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis
 import RHLean.Analysis.AlpogeNativeQuadraticPrimeSigns
 import RHLean.Analysis.AlpogeNativeQuadraticRoot
-import RHLean.Analysis.AlpogeNativeQuadraticRecovery
 import RHLean.Analysis.AlpogeNativeQuadraticSignRoot
 import RHLean.Analysis.AlpogeNativeQuadraticSplitting
 import RHLean.Analysis.AlpogeNativeReciprocitySurjective
@@ -498,6 +497,7 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
+import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativeIdealClassBound
@@ -1230,11 +1230,11 @@ import RHLean.Geometry.NativePrescribedPolarizationRealization
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
+import RHLean.Geometry.NativeServedPrimeApplication
 import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
 import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeSquareHostRealization
-import RHLean.Geometry.NativeSquareReducedRankRealization
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement

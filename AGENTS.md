@@ -1,3 +1,29 @@
+## 2026-11-24 — application of the existing recovery proof
+
+**NATIVE_RECOVERY_REUSE_V2 (user priority):** Do not design another
+signed-recovery mechanism, lower-rank recovery or variance hypothesis
+when the original recovery theorem already applies. Retain the original
+admissible m=R, k=(R^2-1)*R regime and existing native square-clock
+constructor. The 43 conditions are a coverage map, not literal tasks.
+Follow [the direct recovery application](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#7-user-correction-apply-the-existing-signed-recovery-do-not-redesign-it).
+Use the original proved gain_bound_all_of_star, stmtF, theta-kernel
+expansion and lattice-service theorem at their actual hypotheses;
+attach their required data to the native selected family. Reuse the
+existing native mean-loss, period, length and scalar consumers.
+The original no-kernel route may omit auxiliary Ch only where the
+retained consumers are proved independent of it; never identify its
+zero-chain valuations with actual physical maps or replace Ga/IO.
+The first open proof task is supplying the same-family exceptional
+sets and lattice comparison/descent, with the complete measured
+rank/degree/slope inputs and uniformity. No claim of RH until the
+actual unconditional bound closes the existing consumer.
+This supersedes conflicting experimental reduced-rank and new
+recovery task-selection mandates. Existing hosted-only checking,
+human-only merges, permissions and reporting continuity are unchanged.
+Repository changes do not launch agents or alter schedules.
+
+---
+
 ## 2026-11-24 — preserve the breadth, not the literal 43 conditions
 
 **NATIVE_SCALAR_FUNCTION_CUT_V1:** The four upstream bundles are a coverage

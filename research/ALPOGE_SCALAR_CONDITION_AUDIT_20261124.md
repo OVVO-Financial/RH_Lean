@@ -307,8 +307,8 @@ realize the original geometry when another native proof supplies it.
 The two reductions above simplify the payment and recovery, not the
 missing complete signed gain. No new terminal RH wrapper is added.
 
-Implementation: [Native quadratic recovery](../RHLean/Analysis/AlpogeNativeQuadraticRecovery.lean)
-and [six-root audit](ALPOGE_NATIVE_QUADRATIC_RECOVERY_AUDIT_20261124.lean).
+Implementation: [Native quadratic recovery](https://github.com/OVVO-Financial/RH_Lean/blob/8fdfe7b76cf0763c3480ae069042a08ba80b0524/RHLean/Analysis/AlpogeNativeQuadraticRecovery.lean)
+and [six-root audit](https://github.com/OVVO-Financial/RH_Lean/blob/8fdfe7b76cf0763c3480ae069042a08ba80b0524/research/ALPOGE_NATIVE_QUADRATIC_RECOVERY_AUDIT_20261124.lean).
 Hosted validation required. Prior verified and draft geometric sources
 are preserved.
 
@@ -317,7 +317,7 @@ are preserved.
 
 The original same-half-different lattice and theta construction is available
 for every natural k satisfying R+3<=k. The new
-[reduced-rank realization](../RHLean/Geometry/NativeSquareReducedRankRealization.lean)
+[reduced-rank realization](https://github.com/OVVO-Financial/RH_Lean/blob/8fdfe7b76cf0763c3480ae069042a08ba80b0524/RHLean/Geometry/NativeSquareReducedRankRealization.lean)
 specializes it to m=R, k=R^2, R>=3, on the SAME selected PageN exponent and
 WinPair. It preserves the actual different factorization, coprimality, Galois
 invariance, positive Hermitian form, nonzero holomorphic theta sections,
@@ -346,3 +346,103 @@ complete actual signed-excess estimate, its compatible geometry if used,
 and uniform windows remain the genuine unpaid inputs. The new nine-root
 audit includes the actual rank construction and direct scalar payment.
 Hosted verification required.
+
+
+## 7. User correction: apply the existing signed recovery, do not redesign it
+
+The original parameter regime m=R, k=(R^2-1)*R is restored as the
+active route. The optional unverified R22/R23 quadratic-height and
+reduced-rank modules are parked in the reachable commit
+[8fdfe7b](https://github.com/OVVO-Financial/RH_Lean/commit/8fdfe7b76cf0763c3480ae069042a08ba80b0524); their proofs and
+reports are preserved in history. They are not required in the active
+build or a reason to construct a new recovery mechanism. The R21
+native payments and all prior genuine geometric constructions remain.
+
+The exact-head run [45323160932](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45323160932)
+failed static manifest sorting, before Lean ran. Regenerate the root
+from the complete tree, not by insertion beside a similarly named
+module. The earlier R21 static audit passed but the changed closure
+was cancelled on a superseding push. No success is inferred from that.
+
+### Use the upstream proved recovery route
+
+`GainBoundAtPairUniform` is a proposition, not itself an unconditional
+theorem. Its actual supplying result is `gain_bound_all_of_star` in
+[NotSingularOfCentral](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/NotSingularOfCentral.lean).
+It accepts ParameterChoice', GainBoundConstants, adm9 and StarAll.
+The higher proved theorem AuxBlock8.Pf.stmtF in LogarithmicSums.lean
+accepts AdmF and returns ConclusionOnFamily, with a uniform cost
+constant and a defect function tending to zero. Do not reprove its
+gain summation or assume AdmF.
+
+There is a particularly relevant shorter original route:
+[AdmissibleFamilyNoKernel.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/GroupLattices/AdmissibleFamilyNoKernel.lean).
+Use its dependency trace through linkG_fam_noKer and
+link_of_local_closed. The latter takes Loc (supplied by loc_proved),
+TrivialStabiliserFiniteClasses, Joints.StdSubAt, Adm2F and NPDescF
+on the actual family class. These are substantial compatibility
+requirements, not four automatically satisfied propositions.
+
+The source's zeroCh changes only the auxiliary Ch field. Direct
+inspection of LatInst, LatTied, yProd, NP and LatticeLengthsAtPlace in
+[IsResidueClassZero.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean)
+shows that NP and its quotient length depend on vOf, the actual orbit
+operators, Vram, and the original tau/Sv, not on Ch. The original
+no-kernel theorem nevertheless proves its two auxiliary valuation
+premises using the zero chain. Do not present these as bounds on the
+actual physical maps. A native application may omit that auxiliary
+chain only after proving the same independence for every retained
+consumer, including its comparison to the actual Ga, IO and degree.
+Do not import a finished RH theorem or replace any physical gain by zero.
+
+### Direct native applications
+
+[NativeServedPrimeApplication](../RHLean/Geometry/NativeServedPrimeApplication.lean)
+follows the original invariant-factor and inverse-shift arguments in
+ElementarySymmetricExpBound.lean, then invokes the existing
+NativeServedPrimeLength.lengthFromAllBut_saturated. It removes the
+need to assume a second set of exceptional generators on the smaller
+lattice or an independent saturation statement. It uses the original
+quotient image, its PID basis, the actual inverse shift, and the
+fraction-field ramified subspace. Given the exceptional counts on Mna,
+the actual restriction-product transfer, and the original stopping
+inclusion on M, the derived length on the ramified intersection is
+
+    length <= vUnit * d * (e + tau + 2*S*s).
+
+The actual restriction submodule is NB intersect a^(e+tau) M,
+further restricted to the actual fraction-field ramified part.
+There is no replacement rank, lattice or new gain inequality. The
+original theta-kernel expansion must still supply the exceptional
+sets on Mna, the operator transfer and the stopping inclusion on M.
+Their actual attachment to the original host and served orbit remains
+open. The length theorem itself is reused, not reconstructed.
+
+[NativeExistingRecoveryPayment](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean)
+applies the already proved mean-loss version of physicalTopExcess
+directly within the existing constructed dyadic consumer. It selects
+the same host and pair once and preserves the original scalar cost
+and size regime; it does not require pointwise recovery losses.
+The original height interval from InWin gives x <= a_t/b <= x+1
+whenever k>=x and sigma>=1. This pays the original height-movement
+input without a new rank or variance regime. The zero-debt
+one-sided period theorem also supplies the existing DIV premise
+from the genuine measured degree bound and actual period lower bound.
+
+The seven-root audit is a hosted proof check for these applications.
+No claim is made that it proves the native family exists, that the
+full upstream dependency closure has been independently validated,
+or that the critical signed-excess bound or RH is proved.
+
+### Active attack
+
+Use the original admissible parameters and existing recovery theorem.
+Apply the original local expansion to the actual native module, with
+its stabilizers, class representatives, standard submodules, orbit
+weights and comparison map. Use the existing lattice length and
+native descent theorem at that very module. Trace NPDescF to the
+literal local/global lattice image and the actual lengths. Prove
+the remaining physical identifications and measured slope budgets,
+not another theorem whose premise is the desired complete bound.
+Use the already merged #1205 and #1206 only after the same-family
+uniform window estimate is supplied.
