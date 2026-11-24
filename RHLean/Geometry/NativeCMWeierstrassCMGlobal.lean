@@ -175,8 +175,10 @@ theorem exists_cm_scheme_generator :
     change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
       ((f ≫ f) * (𝟙 (schemeOver V)) ^ generatorNorm G) =
       ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫ f
+    -- The first hpoint rewrite also handles the right-hand side.
+    -- After the second, no composition with f remains to rewrite.
     rw [MonObj.comp_mul, ← Category.assoc, hpoint, hpoint,
-      MonObj.comp_pow, Category.comp_id, hpoint]
+      MonObj.comp_pow, Category.comp_id]
     have hn : ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ^ generatorNorm G =
         ofAffinePoint V ℂ ((pointCongr hVC).symm (generatorNorm G • Q)) := by
       have he : ofAffinePoint V ℂ (generatorNorm G • (pointCongr hVC).symm Q) =
