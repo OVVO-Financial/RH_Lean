@@ -1075,8 +1075,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeBundle.lean",
-      "sha256": "3852b4d2833e6b8dc2b095156470a7fff866257eda61a5cf88e5478724adeb2e",
-      "lines": 237
+      "sha256": "c821d85a0aeb648eec1a58306baaf80d64572efda6dad725d2edf69c03ec40f2",
+      "lines": 242
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeEigenline.lean",

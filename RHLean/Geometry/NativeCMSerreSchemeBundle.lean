@@ -96,8 +96,13 @@ theorem rigidified_originLinComb (f : I → (A ⟶ schemeOver W))
       (LB.isLB_linComb (originLB_isLB W) (fun i => (f i).left) e)
       (identitySection A)
     have hunit : ((LB.LinComb (originLB W) (fun i => (f i).left) e).pull
-        (identitySection A)).g (fun _ _ => true) (fun _ _ => true) = 1 :=
-      hLB.g_self _
+        (identitySection A)).g (fun _ _ => true) (fun _ _ => true) = 1 := by
+      apply Units.ext
+      have hdiag := LB.res_g_self hLB (fun _ _ => true) le_rfl
+      have hval := congrArg Units.val hdiag
+      change resG (Sp R) _ _ = 1 at hval
+      rw [resG_self] at hval
+      exact hval
     rw [hunit]
   change res _ 1 = _ * res _ 1
   rw [map_one, map_one, hg, _root_.one_mul]
