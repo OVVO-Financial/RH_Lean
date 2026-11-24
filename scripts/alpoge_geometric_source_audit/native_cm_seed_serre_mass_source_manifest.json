@@ -890,7 +890,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGenerators.lean",
-      "sha256": "a431c01b78eefbf54bd3ef325936e28b71fe79bc6469fea975a5411d2d570864",
+      "sha256": "aff213e99bf4beae0749ee9915743ee1d03dba220403ec7dc10eefb1c8093dbc",
       "lines": 188
     },
     {
@@ -1964,6 +1964,13 @@
       "run_id": 45300257511,
       "preflight_job_id": 138130929167,
       "result": "PREFLIGHT_FAILED_EMPTY_PRODUCT_SERRE_QUOTIENT_EIGENLATTICE_AND_WARNINGS",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "28643493c57e92aaf4bffefe0bee5f0968bff4e6",
+      "run_id": 45318191186,
+      "preflight_job_id": 138190245404,
+      "result": "PREFLIGHT_FAILED_EMPTY_PRODUCT_REFLEXIVE_GOAL",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

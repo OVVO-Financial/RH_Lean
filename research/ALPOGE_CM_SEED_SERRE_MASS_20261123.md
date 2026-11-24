@@ -1399,3 +1399,13 @@ discharges the critical quantitative hypothesis. Global rank shares,
 measured component masses and the compatible arithmetic degree/metric
 comparison are not supplied by an unmeasured dimension or finite Haar
 norm. No unconditional RH claim follows from this continuation.
+
+### R19: reached reflexive goal
+
+The R18 mandatory preflight (run 45318191186, job 138190245404) stopped in
+`NativeCMLineBundleGenerators.lean:96` with the residual goal `1 = 1`.
+The simplifier now explicitly closes reflexive equality. The theorem,
+physical data, and geometric supplier obligations are unchanged. The
+same run's diagnostic compiled `NativeCMWeierstrassGraphGroup`; its time
+limit did not establish the rest of the closure. Hosted verification
+remains mandatory. The full build was correctly skipped after failure.
