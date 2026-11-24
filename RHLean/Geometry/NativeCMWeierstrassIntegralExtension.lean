@@ -58,7 +58,7 @@ theorem fractionField_fromNormalization_isIso
     [Field K] [Algebra R K] [IsFractionRing R K] :
     IsIso (spMap (algebraMap R K)).fromNormalization := by
   let j := spMap (algebraMap R K)
-  letI : Algebra Γ(Sp R, ⊤) Γ(Sp K, ⊤) := j.appTop.hom.toAlgebra
+  let _ : Algebra Γ(Sp R, ⊤) Γ(Sp K, ⊤) := j.appTop.hom.toAlgebra
   let er : Γ(Sp R, ⊤) →+* R := (Scheme.ΓSpecIso (.of R)).hom.hom
   let ek : Γ(Sp K, ⊤) →+* K := (Scheme.ΓSpecIso (.of K)).hom.hom
   have her : Function.Bijective er :=
@@ -163,7 +163,7 @@ theorem existsUnique_elliptic_hom_extension_dvr
   have hHs : Smooth H.hom := inferInstanceAs (Smooth (toSpec V))
   obtain ⟨Ga, grp, io, e, hcomm, hclosed, hflat, hmon, _, hp, hsecond⟩ :=
     exists_commutative_flat_graph R K G H f
-  letI : GrpObj Ga := grp
+  let _ : GrpObj Ga := grp
   have hproj : IsProper (fst G H).left :=
     inferInstanceAs (IsProper (pullback.fst G.hom H.hom))
   have hprod : IsProper (G ⊗ H).hom :=

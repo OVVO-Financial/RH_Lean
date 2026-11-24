@@ -81,7 +81,7 @@ jobs:
         if: >-
           failure() && steps.compile.outcome == 'failure' &&
           contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
-        timeout-minutes: 4
+        timeout-minutes: 16
         run: |
           python3 - <<'PY'
           import json
@@ -91,17 +91,13 @@ jobs:
           from pathlib import Path
 
           plan = json.loads(Path('/tmp/rhlean-research-plan.json').read_text())
-          prefixes = ('RHLean.Geometry.NativeCM',
-                      'RHLean.Geometry.NativeMeasuredComponent',
-                      'RHLean.Geometry.NativeThetaCusp')
-          targets = [target for target in plan['library']
-                     if target.startswith(prefixes)]
+          targets = list(plan['library'])
           if not targets or len(targets) > 24:
               raise SystemExit('Unexpected CM diagnostic target set')
           print('DIAGNOSTIC ONLY; REQUIRED PREFLIGHT REMAINS FAILED', flush=True)
           process = subprocess.Popen(['lake', 'build', *targets], start_new_session=True)
           try:
-              process.wait(timeout=180)
+              process.wait(timeout=900)
           except subprocess.TimeoutExpired:
               os.killpg(process.pid, signal.SIGTERM)
               try:

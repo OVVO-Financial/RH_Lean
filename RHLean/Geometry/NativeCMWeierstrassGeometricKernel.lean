@@ -149,10 +149,10 @@ LocallyQuasiFiniteOfFiniteGeometricPoints.lean, pinned as above. -/
 private theorem finite_points_of_finite_sections {k : Type} [Field k] [IsAlgClosed k]
     {X : Scheme.{0}} (s : X ⟶ Spec (.of k)) [LocallyOfFiniteType s]
     (hs : Finite {v : Spec (.of k) ⟶ X // v ≫ s = 𝟙 _}) : Finite X := by
-  letI := hs
-  letI : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace s
+  let _ := hs
+  let _ : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace s
   have hc : (closedPoints X).Finite := by
-    letI : Finite (closedPoints X) := Finite.of_equiv _ (pointEquivClosedPoint s)
+    let _ : Finite (closedPoints X) := Finite.of_equiv _ (pointEquivClosedPoint s)
     exact Set.toFinite _
   have hclosed : IsClosed (closedPoints X) := by
     rw [← Set.biUnion_of_singleton (closedPoints X)]
@@ -177,7 +177,7 @@ private theorem locallyQuasiFinite_of_geometric_fibres {X Y : Scheme.{0}}
     exact ⟨z, (Scheme.Hom.comp_apply _ _ z).trans
       (Scheme.fromSpecResidueField_apply y _)⟩
   have hsections := h k t
-  letI : Finite {x : Spec (.of k) ⟶ X // x ≫ p = t} := hsections
+  let _ : Finite {x : Spec (.of k) ⟶ X // x ≫ p = t} := hsections
   have hfinite : Finite ↥(pullback p t) := by
     apply finite_points_of_finite_sections (pullback.snd p t)
     refine Finite.of_injective (β := {x : Spec (.of k) ⟶ X // x ≫ p = t})
@@ -188,7 +188,7 @@ private theorem locallyQuasiFinite_of_geometric_fibres {X Y : Scheme.{0}}
     apply pullback.hom_ext
     · exact congrArg Subtype.val hxx
     · rw [x.2, x'.2]
-  letI := hfinite
+  let _ := hfinite
   refine (Set.finite_range (pullback.fst p t)).subset ?_
   rw [Scheme.Pullback.range_fst]
   exact Set.preimage_mono (Set.singleton_subset_iff.mpr hy)
@@ -197,7 +197,7 @@ private theorem finite_fibre_of_finite_group_kernel {C : Type*} [Category C]
     [CartesianMonoidalCategory C] {G A T : C} [GrpObj G] [GrpObj A]
     (p : A ⟶ G) [IsMonHom p] (h : Finite {x : T ⟶ A // x ≫ p = 1})
     (y : T ⟶ G) : Finite {x : T ⟶ A // x ≫ p = y} := by
-  letI := h
+  let _ := h
   rcases isEmpty_or_nonempty {x : T ⟶ A // x ≫ p = y} with he | ⟨⟨x₀, hx₀⟩⟩
   · infer_instance
   · refine Finite.of_injective (β := {x : T ⟶ A // x ≫ p = 1})
@@ -216,7 +216,7 @@ theorem locallyQuasiFinite_of_finite_group_kernel {S : Scheme.{0}}
   refine locallyQuasiFinite_of_geometric_fibres p.left fun k _ _ y => ?_
   let t : Sp k ⟶ S := y ≫ G.hom
   let y' : Over.mk t ⟶ G := Over.homMk y rfl
-  letI : Finite {x : Over.mk t ⟶ A // x ≫ p = y'} :=
+  let _ : Finite {x : Over.mk t ⟶ A // x ≫ p = y'} :=
     finite_fibre_of_finite_group_kernel p (h k t) y'
   refine Finite.of_injective (β := {x : Over.mk t ⟶ A // x ≫ p = y'})
     (fun x => ⟨Over.homMk x.1 (by

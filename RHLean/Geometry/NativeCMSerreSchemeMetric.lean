@@ -23,6 +23,7 @@ tensor bundle's polarizing curvature are not asserted here.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 

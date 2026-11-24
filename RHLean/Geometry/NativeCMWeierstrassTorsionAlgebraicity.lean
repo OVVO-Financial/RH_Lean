@@ -128,9 +128,9 @@ theorem exists_latticeKernel_annihilator {L L' : PeriodPair} {α : ℂ}
     (hα0 : α ≠ 0) (hα : ∀ l ∈ L.lattice, α * l ∈ L'.lattice) :
     ∃ n : ℕ, 0 < n ∧ ∀ z : ℂ, α * z ∈ L'.lattice → (n : ℂ) * z ∈ L.lattice := by
   obtain ⟨Q, hQ, hfin, _, hcard, _, _, _, _, _⟩ := exists_representatives hα0 hα
-  letI : AddCommGroup Q := hQ
-  letI : Finite Q := hfin
-  letI : Fintype Q := Fintype.ofFinite Q
+  let _ : AddCommGroup Q := hQ
+  let _ : Finite Q := hfin
+  let _ : Fintype Q := Fintype.ofFinite Q
   refine ⟨Nat.card Q, by rw [Nat.card_eq_fintype_card]; exact Fintype.card_pos, ?_⟩
   intro z hz
   have hh := (L.lattice.toAddSubgroup.map (AddMonoidHom.mulLeft α)).nsmul_relIndex_mem
@@ -217,9 +217,9 @@ theorem latticeMultiplier_mem {L L' : PeriodPair} {α : ℂ}
   have hzt : ((n * 2 : ℕ) : ℂ) * z ∈ L.lattice := by
     simpa only [Nat.cast_mul, Nat.cast_ofNat, mul_assoc] using hkill (2 * z) hz2
   obtain ⟨Q, hQ, hfin, r, _, hr1, hr2, _, _, hr5⟩ := exists_representatives hα0 hα
-  letI : AddCommGroup Q := hQ
-  letI : Finite Q := hfin
-  letI : Fintype Q := Fintype.ofFinite Q
+  let _ : AddCommGroup Q := hQ
+  let _ : Finite Q := hfin
+  let _ : Fintype Q := Fintype.ofFinite Q
   have hrt (t : Q) : ((n * 2 : ℕ) : ℂ) * r t ∈ L.lattice := by
     have h := hkill (r t) (hr1 t)
     rw [show ((n * 2 : ℕ) : ℂ) * r t =
@@ -273,12 +273,12 @@ theorem exists_finite_field_rational_latticeIsogeny
     (hMalg _ h₂') (hMalg _ h₃')
   obtain ⟨n, hn, hkill⟩ := exists_latticeKernel_annihilator hα0 hα
   obtain ⟨Q, hQ, hfin, r, _, hr1, _, _, hr4, hr5⟩ := exists_representatives hα0 hα
-  letI : AddCommGroup Q := hQ
-  letI : Finite Q := hfin
+  let _ : AddCommGroup Q := hQ
+  let _ : Finite Q := hfin
   let ι := {t : Q // t ≠ 0}
   let S : Set ℂ := insert α (Set.range (fun t : ι => L.weierstrassP (r t)))
   have hS : S.Finite := (Set.finite_range _).insert _
-  letI : Finite S := hS.to_subtype
+  let _ : Finite S := hS.to_subtype
   have hSint : ∀ z ∈ S, IsIntegral ℚ z := by
     intro z hz
     rcases Set.mem_insert_iff.mp hz with rfl | ⟨t, rfl⟩
@@ -290,7 +290,7 @@ theorem exists_finite_field_rational_latticeIsogeny
   have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ S) :=
     IntermediateField.finiteDimensional_adjoin hSint
   let F : IntermediateField ℚ ℂ := M ⊔ IntermediateField.adjoin ℚ S
-  letI : NumberField F := ⟨⟩
+  let _ : NumberField F := ⟨⟩
   have hMF : M ≤ F := le_sup_left
   have hSF : S ⊆ F := fun _ hz => (le_sup_right : IntermediateField.adjoin ℚ S ≤ F)
     (IntermediateField.subset_adjoin ℚ S hz)

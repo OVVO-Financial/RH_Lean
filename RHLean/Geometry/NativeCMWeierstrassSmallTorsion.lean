@@ -27,7 +27,7 @@ set_option maxHeartbeats 4000000
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory Polynomial MonoidalCategory
-open scoped Classical
+open scoped Classical CategoryTheory.MonObj
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
@@ -72,7 +72,7 @@ theorem exists_nonzero_small_torsion (n : ℕ) (hn : n = 2 ∨ n = 3)
 /-- The same explicit point belongs to the actual represented group. -/
 theorem exists_nontrivial_small_torsion_schemePoint (n : ℕ) (hn : n = 2 ∨ n = 3)
     (hnk : (n : k) ≠ 0) :
-    ∃ P : 𝟙_ (Over (Sp k)) ⟶ schemeOver W, P ≠ 1 ∧ P ^ n = 1 := by
+    ∃ P : 𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W, P ≠ 1 ∧ P ^ n = 1 := by
   obtain ⟨P, hP, hnP⟩ := exists_nonzero_small_torsion (W.baseChange k) n hn hnk
   let e := (affinePointMulEquiv W k).trans (selfSpecPointMulEquiv W)
   refine ⟨e (Multiplicative.ofAdd P), ?_, ?_⟩
@@ -89,14 +89,14 @@ theorem exists_nontrivial_small_torsion_schemePoint (n : ℕ) (hn : n = 2 ∨ n 
 finite on the actual elliptic scheme, in every characteristic. -/
 theorem finite_closed_subgroup_of_no_small_torsion
     (n : ℕ) (hn : n = 2 ∨ n = 3) (hnk : (n : k) ≠ 0)
-    (C : Subgroup (𝟙_ (Over (Sp k)) ⟶ schemeOver W)) (Z : Set (scheme W))
+    (C : Subgroup (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W)) (Z : Set (scheme W))
     (hZ : IsClosed Z) (hC : ∀ x, x ∈ C ↔ Set.range x.left ⊆ Z)
     (htor : ∀ x ∈ C, x ^ n = 1 → x = 1) : Finite C := by
   have hne : Z ≠ Set.univ := by
     intro he
     obtain ⟨P, hP, hnP⟩ := exists_nontrivial_small_torsion_schemePoint W n hn hnk
     exact hP (htor P ((hC P).mpr (by rw [he]; exact Set.subset_univ _)) hnP)
-  have hf : (C : Set (𝟙_ (Over (Sp k)) ⟶ schemeOver W)).Finite :=
+  have hf : (C : Set (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W)).Finite :=
     (finite_unitPoints_of_proper_closed W Z hZ hne).subset fun x hx => (hC x).mp hx
   exact hf.to_subtype
 

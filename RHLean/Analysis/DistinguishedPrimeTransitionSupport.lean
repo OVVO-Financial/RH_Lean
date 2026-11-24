@@ -752,12 +752,14 @@ theorem complexRealPairNormSq_complexRealPair (z : ℂ) :
 theorem complexRealPairGram_complexRealPair (z w : ℂ) :
     complexRealPairGram (complexRealPair z) (complexRealPair w) =
       (z * conj w).re := by
-  simp [complexRealPairGram, complexRealPair, Complex.mul_re] <;> ring
+  simp [complexRealPairGram, complexRealPair, Complex.mul_re]
+  ring
 
 theorem complexRealPairOrientedArea_complexRealPair (z w : ℂ) :
     complexRealPairOrientedArea (complexRealPair z) (complexRealPair w) =
       (z * conj w).im := by
-  simp [complexRealPairOrientedArea, complexRealPair, Complex.mul_im] <;> ring
+  simp [complexRealPairOrientedArea, complexRealPair, Complex.mul_im]
+  ring
 
 /-- The determinant price is exactly |a|^2, on all real pairs. -/
 theorem complexRealPairOrientedArea_mulHom (a : ℂ) (p q : ComplexRealPair) :

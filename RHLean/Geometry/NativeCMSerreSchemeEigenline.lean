@@ -23,6 +23,7 @@ been rebuilt in the imported native modules. No new source closure is used.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 

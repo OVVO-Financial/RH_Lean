@@ -237,7 +237,7 @@ theorem rows_castLE (hn : r ≤ n) (C : Ideal (𝓞 H.E)) (hC : IsCoprime D.P C)
     (a : D.Group) (i : Fin r) :
     rows H D C hC a (Fin.castLE hn i) =
       (D.liftColumn C hC a i : Fin r → H.E) := by
-  simp only [rows, Fin.coe_castLE, dite_eq_left i.isLt]
+  simp only [rows, Fin.val_castLE, dite_eq_left i.isLt]
 
 theorem rows_tensor {Λ : Lt H.E n} {s : ℕ}
     (hscale : ∀ (N : Lt H.E r) (y : Matrix (Fin n) (Fin r) H.E),

@@ -19,6 +19,7 @@ must supply that geometric identification for the same four pullbacks.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 

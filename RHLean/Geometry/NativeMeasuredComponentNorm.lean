@@ -71,6 +71,7 @@ theorem measuredNorm_sq (μ : Measure X) (f : X → ℂ) :
   Real.sq_sqrt ENNReal.toReal_nonneg
 
 
+omit [MeasurableSpace X] in
 /-- Realification of the integrand of the SAME measured norm. The measure
 and function are unchanged, including at zero and infinite integral. -/
 theorem squareMagnitude_eq_phi (f : X → ℂ) (x : X) :

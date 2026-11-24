@@ -17,7 +17,7 @@ set_option relaxedAutoImplicit false
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory MonoidalCategory
-open scoped Classical
+open scoped Classical CategoryTheory.MonObj
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
@@ -45,13 +45,13 @@ variable [_root_.IsReduced R] [W.IsElliptic]
 /-- Actual geometric-fibre points and actual relative field points have
 the same group law. -/
 def relativePointMulEquiv :
-    (𝟙_ (Over (Sp k)) ⟶ schemeOver (W.baseChange k)) ≃*
+    (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver (W.baseChange k)) ≃*
       (specOver R k ⟶ schemeOver W) :=
   ((affinePointMulEquiv (W.baseChange k) k).trans
     (selfSpecPointMulEquiv (W.baseChange k))).symm.trans (affinePointMulEquiv W k)
 
 /-- The group equivalence is the actual scheme base-change map. -/
-theorem relativePointMulEquiv_left (x : 𝟙_ (Over (Sp k)) ⟶ schemeOver (W.baseChange k)) :
+theorem relativePointMulEquiv_left (x : 𝟙_ (Over (Spec (.of k))) ⟶ schemeOver (W.baseChange k)) :
     (relativePointMulEquiv W k x).left = x.left ≫ mapHom W (algebraMap R k) rfl := by
   let e := (affinePointMulEquiv (W.baseChange k) k).trans
     (selfSpecPointMulEquiv (W.baseChange k))

@@ -82,7 +82,7 @@ theorem phiPeriodLattice_mul_map (P : PeriodPair) (a : ℂ) :
       (phiPeriodLattice P).map (RHLean.Analysis.complexRealPairMulHom a) := by
   rw [phiPeriodLattice, AddSubgroup.map_map, AddSubgroup.map_map]
   congr 1
-  ext z
+  ext1 z
   exact (RHLean.Analysis.complexRealPairMulHom_complexRealPair a z).symm
 
 /-- Phi preserves the actual finite kernel degree, including the integral

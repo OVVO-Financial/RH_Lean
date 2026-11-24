@@ -88,7 +88,7 @@ theorem ringHom_flat {A B : Type*} [CommRing A] [CommRing B] [Algebra T A] [Alge
           Ideal.span_singleton_le_iff_mem]
         exact hu
       exact flat_of_flat_residueField_baseChange_dvr _ (hbc _ hκ)
-  letI := (φ : A →+* B).toAlgebra
+  let _ := (φ : A →+* B).toAlgebra
   change Module.Flat A B
   refine Module.flat_of_isLocalized_maximal B B (fun P ↦ Localization.AtPrime P)
     (fun P ↦ Algebra.linearMap B _) fun P _ => ?_
@@ -186,8 +186,8 @@ theorem flat_of_flatOver (T K : Type) [CommRing T] [IsDomain T] [IsDiscreteValua
   rw [← Spec.map_comp] at h1 h2
   rw [Flat.SpecMap_iff] at h1 ⊢
   rw [HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)] at h2 h3
-  letI : Algebra T A := g.hom.toAlgebra
-  letI : Algebra T B := (g ≫ f).hom.toAlgebra
+  let _ : Algebra T A := g.hom.toAlgebra
+  let _ : Algebra T B := (g ≫ f).hom.toAlgebra
   have : Module.Flat T B := h1
   have : Algebra.FiniteType T B := h2
   have : Algebra.FiniteType T A := h3
