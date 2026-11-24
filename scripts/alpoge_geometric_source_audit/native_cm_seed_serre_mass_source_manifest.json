@@ -1110,8 +1110,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSigmaMetric.lean",
-      "sha256": "7e7d103b51ccaaf27e27a6225eb63fc3566ad66cb4cd5bf2e8dd2f284e81769b",
-      "lines": 220
+      "sha256": "c74491dcad71c088e1fb89e8d063e2c58780712ff44539b02d01b985ca9f2838",
+      "lines": 270
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreTensor.lean",
@@ -1780,8 +1780,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchemeTorsion.lean",
-      "sha256": "3a1b5a57f36013fc37e5e8e4e1de2aa91f55ccd02b48595b1816b5c4f7e7b948",
-      "lines": 396
+      "sha256": "919145f75f59a24c08460f7553d77230c91ae1659fb743c2b425c286c1ff19ae",
+      "lines": 407
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchwartz.lean",

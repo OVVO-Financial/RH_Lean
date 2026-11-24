@@ -40,7 +40,12 @@ theorem exponential_one_eq (W : _root_.WeierstrassCurve ℂ) (L : PeriodPair)
   rw [AllPlaceTangentPeriod.exponential_apply]
   generalize latticePoint L z = p
   cases p with
-  | zero => rw [map_zero, map_zero]
+  | zero =>
+    change variableChangePoint 1 ((one_smul _ W).trans h)
+        (0 : (latticeCurve L).toAffine.Point) =
+      (pointCongr h).symm (0 : (latticeCurve L).toAffine.Point)
+    exact (map_zero (variableChangePoint 1 ((one_smul _ W).trans h))).trans
+      (map_zero (pointCongr h).symm).symm
   | some x y hp =>
     rw [variableChangePoint_some, pointCongr_symm_some,
       _root_.WeierstrassCurve.Affine.Point.some.injEq]
@@ -164,6 +169,18 @@ def sigmaGram (t u : ℂ ⊗[OK G] D.La) : ℂ :=
     latticeForm (rescaledPeriods G τ C)
       (P.scaledBundleMap τ C k t) (P.scaledBundleMap τ C k u)
 
+/-- Compute the four signed scalar terms before instantiating the trace
+frame and its tensor coefficients. This is the literal existing Gram sum. -/
+private theorem four_latticeForm_eq_squareGram (L : PeriodPair)
+    (p q p' q' : ℂ) :
+    (∑ j : Fin 4, (((![1, -1, -1, 1] : Fin 4 → ℤ) j) : ℂ) *
+      latticeForm L (![p + q, p, q, 0] j) (![p' + q', p', q', 0] j)) =
+      SerreGram.squareGram (1 / PeriodMean.latticeArea L) p q p' q' := by
+  simp only [Fin.sum_univ_succ, Fin.sum_univ_zero,
+    Matrix.cons_val_zero, Matrix.cons_val_succ, Int.cast_one, Int.cast_neg,
+    latticeForm, SerreGram.squareGram]
+  ring
+
 /-- The exact signed Gram is the original trace pairing, with factor one. -/
 theorem sigmaGram_eq (t u : ℂ ⊗[OK G] D.La) :
     P.sigmaGram τ C t u =
@@ -171,37 +188,63 @@ theorem sigmaGram_eq (t u : ℂ ⊗[OK G] D.La) :
         ∑ k : Fin P.n × Fin P.n,
           embed G τ (kLin D ε (P.x k.1) (P.x k.2)) *
             P.complexCoefficient k.1 t * conj (P.complexCoefficient k.2 u) := by
+  let c : ℂ := 1 / PeriodMean.latticeArea (periodPair G τ)
+  let ω : ℂ := embed G τ (wK G)
+  let g : Fin P.n → Fin P.n → ℂ := fun i j => embed G τ (kLin D ε (P.x i) (P.x j))
+  let p : Fin P.n → ℂ := fun i => P.complexCoefficient i t
+  let q : Fin P.n → ℂ := fun i => P.complexCoefficient i u
   have hh := isHomothetic_scalePeriods (periodPair G τ) (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero)
   have hs (z w : ℂ) :
       latticeForm (rescaledPeriods G τ C) ((C.u : ℂ)⁻¹ * z) ((C.u : ℂ)⁻¹ * w) =
         latticeForm (periodPair G τ) z w := latticeForm_homothetic hh z w
-  have hω : embed G τ (wK G) + conj (embed G τ (wK G)) = 1 := by
+  have hω : ω + conj ω = 1 := by
+    change embed G τ (wK G) + conj (embed G τ (wK G)) = 1
     rw [← EllipticSeed.embed_bar, ← map_add, wK_add_barOK, map_one]
+  have hg (i j : Fin P.n) : g j i = conj (g i j) := by
+    change embed G τ (kLin D ε (P.x j) (P.x i)) =
+      conj (embed G τ (kLin D ε (P.x i) (P.x j)))
+    rw [kLin_barOK, EllipticSeed.embed_bar]
   have h4 (ij : Fin P.n × Fin P.n) :
       (∑ j : Fin 4, (P.schemeBundleExponent (ij, j) : ℂ) *
         latticeForm (periodPair G τ)
           (P.complexBundleMap τ (ij, j) t) (P.complexBundleMap τ (ij, j) u)) =
-      SerreGram.squareGram (1 / PeriodMean.latticeArea (periodPair G τ))
-        (embed G τ (kLin D ε (P.x ij.1) (P.x ij.2)) * P.complexCoefficient ij.1 t)
-        (embed G τ (wK G) * P.complexCoefficient ij.2 t)
-        (embed G τ (kLin D ε (P.x ij.1) (P.x ij.2)) * P.complexCoefficient ij.1 u)
-        (embed G τ (wK G) * P.complexCoefficient ij.2 u) := by
-    simp only [Fin.sum_univ_succ, Fin.sum_univ_zero, complexBundleMap,
-      schemeBundleExponent, Matrix.cons_val_zero, Matrix.cons_val_succ,
-      complexBundleFirst, complexBundleSecond, LinearMap.add_apply, LinearMap.smul_apply,
-      LinearMap.zero_apply, smul_eq_mul, Int.cast_one, Int.cast_neg,
-      latticeForm, SerreGram.squareGram]
-    ring
-  change (∑ k : (Fin P.n × Fin P.n) × Fin 4, (P.schemeBundleExponent k : ℂ) *
-    latticeForm (rescaledPeriods G τ C)
-      ((C.u : ℂ)⁻¹ * P.complexBundleMap τ k t)
-      ((C.u : ℂ)⁻¹ * P.complexBundleMap τ k u)) = _
-  simp_rw [hs]
-  rw [Fintype.sum_prod_type]
-  simp_rw [h4]
-  exact SerreGram.sum_squareGram _ _ hω _
-    (fun _ _ => by rw [kLin_barOK, EllipticSeed.embed_bar]) _ _
+      SerreGram.squareGram c (g ij.1 ij.2 * p ij.1) (ω * p ij.2)
+        (g ij.1 ij.2 * q ij.1) (ω * q ij.2) := by
+    let a₁ : ℂ := g ij.1 ij.2 * p ij.1
+    let b₁ : ℂ := ω * p ij.2
+    let a₂ : ℂ := g ij.1 ij.2 * q ij.1
+    let b₂ : ℂ := ω * q ij.2
+    calc
+      _ = ∑ j : Fin 4, (((![1, -1, -1, 1] : Fin 4 → ℤ) j) : ℂ) *
+          latticeForm (periodPair G τ)
+            (![a₁ + b₁, a₁, b₁, 0] j) (![a₂ + b₂, a₂, b₂, 0] j) := by
+        refine Finset.sum_congr rfl fun j _ => ?_
+        fin_cases j <;> first
+        | rfl
+        | simp [complexBundleMap, schemeBundleExponent, complexBundleFirst,
+            complexBundleSecond, a₁, b₁, a₂, b₂, g, p, q, ω, smul_eq_mul]
+      _ = _ := four_latticeForm_eq_squareGram (periodPair G τ) a₁ b₁ a₂ b₂
+  change P.sigmaGram τ C t u = c *
+    ∑ ij : Fin P.n × Fin P.n, g ij.1 ij.2 * p ij.1 * conj (q ij.2)
+  calc
+    _ = ∑ k : (Fin P.n × Fin P.n) × Fin 4, (P.schemeBundleExponent k : ℂ) *
+          latticeForm (periodPair G τ)
+            (P.complexBundleMap τ k t) (P.complexBundleMap τ k u) := by
+      unfold sigmaGram
+      refine Finset.sum_congr rfl fun k _ => ?_
+      exact congrArg (fun z : ℂ => (P.schemeBundleExponent k : ℂ) * z)
+        (hs (P.complexBundleMap τ k t) (P.complexBundleMap τ k u))
+    _ = ∑ ij : Fin P.n × Fin P.n, ∑ j : Fin 4,
+          (P.schemeBundleExponent (ij, j) : ℂ) *
+            latticeForm (periodPair G τ)
+              (P.complexBundleMap τ (ij, j) t) (P.complexBundleMap τ (ij, j) u) := by
+      rw [Fintype.sum_prod_type]
+    _ = ∑ ij : Fin P.n × Fin P.n,
+          SerreGram.squareGram c (g ij.1 ij.2 * p ij.1) (ω * p ij.2)
+            (g ij.1 ij.2 * q ij.1) (ω * q ij.2) :=
+      Finset.sum_congr rfl fun ij _ => h4 ij
+    _ = _ := SerreGram.sum_squareGram c ω hω g hg p q
 
 /-- Gaussian expression of the actual metric, using its proved signed
 trace Gram and actual product of seed sigma frames. -/
@@ -211,9 +254,16 @@ theorem schemeSigmaNormSq_gaussian (j : (P.schemeBundle a (originLB V)).ι)
       ‖c / signedFrame V (rescaledPeriods G τ C) 1
         (fun k s => P.scaledBundleMap τ C k s) P.schemeBundleExponent j t‖ ^ 2 *
           Real.exp (-Real.pi * (P.sigmaGram τ C t t).re) := by
-  rw [schemeSigmaNormSq, signedChartNormSq_gaussian]
-  congr 2
-  simp [sigmaGram, Complex.mul_re]
+  let j' : ((Fin P.n × Fin P.n) × Fin 4) → (originLB V).ι := j
+  have hg := signedChartNormSq_gaussian V (rescaledPeriods G τ C) 1
+    (fun k s => P.scaledBundleMap τ C k s) P.schemeBundleExponent j' t c
+  have hsum : (P.sigmaGram τ C t t).re =
+      ∑ k : (Fin P.n × Fin P.n) × Fin 4, (P.schemeBundleExponent k : ℝ) *
+        (latticeForm (rescaledPeriods G τ C)
+          (P.scaledBundleMap τ C k t) (P.scaledBundleMap τ C k t)).re := by
+    simp [sigmaGram, Complex.mul_re]
+  rw [← hsum] at hg
+  exact hg
 
 end RHLean.Geometry.NativeCM.TraceFrame
 

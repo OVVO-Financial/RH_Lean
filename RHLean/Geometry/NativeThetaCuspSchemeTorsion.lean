@@ -138,8 +138,12 @@ theorem exists_half_quotient_equiv
         apply (hzero _).2
         exact Submodule.smul_mem_smul (hIJ ▸ Ideal.mul_mem_mul ha hc)
           (Submodule.mem_top : x ∈ (⊤ : Submodule R M))⟩
-      map_add' := fun x y => Subtype.ext (by rw [smul_add, map_add])
-      map_smul' := fun a x => Subtype.ext (by rw [smul_comm c a, map_smul]) }
+      map_add' := fun x y => Subtype.ext (by
+        change f (c • (x + y)) = f (c • x) + f (c • y)
+        rw [smul_add, map_add])
+      map_smul' := fun a x => Subtype.ext (by
+        change f (c • (a • x)) = a • f (c • x)
+        rw [smul_comm c a, map_smul]) }
   have hg : ∀ x, (g x : A) = f (c • x) := fun _ => rfl
   have hker : (I • ⊤ : Submodule R M) = g.ker := by
     ext x
@@ -362,23 +366,30 @@ theorem nativeDyadicHost_exists_genericHalfLevel
   let _ : IsCMField H.E := H.der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
   let hbar := nativeDyadicGeometricHost_bar_eq e q d he hH
-  obtain ⟨B, hB, -, -, hseed⟩ := nativeDyadicHost_exists_genericSerreSeed e q d he hH
+  obtain ⟨B, hB, _hcop, _hinv, hseed⟩ :=
+    nativeDyadicHost_exists_genericSerreSeed e q d he hH
   refine ⟨B, hB, ?_⟩
   intro τ₀
-  let _ : Algebra (OK G) ℂ := (embed G (τ₀ : H.E →+* ℂ)).toAlgebra
-  obtain ⟨M, hM, W, w, C, hΔ, -, -, -, -, -, -, hC, -, -, -, hgeneric⟩ := hseed τ₀
-  let _ : NumberField M := hM
-  let _ : W.IsElliptic := ⟨hΔ.symm ▸ isUnit_one⟩
-  obtain ⟨F, hF, hMF, V, hV, hVC, a, -, hact, _⟩ := hgeneric
-  let _ : NumberField F := hF
-  let _ : V.IsElliptic := hV
-  obtain ⟨I, hI1, hI0, hIc, -, hI5⟩ :=
+  letI : Algebra (OK G) ℂ := (embed G (τ₀ : H.E →+* ℂ)).toAlgebra
+  have hseedτ := hseed τ₀
+  obtain ⟨M, hM, W, w, C, hΔ, _hhost, _hw, _hLie, _hLB, _hpol, _hu,
+    hC, _hsurj, _hker, _hderiv, hgeneric⟩ := hseedτ
+  letI : NumberField M := hM
+  letI : W.IsElliptic := ⟨hΔ.symm ▸ isUnit_one⟩
+  obtain ⟨F, hF, _hMF, V, hV, hVC, a, _hnorm, hact, _hrest⟩ := hgeneric
+  letI : NumberField F := hF
+  letI : V.IsElliptic := hV
+  obtain ⟨I, hI1, hI0, hIc, _hI2, hI5⟩ :
+      ∃ I : Ideal (𝓞 H.E), I ≠ ⊤ ∧ I ≠ ⊥ ∧
+        IsCoprime I (H.conj • I) ∧ IsCoprime I (Ideal.span {(2 : 𝓞 H.E)}) ∧
+        I * (H.conj • I) = Ideal.span {(5 : 𝓞 H.E)} :=
     NativeTheta.Cusp.SplitLevel.exists_five_split_level e q d he hH
   have hmap : I.map (G.bar : 𝓞 H.E →+* 𝓞 H.E) = H.conj • I := by
     rw [Ideal.pointwise_smul_def]
     congr 1
     ext z
-    exact hbar z
+    exact congrArg (fun b : 𝓞 H.E => (b : H.E))
+      (nativeDyadicGeometricHost_bar_eq e q d he hH z)
   have hcop : IsCoprime I (I.map (G.bar : 𝓞 H.E →+* 𝓞 H.E)) := by
     rwa [hmap]
   have hprod : I * I.map (G.bar : 𝓞 H.E →+* 𝓞 H.E) = Ideal.span {(5 : 𝓞 H.E)} := by
@@ -387,9 +398,9 @@ theorem nativeDyadicHost_exists_genericHalfLevel
       embed G (τ : H.E →+* ℂ) = algebraMap (OK G) ℂ := by
     intro τ
     exact nativeDyadic_quadraticEmbeddings_eq e q d he hH τ τ₀
-  obtain ⟨lev, hlev⟩ := coefficient_half_quotient_equiv
+  refine ⟨F, hF, V, hV, C, hVC, a, hact, I, hI1, hI0, hcop, hprod, hc, ?_⟩
+  exact coefficient_half_quotient_equiv
     H.toHostRaw G hbar B hB τ₀ V C hVC a hact hc 5 (by norm_num) I hcop hprod
-  exact ⟨F, hF, V, hV, C, hVC, a, hact, I, hI1, hI0, hcop, hprod, hc, lev, hlev⟩
 
 end RHLean.Analysis.AlpogeThin
 
