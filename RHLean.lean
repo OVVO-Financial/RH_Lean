@@ -63,6 +63,7 @@ import RHLean.Analysis.AlpogeNativeGzRealInterpolation
 import RHLean.Analysis.AlpogeNativeHostPrimes
 import RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
+import RHLean.Analysis.AlpogeNativeLocalGainSource
 import RHLean.Analysis.AlpogeNativePrimeDecomposition
 import RHLean.Analysis.AlpogeNativePrimeLift
 import RHLean.Analysis.AlpogeNativePrincipalProjection
@@ -1051,6 +1052,7 @@ import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativeMeanEnergyDescent
 import RHLean.Geometry.NativeNumberFieldIntegralDescent
+import RHLean.Geometry.NativeOneSidedIsogenyNorm
 import RHLean.Geometry.NativePeriodTypeCoordinates
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePlaneLatticeReduction
