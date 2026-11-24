@@ -17,7 +17,7 @@ No terminal RH proof or third-party contestant proof is imported.
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
 noncomputable section
-open UpperHalfPlane
+open UpperHalfPlane NumberField
 open RHLean.VerifyTaskChallenge
 open RHLean.Geometry.NativeCM.Weierstrass
 open RHLean.Analysis.AlpogeThin
