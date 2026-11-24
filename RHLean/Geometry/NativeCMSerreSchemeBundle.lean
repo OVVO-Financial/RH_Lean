@@ -92,9 +92,15 @@ theorem rigidified_originLinComb (f : I → (A ⟶ schemeOver W))
       · rfl
     obtain rfl := key j hp.1
     obtain rfl := key j' hp.2
-    simp [LB.pull, LB.LinComb, originLB, LB.twoChart, pullU, res]
+    have hLB := LB.isLB_pull
+      (LB.isLB_linComb (originLB_isLB W) (fun i => (f i).left) e)
+      (identitySection A)
+    have hunit : ((LB.LinComb (originLB W) (fun i => (f i).left) e).pull
+        (identitySection A)).g (fun _ _ => true) (fun _ _ => true) = 1 :=
+      hLB.g_self _
+    rw [hunit]
   change res _ 1 = _ * res _ 1
-  rw [map_one, map_one, hg, one_mul]
+  rw [map_one, map_one, hg, _root_.one_mul]
 
 end WeierstrassCurve
 
