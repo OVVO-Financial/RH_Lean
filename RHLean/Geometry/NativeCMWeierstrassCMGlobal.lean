@@ -88,15 +88,22 @@ theorem exists_cm_scheme_generator :
     exact hVC₀
   have hω : (α : ℂ) = omega G τ := hω₀
   have hA : A.map (F.val : F →+* ℂ) = A₀.map (F₀.val : F₀ →+* ℂ) := by
-    rw [A, Polynomial.map_map]
+    change (A₀.map i.toRingHom).map (F.val : F →+* ℂ) = _
+    rw [Polynomial.map_map]
     rfl
   have hD : D.map (F.val : F →+* ℂ) = D₀.map (F₀.val : F₀ →+* ℂ) := by
-    rw [D, Polynomial.map_map]
+    change (D₀.map i.toRingHom).map (F.val : F →+* ℂ) = _
+    rw [Polynomial.map_map]
     rfl
   have hB : (derivative A * D - A * derivative D).map (F.val : F →+* ℂ) =
       (derivative A₀ * D₀ - A₀ * derivative D₀).map (F₀.val : F₀ →+* ℂ) := by
     simp only [Polynomial.map_sub, Polynomial.map_mul, ← derivative_map, hA, hD]
+  -- Work in the actual normalized point group; transfer coordinate
+  -- equalities separately from the dependent nonsingularity witnesses.
   let φ := pointConjugate hVC (rescaledCMAction G τ C)
+  have hφeq (P : (V.baseChange ℂ).toAffine.Point) :
+      pointCongr hVC (φ P) = rescaledCMAction G τ C (pointCongr hVC P) :=
+    pointCongr_pointConjugate hVC (rescaledCMAction G τ C) P
   have hφ : ∀ (x y : ℂ) (h : (V.baseChange ℂ).toAffine.Nonsingular x y),
       (aeval x D = 0 → φ (.some x y h) = 0) ∧
       (aeval x D ≠ 0 → ∃ h', φ (.some x y h) =
@@ -105,26 +112,47 @@ theorem exists_cm_scheme_generator :
             (aeval x (derivative A * D - A * derivative D) / aeval x D ^ 2) * y) h') := by
     intro x y h
     have hp : (latticeCurve (rescaledPeriods G τ C)).toAffine.Nonsingular x y := hVC ▸ h
-    have hd : aeval x D = (D₀.map (F₀.val : F₀ →+* ℂ)).eval x := by
-      rw [← Polynomial.eval_map, hD]
-    have ha : aeval x A = (A₀.map (F₀.val : F₀ →+* ℂ)).eval x := by
-      rw [← Polynomial.eval_map, hA]
+    have hd : aeval x D = (D₀.map (F₀.val : F₀ →+* ℂ)).eval x :=
+      (show aeval x D = (D.map (F.val : F →+* ℂ)).eval x from
+        (Polynomial.eval_map (F.val : F →+* ℂ) x).symm).trans
+          (congrArg (fun p : ℂ[X] => p.eval x) hD)
+    have ha : aeval x A = (A₀.map (F₀.val : F₀ →+* ℂ)).eval x :=
+      (show aeval x A = (A.map (F.val : F →+* ℂ)).eval x from
+        (Polynomial.eval_map (F.val : F →+* ℂ) x).symm).trans
+          (congrArg (fun p : ℂ[X] => p.eval x) hA)
     have hb : aeval x (derivative A * D - A * derivative D) =
         ((derivative A₀ * D₀ - A₀ * derivative D₀).map (F₀.val : F₀ →+* ℂ)).eval x := by
+      change (derivative A * D - A * derivative D).eval₂
+        (F.val : F →+* ℂ) x = _
       rw [← Polynomial.eval_map, hB]
+    have hαC : algebraMap F ℂ α = omega G τ := hω
     constructor
     · intro hx
       apply (pointCongr hVC).injective
-      change pointCongr hVC (pointConjugate hVC (rescaledCMAction G τ C) _) = _
-      rw [pointCongr_pointConjugate, map_zero, pointCongr_some]
+      rw [hφeq, map_zero, pointCongr_some]
       exact (he₀ x y hp).1 (hd ▸ hx)
     · intro hx
       obtain ⟨hp', he⟩ := (he₀ x y hp).2 (hd ▸ hx)
-      rw [← ha, ← hd, ← hb, ← hω] at hp' he
-      refine ⟨hVC.symm ▸ hp', ?_⟩
+      have hpa : (latticeCurve (rescaledPeriods G τ C)).toAffine.Nonsingular
+          (aeval x A / aeval x D)
+          ((algebraMap F ℂ α)⁻¹ *
+            (aeval x (derivative A * D - A * derivative D) / aeval x D ^ 2) * y) := by
+        rw [ha, hd, hb, hαC]
+        exact hp'
+      refine ⟨hVC.symm ▸ hpa, ?_⟩
       apply (pointCongr hVC).injective
-      change pointCongr hVC (pointConjugate hVC (rescaledCMAction G τ C) _) = _
-      rw [pointCongr_pointConjugate, pointCongr_some, he, pointCongr_some]
+      calc
+        _ = rescaledCMAction G τ C (.some x y hp) :=
+          (hφeq (.some x y h)).trans (congrArg (rescaledCMAction G τ C)
+            (pointCongr_some hVC h))
+        _ = .some ((A₀.map (F₀.val : F₀ →+* ℂ)).eval x /
+              (D₀.map (F₀.val : F₀ →+* ℂ)).eval x)
+            ((omega G τ)⁻¹ *
+              (((derivative A₀ * D₀ - A₀ * derivative D₀).map
+                (F₀.val : F₀ →+* ℂ)).eval x /
+                (D₀.map (F₀.val : F₀ →+* ℂ)).eval x ^ 2) * y) hp' := he
+        _ = _ := by
+          simp only [pointCongr_some, ha, hd, hb, hαC]
   obtain ⟨f, hf, hopen, hfx⟩ := exists_global_hom_of_rational_point_map V α hα A D
     hshort hID φ hφ x₀ y₀ hxy₀ hDxy₀
   have hpoint : ∀ P : (latticeCurve (rescaledPeriods G τ C)).toAffine.Point,
@@ -136,21 +164,32 @@ theorem exists_cm_scheme_generator :
       (pointConjugate hVC (rescaledCMAction G τ C) ((pointCongr hVC).symm P)) = _
     rw [pointConjugate_pointCongr_symm]
   have hquad : (f ≫ f) * (𝟙 (schemeOver V)) ^ generatorNorm G = f := by
+    -- Supply the actual structural witness before detecting equality
+    -- on the normalized point group.
+    have : LocallyOfFiniteType (schemeOver V).hom :=
+      inferInstanceAs (LocallyOfFiniteType (toSpec V))
     apply GeometricPoints.over_hom_ext_of_embedded_points (K := ℂ)
     intro x
     obtain ⟨P, rfl⟩ := (affinePointEquiv V ℂ).surjective x
     obtain ⟨Q, rfl⟩ := (pointCongr hVC).symm.surjective P
+    change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+      ((f ≫ f) * (𝟙 (schemeOver V)) ^ generatorNorm G) =
+      ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫ f
     rw [MonObj.comp_mul, ← Category.assoc, hpoint, hpoint,
       MonObj.comp_pow, Category.comp_id, hpoint]
     have hn : ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ^ generatorNorm G =
         ofAffinePoint V ℂ ((pointCongr hVC).symm (generatorNorm G • Q)) := by
-      have he := (affinePointMulEquiv V ℂ).map_pow
-        (Multiplicative.ofAdd ((pointCongr hVC).symm Q)) (generatorNorm G)
-      simpa only [map_nsmul] using! he.symm
+      have he : ofAffinePoint V ℂ (generatorNorm G • (pointCongr hVC).symm Q) =
+          ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ^ generatorNorm G :=
+        (affinePointMulEquiv V ℂ).map_pow
+          (Multiplicative.ofAdd ((pointCongr hVC).symm Q)) (generatorNorm G)
+      exact he.symm.trans (congrArg (ofAffinePoint V ℂ)
+        (map_nsmul (pointCongr hVC).symm Q (generatorNorm G)).symm)
     rw [hn, ← ofAffinePoint_add, ← map_add, rescaledCMAction_quadratic]
   have hV : V = shortModel
       ((W.baseChange M).map (IntermediateField.inclusion (hMF₀.trans h₀F)).toRingHom) := by
-    rw [V, hV₀, shortModel_map, _root_.WeierstrassCurve.map_map]
+    change V₀.map i.toRingHom = _
+    rw [hV₀, shortModel_map, _root_.WeierstrassCurve.map_map]
     rfl
   refine ⟨F, hF, hMF₀.trans h₀F, V, inferInstance, α, A, D, hα, hshort, hID,
     hVC, f, hV, hω, hm₀.map i.toRingHom, ?_, ?_, ?_, ?_, hf, hopen, hpoint, hquad⟩
