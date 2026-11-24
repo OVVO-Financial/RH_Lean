@@ -44,6 +44,7 @@ variable {F : Type} [Field F] [Algebra F ℂ]
     (V : _root_.WeierstrassCurve F) (L : PeriodPair)
     (hV : V.baseChange ℂ = latticeCurve L)
 
+include hV in
 theorem normalizedComparison :
     (1 : _root_.WeierstrassCurve.VariableChange ℂ) •
       (V.baseChange ℂ).baseChange ℂ = latticeCurve L := by
@@ -69,7 +70,8 @@ private theorem identityChange_point {U T : _root_.WeierstrassCurve ℂ}
     rw [variableChangePoint_some, pointCongr_symm_some,
       _root_.WeierstrassCurve.Affine.Point.some.injEq]
     constructor <;> simp only [_root_.WeierstrassCurve.VariableChange.one_def,
-      Units.val_one, one_pow, one_mul, mul_zero, zero_mul, add_zero]
+      Units.val_one, one_pow, mul_zero, zero_mul, add_zero] <;>
+      exact _root_.one_mul _
 
 /-- First identify the affine exponential, independently of any scheme map. -/
 private theorem normalized_affine_exp (z : ℂ) :
