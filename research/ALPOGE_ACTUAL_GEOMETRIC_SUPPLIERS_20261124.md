@@ -84,3 +84,7 @@ actual supplier verification. No direct merge into main. No claim of RH
 until #1201 independently supplies the complete uniform critical estimate
 and the closed Mathlib RiemannHypothesis theorem. No agent launch or
 schedule changes are implied by this repository update.
+
+## First #1208 hosted failure — graph-kernel linter
+
+At `b8e18c7`, [Lean source audit run 45398505544](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45398505544) passed the static audit but [Hosted Lean build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45398505544/job/138460873597) stopped on the overlapping-instance warning in `KernelNoTorsion.eq_one_of_pow_eq_one_of_comp_eq_one` (line 75); the changed research closure was skipped and cancellation succeeded. The helper already receives etaleness explicitly. Its only base-ring-specific step is `fractionField_map_injective`, which uses a domain and its fraction field. Remove the redundant DVR instance from the helper, retaining its original proof and all torsion, flatness/etaleness and generic-isomorphism premises. The actual DVR wrapper `graph_kernel_no_torsion` is unchanged, as are all warning-fatal checks and guarded roots. Refresh the exact source hash. This is a proposed repair of the first reached blocker, not certification of downstream geometry.

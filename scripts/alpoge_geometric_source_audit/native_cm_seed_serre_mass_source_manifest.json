@@ -1235,8 +1235,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGraphKernelTorsion.lean",
-      "sha256": "cf421c76a88d851595ebee06c4fc8c783f97650d91309c73a03f34a854576d8d",
-      "lines": 130
+      "sha256": "2d64d34a8bb31f5fd8e34cabaf9e27b3e85bb5833400c5d9602f11a65b107af3",
+      "lines": 133
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGroupEndFlat.lean",
