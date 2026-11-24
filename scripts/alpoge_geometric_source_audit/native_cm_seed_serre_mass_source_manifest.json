@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "06b99e2e30547948ac0f400287fad3624b8380ddda2ebf2fad6de64d8b7a3498",
-      "lines": 303
+      "sha256": "ea645093ce6d9d45e83375a82c472341b3b98adb2d1ca2516be702a61598e72a",
+      "lines": 386
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -1165,8 +1165,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMOpen.lean",
-      "sha256": "93ad7f7e9b6dab555c03745875db775a973a977964dbb020dea12b50ca2ba13e",
-      "lines": 106
+      "sha256": "9f7b8334aa1e9edd4c71b186d91f215bab6eddaed0a94fb8544d97c955cc4b93",
+      "lines": 109
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMOrderAction.lean",
@@ -1415,13 +1415,13 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "b627c113dee8d8c8c2fe2073100cb0519c978beb94181adb06d854126c3a67ec",
-      "lines": 181
+      "sha256": "5ec1175f5419b76798066f75a89c6d5447795c4ee4f417875d567a58e3c69796",
+      "lines": 394
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
-      "sha256": "9a59387d23da54b819ba40fbdc611cf88848cb0f1836b2478f28e5a833ebe821",
-      "lines": 100
+      "sha256": "7f549873f085407362d6d3acd997aed870e3834503afbe8a2c0f4f5f582402ea",
+      "lines": 156
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIsogeny.lean",
@@ -1435,8 +1435,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalSchemeOpen.lean",
-      "sha256": "3de8263557477e27a99019b57d2edbc89d95fd43111f5cade3ee4067e3442511",
-      "lines": 237
+      "sha256": "cd0e1ad4ca20c8b433ca676e20ab9ebfa7f9033c39495fc492323dc9eaa7afbe",
+      "lines": 331
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassReducedGroup.lean",
@@ -1810,8 +1810,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspShiftedVacua.lean",
-      "sha256": "889602c7e5427a277385332aab506117fe3c19ac4a9d9d3024afc499b8848e69",
-      "lines": 282
+      "sha256": "970dd26c36d501182dbcbcdf621c4b38a51114db0299d86102e1bdcb7cf4fcde",
+      "lines": 284
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSiegelAction.lean",
@@ -1997,6 +1997,13 @@
       "run_id": 45325705993,
       "preflight_job_id": 138214875115,
       "result": "PREFLIGHT_FAILED_SCALAR_ADD_AND_POSITIVE_FACTOR_CANCELLATION_ARGUMENT_ORDER",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "22539fc4c6a16de3779a6e62b23dce0264804335",
+      "run_id": 45393478344,
+      "preflight_job_id": 138443224895,
+      "result": "PREFLIGHT_FAILED_DOWNSTREAM_GEOMETRY_PRINCIPAL_CYCLIC_MODULE_BUILT",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

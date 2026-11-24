@@ -429,7 +429,17 @@ run_cmd do
     ``RHLean.Geometry.NumberFieldDescent.jointMapMatrix_gram_det_le_of_rank_saturation_phi,
     ``RHLean.Analysis.AlpogeThin.nativePrincipalCyclicGm_eq_statementOCGz,
     ``RHLean.Analysis.AlpogeThin.nativePrincipalCyclicGm_eq,
-    ``RHLean.Analysis.AlpogeThin.nativeSmallEpsilonWindowBound_of_principalCyclic]
+    ``RHLean.Analysis.AlpogeThin.nativeSmallEpsilonWindowBound_of_principalCyclic,
+    ``RHLean.Geometry.NativeCM.Weierstrass.cubic_identity_of_rational_equation_between,
+    ``RHLean.Geometry.NativeCM.Weierstrass.rationalIdentityBetween_of_map,
+    ``RHLean.Geometry.NativeCM.Weierstrass.rationalIdentityBetween_of_point_formula,
+    ``RHLean.Geometry.NativeCM.Weierstrass.cubic_equation_of_identity_between,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.rationalTarget_equation_between,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.rationalOpenHomBetween,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.rationalOpenHomBetween_fieldPoint,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.exists_global_hom_of_rational_point_map_between,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_scheme_latticeIsogeny,
+    ``RHLean.Geometry.NativeCM.exists_inverseIdeal_reverse_scheme_isogeny]
   let env ← getEnv
   for root in roots do
     unless env.contains root do
