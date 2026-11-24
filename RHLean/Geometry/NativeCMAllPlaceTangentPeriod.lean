@@ -76,6 +76,7 @@ theorem exponential_coordinates {z : ℂ} (hz : z ∉ L.lattice) :
       (hC ▸ Weierstrass.latticeCurve_nonsingular L hz), ?_⟩
   rw [exponential_apply, Weierstrass.latticePoint_of_notMem _ hz,
     Weierstrass.variableChangePoint_some]
+  rfl
 
 /-- The generic near-origin comparison retains the actual equation and
 its coordinate-change unit. -/
@@ -228,7 +229,8 @@ theorem embeddingProfile_pos (hΔ : W.Δ = 1) (σ : F →+* ℂ) :
 
 theorem embeddingProfile_conjugate (hΔ : W.Δ = 1) (σ : F →+* ℂ) :
     embeddingProfile W hΔ ((starRingEnd ℂ).comp σ) = embeddingProfile W hΔ σ := by
-  change placeProfile W hΔ (InfinitePlace.mk (ComplexEmbedding.conjugate σ)) = _
+  change placeProfile W hΔ (InfinitePlace.mk (ComplexEmbedding.conjugate σ)) =
+    placeProfile W hΔ (InfinitePlace.mk σ)
   rw [InfinitePlace.mk_conjugate_eq]
 
 theorem neg_log_embeddingProfile (hΔ : W.Δ = 1) (σ : F →+* ℂ) :

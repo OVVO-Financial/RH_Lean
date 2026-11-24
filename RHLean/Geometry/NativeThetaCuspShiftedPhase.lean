@@ -48,6 +48,7 @@ theorem quadratic_add {N : ℕ} (neg : Fin N → Bool) (w : 𝓞 H.E)
   have h1 : Ambient.pair H neg y (w • x) =
       -Ambient.pair H neg x (bar H w • y) := by
     rw [Ambient.pair_skew, Ambient.pair_adjoint]
+    rfl
   have h2 : Ambient.pair H neg x (w • y) + Ambient.pair H neg x (bar H w • y) =
       Ambient.pair H neg x y := by
     rw [← Ambient.pair_add_right, ← add_smul, hw, one_smul]
@@ -122,7 +123,7 @@ theorem phase_two {N : ℕ} {neg : Fin N → Bool} (w : 𝓞 H.E)
     (x : κ → Fin N → H.E) (hx : ∀ k, x k ∈ L) : phase H neg w (2 • x) = 1 := by
   rw [two_nsmul, phase_add H w hw hL x x hx hx]
   simp only [Ambient.pair_self, Finset.sum_const_zero, Rat.cast_zero, mul_zero,
-    Complex.exp_zero, mul_one, ← pow_two, phase_sq H w hL x hx]
+    Complex.exp_zero, ← pow_two, phase_sq H w hL x hx, one_pow]
 
 section Prescribed
 
@@ -135,6 +136,7 @@ variable [IsCMField H.E]
     (hbar : ∀ a : 𝓞 H.E, G.bar a = H.conj • a)
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The global field phase equals the already constructed common rational
 phase of the exact prescribed datum. -/
 theorem prescribed_commonPhase

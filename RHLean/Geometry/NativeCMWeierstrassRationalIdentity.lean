@@ -55,7 +55,7 @@ theorem rationalIdentity_of_map {K' : Type*} [Field K'] (f : K →+* K')
     (h : RationalIdentity (W.map f) (f α) (A.map f) (D.map f)) :
     RationalIdentity W α A D := by
   unfold RationalIdentity at h ⊢
-  apply Polynomial.map_injective f.injective
+  apply Polynomial.map_injective f f.injective
   simpa only [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_sub,
     Polynomial.map_pow, Polynomial.map_C, Polynomial.map_X, ← derivative_map,
     map_pow, WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆] using! h

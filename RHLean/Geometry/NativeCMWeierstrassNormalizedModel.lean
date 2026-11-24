@@ -43,6 +43,7 @@ def shortChange : WeierstrassCurve.VariableChange K :=
 def shortModel : WeierstrassCurve K :=
   ⟨0, 0, 0, -W.c₄ / 48, -W.c₆ / 864⟩
 
+omit [CharZero K] in
 @[simp] theorem shortChange_u : (shortChange W).u = 1 := rfl
 
 theorem shortChange_spec : shortChange W • W = shortModel W := by
@@ -59,18 +60,19 @@ theorem shortChange_spec : shortChange W • W = shortModel W := by
   · rw [WeierstrassCurve.variableChange_a₄]
     dsimp [shortChange, shortModel, WeierstrassCurve.c₄,
       WeierstrassCurve.b₂, WeierstrassCurve.b₄]
+    simp only [inv_one, Units.val_one]
     ring
   · rw [WeierstrassCurve.variableChange_a₆]
     dsimp [shortChange, shortModel, WeierstrassCurve.c₆,
       WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆]
+    simp only [inv_one, Units.val_one]
     ring
 
 variable {K' : Type*} [Field K'] [CharZero K'] (φ : K →+* K')
 
 theorem shortChange_map : (shortChange W).map φ = shortChange (W.map φ) := by
   ext
-  · change (Units.map φ (1 : Kˣ) : K') = 1
-    exact map_one φ
+  · exact map_one φ
   · change φ (-W.b₂ / 12) = -(W.map φ).b₂ / 12
     rw [map_div₀, map_neg, map_ofNat, WeierstrassCurve.map_b₂]
   · change φ (-W.a₁ / 2) = -φ W.a₁ / 2
@@ -170,7 +172,8 @@ theorem normalizedEquationPointEquiv_eq :
       fun h => hz ((rescaledPeriods_mem G τ C z).2 h)
     obtain ⟨hr, hs, ht⟩ := Weierstrass.variableChange_translations W (periodPair G τ) C hC
     rw [rescaledEquationPointEquiv_latticePoint, equationExponential_apply]
-    change Weierstrass.variableChangePoint (Weierstrass.shortChange W) _
+    change Weierstrass.variableChangePoint (Weierstrass.shortChange W)
+        (shortChange_eq_rescaled_latticeCurve G τ C W hC)
       (Weierstrass.latticePoint (rescaledPeriods G τ C) z) =
         Weierstrass.variableChangePoint C hC
           (Weierstrass.latticePoint (periodPair G τ) ((C.u : ℂ) * z))
@@ -195,6 +198,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (W : WeierstrassCurve (𝓞 M)) (C : WeierstrassCurve.VariableChange ℂ)
     (hC : C • W.baseChange ℂ = latticeCurve (periodPair G τ))
 
+omit [NumberField M] in
 include hC in
 /-- The actual rescaled equation is the base change of an equation over M. -/
 theorem rescaled_model_defined_over_same_field :
@@ -204,6 +208,7 @@ theorem rescaled_model_defined_over_same_field :
   change shortModel (W.baseChange ℂ) = _
   exact shortModel_eq_rescaled_latticeCurve G τ C (W.baseChange ℂ) hC
 
+omit [NumberField M] in
 include hC in
 /-- Its equation isomorphism back to W is also defined over M, with unit one. -/
 theorem normalized_change_defined_over_same_field :

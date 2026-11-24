@@ -38,7 +38,8 @@ def RelationsLift (I : Ideal A) (M : Type w) [AddCommGroup M] [Module A M] : Pro
 
 variable {M : Type w} [AddCommGroup M] [Module A M]
 
-theorem range_lTensor_le {F G : Type*} [AddCommGroup F] [Module A F] [AddCommGroup G] [Module A G]
+theorem range_lTensor_le {F G : Type*} [AddCommMonoid F] [Module A F] [AddCommMonoid G]
+    [Module A G]
     (h : G →ₗ[A] F) (N : Submodule A F) (hN : ∀ g, h g ∈ N) :
     range (h.lTensor M) ≤ range (N.subtype.lTensor M) := by
   rintro _ ⟨y, rfl⟩
@@ -86,6 +87,7 @@ theorem relationsLift_of_flat {I : Ideal A} {C : Type*} [CommRing C] [Algebra A 
     rw [← hc j]
     simp [map_sum, ha, mul_comm]
 
+set_option backward.isDefEq.respectTransparency false in
 theorem relationsLift_pow {π : A} (h : RelationsLift (Ideal.span {π}) M)
     (hreg : IsSMulRegular M π) (k : ℕ) : RelationsLift (Ideal.span {π} ^ k) M := by
   induction k with
@@ -125,13 +127,13 @@ theorem relationsLift_pow {π : A} (h : RelationsLift (Ideal.span {π}) M)
       rw [← hreg hm]
       exact Submodule.smul_mem_smul (Ideal.pow_mem_pow (Ideal.mem_span_singleton_self π) k)
         Submodule.mem_top)
-    rw [← lTensor_comp_apply]
-    refine range_lTensor_le (s ∘ₗ (Submodule.comap g (Ideal.span {π} ^ k)).subtype) _
-      (fun y => ?_) ⟨x₃, rfl⟩
-    have := y.2
-    change f (s y) ∈ Ideal.span {π} ^ (k + 1)
-    rw [← comp_apply, hfs, pow_succ']
-    exact Ideal.mul_mem_mul (Ideal.mem_span_singleton_self π) this
+    refine range_lTensor_le (s ∘ₗ (Submodule.comap g (Ideal.span {π} ^ k)).subtype)
+      (Submodule.comap f (Ideal.span {π} ^ (k + 1))) (fun y => ?_) ⟨x₃, ?_⟩
+    · have hy : g y ∈ Ideal.span {π} ^ k := y.2
+      change f (s y) ∈ Ideal.span {π} ^ (k + 1)
+      rw [← LinearMap.comp_apply, hfs, LinearMap.smul_apply, smul_eq_mul, pow_succ']
+      exact Ideal.mul_mem_mul (Ideal.mem_span_singleton_self π) hy
+    · exact lTensor_comp_apply ..
 
 theorem flat_of_relationsLift [IsNoetherianRing A] (B : Type v) [CommRing B] [Algebra A B]
     [IsNoetherianRing B] [Module B M] [IsScalarTower A B M] [Module.Finite B M] {I : Ideal A}
