@@ -414,6 +414,7 @@ theorem mixedSerreExponential_coefficient (B : Ideal (𝓞 H.E))
         (rawCoefficientAction H q a (mixedInputCoordinates H p q v).2)) = _
     rw [pureSerreExponential_coefficient, EllipticSeed.conjugateTensor_smul]
 
+include hcompat in
 /-- The existing prescribed period map is now the kernel of the actual
 positive/conjugate-seed tensor product for every allowed original j. -/
 theorem exists_prescribedMixedSerreExponential (B : Ideal (𝓞 H.E))

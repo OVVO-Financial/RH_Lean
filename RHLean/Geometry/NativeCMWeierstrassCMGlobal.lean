@@ -40,6 +40,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (hC : C • W.baseChange ℂ = latticeCurve (periodPair G τ))
     (hw : ((w : M) : ℂ) = omega G τ)
 
+include hC hw in
 /-- The actual CM generator extends by two explicit regular formulas to a
 global endomorphism over a proved finite extension of the same number field. -/
 theorem exists_cm_scheme_generator :

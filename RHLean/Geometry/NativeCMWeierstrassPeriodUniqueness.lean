@@ -143,6 +143,7 @@ theorem comparison_tangent_eq_placeProfile (v : InfinitePlace F)
   Weierstrass.equation_comparison_tangent_length (complexEquation W v)
     (lattice W hΔ v) L (coordinateChange W hΔ v) C (comparison W hΔ v) hC
 
+include hΔ in
 /-- Its negative logarithm is the logarithmic period of that same
 arbitrary comparison, not merely that of the chosen representative. -/
 theorem comparison_neg_log_tangent (v : InfinitePlace F)

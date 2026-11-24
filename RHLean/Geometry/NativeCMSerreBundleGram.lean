@@ -72,6 +72,7 @@ variable {φ : Frame} (H : HostRaw φ) [IsCMField H.E]
     (F : Type) [Field F] [Algebra H.E F]
     (hbar : ∀ a : 𝓞 H.E, G.bar a = H.conj • a)
 
+include hbar in
 theorem coefficientEmbedding_conjugate (σ : F →+* ℂ) (ρ : RootAut G) (x : H.E) :
     σ (algebraMap H.E F (ρ.1 (H.conj x))) =
       conj (σ (algebraMap H.E F (ρ.1 x))) := by

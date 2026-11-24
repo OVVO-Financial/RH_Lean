@@ -36,6 +36,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (hC : C • W.baseChange ℂ = latticeCurve (periodPair G τ))
     (hw : ((w : M) : ℂ) = omega G τ)
 
+include hC hw in
 /-- The actual finite-field localized map, with its exact original CM point
 formula, is constructed from the same W and the same analytic scale C.u. -/
 theorem exists_cm_rational_scheme_open :

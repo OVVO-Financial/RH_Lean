@@ -63,14 +63,14 @@ theorem point_coordinate_ne_zero (P : Fin 3 → ℂ)
 
 theorem affinePoint_origin_coordinates_ne_zero {x y : ℂ}
     (hp : (W.baseChange ℂ).toAffine.Nonsingular x y)
-    (h : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hp.equation)).left ⁻¹ᵁ
+    (h : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hp.1)).left ⁻¹ᵁ
       originOpen W) : x ≠ 0 ∧ y ≠ 0 := by
-  let p := (ptOver W ![x, y, 1] (isUnimodularSol_some hp.equation)).left
+  let p := (ptOver W ![x, y, 1] (isUnimodularSol_some hp.1)).left
   have hy : y ≠ 0 := point_coordinate_ne_zero W _ _ 1
     (h.trans (p.preimage_mono (originOpen_le W)))
   have ha : ⊤ ≤ p ⁻¹ᵁ coordOpen W 2 := by
     change ⊤ ≤ ptHom W (algebraMap R ℂ) ![x, y, 1]
-      (isUnimodularSol_some hp.equation) ⁻¹ᵁ coordOpen W 2
+      (isUnimodularSol_some hp.1) ⁻¹ᵁ coordOpen W 2
     rw [ptHom_preimage_coordOpen]
     exact (PrimeSpectrum.basicOpen_one (R := ℂ)).ge
   have hb : ⊤ ≤ p ⁻¹ᵁ (originOpen W ⊓ coordOpen W 2) :=
@@ -78,7 +78,7 @@ theorem affinePoint_origin_coordinates_ne_zero {x y : ℂ}
   have hu := (isUnit_ratioOn_one_zero (W := W) inf_le_left inf_le_right).map
     (evalPt p (originOpen W ⊓ coordOpen W 2) hb)
   have e := evalPt_ptHom_ratioOn_mul (algebraMap R ℂ) ![x, y, 1]
-    (isUnimodularSol_some hp.equation)
+    (isUnimodularSol_some hp.1)
     (inf_le_left.trans (originOpen_le W)) hb 0
   exact ⟨e ▸ mul_ne_zero hu.ne_zero hy, hy⟩
 
@@ -102,7 +102,7 @@ theorem analyticPoint_of_mem {z : ℂ} (hz : z ∈ L.lattice) :
 theorem analyticPoint_of_notMem {z : ℂ} (hz : z ∉ L.lattice) :
     ∃ hp : (W.baseChange ℂ).toAffine.Nonsingular (affineX L C z) (affineY L C z),
       analyticPoint W L C hC z = ptOver W ![affineX L C z, affineY L C z, 1]
-        (isUnimodularSol_some hp.equation) := by
+        (isUnimodularSol_some hp.1) := by
   obtain ⟨hp, he⟩ := exponential_coordinates L (W.baseChange ℂ) C hC hz
   exact ⟨hp, by rw [analyticPoint, he, ofAffinePoint_some]⟩
 
@@ -118,7 +118,7 @@ theorem analyticPoint_affine_iff (z : ℂ) :
   · obtain ⟨hp, he⟩ := analyticPoint_of_notMem W L C hC hz
     rw [he]
     have ha : ⊤ ≤ (ptOver W ![affineX L C z, affineY L C z, 1]
-        (isUnimodularSol_some hp.equation)).left ⁻¹ᵁ coordOpen W 2 := by
+        (isUnimodularSol_some hp.1)).left ⁻¹ᵁ coordOpen W 2 := by
       change ⊤ ≤ ptHom W (algebraMap R ℂ) _ _ ⁻¹ᵁ coordOpen W 2
       rw [ptHom_preimage_coordOpen]
       exact (PrimeSpectrum.basicOpen_one (R := ℂ)).ge

@@ -288,6 +288,7 @@ theorem coefficient_half_quotient_equiv
     (coefficientLevelPoint_zero_iff H G hbar B hB τ₀ V C hVC a hact hcompat N hN)
     (coefficientLevelPoint_surjective_torsion H G hbar B hB τ₀ V C hVC a hact hcompat N hN)
 
+include hVC hact hcompat in
 /-- The cardinal of actual half-torsion is the norm of the half ideal,
 because the unchanged coefficient lattice has projective O(E)-rank one. -/
 theorem coefficient_half_torsion_card
