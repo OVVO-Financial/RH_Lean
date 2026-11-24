@@ -57,8 +57,8 @@ theorem nativePrincipalCyclicGm_eq_statementOCGz (x : ℝ) :
       exact Formalism.HC.Level.mem_cyc _
   change L.Gm x = _
   rw [Formalism.HC.Level.Gm, Formalism.HC.Level.Nt, hkept]
-  simp only [Finset.erase_singleton, Finset.sum_empty, add_zero]
-  rfl
+  simpa only [Finset.erase_singleton, Finset.sum_empty, add_zero] using
+    (show Formalism.Gz x = RHLean.Analysis.AlpogeNativeBoundHandoff.statementOCGz x from rfl)
 
 /-- The complete principal cyclic source is RH_Lean's literal prime-power
 source, including the Euler centering. -/
