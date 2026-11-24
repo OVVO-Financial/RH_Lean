@@ -398,7 +398,10 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.fractionField_fromNormalization_isIso,
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finiteProjection_isIso,
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.existsUnique_elliptic_hom_extension_dvr,
-    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_elliptic_extension_integral_coordinate]
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_elliptic_extension_integral_coordinate,
+    ``RHLean.Geometry.NativeCM.inverseIdealPeriod_normalized_maps,
+    ``RHLean.Geometry.NativeCM.exists_inverseIdealTangentClassModels_preserving_seed,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent.exists_tangent_scalar_between]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

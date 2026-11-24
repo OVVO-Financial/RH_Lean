@@ -72,7 +72,7 @@ theorem nativeDyadicLocalShiftCost_scalar_eventually
   have hN : (Nat.ceil (Amax / beta) : ℝ) ≤ 4 * x ^ (4 : ℕ) * E := by
     calc
       _ ≤ Amax / beta + 1 := (Nat.ceil_lt_add_one (div_nonneg hAmax hbeta.le)).le
-      _ ≤ (x + 1) * (n * E) + 1 := add_le_add_right hratio 1
+      _ ≤ (x + 1) * (n * E) + 1 := by linarith only [hratio]
       _ ≤ (x + 2) * (n * E) := by nlinarith only [hnE]
       _ ≤ (4 * x) * (n * E) :=
         mul_le_mul_of_nonneg_right (by linarith) (by positivity)
@@ -146,7 +146,10 @@ theorem nativeDyadicLocalShiftCost_scalar_eventually
     b = b * 1 := by ring
     _ ≤ b * (Delta * x ^ eps) := mul_le_mul_of_nonneg_left hDeltaMul hb0.le
     _ = _ := by ring)
-  have hfinal := (mul_le_mul_iff_right₀ (Real.rpow_pos_of_pos hx0 eps)).mp hpaid'
+  have hfinal : F * x ≤ b * Delta := by
+    by_contra! hgt
+    exact (not_lt_of_ge hpaid')
+      (mul_lt_mul_of_pos_right hgt (Real.rpow_pos_of_pos hx0 eps))
   exact (div_le_div_iff₀ (mul_pos hb0 hDelta0) hx0).mpr
     (by simpa only [one_mul] using hfinal)
 

@@ -171,6 +171,116 @@ theorem integralVector_comp_eq_vec (hR : Function.Injective (algebraMap R ℂ)) 
 
 end ActualMorphism
 
+
+section BetweenActualModels
+
+variable {R : Type} [CommRing R] [_root_.IsReduced R] [Algebra R ℂ]
+    (W V : _root_.WeierstrassCurve R) [W.IsElliptic] [V.IsElliptic]
+    (L L' : PeriodPair) (C D : _root_.WeierstrassCurve.VariableChange ℂ)
+    (hC : C • (W.baseChange ℂ).baseChange ℂ = Weierstrass.latticeCurve L)
+    (hD : D • (V.baseChange ℂ).baseChange ℂ = Weierstrass.latticeCurve L')
+    (f : schemeOver W ⟶ schemeOver V) [CategoryTheory.IsMonHom f]
+
+/-- The same existing all-regular-section derivative argument, applied to
+two actual equations instead of an endomorphism. The scalar is read from
+the actual integral dual-number vector. It is the original analytic
+multiplier times the source/target coordinate-change ratio, not a
+prescribed geometric height or period. The morphism and its action on
+the actual exponential are retained as explicit prerequisites. -/
+theorem exists_tangent_scalar_between (β : ℂ)
+    (hf : ∀ z : ℂ,
+      expPoint L (W.baseChange ℂ) C hC z ≫ mapHom W (algebraMap R ℂ) rfl ≫ f.left =
+        expPoint L' (V.baseChange ℂ) D hD (β * z) ≫
+          mapHom V (algebraMap R ℂ) rfl) :
+    ∃ c : R, (integralVector W).left ≫ f.left = vec V c ∧
+      algebraMap R ℂ c = β * (C.u : ℂ) / (D.u : ℂ) := by
+  let j := mapHom W (algebraMap R ℂ) rfl
+  let j' := mapHom V (algebraMap R ℂ) rfl
+  have hf0 : zero W ≫ f.left = zero V := by
+    have h := congrArg Over.Hom.left (IsMonHom.one_hom f)
+    simpa only [Over.comp_left, one_left] using! h
+  have hw : f.left ≫ toSpec V = toSpec W := Over.w f
+  have hg : (vec W 1 ≫ f.left) ≫ toSpec V = spMap (algebraMap R (DualNumber R)) := by
+    rw [Category.assoc, hw]
+    exact ptHom_toSpec W _ _ _
+  have hzero : spMap (TrivSqZeroExt.fstHom R R R).toRingHom ≫
+      (vec W 1 ≫ f.left) = zero V := by
+    rw [← Category.assoc, fst_vec, hf0]
+  obtain ⟨c, hc⟩ := exists_eq_vec V (vec W 1 ≫ f.left) hg hzero
+  refine ⟨c, hc, ?_⟩
+  have hvj : vec (W.baseChange ℂ) 1 ≫ j =
+      spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec W 1 := by
+    simpa only [map_one] using! vec_mapHom W (algebraMap R ℂ) 1
+  have hvj' : vec (V.baseChange ℂ) 1 ≫ j' =
+      spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 := by
+    simpa only [map_one] using! vec_mapHom V (algebraMap R ℂ) 1
+  have hvjf : vec (W.baseChange ℂ) 1 ≫ j ≫ f.left =
+      spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c := by
+    rw [← Category.assoc, hvj, Category.assoc, hc]
+  let U := coordOpen V 1
+  let s := ratio V 1 0
+  have hJ : ⊤ ≤ (vec (V.baseChange ℂ) 1 ≫ j') ⁻¹ᵁ U := by
+    rw [hvj']
+    exact fun p _ => vec_top_le_coordOpen V 1 (Set.mem_univ _)
+  have hF : ⊤ ≤ (vec (W.baseChange ℂ) 1 ≫ j ≫ f.left) ⁻¹ᵁ U := by
+    rw [hvjf]
+    exact fun p _ => vec_top_le_coordOpen V c (Set.mem_univ _)
+  have hJ' : ⊤ ≤ vec (V.baseChange ℂ) 1 ⁻¹ᵁ (j' ⁻¹ᵁ U) := by
+    rwa [Scheme.Hom.comp_preimage] at hJ
+  have hF' : ⊤ ≤ vec (W.baseChange ℂ) 1 ⁻¹ᵁ ((j ≫ f.left) ⁻¹ᵁ U) := by
+    rwa [Scheme.Hom.comp_preimage] at hF
+  have ej : (evalPt (vec (V.baseChange ℂ) 1) (j' ⁻¹ᵁ U) hJ'
+      ((j'.app U).hom s)).snd = -1 := by
+    rw [← evalPt_comp _ j' U hJ hJ']
+    have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
+        v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 →
+        (evalPt v U hv s).snd = -1 := by
+      rintro _ hv rfl
+      simpa only [map_one] using! evalPt_extended_vec_ratio V (algebraMap R ℂ) 1 hv
+    exact key _ hJ hvj'
+  have ef : (evalPt (vec (W.baseChange ℂ) 1) ((j ≫ f.left) ⁻¹ᵁ U) hF'
+      (((j ≫ f.left).app U).hom s)).snd = -algebraMap R ℂ c := by
+    rw [← evalPt_comp _ (j ≫ f.left) U hF hF']
+    have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
+        v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c →
+        (evalPt v U hv s).snd = -algebraMap R ℂ c := by
+      rintro _ hv rfl
+      exact evalPt_extended_vec_ratio V (algebraMap R ℂ) c hv
+    exact key _ hF hvjf
+  have hdj : HasDerivAt
+      (fun z => value (expPoint L' (V.baseChange ℂ) D hD z ≫ j') U s)
+      ((D.u : ℂ)⁻¹ * (-1)) 0 := by
+    have hd := section_derivative L' (V.baseChange ℂ) D hD (j' ⁻¹ᵁ U) hJ'
+      ((j'.app U).hom s)
+    rw [ej] at hd
+    exact hd.congr_of_eventuallyEq (Eventually.of_forall fun z =>
+      (value_comp (expPoint L' (V.baseChange ℂ) D hD z) j' U s).symm)
+  have hdf : HasDerivAt
+      (fun z => value (expPoint L (W.baseChange ℂ) C hC z ≫ j ≫ f.left) U s)
+      ((C.u : ℂ)⁻¹ * (-algebraMap R ℂ c)) 0 := by
+    have hd := section_derivative L (W.baseChange ℂ) C hC ((j ≫ f.left) ⁻¹ᵁ U) hF'
+      (((j ≫ f.left).app U).hom s)
+    rw [ef] at hd
+    exact hd.congr_of_eventuallyEq (Eventually.of_forall fun z =>
+      (value_comp (expPoint L (W.baseChange ℂ) C hC z) (j ≫ f.left) U s).symm)
+  have hdj' : HasDerivAt
+      (fun z => value (expPoint L' (V.baseChange ℂ) D hD z ≫ j') U s)
+      ((D.u : ℂ)⁻¹ * (-1)) (β * 0) := by simpa only [mul_zero] using! hdj
+  have hmul := hdj'.comp 0 ((hasDerivAt_id (0 : ℂ)).const_mul β)
+  have hmul' : HasDerivAt
+      (fun z => value (expPoint L (W.baseChange ℂ) C hC z ≫ j ≫ f.left) U s)
+      (((D.u : ℂ)⁻¹ * (-1)) * β) 0 :=
+    hmul.congr_of_eventuallyEq (Eventually.of_forall fun z =>
+      congrArg (fun x => value x U s) (hf z))
+  have he := hdf.unique hmul'
+  calc
+    algebraMap R ℂ c = -(C.u : ℂ) * ((C.u : ℂ)⁻¹ * (-algebraMap R ℂ c)) := by
+      field_simp [C.u.ne_zero] <;> ring
+    _ = -(C.u : ℂ) * (((D.u : ℂ)⁻¹ * (-1)) * β) := by rw [he]
+    _ = β * (C.u : ℂ) / (D.u : ℂ) := by rw [div_eq_mul_inv]; ring
+
+end BetweenActualModels
+
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent
 
 end

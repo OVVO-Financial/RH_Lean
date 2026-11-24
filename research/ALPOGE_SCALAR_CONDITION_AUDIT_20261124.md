@@ -509,3 +509,48 @@ terminal axioms. A theorem assuming the bound, a new equivalent
 hypothesis, a zero-map physical substitute, a tautological geometric
 assignment, or an imported finished RH theorem does not satisfy the
 gate. Until then the PR remains an incomplete research draft.
+
+## 9. Supplier-first application: the actual normalized class lattices
+
+The R25 [mandatory preflight](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45325705993/job/138214875115)
+failed on two argument-order errors in the scalar shift-cost proof. Both
+repairs preserve the exact inequalities; the full build was skipped.
+The R25 integral-extension theorem is not thereby certified.
+
+The existing original supplying proof, `GlobalTheory.exists_cm_curves_of_weierstrass_curves`
+in [ExistsCmCurvesOfWeierstrassCurves.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/ExistsCmCurvesOfWeierstrassCurves.lean#L125),
+uses the ratio of the actual homotheties of the seed and inverse-ideal
+models, then applies the two elementary ideal inclusions. In native
+coordinates the homotheties are u0^(-1) and uC^(-1), so the ratio is
+beta_C=u0/uC. No new period theory is necessary.
+
+Apply the existing `tangentCoordinatePeriods_mem`, `inverseIdealPeriod_forward`
+and `inverseIdealPeriod_reverse` directly in
+[NativeCMInverseIdealClassModels](../RHLean/Geometry/NativeCMInverseIdealClassModels.lean).
+The new normalized-family constructor uses the existing actual common
+discriminant-one model constructor and retains the original principal
+seed, comparison and both actual normalized lattice inclusions at the
+distinguished complex embedding. In particular beta_C is not assigned
+independently of the constructed equations.
+
+The next exact consumer is `mean_log_covolume_ge_mean_classGroup` in
+[NativeCMIsogenyPeriodMean](../RHLean/Geometry/NativeCMIsogenyPeriodMean.lean).
+Its input is beta_C in the common number field, both inclusions across
+all embeddings and reverse derivative integrality. Reuse the original
+all-section tangent proof in
+[NativeCMWeierstrassMorphismTangent](../RHLean/Geometry/NativeCMWeierstrassMorphismTangent.lean)
+for a morphism between distinct equations. The proposed cross-model
+lemma reads c from the actual dual-number tangent vector and obtains
+sigma(c)=alpha*u_source/u_target by comparing the original derivatives.
+This is the same existing derivative argument, not a new cancellation
+mechanism. The equality does not assert a morphism exists.
+
+The first remaining leaf for this period application is the actual
+cross-model generic isogeny from the existing rational lattice map,
+with coefficient descent and its true exponential action. Then apply
+the original integral extension at the local models, compare the
+tangent scalars and use the existing one-sided class mean. In parallel
+the existing local recovery and measured slope suppliers remain to
+be instantiated. Three new axiom-audit roots are proposed. No successful
+Lean closure, all-place period supplier, complete signed estimate or
+RH is claimed; hosted validation remains mandatory.

@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "aef73b46898c20d3e2df950fc0be47ddb6ffa26ab816535fd79948d421cd9171",
-      "lines": 149
+      "sha256": "5b186efa36c15db6e3e4a16b2ed84451de1429f5888d13986056d0ac0a857eab",
+      "lines": 234
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -1295,8 +1295,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMorphismTangent.lean",
-      "sha256": "03c9e4f8ef52502c4a8718dec92004293093301be7f83ef1ede5f21ef5b22b70",
-      "lines": 176
+      "sha256": "4c1d8037fd7a2ddf67aaedda98e18258dc44dc1b95880b478ea652602729fa7f",
+      "lines": 286
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationEtale.lean",
@@ -1857,7 +1857,7 @@
   "unproved_suppliers": [
     "Actual two-curve integral extension: proof source now composes the existing flat graph, finite geometric kernel, quasi-finite projection, Mathlib proper quasi-finite finiteness and smooth normalization to construct the inverse projection over a DVR; local integral tangent coordinate supplied in source. Hosted verification and actual global class-family/CM action integration remain outstanding.",
     "Hosted validation and consumer integration of the actual all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length",
-    "Actual reverse derivative integrality and both lattice inclusions across all embeddings of the inverse ideal-period family; new one-sided class mean supplier in source removes forward derivative integrality (hosted verification required).",
+    "Actual cross-model generic isogeny construction, algebraicity of the common coordinate ratio, all-embedding exponential comparison and reverse derivative integrality. Proposed source now constructs the distinguished-embedding normalized ideal-class family with both lattice inclusions and proves the actual cross-model tangent scalar formula. One-sided mean and all new proofs require hosted validation; no global period supplier is claimed.",
     "Integral seed action and mixed-signature scheme assembly; actual seed cubical/Rosati identities, relative ampleness and trivial kernel of the signed tensor bundle; generic intrinsic Lie coordinates and the exact sigma trace Gram are constructed but unverified",
     "Geometric cover finite-Fourier and character-section tie, isotropic system and global cusp realization/span; full signed-flag periods, finite coefficients with all-embedding bounds and actual CM-fiber half-level marking are constructed but unverified",
     "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares",
@@ -1990,6 +1990,13 @@
       "run_id": 45324333102,
       "preflight_job_id": 138210343352,
       "result": "PREFLIGHT_FAILED_SERVED_PRIME_COERCIONS_AND_UNREACHABLE_LINE_BUNDLE_TACTICS",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "10ee9ce63c0991e304543e25c5a09a7627ac0adb",
+      "run_id": 45325705993,
+      "preflight_job_id": 138214875115,
+      "result": "PREFLIGHT_FAILED_SCALAR_ADD_AND_POSITIVE_FACTOR_CANCELLATION_ARGUMENT_ORDER",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

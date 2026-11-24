@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeCMIdealClassModels
+import RHLean.Geometry.NativeCMWeierstrassTangentCoordinatePeriods
 
 /-!
 # Integral models of the literal inverse-ideal periods
@@ -145,5 +146,89 @@ theorem inverseIdealPeriod_reverse
   rw [seedPeriod_eq_image_one]
   refine ⟨x * (a : quadraticField G), (FractionalIdeal.mem_one_iff _).mpr ⟨⟨_, hi⟩, rfl⟩, ?_⟩
   rw [map_mul, mul_comm]
+
+
+/-- Apply the original two ideal inclusions in the integral tangent coordinates
+of the same two comparisons. The homothety is forced, not chosen afresh.
+This is the native lattice part of the pinned
+`exists_cm_curves_of_weierstrass_curves` proof, with the original seed retained. -/
+theorem inverseIdealPeriod_normalized_maps
+    (b : (Ideal (𝓞 (quadraticField G)))⁰) (L : PeriodPair)
+    (hL : (L.lattice : Set ℂ) = quadraticEmbedding G τ ''
+      ((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1)
+    (C₀ C : _root_.WeierstrassCurve.VariableChange ℂ) :
+    let β := (C₀.u : ℂ) / (C.u : ℂ)
+    β ≠ 0 ∧
+    (∀ (x : quadraticField G),
+      (∀ y ∈ (b : Ideal (𝓞 (quadraticField G))),
+        IsIntegral ℤ (x * (y : quadraticField G))) →
+      ∀ z ∈ (Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀).lattice,
+        β * quadraticEmbedding G τ x * z ∈
+          (Weierstrass.tangentCoordinatePeriods L C).lattice) ∧
+    (∀ a ∈ (b : Ideal (𝓞 (quadraticField G))),
+      ∀ z ∈ (Weierstrass.tangentCoordinatePeriods L C).lattice,
+        β⁻¹ * quadraticEmbedding G τ (a : quadraticField G) * z ∈
+          (Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀).lattice) := by
+  dsimp only
+  refine ⟨div_ne_zero C₀.u.ne_zero C.u.ne_zero, ?_, ?_⟩
+  · intro x hx z hz
+    apply (Weierstrass.tangentCoordinatePeriods_mem L C _).2
+    have h := inverseIdealPeriod_forward G τ b L hL x hx ((C₀.u : ℂ) * z)
+      ((Weierstrass.tangentCoordinatePeriods_mem
+        (EllipticSeed.periodPair G τ) C₀ z).1 hz)
+    have he : (C.u : ℂ) * ((C₀.u : ℂ) / (C.u : ℂ) *
+        quadraticEmbedding G τ x * z) =
+        quadraticEmbedding G τ x * ((C₀.u : ℂ) * z) := by
+      field_simp [C.u.ne_zero] <;> ring
+    rwa [he]
+  · intro a ha z hz
+    apply (Weierstrass.tangentCoordinatePeriods_mem
+      (EllipticSeed.periodPair G τ) C₀ _).2
+    have h := inverseIdealPeriod_reverse G τ b L hL a ha ((C.u : ℂ) * z)
+      ((Weierstrass.tangentCoordinatePeriods_mem L C z).1 hz)
+    have he : (C₀.u : ℂ) * (((C₀.u : ℂ) / (C.u : ℂ))⁻¹ *
+        quadraticEmbedding G τ (a : quadraticField G) * z) =
+        quadraticEmbedding G τ (a : quadraticField G) * ((C.u : ℂ) * z) := by
+      rw [inv_div]
+      field_simp [C₀.u.ne_zero] <;> ring
+    rwa [he]
+
+/-- Instantiate the two normalized inclusions on the actual constructed
+class family over one common field, keeping the original seed and comparison.
+This is at the distinguished complex embedding; algebraicity, transport to
+all embeddings and reverse derivative integrality are separate obligations. -/
+theorem exists_inverseIdealTangentClassModels_preserving_seed
+    (b : ClassGroup (𝓞 (quadraticField G)) → (Ideal (𝓞 (quadraticField G)))⁰)
+    (hb₁ : b 1 = 1)
+    (M : IntermediateField ℚ ℂ) [NumberField M]
+    (W₀ : _root_.WeierstrassCurve (𝓞 M)) (hΔ₀ : W₀.Δ = 1)
+    (C₀ : _root_.WeierstrassCurve.VariableChange ℂ)
+    (hC₀ : C₀ • W₀.baseChange ℂ = Weierstrass.latticeCurve (EllipticSeed.periodPair G τ)) :
+    ∃ (L : ClassGroup (𝓞 (quadraticField G)) → PeriodPair)
+      (F : IntermediateField ℚ ℂ) (_ : NumberField F) (hMF : M ≤ F)
+      (W : ClassGroup (𝓞 (quadraticField G)) → _root_.WeierstrassCurve (𝓞 F))
+      (C : ClassGroup (𝓞 (quadraticField G)) → _root_.WeierstrassCurve.VariableChange ℂ),
+      (∀ c, ((L c).lattice : Set ℂ) = quadraticEmbedding G τ ''
+        ((FractionalIdeal.mk0 (quadraticField G) (b c))⁻¹).1) ∧
+      L 1 = EllipticSeed.periodPair G τ ∧
+      (∀ c, (W c).Δ = 1) ∧
+      (∀ c, C c • (W c).baseChange ℂ = Weierstrass.latticeCurve (L c)) ∧
+      W 1 = W₀.map (Weierstrass.integerFieldInclusion hMF) ∧ C 1 = C₀ ∧
+      (∀ c, let β := (C₀.u : ℂ) / ((C c).u : ℂ)
+        β ≠ 0 ∧
+        (∀ (x : quadraticField G),
+          (∀ y ∈ (b c : Ideal (𝓞 (quadraticField G))),
+            IsIntegral ℤ (x * (y : quadraticField G))) →
+          ∀ z ∈ (Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀).lattice,
+            β * quadraticEmbedding G τ x * z ∈
+              (Weierstrass.tangentCoordinatePeriods (L c) (C c)).lattice) ∧
+        (∀ a ∈ (b c : Ideal (𝓞 (quadraticField G))),
+          ∀ z ∈ (Weierstrass.tangentCoordinatePeriods (L c) (C c)).lattice,
+            β⁻¹ * quadraticEmbedding G τ (a : quadraticField G) * z ∈
+              (Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀).lattice)) := by
+  obtain ⟨L, F, hF, hMF, W, C, hL, hL₁, hΔ, hC, hW₁, hC₁⟩ :=
+    exists_inverseIdealClassModels_preserving_seed G τ b hb₁ M W₀ hΔ₀ C₀ hC₀
+  exact ⟨L, F, hF, hMF, W, C, hL, hL₁, hΔ, hC, hW₁, hC₁,
+    fun c => inverseIdealPeriod_normalized_maps G τ (b c) (L c) (hL c) C₀ (C c)⟩
 
 end RHLean.Geometry.NativeCM
