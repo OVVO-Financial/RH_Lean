@@ -311,3 +311,38 @@ Implementation: [Native quadratic recovery](../RHLean/Analysis/AlpogeNativeQuadr
 and [six-root audit](ALPOGE_NATIVE_QUADRATIC_RECOVERY_AUDIT_20261124.lean).
 Hosted validation required. Prior verified and draft geometric sources
 are preserved.
+
+
+## 6. Attach the smaller rank to the actual constructor and the existing scalar output
+
+The original same-half-different lattice and theta construction is available
+for every natural k satisfying R+3<=k. The new
+[reduced-rank realization](../RHLean/Geometry/NativeSquareReducedRankRealization.lean)
+specializes it to m=R, k=R^2, R>=3, on the SAME selected PageN exponent and
+WinPair. It preserves the actual different factorization, coprimality, Galois
+invariance, positive Hermitian form, nonzero holomorphic theta sections,
+automorphy and invariant fiber norm. The actual rank over the ring of integers
+is R^2+R-1, and over Z it is (R^2+R-1)*(4*2^e), by the original rank theorems.
+This is a real base-space realization, not an assigned rank. It does not
+construct the restriction gain, measured degree, or recovery losses there.
+
+The scalar payment theorem
+`alpogeNativeGzArithmetic_le_of_centeredJointRatios`
+combines the signed quadratic recovery and the three-cost inequality at
+the actual finite TT and T2. It accepts the literal mean Gz inequality
+from the existing selected dyadic signed-slope payment, with the same
+normalized costs and the paid analytic remainder. For x>=1, x<=m^2,
+C>=0, epsilon>=0, the joint ratios and centered variance debt
+<=3*x^(1/2+epsilon), its conclusion is
+
+    Gz(x) <= 22*m*x^((C+3)*epsilon).
+
+Indeed the geometric part is at most 18*m*x^((C+3)*epsilon), and each
+of the four units of analytic/recovery allowance costs at most
+m*x^((C+3)*epsilon). Thus this is the existing scalar endpoint with a
+harmless explicit constant on the native square clock. It does not require
+the literal SizeWindows record or import a finished RH theorem. The
+complete actual signed-excess estimate, its compatible geometry if used,
+and uniform windows remain the genuine unpaid inputs. The new nine-root
+audit includes the actual rank construction and direct scalar payment.
+Hosted verification required.

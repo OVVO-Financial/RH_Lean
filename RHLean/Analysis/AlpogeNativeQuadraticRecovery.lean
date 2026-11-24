@@ -181,6 +181,75 @@ theorem alpogeNativeNormalizedCosts_le_jointRatios
   unfold alpogeNativeNormalizedGeometricCosts
   linarith only [hfirst', hmid, hlast']
 
+/-- Direct payment of the native scalar estimate from the actual centered
+height mean and joint costs, without the original SizeWindows record.
+The physical mean inequality is still a premise: the same-family complete
+signed excess must supply it through the constructed dyadic payment. -/
+theorem alpogeNativeGzArithmetic_le_of_centeredJointRatios
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (C ε x : ℝ) (TT T2 : Finset H) (m : ℕ) (b k aE : ℝ) (v : H → ℝ)
+    (hx1 : 1 ≤ x) (hxR : x ≤ (m : ℝ)^2)
+    (hε : 0 ≤ ε) (hC : 0 ≤ C)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m)
+    (hb : 0 < b) (hk : 0 < k) (haE0 : 0 ≤ aE)
+    (haE : aE ≤ 2 * (m : ℝ)^2 * b)
+    (hLower : (m : ℝ)^2 ≤ k)
+    (hUpper : k ≤ (Fintype.card H : ℝ) * TT.card * m)
+    (hCount : (Fintype.card H : ℝ) ≤ 2 * x^ε * TT.card)
+    (hDensity : 1 ≤ x^ε * alpogeNativeProjectionDensity T2)
+    (hv : ∀ t ∈ TT, 0 < v t)
+    (hcenter : ∑ t ∈ TT, (x - v t) = 0)
+    (hMean : (1 / (TT.card : ℝ)) * (∑ t ∈ TT, alpogeNativeGzArithmetic (v t)) ≤
+      x ^ (C * ε) * alpogeNativeNormalizedGeometricCosts TT.card
+        (alpogeNativeProjectionDensity T2) (Fintype.card H) m b k aE (x^ε) +
+        x ^ ((1 : ℝ) / 2 + ε))
+    (hVar : ((1 / (TT.card : ℝ)) * ∑ t ∈ TT, (x - v t)^2) / x ≤
+        3 * x ^ ((1 : ℝ) / 2 + ε)) :
+    alpogeNativeGzArithmetic x ≤ 22 * (m : ℝ) * x ^ ((C + 3) * ε) := by
+  have hx0 : 0 < x := by linarith
+  have hmR : (0 : ℝ) < m := by exact_mod_cast hm
+  have hT : (0 : ℝ) < TT.card := by exact_mod_cast hTT.card_pos
+  have hT2R : (0 : ℝ) < T2.card := by exact_mod_cast hT2.card_pos
+  have hn : (0 : ℝ) < Fintype.card H := by exact_mod_cast Fintype.card_pos
+  have hDelta : 0 < alpogeNativeProjectionDensity T2 := by
+    unfold alpogeNativeProjectionDensity
+    exact div_pos hT2R hn
+  have hE : 1 ≤ x^ε := by
+    simpa only [Real.rpow_zero] using
+      (Real.rpow_le_rpow_of_exponent_le hx1 hε)
+  have hcost := alpogeNativeNormalizedCosts_le_jointRatios
+    (TT.card : ℝ) (alpogeNativeProjectionDensity T2)
+    (Fintype.card H : ℝ) (m : ℝ) b k aE (x^ε)
+    hT hDelta hn hmR hb hk haE0 hE haE hLower hUpper hCount hDensity
+  have hscale : x ^ (C * ε) * (x^ε)^3 = x ^ ((C + 3) * ε) := by
+    calc
+      _ = x ^ (C * ε) * (x^ε * x^ε * x^ε) := by ring
+      _ = x ^ (C * ε) * x ^ (ε + ε + ε) := by
+        rw [Real.rpow_add hx0 (ε + ε) ε, Real.rpow_add hx0 ε ε]
+      _ = x ^ (C * ε + (ε + ε + ε)) := (Real.rpow_add hx0 _ _).symm
+      _ = _ := by congr 1 <;> ring
+  have hgeom : x ^ (C * ε) * alpogeNativeNormalizedGeometricCosts TT.card
+      (alpogeNativeProjectionDensity T2) (Fintype.card H) m b k aE (x^ε) ≤
+        18 * (m : ℝ) * x ^ ((C + 3) * ε) := by
+    calc
+      _ ≤ x ^ (C * ε) * (18 * (m : ℝ) * (x^ε)^3) :=
+        mul_le_mul_of_nonneg_left hcost (Real.rpow_nonneg hx0.le _)
+      _ = 18 * (m : ℝ) * (x ^ (C * ε) * (x^ε)^3) := by ring
+      _ = _ := by rw [hscale]
+  have hs : Real.sqrt x ≤ (m : ℝ) := by
+    nlinarith [Real.sqrt_nonneg x, Real.sq_sqrt hx0.le]
+  have hexp : ε ≤ (C + 3) * ε := by
+    nlinarith only [mul_nonneg hC hε, hε]
+  have hrem : x ^ ((1 : ℝ) / 2 + ε) ≤ (m : ℝ) * x ^ ((C + 3) * ε) := by
+    calc
+      _ = Real.sqrt x * x^ε := by
+        rw [Real.rpow_add hx0, Real.sqrt_eq_rpow]
+      _ ≤ (m : ℝ) * x^ε := mul_le_mul_of_nonneg_right hs (Real.rpow_nonneg hx0.le _)
+      _ ≤ _ := mul_le_mul_of_nonneg_left
+        (Real.rpow_le_rpow_of_exponent_le hx1 hexp) hmR.le
+  have hrec := alpogeNativeGzArithmetic_le_mean_add_variance TT hTT x v hx0 hv hcenter
+  linarith only [hrec, hMean, hVar, hgeom, hrem]
+
 end RHLean.Analysis
 
 end
