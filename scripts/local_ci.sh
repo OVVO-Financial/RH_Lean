@@ -64,10 +64,9 @@ bash scripts/audit_assumptions.sh
 step 'Verifying every export closes as a buildable Lake project'
 "$python_bin" scripts/check_export_sync.py
 
-# Reporting only. `#print axioms` cannot see an assumed criterion, because it is
-# a theorem parameter rather than an axiom, so this is the other half of the
-# terminal acceptance test. Use --require-unconditional <name> to make it fatal
-# for a specific declaration once that declaration is meant to be closed.
+# Reporting only. A source name scan is NOT terminal acceptance. The strict
+# --require-unconditional FULL_NAME mode requires a fresh --kernel-jsonl dump
+# and a literal closed RH type; provenance, axiom and semantic audits remain separate.
 step 'Reporting RH-facing theorems still conditional on an assumed criterion'
 "$python_bin" scripts/check_rh_conditionality.py
 

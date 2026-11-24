@@ -69,6 +69,9 @@ The corrected explicit analytic bridge. The elementary localization step
 * the pointwise square-prefix/Mertens converse to RH.
 
 No field is introduced as an axiom or treated as already proved.
+This is a conditional interface: the pointwise-to-RH field is an assumed
+implication to Mathlib RH. A constructor must independently prove that field.
+The structure and its consumer are not themselves unconditional RH proofs.
 -/
 structure ActualStartRHBridge
     {skeleton : ResonantProjectionSkeleton ℂ ℂ}

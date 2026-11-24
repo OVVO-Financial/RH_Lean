@@ -12,6 +12,7 @@ on:
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
+      - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -39,6 +40,7 @@ on:
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
+      - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -245,6 +247,7 @@ jobs:
         if: steps.directbuild.outcome == 'success'
         run: |
           lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
+          python3 scripts/check_kernel_rh_status.py lean-decl-graph.jsonl
           python3 scripts/decl_graph.py \
             --from-lean lean-decl-graph.jsonl \
             --json lean-decl-graph.json \
