@@ -230,6 +230,28 @@ class ResearchCacheTests(unittest.TestCase):
             with self.subTest(source=source):
                 self.assertFalse(cc.affected(plan, [source]))
 
+    def test_cm_stages_checkpoint_before_full_required_closure(self):
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        markers = [
+            'name: Isolate CM quadratic-order action',
+            'name: Checkpoint compiled CM order action',
+            'name: Isolate CM order tangent law',
+            'name: Checkpoint compiled CM tangent law',
+            'name: Compile selected research closure with warnings fatal',
+            'name: Verify selected closure reuses compiled artifacts',
+        ]
+        positions = [workflow.index(marker) for marker in markers]
+        self.assertEqual(positions, sorted(positions))
+        stage = workflow[positions[0]:positions[4]]
+        self.assertIn('research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean', stage)
+        self.assertIn('if: steps.cmorder.outcome == \'success\'', stage)
+        self.assertIn('steps.cmtangent.outcome == \'success\'', stage)
+        self.assertIn('cache-primary-key }}-cm-order', stage)
+        self.assertIn('cache-primary-key }}-cm-tangent', stage)
+        self.assertNotIn('continue-on-error:', stage)
+        self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
+        self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
+
     def test_plan_keys_track_leaf_content_not_mtimes(self):
         _, initial = self.compile()
         os.utime(self.root / 'research/A.lean', None)

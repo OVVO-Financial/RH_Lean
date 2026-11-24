@@ -69,13 +69,52 @@ jobs:
           key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}-cm-
             rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      # The exact-head 03fa33a attempts built CMOrderAction and then lost
+      # the live runner before the combined closure returned. Checkpoint
+      # the actual compiled stages before entering the next dependency.
+      # These source-addressed archives remain PARTIAL native caches.
+      - name: Isolate CM quadratic-order action
+        id: cmorder
+        if: contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: '30'
+        run: python3 scripts/lake_build_fail_fast.py RHLean.Geometry.NativeCMWeierstrassCMOrderAction
+      - name: Checkpoint compiled CM order action
+        if: >-
+          steps.cmorder.outcome == 'success' &&
+          steps.preflightcache.outputs.cache-hit != 'true' &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-order', steps.preflightcache.outputs.cache-primary-key) &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-tangent', steps.preflightcache.outputs.cache-primary-key)
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}-cm-order
+      - name: Isolate CM order tangent law
+        id: cmtangent
+        if: steps.cmorder.outcome == 'success'
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: '30'
+        run: python3 scripts/lake_build_fail_fast.py RHLean.Geometry.NativeCMWeierstrassCMOrderTangent
+      - name: Checkpoint compiled CM tangent law
+        if: >-
+          steps.cmtangent.outcome == 'success' &&
+          steps.preflightcache.outputs.cache-hit != 'true' &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-tangent', steps.preflightcache.outputs.cache-primary-key)
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}-cm-tangent
       - name: Compile selected research closure with warnings fatal
         id: compile
         uses: ./.github/actions/research-compile
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: ${{ contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean') && '30' || '0' }}
         with:
           targets: ${{ steps.targets.outputs.targets }}
+          native-cache-ready: ${{ steps.cmtangent.outcome == 'success' && 'true' || 'false' }}
       # A runner shutdown during the optional diagnostic build must not
       # discard the native artifacts already completed by the mandatory step.
       # This is the same partial-artifact cache, not a proof certificate.
