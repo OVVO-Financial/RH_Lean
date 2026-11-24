@@ -42,6 +42,14 @@ theorem evalPt_res_pullU (x : Sp ℂ ⟶ Y) (f : Y ⟶ X) (U : X.Opens)
   rw [evalPt_res x e (h.trans (x.preimage_mono e)) h]
   exact (evalPt_comp x f U h' (h.trans (x.preimage_mono e)) _).symm
 
+/-- Transport section evaluation with the chart-membership witnesses,
+rather than rewriting a morphism through a dependent argument. -/
+theorem evalPt_congr_morphism {x y : Sp ℂ ⟶ X} (e : x = y)
+    (U : X.Opens) (hx : ⊤ ≤ x ⁻¹ᵁ U) (hy : ⊤ ≤ y ⁻¹ᵁ U)
+    (s : Γ(X, U)) : evalPt x U hx s = evalPt y U hy s := by
+  subst y
+  rfl
+
 /-- Evaluation retains the actual restricted and pulled transition units. -/
 theorem evalPt_linComb_transition (L : LB X) {K : Type} [Fintype K]
     (f : K → (Y ⟶ X)) (ε : K → ℤ) (i j : K → L.ι) (x : Sp ℂ ⟶ Y)
@@ -50,9 +58,10 @@ theorem evalPt_linComb_transition (L : LB X) {K : Type} [Fintype K]
       Γ(Y, (LB.LinComb L f ε).U i ⊓ (LB.LinComb L f ε).U j)) =
       ∏ k, (evalPt x _ h
         (res (LB.wchart_inter_le L f i j k)
-          (pullU (f k) _ (L.g (i k) (j k))) : Γ(Y, _))) ^ ε k := by
-  change evalPt x _ h ((∏ k, (res (LB.wchart_inter_le L f i j k)
-    (pullU (f k) _ (L.g (i k) (j k)))) ^ ε k) : Γ(Y, _)ˣ) = _
+          (pullU (f k) _ (L.g (i k) (j k)))).val) ^ ε k := by
+  change evalPt x (LB.wchart L f i ⊓ LB.wchart L f j) h
+    (∏ k, (res (LB.wchart_inter_le L f i j k)
+      (pullU (f k) _ (L.g (i k) (j k)))) ^ ε k).val = _
   rw [Units.val_prod, map_prod]
   exact Finset.prod_congr rfl fun k _ => evalPt_unit_zpow x _ h _ (ε k)
 
@@ -89,6 +98,7 @@ def signedFrame (j : K → (originLB W).ι) (z : Z) : ℂ :=
 
 /-- The signed Gaussian is computed from the literal product metric;
 its quadratic term is not an independently chosen form. -/
+omit [Algebra R ℂ] in
 theorem signedChartNormSq_gaussian (j : K → (originLB W).ι) (z : Z) (c : ℂ) :
     signedChartNormSq W L C l ε j z c =
       ‖c / signedFrame W L C l ε j z‖ ^ 2 *
@@ -145,7 +155,7 @@ theorem signedChartNormSq_transition (i j : K → (originLB W).ι) (z : Z) (c : 
         signedChartNormSq W L C l ε j z c := by
   let g (k : K) : ℂ := evalPt (p z) _ h
     (res (LB.wchart_inter_le (originLB W) f i j k)
-      (pullU (f k) _ ((originLB W).g (i k) (j k))) : Γ(Y, _))
+      (pullU (f k) _ ((originLB W).g (i k) (j k)))).val
   have hg (k : K) :
       ‖g k‖ ^ 2 * chartNormSq W L C (i k) (l k z) 1 =
         chartNormSq W L C (j k) (l k z) 1 := by
@@ -159,8 +169,9 @@ theorem signedChartNormSq_transition (i j : K → (originLB W).ι) (z : Z) (c : 
         ((originLB W).g (i k) (j k) : Γ(scheme W, _)) := by
       have he := evalPt_res_pullU (p z) (f k) _
         (LB.wchart_inter_le (originLB W) f i j k) h hpk ((originLB W).g (i k) (j k))
-      rw [hp k z] at he
-      exact he
+      exact he.trans (evalPt_congr_morphism (hp k z)
+        ((originLB W).U (i k) ⊓ (originLB W).U (j k)) hpk hq
+        ((originLB W).g (i k) (j k)).val)
     have ht := chartNormSq_transition W L C hC (i k) (j k) (l k z) 1 hq
     rw [← he, mul_one, chartNormSq_scalar] at ht
     exact ht
@@ -178,6 +189,7 @@ theorem signedChartNormSq_transition (i j : K → (originLB W).ι) (z : Z) (c : 
       exact Finset.prod_congr rfl fun k _ => by rw [← mul_zpow, hg]
 
 /-- Every seed period preserves the signed pullback metric. -/
+omit [Algebra R ℂ] in
 theorem signedChartNormSq_period (j : K → (originLB W).ι) (z z' : Z)
     (w : K → ℂ) (hw : ∀ k, w k ∈ L.lattice)
     (hz : ∀ k, l k z' = l k z + w k) (c : ℂ) :

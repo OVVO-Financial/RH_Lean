@@ -935,8 +935,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleSigmaMetric.lean",
-      "sha256": "84d3487b5bcf953b75b7bb0a56f42914f9ff43587fa12e0b181775fb39b2b6aa",
-      "lines": 192
+      "sha256": "45dcda579bec24da54f7ff1e18c2fbbed107670b267b49e4aab8c849bdeeccbb",
+      "lines": 204
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleTransport.lean",
@@ -1000,8 +1000,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundleSymmetry.lean",
-      "sha256": "87a612e76524472e0fb1b82458cef4799ecb1645f769b30f9aa289c8c8709e6f",
-      "lines": 137
+      "sha256": "32c1382557e42857cf66399c6a8a8beb300896727a8465da5a5e29f6d2521d77",
+      "lines": 139
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreEigenlattice.lean",
@@ -1095,8 +1095,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeMetric.lean",
-      "sha256": "de855580379e9c26795ef8545b2eecea08a97506a920a0f6a366a479baac4c1b",
-      "lines": 213
+      "sha256": "d58a3c658a5beb309336db0b5c5043176ca51c62823645fbc7f1576bff20b916",
+      "lines": 215
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeTangent.lean",
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "7c54fc3ea8b7afa2c0a0477e6df91d1113f26268aba26ca94c62408f8c6c487d",
-      "lines": 493
+      "sha256": "1890b5982ee081c18747d60aa7add4726bec59810f21db9ce36e2d7733f7c0a6",
+      "lines": 543
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
@@ -2032,6 +2032,13 @@
       "run_id": 45431015648,
       "preflight_job_id": 138576449633,
       "result": "PREFLIGHT_FAILED_AT_SERRE_BUNDLE_GRAM; DIAGNOSTIC_REACHED_FINITE_LEVEL_NORM_BUNDLE_SYMMETRY_RATIONAL_GLOBAL_WHNF_TIMEOUT_THEN_RUNNER_SHUTDOWN_EXIT_143",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "a141d8fe2fa35d04b27eebbb209b933914b73392",
+      "run_id": 45441779606,
+      "preflight_job_id": 138614989464,
+      "result": "PREFLIGHT_FAILED_AT_BUNDLE_SYMMETRY; BUNDLE_GRAM_FINITE_LEVEL_NORM_BUILT; EARLY_NATIVE_CACHE_SAVE_SUCCEEDED; DIAGNOSTIC_REACHED_SCHEME_METRIC_LINE_BUNDLE_SIGMA_METRIC_RATIONAL_GLOBAL_WHNF_TIMEOUT_THEN_RUNNER_SHUTDOWN",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

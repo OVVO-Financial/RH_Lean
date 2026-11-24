@@ -79,7 +79,9 @@ theorem sym_of_inversion_isomorphic (N : LB A.left)
       ![(GrpObj.inv : A ⟶ A).left, 𝟙 A.left] k) =
         ![jTop ≫ (GrpObj.inv : A ⟶ A).left, jTop] := by
     funext k
-    fin_cases k <;> simp
+    fin_cases k
+    · rfl
+    · exact Category.comp_id jTop
   rw [e] at h
   exact ⟨⊤, trivial, h⟩
 

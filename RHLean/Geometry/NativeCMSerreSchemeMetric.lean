@@ -148,7 +148,7 @@ theorem coefficientSchemeBundleGram_eq (σ : F →+* ℂ) (n : ℝ)
   simp only [Fin.sum_univ_succ, Fin.sum_univ_zero, integralBundleDerivative,
     TraceFrame.schemeBundleExponent, Matrix.cons_val_zero, Matrix.cons_val_succ,
     map_add, map_mul, map_zero,
-    Int.cast_one, Int.cast_neg, map_neg, SerreGram.squareGram,
+    Int.cast_one, Int.cast_neg, SerreGram.squareGram,
     embeddedCoefficient, embeddedPairing]
   ring
 
@@ -165,13 +165,14 @@ theorem coefficientLieEigen_signedGram_norm
   rw [coefficientSchemeBundleGram_eq, tensorOriginGram_eigen H G F hbar hroot]
   change ((n σ : ℂ) * σ (coefficientLieEigenCoordinate H G hbar B hB F W a ha v) *
     conj (σ (coefficientLieEigenCoordinate H G hbar B hB F W a ha v))).re = _
-  rw [mul_assoc, Complex.mul_conj, ← Complex.ofReal_mul, Complex.ofReal_re,
+  rw [_root_.mul_assoc, Complex.mul_conj, ← Complex.ofReal_mul, Complex.ofReal_re,
     Complex.normSq_eq_norm_sq, lineNorm, mul_pow, Real.sq_sqrt (hn σ).le]
 
 variable [NumberField F]
 
 /-- The form is evaluated in the actual tangent direction u of the same
 equation and canonical-sigma automorphy, rather than assigned a target mean. -/
+omit [NumberField F] in
 theorem coefficientLieEigen_actualSigma_norm
     (hroot : (G.rt : H.E) = H.sqd) (hΔ : W.Δ = 1) (σ : F →+* ℂ)
     (v : coefficientLieEigenmodule H G hbar B hB F W a) :
@@ -192,6 +193,7 @@ theorem coefficientLieEigen_actualSigma_norm
 The actual sigma metric, the integral eigenvector and its evaluation are
 unchanged. This is a direct transport of the existing geometric norm
 identity, not a new geometric witness or a replacement rank. -/
+omit [NumberField F] in
 theorem coefficientLieEigen_actualSigma_phi_norm
     (hroot : (G.rt : H.E) = H.sqd) (hΔ : W.Δ = 1) (σ : F →+* ℂ)
     (v : coefficientLieEigenmodule H G hbar B hB F W a) :
