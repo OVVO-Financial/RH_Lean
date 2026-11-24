@@ -1175,8 +1175,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMOrderTangent.lean",
-      "sha256": "f2a17d0008850c039eec92dd0659874db06c2a3dfe7c376f7b29a515e0628feb",
-      "lines": 166
+      "sha256": "9525f1a74482263a3632a29ed7155f80d0b550131ee1368ef84867ea1955d624",
+      "lines": 195
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCanonicalTheta.lean",

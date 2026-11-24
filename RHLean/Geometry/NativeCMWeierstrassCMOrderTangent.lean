@@ -1,5 +1,6 @@
 import RHLean.Geometry.NativeCMWeierstrassCMOrderAction
 import RHLean.Geometry.NativeCMWeierstrassMorphismTangent
+import RHLean.Geometry.NativeCMWeierstrassRelativePoints
 
 /-!
 # Exact Lie action of the constructed finite-field CM order action
@@ -28,7 +29,7 @@ set_option maxHeartbeats 4000000
 
 noncomputable section
 
-open NumberField AlgebraicGeometry CategoryTheory MonoidalCategory
+open NumberField AlgebraicGeometry CategoryTheory MonoidalCategory MonObj
 open scoped Classical
 
 namespace RHLean.Geometry.NativeCM.Weierstrass
@@ -43,7 +44,7 @@ variable {F : Type} [Field F] [Algebra F ℂ]
     (V : _root_.WeierstrassCurve F) (L : PeriodPair)
     (hV : V.baseChange ℂ = latticeCurve L)
 
-def normalizedComparison :
+theorem normalizedComparison :
     (1 : _root_.WeierstrassCurve.VariableChange ℂ) •
       (V.baseChange ℂ).baseChange ℂ = latticeCurve L := by
   change (1 : _root_.WeierstrassCurve.VariableChange ℂ) •
@@ -51,26 +52,52 @@ def normalizedComparison :
   rw [_root_.WeierstrassCurve.map_id, one_smul]
   exact hV
 
+/-- Identity change of variables is transport of the actual affine points.
+Prove this before passing to projective schemes: no coordinate-ring
+unfolding is needed to compare the dependent nonsingularity witnesses. -/
+private theorem identityChange_point {U T : _root_.WeierstrassCurve ℂ}
+    (h : U = T) (h' : (1 : _root_.WeierstrassCurve.VariableChange ℂ) • U = T)
+    (P : T.toAffine.Point) :
+    variableChangePoint 1 h' P = (pointCongr h).symm P := by
+  cases P with
+  | zero =>
+    change variableChangePoint 1 h' (0 : T.toAffine.Point) =
+      (pointCongr h).symm (0 : T.toAffine.Point)
+    exact (map_zero (variableChangePoint 1 h')).trans
+      (map_zero (pointCongr h).symm).symm
+  | some x y hx =>
+    rw [variableChangePoint_some, pointCongr_symm_some,
+      _root_.WeierstrassCurve.Affine.Point.some.injEq]
+    constructor <;> simp only [_root_.WeierstrassCurve.VariableChange.one_def,
+      Units.val_one, one_pow, one_mul, mul_zero, zero_mul, add_zero]
+
+/-- First identify the affine exponential, independently of any scheme map. -/
+private theorem normalized_affine_exp (z : ℂ) :
+    AllPlaceTangentPeriod.exponential L ((V.baseChange ℂ).baseChange ℂ)
+        1 (normalizedComparison V L hV) z =
+      (pointCongr hV).symm (latticePoint L z) := by
+  rw [AllPlaceTangentPeriod.exponential_apply]
+  exact identityChange_point hV (normalizedComparison V L hV) _
+
 /-- The normalized uniformization and the previously constructed finite-field
 point formula use exactly the same scheme points and lattice parameter. -/
 theorem normalized_expPoint (z : ℂ) :
     expPoint L (V.baseChange ℂ) 1 (normalizedComparison V L hV) z ≫
         mapHom V (algebraMap F ℂ) rfl =
       (ofAffinePoint V ℂ ((pointCongr hV).symm (latticePoint L z))).left := by
-  rw [expPoint, AllPlaceTangentPeriod.exponential_apply]
-  rcases hp : latticePoint L z with _ | ⟨x, y, hx⟩
-  · rw [map_zero, map_zero, ofAffinePoint_zero, ofAffinePoint_zero,
-      zeroOver_left, zeroOver_left]
-    change (Spec.map (𝟙 (CommRingCat.of ℂ)) ≫ zero (V.baseChange ℂ)) ≫
-      mapHom V (algebraMap F ℂ) rfl = _
-    rw [Spec.map_id, Category.id_comp, zero_mapHom]
-  · rw [variableChangePoint_some, pointCongr_symm_some]
-    simp only [_root_.WeierstrassCurve.VariableChange.one_def, Units.val_one,
-      one_pow, one_mul, mul_zero, add_zero]
-    rw [ofAffinePoint_some, ofAffinePoint_some]
-    change ptHom (V.baseChange ℂ) (RingHom.id ℂ) ![x, y, 1] _ ≫
-      mapHom V (algebraMap F ℂ) rfl = ptHom V (algebraMap F ℂ) ![x, y, 1] _
-    exact ptHom_mapHom V (algebraMap F ℂ) rfl (RingHom.id ℂ) ![x, y, 1] _
+  let P : (V.baseChange ℂ).toAffine.Point :=
+    (pointCongr hV).symm (latticePoint L z)
+  have he : expPoint L (V.baseChange ℂ) 1 (normalizedComparison V L hV) z =
+      (ofAffinePoint (V.baseChange ℂ) ℂ P).left :=
+    congrArg (fun Q : (V.baseChange ℂ).toAffine.Point =>
+      (ofAffinePoint (V.baseChange ℂ) ℂ Q).left)
+      (normalized_affine_exp V L hV z)
+  calc
+    _ = (ofAffinePoint (V.baseChange ℂ) ℂ P).left ≫
+        mapHom V (algebraMap F ℂ) rfl :=
+      congrArg (fun q : Sp ℂ ⟶ scheme (V.baseChange ℂ) =>
+        q ≫ mapHom V (algebraMap F ℂ) rfl) he
+    _ = _ := (ofAffinePoint_baseChange_left V ℂ P).symm
 
 end NormalizedExponential
 
@@ -124,9 +151,11 @@ theorem exists_integral_order_tangent :
       map_zero' := Subtype.ext κ₀.map_zero
       map_add' := fun b d => Subtype.ext (κ₀.map_add b d) }
   refine ⟨κ, hσ, hc, fun b => ?_⟩
-  refine ⟨fun _ => integralVector V ≫ a.act b, fun i => ?_, by simp⟩
-  obtain rfl : i = 0 := Subsingleton.elim _ _
-  exact (hc b).trans (scale_vec V (κ b : F)).symm
+  refine ⟨fun _ => integralVector V ≫ a.act b, fun i => ?_, ?_⟩
+  · obtain rfl : i = 0 := Subsingleton.elim _ _
+    exact (hc b).trans (scale_vec V (κ b : F)).symm
+  · simp only [List.ofFn_succ, List.ofFn_zero, List.prod_cons, List.prod_nil]
+    exact (_root_.mul_one (integralVector V ≫ a.act b)).symm
 
 end ActualOrder
 
