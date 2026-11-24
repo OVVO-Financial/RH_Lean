@@ -43,6 +43,23 @@ theorem cubic_equation_of_identity {R : Type*} [CommRing R]
         ((a * di) ^ 3 + c₄ * (a * di) * (d * di) ^ 2 + c₆ * (d * di) ^ 3) := by ring
     _ = (a * di) ^ 3 + c₄ * (a * di) + c₆ := by rw [hα, hd]; ring
 
+/-- The same two-unit clearing on two cubics. -/
+theorem cubic_equation_of_identity_between {R : Type*} [CommRing R]
+    {α αi a d di b x y c₄ c₆ v₄ v₆ : R}
+    (hα : αi * α = 1) (hd : d * di = 1)
+    (hy : y ^ 2 = x ^ 3 + c₄ * x + c₆)
+    (h : α ^ 2 * d * (a ^ 3 + v₄ * a * d ^ 2 + v₆ * d ^ 3) =
+      b ^ 2 * (x ^ 3 + c₄ * x + c₆)) :
+    (αi * b * di ^ 2 * y) ^ 2 = (a * di) ^ 3 + v₄ * (a * di) + v₆ := by
+  rw [← hy] at h
+  calc
+    (αi * b * di ^ 2 * y) ^ 2 = αi ^ 2 * di ^ 4 * (b ^ 2 * y ^ 2) := by ring
+    _ = αi ^ 2 * di ^ 4 *
+        (α ^ 2 * d * (a ^ 3 + v₄ * a * d ^ 2 + v₆ * d ^ 3)) := by rw [h]
+    _ = (αi * α) ^ 2 * (d * di) *
+        ((a * di) ^ 3 + v₄ * (a * di) * (d * di) ^ 2 + v₆ * (d * di) ^ 3) := by ring
+    _ = (a * di) ^ 3 + v₄ * (a * di) + v₆ := by rw [hα, hd]; ring
+
 end RHLean.Geometry.NativeCM.Weierstrass
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
@@ -231,6 +248,83 @@ theorem rationalOpenHom_fieldPoint :
     · exact map_one g
 
 end FieldPoints
+
+end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
+
+namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
+
+universe v
+
+variable {K : Type v} [Field K] (W V : _root_.WeierstrassCurve K)
+    (α : K) (hα : α ≠ 0) (A D : K[X])
+    (hshort : W.a₁ = 0 ∧ W.a₂ = 0 ∧ W.a₃ = 0)
+    (hshortV : V.a₁ = 0 ∧ V.a₂ = 0 ∧ V.a₃ = 0)
+    (hWV : Weierstrass.RationalIdentityBetween W V α A D)
+
+include hα hshort hshortV hWV in
+theorem rationalTarget_equation_between :
+    (V.baseChange (RationalOpenRing W D)).toAffine.Equation
+      (rationalTargetX W A D) (rationalTargetY W α A D) := by
+  have hxy := rationalOpen_equation W D
+  rw [_root_.WeierstrassCurve.Affine.equation_iff] at hxy ⊢
+  simp only [_root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_a₁,
+    _root_.WeierstrassCurve.map_a₂, _root_.WeierstrassCurve.map_a₃, hshort.1, hshort.2.1,
+    hshort.2.2, map_zero, zero_mul, add_zero] at hxy
+  simp only [_root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_a₁,
+    _root_.WeierstrassCurve.map_a₂, _root_.WeierstrassCurve.map_a₃, hshortV.1, hshortV.2.1,
+    hshortV.2.2, map_zero, zero_mul, add_zero]
+  have hid := congrArg (aeval (rationalOpenX W D)) hWV
+  simp only [map_mul, map_add, map_pow, aeval_C, aeval_X] at hid
+  have hai : algebraMap K (RationalOpenRing W D) α⁻¹ * algebraMap K _ α = 1 := by
+    rw [← map_mul, inv_mul_cancel₀ hα, map_one]
+  exact Weierstrass.cubic_equation_of_identity_between hai
+    (rationalOpen_denom_mul_inv W D) hxy hid
+
+/-- The original source localization maps into the actual distinct target. -/
+def rationalOpenHomBetween : specOver K (RationalOpenRing W D) ⟶ schemeOver V :=
+  ptOver V ![rationalTargetX W A D, rationalTargetY W α A D, 1]
+    (isUnimodularSol_some (rationalTarget_equation_between W V α hα A D hshort hshortV hWV))
+
+variable {k : Type v} [Field k] [Algebra K k]
+    (g : RationalOpenRing W D →ₐ[K] k) [W.IsElliptic] [V.IsElliptic]
+
+theorem rationalOpenHomBetween_fieldPoint :
+    ∃ hx : (W.baseChange k).toAffine.Nonsingular
+        (g (rationalOpenX W D)) (g (rationalOpenY W D)),
+      ∃ hy : (V.baseChange k).toAffine.Nonsingular
+        (aeval (g (rationalOpenX W D)) A / aeval (g (rationalOpenX W D)) D)
+        ((algebraMap K k α)⁻¹ *
+          (aeval (g (rationalOpenX W D)) (derivative A * D - A * derivative D) /
+            aeval (g (rationalOpenX W D)) D ^ 2) * g (rationalOpenY W D)),
+      specOverMap g ≫ rationalOpenIncl W D = ofAffinePoint W k (.some _ _ hx) ∧
+      specOverMap g ≫ rationalOpenHomBetween W V α hα A D hshort hshortV hWV =
+        ofAffinePoint V k (.some _ _ hy) := by
+  have hx := (_root_.WeierstrassCurve.Affine.equation_iff_nonsingular).mp
+    ((rationalOpen_equation W D).baseChange g)
+  have hy := (_root_.WeierstrassCurve.Affine.equation_iff_nonsingular).mp
+    ((rationalTarget_equation_between W V α hα A D hshort hshortV hWV).baseChange g)
+  rw [rationalOpen_map_targetX, rationalOpen_map_targetY] at hy
+  refine ⟨hx, hy, ?_, ?_⟩
+  · rw [rationalOpenIncl, specOverMap_ptOver, ofAffinePoint_some]
+    apply Over.OverMorphism.ext
+    refine pt_congr W (g ∘ ![rationalOpenX W D, rationalOpenY W D, 1])
+      ((isUnimodularSol_some (rationalOpen_equation W D)).baseChange g)
+      ?_ (isUnimodularSol_some hx.left)
+    funext i
+    fin_cases i
+    · rfl
+    · rfl
+    · exact map_one g
+  · rw [rationalOpenHomBetween, specOverMap_ptOver, ofAffinePoint_some]
+    apply Over.OverMorphism.ext
+    refine pt_congr V (g ∘ ![rationalTargetX W A D, rationalTargetY W α A D, 1])
+      ((isUnimodularSol_some (rationalTarget_equation_between W V α hα A D hshort hshortV hWV)).baseChange g)
+      ?_ (isUnimodularSol_some hy.left)
+    funext i
+    fin_cases i
+    · exact rationalOpen_map_targetX W A D g
+    · exact rationalOpen_map_targetY W α A D g
+    · exact map_one g
 
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 

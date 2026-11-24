@@ -95,6 +95,62 @@ theorem rationalIdentity_of_point_formula (L : PeriodPair) {α : ℂ}
   simp only [eval_mul, eval_add, eval_pow, eval_C, eval_X]
   exact cubic_identity_of_rational_equation hα hd hy hy'
 
+section BetweenCurves
+variable {K : Type*} [Field K]
+
+/-- The original cleared equation, retaining distinct source and target cubics. -/
+def RationalIdentityBetween (W V : WeierstrassCurve K) (α : K) (A D : K[X]) : Prop :=
+  C (α ^ 2) * D * (A ^ 3 + C V.a₄ * A * D ^ 2 + C V.a₆ * D ^ 3) =
+    (derivative A * D - A * derivative D) ^ 2 * (X ^ 3 + C W.a₄ * X + C W.a₆)
+
+theorem cubic_identity_of_rational_equation_between {α a d b x y c₄ c₆ v₄ v₆ : K}
+    (hα : α ≠ 0) (hd : d ≠ 0) (hy : y ^ 2 = x ^ 3 + c₄ * x + c₆)
+    (h : (α⁻¹ * (b / d ^ 2) * y) ^ 2 =
+      (a / d) ^ 3 + v₄ * (a / d) + v₆) :
+    α ^ 2 * d * (a ^ 3 + v₄ * a * d ^ 2 + v₆ * d ^ 3) =
+      b ^ 2 * (x ^ 3 + c₄ * x + c₆) := by
+  rw [← hy]
+  have he := congrArg (fun z : K => α ^ 2 * d ^ 4 * z) h
+  field_simp [hα, hd] at he
+  linear_combination -he
+
+/-- An injective coefficient map reflects the actual polynomial identity. -/
+theorem rationalIdentityBetween_of_map {K' : Type*} [Field K'] (f : K →+* K')
+    (W V : WeierstrassCurve K) (α : K) (A D : K[X])
+    (h : RationalIdentityBetween (W.map f) (V.map f) (f α) (A.map f) (D.map f)) :
+    RationalIdentityBetween W V α A D := by
+  unfold RationalIdentityBetween at h ⊢
+  apply Polynomial.map_injective f f.injective
+  simpa only [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_sub,
+    Polynomial.map_pow, Polynomial.map_C, Polynomial.map_X, ← derivative_map,
+    map_pow, WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆] using! h
+
+end BetweenCurves
+
+/-- The literal point formula supplies the equation with its actual target coefficients. -/
+theorem rationalIdentityBetween_of_point_formula (L L' : PeriodPair) {α : ℂ}
+    (hα : α ≠ 0) (A D : ℂ[X]) (hD : D ≠ 0)
+    (f : (latticeCurve L).toAffine.Point → (latticeCurve L').toAffine.Point)
+    (hf : ∀ (x y : ℂ) (h : (latticeCurve L).toAffine.Nonsingular x y),
+      D.eval x ≠ 0 → ∃ h', f (.some x y h) =
+        .some (A.eval x / D.eval x)
+          (α⁻¹ * ((derivative A * D - A * derivative D).eval x / D.eval x ^ 2) * y) h') :
+    RationalIdentityBetween (latticeCurve L) (latticeCurve L') α A D := by
+  unfold RationalIdentityBetween
+  apply Polynomial.eq_of_infinite_eval_eq
+  have hfin : {x : ℂ | D.IsRoot x}.Finite := Polynomial.finite_setOfPred_isRoot hD
+  refine hfin.infinite_compl.mono ?_
+  intro x hx
+  obtain ⟨z, hz, rfl⟩ := exists_weierstrassP_eq L x
+  have hd : D.eval (L.weierstrassP z) ≠ 0 := hx
+  obtain ⟨h', -⟩ := hf _ _ (latticeCurve_nonsingular L hz) hd
+  have hy := (latticeCurve_nonsingular L hz).left
+  have hy' := h'.left
+  rw [WeierstrassCurve.Affine.equation_iff] at hy hy'
+  simp only [latticeCurve, zero_mul, add_zero] at hy hy'
+  simp only [eval_mul, eval_add, eval_pow, eval_C, eval_X]
+  exact cubic_identity_of_rational_equation_between hα hd hy hy'
+
 end RHLean.Geometry.NativeCM.Weierstrass
 
 end

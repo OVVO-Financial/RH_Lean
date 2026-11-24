@@ -124,6 +124,100 @@ theorem exists_global_hom_of_rational_point_map
 
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
+namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
+
+universe v
+
+variable {F k : Type v} [Field F] [Field k] [Algebra F k]
+    (W V : _root_.WeierstrassCurve F) [W.IsElliptic] [V.IsElliptic]
+    [DecidableEq k]
+
+/-- The same actual additive map on the distinct scheme point groups. -/
+def schemePointActionBetween
+    (φ : (W.baseChange k).toAffine.Point →+ (V.baseChange k).toAffine.Point) :
+    (specOver F k ⟶ schemeOver W) →* (specOver F k ⟶ schemeOver V) :=
+  (affinePointMulEquiv V k).toMonoidHom.comp
+    ((multiplicativeHom φ).comp (affinePointMulEquiv W k).symm.toMonoidHom)
+
+theorem schemePointActionBetween_ofAffinePoint
+    (φ : (W.baseChange k).toAffine.Point →+ (V.baseChange k).toAffine.Point)
+    (P : (W.baseChange k).toAffine.Point) :
+    schemePointActionBetween W V φ (ofAffinePoint W k P) = ofAffinePoint V k (φ P) := by
+  change (affinePointMulEquiv V k)
+    (Multiplicative.ofAdd (φ ((affinePointMulEquiv W k).symm
+      ((affinePointMulEquiv W k) (Multiplicative.ofAdd P))).toAdd)) = _
+  rw [MulEquiv.symm_apply_apply]
+  rfl
+
+variable [IsAlgClosed k]
+
+/-- Apply the existing general two-patch gluing to two distinct curves. -/
+theorem exists_global_hom_of_rational_point_map_between
+    (α : F) (hα : α ≠ 0) (A D : F[X])
+    (hshort : W.a₁ = 0 ∧ W.a₂ = 0 ∧ W.a₃ = 0)
+    (hshortV : V.a₁ = 0 ∧ V.a₂ = 0 ∧ V.a₃ = 0)
+    (hID : Weierstrass.RationalIdentityBetween W V α A D)
+    (φ : (W.baseChange k).toAffine.Point →+ (V.baseChange k).toAffine.Point)
+    (hφ : ∀ (x y : k) (h : (W.baseChange k).toAffine.Nonsingular x y),
+      (aeval x D = 0 → φ (.some x y h) = 0) ∧
+      (aeval x D ≠ 0 → ∃ h', φ (.some x y h) =
+        .some (aeval x A / aeval x D)
+          ((algebraMap F k α)⁻¹ *
+            (aeval x (derivative A * D - A * derivative D) / aeval x D ^ 2) * y) h'))
+    (x₀ y₀ : F) (h₀ : W.toAffine.Equation x₀ y₀) (hD₀ : D.eval x₀ ≠ 0) :
+    ∃ f : schemeOver W ⟶ schemeOver V,
+      IsMonHom f ∧ rationalOpenIncl W D ≫ f = rationalOpenHomBetween W V α hα A D hshort hshortV hID ∧
+      ∀ P : (W.baseChange k).toAffine.Point,
+        ofAffinePoint W k P ≫ f = ofAffinePoint V k (φ P) := by
+  classical
+  let Φ := schemePointActionBetween W V φ
+  have hzero : ofAffinePoint V k (0 : (V.baseChange k).toAffine.Point) = 1 :=
+    (affinePointMulEquiv V k).map_one
+  have hU : ∀ x : specOver F k ⟶ schemeOver W,
+      Φ x ≠ 1 ↔ ∃ z : specOver F k ⟶ specOver F (RationalOpenRing W D),
+        z ≫ rationalOpenIncl W D = x := by
+    intro x
+    constructor
+    · intro hx
+      obtain ⟨P, rfl⟩ := (affinePointEquiv W k).surjective x
+      change schemePointActionBetween W V φ (ofAffinePoint W k P) ≠ 1 at hx
+      rw [schemePointActionBetween_ofAffinePoint] at hx
+      cases P with
+      | zero => exact (hx (by rw [map_zero, hzero])).elim
+      | some x y h =>
+        have hd : aeval x D ≠ 0 := fun hd => hx (by rw [(hφ x y h).1 hd, hzero])
+        exact ⟨specOverMap (rationalOpenPoint W D x y h.left hd),
+          rationalOpenPoint_incl W D x y h.left hd h⟩
+    · rintro ⟨z, rfl⟩
+      obtain ⟨g, rfl⟩ := exists_eq_specOverMap z
+      obtain ⟨hx, hy, hinc, -⟩ :=
+        rationalOpenHomBetween_fieldPoint W V α hα A D hshort hshortV hID g
+      change schemePointActionBetween W V φ _ ≠ 1
+      rw [hinc, schemePointActionBetween_ofAffinePoint]
+      obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
+      intro hh
+      have hh' : φ (.some _ _ hx) = 0 :=
+        (affinePointEquiv V k).injective (hh.trans hzero.symm)
+      rw [he] at hh'
+      cases hh'
+  have hfU : ∀ z : specOver F k ⟶ specOver F (RationalOpenRing W D),
+      z ≫ rationalOpenHomBetween W V α hα A D hshort hshortV hID = Φ (z ≫ rationalOpenIncl W D) := by
+    intro z
+    obtain ⟨g, rfl⟩ := exists_eq_specOverMap z
+    obtain ⟨hx, hy, hinc, hmap⟩ :=
+      rationalOpenHomBetween_fieldPoint W V α hα A D hshort hshortV hID g
+    change _ = schemePointActionBetween W V φ _
+    rw [hinc, schemePointActionBetween_ofAffinePoint, hmap]
+    obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
+    rw [he]
+  obtain ⟨f, hjf, hf⟩ := GeometricPoints.exists_hom_of_kernel_open
+    (rationalOpenIncl W D) (rationalOpenHomBetween W V α hα A D hshort hshortV hID)
+    (rationalOpenSection W D x₀ y₀ h₀ hD₀) Φ hU hfU
+  refine ⟨f, GeometricPoints.isMonHom_of_embedded_points f Φ hf, hjf, fun P => ?_⟩
+  exact (hf (ofAffinePoint W k P)).trans (schemePointActionBetween_ofAffinePoint W V φ P)
+
+end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
+
 namespace RHLean.Geometry.NativeCM.Weierstrass
 
 variable {K K' : Type*} [Field K] [Field K']
