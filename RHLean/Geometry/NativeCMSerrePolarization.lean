@@ -74,8 +74,12 @@ theorem seed_metric_kLin_diagonal (x : D.La) :
   have hd : kLin D ε x x =
       (((ε : ℤ) * D.EF (G.w0 • x) x : ℤ) : OK G) :=
     Subtype.ext (kLin_diagonal D ε x)
-  rw [hd]
-  simp [EllipticSeed.hermitian]
+  have h1 : EllipticSeed.hermitian G τ (embed G τ (kLin D ε x x)) 1 =
+      ((|(EllipticSeed.omega G τ).im|⁻¹ *
+        (((ε : ℤ) * D.EF (G.w0 • x) x : ℤ) : ℝ) : ℝ) : ℂ) := by
+    rw [hd, EllipticSeed.hermitian, map_intCast, map_one, mul_one, Complex.ofReal_mul,
+      Complex.ofReal_intCast]
+  rw [h1, Complex.ofReal_re]
 
 theorem seed_metric_kLin_diagonal_pos (x : D.La)
     (hx : 0 < (ε : ℤ) * D.EF (G.w0 • x) x) :
@@ -110,10 +114,7 @@ theorem nativeDyadic_seedOrientation
     let _ : IsCMField H.E := H.der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     ∀ τ : cmTypeFinset H.toHostRaw, 0 < (EllipticSeed.omega G (τ : H.E →+* ℂ)).im := by
-  let H := nativeDyadicHostAx e q d he hH
-  let _ : IsCMField H.E := H.der.cm
-  let G := nativeDyadicGeometricHostOfDerived e q d he hH
-  intro τ
+  intro H _ G τ
   have ht := (mem_cmTypeFinset H.toHostRaw τ).1 τ.2
   change (τ : H.E →+* ℂ) H.sqd = Complex.I * (Real.sqrt d : ℂ) at ht
   have hw := EllipticSeed.two_mul_omega G (τ : H.E →+* ℂ)
@@ -144,12 +145,7 @@ theorem nativeDyadic_coefficientSerreMetric_im
       (EllipticSeed.hermitian G (τ : H.E →+* ℂ)
         (embed G (τ : H.E →+* ℂ) (kLin D 1 x y)) 1).im =
           (integralTraceForm H.toHostRaw B hB x y : ℝ) := by
-  let H := nativeDyadicHostAx e q d he hH
-  let _ : IsCMField H.E := H.der.cm
-  let G := nativeDyadicGeometricHostOfDerived e q d he hH
-  let D := coefficientTraceLattice H.toHostRaw G
-    (nativeDyadicGeometricHost_bar_eq e q d he hH) B hB
-  intro τ x y
+  intro H _ G D τ x y
   apply seed_metric_kLin_im D 1 (τ : H.E →+* ℂ)
   simpa using nativeDyadic_seedOrientation e q d he hH τ
 
@@ -174,12 +170,7 @@ theorem nativeDyadic_coefficientSerreMetric
         (embed G τ (kLin D 1 x x)) 1).re =
         (2 * Real.pi / Real.sqrt G.d) *
           (integralTraceForm H.toHostRaw B hB (G.w0 • x) x : ℝ) := by
-  let H := nativeDyadicHostAx e q d he hH
-  let _ : IsCMField H.E := H.der.cm
-  let G := nativeDyadicGeometricHostOfDerived e q d he hH
-  let D := coefficientTraceLattice H.toHostRaw G
-    (nativeDyadicGeometricHost_bar_eq e q d he hH) B hB
-  intro τ x
+  intro H _ G D τ x
   constructor
   · intro hx
     apply seed_metric_kLin_diagonal_pos D 1 τ x

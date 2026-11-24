@@ -171,10 +171,11 @@ theorem good_lattice
           by_cases ha : a' = a
           · subst a'
             simp only [rowInclusion, AddMonoidHom.coe_mk, ZeroHom.coe_mk, Pi.single_eq_same]
-          · simp only [rowInclusion, AddMonoidHom.coe_mk, ZeroHom.coe_mk, Pi.single_eq_of_ne ha]
+          · simp only [rowInclusion, AddMonoidHom.coe_mk, ZeroHom.coe_mk, Pi.single_eq_of_ne ha,
+              Submodule.coe_zero]
         rw [he] at hz
         have hs : (∑ a', Ambient.pair H (negTail (k + m - 1) (m - j))
-            (x a') ((Pi.single a y) a')) =
+            (x a') ((Pi.single a y : κ → Fin (k + m - 1) → H.E) a')) =
               Ambient.pair H (negTail (k + m - 1) (m - j)) (x a) y := by
           rw [Finset.sum_eq_single a]
           · rw [Pi.single_eq_same]
@@ -201,7 +202,8 @@ theorem good_lattice
             coordinates H B hB b (rowInclusion H L y))) = _
     simp only [phase, hrow, map_add, LinearEquiv.symm_apply_apply]
     rw [ShiftedPhase.phase_add H G.w0
-      (ShiftedPhase.prescribed_halfRoot H G hbar) hL _ _ (fun a => (x a).2) (fun a => (y a).2),
+      (ShiftedPhase.prescribed_halfRoot H G hbar) hL (rowInclusion H L x) (rowInclusion H L y)
+      (fun a => (x a).2) (fun a => (y a).2),
       coordinates_pairing H B hB G hΨ hconj hbar k m j hk hj b hb]
 
 include hΨ hconj hbar hk hj hb in
@@ -215,7 +217,7 @@ theorem shifted_vacua
     ∃ v v' : Matrix κ ι ℚ → ℂ,
       FiniteOverlap.IsVac (phase H B hB G k m j b) (lattice H B hB k m b L) v ∧
       FiniteOverlap.IsVac (phase H B hB G k m j b) (lattice H B hB k m b L') v' ∧
-      ((lattice H B hB k m b L').relIndex (lattice H B hB k m b L) : ℝ) *
+      ((lattice (κ := κ) H B hB k m b L').relIndex (lattice (κ := κ) H B hB k m b L) : ℝ) *
         ‖ip v v'‖ ^ 2 = 1 := by
   let L := prescribedLattice H B k m
   have hL := ShiftedLattice.twisted_selfDual H B hB (negTail (k + m - 1) (m - j))
@@ -239,8 +241,7 @@ theorem exists_native_shifted_vacua
       differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) (n : ℕ) :
     let H := nativeDyadicHostRaw e q d he hH
-    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
-      (nativeDyadicHostAx e q d he hH).der.cm
+    let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
     let g := finrank ℚ H.E / 2 * (D.p + D.q)
@@ -253,17 +254,18 @@ theorem exists_native_shifted_vacua
         ∃ v v' : Matrix (Fin n) (Fin g) ℚ → ℂ,
           FiniteOverlap.IsVac (phase H B hB G k m j b) (lattice H B hB k m b L) v ∧
           FiniteOverlap.IsVac (phase H B hB G k m j b) (lattice H B hB k m b L') v' ∧
-          ((lattice H B hB k m b L').relIndex (lattice H B hB k m b L) : ℝ) *
+          ((lattice (κ := Fin n) H B hB k m b L').relIndex
+              (lattice (κ := Fin n) H B hB k m b L) : ℝ) *
             ‖ip v v'‖ ^ 2 = 1 := by
   let H := nativeDyadicHostRaw e q d he hH
-  let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
-    (nativeDyadicHostAx e q d he hH).der.cm
+  let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
   let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
   have := D.fin
   have := D.proj
-  have : Module.Finite ℤ D.La := Module.Finite.trans (𝓞 H.E) D.La
-  have : Module.Flat ℤ D.La := Module.Flat.trans ℤ (𝓞 H.E) D.La
+  have : Module.Finite ℤ D.La :=
+    Module.Finite.trans (𝓞 (nativeDyadicHostAx e q d he hH).E) D.La
+  have : Module.Flat ℤ D.La := Module.Flat.trans ℤ (𝓞 (nativeDyadicHostAx e q d he hH).E) D.La
   have : Module.Free ℤ D.La := inferInstance
   obtain ⟨b, hb⟩ := exists_isSymplecticBasis_of_finrank D.alt D.unimod
     (NativeGeometricSymplectic.finrank_int_lattice D)

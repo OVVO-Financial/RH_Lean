@@ -287,6 +287,7 @@ theorem sum_pair_pure (neg : Fin r → Bool) (y : Matrix (Fin n) (Fin r) H.E)
   change Ambient.pair H neg (y k) (vecMulVec v u k) =
     Ambient.pair H neg (H.conj (v k) • y k) u
   simp only [Ambient.pair_adjoint_field, conj_conj]
+  rfl
 
 attribute [local instance] NativeRawHostPolarization.conjugationStar
 
@@ -320,7 +321,7 @@ theorem span_of_selfDual {neg : Fin r → Bool} {L : Lt H.E r}
     have hi := congrFun hz' i
     change (sgn (neg i) : H.E) * z i = 0 at hi
     have he := congrArg (fun t => (sgn (neg i) : H.E) * t) hi
-    simpa only [← mul_assoc, sgn_mul_self, one_mul, mul_zero] using he
+    simpa only [← mul_assoc, sgn_mul_self, one_mul, mul_zero, Pi.zero_apply] using he
   exact hf0 (LinearMap.ext fun u => by simp [hz u, hz0, herm])
 
 /-- The tensor product of the auxiliary integral Hermitian lattice and
@@ -334,8 +335,8 @@ theorem tens_selfDual {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
   · intro hy y' hy'
     let f : Matrix (Fin n) (Fin r) H.E →+ ℚ :=
       AddMonoidHom.mk' (fun y' => ∑ i, Ambient.pair H neg (y i) (y' i))
-        fun a b => by
-          simp only [Pi.add_apply, Ambient.pair_add_right, Finset.sum_add_distrib]
+        fun a b => (Finset.sum_congr rfl fun i _ =>
+          Ambient.pair_add_right H neg (y i) (a i) (b i)).trans Finset.sum_add_distrib
     obtain ⟨k, hk⟩ := tens_le (H := (Int.castAddHom ℚ).range.comap f)
       (fun a ha b hb => by
         obtain ⟨k, hk⟩ := (hL.2 _).1 ((mem_tens_iff H hΛ L y).1 hy a ha) b hb
@@ -373,7 +374,8 @@ theorem phase_semichar {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
     (tens_selfDual H hΛ hL y).1 hy _ (smul_mem_tens H hΛ a.isIntegral_coe hy')
   constructor
   · obtain ⟨z, hz⟩ := hint w y hy
-    rw [ShiftedPhase.phase, pow_two, ← Complex.exp_add]
+    simp only [ShiftedPhase.phase]
+    rw [pow_two, ← Complex.exp_add]
     simp only [ShiftedPhase.quadratic, hz]
     have he : Real.pi * Complex.I * ((z : ℚ) : ℂ) +
         Real.pi * Complex.I * ((z : ℚ) : ℂ) = (z : ℂ) * (2 * Real.pi * Complex.I) := by
@@ -387,7 +389,8 @@ theorem phase_semichar {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
         (∑ k, ShiftedPhase.quadratic H neg w (y k)) +
         (∑ k, ShiftedPhase.quadratic H neg w (y' k)) +
         (∑ k, Ambient.pair H neg (y k) (y' k)) - 2 * (z : ℚ) := by
-      simp only [Pi.add_apply, ShiftedPhase.quadratic_add H neg w hw,
+      show (∑ k, ShiftedPhase.quadratic H neg w (y k + y' k)) = _
+      simp only [ShiftedPhase.quadratic_add H neg w hw,
         Finset.sum_sub_distrib, Finset.sum_add_distrib, ← Finset.mul_sum, hz]
     simp only [ShiftedPhase.phase]
     rw [hq]

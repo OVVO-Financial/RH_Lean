@@ -197,7 +197,7 @@ theorem translationHom_hom_inv_id :
   · rw [Category.comp_id]
     exact hp _ _ (isUnimodularSol_origin (equation_originZ_originW V))
   · rw [Category.comp_id]
-    exact hp _ _ _
+    exact hp _ _ (isUnimodularSol_some (equation_affineX_affineY V))
 
 theorem translationHom_inv_hom_id :
     translationHom V W (-r) (-s) (r * s - t) (translationChange_reverse W V r s t hC) ≫
@@ -215,7 +215,7 @@ theorem translationHom_inv_hom_id :
   · rw [Category.comp_id]
     exact hp _ _ (isUnimodularSol_origin (equation_originZ_originW W))
   · rw [Category.comp_id]
-    exact hp _ _ _
+    exact hp _ _ (isUnimodularSol_some (equation_affineX_affineY W))
 
 /-- The actual projective scheme isomorphism given by the equation translation. -/
 def translationIso : scheme V ≅ scheme W where

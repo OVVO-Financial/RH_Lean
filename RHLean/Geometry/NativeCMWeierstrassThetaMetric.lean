@@ -43,7 +43,7 @@ theorem norm_multiplier_sq (w z : ℂ) :
     ← Real.exp_add]
   congr 1
   simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
-    Complex.div_ofReal_re, Complex.div_ofReal_im, zero_div, zero_mul, sub_zero]
+    Complex.div_ofNat_re, Complex.div_ofNat_im, zero_div, zero_mul, sub_zero]
   ring
 
 theorem latticeForm_add_self_re (z w : ℂ) :
@@ -73,7 +73,8 @@ theorem fiberNormSq_multiplier (w z v : ℂ) :
           (latticeForm L w w).re))) := by ring
     _ = _ := by
       rw [← Real.exp_add]
-      congr 2 <;> ring
+      congr 2
+      ring
 
 def sigmaNormSq (z : ℂ) : ℝ := fiberNormSq L z (canonicalSigma L z)
 

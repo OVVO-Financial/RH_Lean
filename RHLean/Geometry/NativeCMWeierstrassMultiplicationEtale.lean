@@ -78,11 +78,11 @@ end MulEtaleDvr
 
 open MulEtaleDvr in
 
-theorem etale_mulN_torsion_dvr :
-    ∀ (T : Type) [CommRing T] [IsDomain T] [IsDiscreteValuationRing T] (G : Over (Sp T)) [GrpObj G]
-      [IsCommMonObj G] (n : ℕ), IsUnit (n : T) → Flat G.hom → LocallyOfFiniteType G.hom →
+theorem etale_mulN_torsion_dvr (T : Type) [CommRing T] [IsDomain T] [IsDiscreteValuationRing T]
+    (G : Over (Sp T)) [GrpObj G] [IsCommMonObj G] (n : ℕ) :
+    IsUnit (n : T) → Flat G.hom → LocallyOfFiniteType G.hom →
       Etale (mulN G n).left ∧ Etale (torsion G n).hom := by
-  intro T _ _ _ G _ _ n hn hf hG
+  intro hn hf hG
   have h1 : Flat (mulN G n).left :=
     flat_of_flat_fibres_dvr T (FractionRing T) G G _ hf hf hG hG
       (flat_pullback_mulN _ G n hn hG) (flat_pullback_mulN _ G n hn hG)
@@ -94,6 +94,17 @@ theorem etale_mulN_torsion_dvr :
   have h : Etale (mulN G n).left := Etale.of_formallyUnramified_of_flat _
   exact ⟨h, MorphismProperty.of_isPullback (P := @Etale) (isPullback_torsion G n) h⟩
 
+/-- A formally unramified morphism locally of finite type is locally
+quasi-finite: on affine opens the ring map is essentially of finite type and
+formally unramified, hence quasi-finite. -/
+theorem locallyQuasiFinite_of_formallyUnramified {X Y : Scheme} (f : X ⟶ Y)
+    [FormallyUnramified f] [LocallyOfFiniteType f] : LocallyQuasiFinite f := by
+  refine ⟨fun {U} hU {V} hV e => ?_⟩
+  have hu := HasRingHomProperty.appLE @FormallyUnramified f ‹_› ⟨U, hU⟩ ⟨V, hV⟩ e
+  have hft := HasRingHomProperty.appLE @LocallyOfFiniteType f ‹_› ⟨U, hU⟩ ⟨V, hV⟩ e
+  algebraize [(f.appLE U V e).hom]
+  exact (inferInstance : Algebra.QuasiFinite Γ(Y, U) Γ(X, V))
+
 /-- Properness makes the actual torsion scheme finite. In particular the
 constructed integral elliptic seed has finite etale invertible torsion. -/
 theorem finite_etale_torsion_dvr (R : Type) [CommRing R] [IsDomain R]
@@ -103,6 +114,7 @@ theorem finite_etale_torsion_dvr (R : Type) [CommRing R] [IsDomain R]
   obtain ⟨hm, ht⟩ := etale_mulN_torsion_dvr R G n hn inferInstance inferInstance
   have hc : IsProper ((mulN G n).left ≫ G.hom) := by rw [Over.w]; infer_instance
   have hp : IsProper (mulN G n).left := IsProper.of_comp _ G.hom
+  have : LocallyQuasiFinite (mulN G n).left := locallyQuasiFinite_of_formallyUnramified _
   have hf : IsFinite (mulN G n).left := IsFinite.of_isProper_of_locallyQuasiFinite _
   exact ⟨MorphismProperty.of_isPullback (P := @IsFinite)
     (MulEtaleDvr.isPullback_torsion G n) hf, ht⟩

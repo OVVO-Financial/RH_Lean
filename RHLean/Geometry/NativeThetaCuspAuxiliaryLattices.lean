@@ -57,7 +57,7 @@ private lemma exists_linearForm_extend_of_span_eq_univ {n : ℕ} (Λ : Submodule
     refine Finset.sum_congr rfl fun i _ => ?_
     rw [Submodule.coe_smul, ← algebraMap_smul E (a i), ha i, smul_assoc]
   have hg := congrArg (fun z => ((g z : 𝓞 E) : E)) hdy
-  simp only [map_smul, map_sum, smul_eq_mul, RingOfIntegers.coe_eq_algebraMap, map_mul] at hg
+  simp only [map_smul, map_sum, smul_eq_mul, map_mul] at hg
   simp only [RingOfIntegers.coe_eq_algebraMap]
   have hd0 : algebraMap (𝓞 E) E d ≠ 0 :=
     IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors d.2
@@ -126,7 +126,7 @@ theorem span_eq_top {n : ℕ} (Λ : Submodule (𝓞 H.E) (Fin n → H.E)) (hfg :
 /-- A finite dual projective frame, constructed inside the actual lattice. -/
 theorem exists_dual_family {n : ℕ} (Λ : Submodule (𝓞 H.E) (Fin n → H.E))
     (hfg : Λ.FG)
-    (hint : ∀ x ∈ Λ, ∀ y ∈ Λ, IsIntegral ℤ (herm H x y))
+    (_hint : ∀ x ∈ Λ, ∀ y ∈ Λ, IsIntegral ℤ (herm H x y))
     (hdual : ∀ x, (∀ y ∈ Λ, IsIntegral ℤ (herm H x y)) → x ∈ Λ) :
     Submodule.span H.E (Λ : Set (Fin n → H.E)) = ⊤ ∧ ∃ (m : ℕ) (v w : Fin m → Fin n → H.E),
       (∀ i, v i ∈ Λ) ∧ (∀ i, w i ∈ Λ) ∧ ∀ u : Fin n → H.E, u = ∑ i, herm H u (w i) • v i := by

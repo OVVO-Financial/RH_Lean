@@ -165,12 +165,14 @@ theorem eventually_expPoint_origin :
         a • ![WeierstrassTangent.affineX L C z, WeierstrassTangent.affineY L C z, 1] := by
       ext i
       fin_cases i <;> simp only [Pi.smul_apply, smul_eq_mul]
-      · rw [hz', ha_def, div_eq_mul_inv]
+      · change WeierstrassTangent.originZ L C z = a * WeierstrassTangent.affineX L C z
+        rw [hz', ha_def, div_eq_mul_inv]
         ring
       · dsimp [a]
         field_simp
-      · rw [hw', ha_def]
-        simp
+      · change WeierstrassTangent.originW L C z = a * 1
+        rw [hw', ha_def]
+        ring
     have hp' : IsUnimodularSol (W.map (RingHom.id ℂ))
         ![WeierstrassTangent.affineX L C z, WeierstrassTangent.affineY L C z, 1] :=
       isUnimodularSol_some hp.left
@@ -262,7 +264,8 @@ theorem locEval_regular (r : OriginRing W) :
     intro a
     have heq : (fun t => locEval L W C t (algebraMap ℂ _ a)) =ᶠ[𝓝 0] fun _ => a := by
       filter_upwards [hev] with t ht
-      simp [locEval, ht]
+      simp only [locEval, dif_pos ht]
+      simp
     exact ⟨((hasDerivAt_const (0 : ℂ) a).congr_deriv
       (by simp [epsEval, TrivSqZeroExt.algebraMap_eq_inl])).congr_of_eventuallyEq heq,
       analyticAt_const.congr heq.symm⟩
@@ -300,7 +303,8 @@ theorem locEval_regular (r : OriginRing W) :
   · have heq : (fun t => locEval L W C t (originZ W)) =ᶠ[𝓝 0]
         WeierstrassTangent.originZ L C := by
       filter_upwards [hev] with t ht
-      simp [locEval, ht]
+      simp only [locEval, dif_pos ht]
+      simp
     have han : AnalyticAt ℂ (WeierstrassTangent.originZ L C) 0 :=
       analyticAt_id.mul ((WeierstrassTangent.regularX_analytic L C).neg.div
         (WeierstrassTangent.regularY_analytic L C) (WeierstrassTangent.regularY_zero_ne L C))
@@ -309,7 +313,8 @@ theorem locEval_regular (r : OriginRing W) :
   · have heq : (fun t => locEval L W C t (originW W)) =ᶠ[𝓝 0]
         WeierstrassTangent.originW L C := by
       filter_upwards [hev] with t ht
-      simp [locEval, ht]
+      simp only [locEval, dif_pos ht]
+      simp
     have han : AnalyticAt ℂ (WeierstrassTangent.originW L C) 0 :=
       (analyticAt_id.pow 3).mul (analyticAt_const.div
         (WeierstrassTangent.regularY_analytic L C) (WeierstrassTangent.regularY_zero_ne L C))
