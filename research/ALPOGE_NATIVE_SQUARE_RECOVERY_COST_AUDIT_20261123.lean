@@ -1,7 +1,9 @@
 import RHLean.Analysis.AlpogeNativeSquareCandidateCapacity
 import RHLean.Analysis.AlpogeNativeSquareMultiplicity
 import RHLean.Geometry.NativeSquareCapacityPeriod
+import RHLean.Geometry.NativeSquareHostRealization
 import «research.NATIVE_SQUARE_WEIGHTED_RECOVERY_20261123»
+import «research.NATIVE_PRIME_POWER_RECOVERY_TEST_20261123»
 
 /-!
 # Native square recovery and completed-capacity audit
@@ -22,6 +24,8 @@ candidate removal retains that inequality as its stated right-hand side.
 #check RHLean.Analysis.alpogeNativeRestSize_of_squareClock
 #check RHLean.Analysis.alpogeNativeSquareMultiplicity_pageN_eventually
 #check RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_period_lower
+#check RHLean.Analysis.AlpogeThin.nativeSquareHost_exists_lattice_theta
+#check RHLean.Arithmetic.nativePrimePowerCoefficient_wheel_iterate_not_dvd
 
 open Lean Elab Command in
 run_cmd do
@@ -49,7 +53,14 @@ run_cmd do
     ``RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeMean_bound_of_divisorDebt,
     ``RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeMean_bound_of_period_lower,
     ``RHLean.Analysis.alpogeNativePeriodDebt_div_projectionDivisor,
-    ``RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_period_lower]
+    ``RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_period_lower,
+    ``RHLean.Analysis.AlpogeThin.nativeSquareHost_chain_size,
+    ``RHLean.Analysis.AlpogeThin.nativeSquareHost_chain_dimension,
+    ``RHLean.Analysis.AlpogeThin.nativeSquareHost_exists_lattice_theta,
+    ``RHLean.Arithmetic.nativePrimePowerCoefficient_vonMangoldt,
+    ``RHLean.Arithmetic.nativePrimePowerCoefficient_wheel_iterate,
+    ``RHLean.Arithmetic.nativePrimePowerCoefficient_wheel_iterate_not_dvd,
+    ``RHLean.Arithmetic.nativePrimePowerCoefficient_smooth_recovery]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

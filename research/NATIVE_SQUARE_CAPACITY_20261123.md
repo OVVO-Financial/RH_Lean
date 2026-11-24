@@ -207,6 +207,226 @@ refuted. Its small-quotient remainder remains unpaid. Neither handoff supplies
 the measured P2 witness required above. These are report-level arguments;
 their status does not change to kernel verification in this audit.
 
+## 6. Follow-up: the growing floor-divisor map has a small mean cost and zero index
+
+The next recovery candidate is the literal finite-prefix restriction of
+`RHLean.Arithmetic.freshPrimeDifference p` in
+`RHLean/Arithmetic/PrimeCombFiniteDifferenceFreshPrime.lean`. The underlying
+`shift` in `PrimeCombFiniteDifference.lean` is `f(n) -> f(floor(n/p))`.
+Restrict to the integral coordinate lattice on `1,...,N`, with `f(0)=0`, and
+write
+
+\[
+F_p(n,k)=\mathbf 1_{k=\lfloor n/p\rfloor\ge1},\qquad D_p=I-F_p,
+\quad p\ge2,\ N\ge1.
+\]
+
+This is a source-compatible integral linear map on prefix sequences. It is
+not a new encoding of an arithmetic height. Since `floor(n/p) < n`, `F_p` is
+strictly lower triangular. If `p^L > N`, then `F_p^L=0`, and
+
+\[
+D_p^{-1}=I+F_p+\cdots+F_p^{L-1}
+\]
+
+is integral. Thus its rank is exactly `N`, its determinant is `1`, and its
+cokernel is zero. The same statements hold for any finite product of the
+`D_p`. The existing `finiteDifferenceOperator_insert_eq_freshPrimeDifference`
+and `shift_comp` identify that product with the original finite Möbius
+divisor operator; the commuting finite-difference algebra is already proved.
+
+There is a sharper cost statement than the generic operator estimate.
+The matrix has `N` diagonal entries equal to `1` and precisely
+`max(0,N-p+1)` strict-subdiagonal entries equal to `-1`. Therefore, at every
+complex embedding,
+
+\[
+\sum_{k=1}^{N}\|D_pe_k\|_2^2
+=N+\max(0,N-p+1)\le2N.
+\]
+
+This is a **mean frame-energy bound**. It is not a squared operator bound
+of `2`: for `N >= 2p-1`, the actual vector `e_1` has
+`||D_p e_1||^2=p+1`. The usual triangle estimate gives an operator bound
+`||D_p|| <= 1+sqrt(p)`.
+
+The exact inputs to the existing
+`NumberFieldDescent.mean_energy_weighted_descent` in
+`RHLean/Geometry/NativeMeanEnergyDescent.lean` can therefore be discharged as
+follows, over any fixed number field `K`:
+
+| Input | Actual substitution |
+| --- | --- |
+| source and target | the same lattice `(O_K)^N` with identity metric frame |
+| integral matrix `F` | the integer matrix `D_p`, mapped into `O_K` |
+| source rank `r` | `N` |
+| complementary rank `d` | `0` |
+| injectivity | the displayed integral inverse |
+| short spanning set `S` | the original coordinate unit vectors |
+| generator cost `Lambda` | `0` |
+| image cost `P` | `log(2)/2` |
+| source and target squared slopes | both `0`, from their identity Gram determinants |
+
+Its complete conclusion is `-N*log(2) <= 0`, or `-log(2) <= 0` per source
+rank. The stronger exact determinant calculation has image Gram determinant
+`1` and gives zero net volume change. This supplies an actual map and its
+global mean-energy cost, but no positive local length or determinant credit.
+Interpreting the full rank `N` as `N` units of gained arithmetic multiplicity
+would discard the zero cokernel calculation.
+
+For a family of `q` such maps into `q` copies of the rank-`N` target, the
+joint mean frame energy is exactly
+
+\[
+qN+\sum_{p\in S}\max(0,N-p+1),
+\]
+
+with the maps counted with their actual multiplicity. The rank-saturation
+input of `jointMapMatrix_gram_det_le_of_rank_saturation` becomes
+`q*N <= (1+epsilon)*N`, so it requires `epsilon >= q-1`. Thus one cannot use
+the near-rank version while silently keeping `epsilon` small. Taking the
+product instead retains determinant `1`; it changes the map but supplies no
+index credit.
+
+Nor can these floor maps be substituted for the action `st` in
+`nativeAllPlaceDescent_of_regular_groupDet`. That theorem requires actual
+unital algebra maps satisfying a group action. `F_p` is nilpotent on this
+prefix and is not injective. For `N>=p`, `D_p` does not preserve the
+pointwise constant-one function: its value is zero at every `n>=p`.
+Consequently it is not a unital algebra map either. The direct integral
+mean-energy theorem above is the applicable existing consumer.
+
+Exact integer matrix checks, separate from Lean verification, confirmed:
+
+| `N` | dilation(s) | rank | determinant | total squared frame energy |
+| --- | --- | --- | --- | --- |
+| 8 | 2 | 8 | 1 | 15 |
+| 10 | 3 | 10 | 1 | 18 |
+| 5 | 7 | 5 | 1 | 5 |
+| 63 | 2 | 63 | 1 | 125 |
+| 24 | product of 2, 3 | 24 | 1 | 90 |
+| 63 | product of 2, 3, 5, 7 | 63 | 1 | 667 |
+
+The calculation used integer matrix multiplication, exact integer
+elimination, and the explicit geometric-sum inverse. The triangular and
+entry-count arguments above prove the claims for all `N,p`; the table is a
+diagnostic check, not a kernel-checked theorem. No new wrapper module was
+added for this audit. A source-specific bound on the complete signed `Gz`
+does not follow from this norm/rank calculation.
+
+The recovery agent also tested literal repetition at a genuine prime square:
+`R=p`, `N=p^2-1`. Then `F_p^2=0`, so for every natural `m`,
+
+\[
+D_p^m=I-mF_p,\qquad (D_p^m)^{-1}=I+mF_p,
+\]
+
+and its exact squared frame energy is
+
+\[
+N+m^2(N-p+1).
+\]
+
+Thus even this growing repetition has determinant and index `1`. At `m=p`,
+the squared norm of its first source column is `1+p^3`. The exact mean
+energy price in the existing theorem is
+`P = log(1+m^2*(N-p+1)/N)/2`; with the same identity metrics and zero rank
+defect, its conclusion remains only the nonpositive cost inequality
+`-N*log(1+m^2*(N-p+1)/N) <= 0`.
+
+The separately added
+`research/NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean` keeps the actual
+integer coefficients of every von Mangoldt prime-power logarithm. Its
+first-prime coefficient remains `1` under the whole finite wheel and its
+iterates. Consequently this actual coefficient is not divisible by any
+prime. This is a failure of the proposed positive valuation gain on that
+coefficient; it is not a claim about divisibility of the real number
+`log(p)`. The exact inverse and full rank have not supplied the needed
+positive local multiplicity.
+
+## 7. Follow-up: exact reverse-integrality attachment boundary on main
+
+The search was extended through the actual main-branch ideal, ray-class,
+polarization, and period constructors, rather than stopping at the standalone
+norm theorem.
+
+`NativeRay.IdealLattice.cls_iff` and `gen_bij` in
+`RHLean/Analysis/AlpogeThin/NativeRayIdealLattice.lean` construct genuine
+principal equations `I*B=(x)` within a specified ray-class fiber. Their
+`normSq_eq` and `abs_im_eq` prove the actual principal norm and ideal-area
+identities. These equations concern the product `I*B`; they do not identify
+the tangent multiplier of an isogeny between a class model and the seed.
+
+`nativeDyadicHostRaw_exists_principalPolarizationArithmetic` constructs the
+half-different ideal and the actual identity
+
+\[
+(\xi)B^{-1}\overline B^{-1}\mathfrak D_{E/\mathbb Q}=1.
+\]
+
+`nativeDyadicHost_exists_prescribedPeriods` then constructs the period map
+on that same inverse-ideal lattice. Its `IsPeriod` predicate, defined in
+`RHLean/Geometry/NativeGeometricPeriods.lean`, contains exactly coefficient
+intertwining, injectivity, discreteness, real spanning, and a positive
+Hermitian form whose imaginary part is the original alternating form.
+These are genuine constructions. The predicate contains no integral
+arithmetic tangent lattice, ideal-class family of two-curve maps, or
+comparison with `Data.logOm`.
+
+The precise missing substitution into the one-sided norm lemma is a
+nonzero multiplier `beta_C : M` attached to the actual class-to-seed
+tangent map, with
+
+```lean
+∀ C (y : 𝓞 K), y ∈ b C →
+  IsIntegral ℤ ((β C)⁻¹ * algebraMap K M (y : K))
+```
+
+Here `b_C` must be the ideal appearing in the analytic period inclusions
+for that same class model. In the period double-sum application, the
+simultaneous reverse analytic condition is
+
+\[
+\forall C,\sigma,y\in b_C,z\in L_{C,\sigma},\qquad
+\sigma(\beta_C^{-1}y)z\in L_{0,\sigma}.
+\]
+
+The forward analytic inclusion is still needed. The unit-discriminant
+normalization of the same models is what removes the discriminant row
+sum. A newly chosen scalar satisfying the bare norm hypothesis is not a
+replacement for these attachments. For example, `beta_C=1` satisfies bare
+reverse integrality for every integral ideal, but this fact does not prove
+that the actual two-model tangent multiplier is `1` or prove the required
+period inclusions.
+
+Main contains no constructor of these class-indexed scalar/morphism data.
+For comparison, the inspected unmerged
+`NativeCMWeierstrassMorphismTangent.exists_tangent_scalar` in
+`origin/research/cm-seed-serre-degree-20261123` takes an actual endomorphism
+`f : schemeOver V -> schemeOver V`, with its monoid-homomorphism structure
+and exact analytic `expPoint` intertwining. It derives the integral tangent
+coordinate of that endomorphism. The reverse application here needs a map
+from the class model to the seed model, together with the matching
+intertwining. Reusing the same-model theorem without constructing that map
+does not discharge its telescope.
+
+There is also a concrete reason `IsPeriod` alone cannot supply an absolute
+arithmetic period lower bound: its entire predicate is preserved by
+`P -> c*P`, `Hm -> c^(-2)*Hm` for every positive real `c`, while the
+logarithmic covolume changes by `2g*log(c)` in complex dimension `g`.
+This observation does not refute a bound for the fixed canonical
+`prescribedPeriodMap`. It identifies the normalization information absent
+from the `IsPeriod` interface. The required independently measured degree
+comparison must retain that arithmetic normalization.
+
+Accordingly no zero-slack physical period attachment was found on main.
+The next exact input is the reverse two-model tangent map and its analytic
+compatibility on the original class ideals, followed by the physical
+`v=sqrt(d)/2` and canonical-character-log-derivative identifications. This is
+a specific supplier boundary; it is not a demand to reconstruct every
+unrelated part of PR #1201.
+
 **Execution evidence:** original source/type inspection; finite algebraic proof
 of the debt propagation; independent source review by the simultaneous-windows
-agent. New Lean execution is hosted-only and pending. **P2 status: OPEN.**
+agent; exact integer checks of the floor-divisor matrices. New Lean execution
+is hosted-only and pending. **P2 status: OPEN.**

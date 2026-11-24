@@ -1074,6 +1074,7 @@ import RHLean.Geometry.NativeSectionCostAbsorption
 import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
 import RHLean.Geometry.NativeSquareCapacityPeriod
+import RHLean.Geometry.NativeSquareHostRealization
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement

@@ -119,6 +119,24 @@ and square boundaries are carried by the separate completed capacity
 identity above. Detailed source and recovery-map analysis is in
 [`NATIVE_SQUARE_RECOVERY_20261123.md`](NATIVE_SQUARE_RECOVERY_20261123.md).
 
+The stronger growing-rank attempt was also tested on the actual native
+prime-wheel floor-difference operator. The existing smooth-number inverse
+already gives full integral recovery, so it is reused. The new
+[`NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean`](NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean)
+fixes the actual integer coefficient of `log q` on the positive powers
+of a prime `q`, proves its attachment to von Mangoldt, and proves that
+every iterate of every finite prime-wheel difference retains coefficient
+**one** at `q`. It therefore does not acquire even one prime divisor.
+The same coefficient fibre has the exact smooth-number recovery inverse.
+This isolates full recovery versus earned prime divisibility on one source;
+it does not assign a p-adic valuation to the real logarithm.
+
+For the concrete map `D_p=I−F_p` on positive coordinates through `N`,
+the matrix is integral unitriangular. Its determinant is one and its
+squared frame energy is `N+max(0,N−p+1)`. These paper calculations and
+independent finite checks are recorded in the recovery/capacity reports.
+They do not give the missing positive local index or finite-place gain.
+
 ## 3. Global cost with one-sided period information
 
 [`NativeSquareCapacityPeriod.lean`](../RHLean/Geometry/NativeSquareCapacityPeriod.lean)
@@ -175,18 +193,56 @@ premises remain explicit. It also proves the necessary restriction
 [`realization audit`](NATIVE_SQUARE_REALIZATION_20261123.md) records the
 precise remaining physical and window compatibility conditions.
 
+The follow-up
+[`NativeSquareHostRealization.lean`](../RHLean/Geometry/NativeSquareHostRealization.lean)
+also instantiates an existing actual geometric constructor at these same
+integer parameters. It proves `R+3≤(R²−1)R`, selects **one** half-different
+on the original `PageN` exponent and `WinPair`, and uses that same ideal
+for the prescribed lattice and every theta section with `1≤j≤R`.
+The rank theorems for the actual inverse-ideal lattice give
+
+\[
+\operatorname{rank}_{\mathcal O_E}L=R^3-1,\qquad
+\operatorname{rank}_{\mathbb Z}L=(R^3-1)(4\cdot2^e).
+\]
+
+The original nonzero holomorphic theta sections, automorphy and invariant
+fiber metric are retained. This closes the base-lattice/analytic-section
+parameter attachment. It does not construct the integral recovery maps,
+measured cusp masses, or the physical gain/degree and localized-height
+comparison. In particular, selecting the ideal twice and silently equating
+two existential witnesses is avoided.
+
 ## 5. Residual obligations after these results
 
 | Obligation | Completed contribution | Still required |
 | --- | --- | --- |
-| P1: averaged recovery | Actual weighted two-channel integral decoder; denominator and exact energy cost | Source-compatible growing recovery with the required averaged `ASK−Ga` and `IO` bounds, on the original Frobenius/inertia and complete source |
+| P1: averaged recovery | Actual weighted two-channel integral decoder; denominator and exact energy cost; full floor-wheel recovery with a precise first-prime divisibility test | Source-compatible growing recovery with the required averaged `ASK−Ga` and `IO` bounds, on the original Frobenius/inertia and complete source |
 | P2: global capacity | Original gain comparison tolerates a one-sided period bound with exact debt; original main-term cancellation retained | Measured degree, lattice slopes, near-rank relation and norm costs for the same P1 object |
-| P3: simultaneous realization | `m=R`, `k=xR` on every already-selected PageN host, using the existing threshold | One actual family realizing P1/P2, counts, density, heights and localization on each required complete window |
+| P3: simultaneous realization | `m=R`, `k=xR` on every already-selected PageN host, using the existing threshold; actual same-ideal lattice and theta sections at these parameters | One actual family realizing P1/P2, counts, density, heights and localization on each required complete window |
 
 The existing one-sided square interpolation, native NNS identity and
 window-to-RH consumer remain reusable and unchanged. None is recounted as
 newly proved. No complete critical estimate, finite amplification constant,
 or unconditional RH theorem is claimed by this change.
+
+## Reproducible finite diagnostics
+
+Run `python3 research/native_square_recovery_check.py`. Its independent
+integer sieve checks both weighted recovery formulas and the energy identity
+over exact rational arithmetic at `R=3,5,317,549,1027`. It also computes the
+candidate/removal and proper-power components independently.
+
+| R | N=R²−1 | Candidate sites | Composite candidates | PP(N)/N | Gz(N), numerical |
+| --- | --- | --- | --- | --- | --- |
+| 317 | 100488 | 12003 | 2372 | 0.748323236 | 3.790075970 |
+| 549 | 301400 | 32063 | 5951 | 0.751366559 | -0.183788536 |
+| 1027 | 1054728 | 99673 | 17211 | 0.753262622 | 7.138858262 |
+
+Here the square-dependent cutoff is `floor(sqrt(n))/2`, rounded down.
+The logarithmic columns are ordinary floating-point diagnostics, not interval
+certificates or proof of a universal bound. The finite identity residual
+relative to the uncentered complete mass was at most `1.2e-16` in this run.
 
 ## Source and continuity record
 

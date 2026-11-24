@@ -22,7 +22,7 @@ lower bound on removed composite capacity at square-root precision.
 
 noncomputable section
 
-open scoped ArithmeticFunction.vonMangoldt BigOperators
+open scoped ArithmeticFunction.vonMangoldt BigOperators Classical
 
 namespace RHLean.Analysis
 
@@ -225,6 +225,7 @@ theorem nativeSquareProperPowerCapacity_four_lower (N : ℕ) (hN : 4 ≤ N) :
     have heq : (4 : ℕ) = 2 ^ 2 := by norm_num
     rw [heq, ArithmeticFunction.vonMangoldt_apply_pow (by norm_num : (2 : ℕ) ≠ 0),
       ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]
+    norm_num
   simpa only [nativeSquareCandidateKernel, Nat.cast_ofNat, hfour,
     nativeSquareProperPowerCapacity] using hsum
 

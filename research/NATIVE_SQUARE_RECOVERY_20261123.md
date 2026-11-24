@@ -172,3 +172,151 @@ checks are diagnostics, not evidence of a universal asymptotic saving.
 `descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1`
 
 `tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1`
+
+## Further P1 attempt: full native wheel recovery on prime-power coefficients
+
+This attempt uses a growing source module and the **existing** full inverse,
+rather than duplicating the two-channel calculation.
+
+`RHLean/Arithmetic/PrimeCombComplementSmoothInversion.lean` already proves
+`finiteDifferenceOperator_eq_sum_complementSmooth`: for an integer sequence
+`f` with `f(0)=0`, the full finite prime-wheel transform has an exact inverse
+through the same set of smooth-number floor shifts. All powers of the selected
+primes appear in that inverse; restricting the inverse to squarefree divisors
+would be false. Thus the native arithmetic already supplies full integral
+recoverability, not only two aggregate channels.
+
+For a fixed prefix `1,...,N`, write
+
+\[
+(F_p f)(n)=f(\lfloor n/p\rfloor),\qquad D_p=I-F_p,
+\]
+
+with `f(0)=0`. For `p≥2`, `F_p` is strictly lower triangular and nilpotent.
+Therefore `D_p` has rank `N`, determinant one, and integral inverse
+`I+F_p+F_p²+...`. Every finite product of these maps has the same rank,
+denominator one, and index one. One can obtain exact coordinate recovery and
+off-diagonal coordinate vanishing by applying the explicit inverse to the
+standard basis. These coordinate rows have not been identified with the
+physical neighbouring-edge pairings in `LPprimeAt`.
+
+At a genuine prime square clock `R=p`, `N=p²-1`, one has `F_p²=0` on the
+entire prefix. Hence, for **any** iteration count `m`,
+
+\[
+D_p^m=I-mF_p,\qquad (D_p^m)^{-1}=I+mF_p.
+\]
+
+This gives an explicit growing, full-rank native map on the original
+coefficient module. Its squared Frobenius norm in the standard coordinate
+metric is exactly
+
+\[
+N+m^2(N-p+1).
+\]
+
+There is one strict off-diagonal entry `-m` for every `p≤n≤N`. At `m=p`,
+the first source column has squared norm `1+p³`. These are complete norm
+costs of this particular map; no averaging convention changes its determinant
+from one to a prime-power index. Repeating a prime is a repeated arithmetic
+operator, not insertion of fresh distinct prime coordinates into a set.
+
+### The actual von Mangoldt coefficient test
+
+For every prime `q`, define the integer coefficient fibre
+
+\[
+a_q(n)=\mathbf 1_{\{n=q^j:\ j\ge1\}}.
+\]
+
+It is the coefficient of `log q` in the actual von Mangoldt source. The
+existing `alpogeNativeLambda_primePowerFubini` records the complete prime-power
+decomposition. The new file
+`research/NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean` explicitly attaches
+this coefficient to `Λ(q^j)=log q` and proves, for every finite prime set `S`
+and every number of iterations `m`,
+
+\[
+(D_S^m a_q)(q)=1.
+\]
+
+The proof uses the actual floor operator: `a_q(n)=0` for `n<q`, while the
+identity divisor contributes one at `q`; every other divisor reads an earlier
+site. The same statement remains true under iteration. Consequently this
+integer coefficient is not divisible by **any** prime, even once.
+
+The companion theorem `nativePrimePowerCoefficient_smooth_recovery` uses the
+existing smooth-number inverse to reconstruct this same entire coefficient
+fibre exactly, with integer coefficients and no denominator. Thus recovery
+is successful in this attempt, whereas the proposed inference from repeated
+native wheel differences to prime-place multiplicity fails on a literal
+prime-power coefficient. No p-adic valuation of the real number `log q` is
+asserted. A different geometric construction is not excluded by this test.
+
+Exact coefficient computations, using integer coefficients of each distinct
+prime logarithm, checked complete wheel transforms and `R`-fold single-prime
+transforms at:
+
+| R | N | Distinct wheel primes | Squared Frobenius cost of D_R^R | First-column squared norm |
+| --- | --- | --- | --- | --- |
+| 7 | 48 | 4 | 2106 | 344 |
+| 31 | 960 | 11 | 894690 | 29792 |
+| 101 | 10200 | 26 | 103040300 | 1030302 |
+
+Every coefficient was recovered exactly by `I+R F_R`. Every prime's own
+first logarithmic coefficient remained one after the entire wheel transform.
+The determinant/index statements above follow from the explicit triangular
+form; the numerical program did not claim a symbolic determinant computation.
+
+### Existing stronger alternatives checked
+
+The high-prime prefix minors in
+`ALPOGE_GZ_PHYSICAL_LIFT_ATTACK_20261120.md` already provide growing
+unimodular incidence matrices with uniformly bounded inverse differences.
+That report also records their decisive source correction: distinct
+semiprimes vanish from first-order `Λ`; in the second Selberg source the
+selected response has exact quotient one and therefore the same value
+`E(1)=-1`. The coefficient rank is not independent response multiplicity.
+The near-root signed `2I-J` construction in
+`ALPOGE_SIGNED_SELBERG_INTEGRAL_SCHUR_20261120.lean` retains genuine prime-square
+and distinct-semiprime faces, but its centered doubling and surviving
+principal mode have already been accounted for. Neither existing result
+supplies the missing physical `Ga` and its mean loss bound.
+
+**First remaining construction failure:** identify genuinely arithmetic
+source/target edge lattices and pairings for which the recovered integral
+conditions earn the required prime-place gain, while the global map cost and
+the complete source attachment remain on the same object. Full recovery of
+the finite wheel data, by itself, does not discharge this premise.
+
+### Genuine prime-place indices: factorial comparison checked
+
+The factorial is a concrete integer object with actual prime-power
+divisibilities and an independently computed global height. The needed
+identity is already proved by
+`NativePNTSelberg.nativeMulLambdaRecip_eq_logFactorial_add_error`:
+
+\[
+N\sum_{n\le N}\frac{\Lambda(n)}n
+ =\log(N!)+\mathrm{nativeLambdaFloorError}(N).
+\]
+
+Substituting into the original source gives
+
+\[
+G_z(N)=\log(N!)-N\log N+(1+\gamma)N
+ +\mathrm{nativeLambdaFloorError}(N)-\psi(N).
+\]
+
+Hence the remaining exact complement lower bound is
+
+\[
+\psi(N)-\mathrm{nativeLambdaFloorError}(N)
+ \ge\log(N!)-N\log N+(1+\gamma)N-B(N),
+\]
+
+with `B(R²-1)=O_eta(R^(1+eta))` required for the square-clock consumer.
+The existing `0≤nativeLambdaFloorError≤ψ` does not supply this lower bound;
+it only yields a nonnegative complement. The displayed target is an exact
+restatement of the original `G_z` bound, with no improved estimate established.
+No duplicate factorial identity module was added.
