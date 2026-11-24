@@ -79,6 +79,7 @@ theorem equation_translationTriple (W : _root_.WeierstrassCurve R)
     _root_.WeierstrassCurve.Projective.equation_iff]
   dsimp [translationChange, translationTriple, _root_.WeierstrassCurve.toProjective,
     _root_.WeierstrassCurve.variableChange_def]
+  simp only [inv_one, Units.val_one]
   constructor <;> intro h <;> linear_combination h
 
 theorem span_translationTriple_le (r s t : R) (P : Fin 3 → R) :
@@ -119,9 +120,12 @@ theorem translationCoord_mem (i : Fin 3) : translationCoord V r s t i ∈ gradin
 include hC in
 theorem equation_translationCoord :
     (W.baseChange (HomRing V)).toProjective.Equation (translationCoord V r s t) := by
-  have h := equation_coord V
-  change (V.map (algebraMap R (HomRing V))).toProjective.Equation (coord V) at h
-  rw [← hC, ← _root_.WeierstrassCurve.map_variableChange, translationChange_map] at h
+  subst hC
+  have h := equation_coord (translationChange r s t • W)
+  change ((translationChange r s t • W).map
+    (algebraMap R (HomRing (translationChange r s t • W)))).toProjective.Equation
+      (coord (translationChange r s t • W)) at h
+  rw [← _root_.WeierstrassCurve.map_variableChange, translationChange_map] at h
   exact (equation_translationTriple _ _ _ _ _).mp h
 
 theorem mem_span_translationCoord (i : Fin 3) :
@@ -142,7 +146,7 @@ section Points
 variable {A : Type u} [CommRing A] (ρ : R →+* A) (P : Fin 3 → A)
     (hP : IsUnimodularSol (V.map ρ) P)
 
-include hC in
+include hC hP in
 theorem isUnimodularSol_translation :
     IsUnimodularSol (W.map ρ) (translationTriple (ρ r) (ρ s) (ρ t) P) := by
   constructor
@@ -191,7 +195,7 @@ theorem translationHom_hom_inv_id :
     exact translationTriple_inverse _ _ _ P
   apply scheme_hom_ext V
   · rw [Category.comp_id]
-    exact hp _ _ _
+    exact hp _ _ (isUnimodularSol_origin (equation_originZ_originW V))
   · rw [Category.comp_id]
     exact hp _ _ _
 
@@ -209,7 +213,7 @@ theorem translationHom_inv_hom_id :
     exact translationTriple_inverse' _ _ _ P
   apply scheme_hom_ext W
   · rw [Category.comp_id]
-    exact hp _ _ _
+    exact hp _ _ (isUnimodularSol_origin (equation_originZ_originW W))
   · rw [Category.comp_id]
     exact hp _ _ _
 

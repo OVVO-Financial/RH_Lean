@@ -302,7 +302,57 @@ theorem purePeriodLinear_range_eq_ker (B : Ideal (𝓞 H.E))
   exact (pureSerreExponential_ker H G hcompat B hB N τ₀ v).symm
 
 set_option backward.isDefEq.respectTransparency false in
-set_option maxHeartbeats 4000000 in
+set_option maxHeartbeats 1000000 in
+/-- The actual analytic Serre exponential descends through its exact
+kernel. Only the additive monoid structure of the Serre tensor point
+module enters; no further instance on it is synthesized. -/
+def purePeriodQuotientMap (B : Ideal (𝓞 H.E))
+    (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ)
+    (τ₀ : cmTypeFinset H) :
+    ((cmTypeFinset H → Fin N → ℂ) ⧸ (purePeriodLinear H G hcompat B N).range)
+      →ₗ[OK G] twistedLattice H B N ⊗[OK G]
+        EllipticSeed.Torus G (τ₀ : H.E →+* ℂ) where
+  toFun q := Quotient.liftOn' q (pureSerreExponential H G hcompat B hB N τ₀)
+    fun a b hab => by
+      have h0 : pureSerreExponential H G hcompat B hB N τ₀ (a - b) = 0 :=
+        (pureSerreExponential_ker H G hcompat B hB N τ₀ (a - b)).2
+          ((Submodule.quotientRel_def _).1 hab)
+      rw [← sub_add_cancel a b, map_add, h0, zero_add]
+  map_add' x y := by
+    induction x using Submodule.Quotient.induction_on with | H a => ?_
+    induction y using Submodule.Quotient.induction_on with | H b => ?_
+    exact map_add (pureSerreExponential H G hcompat B hB N τ₀) a b
+  map_smul' c x := by
+    induction x using Submodule.Quotient.induction_on with | H a => ?_
+    exact (pureSerreExponential H G hcompat B hB N τ₀).map_smulₛₗ c a
+
+set_option backward.isDefEq.respectTransparency false in
+theorem purePeriodQuotientMap_mk (B : Ideal (𝓞 H.E))
+    (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ)
+    (τ₀ : cmTypeFinset H) (v : cmTypeFinset H → Fin N → ℂ) :
+    purePeriodQuotientMap H G hcompat B hB N τ₀ (Submodule.Quotient.mk v) =
+      pureSerreExponential H G hcompat B hB N τ₀ v := rfl
+
+set_option backward.isDefEq.respectTransparency false in
+set_option maxHeartbeats 1000000 in
+/-- The descended exponential is bijective: its kernel is exactly the
+period image and the original exponential is surjective. -/
+theorem purePeriodQuotientMap_bijective (B : Ideal (𝓞 H.E))
+    (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ)
+    (τ₀ : cmTypeFinset H) :
+    Function.Bijective (purePeriodQuotientMap H G hcompat B hB N τ₀) := by
+  constructor
+  · intro x y hxy
+    induction x using Submodule.Quotient.induction_on with | H a => ?_
+    induction y using Submodule.Quotient.induction_on with | H b => ?_
+    rw [purePeriodQuotientMap_mk, purePeriodQuotientMap_mk] at hxy
+    refine (Submodule.Quotient.eq _).2
+      ((pureSerreExponential_ker H G hcompat B hB N τ₀ (a - b)).1 ?_)
+    rw [sub_eq_add_neg, map_add, hxy, ← map_add, add_neg_cancel, map_zero]
+  · intro y
+    obtain ⟨v, rfl⟩ := pureSerreExponential_surjective H G hcompat B hB N τ₀ y
+    exact ⟨Submodule.Quotient.mk v, purePeriodQuotientMap_mk H G hcompat B hB N τ₀ v⟩
+
 /-- The quotient by the actual prescribed positive-type period image is
 the actual Serre tensor point module. -/
 def purePeriodQuotientEquiv (B : Ideal (𝓞 H.E))
@@ -311,10 +361,8 @@ def purePeriodQuotientEquiv (B : Ideal (𝓞 H.E))
     ((cmTypeFinset H → Fin N → ℂ) ⧸ (purePeriodLinear H G hcompat B N).range)
       ≃ₗ[OK G] twistedLattice H B N ⊗[OK G]
         EllipticSeed.Torus G (τ₀ : H.E →+* ℂ) :=
-  (Submodule.quotEquivOfEq _ _
-      (purePeriodLinear_range_eq_ker H G hcompat B hB N τ₀)).trans
-    ((pureSerreExponential H G hcompat B hB N τ₀).quotKerEquivOfSurjective
-      (pureSerreExponential_surjective H G hcompat B hB N τ₀))
+  LinearEquiv.ofBijective (purePeriodQuotientMap H G hcompat B hB N τ₀)
+    (purePeriodQuotientMap_bijective H G hcompat B hB N τ₀)
 
 /-- The pure-type source period map is exactly the same coordinate image,
 with only the existing finite enumeration applied. -/

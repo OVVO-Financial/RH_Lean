@@ -70,7 +70,6 @@ theorem origin_section_factorization :
     (regularY_analytic L C).continuousAt.eventually_ne (regularY_zero_ne L C)] with z hz hy
   rw [canonicalSigma_eq_mul_unit, originFrame, originZ]
   field_simp
-  ring
 
 theorem affine_origin_section_factorization :
     ∀ᶠ z in 𝓝[≠] (0 : ℂ),
@@ -130,17 +129,17 @@ variable {R : Type} [CommRing R] [Algebra R ℂ] (W : WeierstrassCurve R)
 
 /-- Evaluation of the same algebraic origin section at the actual projective point. -/
 theorem eval_originParam_of_affine (hy : y ≠ 0)
-    (hU : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hP.equation)).left ⁻¹ᵁ originOpen W) :
-    evalPt (ptOver W ![x, y, 1] (isUnimodularSol_some hP.equation)).left
+    (hU : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hP.1)).left ⁻¹ᵁ originOpen W) :
+    evalPt (ptOver W ![x, y, 1] (isUnimodularSol_some hP.1)).left
       (originOpen W) hU (originParam W) = x / y := by
   apply (eq_div_iff hy).mpr
   exact evalPt_ptHom_ratioOn_mul (algebraMap R ℂ) ![x, y, 1]
-    (isUnimodularSol_some hP.equation) (originOpen_le W) hU 0
+    (isUnimodularSol_some hP.1) (originOpen_le W) hU 0
 
 /-- The affine component of the canonical origin section evaluates to one. -/
 theorem eval_originSec_affine
-    (hU : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hP.equation)).left ⁻¹ᵁ coordOpen W 2) :
-    evalPt (ptOver W ![x, y, 1] (isUnimodularSol_some hP.equation)).left
+    (hU : ⊤ ≤ (ptOver W ![x, y, 1] (isUnimodularSol_some hP.1)).left ⁻¹ᵁ coordOpen W 2) :
+    evalPt (ptOver W ![x, y, 1] (isUnimodularSol_some hP.1)).left
       (coordOpen W 2) hU ((originSec W).f false) = 1 := map_one _
 
 end ActualSections

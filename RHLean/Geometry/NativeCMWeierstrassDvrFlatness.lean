@@ -83,7 +83,7 @@ theorem ringHom_flat {A B : Type*} [CommRing A] [CommRing B] [Algebra T A] [Alge
       · rw [Algebra.TensorProduct.map_id_comp]
         exact hK.comp (RingHom.Flat.lTensor (S := T) K hl)
     · have : IsLocalHom (algebraMap T (Localization.AtPrime P)) := by
-        refine ((local_hom_TFAE (algebraMap T (Localization.AtPrime P))).out 0 2).mpr ?_
+        refine ((local_hom_TFAE (algebraMap T (Localization.AtPrime P))).out 1 3).mpr ?_
         rw [hπ.maximalIdeal_eq, Ideal.map_span, Set.image_singleton,
           Ideal.span_singleton_le_iff_mem]
         exact hu
@@ -198,13 +198,13 @@ theorem flat_of_flatOver (T K : Type) [CommRing T] [IsDomain T] [IsDiscreteValua
 
 end FibreFlat
 
-theorem flat_of_flat_fibres_dvr :
-    ∀ (T K : Type) [CommRing T] [IsDomain T] [IsDiscreteValuationRing T] [Field K] [Algebra T K]
-      [IsFractionRing T K] (X Y : Over (Sp T)) (φ : X ⟶ Y), Flat X.hom → Flat Y.hom →
+theorem flat_of_flat_fibres_dvr (T K : Type) [CommRing T] [IsDomain T]
+    [IsDiscreteValuationRing T] [Field K] [Algebra T K] [IsFractionRing T K]
+    (X Y : Over (Sp T)) (φ : X ⟶ Y) : Flat X.hom → Flat Y.hom →
       LocallyOfFiniteType X.hom → LocallyOfFiniteType Y.hom →
       Flat ((Over.pullback (spMap (algebraMap T K))).map φ).left →
       Flat ((Over.pullback (spMap (IsLocalRing.residue T))).map φ).left → Flat φ.left := by
-  intro T K _ _ _ _ _ _ X Y φ h1 _ h2 h3 hK hκ
+  intro h1 _ h2 h3 hK hκ
   exact FibreFlat.flat_of_flatOver T K φ.left Y.hom (by rwa [Over.w]) (by rwa [Over.w]) h3
     (FibreFlat.flatOver_of_pullback φ _ hK) (FibreFlat.flatOver_of_pullback φ _ hκ)
 

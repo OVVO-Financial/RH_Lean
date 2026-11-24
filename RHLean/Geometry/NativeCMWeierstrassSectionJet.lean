@@ -85,7 +85,7 @@ theorem top_le_preimage_basicOpen_iff (x : Sp ℂ ⟶ X) (U : X.Opens)
       have := Scheme.basicOpen_appLE x ⊤ U h f
       rw [top_inf_eq] at this
       exact this
-    rw [← h1, value_eq x h, evalPt, top_le_iff]
+    rw [← h1, value_eq x h, evalPt, top_le_iff, CommRingCat.hom_comp, RingHom.comp_apply]
     generalize (x.appLE U ⊤ h).hom f = g
     rw [← isUnit_iff_ne_zero]
     constructor
@@ -158,19 +158,18 @@ theorem eventually_expPoint_origin :
       intro h
       rw [WeierstrassTangent.regularY_eq L C hz0, h, mul_zero] at hy
       exact hy rfl
-    set a := -(WeierstrassTangent.affineY L C z)⁻¹
+    set a := -(WeierstrassTangent.affineY L C z)⁻¹ with ha_def
     have ha : IsUnit a := (neg_ne_zero.mpr (inv_ne_zero hy')).isUnit
     have e : (![WeierstrassTangent.originZ L C z, -1,
         WeierstrassTangent.originW L C z] : Fin 3 → ℂ) =
         a • ![WeierstrassTangent.affineX L C z, WeierstrassTangent.affineY L C z, 1] := by
       ext i
-      fin_cases i <;> simp only [Matrix.cons_val_zero, Matrix.cons_val_one,
-        Matrix.cons_val_two, Pi.smul_apply, smul_eq_mul]
-      · rw [hz', a, div_eq_mul_inv]
+      fin_cases i <;> simp only [Pi.smul_apply, smul_eq_mul]
+      · rw [hz', ha_def, div_eq_mul_inv]
         ring
       · dsimp [a]
         field_simp
-      · rw [hw', a]
+      · rw [hw', ha_def]
         simp
     have hp' : IsUnimodularSol (W.map (RingHom.id ℂ))
         ![WeierstrassTangent.affineX L C z, WeierstrassTangent.affineY L C z, 1] :=
@@ -193,6 +192,7 @@ def locEval (t : ℂ) (r : OriginRing W) : ℂ :=
     originEval W (RingHom.id ℂ) (WeierstrassTangent.originZ L C t)
       (WeierstrassTangent.originW L C t) h r else 0
 
+include hC in
 theorem eventually_equation : ∀ᶠ t in 𝓝 (0 : ℂ),
     (W.map (RingHom.id ℂ)).toProjective.Equation
       ![WeierstrassTangent.originZ L C t, -1, WeierstrassTangent.originW L C t] := by
@@ -239,6 +239,7 @@ theorem mem_of_origin_generators (S : Subring (OriginRing W))
     rw [map_mul, map_pow]
     exact S.mul_mem (hCa a) (S.pow_mem hZ _)
 
+include hC in
 /-- On every element of the literal origin ring, algebraic epsilon evaluation
 is the analytic derivative, with the original coordinate-change scale. -/
 theorem locEval_regular (r : OriginRing W) :
@@ -315,10 +316,12 @@ theorem locEval_regular (r : OriginRing W) :
     exact ⟨((WeierstrassTangent.originW_hasDerivAt L C).congr_deriv
       (by simp [epsEval])).congr_of_eventuallyEq heq, han.congr heq.symm⟩
 
+include hC in
 theorem hasDerivAt_locEval (r : OriginRing W) :
     HasDerivAt (fun t => locEval L W C t r) ((C.u : ℂ)⁻¹ * (epsEval W 1 r).snd) 0 :=
   (locEval_regular L W C hC r).1
 
+include hC in
 theorem analyticAt_locEval (r : OriginRing W) :
     AnalyticAt ℂ (fun t => locEval L W C t r) 0 :=
   (locEval_regular L W C hC r).2

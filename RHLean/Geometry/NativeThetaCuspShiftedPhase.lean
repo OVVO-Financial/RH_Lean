@@ -137,6 +137,7 @@ variable [IsCMField H.E]
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m)
 
 set_option backward.isDefEq.respectTransparency false in
+set_option maxHeartbeats 2000000 in
 /-- The global field phase equals the already constructed common rational
 phase of the exact prescribed datum. -/
 theorem prescribed_commonPhase
@@ -150,12 +151,14 @@ theorem prescribed_commonPhase
           (prescribedGeometricDatum H B hB G hΨ hconj hbar k m j hk hj) (x a) =
         quadratic H (negTail (k + m - 1) (m - j)) G.w0
           (Ambient.equiv H B hB (k + m - 1) (x a)) := by
-    unfold RationalCoordinates.quadratic RationalCoordinates.form
+    unfold RationalCoordinates.quadratic RationalCoordinates.form RationalCoordinates.action
     rw [prescribedGeometricDatum_form]
-    change (twistedTraceForm H B hB (negTail (k + m - 1) (m - j))).baseChange ℚ
-      (x a) (((LinearMap.lsmul (𝓞 H.E) (prescribedLattice H B k m) G.w0).restrictScalars ℤ).
-        baseChange ℚ (x a)) = _
-    rw [Ambient.equiv_pairing, Ambient.equiv_action]
+    delta prescribedGeometricDatum
+    dsimp only
+    exact (Ambient.equiv_pairing H B hB (negTail (k + m - 1) (m - j)) (x a) _).trans
+      (congrArg (Ambient.pair H (negTail (k + m - 1) (m - j))
+        (Ambient.equiv H B hB (k + m - 1) (x a)))
+        (Ambient.equiv_action H B hB (k + m - 1) G.w0 (x a)))
   simp only [RationalCoordinates.commonPhase, phase, hq]
 
 include hbar in

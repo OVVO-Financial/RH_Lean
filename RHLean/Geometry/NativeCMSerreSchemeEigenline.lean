@@ -89,12 +89,16 @@ def coefficientLieAction (c : 𝓞 H.E) :
   have := (coefficientSerreSchemeFullAction H G hbar B hB 1 a).hom c
   exact Lie.map ((coefficientSerreSchemeFullAction H G hbar B hB 1 a).act c)
 
+set_option synthInstance.maxHeartbeats 200000 in
 /-- The identity-character eigenmodule in the intrinsic integral Lie module. -/
 def coefficientLieEigenmodule :
     Submodule (𝓞 F) (Lie (coefficientSerreScheme H G hbar B hB 1 a)) where
   carrier := {v | ∀ c : 𝓞 H.E, coefficientLieAction H G hbar B hB F W a c v =
     algebraMap (𝓞 H.E) (𝓞 F) c • v}
-  zero_mem' := by simp
+  zero_mem' := by
+    intro c
+    rw [map_zero]
+    exact (DistribMulAction.smul_zero _).symm
   add_mem' := by
     intro v w hv hw c
     rw [map_add, hv c, hw c, smul_add]
@@ -128,10 +132,11 @@ def coefficientLieEigenEquiv : integralEigenmodule H G F B ≃ₗ[𝓞 F]
     (coefficientLieEquiv_mem_iff H G hbar B hB F W a ha _).mp (by
       rw [LinearEquiv.apply_symm_apply]
       exact v.property)⟩
-  left_inv y := Subtype.ext (LinearEquiv.symm_apply_apply _ y)
-  right_inv v := Subtype.ext (LinearEquiv.apply_symm_apply _ v)
-  map_add' y z := Subtype.ext (map_add (coefficientLieEquiv H G hbar B hB F W a ha) y z)
-  map_smul' c y := Subtype.ext (map_smul (coefficientLieEquiv H G hbar B hB F W a ha) c y)
+  left_inv y := Subtype.ext ((coefficientLieEquiv H G hbar B hB F W a ha).symm_apply_apply y.1)
+  right_inv v :=
+    Subtype.ext ((coefficientLieEquiv H G hbar B hB F W a ha).apply_symm_apply v.1)
+  map_add' y z := Subtype.ext (map_add (coefficientLieEquiv H G hbar B hB F W a ha) y.1 z.1)
+  map_smul' c y := Subtype.ext (map_smul (coefficientLieEquiv H G hbar B hB F W a ha) c y.1)
 
 /-- The coordinate map is the original coefficient evaluation applied
 through the proved intrinsic Lie equivalence. -/
