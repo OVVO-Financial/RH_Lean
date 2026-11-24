@@ -10,6 +10,8 @@ on:
       - 'scripts/rhlean_kg.py'
       - 'scripts/decl_graph.py'
       - 'scripts/proofq.py'
+      - 'scripts/check_rh_conditionality.py'
+      - 'scripts/test_rh_conditionality.py'
       - '.github/workflows/semantic-proof-risk.yml'
   workflow_dispatch:
 
@@ -25,8 +27,10 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Test risk detector
-        run: python3 -m unittest discover -s scripts -p test_semantic_source_audit.py -v
+      - name: Test risk detector and exact terminal type acceptance
+        run: |
+          python3 -m unittest discover -s scripts -p test_semantic_source_audit.py -v
+          python3 -m unittest discover -s scripts -p test_rh_conditionality.py -v
       - name: Reject references to removed reflexive packet theorem
         run: |
           if git grep -n -w packet_horizon_independent -- '*.lean'; then
