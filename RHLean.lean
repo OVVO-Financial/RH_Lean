@@ -66,6 +66,7 @@ import RHLean.Analysis.AlpogeNativeHostPrimes
 import RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
 import RHLean.Analysis.AlpogeNativeLocalGainSource
+import RHLean.Analysis.AlpogeNativePositiveMomentCriterion
 import RHLean.Analysis.AlpogeNativePrimeDecomposition
 import RHLean.Analysis.AlpogeNativePrimeLift
 import RHLean.Analysis.AlpogeNativePrincipalProjection
