@@ -115,6 +115,8 @@ theorem nativeDyadic_trivialCharacter_signs (e : ℕ)
   have hg : (((s, t), v) : φ.GG) =
       ((s, 1), 1) * ((1, t), 1) * φ.tau1 (φ.iotaInv v) := by
     simp [Frame.tau1]
+  change (θ (((s, t), v) : φ.GG) : ℂ) =
+    ((s : ℤ) : ℂ) ^ (i : ℕ) * ((t : ℤ) : ℂ) ^ (j : ℕ)
   rw [hg, map_mul, map_mul, Units.val_mul, Units.val_mul, ht, Units.val_one,
     mul_one, h1, h2]
 
@@ -150,7 +152,7 @@ theorem nativeDyadicHostRaw_principalTwist
   obtain ⟨i, j, hj, hsign⟩ := nativeDyadic_trivialCharacter_signs e θ hθ
   refine ⟨i, j, hj, ?_⟩
   intro a ha
-  rw [rawDirAt_unit, hsign]
+  rw [rawDirAt_unit _ θ a ha, hsign]
   change ((((nativeDyadicArt e q d (ZMod.unitOfCoprime a ha)).1.1 : ℤˣ) : ℤ) : ℂ) ^ (i : ℕ) *
     ((((nativeDyadicArt e q d (ZMod.unitOfCoprime a ha)).1.2 : ℤˣ) : ℤ) : ℂ) ^ (j : ℕ) = _
   rw [nativeDyadicArt_apply]
@@ -218,7 +220,7 @@ theorem nativeDyadicHostRaw_EAtH
     subst ψ
     refine ⟨1, ⟨fun _ _ => rfl, rfl⟩, PChar.one.prim, ?_⟩
     intro a ha
-    rw [principal_value, rawDirAt_unit]
+    rw [principal_value, rawDirAt_unit _ _ a ha]
     rfl
   · refine ⟨fun ψ h => ?_, fun _ h => ?_⟩
     · change none = some ψ at h

@@ -1,14 +1,14 @@
 /-
 RH_Lean late-attachment replay root. Mathematical source: Levent Alpöge
 with Claude, upstream pin 7cbf7a0c32fca1badf05931879a37c3f8a2b03b4.
-The previously extracted family supplier is rejected under the user's
-strict exclusion. This file retains only the quantitative application
-and the exact arithmetic transport; it cannot compile until a clean
-closed family supplier is provided in RHLeanCleanPrincipalFamily.
+The rejected family construction is not used. This extraction targets
+the local pointwise core_gm theorem, without FamP, ChainTied, TopG or
+HypsAlt. The required same-host EAtH/CoreAtH windows must still be
+constructed by a closed, strictly clean proof in RHLeanCleanPrincipalCore.
 Do not vendor or mix compiled artifacts across toolchains.
 -/
-import RHLeanCleanPrincipalFamily
-import Development.AutomorphicArithmetic.PrimitiveCosets.LevelGmLeOnFamilyScales
+import RHLeanCleanPrincipalCore
+import Development.AutomorphicArithmetic.PrimitiveCosets.CoreGm
 import Lean.Util.CollectAxioms
 
 set_option autoImplicit false
@@ -19,7 +19,7 @@ noncomputable section
 
 namespace RHLeanLateAttachment
 
-open Formalism.BasicNotions Formalism.MainNotions Formalism.HC GlobalTheory.EX
+open Formalism.BasicNotions Formalism.HC UpperTheory.Comparison₂
 open scoped BigOperators
 
 /-- Isolate the principal cyclic level before any zero-free conclusion. -/
@@ -46,11 +46,21 @@ theorem principalLevel_eq_Gz (x : ℝ) :
   rw [Level.Gm, Level.Nt, h]
   simp only [Finset.erase_singleton, Finset.sum_empty, add_zero]
 
-/- The family supplier must be provided by RHLeanCleanPrincipalFamily.
-It must be a closed theorem named RHLeanLateAttachment.suppliedPrincipalFamily
-with exactly the tied principal window type. The former supplier was removed
-because it depends on explicitly prohibited placeholders. No assumption or
-replacement definition of the family is provided here. -/
+/- The sole upstream-shaped supply obligation is the direct local core
+window, with the same host in EAtH and CoreAtH. No full FamP is required.
+Fixed eD/eL/eps1 precede eps, and K/cHH/eK/C precede the window.
+The clean supplier must actually prove this contract; the type alias
+is not a proof. A direct native signed-cost route can bypass even this
+upstream interface. -/
+
+def DirectPrincipalCoreWindows : Prop :=
+  ∃ eD eL eps1 : ℝ, 0 < eps1 ∧
+    ∀ eps : ℝ, 0 < eps → eps < eps1 →
+      ∃ K cHH eK C : ℝ, ∀ Y0 : ℝ, ∃ Y : ℝ, Y0 ≤ Y ∧
+        ∀ x ∈ Set.Icc Y (Y ^ ((3 : ℝ) / 2)),
+          ∃ (φ : Frame) (H : HostAx φ) (TT : Finset φ.A),
+            EAtH (Level.cyc PChar.one) H.toHostRaw TT x eps C ∧
+            CoreAtH H.toHostRaw TT eD eL K cHH eK eps x
 
 /-- Literal #1205 input, without importing its RH consumer or the
 upstream zero-free consumer. Constants precede every window request.
@@ -65,28 +75,29 @@ theorem principalQuantitativeWindowBound :
                 ArithmeticFunction.vonMangoldt n * (y / (n : ℝ) - 1)) -
               y * Real.log y + (1 + Real.eulerMascheroniConstant) * y)
               ≤ C * y ^ (1 / 2 + K * eps) := by
-  obtain ⟨eD, eL, eps1, hpos, hFamilies⟩ := suppliedPrincipalFamily
+  have hCoreWindows : DirectPrincipalCoreWindows := suppliedPrincipalCoreWindows
+  obtain ⟨eD, eL, eps1, hpos, hCore⟩ := hCoreWindows
   refine ⟨eD + eL + 7, eps1, hpos, ?_⟩
   intro eps he he1
-  obtain ⟨Fm, hE, hW, hTie⟩ := hFamilies eps he he1
+  obtain ⟨K, cHH, eK, C, hWindows⟩ := hCore eps he he1
   obtain ⟨x1, hBound⟩ :=
-    UpperTheory.Comparison₂.level_gm_le_on_family_scales
-      (Level.cyc PChar.one) eD eL eps he Fm hE hTie
+    UpperTheory.Comparison₂.core_gm (Level.cyc PChar.one) eD eL K cHH eK C eps he
   refine ⟨1, ?_⟩
   intro Y0
-  obtain ⟨Y, hY, hWin⟩ := (windows_iff Fm.toFamCore (3 / 2)).mp hW
-    (max Y0 (max x1 1))
+  obtain ⟨Y, hY, hWin⟩ := hWindows (max Y0 (max x1 1))
   refine ⟨Y, (le_max_left _ _).trans hY, ?_⟩
   intro y hy
   have hy1 : x1 ≤ y := (le_max_left x1 1).trans
     ((le_max_right Y0 (max x1 1)).trans (hY.trans hy.1))
+  obtain ⟨φ, H, TT, hE, hC⟩ := hWin y hy
   change Formalism.Gz y ≤ 1 * y ^ (1 / 2 + (eD + eL + 7) * eps)
   rw [one_mul, ← principalLevel_eq_Gz]
-  exact hBound y hy1 (hWin y hy.1 hy.2)
+  exact hBound y hy1 φ H TT hE hC
+
 
 end RHLeanLateAttachment
 
-#print axioms RHLeanLateAttachment.suppliedPrincipalFamily
+#print axioms RHLeanLateAttachment.suppliedPrincipalCoreWindows
 #print axioms RHLeanLateAttachment.principalQuantitativeWindowBound
 
 /- Audit the proof term, not the names of its imports. Imported modules may
@@ -133,7 +144,9 @@ end RHLeanLateAudit
 open Lean Elab Command in
 run_cmd do
   RHLeanLateAudit.assertNoForbiddenGeometry
-    `RHLeanLateAttachment.suppliedPrincipalFamily
+    `UpperTheory.Comparison₂.core_gm
+  RHLeanLateAudit.assertNoForbiddenGeometry
+    `RHLeanLateAttachment.suppliedPrincipalCoreWindows
   let root := `RHLeanLateAttachment.principalQuantitativeWindowBound
   RHLeanLateAudit.assertNoForbiddenGeometry root
   let allowed := #[`propext, `Classical.choice, `Quot.sound]
@@ -155,8 +168,8 @@ run_cmd do
   for n in forbidden do
     if names.contains n then
       throwError "Forbidden terminal dependency: {n}"
-  let required := #[`RHLeanLateAttachment.suppliedPrincipalFamily,
-    `UpperTheory.Comparison₂.level_gm_le_on_family_scales]
+  let required := #[`RHLeanLateAttachment.suppliedPrincipalCoreWindows,
+    `UpperTheory.Comparison₂.core_gm]
   for n in required do
     unless names.contains n do
       throwError "Missing actual supplier dependency: {n}"

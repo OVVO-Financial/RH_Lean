@@ -1,3 +1,57 @@
+## #1201 — direct local core cut and native principal EAtH (2026-11-24)
+
+**DIRECT_CORE_CUT_V1 — controlling task selection under STRICT_NO_GEOCL_ANYGEOMETRY_V1.**
+Do not attempt to rebuild `FamP`, `ChainTied`, `HypsAlt`, or `TopG` as
+mandatory objects. The late quantitative estimate is already pointwise
+in `core_gm`: fixed eD,eL,K,cHH,eK,C,eps produce a threshold, then a
+single host and TT with EAtH and CoreAtH at each x suffice. Choose these
+on whole cofinal windows; the complete family class is unnecessary.
+The external replay is still fail-closed, now on a direct core window
+rather than the rejected tied-family package.
+
+**Concrete implementation:** `NativePrincipalEAtH.lean` constructs the
+principal kept set/index, exact shares for EVERY TT, the actual two-sign
+character classification and primitive induction on the constructed
+dyadic host. PairGood pays both bounded-character responses and their
+log derivatives. `nativePrincipalEAtH_windows` uses the existing
+QH.pairEx and PageN constructors and the actual derived HostAx.
+No geometry witness or critical estimate is a premise of this window
+existence theorem beyond the given admissible epsilon. This is newly
+submitted proof text, NOT hosted-verified yet. Its strict dependency
+audit is a separate research target. Keep the same actual selected pair
+and host when attaching the core data.
+
+**First unpaid mathematical input:** the same-host complete signed top
+excess / cost. Prefer the existing native
+`nativeConstructedDyadicGzPayment` and its signed-slope comparison
+instead of forcing an upstream `CoreAtH` record. In particular, its
+analytic contribution is already paid on the chosen dyadic host.
+The actual source value, the signed gain/cost, the physical widths,
+heights and density must be realized together; no copying a target
+into a field, selecting arbitrary measurements, assuming the critical
+inequality, or naming a placeholder witness. Review the full
+`CoreAtH` conjunction, `IdentU`, `SizeData₂`, `ErrWindows`,
+`BNBoundsU`, and `Deduction.ch_top` against the existing native
+physical source. Use Playground dependency reductions only if a
+specific proof leaf is needed; compression does not pay a hypothesis
+or certify a transitive exclusion. In particular Core 14 still takes
+HypsAlt and Core 15 and Core 20 retain their actual conditions.
+
+Coordinator and owner/payment: attack only the unpaid same-host signed
+cost and its minimal physical realization, not a new analytic family.
+Adversarial: audit `core_gm` itself, its actual dependencies and
+semantic integrity; the direct body has no literal prohibited names
+but transitive cleanliness is unverified. Prime census and Type II:
+preserve the now-targeted native EAtH/PairGood route, exact source and
+window quantifiers. Finite wheel: pursue a genuine native cost bound
+using proved square-clock and signed recovery results. Lean verification:
+run the new native research audit and fix real diagnostics, then verify
+any closed supplier and #1205 in one compatible environment.
+No schedule, tooling pin, merge policy or proof status change.
+No new PR. RH OPEN.
+
+---
+
 ## #1201 — absolute exclusion of GeoCl / geoCl / anyGeometry (2026-11-24)
 
 **STRICT_NO_GEOCL_ANYGEOMETRY_V1 — controlling user directive, no exceptions.**
