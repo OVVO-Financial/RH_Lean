@@ -170,9 +170,9 @@ theorem coefficientLieEigen_signedGram_norm
 
 variable [NumberField F]
 
+omit [NumberField F] in
 /-- The form is evaluated in the actual tangent direction u of the same
 equation and canonical-sigma automorphy, rather than assigned a target mean. -/
-omit [NumberField F] in
 theorem coefficientLieEigen_actualSigma_norm
     (hroot : (G.rt : H.E) = H.sqd) (hΔ : W.Δ = 1) (σ : F →+* ℂ)
     (v : coefficientLieEigenmodule H G hbar B hB F W a) :
@@ -189,11 +189,11 @@ theorem coefficientLieEigen_actualSigma_norm
     (embeddingProfile W hΔ) (embeddingProfile_pos W hΔ) σ v
 
 
+omit [NumberField F] in
 /-- The actual Serre scheme Gram in the native real-pair coordinates.
 The actual sigma metric, the integral eigenvector and its evaluation are
 unchanged. This is a direct transport of the existing geometric norm
 identity, not a new geometric witness or a replacement rank. -/
-omit [NumberField F] in
 theorem coefficientLieEigen_actualSigma_phi_norm
     (hroot : (G.rt : H.E) = H.sqd) (hΔ : W.Δ = 1) (σ : F →+* ℂ)
     (v : coefficientLieEigenmodule H G hbar B hB F W a) :

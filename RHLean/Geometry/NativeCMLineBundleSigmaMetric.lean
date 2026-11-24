@@ -59,11 +59,14 @@ theorem evalPt_linComb_transition (L : LB X) {K : Type} [Fintype K]
       ∏ k, (evalPt x _ h
         (res (LB.wchart_inter_le L f i j k)
           (pullU (f k) _ (L.g (i k) (j k)))).val) ^ ε k := by
-  change evalPt x (LB.wchart L f i ⊓ LB.wchart L f j) h
-    (∏ k, (res (LB.wchart_inter_le L f i j k)
-      (pullU (f k) _ (L.g (i k) (j k)))) ^ ε k).val = _
-  rw [Units.val_prod, map_prod]
-  exact Finset.prod_congr rfl fun k _ => evalPt_unit_zpow x _ h _ (ε k)
+  let U : Y.Opens := LB.wchart L f i ⊓ LB.wchart L f j
+  let u : K → Γ(Y, U)ˣ := fun k =>
+    res (LB.wchart_inter_le L f i j k) (pullU (f k) _ (L.g (i k) (j k)))
+  let E : Γ(Y, U) →+* ℂ := evalPt x U h
+  let Eunit : Γ(Y, U)ˣ →* ℂ := E.toMonoidHom.comp (Units.coeHom (Γ(Y, U)))
+  change Eunit (∏ k, (u k) ^ ε k) = ∏ k, (E (u k).val) ^ ε k
+  rw [map_prod]
+  exact Finset.prod_congr rfl fun k _ => evalPt_unit_zpow x U h (u k) (ε k)
 
 end RHLean.Geometry.NativeCM.SchemeTheory.SectionPoints
 
@@ -96,9 +99,9 @@ def signedChartNormSq (j : K → (originLB W).ι) (z : Z) (c : ℂ) : ℝ :=
 def signedFrame (j : K → (originLB W).ι) (z : Z) : ℂ :=
   ∏ k, (atlasFrame W L C (j k) (l k z)) ^ ε k
 
+omit [Algebra R ℂ] in
 /-- The signed Gaussian is computed from the literal product metric;
 its quadratic term is not an independently chosen form. -/
-omit [Algebra R ℂ] in
 theorem signedChartNormSq_gaussian (j : K → (originLB W).ι) (z : Z) (c : ℂ) :
     signedChartNormSq W L C l ε j z c =
       ‖c / signedFrame W L C l ε j z‖ ^ 2 *
@@ -188,8 +191,8 @@ theorem signedChartNormSq_transition (i j : K → (originLB W).ι) (z : Z) (c : 
       congr 1
       exact Finset.prod_congr rfl fun k _ => by rw [← mul_zpow, hg]
 
-/-- Every seed period preserves the signed pullback metric. -/
 omit [Algebra R ℂ] in
+/-- Every seed period preserves the signed pullback metric. -/
 theorem signedChartNormSq_period (j : K → (originLB W).ι) (z z' : Z)
     (w : K → ℂ) (hw : ∀ k, w k ∈ L.lattice)
     (hz : ∀ k, l k z' = l k z + w k) (c : ℂ) :

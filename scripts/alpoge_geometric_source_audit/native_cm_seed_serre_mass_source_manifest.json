@@ -935,8 +935,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleSigmaMetric.lean",
-      "sha256": "45dcda579bec24da54f7ff1e18c2fbbed107670b267b49e4aab8c849bdeeccbb",
-      "lines": 204
+      "sha256": "896031707ce4dce0f74d81bea138f86f0163d6b3b06d01ae9c2cd723483a807c",
+      "lines": 207
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleTransport.lean",
@@ -1095,7 +1095,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeMetric.lean",
-      "sha256": "d58a3c658a5beb309336db0b5c5043176ca51c62823645fbc7f1576bff20b916",
+      "sha256": "63bde3f8332dc39b1a86f2a54ee7b238a7924d7ac2296939f5035c259b3ac155",
       "lines": 215
     },
     {
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "1890b5982ee081c18747d60aa7add4726bec59810f21db9ce36e2d7733f7c0a6",
-      "lines": 543
+      "sha256": "03f8613832814334c739badddc1d802135c3358514b1879d5142dc4c02ae5c6c",
+      "lines": 544
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
@@ -2039,6 +2039,13 @@
       "run_id": 45441779606,
       "preflight_job_id": 138614989464,
       "result": "PREFLIGHT_FAILED_AT_BUNDLE_SYMMETRY; BUNDLE_GRAM_FINITE_LEVEL_NORM_BUILT; EARLY_NATIVE_CACHE_SAVE_SUCCEEDED; DIAGNOSTIC_REACHED_SCHEME_METRIC_LINE_BUNDLE_SIGMA_METRIC_RATIONAL_GLOBAL_WHNF_TIMEOUT_THEN_RUNNER_SHUTDOWN",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "b9f48426fb3002e62dd55782ecff06b3b14fd7ea",
+      "run_id": 45448545444,
+      "preflight_job_id": 138639248412,
+      "result": "PREFLIGHT_FAILED_AT_OMIT_COMMAND_PLACEMENT; BUNDLE_SYMMETRY_BUILT; EARLY_CACHE_SAVE_SUCCEEDED; DIAGNOSTIC_REPORTED_UNIT_PRODUCT_API_AND_RATIONAL_GLOBAL_TIMEOUT_WITH_PRIVATE_HELPERS_NOT_ELABORATED_THEN_RUNNER_SHUTDOWN",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

@@ -180,9 +180,9 @@ theorem schemePointActionBetween_ofAffinePoint
 variable [IsAlgClosed k]
 
 
+omit [W.IsElliptic] [V.IsElliptic] [IsAlgClosed k] in
 /-- The nonkernel affine point lifts to the actual denominator open.
 Keep this elementary calculation separate from scheme group-law inference. -/
-omit [W.IsElliptic] [V.IsElliptic] [IsAlgClosed k] in
 private theorem rationalOpen_lift_between (D : F[X])
     (φ : (W.baseChange k).toAffine.Point →+ (V.baseChange k).toAffine.Point)
     (hφzero : ∀ (x y : k) (h : (W.baseChange k).toAffine.Nonsingular x y),
@@ -198,10 +198,10 @@ private theorem rationalOpen_lift_between (D : F[X])
     exact ⟨specOverMap (rationalOpenPoint W D x y h.left hd),
       rationalOpenPoint_incl W D x y h.left hd h⟩
 
+omit [IsAlgClosed k] in
 /-- At an open-chart point the original rational formula gives the target
 value and proves it is nonzero. Separate the two-curve point transport
 from the geometric gluing. -/
-omit [IsAlgClosed k] in
 private theorem rationalOpen_action_between
     (α : F) (hα : α ≠ 0) (A D : F[X])
     (hshort : W.a₁ = 0 ∧ W.a₂ = 0 ∧ W.a₃ = 0)
@@ -249,9 +249,9 @@ private theorem rationalOpen_action_between
   intro hh
   exact hQ ((affinePointEquiv V k).injective (he.symm.trans (hh.trans hz.symm)))
 
+omit [IsAlgClosed k] in
 /-- Use the actual point bijection to transport the separately proved
 nonkernel affine lift. No scheme-morphism equality is rewritten. -/
-omit [IsAlgClosed k] in
 private theorem rationalOpen_scheme_lift_between (D : F[X])
     (φ : (W.baseChange k).toAffine.Point →+ (V.baseChange k).toAffine.Point)
     (hφzero : ∀ (x y : k) (h : (W.baseChange k).toAffine.Nonsingular x y),
@@ -274,9 +274,9 @@ private theorem rationalOpen_scheme_lift_between (D : F[X])
   obtain ⟨z, hz⟩ := rationalOpen_lift_between W V D φ hφzero P hne
   exact ⟨z, hz.trans hp⟩
 
+omit [IsAlgClosed k] in
 /-- The actual localization-point formula is independent of the choice
 of presentation of the field-valued source morphism. -/
-omit [IsAlgClosed k] in
 private theorem rationalOpen_scheme_action_between
     (α : F) (hα : α ≠ 0) (A D : F[X])
     (hshort : W.a₁ = 0 ∧ W.a₂ = 0 ∧ W.a₃ = 0)
@@ -296,6 +296,7 @@ private theorem rationalOpen_scheme_action_between
   obtain ⟨g, rfl⟩ := exists_eq_specOverMap z
   exact rationalOpen_action_between W V α hα A D hshort hshortV hID φ hφsome g
 
+set_option diagnostics true in
 /-- Specialize the abstract group-scheme completion to the two independently
 specified elliptic curves. The point lemmas and structural instances have
 already been constructed. -/
