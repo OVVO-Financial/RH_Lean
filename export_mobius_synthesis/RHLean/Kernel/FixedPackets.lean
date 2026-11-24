@@ -9,11 +9,6 @@ def packet {R : Type*} [AddCommMonoid R]
     (x : ℕ → R) (u M : ℕ) : R :=
   ∑ k ∈ Finset.Ico u (u + M), x k
 
-/-- Extending an observation horizon cannot alter an already defined packet. -/
-theorem packet_horizon_independent {R : Type*} [AddCommMonoid R]
-    (x : ℕ → R) (u M _N₁ _N₂ : ℕ) :
-    packet x u M = packet x u M := rfl
-
 /-- Concatenating adjacent fixed packets gives the longer fixed packet. -/
 theorem packet_add_packet {R : Type*} [AddCommMonoid R]
     (x : ℕ → R) (u M L : ℕ) :

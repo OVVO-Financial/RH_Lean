@@ -185,6 +185,26 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
         ]
         entry["has_raw_hypothesis"] = kg.has_raw_hypothesis(decl.statement)
         entry["has_unclassified_hypothesis"] = kg.has_unclassified_hypothesis(decl, table)
+        # Source positions are historical fallback only. A fresh kernel dump
+        # provides actual Pi domains, including hidden section/instance inputs.
+        audit = rec.get("kernelTypeAudit")
+        entry["status_evidence"] = "kernel-type" if audit is not None else "source-candidate"
+        if audit is not None:
+            premises = [to_id(n) for n in audit["premises"]]
+            targets = [to_id(n) for n in audit["targets"]]
+            entry["kernel_type_audit"] = audit
+            entry["kernel_closed_prop"] = bool(audit["closedProp"])
+            entry["kernel_binder_count"] = int(audit["binders"])
+            entry["kernel_returns_rh"] = bool(audit["returnsRH"])
+            entry["kernel_exact_rh"] = bool(audit["exactRH"])
+            entry["conclusion_form"] = audit["form"]
+            entry["hypothesis_refs"] = [n for n in premises if n in kept_ids]
+            entry["conclusion_refs"] = [n for n in targets if n in kept_ids]
+            entry["has_raw_hypothesis"] = False
+            entry["has_unclassified_hypothesis"] = (
+                bool(audit["blocked"]) or any(n not in kept_ids for n in premises)
+                or any(n not in kept_ids for n in targets)
+            )
         entry["statement_preview"] = _preview(decl.statement, STATEMENT_PREVIEW)
         if include_docs and decl.doc:
             entry["doc"] = _preview(decl.doc, DOC_PREVIEW)
@@ -258,6 +278,7 @@ def build_graph(include_docs: bool = True) -> dict[str, object]:
     for decl in decls:
         entry: dict[str, object] = {
             "kind": decl.kind,
+            "status_evidence": "source-candidate",
             "name": decl.name,
             "private": decl.is_private,
             "module": decl.module,

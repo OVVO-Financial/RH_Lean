@@ -23,7 +23,7 @@ RISK_LINE = {
     "metric_assignment_candidate": re.compile(r"\b[\w.]*" + METRIC + r"[\w.]*\s*:=\s*(?:0\b|1\b|True\b|trivial\b|fun\b|by\s+(?:rfl|trivial)\b|[\w.]*target[\w.]*|[\w.]*formula[\w.]*)", re.I),
     "vacuous_field_candidate": re.compile(r"\b[\w.]*" + GEOM + r"[\w.]*\s*(?::=|:)\s*(?:True\b|False\b|trivial\b|by\s+trivial\b|fun\b[^;\n]*=>\s*True\b)", re.I),
     "degenerate_geometry_candidate": re.compile(r"\b(?:inertia|ell|volume|vol|mass|rank|height|covol|degree|gain|dim|TT|T2|W)\s*:=\s*(?:0\b|⊤|⊥|∅|Fin\s+0\b|Empty\b|PUnit\b|Unit\b|fun\b[^;\n]*=>\s*0\b)"),
-    "false_empty_premise_candidate": re.compile(r"[:(]\s*(?:False|Empty|PEmpty|Fin\s+0)\b"),
+    "false_empty_premise_candidate": re.compile(r"[(\{⦃]\s*[\w'!?]+\s*:\s*(?:False|Empty|PEmpty|Fin\s+0)\b"),
     "ambient_hypothesis_candidate": re.compile(r"^\s*(?:include|variable|variables)\b.*(?:RiemannHypothesis|Bound|Certificate|Witness|Geometry|Growth|Gain|Slope|Mass|False|Fin\s+0)\b"),
 }
 def compact(s: str) -> str:
@@ -57,15 +57,17 @@ def scan_text(rel: str, source: str):
                 if len(parts)==2 and parts[0].strip()==parts[1].strip():
                     add("literal_reflexive_statement",d.line,stmt)
                     break
-            if re.fullmatch(r"[\w.'!?]+",concl) and re.search(
-                r":\s*"+re.escape(concl)+r"\s*[\)\}\]]",hyp):
+            colon = kg._split_top_level(stmt, ":")
+            raw_body = compact(stmt[colon+1:]) if colon >= 0 else ""
+            if re.fullmatch(r"[\w.'!?]+",raw_body) and re.search(
+                r":\s*"+re.escape(raw_body)+r"\s*[\)\}\]]",hyp):
                 add("literal_self_premise",d.line,stmt)
             if re.search(GEOM,d.name,re.I) and re.fullmatch(r"(?:by\s+)?(?:rfl|trivial|Iff\.rfl)",value):
                 add("geometric_reflexive_proof_review",d.line,stmt)
         if d.kind in ("def","abbrev","opaque"):
             if d.name == "RiemannHypothesis":
                 add("root_rh_shadow_candidate",d.line,stmt)
-            if re.fullmatch(r"(?:fun\b.*?=>\s*)?(?:True|False)",compact(value)):
+            if re.fullmatch(r"(?:fun\b.*?(?:=>|↦)\s*)?(?:True|False)",compact(value)):
                 add("constant_truth_definition_review",d.line,stmt+" := "+value)
             if RH.search(stmt+" "+value):
                 add("rh_definition_alias_review",d.line,stmt+" := "+value)

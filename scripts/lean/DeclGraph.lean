@@ -77,6 +77,59 @@ def refsJson (names : Array Name) (project : NameSet) (self : Name) :
       external := external + 1
   return ("[" ++ String.intercalate "," kept.toList ++ "]", external)
 
+/-- The actual outer Pi domains, including elaborated implicit and section arguments. -/
+def telescope : Expr → List Expr × Expr
+  | .forallE _ d b _ =>
+    let (ds, r) := telescope b
+    (d :: ds, r)
+  | e => ([], e)
+
+/-- Only a literal monomorphic constant can be used for a named closure rule. -/
+def bareConst : Expr → Option Name
+  | .const n [] => some n
+  | .mdata _ e => bareConst e
+  | _ => none
+
+def literalConclusion : Expr → String × List Name
+  | .mdata _ e => literalConclusion e
+  | .app (.app (.const `Iff []) a) b =>
+    match bareConst a, bareConst b with
+    | some na, some nb => ("iff", [na, nb])
+    | _, _ => ("", [])
+  | .app (.const `Not []) p =>
+    match bareConst p with
+    | some n => ("not", [n])
+    | none => ("", [])
+  | e =>
+    match bareConst e with
+    | some n => ("named", [n])
+    | none => ("", [])
+
+def namesJson (ns : List Name) : String :=
+  "[" ++ String.intercalate "," (ns.map fun n => jsonString n.toString) ++ "]"
+
+/-- Conservative metadata for semantic status, not a proof of witness meaning.
+Complex types and universes are kept out of the name-only closure relation. -/
+def typeAuditJson (info : ConstantInfo) : String :=
+  let (ds, r) := telescope info.type
+  let premises := ds.filterMap bareConst
+  let (form, targets) := literalConclusion r
+  let mono := info.levelParams.isEmpty
+  let closedProp := match info.type with
+    | .sort .zero => mono
+    | _ => false
+  let blocked := premises.length != ds.length || !mono
+  let returnsRH := form == "named" && targets == [`RiemannHypothesis]
+  let exactRH := returnsRH && ds.isEmpty && mono
+  "{\"binders\":" ++ toString ds.length
+    ++ ",\"premises\":" ++ namesJson premises
+    ++ ",\"form\":" ++ jsonString form
+    ++ ",\"targets\":" ++ namesJson targets
+    ++ ",\"closedProp\":" ++ toString closedProp
+    ++ ",\"blocked\":" ++ toString blocked
+    ++ ",\"returnsRH\":" ++ toString returnsRH
+    ++ ",\"exactRH\":" ++ toString exactRH ++ "}"
+
 end RHLeanDeclGraph
 
 open RHLeanDeclGraph in
@@ -127,6 +180,7 @@ def main (args : List String) : IO UInt32 := do
             ++ ",\"valueRefs\":" ++ valueRefs
             ++ ",\"externalTypeRefs\":" ++ toString extType
             ++ ",\"externalValueRefs\":" ++ toString extValue
+            ++ ",\"kernelTypeAudit\":" ++ typeAuditJson info
             ++ "}"
         handle.putStrLn line
         emitted := emitted + 1

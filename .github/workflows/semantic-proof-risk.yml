@@ -27,6 +27,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test risk detector
         run: python3 -m unittest discover -s scripts -p test_semantic_source_audit.py -v
+      - name: Reject references to removed reflexive packet theorem
+        run: |
+          if git grep -n -w packet_horizon_independent -- '*.lean'; then
+            echo 'Reflexive packet theorem or stale reference remains.' >&2
+            exit 1
+          fi
       - name: Scan every tracked Lean source
         run: python3 scripts/semantic_source_audit.py --json semantic-census/current.json --label current
       - uses: actions/upload-artifact@v4

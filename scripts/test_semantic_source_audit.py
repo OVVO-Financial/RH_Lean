@@ -21,6 +21,8 @@ theorem reuse (h : RiemannHypothesis) : RiemannHypothesis := h
         self.assertNotIn("root_rh_shadow_candidate",self.categories("namespace Test\ndef RiemannHypothesis : Prop := True\nend Test\n"))
     def test_real_conditional_is_candidate_not_verdict(self):
         self.assertIn("rh_return_with_visible_premises",self.categories("theorem bridge (h : RealBound) : RiemannHypothesis := h.rh\n"))
+    def test_false_conclusion_not_a_false_premise(self):
+        self.assertNotIn("false_empty_premise_candidate", self.categories("theorem t (h : P) : False := h.false\n"))
     def test_empty_and_reflexive(self):
         self.assertIn("false_empty_premise_candidate",self.categories("theorem t (x : Fin 0) : True := Fin.elim0 x\n"))
         self.assertIn("literal_reflexive_statement",self.categories("theorem t : P = P := rfl\n"))
