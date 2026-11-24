@@ -1143,6 +1143,7 @@ import RHLean.Geometry.NativeCMWeierstrassOriginalAction
 import RHLean.Geometry.NativeCMWeierstrassPAddition
 import RHLean.Geometry.NativeCMWeierstrassPeriodScaling
 import RHLean.Geometry.NativeCMWeierstrassPeriodUniqueness
+import RHLean.Geometry.NativeCMWeierstrassPointBaseChange
 import RHLean.Geometry.NativeCMWeierstrassPointChange
 import RHLean.Geometry.NativeCMWeierstrassPointUniformization
 import RHLean.Geometry.NativeCMWeierstrassPolarizedOrigin

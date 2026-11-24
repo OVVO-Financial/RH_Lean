@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeCMWeierstrassSmallTorsion
+import RHLean.Geometry.NativeCMWeierstrassPointBaseChange
 
 /-!
 # The actual geometric-fibre points of the integral equation
@@ -23,22 +24,6 @@ namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
 variable {R : Type} [CommRing R] (W : _root_.WeierstrassCurve R)
   (k : Type) [Field k] [Algebra R k]
-
-theorem ofAffinePoint_baseChange_left (P : (W.baseChange k).toAffine.Point) :
-    (ofAffinePoint W k P).left = (ofAffinePoint (W.baseChange k) k P).left ≫
-      mapHom W (algebraMap R k) rfl := by
-  rcases P with _ | ⟨x, y, h⟩
-  · rw [ofAffinePoint_zero, ofAffinePoint_zero, zeroOver_eq_ptOver, zeroOver_eq_ptOver]
-    change ptHom W (algebraMap R k) ![0, 1, 0] _ =
-      ptHom (W.baseChange k) (RingHom.id k) ![0, 1, 0] _ ≫
-        mapHom W (algebraMap R k) rfl
-    rw [ptHom_mapHom]
-    rfl
-  · change ptHom W (algebraMap R k) ![x, y, 1] _ =
-      ptHom (W.baseChange k) (RingHom.id k) ![x, y, 1] _ ≫
-        mapHom W (algebraMap R k) rfl
-    rw [ptHom_mapHom]
-    rfl
 
 variable [_root_.IsReduced R] [W.IsElliptic]
 

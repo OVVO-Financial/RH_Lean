@@ -1,6 +1,6 @@
 import RHLean.Geometry.NativeCMWeierstrassCMOrderAction
 import RHLean.Geometry.NativeCMWeierstrassMorphismTangent
-import RHLean.Geometry.NativeCMWeierstrassRelativePoints
+import RHLean.Geometry.NativeCMWeierstrassPointBaseChange
 
 /-!
 # Exact Lie action of the constructed finite-field CM order action

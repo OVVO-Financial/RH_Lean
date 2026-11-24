@@ -1175,7 +1175,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMOrderTangent.lean",
-      "sha256": "9525f1a74482263a3632a29ed7155f80d0b550131ee1368ef84867ea1955d624",
+      "sha256": "c7f381298ffab4d1ea4fa3b08d7c70e977f6c09932dceeb969888e05b07a886e",
       "lines": 195
     },
     {
@@ -1374,6 +1374,11 @@
       "lines": 158
     },
     {
+      "path": "RHLean/Geometry/NativeCMWeierstrassPointBaseChange.lean",
+      "sha256": "0d8ee537bb5e6513e04e8e6274e4bac6e6eb2709cf7264e679985a0100f63685",
+      "lines": 59
+    },
+    {
       "path": "RHLean/Geometry/NativeCMWeierstrassPointChange.lean",
       "sha256": "4ae9e0ca7772c86765f875ce9a40ed99b8ba66f1b4fbc864b96952dde642ede1",
       "lines": 200
@@ -1445,8 +1450,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRelativePoints.lean",
-      "sha256": "4ddc206ff02cf8db9dc444fe94a74f47339ff1e857e216f3d698b732875d1d59",
-      "lines": 66
+      "sha256": "597f9cefac7ea759f53389c8202f375afcde5834383ecdd8e651ec27f0669baa",
+      "lines": 51
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassScheme.lean",
