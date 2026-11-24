@@ -1,0 +1,212 @@
+/-
+RH_Lean late-attachment replay root. Original extraction wrapper, not an
+upstream terminal RH import. Mathematical source: Levent Alpöge with Claude,
+CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4.
+
+This template is deliberately outside the RH_Lean native module graph:
+upstream uses Lean 4.33.1 and native 4.34.1. No cross-version olean reuse.
+Run in a hosted checkout of the exact upstream pin (using its own Lake
+manifest and toolchain), with the necessary import closure built:
+  cp <RH_Lean>/scripts/alpoge_late_attachment/PrincipalWindow.lean.in \
+    src/RHLeanPrincipalWindow.lean
+  lake build Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.EveryCharacterOfLiteratureOfVWin Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.VwinOfRow Development.AutomorphicArithmetic.Foundations.LocalLanglands.LocalCentralUnits.RecTExists Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.RowSrc
+  lake env lean src/RHLeanPrincipalWindow.lean
+
+Reuse only compatible, independently checked artifacts; measure import
+closure and resource budget before scheduling a cold build. No automatic
+full upstream rebuild on ordinary RH_Lean PRs. An original-toolchain replay
+is evidence for the extracted theorem, NOT a native kernel certificate.
+Next step is a licensed/source-faithful compatible dependency slice,
+followed by #1205 in one environment.
+
+Source map: MainConclusion (row); EveryCharacterOfLiteratureOfVWin
+(literature and covolume suppliers); SiegelEisensteinSecondTermHypotheses
+(HypsAlt); TopPlug (TopG); ZeroFreeAllOfTopG (family callback);
+LevelGmLeOnFamilyScales and TopWin (actual estimate and windows).
+This file constructs the input to #1205, not a new bound hypothesis.
+Source inspected; hosted verification and semantic review still required.
+-/
+import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.EveryCharacterOfLiteratureOfVWin
+import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.VwinOfRow
+import Development.AutomorphicArithmetic.Foundations.LocalLanglands.LocalCentralUnits.RecTExists
+import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.RowSrc
+import Lean.Util.CollectAxioms
+
+set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 200000
+set_option maxHeartbeats 4000000
+
+noncomputable section
+
+namespace RHLeanLateAttachment
+
+open Formalism.BasicNotions Formalism.MainNotions Formalism.HC GlobalTheory.EX
+open scoped BigOperators
+
+/-- Isolate the principal cyclic level before any zero-free conclusion. -/
+theorem principalLevel_eq_Gz (x : ℝ) :
+    (Level.cyc PChar.one).Gm x = Formalism.Gz x := by
+  classical
+  let L := Level.cyc PChar.one
+  have h : L.KEPT = {PChar.one} := by
+    ext ψ
+    rw [Finset.mem_singleton]
+    constructor
+    · intro hψ
+      obtain ⟨χ, hχ, heq⟩ := (Level.mem_ofSub
+        (Subgroup.zpowers PChar.one.χ) ψ).mp hψ
+      obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hχ
+      have hOne : PChar.one.χ = 1 := rfl
+      rw [hOne, one_zpow] at hj
+      rw [← hj, PChar.of_one] at heq
+      exact heq.symm
+    · intro hψ
+      subst ψ
+      exact Level.mem_cyc _
+  change L.Gm x = _
+  rw [Level.Gm, Level.Nt, h]
+  simp only [Finset.erase_singleton, Finset.sum_empty, add_zero]
+
+/-- Retain the actual literature/geometry inputs. This is the supplier
+portion of the original character theorem with its terminal consumer
+removed; no arbitrary family, height, cost or rank is assigned here. -/
+theorem suppliedTopG : UpperTheory.Top.TopG := by
+  let row := UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter
+  let O : UpperTheory.LiteratureTheorems.OpenLiteratureStatements :=
+    ⟨row, UpperTheory.Zero.LLC.recTExists, row⟩
+  let P := UpperTheory.LiteratureTheorems.published_results_eigen O
+  let F := UpperTheory.LiteratureTheorems.published_results_first O
+  have hTheta := UpperTheory.LiteratureTheorems.theta_integrals_agree_and_local_matching_of_literature O
+  have hCovol := SelfIntersectionVolumeEstimates.topCovolSlim2_use_alt_alt
+    (UpperTheory.LiteratureTheorems.resolution_char_zero_of_literature O)
+    (UpperTheory.LiteratureTheorems.principalisation_char_zero_of_literature O)
+    (UpperTheory.LiteratureTheorems.poincare_lelong_inv_of_literature O)
+    PositivityTheory.Pf1.HilbertSamuelMoriwaki.hsUse_outright
+    PositivityTheory.Pf1.HilbertSamuelMoriwaki.moriwakiBig_outright
+    (UpperTheory.LiteratureTheorems.fargues_exact_of_literature O)
+    (UpperTheory.LiteratureTheorems.zarhin_statement O)
+    (UpperTheory.LiteratureTheorems.nef_rr_of_literature O)
+    (UpperTheory.LiteratureTheorems.siegel_toroidal_integral_of_literature O)
+    (UpperTheory.LiteratureTheorems.toroidal_for_fan_ks_of_literature O)
+    (UpperTheory.LiteratureTheorems.semi_abelian_lie_seminegative_of_literature O)
+    (UpperTheory.LiteratureTheorems.point_separation_pair_of_literature O)
+    (UpperTheory.LiteratureTheorems.ar_degree_of_literature O)
+    (UpperTheory.LiteratureTheorems.published_results_arithmetic O)
+    (UpperTheory.LiteratureTheorems.grothendieck_deformation_of_literature O)
+  let recT := UpperTheory.LiteratureTheorems.local_langlands_gl_recT_exists_of_literature O
+  obtain ⟨bundle⟩ := UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound
+    P F hTheta.1 hTheta.2 hCovol recT
+      (fun c => UpperTheory.N.boundAtTwoThree_linked_of_recT P.nLink
+        (GlobalTheory.Mem.Top.Bl.parametersOfDependence recT c))
+  exact GlobalTheory.Fc.forall_goal_of_shape_of_hyps _ _ _ _
+    (UpperTheory.Top.shape_closed_link_n_of_green
+      (GlobalTheory.GreenBridge.green_of_regular P.greenRegularCharacters))
+    trivial trivial bundle
+
+/-- Actual fixed-constant principal family; this is a closed target, not
+an additional premise of the extracted quantitative theorem. -/
+theorem suppliedPrincipalFamily :
+    ChebyshevInequalityAtWindowScale (Fam := FamP)
+      (fun Fm => Fm.toFamCore) (fun Fm => ChainTied Fm)
+      (3 / 2) (Level.cyc PChar.one) := by
+  have host := UpperTheory.Top.supplyChi PChar.one
+    (UpperTheory.One.vwin_of_row UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter PChar.one)
+  obtain ⟨eD, eL, eps1, hpos, hFamilies⟩ := suppliedTopG
+    (3 / 2) (UpperTheory.Top.GChi PChar.one) (by norm_num) host
+    (UpperTheory.Top.hypV_of_cls PChar.one (3 / 2))
+  refine ⟨eD, eL, eps1, hpos, ?_⟩
+  intro eps he he1
+  obtain ⟨Fm, hClass, hTie⟩ := hFamilies eps he he1
+  exact ⟨Fm, UpperTheory.Top.eFamC_of_cls PChar.one (3 / 2) Fm hClass,
+    hClass.1, hTie⟩
+
+/-- Literal #1205 input, without importing its RH consumer or the
+upstream zero-free consumer. Constants precede every window request.
+All variables are bound in the statement; there are no supplier arguments.
+The coefficient 1 suffices. -/
+theorem principalQuantitativeWindowBound :
+    ∃ K eps1 : ℝ, 0 < eps1 ∧
+      ∀ eps : ℝ, 0 < eps → eps < eps1 → ∃ C : ℝ,
+        ∀ Y0 : ℝ, ∃ Y : ℝ, Y0 ≤ Y ∧
+          ∀ y ∈ Set.Icc Y (Y ^ ((3 : ℝ) / 2)),
+            ((∑ n ∈ Finset.Icc 1 ⌊y⌋₊,
+                ArithmeticFunction.vonMangoldt n * (y / (n : ℝ) - 1)) -
+              y * Real.log y + (1 + Real.eulerMascheroniConstant) * y)
+              ≤ C * y ^ (1 / 2 + K * eps) := by
+  obtain ⟨eD, eL, eps1, hpos, hFamilies⟩ := suppliedPrincipalFamily
+  refine ⟨eD + eL + 7, eps1, hpos, ?_⟩
+  intro eps he he1
+  obtain ⟨Fm, hE, hW, hTie⟩ := hFamilies eps he he1
+  obtain ⟨x1, hBound⟩ :=
+    UpperTheory.Comparison₂.level_gm_le_on_family_scales
+      (Level.cyc PChar.one) eD eL eps he Fm hE hTie
+  refine ⟨1, ?_⟩
+  intro Y0
+  obtain ⟨Y, hY, hWin⟩ := (windows_iff Fm.toFamCore (3 / 2)).mp hW
+    (max Y0 (max x1 1))
+  refine ⟨Y, (le_max_left _ _).trans hY, ?_⟩
+  intro y hy
+  have hy1 : x1 ≤ y := (le_max_left x1 1).trans
+    ((le_max_right Y0 (max x1 1)).trans (hY.trans hy.1))
+  change Formalism.Gz y ≤ 1 * y ^ (1 / 2 + (eD + eL + 7) * eps)
+  rw [one_mul, ← principalLevel_eq_Gz]
+  exact hBound y hy1 (hWin y hy.1 hy.2)
+
+end RHLeanLateAttachment
+
+#print axioms RHLeanLateAttachment.suppliedPrincipalFamily
+#print axioms RHLeanLateAttachment.principalQuantitativeWindowBound
+
+/- Audit the proof term, not the names of its imports. Imported modules may
+contain unused zero-free declarations. Reject any actual dependency on
+the listed terminal consumers. Audit type and proof references together.
+Record anyGeometry/setLam/setDiv hits as semantic review targets, not
+automatic proof defects or evidence of valid geometry. -/
+open Lean Elab Command in
+private partial def lateClosure (env : Environment) (queue : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match queue with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then lateClosure env rest seen else
+      let deps := match env.find? n with
+        | none => []
+        | some info => info.type.getUsedConstants.toList ++
+            ((info.value? (allowOpaque := true)).map
+              (fun e => e.getUsedConstants.toList)).getD []
+      lateClosure env (deps ++ rest) (seen.insert n)
+
+open Lean Elab Command in
+run_cmd do
+  let root := `RHLeanLateAttachment.principalQuantitativeWindowBound
+  let allowed := #[`propext, `Classical.choice, `Quot.sound]
+  let axioms ← liftCoreM (Lean.collectAxioms root)
+  for a in axioms do
+    unless allowed.contains a do
+      throwError "Unapproved terminal axiom: {a}"
+  let env ← getEnv
+  let names := lateClosure env [root]
+  let forbidden := #[`RiemannHypothesis, `riemannHypothesis, `rhOfAll, `allChi,
+    `UpperTheory.EveryCharacter, `UpperTheory.FinalTheorems.everyCharacter,
+    `UpperTheory.FinalTheorems.everyCharacter_of_row,
+    `UpperTheory.FinalTheorems.riemannHypothesis,
+    `UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin,
+    `UpperTheory.Lit.every_character_of_theta_integrals_local_matching,
+    `UpperTheory.Top.every_character_of_green_v_win,
+    `UpperTheory.Top.zero_free_all_of_green_v_win,
+    `UpperTheory.Top.zeroFreeAll_of_topG, `Formalism.HC.level_of_tiedWin]
+  for n in forbidden do
+    if names.contains n then
+      throwError "Forbidden terminal dependency: {n}"
+  let required := #[`RHLeanLateAttachment.suppliedPrincipalFamily,
+    `UpperTheory.Comparison₂.level_gm_le_on_family_scales,
+    `UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound,
+    `UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter]
+  for n in required do
+    unless names.contains n do
+      throwError "Missing actual supplier dependency: {n}"
+  logInfo m!"Late quantitative root: {root}; axioms={axioms}; dependencies={names.toList.length}"
+  for n in names.toList do
+    let s := n.toString
+    if s.endsWith ".anyGeometry" || s.endsWith ".setDiv" || s.endsWith ".setLam" then
+      logInfo m!"SEMANTIC_REVIEW_REQUIRED {n}"
