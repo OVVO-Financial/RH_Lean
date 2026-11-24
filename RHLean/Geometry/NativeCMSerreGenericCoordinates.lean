@@ -63,7 +63,7 @@ theorem genericSeedExponential_ker (z : ℂ) :
     (QuotientAddGroup.mk' (period G τ).range z) = 0 ↔ _
   rw [AddEquiv.map_eq_zero_iff]
   change (z : ℂ ⧸ (period G τ).range) = 0 ↔ z ∈ (period G τ).range
-  exact QuotientAddGroup.eq_zero_iff
+  exact QuotientAddGroup.eq_zero_iff z
 
 variable (a : OAct (OK G) (schemeOver V))
     (hact : ∀ c : OK G, ∀ z : ℂ,
@@ -134,7 +134,7 @@ theorem genericExponential_coordinate (i : Fin P.n) (t : ℂ ⊗[OK G] D.La) :
       ← genericSeedExponential_apply, genericSeedExponential_action G τ V C hVC a hact,
       complexCoefficient_tmul P τ hemb]
     congr 1
-    ring
+    ring_nf
   | add t u ht hu =>
     rw [map_add, Pts.hom_add, MonObj.mul_comp, ht, hu, map_add,
       genericSeedExponential_add]

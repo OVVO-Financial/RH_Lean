@@ -80,13 +80,17 @@ theorem coefficientGenericPointEquiv_coefficient (c : 𝓞 H.E)
         (Torus G (τ₀ : H.E →+* ℂ))) t := by
     induction t using TensorProduct.inductionOn with
     | tmul m z =>
-      simp only [← TensorProduct.smul_tmul', LinearEquiv.rTensor_tmul]
+      simp only [LinearEquiv.rTensor_tmul]
       exact congrArg (fun m => m ⊗ₜ[OK G] z) (map_smul (coefficientTwistedOne H B) c m)
     | add t u ht hu => simp only [smul_add, map_add, ht, hu]
+  -- State the actual rTensor coercion, so `he` matches syntactically.
   change Pts.hom ((coefficientSerreFrame H G hbar B hB 1).genericPointEquiv
-      (τ₀ : H.E →+* ℂ) V C hVC a hact _) = _
+      (τ₀ : H.E →+* ℂ) V C hVC a hact
+      ((((coefficientTwistedOne H B).restrictScalars (OK G)).rTensor
+        (Torus G (τ₀ : H.E →+* ℂ))) (c • t))) = _
   rw [he]
-  exact TraceFrame.genericPointEquiv_coefficient _ _ _ _ _ _ _ _ _
+  exact TraceFrame.genericPointEquiv_coefficient (coefficientSerreFrame H G hbar B hB 1)
+    (τ₀ : H.E →+* ℂ) V C hVC a hact c _
 
 variable [Algebra (OK G) ℂ]
     (hcompat : ∀ τ : cmTypeFinset H,
@@ -143,7 +147,12 @@ theorem coefficientGenericPeriodExponential_period_smul
     ((((coefficientTwistedOne H B).restrictScalars (OK G)).rTensor
       (Torus G (τ₀ : H.E →+* ℂ)))
       (x ⊗ₜ[OK G] QuotientAddGroup.mk' (period G (τ₀ : H.E →+* ℂ)).range z))) = _
-  rw [LinearEquiv.rTensor_tmul, TraceFrame.genericPointEquiv_tmul]
+  rw [LinearEquiv.rTensor_tmul]
+  -- The coefficient-ideal tensor is the trace lattice tensor only after
+  -- unfolding coefficientTraceLattice, so match the existing formula by
+  -- definitional unification rather than an instance-transparency rewrite.
+  exact TraceFrame.genericPointEquiv_tmul (coefficientSerreFrame H G hbar B hB 1)
+    (τ₀ : H.E →+* ℂ) V C hVC a hact _ z
 
 end RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
 

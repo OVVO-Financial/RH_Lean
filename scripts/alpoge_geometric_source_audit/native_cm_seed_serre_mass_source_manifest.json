@@ -1025,7 +1025,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericCoordinates.lean",
-      "sha256": "70eb0549477248d7a4188ee58871badf35f57d76626fd44d6f5b2d432bdf2389",
+      "sha256": "450f527eee1ed118b9a279a13900d9c36eae526081906d811f03f806cefb3fb5",
       "lines": 198
     },
     {
@@ -1040,8 +1040,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericPeriod.lean",
-      "sha256": "7e365c603e456cb57bc57912001972f36631d3e35cb89556b09810aaadbbda2e",
-      "lines": 150
+      "sha256": "8a0df1f53596ed4f000e0170aaf4075585228ea2782f848684cf32b08c9b41d8",
+      "lines": 159
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericPoints.lean",
@@ -2058,6 +2058,13 @@
       "run_id": 45451577863,
       "preflight_job_id": 138650157962,
       "result": "PREFLIGHT_FAILED_AT_RATIONAL_GLOBAL_WHNF_200000; SCHEME_METRIC_AND_LINE_BUNDLE_SIGMA_METRIC_BUILT; NO_OTHER_LEAN_ERRORS_REPORTED_BEFORE_DIAGNOSTIC_SHUTDOWN; EARLY_CACHE_SAVE_SUCCEEDED",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "c63400a17b01a27bf5d22766f7d50b2cf4cdd2cb",
+      "run_id": 45494122092,
+      "preflight_job_id": 138838549662,
+      "result": "PREFLIGHT_FAILED_AT_SERRE_GENERIC_PERIOD_TENSOR_REWRITE; SERRE_GENERIC_POINTS_BUILT; DIAGNOSTICS_ALSO_REPORTED_SERRE_GENERIC_COORDINATES_STUCK_INSTANCE; ATTEMPT_1_LOG_LOST_TO_RUNNER_SHUTDOWN; ATTEMPT_2_CANCELLED_AFTER_3_5_MIN_DIAGNOSTICS_TO_PRESERVE_LOG",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]
