@@ -1045,8 +1045,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericPoints.lean",
-      "sha256": "65c55accbc346d2b02f4e28fec06ce72994e5ac8d86880a059c560c0add5790f",
-      "lines": 185
+      "sha256": "54d67425974ce40926d16beb13968830f269e0def613d407032ba4c1e1390a5a",
+      "lines": 197
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGramForm.lean",

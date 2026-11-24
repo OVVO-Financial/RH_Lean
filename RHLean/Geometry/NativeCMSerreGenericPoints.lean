@@ -50,8 +50,13 @@ theorem genericTorusPointEquiv_mk (z : ℂ) :
       (QuotientAddGroup.mk' (period G τ).range z)) =
         ofAffinePoint V ℂ ((pointCongr hVC).symm
           (latticePoint (rescaledPeriods G τ C) ((C.u : ℂ)⁻¹ * z))) := by
+  have hscale : ∀ l ∈ (periodPair G τ).lattice,
+      (C.u : ℂ)⁻¹ * l ∈ (rescaledPeriods G τ C).lattice := by
+    intro l hl
+    apply (rescaledPeriods_mem G τ C _).2
+    simpa only [mul_inv_cancel_left₀ C.u.ne_zero] using hl
   change ofAffinePoint V ℂ ((pointCongr hVC).symm
-    (latticeIsogeny (C.u : ℂ)⁻¹ _
+    (latticeIsogeny (C.u : ℂ)⁻¹ hscale
       (torusPointEquiv G τ (QuotientAddGroup.mk' (period G τ).range z)))) = _
   rw [torusPointEquiv_mk, latticeIsogeny_latticePoint]
 
@@ -132,7 +137,10 @@ theorem genericPointEquiv_coefficient (c : 𝓞 E) (t : D.La ⊗[OK G] Torus G �
   induction t using TensorProduct.inductionOn with
   | tmul m x =>
     obtain ⟨z, rfl⟩ := QuotientAddGroup.mk'_surjective (period G τ).range x
-    simp only [← TensorProduct.smul_tmul', genericPointEquiv_tmul,
+    -- Expose the actual coefficient action on the first tensor factor.
+    change Pts.hom (P.genericPointEquiv τ V C hVC a hact
+        ((c • m) ⊗ₜ[OK G] QuotientAddGroup.mk' (period G τ).range z)) = _
+    rw [genericPointEquiv_tmul, genericPointEquiv_tmul,
       Category.assoc, schemeCoefficientAct_tmul]
   | add t u ht hu =>
     simp only [smul_add, map_add, Pts.hom_add, MonObj.mul_comp, ht, hu]
@@ -175,8 +183,12 @@ theorem genericExponential_coefficient (c : 𝓞 E) (t : ℂ ⊗[OK G] D.La) :
   have := (P.schemeCoefficientAct a).hom c
   induction t using TensorProduct.inductionOn with
   | tmul z m =>
-    simp only [LinearMap.baseChange_tmul, genericExponential_tmul,
-      Category.assoc, schemeCoefficientAct_tmul, moduleScalar]
+    rw [LinearMap.baseChange_tmul]
+    -- The actual moduleScalar map sends m to c • m definitionally.
+    change Pts.hom (P.genericExponential τ V C hVC a hact hemb
+        (z ⊗ₜ[OK G] (c • m))) = _
+    rw [genericExponential_tmul, genericExponential_tmul,
+      Category.assoc, schemeCoefficientAct_tmul]
   | add t u ht hu =>
     simp only [map_add, Pts.hom_add, MonObj.mul_comp, ht, hu]
 
