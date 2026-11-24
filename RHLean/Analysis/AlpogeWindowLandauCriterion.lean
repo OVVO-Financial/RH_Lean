@@ -8,6 +8,11 @@ The gamma-kernel tail estimate localizes high Laplace derivatives to the window.
 The real derivative compensates the negative part of the source when estimating
 the derivative at a complex point. A nearest simple pole contradicts this joint
 bound. All measures are real Lebesgue measure.
+
+The analytic pole-exclusion step is also exposed directly for cofinally many
+Laplace coefficients and for weighted positive first moments of the complete
+signed source. These consumers keep their quantitative moment bound explicit;
+the original logarithmic-window theorem and its hypotheses are preserved.
 -/
 
 noncomputable section
@@ -24,6 +29,13 @@ structure PoleData (g : ℝ → ℝ) (Φ : ℂ → ℂ) (Z : Set ℂ) : Prop whe
   iso : ∀ z : ℂ, 0 < z.re → ∀ᶠ w in 𝓝[≠] z, w ∉ Z
   pole : ∀ ρ ∈ Z, ∃ c : ℂ, c ≠ 0 ∧ (ρ.im = 0 → 0 < c.re ∧ c.im = 0) ∧
     ∃ h : ℂ → ℂ, AnalyticAt ℂ h ρ ∧ ∀ᶠ s in 𝓝[≠] ρ, Φ s = c / (s - ρ) + h s
+
+/-- The weighted positive first moment of the complete signed source.
+The order `k` belongs to the Laplace kernel; the positive part is taken only
+after the entire value `g u` has been formed. -/
+def weightedPositiveMoment (g : ℝ → ℝ) (σ : ℝ) (k : ℕ) : ℝ :=
+  ∫ u in Ioi (0 : ℝ), max (g u) 0 *
+    (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ))
 
 private theorem kernel_integral (k : ℕ) (a : ℝ) (ha : 0 < a) :
     ∫ u in Ioi (0 : ℝ), u ^ k * Real.exp (-a * u) / (k.factorial : ℝ) = (a ^ (k + 1))⁻¹ := by
@@ -278,6 +290,233 @@ private theorem landau_coeff {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} 
   calc (-1 : ℂ) ^ k * ((g u : ℂ) * (-(u : ℂ)) ^ k * cexp (-s * u)) / (k.factorial : ℂ)
       = (g u : ℂ) * ((-1 : ℂ) ^ k * (-(u : ℂ)) ^ k) * cexp (-s * u) / (k.factorial : ℂ) := by ring
     _ = (g u : ℂ) * (u : ℂ) ^ k * cexp (-s * u) / (k.factorial : ℂ) := by rw [e]
+
+private theorem landau_weighted_integrable {g : ℝ → ℝ} (hg : Measurable g) {C₀ σ : ℝ}
+    (hC : ∀ u : ℝ, 0 ≤ u → |g u| ≤ C₀ * Real.exp (2 * u))
+    (hσ : 2 < σ) (k : ℕ) :
+    IntegrableOn (fun u : ℝ => |g u| *
+      (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ))) (Ioi 0) ∧
+    IntegrableOn (fun u : ℝ => g u *
+      (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ))) (Ioi 0) ∧
+    IntegrableOn (fun u : ℝ => max (g u) 0 *
+      (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ))) (Ioi 0) := by
+  set w : ℝ → ℝ := fun u => u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ) with hw
+  set t : ℝ → ℝ := fun u => u ^ k * Real.exp ((2 - σ) * u) / (k.factorial : ℝ) with ht
+  have hti : IntegrableOn t (Ioi 0) := by
+    simpa only [ht, neg_sub] using landau_tails_integrable k (show 0 < σ - 2 by linarith)
+  have hw0 : ∀ u, 0 ≤ u → 0 ≤ w u := fun u hu => by simp only [hw]; positivity
+  have hwm : Measurable w := by simp only [hw]; fun_prop
+  have hb : ∀ u, 0 ≤ u → |g u| * w u ≤ C₀ * t u := fun u hu => by
+    have he : C₀ * t u = C₀ * Real.exp (2 * u) * w u := by
+      simp only [hw, ht]
+      rw [show (2 - σ) * u = 2 * u + -σ * u by ring, Real.exp_add]
+      ring
+    rw [he]
+    exact mul_le_mul_of_nonneg_right (hC u hu) (hw0 u hu)
+  have hI1 : IntegrableOn (fun u => |g u| * w u) (Ioi 0) := by
+    refine Integrable.mono' (hti.const_mul C₀) (hg.abs.mul hwm).aestronglyMeasurable ?_
+    refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_)
+    rw [Real.norm_of_nonneg (mul_nonneg (abs_nonneg _) (hw0 u hu.le))]
+    exact hb u hu.le
+  have hI2 : IntegrableOn (fun u => g u * w u) (Ioi 0) := by
+    refine Integrable.mono' (hti.const_mul C₀) (hg.mul hwm).aestronglyMeasurable ?_
+    refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_)
+    rw [norm_mul, Real.norm_of_nonneg (hw0 u hu.le), Real.norm_eq_abs]
+    exact hb u hu.le
+  refine ⟨hI1, hI2, ?_⟩
+  refine Integrable.mono' hI1 ((hg.max measurable_const).mul hwm).aestronglyMeasurable ?_
+  refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_)
+  rw [Real.norm_of_nonneg (mul_nonneg (le_max_right _ _) (hw0 u hu.le))]
+  exact mul_le_mul_of_nonneg_right (max_le (le_abs_self _) (abs_nonneg _)) (hw0 u hu.le)
+
+/-- The positive moment is an integrable first moment for every order at
+every permitted Laplace line. Its value is not an undefined-integral zero. -/
+theorem weightedPositiveMoment_integrable {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ}
+    (hP : PoleData g Φ Z) {σ : ℝ} (hσ : 2 < σ) (k : ℕ) :
+    IntegrableOn (fun u : ℝ => max (g u) 0 *
+      (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ))) (Ioi 0) := by
+  obtain ⟨C₀, hC₀⟩ := hP.growth
+  exact (landau_weighted_integrable hP.meas hC₀ hσ k).2.2
+
+theorem weightedPositiveMoment_nonneg (g : ℝ → ℝ) (σ : ℝ) (k : ℕ) :
+    0 ≤ weightedPositiveMoment g σ k := by
+  unfold weightedPositiveMoment
+  apply setIntegral_nonneg measurableSet_Ioi
+  intro u hu
+  have hu0 : 0 ≤ u := hu.le
+  exact mul_nonneg (le_max_right _ _) (by positivity)
+
+/-- A supplied exponential upper bound gives its exact gamma-kernel moment
+bound. This does not require an absolute bound at that same exponent. -/
+theorem weightedPositiveMoment_le_of_exp_upper
+    {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : PoleData g Φ Z)
+    {σ α B : ℝ} (hσ : 2 < σ) (hα : α < σ) (hB : 0 ≤ B)
+    (hupper : ∀ u : ℝ, 0 ≤ u → g u ≤ B * Real.exp (α * u)) (k : ℕ) :
+    weightedPositiveMoment g σ k ≤ B / (σ - α) ^ (k + 1) := by
+  have hi : IntegrableOn (fun u : ℝ =>
+      B * (u ^ k * Real.exp (-(σ - α) * u) / (k.factorial : ℝ))) (Ioi 0) :=
+    (landau_tails_integrable k (sub_pos.mpr hα)).const_mul B
+  calc
+    weightedPositiveMoment g σ k ≤ ∫ u in Ioi (0 : ℝ),
+        B * (u ^ k * Real.exp (-(σ - α) * u) / (k.factorial : ℝ)) := by
+      unfold weightedPositiveMoment
+      refine setIntegral_mono_on (weightedPositiveMoment_integrable hP hσ k) hi
+        measurableSet_Ioi fun u hu => ?_
+      have hu0 : 0 ≤ u := hu.le
+      have hpos : 0 ≤ B * Real.exp (α * u) := by positivity
+      have hmajor : max (g u) 0 ≤ B * Real.exp (α * u) :=
+        max_le (hupper u hu0) hpos
+      calc
+        _ ≤ (B * Real.exp (α * u)) *
+            (u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ)) :=
+          mul_le_mul_of_nonneg_right hmajor (by positivity)
+        _ = _ := by
+          rw [show -(σ - α) * u = α * u + -σ * u by ring, Real.exp_add]
+          ring
+    _ = B * ((σ - α) ^ (k + 1))⁻¹ := by
+      rw [integral_const_mul, kernel_integral k (σ - α) (sub_pos.mpr hα)]
+    _ = B / (σ - α) ^ (k + 1) := by rw [div_eq_mul_inv]
+
+private theorem weightedPositiveMoment_window_le {g : ℝ → ℝ} {B : ℝ}
+    (hB : 0 ≤ B) (hg : Measurable g) {C₀ : ℝ}
+    (hC : ∀ u : ℝ, 0 ≤ u → |g u| ≤ C₀ * Real.exp (2 * u))
+    {σ θ U V : ℝ} (hσ : 2 < σ) (hθ : θ < σ) (hU : 0 < U)
+    (hR : ∀ u ∈ Icc U V, g u ≤ B * Real.exp (θ * u)) (k : ℕ) :
+    weightedPositiveMoment g σ k ≤ B * ((σ - θ) ^ (k + 1))⁻¹ +
+      C₀ * ∫ u in Ioi (0 : ℝ) \ Icc U V,
+        u ^ k * Real.exp ((2 - σ) * u) / (k.factorial : ℝ) := by
+  set w : ℝ → ℝ := fun u => u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ) with hw
+  set t : ℝ → ℝ := fun u => u ^ k * Real.exp ((2 - σ) * u) / (k.factorial : ℝ) with ht
+  have hti : IntegrableOn t (Ioi 0) := by
+    simpa only [ht, neg_sub] using landau_tails_integrable k (show 0 < σ - 2 by linarith)
+  have hw0 : ∀ u, 0 ≤ u → 0 ≤ w u := fun u hu => by simp only [hw]; positivity
+  have hI : IntegrableOn (fun u => max (g u) 0 * w u) (Ioi 0) :=
+    (landau_weighted_integrable hg hC hσ k).2.2
+  have hb : ∀ u, 0 ≤ u → max (g u) 0 * w u ≤ C₀ * t u := fun u hu => by
+    have he : C₀ * t u = C₀ * Real.exp (2 * u) * w u := by
+      simp only [hw, ht]
+      rw [show (2 - σ) * u = 2 * u + -σ * u by ring, Real.exp_add]
+      ring
+    rw [he]
+    exact mul_le_mul_of_nonneg_right
+      ((max_le (le_abs_self _) (abs_nonneg _)).trans (hC u hu)) (hw0 u hu)
+  have hsub : Icc U V ⊆ Ioi (0 : ℝ) := fun u hu => lt_of_lt_of_le hU hu.1
+  have hsplit := integral_inter_add_sdiff (μ := volume) (s := Ioi (0 : ℝ))
+    (t := Icc U V) measurableSet_Icc hI
+  rw [inter_eq_right.2 hsub] at hsplit
+  have hA : ∫ u in Icc U V, max (g u) 0 * w u ≤
+      B * ((σ - θ) ^ (k + 1))⁻¹ := by
+    let kernel := fun u : ℝ => u ^ k * Real.exp (-(σ - θ) * u) / (k.factorial : ℝ)
+    have hi : IntegrableOn (fun u => B * kernel u) (Ioi 0) :=
+      (landau_tails_integrable k (sub_pos.mpr hθ)).const_mul B
+    rw [← kernel_integral k _ (sub_pos.mpr hθ), ← integral_const_mul]
+    refine (setIntegral_mono_on (hI.mono_set hsub) (hi.mono_set hsub)
+      measurableSet_Icc ?_).trans (setIntegral_mono_set hi ?_ hsub.eventuallyLE)
+    · intro u hu
+      have hpos : 0 ≤ B * Real.exp (θ * u) := by positivity
+      have hmajor : max (g u) 0 ≤ B * Real.exp (θ * u) := max_le (hR u hu) hpos
+      calc
+        max (g u) 0 * w u ≤ (B * Real.exp (θ * u)) * w u :=
+          mul_le_mul_of_nonneg_right hmajor (hw0 u (hsub hu).le)
+        _ = B * kernel u := by
+          dsimp [kernel, w]
+          rw [show -(σ - θ) * u = θ * u + -σ * u by ring, Real.exp_add]
+          ring
+    · filter_upwards [ae_restrict_mem measurableSet_Ioi] with u hu
+      have hu0 : 0 ≤ u := hu.le
+      positivity
+  have hT : ∫ u in Ioi (0 : ℝ) \ Icc U V, max (g u) 0 * w u ≤
+      C₀ * ∫ u in Ioi (0 : ℝ) \ Icc U V, t u := by
+    rw [← integral_const_mul]
+    exact setIntegral_mono_on (hI.mono_set sdiff_subset)
+      ((hti.mono_set sdiff_subset).const_mul C₀)
+      (measurableSet_Ioi.diff measurableSet_Icc) fun u hu => hb u hu.1.le
+  change (∫ u in Ioi (0 : ℝ), max (g u) 0 * w u) ≤
+    B * ((σ - θ) ^ (k + 1))⁻¹ + C₀ * ∫ u in Ioi (0 : ℝ) \ Icc U V, t u
+  linarith only [hsplit, hA, hT]
+
+/-- The original one-sided windows imply the cofinal positive-moment
+hypothesis. The window pays `B / (σ-θ)^(k+1)`; the original exponential
+growth bound pays both tails. The Laplace line and constant are chosen
+before the requested lower bound on the moment order. -/
+theorem positiveMoment_bound_of_windows
+    {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : PoleData g Φ Z)
+    {θ δ B : ℝ} (hθ : 0 < θ) (hθ1 : θ < 1) (hδ : 0 < δ) (hB : 0 ≤ B)
+    (hW : ∀ U₀ : ℝ, ∃ U ≥ U₀,
+      ∀ u ∈ Icc U ((1 + δ) * U), g u ≤ B * Real.exp (θ * u)) :
+    ∃ σ : ℝ, 2 < σ ∧ ∃ C : ℝ, 0 ≤ C ∧ ∀ k₀ : ℕ, ∃ k ≥ k₀,
+      weightedPositiveMoment g σ k ≤ C / (σ - θ) ^ k := by
+  obtain ⟨σ, hσ, T, ht⟩ := landau_tails hδ
+  obtain ⟨C₀, hC₀⟩ := hP.growth
+  have hC₀pos : 0 ≤ C₀ := (abs_nonneg _).trans (by simpa using hC₀ 0 le_rfl)
+  have ha : 0 < σ - θ := by linarith
+  refine ⟨σ, hσ, B / (σ - θ) + C₀ * |T|, by positivity, fun k₀ => ?_⟩
+  obtain ⟨U, hU, hw⟩ := hW (max (k₀ : ℝ) 1)
+  have hu : 1 ≤ U := (le_max_right _ _).trans hU
+  obtain ⟨k, hk, htail⟩ := ht U hu
+  refine ⟨k, by exact_mod_cast ((le_max_left _ _).trans hU).trans hk, ?_⟩
+  have h := weightedPositiveMoment_window_le hB hP.meas hC₀ hσ
+    (by linarith : θ < σ) (by linarith : 0 < U) hw k
+  have hscale : T / σ ^ k ≤ |T| / (σ - θ) ^ k :=
+    div_le_div₀ (abs_nonneg _) (le_abs_self _) (pow_pos ha _)
+      (pow_le_pow_left₀ ha.le (by linarith) k)
+  have hcost := mul_le_mul_of_nonneg_left (htail.trans hscale) hC₀pos
+  rw [pow_succ, mul_inv] at h
+  rw [add_div]
+  simp only [div_eq_mul_inv] at h hcost ⊢
+  linarith only [h, hcost]
+
+/-- The real Laplace coefficient cancels the negative-source contribution
+in the norm estimate. Only twice the completed positive moment is charged. -/
+theorem landau_coefficients_le_positiveMoment
+    {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : PoleData g Φ Z)
+    {σ : ℝ} (hσ : 2 < σ) (k : ℕ) (γ : ℝ) :
+    ‖(-1) ^ k * iteratedDeriv k Φ ((σ : ℂ) + γ * I) / (k.factorial : ℂ)‖ +
+      ((-1) ^ k * iteratedDeriv k Φ (σ : ℂ) / (k.factorial : ℂ)).re ≤
+        2 * weightedPositiveMoment g σ k := by
+  obtain ⟨C₀, hC₀⟩ := hP.growth
+  set w : ℝ → ℝ := fun u => u ^ k * Real.exp (-σ * u) / (k.factorial : ℝ) with hw
+  obtain ⟨hI1, hI2, _hI3⟩ := landau_weighted_integrable hP.meas hC₀ hσ k
+  rw [landau_coeff hP k (s := (σ : ℂ) + γ * I) (by simpa using hσ),
+    landau_coeff hP k (s := (σ : ℂ)) (by simpa using hσ)]
+  have hL : ‖∫ u in Ioi (0 : ℝ), (g u : ℂ) * (u : ℂ) ^ k *
+      cexp (-((σ : ℂ) + γ * I) * u) / (k.factorial : ℂ)‖ ≤
+      ∫ u in Ioi (0 : ℝ), |g u| * w u := by
+    refine (norm_integral_le_integral_norm _).trans (le_of_eq ?_)
+    refine setIntegral_congr_fun measurableSet_Ioi fun u hu => ?_
+    have hu0 : 0 ≤ u := hu.le
+    have hre : (-((σ : ℂ) + γ * I) * u).re = -σ * u := by simp
+    simp only [hw, norm_div, norm_mul, norm_pow, Complex.norm_real, Complex.norm_exp, hre,
+      Complex.norm_natCast, Real.norm_eq_abs, abs_of_nonneg hu0]
+    ring
+  have hM : (∫ u in Ioi (0 : ℝ), (g u : ℂ) * (u : ℂ) ^ k *
+      cexp (-(σ : ℂ) * u) / (k.factorial : ℂ)).re =
+      ∫ u in Ioi (0 : ℝ), g u * w u := by
+    have he : (fun u : ℝ => (g u : ℂ) * (u : ℂ) ^ k *
+        cexp (-(σ : ℂ) * u) / (k.factorial : ℂ)) =
+        fun u : ℝ => ((g u * w u : ℝ) : ℂ) := by
+      funext u
+      simp only [hw]
+      push_cast
+      ring
+    rw [he, integral_complex_ofReal, Complex.ofReal_re]
+  rw [hM]
+  calc
+    _ ≤ (∫ u in Ioi (0 : ℝ), |g u| * w u) +
+        ∫ u in Ioi (0 : ℝ), g u * w u := add_le_add hL le_rfl
+    _ = ∫ u in Ioi (0 : ℝ), (|g u| * w u + g u * w u) :=
+      (integral_add hI1 hI2).symm
+    _ = ∫ u in Ioi (0 : ℝ), 2 * (max (g u) 0 * w u) := by
+      refine setIntegral_congr_fun measurableSet_Ioi fun u _hu => ?_
+      by_cases hgu : 0 ≤ g u
+      · rw [abs_of_nonneg hgu, max_eq_left hgu]
+        ring
+      · have hgu' : g u ≤ 0 := le_of_not_ge hgu
+        rw [abs_of_nonpos hgu', max_eq_right hgu']
+        ring
+    _ = 2 * weightedPositiveMoment g σ k := by
+      rw [integral_const_mul]
+      rfl
 
 private theorem landau_window_ineq {g : ℝ → ℝ} {B : ℝ} (hB : 0 ≤ B) (hg : Measurable g) {C₀ : ℝ}
     (hC : ∀ u : ℝ, 0 ≤ u → |g u| ≤ C₀ * Real.exp (2 * u)) {σ θ U V : ℝ} (hσ : 2 < σ) (hθ : θ < σ) (hU : 0 < U)
@@ -715,13 +954,18 @@ private theorem landau_window_re_pos {z w : ℂ} {r : ℝ} (hr : r ≤ z.re) (hw
   simp only [Complex.sub_re] at h3
   linarith
 
-theorem landau_window {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : PoleData g Φ Z) {θ δ B : ℝ}
-    (hθ : 0 < θ) (hθ1 : θ < 1) (hδ : 0 < δ) (hB : 0 ≤ B)
-    (hW : ∀ U₀ : ℝ, ∃ U ≥ U₀, ∀ u ∈ Icc U ((1 + δ) * U), g u ≤ B * Real.exp (θ * u)) : ∀ ρ ∈ Z, ρ.re ≤ θ := by
+/-- The analytic pole-exclusion step consumes cofinally many jointly
+controlled Laplace coefficients. It has no pointwise window hypothesis. -/
+theorem landau_of_coefficients {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ}
+    (hP : PoleData g Φ Z) {θ : ℝ} (hθ : 0 < θ) (_hθ1 : θ < 1)
+    (hK : ∃ σ : ℝ, 2 < σ ∧ ∃ C : ℝ, ∀ k₀ : ℕ, ∃ k ≥ k₀, ∀ γ : ℝ,
+      ‖(-1) ^ k * iteratedDeriv k Φ ((σ : ℂ) + γ * I) / (k.factorial : ℂ)‖ +
+        ((-1) ^ k * iteratedDeriv k Φ (σ : ℂ) / (k.factorial : ℂ)).re ≤
+          C / (σ - θ) ^ k) : ∀ ρ ∈ Z, ρ.re ≤ θ := by
   intro ρ₀ h₀
   by_contra hρ₀
   rw [not_le] at hρ₀
-  obtain ⟨σ, hσ, C, hkey⟩ := landau_window_key hP hθ hθ1 hδ hB hW
+  obtain ⟨σ, hσ, C, hkey⟩ := hK
   have hle : ∀ ρ ∈ Z, ρ.re < σ := fun ρ hρ => (hP.right ρ hρ).trans (by linarith)
   rcases landau_dichotomy hP.iso hθ h₀ hρ₀ with
     ⟨D, hD, hfree, ρ₁, h₁, hρ₁⟩ | ⟨β, hβZ, hβ, r, hr1, hr2, huniq⟩
@@ -794,5 +1038,33 @@ theorem landau_window {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : P
     rw [Complex.sub_re, h4] at h6
     have h7 := norm_nonneg ((-1) ^ k * iteratedDeriv k Φ ((σ : ℂ) + (0 : ℝ) * I) / (k.factorial : ℂ))
     linarith
+
+/-- A bound on cofinally many weighted positive first moments of the
+complete signed source excludes poles to the right of `θ`. Neither a
+pointwise bound nor a window bound is an assumption of this theorem. -/
+theorem landau_of_positiveMoments {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ}
+    (hP : PoleData g Φ Z) {θ : ℝ} (hθ : 0 < θ) (hθ1 : θ < 1)
+    (hM : ∃ σ : ℝ, 2 < σ ∧ ∃ C : ℝ, 0 ≤ C ∧
+      ∀ k₀ : ℕ, ∃ k ≥ k₀,
+        weightedPositiveMoment g σ k ≤ C / (σ - θ) ^ k) :
+    ∀ ρ ∈ Z, ρ.re ≤ θ := by
+  apply landau_of_coefficients hP hθ hθ1
+  obtain ⟨σ, hσ, C, _hC, hmoment⟩ := hM
+  refine ⟨σ, hσ, 2 * C, fun k₀ => ?_⟩
+  obtain ⟨k, hk, hbound⟩ := hmoment k₀
+  refine ⟨k, hk, fun γ => ?_⟩
+  calc
+    _ ≤ 2 * weightedPositiveMoment g σ k :=
+      landau_coefficients_le_positiveMoment hP hσ k γ
+    _ ≤ 2 * (C / (σ - θ) ^ k) :=
+      mul_le_mul_of_nonneg_left hbound (by norm_num)
+    _ = (2 * C) / (σ - θ) ^ k := by ring
+
+/-- The original window theorem retains its complete public hypothesis
+telescope; its analytic conclusion now uses the reusable coefficient step. -/
+theorem landau_window {g : ℝ → ℝ} {Φ : ℂ → ℂ} {Z : Set ℂ} (hP : PoleData g Φ Z) {θ δ B : ℝ}
+    (hθ : 0 < θ) (hθ1 : θ < 1) (hδ : 0 < δ) (hB : 0 ≤ B)
+    (hW : ∀ U₀ : ℝ, ∃ U ≥ U₀, ∀ u ∈ Icc U ((1 + δ) * U), g u ≤ B * Real.exp (θ * u)) : ∀ ρ ∈ Z, ρ.re ≤ θ :=
+  landau_of_coefficients hP hθ hθ1 (landau_window_key hP hθ hθ1 hδ hB hW)
 
 end RHLean.Analysis.WindowLandau

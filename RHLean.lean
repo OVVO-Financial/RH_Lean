@@ -46,6 +46,8 @@ import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeAffineFamilyPayment
+import RHLean.Analysis.AlpogeNativeBoundConsequences
+import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Analysis.AlpogeNativeCMPrimeSplitting
 import RHLean.Analysis.AlpogeNativeCMUnramified
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
@@ -63,6 +65,8 @@ import RHLean.Analysis.AlpogeNativeGzRealInterpolation
 import RHLean.Analysis.AlpogeNativeHostPrimes
 import RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
+import RHLean.Analysis.AlpogeNativeLocalGainSource
+import RHLean.Analysis.AlpogeNativePositiveMomentCriterion
 import RHLean.Analysis.AlpogeNativePrimeDecomposition
 import RHLean.Analysis.AlpogeNativePrimeLift
 import RHLean.Analysis.AlpogeNativePrincipalProjection
@@ -81,7 +85,9 @@ import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.AlpogeNativeSignedSlopeComparison
 import RHLean.Analysis.AlpogeNativeSignedWidthPayment
+import RHLean.Analysis.AlpogeNativeSquareCandidateCapacity
 import RHLean.Analysis.AlpogeNativeSquareClockCriterion
+import RHLean.Analysis.AlpogeNativeSquareMultiplicity
 import RHLean.Analysis.AlpogeNativeSubgroupProjection
 import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Analysis.AlpogeNativeWidthRecombination
@@ -536,6 +542,7 @@ import RHLean.Analysis.AlpogeThin.NativeRayShiftedTheta
 import RHLean.Analysis.AlpogeThin.NativeRayShortInterval
 import RHLean.Analysis.AlpogeThin.NativeRayTheta
 import RHLean.Analysis.AlpogeThin.NativeRayZeroFreeRegion
+import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.Global
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.GlobalA
@@ -1205,6 +1212,7 @@ import RHLean.Geometry.NativeMeanEnergyDescent
 import RHLean.Geometry.NativeMeasuredComponentDegree
 import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeNumberFieldIntegralDescent
+import RHLean.Geometry.NativeOneSidedIsogenyNorm
 import RHLean.Geometry.NativePeriodTypeCoordinates
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePlaneLatticeReduction
@@ -1223,6 +1231,8 @@ import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
 import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
+import RHLean.Geometry.NativeSquareCapacityPeriod
+import RHLean.Geometry.NativeSquareHostRealization
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement

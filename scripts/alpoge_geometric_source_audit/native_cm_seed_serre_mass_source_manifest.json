@@ -890,8 +890,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGenerators.lean",
-      "sha256": "aff213e99bf4beae0749ee9915743ee1d03dba220403ec7dc10eefb1c8093dbc",
-      "lines": 188
+      "sha256": "541b10b975180284ce942d187b3cf897ed3ae488a2aa8ba558300176ad898ff7",
+      "lines": 192
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGerms.lean",
@@ -1971,6 +1971,13 @@
       "run_id": 45318191186,
       "preflight_job_id": 138190245404,
       "result": "PREFLIGHT_FAILED_EMPTY_PRODUCT_REFLEXIVE_GOAL",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "eee6c7af97e8ddef4a00108004fbd6c95cf44738",
+      "run_id": 45320118677,
+      "preflight_job_id": 138196596172,
+      "result": "PREFLIGHT_FAILED_GENERATOR_REFLEXIVITY; NATIVE_CM_ISOGENY_PERIOD_MEAN_BUILT_IN_DIAGNOSTIC",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]
