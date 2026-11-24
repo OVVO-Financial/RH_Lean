@@ -1,3 +1,61 @@
+## #1201 — absolute exclusion of GeoCl / geoCl / anyGeometry (2026-11-24)
+
+**STRICT_NO_GEOCL_ANYGEOMETRY_V1 — controlling user directive, no exceptions.**
+No direct or transitive use of `GeoCl` (including constructors, recursors,
+and projections), `geoCl`, `anyGeometry`, their aliases, renamed/copied
+equivalents, or vacuous geometry/assigned-witness substitutes is permitted
+in the proof of the quantitative estimate, its family supplier, the native
+handoff, or the terminal RH declaration. This is a rejection criterion,
+not a review-only warning, even if the upstream proof has been independently
+kernel-certified. Do not weaken this rule by specializing to the principal
+character, hiding the dependency in an opaque theorem, inlining the
+placeholder, or importing a later conclusion. Do not count a clean
+three-axiom list as satisfying this separate semantic restriction.
+
+**Known rejected supplier.** At upstream pin 7cbf7a0c, in
+`SiegelEisensteinSecondTermHypotheses.lean`, the actual
+`UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound` calls
+`geoCl anyGeometry` three times (lines 60, 63, 67).
+`GlobalTheory.Mem.Top.Bl.parametersOfDependence` in `Prm1.lean`
+(lines 20–21) also uses it. `LinkNFam.lean` (80–85) uses it in
+the linked-family transport. `anyGeometry` is the constant True
+predicate (OverIx.lean:19). Thus the previous suppliedTopG extraction
+is rejected as a completion route, regardless of compile status.
+The previous version is retained in Git history, not in the active
+extraction body. Do not reactivate any of these suppliers without
+a proof that omits all forbidden dependencies; do not recreate their
+placeholder semantics under a new name.
+
+**Required task.** Keep the late principal quantitative attachment and
+the exact Gz identity/#1205 unchanged. Seek the shortest proved clean
+arithmetic supplier or clean quantitative dependency slice, bypassing
+the rejected chain. Do not automatically restart G1–G7, build the
+entire upstream proof, or invent a cancellation inequality. The
+existing estimate may be reused only if its actual retained proof
+dependency closure satisfies this absolute exclusion. If no such
+supplier has been established, state OPEN rather than assert a bound.
+All seven roles must obey this gate. Coordinator: stop the rejected
+route. Owner/payment and finite wheel: locate a clean supplier.
+Adversarial: independently review aliases, actual witnesses, and
+noncircularity. Prime census and analytic Type II: retain the exact
+arithmetic handoff and quantifiers. Lean verification: apply the
+hard rejection to the elaborated family, quantitative root and final
+RH root, following types AND proof bodies, including opaque values.
+
+The targeted workflow now fails closed before cache retrieval when a
+clean family implementation is absent. The remaining extraction body
+consumes a *closed* `suppliedPrincipalFamily` from that implementation;
+no new axiom, assumed-bound endpoint, or dummy witness is introduced.
+The closure audit rejects forbidden name components case-insensitively,
+including underscore spellings, and remains in force for the combined
+native root. Source/semantic review of erased or inlined aliases and
+vacuous replacements is also mandatory; a name scanner cannot prove
+their absence by itself. Preserve all other verification and
+human-only merge rules, keep #1201 draft, keep native RH OPEN, and do
+not change agent schedules or toolchain pins.
+
+---
+
 ## #1201 — late quantitative attachment, principal character only (2026-11-24)
 
 **LATE_QUANTITATIVE_ATTACHMENT_V1 — controlling user-directed priority.**
