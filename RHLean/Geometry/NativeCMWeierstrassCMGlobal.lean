@@ -183,10 +183,10 @@ theorem exists_cm_scheme_generator :
         ofAffinePoint V ℂ ((pointCongr hVC).symm (generatorNorm G • Q)) := by
       have he : ofAffinePoint V ℂ (generatorNorm G • (pointCongr hVC).symm Q) =
           ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ^ generatorNorm G :=
-        (affinePointMulEquiv V ℂ).map_pow
+        map_pow (affinePointMulEquiv V ℂ).toMonoidHom
           (Multiplicative.ofAdd ((pointCongr hVC).symm Q)) (generatorNorm G)
       exact he.symm.trans (congrArg (ofAffinePoint V ℂ)
-        (map_nsmul (pointCongr hVC).symm Q (generatorNorm G)).symm)
+        (map_nsmul (pointCongr hVC).symm (generatorNorm G) Q).symm)
     rw [hn, ← ofAffinePoint_add, ← map_add, rescaledCMAction_quadratic]
   have hV : V = shortModel
       ((W.baseChange M).map (IntermediateField.inclusion (hMF₀.trans h₀F)).toRingHom) := by
