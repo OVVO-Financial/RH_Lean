@@ -95,9 +95,9 @@ private theorem native_s_lower_of_divisorDebt (debt : ℝ)
     linarith
   linarith
 
+omit [Fintype U0] in
 /-- The divisor debt enters the original global gain estimate once, without
 multiplying its price by the rank-gap or entropy coefficient. -/
-omit [Fintype U0] in
 theorem nativeGa_bound_of_divisorDebt (debt : ℝ)
     (hS : D.HidaSetting C)
     (hDIV : ∀ u0 (u : W u0), D.muCC u0 + D.h u0 u - D.Fo u0 ≤
@@ -237,7 +237,6 @@ theorem alpogeNativePeriodDebt_div_projectionDivisor
   have hm' : (m : ℝ) ≠ 0 := by exact_mod_cast hm.ne'
   unfold alpogeNativeProjectionDivisor alpogeNativeProjectionDensity
   field_simp [hT, hh, hn, hm', hb.ne']
-  <;> ring
 
 end RHLean.Analysis
 
