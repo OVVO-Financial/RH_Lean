@@ -990,8 +990,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundleGram.lean",
-      "sha256": "c05c5c79fe00c299a08fe19129455e8aac104e48c2e672b9a38cb34dba7d9883",
-      "lines": 225
+      "sha256": "274348f213217ebe65e30b7924be4538edce1ab1b94dafb353f0ece7d2edd615",
+      "lines": 266
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundlePairing.lean",
@@ -1000,8 +1000,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundleSymmetry.lean",
-      "sha256": "d0816746e88d9de48b256ef26926c4751eaaeb04ea8272bf7ae5aebed55c7426",
-      "lines": 135
+      "sha256": "87a612e76524472e0fb1b82458cef4799ecb1645f769b30f9aa289c8c8709e6f",
+      "lines": 137
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreEigenlattice.lean",
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "1cbb63bf0fa734a3acba7a35942dd9fad3340af9bda9421446c2f51bf4557a8e",
-      "lines": 426
+      "sha256": "7c54fc3ea8b7afa2c0a0477e6df91d1113f26268aba26ca94c62408f8c6c487d",
+      "lines": 493
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
@@ -1620,7 +1620,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFiniteLevelNorm.lean",
-      "sha256": "d3349f788f1dac931407954442efb68dfc4e33ee0f6e5b83d11588e4bbb4209d",
+      "sha256": "8ae7097c3c9aaf9cd78844072209f9454689801471226ef057e5df89e9478270",
       "lines": 476
     },
     {
@@ -2025,6 +2025,13 @@
       "run_id": 45418252140,
       "preflight_job_id": 138530704752,
       "result": "PREFLIGHT_FAILED_AT_FINITE_LEVEL_NORM_AFTER_343_MODULE_REBUILD; DIAGNOSTIC_PASS_REACHED_SCHEME_BUNDLE_EQUATION_POINTS_BUNDLE_GRAM_RATIONAL_GLOBAL_SIGMA_METRIC_THEN_JOB_CAP_CANCELLED; MIXED_PERIODS_GRAM_FORM_MORPHISM_TANGENT_THETA_ATLAS_OPEN_POINT_SECTION_JET_BUILT",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "5dcb3c38ac802858f03933df2146c5b789290314",
+      "run_id": 45431015648,
+      "preflight_job_id": 138576449633,
+      "result": "PREFLIGHT_FAILED_AT_SERRE_BUNDLE_GRAM; DIAGNOSTIC_REACHED_FINITE_LEVEL_NORM_BUNDLE_SYMMETRY_RATIONAL_GLOBAL_WHNF_TIMEOUT_THEN_RUNNER_SHUTDOWN_EXIT_143",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

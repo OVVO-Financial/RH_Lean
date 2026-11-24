@@ -394,9 +394,9 @@ theorem exists_full_level_theta (hn : k + m - 1 ≤ n) (heven : Even n)
   have hsep : ∀ a a', e (y a) - e (y a') ∈ A → a = a' := by
     intro a a' ha
     have hm : y a - y a' ∈ tens Λ L' := by
-      have hmap : e (y a - y a') ∈ A := by
-        rw [map_sub]
-        exact ha
+      have hmap : e (y a - y a') ∈ A :=
+        (congrArg (fun z : Matrix (Fin n) ι ℚ × Matrix (Fin n) ι ℚ => z ∈ A)
+          (map_sub e (y a) (y a'))).mpr ha
       -- `A` is the image of `tens Λ L'` under the additive map of `e`.
       exact (AddSubgroup.mem_map_iff_mem
         (f := (ShiftedVacua.coordinates H B hB b (κ := Fin n)).toLinearMap.toAddMonoidHom)

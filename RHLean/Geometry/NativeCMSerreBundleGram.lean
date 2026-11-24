@@ -60,6 +60,36 @@ theorem sum_squareGram {I : Type} [Fintype I]
     Fintype.sum_equiv (Equiv.prodComm I I) _ _ fun _ => rfl
   rw [hs, ← add_mul, add_comm (conj ω), hω, one_mul]
 
+/-- Expand both finite frame evaluations in the same ordered indices.
+The permutations below exchange only independent sums, never the
+coefficients attached to a frame index. -/
+theorem sum_frame_pairing {I J : Type} [Fintype I] [Fintype J]
+    (a b : I → J → ℂ) (p q : I → ℂ) :
+    (∑ k : I × I, (∑ ρ : J, a k.1 ρ * conj (b k.2 ρ)) *
+        p k.1 * conj (q k.2)) =
+      ∑ ρ : J, (∑ i : I, p i * a i ρ) * conj (∑ j : I, q j * b j ρ) := by
+  calc
+    _ = ∑ i : I, ∑ j : I, ∑ ρ : J,
+        a i ρ * conj (b j ρ) * p i * conj (q j) := by
+      simp only [Fintype.sum_prod_type, Finset.sum_mul]
+    _ = ∑ i : I, ∑ ρ : J, ∑ j : I,
+        a i ρ * conj (b j ρ) * p i * conj (q j) := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      exact Finset.sum_comm
+    _ = ∑ ρ : J, ∑ i : I, ∑ j : I,
+        a i ρ * conj (b j ρ) * p i * conj (q j) := Finset.sum_comm
+    _ = ∑ ρ : J, ∑ i : I, ∑ j : I,
+        (p i * a i ρ) * (conj (q j) * conj (b j ρ)) := by
+      refine Finset.sum_congr rfl fun ρ _ =>
+        Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+      ring
+    _ = _ := by
+      refine Finset.sum_congr rfl fun ρ _ => ?_
+      rw [map_sum, Finset.sum_mul]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Finset.mul_sum]
+      exact Finset.sum_congr rfl fun j _ => by rw [map_mul]
+
 end RHLean.Geometry.NativeCM.SerreGram
 
 namespace RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
@@ -193,18 +223,29 @@ theorem tensorOriginGram_eq_sum
       (fun i => embeddedPairing H G F hbar B hB σ i t)
       (fun i => embeddedPairing H G F hbar B hB σ i u)
   rw [he]
-  dsimp only [g, fr]
   congr 1
-  simp_rw [embeddedCoefficient_kLin_sum H G F hbar hroot B hB σ,
-    integralEvaluation_frame H G F hbar B hB]
-  simp only [map_sum, map_mul, Fintype.sum_prod_type, Finset.sum_mul, Finset.mul_sum,
-    embeddedPairing]
-  conv_rhs => rw [Finset.sum_comm]
-  refine Finset.sum_congr rfl fun i _ => ?_
-  rw [Finset.sum_comm]
-  refine Finset.sum_congr rfl fun ρ _ => ?_
-  refine Finset.sum_congr rfl fun j _ => ?_
-  ring
+  let a : Fin fr.n → RootAut G → ℂ := fun i ρ =>
+    σ (coefficientEvaluation H G F B (fr.x i) ρ)
+  let p : Fin fr.n → ℂ := fun i => embeddedPairing H G F hbar B hB σ i t
+  let q : Fin fr.n → ℂ := fun i => embeddedPairing H G F hbar B hB σ i u
+  change (∑ k : Fin fr.n × Fin fr.n, g k.1 k.2 * p k.1 * conj (q k.2)) = _
+  have hg' (i j : Fin fr.n) : g i j = ∑ ρ : RootAut G, a i ρ * conj (a j ρ) :=
+    embeddedCoefficient_kLin_sum H G F hbar hroot B hB σ (fr.x i) (fr.x j)
+  calc
+    _ = ∑ k : Fin fr.n × Fin fr.n,
+        (∑ ρ : RootAut G, a k.1 ρ * conj (a k.2 ρ)) * p k.1 * conj (q k.2) := by
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [hg' k.1 k.2]
+    _ = ∑ ρ : RootAut G, (∑ i : Fin fr.n, p i * a i ρ) *
+        conj (∑ j : Fin fr.n, q j * a j ρ) :=
+      SerreGram.sum_frame_pairing a a p q
+    _ = _ := by
+      refine Finset.sum_congr rfl fun ρ _ => ?_
+      have htρ := congrArg σ (integralEvaluation_frame H G F hbar B hB t ρ)
+      have huρ := congrArg σ (integralEvaluation_frame H G F hbar B hB u ρ)
+      simp only [map_sum, map_mul] at htρ huρ
+      exact congrArg₂ (· * ·) htρ.symm
+        (congrArg (fun z : ℂ => conj z) huρ.symm)
 
 /-- The actual identity-character eigenmodule has the coordinate norm,
 with its full integral index retained by eigenCoordinate. -/

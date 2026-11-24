@@ -68,18 +68,20 @@ theorem sym_of_inversion_isomorphic (N : LB A.left)
     (hN : ∃ t : LB.Gen (LB.LinComb N (K := Fin 2)
       ![(GrpObj.inv : A ⟶ A).left, 𝟙 A.left] ![1, -1]), t.IsGen) :
     Sym A N := by
-  intro _
+  intro _s
   obtain ⟨t, ht⟩ := hN
-  let ι := (A.hom ⁻¹ᵁ (⊤ : S.Opens)).ι
-  have h := LB.isGen_pullGen N
-    ![(GrpObj.inv : A ⟶ A).left, 𝟙 A.left] ![1, -1] t ht ι
-  have e : (fun k : Fin 2 => ι ≫
+  let jTop := (A.hom ⁻¹ᵁ (⊤ : S.Opens)).ι
+  have h : ∃ v : LB.Gen (LB.LinComb N
+      (fun k : Fin 2 => jTop ≫ ![(GrpObj.inv : A ⟶ A).left, 𝟙 A.left] k)
+      ![1, -1]), v.IsGen :=
+    ⟨LB.pullGen N _ _ t jTop, LB.isGen_pullGen N _ _ t ht jTop⟩
+  have e : (fun k : Fin 2 => jTop ≫
       ![(GrpObj.inv : A ⟶ A).left, 𝟙 A.left] k) =
-        ![ι ≫ (GrpObj.inv : A ⟶ A).left, ι] := by
+        ![jTop ≫ (GrpObj.inv : A ⟶ A).left, jTop] := by
     funext k
     fin_cases k <;> simp
   rw [e] at h
-  exact ⟨⊤, trivial, _, h⟩
+  exact ⟨⊤, trivial, h⟩
 
 end RHLean.Geometry.NativeCM.SchemeTheory
 

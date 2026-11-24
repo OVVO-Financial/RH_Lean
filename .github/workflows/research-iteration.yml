@@ -76,6 +76,20 @@ jobs:
         uses: ./.github/actions/research-compile
         with:
           targets: ${{ steps.targets.outputs.targets }}
+      # A runner shutdown during the optional diagnostic build must not
+      # discard the native artifacts already completed by the mandatory step.
+      # This is the same partial-artifact cache, not a proof certificate.
+      - name: Save failed preflight prerequisites before diagnostics
+        id: failedpreflightsave
+        if: >-
+          failure() && !cancelled() &&
+          steps.preflightcache.outcome == 'success' &&
+          steps.compile.outcome == 'failure' &&
+          steps.preflightcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}
       # This large, independent supplier batch otherwise reveals only one
       # linter diagnostic per cold runner. This bounded pass is diagnostic
       # only: the original warning-fatal step stays failed, no research
@@ -129,6 +143,7 @@ jobs:
         if: >-
           !cancelled() && steps.preflightcache.outcome == 'success' &&
           steps.compile.outcome != 'skipped' &&
+          steps.failedpreflightsave.outcome != 'success' &&
           steps.preflightcache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
