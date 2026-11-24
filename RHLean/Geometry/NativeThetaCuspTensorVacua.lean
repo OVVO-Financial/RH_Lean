@@ -106,16 +106,32 @@ theorem good_tensor {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
     have hs := phase_semichar H hΛ hL G.w0 (ShiftedPhase.prescribed_halfRoot H G hbar) hy
     constructor
     · change ShiftedPhase.phase H _ G.w0 (e.symm (e y)) ^ 2 = 1
-      rw [e.symm_apply_apply]
-      exact hs.1
+      have hy0 : e.symm (e y) = (y : Matrix (Fin n) (Fin (k + m - 1)) H.E) :=
+        e.symm_apply_apply y
+      exact (congrArg (fun z : Matrix (Fin n) (Fin (k + m - 1)) H.E =>
+        ShiftedPhase.phase H _ G.w0 z ^ 2) hy0).trans hs.1
     · rintro _ ⟨y', hy', rfl⟩
       change ShiftedPhase.phase H _ G.w0 (e.symm (e y + e y')) =
         ShiftedPhase.phase H _ G.w0 (e.symm (e y)) *
           ShiftedPhase.phase H _ G.w0 (e.symm (e y')) *
             Complex.exp (Real.pi * Complex.I * ((FiniteOverlap.omega (e y) (e y') : ℚ) : ℂ))
-      simp only [map_add, e.symm_apply_apply]
-      rw [hp y y']
-      exact hs.2 y' hy'
+      have hy0 : e.symm (e y) = (y : Matrix (Fin n) (Fin (k + m - 1)) H.E) :=
+        e.symm_apply_apply y
+      have hy'0 : e.symm (e y') = (y' : Matrix (Fin n) (Fin (k + m - 1)) H.E) :=
+        e.symm_apply_apply y'
+      have hsum : e.symm (e y + e y') =
+          (y + y' : Matrix (Fin n) (Fin (k + m - 1)) H.E) :=
+        (map_add e.symm (e y) (e y')).trans (congrArg₂ (· + ·) hy0 hy'0)
+      calc
+        _ = ShiftedPhase.phase H _ G.w0 (y + y') :=
+          congrArg (ShiftedPhase.phase H _ G.w0) hsum
+        _ = _ := hs.2 y' hy'
+        _ = _ := (congrArg₂ (· * ·)
+          (congrArg₂ (· * ·)
+            (congrArg (ShiftedPhase.phase H _ G.w0) hy0)
+            (congrArg (ShiftedPhase.phase H _ G.w0) hy'0))
+          (congrArg (fun t : ℚ => Complex.exp (Real.pi * Complex.I * (t : ℂ)))
+            (hp y y'))).symm
 
 include hΨ hconj hbar hk hj hb in
 /-- Constructed normalized vacua, uniqueness, actual finite projection and

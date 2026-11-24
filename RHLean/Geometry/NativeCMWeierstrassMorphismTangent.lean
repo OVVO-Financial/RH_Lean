@@ -41,7 +41,10 @@ theorem vec_top_le_coordOpen (c : R) : ⊤ ≤ vec V c ⁻¹ᵁ coordOpen V 1 :=
   intro hp
   have hone := p.asIdeal.neg_mem hp
   rw [neg_neg] at hone
-  exact p.isPrime.ne_top (Ideal.eq_top_iff_one.mpr hone)
+  apply p.isPrime.ne_top
+  apply top_unique
+  intro a _
+  exact (mul_one a) ▸ p.asIdeal.mul_mem_left a hone
 
 theorem evalPt_vec_ratio (c : R) (h : ⊤ ≤ vec V c ⁻¹ᵁ coordOpen V 1) :
     evalPt (vec V c) (coordOpen V 1) h (ratio V 1 0) = -TrivSqZeroExt.inr c := by
@@ -301,7 +304,7 @@ theorem exists_tangent_scalar_between (β : ℂ)
   have he := hdf.unique hmul'
   calc
     algebraMap R ℂ c = -(C.u : ℂ) * ((C.u : ℂ)⁻¹ * (-algebraMap R ℂ c)) := by
-      field_simp [C.u.ne_zero] <;> ring
+      field_simp [C.u.ne_zero]
     _ = -(C.u : ℂ) * (((D.u : ℂ)⁻¹ * (-1)) * β) := by rw [he]
     _ = β * (C.u : ℂ) / (D.u : ℂ) := by rw [div_eq_mul_inv]; ring
 
