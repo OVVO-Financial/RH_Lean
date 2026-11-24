@@ -12,6 +12,7 @@ import RHLean.Geometry.NativeCMSerreGenericLieMetric
 import RHLean.Geometry.NativeThetaCuspSchemeTorsion
 import RHLean.Geometry.NativeCMSerreBundlePairing
 import RHLean.Geometry.NativeCMWeierstrassGeometricKernel
+import RHLean.Geometry.NativeCMWeierstrassIntegralExtension
 import Lean.Util.CollectAxioms
 
 /-!
@@ -393,7 +394,11 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.relativePointMulEquiv_left,
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finite_geometric_elliptic_graph_kernel,
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.locallyQuasiFinite_of_finite_group_kernel,
-    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.elliptic_graph_projection_locallyQuasiFinite]
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.elliptic_graph_projection_locallyQuasiFinite,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.fractionField_fromNormalization_isIso,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finiteProjection_isIso,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.existsUnique_elliptic_hom_extension_dvr,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_elliptic_extension_integral_coordinate]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

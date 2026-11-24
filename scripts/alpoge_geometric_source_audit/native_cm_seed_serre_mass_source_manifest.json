@@ -890,8 +890,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGenerators.lean",
-      "sha256": "541b10b975180284ce942d187b3cf897ed3ae488a2aa8ba558300176ad898ff7",
-      "lines": 192
+      "sha256": "7b3f1638bd9a973fb8e3e418a707c2650d7628720b2ef27045c2ff1abaa5e147",
+      "lines": 190
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGerms.lean",
@@ -1257,6 +1257,11 @@
       "path": "RHLean/Geometry/NativeCMWeierstrassHolomorphic.lean",
       "sha256": "35bf4d50b1c9fe4cd9384f7938a227ddcd1b2d7a6f2ad97d8ea6d61b803eaff7",
       "lines": 140
+    },
+    {
+      "path": "RHLean/Geometry/NativeCMWeierstrassIntegralExtension.lean",
+      "sha256": "abd900dd336975e0a4f6665b7f09d0135a2a76e18da7207a11beae1bfc9a3cfb",
+      "lines": 218
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralModel.lean",
@@ -1850,7 +1855,7 @@
     }
   ],
   "unproved_suppliers": [
-    "Integral extension of the CM scheme action; flat graph group, local flatness, finite etale torsion, finite geometric kernel and locally quasi-finite projection proof supplied in source (hosted verification required). Graph projection isomorphism remains open.",
+    "Actual two-curve integral extension: proof source now composes the existing flat graph, finite geometric kernel, quasi-finite projection, Mathlib proper quasi-finite finiteness and smooth normalization to construct the inverse projection over a DVR; local integral tangent coordinate supplied in source. Hosted verification and actual global class-family/CM action integration remain outstanding.",
     "Hosted validation and consumer integration of the actual all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length",
     "Actual reverse derivative integrality and both lattice inclusions across all embeddings of the inverse ideal-period family; new one-sided class mean supplier in source removes forward derivative integrality (hosted verification required).",
     "Integral seed action and mixed-signature scheme assembly; actual seed cubical/Rosati identities, relative ampleness and trivial kernel of the signed tensor bundle; generic intrinsic Lie coordinates and the exact sigma trace Gram are constructed but unverified",
@@ -1978,6 +1983,13 @@
       "run_id": 45320118677,
       "preflight_job_id": 138196596172,
       "result": "PREFLIGHT_FAILED_GENERATOR_REFLEXIVITY; NATIVE_CM_ISOGENY_PERIOD_MEAN_BUILT_IN_DIAGNOSTIC",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "36e2b296b62a4849104614000af40e244a8597a3",
+      "run_id": 45324333102,
+      "preflight_job_id": 138210343352,
+      "result": "PREFLIGHT_FAILED_SERVED_PRIME_COERCIONS_AND_UNREACHABLE_LINE_BUNDLE_TACTICS",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

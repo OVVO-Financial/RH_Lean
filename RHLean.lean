@@ -1120,6 +1120,7 @@ import RHLean.Geometry.NativeCMWeierstrassGroupEndFlat
 import RHLean.Geometry.NativeCMWeierstrassGroupFromPoints
 import RHLean.Geometry.NativeCMWeierstrassGroupTorsion
 import RHLean.Geometry.NativeCMWeierstrassHolomorphic
+import RHLean.Geometry.NativeCMWeierstrassIntegralExtension
 import RHLean.Geometry.NativeCMWeierstrassIntegralModel
 import RHLean.Geometry.NativeCMWeierstrassIntegralSchemeSeed
 import RHLean.Geometry.NativeCMWeierstrassIntegralTangent

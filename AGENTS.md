@@ -1,3 +1,20 @@
+## Final completion branch #1201 (latest user priority)
+
+**NATIVE_RH_FINAL_PR_V1:** #1201 is the intended final proof PR. Do not
+split outstanding mathematical suppliers into a chain of new conditional
+endpoint PRs. Reuse the original signed recovery and admissible
+parameters and close the actual family. Follow the native source
+normalization and the concrete existing proof applications in the
+[completion report](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#8-final-pr-objective-close-the-suppliers-using-the-original-proof).
+An intermediate green build is not the acceptance criterion. Before
+final merge the branch must have an unconditional theorem of type
+RiemannHypothesis with its full source-faithful dependency and
+hypothesis audit. Preserve existing source-integrity, hosted-only
+Lean verification and human-only merge. This repository instruction
+does not launch agents or alter their configured schedules.
+
+---
+
 ## 2026-11-24 — application of the existing recovery proof
 
 **NATIVE_RECOVERY_REUSE_V2 (user priority):** Do not design another

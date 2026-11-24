@@ -159,7 +159,7 @@ theorem fractionIntersection_saturated
     intro hzero
     exact hr ((IsFractionRing.injective R K) (by rw [hzero, map_zero]))
   have hV : (algebraMap R K r) • x ∈ V := by
-    rw [← algebraMap_smul K r x]
+    rw [algebraMap_smul K r x]
     exact h.2
   have hinv := V.smul_mem (algebraMap R K r)⁻¹ hV
   rw [inv_smul_smul₀ hrK] at hinv
@@ -202,8 +202,9 @@ theorem lengthFromAllBut_of_sandwich
     have heq : e + τ + β * S = (τ + β * S) + e := by ring
     rw [heq]
     exact hpow x hx
-  exact lengthFromAllBut_saturated a ha B NB W (inf_le_left)
-    (fractionIntersection_saturated B Vram) d hd (e + τ) S V s hs0 hs hLayers hstop
+  simpa only [Nat.cast_add] using
+    lengthFromAllBut_saturated a ha B NB W (inf_le_left)
+      (fractionIntersection_saturated B Vram) d hd (e + τ) S V s hs0 hs hLayers hstop
 
 end RHLean.Geometry.NativeServedPrimeLength
 

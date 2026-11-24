@@ -446,3 +446,66 @@ the remaining physical identifications and measured slope budgets,
 not another theorem whose premise is the desired complete bound.
 Use the already merged #1205 and #1206 only after the same-family
 uniform window estimate is supplied.
+
+
+## 8. Final-PR objective: close the suppliers using the original proof
+
+The R24 run 45324333102 passed the static source audit and failed its
+mandatory preflight on two served-prime coercions and redundant tactics
+in NativeCMLineBundleGenerators. The repairs preserve their exact
+statements. No successful full build is inferred.
+
+### Pay the actual integral extension by smooth normalization
+
+The pinned Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612 already has:
+
+- IsFinite.of_isProper_of_locallyQuasiFinite, in
+  Mathlib/AlgebraicGeometry/ZariskisMainTheorem.lean;
+- Scheme.Hom.normalizationPullback and its Smooth instance,
+  Scheme.Hom.normalizationDesc and normalizationDesc_comp, in
+  Mathlib/AlgebraicGeometry/Normalization.lean.
+
+No general smooth-scheme normality reconstruction is necessary for the
+proper elliptic case. A DVR R is integrally closed in its fraction field
+K, so the relative normalization of Spec K -> Spec R is Spec R. For
+the actual smooth group model G, smooth base change shows the relative
+normalization of the generic fibre projection j is G. The existing
+flat commutative graph Ga of the given generic homomorphism has
+quasi-finite first projection p. Properness follows from the closed
+immersion into the product and properness of the target elliptic
+equation, so p is finite. Its generic projection is the original
+isomorphism e. Factor j through p using e^-1 on the generic fibre.
+By the universal property of relative normalization, this factorization
+extends to a section s of p. Since p is an isomorphism after base
+change to K, p*s is the identity there. The existing flat generic-fibre
+faithfulness on Ga gives p*s=id globally. This constructs the actual
+inverse and extends the original homomorphism; uniqueness and the
+group law follow from the same generic-fibre faithfulness.
+
+[NativeCMWeierstrassIntegralExtension](../RHLean/Geometry/NativeCMWeierstrassIntegralExtension.lean)
+implements this argument and invokes the already constructed literal
+dual-number tangent vector of the target equation. No abstract
+extension premise or assigned geometric period is introduced. The
+new theorem is proposed proof source pending hosted checking.
+The two actual class-model generic homomorphisms and their normalized
+tangent scalars, all-place integrality and global family identifications
+still have to be supplied. In particular this is not a claim that
+the entire period/degree input, the signed-excess estimate or RH
+has been proved.
+
+### The final acceptance gate
+
+This PR is the completion branch, not a sequence of future PRs for
+additional conditional consumers. Retain the original recovery theorem,
+native source and original admissible parameters. Close the actual
+local compatibility, measured global costs and same-family uniformity.
+A green intermediate build is not proof completion. Before removing
+draft status or proposing final merge, the branch must contain a
+closed theorem of type `RiemannHypothesis` obtained by applying
+the existing native handoff to an independently proved complete
+critical estimate. Audit the theorem's full type and its transitive
+proof and actual source constructors, with only the accepted standard
+terminal axioms. A theorem assuming the bound, a new equivalent
+hypothesis, a zero-map physical substitute, a tautological geometric
+assignment, or an imported finished RH theorem does not satisfy the
+gate. Until then the PR remains an incomplete research draft.

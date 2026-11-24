@@ -94,10 +94,8 @@ theorem isGen_oneGen : (oneGen L (Y := Y)).IsGen := by
   intro i j
   have hg : (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim).g i j = 1 :=
     by
-      simp only [LinComb, Fintype.prod_empty] <;> first
-      | rfl
-      | exact Units.ext (by rfl)
-      | apply Units.ext; simp
+      simp only [LinComb, Fintype.prod_empty]
+      rfl
   rw [hg, one_mul]
   exact (map_one _).trans (map_one _).symm
 
