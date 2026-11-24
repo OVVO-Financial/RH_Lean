@@ -1,3 +1,108 @@
+## #1201 — synthesis first: the string, then the stone bridge (latest user directive)
+
+**NATIVE_EXISTING_PROOF_SYNTHESIS_V1 (2026-11-24):** All seven roles on
+the #1201 completion branch must treat the remaining work as faithful
+application, formalization and identification of existing mathematics,
+not a mandate to invent another proof mechanism. Use the pinned Alpoge
+argument as the roadmap, Mathlib and RH_Lean as the native infrastructure,
+and the original 43 conditions as a semantic coverage audit, not a
+literal construction list. This supersedes conflicting task-selection
+instructions, including demands for novel mathematics as a condition
+of completion, full upstream geometric reconstruction, reduced-rank
+experiments or fresh cancellation mechanisms.
+
+**Mandatory supplier-first procedure.** Before starting any new proof
+or geometry module, record (1) the exact surviving native consumer and
+premise, including its type and quantifiers; (2) the pinned upstream
+supplying declaration, source path, proof and actual prerequisites;
+(3) the existing Mathlib/RH_Lean declaration that supplies it or a
+sufficient weaker condition; (4) the exact object/parameter identification
+and proof needed to apply it; and (5) the remaining unpaid prerequisites
+after substitution. Follow the dependency chain backward to actual
+constructed witnesses, then apply it forward. Prefer direct reuse,
+then a proved native weakening/transport, then formalization of only
+the necessary existing upstream supplying argument. Do not merely
+rename the missing estimate as a premise, build a new conditional
+endpoint, or count an uninstantiated interface as a payment.
+No new mathematical mechanism is authorized as a default response to
+an unresolved identification. If reuse fails, exhibit the exact typed
+mismatch or unproved premise and try the less compressed original
+source argument before proposing a different mechanism. Do not assume
+the validity of the pinned proof or of a native substitution: inspect
+the actual supplying proof and verify its dependency closure.
+
+**Single active completion route.** Use the already selected PageN /
+PairGood host and original square-clock parameters x=R^2-1, m=R,
+k=x*R. Retain the complete signed physical source, actual Frobenius and
+inertia, every prime power, original partner maps and Q=T*m*b*Delta/2.
+Use the [43-condition coverage audit](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md)
+and its R24/R25 sections. Close these four coupled supplier groups on
+ONE compatible constructed family, using existing results rather than
+redesigning their mathematics:
+
+- Family: follow the original admissibility/InWin construction and the
+  existing native square host realization; prove actual heights, widths,
+  top/thick sets, rank parameters and cardinality/size budgets. Do not
+  impose another height or variance problem.
+- Local recovery: apply the original gain_bound_all_of_star and
+  AuxBlock8.Pf.stmtF supplier chain at its actual admissibility inputs;
+  trace linkG_fam_noKer, link_of_local_closed, Loc, stabilizers,
+  Joints.StdSubAt, Adm2F and NPDescF. Apply the existing theta-kernel
+  expansion, exceptional counts, operator transfer, stopping inclusion,
+  NativeServedPrimeApplication and the existing native mean-loss
+  comparison at the actual restriction lattice. Pay every retained
+  low-central, ramified and other loss; no zero-chain valuation or
+  replacement gain. Do not reprove the recovery mechanism.
+- Measured costs: trace the actual suppliers for HidaSetting, DIV,
+  EComp5, HComp, Count5, Slopes, QuotientSlopeBoundsWith, Losses,
+  SlopeIneq, HHBound, FParams, ErrWindows and the B0/Nc budgets in
+  NativeExistingRecoveryPayment. Reuse the R25 integral extension
+  application (subject to hosted verification), existing one-sided
+  period/DIV, determinant descent, rank and measured-degree theorems.
+  Follow the original class-model, cusp/span, rank/mass and slope
+  supplying proofs only to the extent a surviving premise needs them;
+  an actual Petersson mass is not a finite Haar norm.
+- Uniformity: preserve the original quantifier order, fixed cost
+  constants, arbitrarily small exponent loss and complete late windows.
+  No favorable isolated R or independently chosen incompatible
+  witnesses. Apply the existing native signed-slope/scalar payment
+  and merged #1205 or #1206 handoff; do not reconstruct Landau.
+
+**Progress and acceptance.** For every one of the 43 rows, preserve its
+function by recording a verified native discharge, an explicitly
+proved replacement, or an actual source application with all retained
+prerequisites. Group related rows; do not equate count of rows with
+proof completion. Each report names the first unclosed leaf of the
+supplier chain and the exact existing proof being applied, identifies
+what was proved vs proposed vs assumed, and records its real verification
+status. The coordinator maintains this single dependency route; all
+roles retain their existing ownership and reporting rules. Lean checks
+the actual source, hypotheses, imports, terminal theorem and transitive
+axioms in hosted CI. No tautological geometry/height assignment,
+circular premise, imported terminal RH theorem, or merely green
+intermediate build is acceptable.
+
+**String first, stone bridge second.** The string is the minimal
+source-faithful connection to the existing unconditional native RH
+consumer: finish #1201 as a draft until a closed `RiemannHypothesis`
+theorem, the independently supplied complete critical estimate, and
+the full semantic and hosted dependency audit are established. Only
+after this is verified, isolate the smallest necessary upstream
+dependencies and replace them with proved, reusable native RH_Lean
+arithmetic/geometry wherever possible, preserving the working proof.
+Tractability and native mathematical contribution are goals of that
+subsequent simplification, not reasons to delay closure by inventing
+new mathematics now.
+
+Record `native_synthesis_ack=NATIVE_EXISTING_PROOF_SYNTHESIS_V1` only
+after a real source read and owned report. Preserve all existing
+source-integrity rules, hosted-only Lean verification, human-only
+merge, role permissions and report continuity. This branch instruction
+does not launch agents, modify their saved prompts or schedules, or
+assert proof success.
+
+---
+
 ## Final completion branch #1201 (latest user priority)
 
 **NATIVE_RH_FINAL_PR_V1:** #1201 is the intended final proof PR. Do not
