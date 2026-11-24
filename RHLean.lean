@@ -46,6 +46,8 @@ import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeAffineFamilyPayment
+import RHLean.Analysis.AlpogeNativeBoundConsequences
+import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Analysis.AlpogeNativeCMPrimeSplitting
 import RHLean.Analysis.AlpogeNativeCMUnramified
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
