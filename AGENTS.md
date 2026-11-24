@@ -1,3 +1,28 @@
+## #1201 — integrate the existing Phi coordinates (latest user directive)
+
+**NATIVE_PHI_STRING_FIRST_V1 (2026-11-24):** Use the actual existing
+`complexRealPair` map, its inverse and exact product/Gram/energy/area
+transport throughout the relevant surviving suppliers. Apply the
+[Phi supplier integration](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#11-integrate-the-existing-phi-map-in-the-string-first-suppliers).
+The original ideal-isogeny covolume, actual reverse class degree,
+Serre eigenline Gram, measured mass and mean-energy determinant
+consumers now have submitted exact Phi applications. Use those
+rather than rebuilding the same linear algebra; do not create
+another proof mechanism or new research branch. Preserve the original
+integral lattice and quotient index, every embedding, all measured
+weights and the original signed source. Phi is lossless in real
+pairs, not a scalar projection or an additional cancellation estimate.
+Use the existing literal ASK-MAIN to NNS source identity. Apply the
+already existing rational-to-scheme, extension and derivative results
+at the actual family for the arithmetic inputs that Phi does not
+supply; do not replace them by a real matrix alone. The measure,
+rank, nondegeneracy, integral derivative, local recovery and uniform
+window requirements remain real obligations. The string-first
+acceptance gate and hosted-only verification remain unchanged.
+This repository update does not launch agents or alter schedules.
+
+---
+
 ## #1201 — synthesis first: the string, then the stone bridge (latest user directive)
 
 **NATIVE_EXISTING_PROOF_SYNTHESIS_V1 (2026-11-24):** All seven roles on

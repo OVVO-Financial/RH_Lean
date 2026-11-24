@@ -13,6 +13,7 @@ import RHLean.Geometry.NativeThetaCuspSchemeTorsion
 import RHLean.Geometry.NativeCMSerreBundlePairing
 import RHLean.Geometry.NativeCMWeierstrassGeometricKernel
 import RHLean.Geometry.NativeCMWeierstrassIntegralExtension
+import RHLean.Geometry.NativeMeanEnergyDescent
 import Lean.Util.CollectAxioms
 
 /-!
@@ -406,7 +407,25 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.exists_nonzero_twoTorsion_wp,
     ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.latticeMultiplier_mem,
     ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.exists_finite_field_rational_latticeIsogeny,
-    ``RHLean.Geometry.NativeCM.exists_inverseIdeal_reverse_rational_isogeny]
+    ``RHLean.Geometry.NativeCM.exists_inverseIdeal_reverse_rational_isogeny,
+    ``RHLean.Analysis.complexRealPairAddEquiv,
+    ``RHLean.Analysis.complexRealPairMulHom_matrix,
+    ``RHLean.Analysis.complexRealPairNormSq_complexRealPair,
+    ``RHLean.Analysis.complexRealPairGram_complexRealPair,
+    ``RHLean.Analysis.complexRealPairOrientedArea_complexRealPair,
+    ``RHLean.Analysis.complexRealPairOrientedArea_mulHom,
+    ``RHLean.Analysis.complexRealPairNormSq_mulHom,
+    ``RHLean.Analysis.complexRealPair_diagonalMean,
+    ``RHLean.Geometry.NativeCM.PeriodMean.phiPeriodArea_eq_latticeArea,
+    ``RHLean.Geometry.NativeCM.Weierstrass.mem_phiPeriodLattice_iff,
+    ``RHLean.Geometry.NativeCM.Weierstrass.phiPeriodLattice_mul_map,
+    ``RHLean.Geometry.NativeCM.Weierstrass.card_ker_latticeIsogeny_phi,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieEigen_actualSigma_phi_norm,
+    ``RHLean.Geometry.NativeMeasuredComponentNorm.squareMagnitude_eq_phi,
+    ``RHLean.Geometry.NativeMeasuredComponentNorm.measuredNorm_sq_phi,
+    ``RHLean.Geometry.NativeMeasuredComponentNorm.mass_mul_phi_integral,
+    ``RHLean.Geometry.NumberFieldDescent.phiOperatorEnergy_iff,
+    ``RHLean.Geometry.NumberFieldDescent.jointMapMatrix_gram_det_le_of_rank_saturation_phi]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

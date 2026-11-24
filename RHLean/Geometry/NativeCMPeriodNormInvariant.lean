@@ -1,5 +1,6 @@
 import RHLean.Geometry.NativeCMWeierstrassPeriodScaling
 import RHLean.Geometry.NativeCMWeierstrassLatticeCurve
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # The actual scale-invariant CM period expression
@@ -58,6 +59,18 @@ theorem latticeArea_eq_abs_im_mul_conj (L : PeriodPair) :
   simp
   ring
 
+
+/-- Normalized area of the actual two period vectors in Phi coordinates.
+This is the original Lebesgue covolume, not an assigned height. -/
+def phiPeriodArea (L : PeriodPair) : ℝ :=
+  |RHLean.Analysis.complexRealPairOrientedArea
+    (RHLean.Analysis.complexRealPair L.ω₁) (RHLean.Analysis.complexRealPair L.ω₂)|
+
+theorem phiPeriodArea_eq_latticeArea (L : PeriodPair) :
+    phiPeriodArea L = latticeArea L := by
+  rw [phiPeriodArea, RHLean.Analysis.complexRealPairOrientedArea_complexRealPair,
+    latticeArea_eq_abs_im_mul_conj]
+
 def latticeNormDisc (L : PeriodPair) : ℝ :=
   latticeArea L ^ 6 * ‖L.g₂ ^ 3 - 27 * L.g₃ ^ 2‖
 
@@ -86,11 +99,14 @@ theorem latticeArea_eq {L L' : PeriodPair} {c : ℂ} (h : IsHomothetic c L L') :
     have h2 := isHomothetic_scalePeriods L c h.ne_zero (c⁻¹ * x)
     rw [mul_inv_cancel_left₀ h.ne_zero] at h1 h2
     exact h1.trans h2.symm
-  rw [latticeArea_congr e, PeriodMean.latticeArea_eq, PeriodMean.latticeArea_eq,
-    ← abs_of_nonneg (sq_nonneg ‖c‖), ← abs_mul, Complex.sq_norm, Complex.normSq_apply]
-  congr 1
-  simp [scalePeriods]
-  ring
+  rw [latticeArea_congr e, ← phiPeriodArea_eq_latticeArea, ← phiPeriodArea_eq_latticeArea]
+  unfold phiPeriodArea
+  change |RHLean.Analysis.complexRealPairOrientedArea
+    (RHLean.Analysis.complexRealPair (c * L.ω₁))
+    (RHLean.Analysis.complexRealPair (c * L.ω₂))| = _
+  rw [← RHLean.Analysis.complexRealPairMulHom_complexRealPair,
+    ← RHLean.Analysis.complexRealPairMulHom_complexRealPair,
+    RHLean.Analysis.complexRealPairOrientedArea_mulHom, abs_mul, abs_of_nonneg (sq_nonneg ‖c‖)]
 
 theorem latticeNormDisc_eq {L L' : PeriodPair} {c : ℂ} (h : IsHomothetic c L L') :
     latticeNormDisc L' = latticeNormDisc L := by

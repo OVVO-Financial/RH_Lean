@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # Exact ideal-isogeny lattice inclusion and covolume
@@ -179,9 +180,12 @@ theorem covol_eq (σ : K →+* ℂ) (b : Basis (Fin 2) ℤ (𝓞 K)) (L : Period
   have him := im_mul_conj_eq_det σ (b.localizationLocalization ℚ ℤ⁰ K) ![u0, u1]
   simp only [Basis.localizationLocalization_apply, Matrix.cons_val_zero, Matrix.cons_val_one] at him
   have hsq : (c * σ u0 * starRingEnd ℂ (c * σ u1)).im = ‖c‖ ^ 2 * (σ u0 * starRingEnd ℂ (σ u1)).im := by
-    rw [map_mul, show c * σ u0 * (starRingEnd ℂ c * starRingEnd ℂ (σ u1)) =
-      (c * starRingEnd ℂ c) * (σ u0 * starRingEnd ℂ (σ u1)) by ring, Complex.mul_conj,
-      Complex.im_ofReal_mul, Complex.normSq_eq_norm_sq]
+    -- Pay the original homothety determinant through the native real pairs.
+    simpa only [RHLean.Analysis.complexRealPairMulHom_complexRealPair,
+      RHLean.Analysis.complexRealPairOrientedArea_complexRealPair] using
+      (RHLean.Analysis.complexRealPairOrientedArea_mulHom c
+        (RHLean.Analysis.complexRealPair (σ u0))
+        (RHLean.Analysis.complexRealPair (σ u1)))
   rw [e0, e1, hsq, abs_mul, abs_of_nonneg (by positivity), him, abs_mul, ← Rat.cast_abs, hdet]
   simp only [RingOfIntegers.coe_eq_algebraMap]
   ring

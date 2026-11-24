@@ -2,6 +2,7 @@ import RHLean.Geometry.NativeCMSerreSchemeBundle
 import RHLean.Geometry.NativeCMSerreSchemeEigenline
 import RHLean.Geometry.NativeCMSerreBundleGram
 import RHLean.Geometry.NativeCMWeierstrassThetaMetric
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # Actual Serre projection derivatives and the same integral eigenline norm
@@ -184,6 +185,27 @@ theorem coefficientLieEigen_actualSigma_norm
   rw [WeierstrassTheta.automorphy_tangent_eq_placeProfile]
   exact coefficientLieEigen_signedGram_norm H G hbar B hB F W a ha hroot
     (embeddingProfile W hΔ) (embeddingProfile_pos W hΔ) σ v
+
+
+/-- The actual Serre scheme Gram in the native real-pair coordinates.
+The actual sigma metric, the integral eigenvector and its evaluation are
+unchanged. This is a direct transport of the existing geometric norm
+identity, not a new geometric witness or a replacement rank. -/
+theorem coefficientLieEigen_actualSigma_phi_norm
+    (hroot : (G.rt : H.E) = H.sqd) (hΔ : W.Δ = 1) (σ : F →+* ℂ)
+    (v : coefficientLieEigenmodule H G hbar B hB F W a) :
+    (coefficientSchemeBundleGram H G hbar B hB F σ
+      (Real.pi * (Weierstrass.latticeForm (lattice W hΔ (InfinitePlace.mk σ))
+        ((coordinateChange W hΔ (InfinitePlace.mk σ)).u : ℂ)
+        ((coordinateChange W hΔ (InfinitePlace.mk σ)).u : ℂ)).re)
+      ((coefficientLieEigenEquiv H G hbar B hB F W a ha).symm v)
+      ((coefficientLieEigenEquiv H G hbar B hB F W a ha).symm v)).re =
+      embeddingProfile W hΔ σ *
+        RHLean.Analysis.complexRealPairNormSq (RHLean.Analysis.complexRealPair
+          (σ (coefficientLieEigenCoordinate H G hbar B hB F W a ha v))) := by
+  rw [coefficientLieEigen_actualSigma_norm H G hbar B hB F W a ha hroot hΔ,
+    lineNorm, mul_pow, Real.sq_sqrt (embeddingProfile_pos W hΔ σ).le,
+    RHLean.Analysis.complexRealPairNormSq_complexRealPair]
 
 end RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
 

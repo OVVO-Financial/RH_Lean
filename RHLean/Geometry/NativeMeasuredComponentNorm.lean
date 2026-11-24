@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeMeasuredComponentDegree
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # Component measures, actual L2 norms, and their arithmetic-degree correction
@@ -69,6 +70,22 @@ theorem measuredNorm_sq (μ : Measure X) (f : X → ℂ) :
     measuredNorm μ f ^ 2 = (∫⁻ x, squareMagnitude f x ∂μ).toReal :=
   Real.sq_sqrt ENNReal.toReal_nonneg
 
+
+/-- Realification of the integrand of the SAME measured norm. The measure
+and function are unchanged, including at zero and infinite integral. -/
+theorem squareMagnitude_eq_phi (f : X → ℂ) (x : X) :
+    squareMagnitude f x =
+      ENNReal.ofReal (RHLean.Analysis.complexRealPairNormSq
+        (RHLean.Analysis.complexRealPair (f x))) := by
+  rw [RHLean.Analysis.complexRealPairNormSq_complexRealPair, squareMagnitude,
+    ENNReal.ofReal_pow (norm_nonneg _), ofReal_norm]
+
+theorem measuredNorm_sq_phi (μ : Measure X) (f : X → ℂ) :
+    measuredNorm μ f ^ 2 =
+      (∫⁻ x, ENNReal.ofReal (RHLean.Analysis.complexRealPairNormSq
+        (RHLean.Analysis.complexRealPair (f x))) ∂μ).toReal := by
+  simp only [measuredNorm_sq, squareMagnitude_eq_phi]
+
 omit [MeasurableSpace X] in
 theorem squareMagnitude_support {f : X → ℂ} {S : Set X}
     (hf : Function.support f ⊆ S) : Function.support (squareMagnitude f) ⊆ S := by
@@ -96,6 +113,19 @@ theorem mass_mul_normalizedNorm_sq (μ : Measure X) [IsFiniteMeasure μ]
       ENNReal.toReal_ne_zero.2 ⟨h0, measure_ne_top _ _⟩
     rw [smul_eq_mul, ENNReal.toReal_mul, ENNReal.toReal_inv]
     field_simp
+
+
+/-- The original measured mass payment is unchanged in real coordinates.
+In particular there is no substitution of a finite Haar measure for the
+actual geometric measure. Apply the existing restriction theorem. -/
+theorem mass_mul_phi_integral (μ : Measure X) [IsFiniteMeasure μ]
+    (S : Set X) (f : X → ℂ) (hf : Function.support f ⊆ S) :
+    componentMass μ S *
+      (∫⁻ x, ENNReal.ofReal (RHLean.Analysis.complexRealPairNormSq
+        (RHLean.Analysis.complexRealPair (f x))) ∂(normalizedRestriction μ S)).toReal =
+      (∫⁻ x, ENNReal.ofReal (RHLean.Analysis.complexRealPairNormSq
+        (RHLean.Analysis.complexRealPair (f x))) ∂μ).toReal := by
+  simpa only [measuredNorm_sq_phi] using mass_mul_normalizedNorm_sq μ S f hf
 
 /-- The exact norm factor is the inverse square root of the measured mass. -/
 theorem normalizedNorm_eq (μ : Measure X) [IsFiniteMeasure μ]

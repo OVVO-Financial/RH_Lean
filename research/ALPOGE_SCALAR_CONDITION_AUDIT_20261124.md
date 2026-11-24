@@ -609,3 +609,73 @@ The actual scheme map, all-place period supplier, signed-excess
 bound and RH are not proved by these source changes. No hosted
 verification of the new roots is claimed; no new module or
 conditional RH endpoint is introduced.
+
+## 11. Integrate the existing Phi map in the string-first suppliers
+
+The native map is already `complexRealPair` in
+[DistinguishedPrimeTransitionSupport](../RHLean/Analysis/DistinguishedPrimeTransitionSupport.lean),
+not a newly chosen coordinate system. Its existing inverse, addition,
+multiplication and norm identities supply the exact additive equivalence,
+the conjugated multiplication action and the normalized Gram and area
+formulas. Compare the existing proof of the same identities in
+[STABLE_FAR_PERRON_REALIFICATION](STABLE_FAR_PERRON_REALIFICATION.lean).
+No new cancellation mechanism or norm hypothesis is introduced.
+
+For z=a+bi, Phi(z)=(a-b,a+b). For any multiplier c, its action in these
+coordinates is the matrix [[Re c,-Im c],[Im c,Re c]]. The determinant
+price is |c|^2. Both real and imaginary parts of z*conj(w) are retained
+by the normalized Gram and oriented determinant (the latter has the
+orientation of Im(z*conj(w))). The factor 1/2 compensates for the
+determinant two of Phi. The signed real projection is the diagonal mean.
+
+Use these SAME identities in the current supplier chain:
+
+- The existing `covol_eq` in
+  [NativeCMIdealIsogenyPeriods](../RHLean/Geometry/NativeCMIdealIsogenyPeriods.lean)
+  now pays its homothety determinant by the real-pair area identity.
+  The actual period lattice, fractional ideal, basis determinant and
+  absNorm remain unchanged. The existing one-sided class mean consumes
+  the same covolume theorem with exactly its original hypotheses.
+- [NativeCMPeriodNormInvariant](../RHLean/Geometry/NativeCMPeriodNormInvariant.lean)
+  identifies the normalized Phi parallelogram area with the original
+  ZLattice.covolume, and uses the real area scaling in the existing
+  homothety proof. Keep the full discriminant and original period scale.
+- [NativeCMWeierstrassRationalIsogeny](../RHLean/Geometry/NativeCMWeierstrassRationalIsogeny.lean)
+  maps the actual period additive subgroups by the existing invertible
+  Phi. The image of the actual multiplier commutes with that map.
+  Mathlib's injective relIndex transport applied to the existing
+  kernel-index theorem gives the identical degree.
+  [NativeCMInverseIdealClassModels](../RHLean/Geometry/NativeCMInverseIdealClassModels.lean)
+  now returns that actual real index equality in the original reverse
+  rational-isogeny constructor, not a second chosen degree.
+- [NativeCMSerreSchemeMetric](../RHLean/Geometry/NativeCMSerreSchemeMetric.lean)
+  applies the normalized energy to the original scheme Gram on the
+  actual integral Lie eigenvector, with the same canonical sigma metric.
+- [NativeMeasuredComponentNorm](../RHLean/Geometry/NativeMeasuredComponentNorm.lean)
+  rewrites the integrand in the original measured norm and applies the
+  existing exact mass payment to those real-pair coordinates. No measure,
+  component, rank, mass, or geometric Gram is chosen to fit the formula.
+- [NativeMeanEnergyDescent](../RHLean/Geometry/NativeMeanEnergyDescent.lean)
+  transports the original complex operator-energy hypothesis bijectively
+  to Phi vector coordinates and applies the existing rank-saturation
+  determinant estimate. Keep the original complex rank in the exponent.
+  This is the existing mean-energy proof, not a joint operator bound.
+- The complete signed arithmetic inlet is already the existing
+  [literal ASK-MAIN to NNS identity](ALPOGE_LITERAL_ASK_MAIN_NNS_COORDINATE_MAP_20261121.md).
+  Use the real diagonal projection only after original character
+  recombination; do not discard phases or replace the signed gap by
+  unsigned energy. No new arithmetic inlet is required.
+
+The remaining exact period application is still the genuine cross-model
+scheme morphism and its local extension at the original good-reduction
+models, plus all-embedding compatibility and the one-sided integral
+derivative norm. An invertible real coordinate alone does not prove these
+arithmetic statements. Reuse the already submitted rational map and
+existing extension/derivative proofs. Likewise realification of the
+measured integral does not realize the actual Petersson family, and
+operator-energy equivalence does not supply an unproved energy bound.
+Do not rebuild any of these real algebraic calculations in the upstream
+complex representation. Eighteen guarded roots are added, no new Lean
+modules, no new conditional RH endpoint, no imported terminal RH theorem.
+All changes are proposed source pending exact-head hosted verification.
+The full signed source estimate and RH remain OPEN.

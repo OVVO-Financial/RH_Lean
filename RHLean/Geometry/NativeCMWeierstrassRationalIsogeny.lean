@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeCMWeierstrassRationalNumerator
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # The exact rational formula for the actual CM point isogeny
@@ -57,6 +58,44 @@ theorem card_ker_latticeIsogeny (hα0 : α ≠ 0) (hα : ∀ l ∈ L.lattice, α
   rw [h1, ← AddSubgroup.relIndex_ker, ker_latticePointHom,
     ← AddSubgroup.relIndex_map_map_of_injective (f := AddMonoidHom.mulLeft α) _ _
       (mul_right_injective₀ hα0), h2]
+
+
+/-- The actual period lattice transported as an additive subgroup by the
+original Phi, with no replacement lattice or choice of a new basis. -/
+def phiPeriodLattice (P : PeriodPair) : AddSubgroup RHLean.Analysis.ComplexRealPair :=
+  P.lattice.toAddSubgroup.map RHLean.Analysis.complexRealPairAddEquiv.toAddMonoidHom
+
+theorem mem_phiPeriodLattice_iff (P : PeriodPair) (z : ℂ) :
+    RHLean.Analysis.complexRealPair z ∈ phiPeriodLattice P ↔ z ∈ P.lattice := by
+  constructor
+  · rintro ⟨w, hw, he⟩
+    have he' : w = z := RHLean.Analysis.complexRealPairAddEquiv.injective he
+    exact he' ▸ hw
+  · intro hz
+    exact ⟨z, hz, rfl⟩
+
+/-- The image under the genuine multiplier is exactly the image under
+its real two-by-two action, before taking an index or a norm. -/
+theorem phiPeriodLattice_mul_map (P : PeriodPair) (a : ℂ) :
+    (P.lattice.toAddSubgroup.map (AddMonoidHom.mulLeft a)).map
+        RHLean.Analysis.complexRealPairAddEquiv.toAddMonoidHom =
+      (phiPeriodLattice P).map (RHLean.Analysis.complexRealPairMulHom a) := by
+  rw [phiPeriodLattice, AddSubgroup.map_map, AddSubgroup.map_map]
+  congr 1
+  ext z
+  exact (RHLean.Analysis.complexRealPairMulHom_complexRealPair a z).symm
+
+/-- Phi preserves the actual finite kernel degree, including the integral
+index. The original lattice inclusion remains a genuine hypothesis. -/
+theorem card_ker_latticeIsogeny_phi (hα0 : α ≠ 0)
+    (hα : ∀ l ∈ L.lattice, α * l ∈ L'.lattice) :
+    Nat.card (latticeIsogeny α hα).ker =
+      ((phiPeriodLattice L).map (RHLean.Analysis.complexRealPairMulHom α)).relIndex
+        (phiPeriodLattice L') := by
+  rw [card_ker_latticeIsogeny hα0 hα, ← phiPeriodLattice_mul_map, phiPeriodLattice]
+  exact (AddSubgroup.relIndex_map_map_of_injective
+    (f := RHLean.Analysis.complexRealPairAddEquiv.toAddMonoidHom)
+    _ _ RHLean.Analysis.complexRealPairAddEquiv.injective).symm
 
 lemma derivWeierstrassP_mul_eq (hα : ∀ l ∈ L.lattice, α * l ∈ L'.lattice) {A D : ℂ[X]}
     (h : ∀ z, α * z ∉ L'.lattice → ℘[L'] (α * z) = A.eval (℘[L] z) / D.eval (℘[L] z))

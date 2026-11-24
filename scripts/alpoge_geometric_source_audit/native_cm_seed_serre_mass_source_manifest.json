@@ -845,8 +845,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMIdealIsogenyPeriods.lean",
-      "sha256": "34694dc42342428137b6e24c36cd8ddae91de4def5bae2764da2065e45f6b4ba",
-      "lines": 301
+      "sha256": "0d6047eed340de715a2a6e5e27eea0783c0c1a6ba8b262eca0d02f5058e2be39",
+      "lines": 305
     },
     {
       "path": "RHLean/Geometry/NativeCMIntegralClassPeriodMean.lean",
@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "00e6a5a1125a1f7544aea252b5f3c96c78ebed659226ed3cb4e325933686756b",
-      "lines": 297
+      "sha256": "06b99e2e30547948ac0f400287fad3624b8380ddda2ebf2fad6de64d8b7a3498",
+      "lines": 303
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -960,8 +960,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMPeriodNormInvariant.lean",
-      "sha256": "4dc7127d30342bf02eb7c2db01aa4df3a78935653a91404f35299ddd6d21a1e3",
-      "lines": 150
+      "sha256": "284929cba31ba0a24541941d7ad14490fd4fc41bd120df14e16696614d1d3bed",
+      "lines": 166
     },
     {
       "path": "RHLean/Geometry/NativeCMPureBlockPositivity.lean",
@@ -1095,8 +1095,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeMetric.lean",
-      "sha256": "966fc18febd2eccd36fbbd88b59e60ddd244e1922137215f8008f80a9d422a84",
-      "lines": 190
+      "sha256": "6cde976a017652829391d39cebc92ffd37a0e179253b9996123d7042c1380f5c",
+      "lines": 212
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeTangent.lean",
@@ -1425,8 +1425,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIsogeny.lean",
-      "sha256": "817bbfceb30936121f1d83ea7c3c40e3784643937de6a78cd0a27bb365fd946b",
-      "lines": 107
+      "sha256": "92308ec103d8cc319d48b8829cb0ded418894a106df2624f7359d354de2e5e2a",
+      "lines": 146
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalNumerator.lean",
@@ -1560,8 +1560,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeMeasuredComponentNorm.lean",
-      "sha256": "8fcba498473c8cca7ef164616c389fa05d02a33f6243e8cb87c19a18af10f4b2",
-      "lines": 382
+      "sha256": "d8de7c8922f2a0cec7a494fed84d382ec0e7cd3ddf6d10576d5c0d889f0d7824",
+      "lines": 412
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspAmbient.lean",
@@ -1856,11 +1856,11 @@
   ],
   "unproved_suppliers": [
     "Actual two-curve integral extension: proof source now composes the existing flat graph, finite geometric kernel, quasi-finite projection, Mathlib proper quasi-finite finiteness and smooth normalization to construct the inverse projection over a DVR; local integral tangent coordinate supplied in source. Hosted verification and actual global class-family/CM action integration remain outstanding.",
-    "Hosted validation and consumer integration of the actual all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length",
-    "Actual cross-model scheme morphism, all-embedding exponential comparison and reverse derivative integrality. Proposed source now derives algebraicity of the literal lattice multiplier from the existing kernel sum at a nonzero two-torsion coordinate and constructs a finite-field rational point formula for the actual reverse ideal-class lattice map. The normalized class family and cross-model tangent formula remain subject to hosted checking. Rational-to-scheme extension, integral extension application and the one-sided mean are not claimed complete.",
+    "Hosted validation and actual consumer integration of the all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length. Phi transport now supplies the original archimedean homothety determinant and the normalized covolume without changing the period scale.",
+    "Actual cross-model scheme morphism, all-embedding exponential comparison and reverse derivative integrality. The submitted actual reverse rational point formula now also carries the identical degree as an index of the Phi-image of the original lattices. Algebraicity, rational formula, normalized class family and all-place comparison remain subject to hosted validation.",
     "Integral seed action and mixed-signature scheme assembly; actual seed cubical/Rosati identities, relative ampleness and trivial kernel of the signed tensor bundle; generic intrinsic Lie coordinates and the exact sigma trace Gram are constructed but unverified",
     "Geometric cover finite-Fourier and character-section tie, isotropic system and global cusp realization/span; full signed-flag periods, finite coefficients with all-embedding bounds and actual CM-fiber half-level marking are constructed but unverified",
-    "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares",
+    "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares. The submitted Phi norm and mass equalities preserve the exact existing measured integrand and measure; they do not construct those geometric data. Existing rank-saturation determinant supplier has an exact Phi operator transport with no new bound.",
     "Complete signed-slope hypotheses on one physical source"
   ],
   "normalizer": "Q=card(TT)*m*b*Delta/2; unchanged",

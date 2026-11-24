@@ -257,6 +257,9 @@ theorem exists_inverseIdeal_reverse_rational_isogeny
       (∀ i, A.coeff i ∈ F) ∧ (∀ i, D.coeff i ∈ F) ∧ D.Monic ∧
       A.leadingCoeff = (α ^ 2)⁻¹ ∧ IsCoprime A D ∧
       A.natDegree = Nat.card (Weierstrass.latticeIsogeny α hα).ker ∧
+      A.natDegree =
+        ((Weierstrass.phiPeriodLattice Ls).map (RHLean.Analysis.complexRealPairMulHom α)).relIndex
+          (Weierstrass.phiPeriodLattice Lt) ∧
       D.natDegree + 1 = A.natDegree ∧
       (∀ (x y : ℂ) (h : (Weierstrass.latticeCurve Ls).toAffine.Nonsingular x y),
         (D.eval x = 0 → Weierstrass.latticeIsogeny α hα (.some x y h) = 0) ∧
@@ -289,9 +292,12 @@ theorem exists_inverseIdeal_reverse_rational_isogeny
       _root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_c₆]
     change (((V.c₆ : M) : ℂ) / 216) ∈ M
     exact div_mem (V.c₆ : M).property (ofNat_mem M 216)
-  exact ⟨hα, Weierstrass.TorsionAlgebraicity.exists_finite_field_rational_latticeIsogeny
-    M hα0 hα (h₂ W L C hC) (h₃ W L C hC)
-    (h₂ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)
-    (h₃ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)⟩
+  obtain ⟨F, hF, A, D, hMF, hαF, hA, hD, hm, hlc, hc, hdA, hdD, he⟩ :=
+    Weierstrass.TorsionAlgebraicity.exists_finite_field_rational_latticeIsogeny
+      M hα0 hα (h₂ W L C hC) (h₃ W L C hC)
+      (h₂ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)
+      (h₃ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)
+  exact ⟨hα, F, hF, A, D, hMF, hαF, hA, hD, hm, hlc, hc, hdA,
+    hdA.trans (Weierstrass.card_ker_latticeIsogeny_phi hα0 hα), hdD, he⟩
 
 end RHLean.Geometry.NativeCM
