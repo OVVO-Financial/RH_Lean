@@ -101,8 +101,8 @@ theorem nativeSquareHost_exists_lattice_theta
             (∀ v z, θ (z + P v) = factor D P Hm v z * θ z) ∧
             ∀ v z, fiberNormSq Hm (z + P v) (θ (z + P v)) =
               fiberNormSq Hm z (θ z) := by
-  letI : Fact q.Prime := ⟨hPair.q_prime⟩
-  letI : Fact d.Prime := ⟨hPair.d_prime⟩
+  let _ : Fact q.Prime := ⟨hPair.q_prime⟩
+  let _ : Fact d.Prime := ⟨hPair.d_prime⟩
   let he : 2 ≤ e := nativeDyadicPageN_two_le hε
     ((show (2 : ℝ) ≤ 3 by norm_num).trans (nativeSquareHost_scale_ge_three R hR)) hPage
   let hH := nativeDyadicHostHyp_of_winPair hPair
