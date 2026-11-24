@@ -990,8 +990,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundleGram.lean",
-      "sha256": "da0419bf7c2ba97dfbe14e59f27c80642a273361a5b2b4df8fe7a79f809f3384",
-      "lines": 191
+      "sha256": "0224715a1d1fba569627f5a54fa3d881757380d06ac549e8da54b17f294288eb",
+      "lines": 221
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreBundlePairing.lean",
@@ -1055,8 +1055,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreMixedPeriods.lean",
-      "sha256": "f98539b4ae0b7f0867ba6700dde5038d12484422fcb4936ae6927eb6f6cc9c65",
-      "lines": 497
+      "sha256": "1d9764277bb1a2bc9e3f3cf9d432d8d0998629d7db97e86a063cc6242453efbe",
+      "lines": 521
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePeriods.lean",
@@ -1075,8 +1075,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeBundle.lean",
-      "sha256": "3424468e4c64c5ed433413b4a84dcc44c6cc93dfb9ba1689674681df6b3c10cd",
-      "lines": 231
+      "sha256": "e6c8bef4c61b2b2ea9f8cf72be53f11f8acb717c7594d793821f926a5fca5234",
+      "lines": 236
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeEigenline.lean",
@@ -1295,8 +1295,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMorphismTangent.lean",
-      "sha256": "42488e58ce7b22b940ccdc92f4b81ff850bd50232b822ee2aa397269a52a03c9",
-      "lines": 312
+      "sha256": "fa926046279efd46d3f0adbc0927852e4ac3ac52fe5b3e39e56985d1d0d34b66",
+      "lines": 315
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationEtale.lean",
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "5ec1175f5419b76798066f75a89c6d5447795c4ee4f417875d567a58e3c69796",
-      "lines": 394
+      "sha256": "7e9dcc4c7929fa4d262837d8504c8f616282c8dfb79ad657d30c384ba9e44e22",
+      "lines": 424
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
@@ -1505,8 +1505,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaAtlas.lean",
-      "sha256": "05a5e511192eb566001073d390120a4f9b2a61c770762f9ab7dff900901d4fcb",
-      "lines": 267
+      "sha256": "2fdf48e7ca2846acec5846a61259d08010eb3c901b285bbd4057cdee84515799",
+      "lines": 269
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaAtlasMetric.lean",
@@ -1835,8 +1835,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTensorVacua.lean",
-      "sha256": "80cf169de2a2e32c7e92b0851361530fe915ab9121cc8cc80bd2657273df6481",
-      "lines": 231
+      "sha256": "3f768d7288da3bb1ca668bdb6a1e1b88331d96d4d040f80f5c77691dce6cf1d8",
+      "lines": 247
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTransformationComposition.lean",
@@ -2011,6 +2011,13 @@
       "run_id": 45397859051,
       "preflight_job_id": 138458541468,
       "result": "PREFLIGHT_FAILED_SIX_REACHED_GEOMETRY_MODULES; CROSS_MODEL_RATIONAL_IDENTITY_AND_LOCALIZED_MAP_CMOPEN_SHIFTED_VACUA_BUILT",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "6937f9a6cbde4f3345bde720e8aa4c51b997a50e",
+      "run_id": 45408740936,
+      "preflight_job_id": 138499685869,
+      "result": "PREFLIGHT_FAILED_SEVEN_REACHED_GEOMETRY_MODULES; SERRE_POLARIZATION_GRAPH_KERNEL_TORSION_SERRE_GRAM_FORM_SECTION_JET_OPEN_POINT_BUILT",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]
