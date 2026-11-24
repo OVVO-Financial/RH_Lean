@@ -1,3 +1,92 @@
+## #1201 — late quantitative attachment, principal character only (2026-11-24)
+
+**LATE_QUANTITATIVE_ATTACHMENT_V1 — controlling user-directed priority.**
+This supersedes any earlier instruction making a second native geometric
+family, G1–G7, the 43-row reconstruction, native PageN/PairGood recovery,
+or two-curve gluing a mandatory critical-path deliverable. Keep all
+existing work and verification safeguards; do not delete, weaken, or
+claim completion of the geometry. It is reserve work for an exact
+supplier gap, or later stone-bridge simplification. Work only on #1201;
+no parallel or stacked PR and no terminal upstream RH/GRH import.
+
+**Actual boundary.** At pinned upstream commit
+`7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`, read
+[LevelGmLeOnFamilyScales](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean),
+[TopWin](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean)
+and [ZeroFreeAllOfTopG](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean).
+Set `Lambda := Level.cyc PChar.one`, `la := 3/2`. Extract the
+principal instance of `ChebyshevInequalityAtWindowScale` from the
+actual upstream family-supplying proof BEFORE its zero-free conclusion.
+Its witnesses fix eD,eL,eps1>0 before eps; for each eps they give one
+FamP with EFamC, complete HasWindows, and tied-window constants.
+Apply `level_gm_le_on_family_scales Lambda` to the SAME family.
+Use S := Fm.Win and the returned x1; no stronger eventual-all-x claim
+or independent square-endpoint geometry is required. The result has
+exactly the hypothesis of
+`nativeSmallEpsilonWindowBound_of_principalCyclic`, plus eps1>0.
+
+**Source extraction, not another cancellation proof.** In
+`zeroFreeAll_of_topG`, the final callback already constructs that
+family package: specialize h (TopG) to GChi PChar.one and supplyChi
+at the principal character; use hypV_of_cls, eFamC_of_cls, c.1 and d.
+Trace the actual supplying proofs backward through
+`zero_free_all_of_green_v_win` (TopPlug),
+`every_character_of_theta_integrals_local_matching`,
+`every_character_of_literature_of_vWin` and `everyCharacter_of_row`
+(MainConclusion). Extract their inputs, not their zero-free outputs.
+Audit all retained leaves, including the actual Green, VWin, HypsAlt,
+literature and row suppliers. A proposition declaration, conditional
+theorem, name, or source inspection is not a verified unconditional
+supplier. Do not import a downstream zero-free/RH conclusion, use RH
+to prove the bound, or assume that the advertised upstream proof is valid.
+
+**Arithmetic interface.** The branch already contains
+`nativePrincipalCyclicGm_eq_statementOCGz`,
+`nativePrincipalCyclicGm_eq` and
+`nativeSmallEpsilonWindowBound_of_principalCyclic` in
+NativeExistingRecoveryPayment; merged #1205 provides
+`statementOCGz_eq_native` and
+`riemannHypothesis_of_smallEpsilonWindowBound`. Split out the
+minimal arithmetic bridge from heavy native geometry imports only if
+needed; preserve definitions and signed source. Verify the actual
+upstream-to-native definitional equality or exact transport across
+namespaces, Mathlib versions and toolchains; source resemblance alone
+does not establish it. Upstream v4.33.1 and native v4.34.1 are distinct:
+do not mix oleans, change toolchains silently, or treat a certificate
+from one environment as a theorem in the other. Use an approved,
+source-faithful and kernel-checked compatible dependency slice with
+explicit provenance, license clearance and semantic audit.
+
+**All seven roles: immediate task selection.** Coordinator: maintain
+one late-attachment dependency graph, mark G1–G7 reserve unless an
+actual retained leaf requires them. Owner/payment: extract principal
+family witnesses and exact window estimate. Adversarial: audit real
+definitions, anyGeometry/assigned height/lattice concerns, no circular
+dependencies and nonvacuous quantifiers; identify specific invalid or
+unpaid suppliers. Prime census: compare literal centered all-prime-power
+sources, endpoints and principal weights across versions. Analytic
+Type II: verify the fixed-exponent and cofinal-window transport and
+#1205 application. Finite wheel: look only for proved native
+substitutions for an identified supplier gap; no new cancellation.
+Lean verification: isolate the needed declaration dependency closure,
+check version/provenance and terminal axioms, enforce existing hosted
+checks, report the first failing actual supplier. Do not open new
+geometry modules absent a named retained dependency and a demonstrated
+reason the upstream supplier cannot be reused.
+
+**Acceptance:** First close the actual principal quantitative bound
+with no open hypotheses other than its universally quantified
+parameters. Then invoke the native #1205 handoff for a genuinely closed
+Mathlib `RiemannHypothesis` theorem. Verify both roots and the full
+transitive dependency/semantic audit; only the three standard axioms
+are permitted. Keep draft, human-only merge, and open-phase guard
+until this is achieved. Existing conditional theorems and a green
+geometry build alone do not establish RH. This policy change is not a
+mathematical proof, does not certify the upstream chain, and changes no
+agent runtime or schedule.
+
+---
+
 ## 2026-11-24 — mandatory semantic proof-integrity review
 
 For any RH-strength claim, read [the full semantic-risk audit](research/RHLEAN_FULL_SEMANTIC_RISK_AUDIT_20261124.md). Preserve the current proof-supplier and native-bound priority: no extra reconstruction merely for its own sake. Run the source census on all tracked Lean files and inspect the actual kernel theorem type, complete Pi telescope, original arithmetic source definitions, and independently earned geometry/rank/mass/height constructors. Treat scanner hits as candidates, not defects; no theorem may be counted as an unconditional supplier merely because its proof compiles or has permitted axioms. Do not use the raw window witness or assumed degree/slope fields as if they were independently proved. A literal exact root RiemannHypothesis candidate requires independent terminal-axiom, full supplier, same-data, and quantifier review before changing the open-phase guard. A closed type is necessary, not sufficient for modelling the intended arithmetic. No human-only merge or role permissions change.
