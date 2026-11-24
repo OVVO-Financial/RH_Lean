@@ -1,3 +1,24 @@
+## Actual geometric suppliers — stacked branch of #1201 (2026-11-24)
+
+**NATIVE_ACTUAL_GEOMETRIC_SUPPLIERS_V1:** The user has requested a
+dedicated PR for the actual geometric end of the string. Follow
+[the supplier execution and acceptance gates](research/ALPOGE_ACTUAL_GEOMETRIC_SUPPLIERS_20261124.md).
+Start at the original cross-model reverse isogeny, conjugate through the
+actual short-model group isomorphisms, apply the existing integral
+extension at every relevant place, derive the actual tangent multiplier,
+and apply the existing one-sided period mean and independent degree
+comparison to DIV. Complete the actual Serre/cusp/rank/mass and same-family
+recovery and slope suppliers with the existing proofs. The principal
+cyclic arithmetic connection is already compiled at the preceding
+checkpoint; preserve it and the merged #1205 handoff. No new estimates,
+conditional endpoints, artificial witnesses, or terminal RH import.
+Keep the dedicated PR stacked on #1201, not main. All existing
+source-integrity, hosted-only Lean verification, human-only merge, and
+role/continuity requirements apply. This directive does not modify
+agent schedules or launch agents.
+
+---
+
 ## #1201 — inherit the proved quantitative bound (latest user directive)
 
 **NATIVE_PROVED_BOUND_APPLICATION_V1 (2026-11-24):** The quantitative

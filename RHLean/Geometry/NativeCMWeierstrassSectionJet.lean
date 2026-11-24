@@ -267,7 +267,7 @@ theorem locEval_regular (r : OriginRing W) :
     intro a
     have heq : (fun t => locEval L W C t (algebraMap ℂ _ a)) =ᶠ[𝓝 0] fun _ => a := by
       filter_upwards [hev] with t ht
-      simp only [locEval, dif_pos ht]
+      simp only [locEval, dite_eq_left ht]
       simp
     exact ⟨((hasDerivAt_const (0 : ℂ) a).congr_deriv
       (by simp [epsEval, TrivSqZeroExt.algebraMap_eq_inl])).congr_of_eventuallyEq heq,
@@ -306,7 +306,7 @@ theorem locEval_regular (r : OriginRing W) :
   · have heq : (fun t => locEval L W C t (originZ W)) =ᶠ[𝓝 0]
         WeierstrassTangent.originZ L C := by
       filter_upwards [hev] with t ht
-      simp only [locEval, dif_pos ht]
+      simp only [locEval, dite_eq_left ht]
       simp
     have han : AnalyticAt ℂ (WeierstrassTangent.originZ L C) 0 :=
       analyticAt_id.mul ((WeierstrassTangent.regularX_analytic L C).neg.div
@@ -316,7 +316,7 @@ theorem locEval_regular (r : OriginRing W) :
   · have heq : (fun t => locEval L W C t (originW W)) =ᶠ[𝓝 0]
         WeierstrassTangent.originW L C := by
       filter_upwards [hev] with t ht
-      simp only [locEval, dif_pos ht]
+      simp only [locEval, dite_eq_left ht]
       simp
     have han : AnalyticAt ℂ (WeierstrassTangent.originW L C) 0 :=
       (analyticAt_id.pow 3).mul (analyticAt_const.div

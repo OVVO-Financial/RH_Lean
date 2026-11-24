@@ -1295,8 +1295,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMorphismTangent.lean",
-      "sha256": "4c1d8037fd7a2ddf67aaedda98e18258dc44dc1b95880b478ea652602729fa7f",
-      "lines": 286
+      "sha256": "c3598a17f69215ee410201e87f8ff8992ea4e549c740ccdbd3098f55d8f08c72",
+      "lines": 294
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationEtale.lean",
@@ -1460,7 +1460,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSectionJet.lean",
-      "sha256": "3040e8f26ba0b93f2d9c82e6282813cdaa0342a49dce16569a4f44689ffacae1",
+      "sha256": "ce1aa6086f06feadfac8ef7c6502df0a4e6e2fb18c5c72c2e4b0cf21baf0b309",
       "lines": 509
     },
     {
