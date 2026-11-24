@@ -1409,3 +1409,32 @@ physical data, and geometric supplier obligations are unchanged. The
 same run's diagnostic compiled `NativeCMWeierstrassGraphGroup`; its time
 limit did not establish the rest of the closure. Hosted verification
 remains mandatory. The full build was correctly skipped after failure.
+
+## One-sided arithmetic period supplier (direct bridge reduction)
+
+Use the already-proved `NativeOneSidedIsogenyNorm` from main, copied
+verbatim from its committed blob. For the literal class model and actual
+multiplier beta_C the old period inclusion theorem proves
+
+  covol(L_C,sigma)*Norm(b_C) = |sigma(beta_C)|^2*covol(L_0,sigma).
+
+The arithmetic reverse ideal inclusion implies that the full logarithmic
+row correction is nonpositive. The new theorem
+`mean_log_covolume_ge_mean_classGroup` uses the same actual column
+permutation and the same unit discriminant product formula, but sums
+the row inequalities rather than equalities. It gives the required
+lower bound on the seed's mean logarithmic covolume. The companion
+`mean_log_covolume_sub_log_pi_ge_class_period` gives it with the exact
+latticeLogPeriod normalization used by Chowla--Selberg.
+
+Thus the forward derivative **integrality** requirement is eliminated
+from this direction of the period supplier. Both complex period
+inclusions and the reverse derivative integrality on the same models
+remain necessary in the new theorem. The existing
+`physicalTopExcess_div_le_errorTerm_of_period_lower` on main can use
+the resulting lower bound with rho=0 once the actual physical period
+and logOm are identified. The measured degree inequality, actual
+reverse tangent integrality, all-embedding alignment and the other
+signed-slope inputs remain open. Neither a new estimate of Gz nor a
+proof of RH is claimed. The old two-sided statements are preserved.
+The three newly audited theorem roots require hosted verification.

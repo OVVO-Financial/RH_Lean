@@ -82,6 +82,38 @@ theorem mean_log_covolume_sub_log_pi_eq_class_period
   rw [classPeriod_mean_eq_normDisc]
   exact congrArg (fun x : ℝ => x - Real.log Real.pi) h
 
+/-- One-sided period input at the exact native logarithmic normalization.
+Forward integral derivative control is unnecessary for this direction;
+reverse derivative integrality and both original analytic lattice
+inclusions remain explicit. -/
+theorem mean_log_covolume_sub_log_pi_ge_class_period
+    (K M : Type) [Field K] [NumberField K] [Field M] [NumberField M] [Algebra K M]
+    (hK : Module.finrank ℚ K = 2) (σ₀ : K →+* ℂ)
+    (h₀ : ¬ NumberField.ComplexEmbedding.IsReal σ₀)
+    (b : ClassGroup (𝓞 K) → (Ideal (𝓞 K))⁰) (Lc : ClassGroup (𝓞 K) → PeriodPair)
+    (hb : ∀ C, ClassGroup.mk0 (b C) = C)
+    (hLc : ∀ C z, z ∈ (Lc C).lattice ↔ ∃ a ∈ (b C : Ideal (𝓞 K)), z = σ₀ (a : K))
+    (L₀ : (M →+* ℂ) → PeriodPair)
+    (L : ClassGroup (𝓞 K) → (M →+* ℂ) → PeriodPair)
+    (δ : ClassGroup (𝓞 K) → (𝓞 M)ˣ) (β : ClassGroup (𝓞 K) → M)
+    (hst : ∀ s (a : 𝓞 K) z, z ∈ (L₀ s).lattice →
+      s (algebraMap K M a) * z ∈ (L₀ s).lattice)
+    (hδ : ∀ C s, (L C s).g₂ ^ 3 - 27 * (L C s).g₃ ^ 2 = s ((δ C : 𝓞 M) : M))
+    (hβ : ∀ C, β C ≠ 0)
+    (h₁ : ∀ C (x : K), (∀ y ∈ (b C : Ideal (𝓞 K)), IsIntegral ℤ (x * (y : K))) →
+      ∀ s z, z ∈ (L₀ s).lattice → s (β C * algebraMap K M x) * z ∈ (L C s).lattice)
+    (h₂ : ∀ C y, y ∈ (b C : Ideal (𝓞 K)) →
+      IsIntegral ℤ ((β C)⁻¹ * algebraMap K M (y : K)) ∧
+        ∀ s z, z ∈ (L C s).lattice → s ((β C)⁻¹ * algebraMap K M (y : K)) * z ∈ (L₀ s).lattice) :
+    (∑ s : M →+* ℂ, Real.log (ZLattice.covolume (L₀ s).lattice)) /
+        (Module.finrank ℚ M : ℝ) - Real.log Real.pi ≥
+      (∑ C, PeriodArithmetic.latticeLogPeriod (Lc C)) / (classNumber K : ℝ) := by
+  have h := mean_log_covolume_ge_mean_classGroup K M hK σ₀ h₀ b Lc hb hLc
+    L₀ L δ β hst hδ hβ h₁ h₂
+  simp only [← latticeArea_eq_abs_im_mul_conj] at h
+  rw [classPeriod_mean_eq_normDisc]
+  exact sub_le_sub_right h (Real.log Real.pi)
+
 end RHLean.Geometry.NativeCM.PeriodMean
 
 namespace RHLean.Geometry.NativeCM

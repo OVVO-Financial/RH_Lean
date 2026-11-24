@@ -850,8 +850,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMIntegralClassPeriodMean.lean",
-      "sha256": "93a859f06f4fe04a7184abdbc8fb8b5dc7476dafbc8a75864637f7813899248c",
-      "lines": 159
+      "sha256": "a085f25a65fc273813504f51499ac6606c2605bb34175f3657f6bcc678f986b2",
+      "lines": 191
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
@@ -865,8 +865,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyPeriodMean.lean",
-      "sha256": "d54c4a6281aca274b0fca9e664a0f3aa2c48fa14959ee654477192f3d1717209",
-      "lines": 246
+      "sha256": "79e89c06e9468f91f2f641f45fc48d9ce1f910ae6f7a5c1e19764322563e2853",
+      "lines": 358
     },
     {
       "path": "RHLean/Geometry/NativeCMKroneckerIntegral.lean",
@@ -1852,7 +1852,7 @@
   "unproved_suppliers": [
     "Integral extension of the CM scheme action; flat graph group, local flatness, finite etale torsion, finite geometric kernel and locally quasi-finite projection proof supplied in source (hosted verification required). Graph projection isomorphism remains open.",
     "Hosted validation and consumer integration of the actual all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length",
-    "Integral ideal-isogeny morphisms and two-sided derivative integrality; actual common-field models for the integral and inverse ideal-period families preserve the original seed, but the arithmetic class mean still lacks its geometric supplier",
+    "Actual reverse derivative integrality and both lattice inclusions across all embeddings of the inverse ideal-period family; new one-sided class mean supplier in source removes forward derivative integrality (hosted verification required).",
     "Integral seed action and mixed-signature scheme assembly; actual seed cubical/Rosati identities, relative ampleness and trivial kernel of the signed tensor bundle; generic intrinsic Lie coordinates and the exact sigma trace Gram are constructed but unverified",
     "Geometric cover finite-Fourier and character-section tie, isotropic system and global cusp realization/span; full signed-flag periods, finite coefficients with all-embedding bounds and actual CM-fiber half-level marking are constructed but unverified",
     "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares",
