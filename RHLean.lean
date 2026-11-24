@@ -501,6 +501,7 @@ import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativeIdealClassBound
+import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
 import RHLean.Analysis.AlpogeThin.NativeRayAnalyticFamily
