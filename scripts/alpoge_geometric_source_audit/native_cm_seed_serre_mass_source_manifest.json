@@ -1415,8 +1415,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "03f8613832814334c739badddc1d802135c3358514b1879d5142dc4c02ae5c6c",
-      "lines": 544
+      "sha256": "d6db4343eea76a930327e1fecb2aa69b0da4fa5c79889153f68cda5d115f2a6e",
+      "lines": 572
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
@@ -2046,6 +2046,13 @@
       "run_id": 45448545444,
       "preflight_job_id": 138639248412,
       "result": "PREFLIGHT_FAILED_AT_OMIT_COMMAND_PLACEMENT; BUNDLE_SYMMETRY_BUILT; EARLY_CACHE_SAVE_SUCCEEDED; DIAGNOSTIC_REPORTED_UNIT_PRODUCT_API_AND_RATIONAL_GLOBAL_TIMEOUT_WITH_PRIVATE_HELPERS_NOT_ELABORATED_THEN_RUNNER_SHUTDOWN",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "82042a730842747f1f9bd65c410d3918c7948035",
+      "run_id": 45451577863,
+      "preflight_job_id": 138650157962,
+      "result": "PREFLIGHT_FAILED_AT_RATIONAL_GLOBAL_WHNF_200000; SCHEME_METRIC_AND_LINE_BUNDLE_SIGMA_METRIC_BUILT; NO_OTHER_LEAN_ERRORS_REPORTED_BEFORE_DIAGNOSTIC_SHUTDOWN; EARLY_CACHE_SAVE_SUCCEEDED",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

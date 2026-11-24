@@ -296,6 +296,38 @@ private theorem rationalOpen_scheme_action_between
   obtain ⟨g, rfl⟩ := exists_eq_specOverMap z
   exact rationalOpen_action_between W V α hα A D hshort hshortV hID φ hφsome g
 
+section GluingApplication
+
+-- These declarations already have their own checked geometric proofs.
+-- Do not expand their projective polynomial constructions merely to compare
+-- source and target types. This is local elaborator transparency only;
+-- the kernel still checks the original definitions and proof term.
+attribute [local irreducible] scheme toSpec cubicIdeal grading
+
+omit [DecidableEq k] in
+/-- Specialize the existing abstract kernel-open gluing to the actual
+Weierstrass groups, supplying their canonical structural witnesses.
+The open chart and point action are parameters here: the localization and
+the two curve equations are not unfolded by the final application. -/
+private theorem complete_curve_kernel_open
+    {U : Over (Spec (.of F))}
+    (j : U ⟶ schemeOver W) [IsOpenImmersion j.left]
+    (fU : U ⟶ schemeOver V) (q : 𝟙_ (Over (Spec (.of F))) ⟶ U)
+    (Φ : (specOver F k ⟶ schemeOver W) →* (specOver F k ⟶ schemeOver V))
+    (hlift : ∀ x, Φ x ≠ 1 → ∃ z : specOver F k ⟶ U, z ≫ j = x)
+    (hlocal : ∀ z : specOver F k ⟶ U, Φ (z ≫ j) ≠ 1 ∧ z ≫ fU = Φ (z ≫ j)) :
+    ∃ f : schemeOver W ⟶ schemeOver V, IsMonHom f ∧ j ≫ f = fU ∧
+      ∀ x : specOver F k ⟶ schemeOver W, x ≫ f = Φ x := by
+  have hfinite : LocallyOfFiniteType (schemeOver W).hom :=
+    inferInstanceAs (LocallyOfFiniteType (toSpec W))
+  have hred : IsReduced (schemeOver W).left := isReduced_over_left W
+  have hsep : IsSeparated (schemeOver V).hom := isSeparated_over_hom V
+  have hprod : IsReduced (schemeOver W ⊗ schemeOver W).left :=
+    @isReduced_tensor_left F _ W (schemeOver W) hred
+  exact @complete_kernel_open F k _ _ _ _ (schemeOver W) (schemeOver V)
+    (grpObj W) (grpObj V) hfinite hred hsep hprod U j
+    (inferInstance : IsOpenImmersion j.left) fU q Φ hlift hlocal
+
 set_option diagnostics true in
 /-- Specialize the abstract group-scheme completion to the two independently
 specified elliptic curves. The point lemmas and structural instances have
@@ -317,33 +349,29 @@ theorem exists_global_hom_of_rational_point_map_between
       IsMonHom f ∧ rationalOpenIncl W D ≫ f = rationalOpenHomBetween W V α hα A D hshort hshortV hID ∧
       ∀ P : (W.baseChange k).toAffine.Point,
         ofAffinePoint W k P ≫ f = ofAffinePoint V k (φ P) := by
-  classical
-  have hφzero (x y : k) (h : (W.baseChange k).toAffine.Nonsingular x y) :
-      aeval x D = 0 → φ (.some x y h) = 0 := (hφ x y h).1
-  have hφsome (x y : k) (h : (W.baseChange k).toAffine.Nonsingular x y) :
-      aeval x D ≠ 0 → ∃ h', φ (.some x y h) =
-        .some (aeval x A / aeval x D)
-          ((algebraMap F k α)⁻¹ *
-            (aeval x (derivative A * D - A * derivative D) / aeval x D ^ 2) * y) h' :=
-    (hφ x y h).2
-  have hfinite : LocallyOfFiniteType (schemeOver W).hom :=
-    inferInstanceAs (LocallyOfFiniteType (toSpec W))
-  have hred : IsReduced (schemeOver W).left := isReduced_over_left W
-  have hsep : IsSeparated (schemeOver V).hom := isSeparated_over_hom V
-  have hprod : IsReduced (schemeOver W ⊗ schemeOver W).left :=
-    isReduced_tensor_left W (schemeOver W)
-  have hinc : IsOpenImmersion (rationalOpenIncl W D).left :=
-    isOpenImmersion_rationalOpenIncl W D
-  obtain ⟨f, hf, hjf, hfx⟩ :=
-    @complete_kernel_open F k _ _ _ _ (schemeOver W) (schemeOver V)
-      (grpObj W) (grpObj V) hfinite hred hsep hprod
-      (specOver F (RationalOpenRing W D)) (rationalOpenIncl W D) hinc
-      (rationalOpenHomBetween W V α hα A D hshort hshortV hID)
-      (rationalOpenSection W D x₀ y₀ h₀ hD₀) (schemePointActionBetween W V φ)
-      (rationalOpen_scheme_lift_between W V D φ hφzero)
-      (rationalOpen_scheme_action_between W V α hα A D hshort hshortV hID φ hφsome)
-  exact ⟨f, hf, hjf, fun P => (hfx (ofAffinePoint W k P)).trans
-    (schemePointActionBetween_ofAffinePoint W V φ P)⟩
+  let U : Over (Spec (.of F)) := specOver F (RationalOpenRing W D)
+  let j : U ⟶ schemeOver W := rationalOpenIncl W D
+  let fU : U ⟶ schemeOver V := rationalOpenHomBetween W V α hα A D hshort hshortV hID
+  let q : 𝟙_ (Over (Spec (.of F))) ⟶ U := rationalOpenSection W D x₀ y₀ h₀ hD₀
+  let Φ : (specOver F k ⟶ schemeOver W) →* (specOver F k ⟶ schemeOver V) :=
+    schemePointActionBetween W V φ
+  have hj : IsOpenImmersion j.left := isOpenImmersion_rationalOpenIncl W D
+  have hlift : ∀ x : specOver F k ⟶ schemeOver W, Φ x ≠ 1 →
+      ∃ z : specOver F k ⟶ U, z ≫ j = x :=
+    rationalOpen_scheme_lift_between W V D φ (fun x y h => (hφ x y h).1)
+  have hlocal : ∀ z : specOver F k ⟶ U,
+      Φ (z ≫ j) ≠ 1 ∧ z ≫ fU = Φ (z ≫ j) :=
+    rationalOpen_scheme_action_between W V α hα A D hshort hshortV hID φ
+      (fun x y h => (hφ x y h).2)
+  have hex : ∃ f : schemeOver W ⟶ schemeOver V, IsMonHom f ∧ j ≫ f = fU ∧
+      ∀ x : specOver F k ⟶ schemeOver W, x ≫ f = Φ x :=
+    complete_curve_kernel_open (k := k) W V j fU q Φ hlift hlocal
+  obtain ⟨f, hf, hjf, hfx⟩ := hex
+  refine ⟨f, hf, hjf, fun P => ?_⟩
+  exact (hfx (ofAffinePoint W k P)).trans
+    (schemePointActionBetween_ofAffinePoint W V φ P)
+
+end GluingApplication
 
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
