@@ -679,3 +679,65 @@ complex representation. Eighteen guarded roots are added, no new Lean
 modules, no new conditional RH endpoint, no imported terminal RH theorem.
 All changes are proposed source pending exact-head hosted verification.
 The full signed source estimate and RH remain OPEN.
+
+## 12. Correct status: existing quantitative proof, unfinished native application
+
+The existing growth bound is **not** the mathematical discovery
+objective of #1201. The pinned upstream
+[`proposition_at_point`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LipschitzWeightAndMinimum.lean)
+has type `GrowthBoundAtPoint`, defined in
+[GrowthBoundGivesRiemannHypothesis](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/GrowthBoundGivesRiemannHypothesis.lean):
+
+    forall C eps x, GrowthInequalityDataExists C eps x ->
+      Gz x <= x^(1/2 + (C+3)*eps).
+
+The existing `chain_at_alt` in
+[PChain](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean)
+applies this theorem to the supplied chain data. The existing
+`chain_analytic_at_point` in
+[AnalyticFirstToLatticeDiscriminant](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean)
+follows the analytic-to-lattice, discriminant and first-variant
+reductions to that application. Trace their actual hypotheses and
+supplying proofs; neither a proposition definition nor a conditional
+theorem alone certifies the unconditional result.
+
+The native consumer
+[`nativeConstructedDyadicSignedSlopePayment_of_meanLoss`](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean)
+already composes the physical signed top-excess comparison, analytic
+payment and normalized-cost absorption, yielding the existing
+square-root-plus-epsilon mean estimate under its actual hypotheses.
+Use this proof as written. Pay its original family, recovery, measured
+cost and uniformity inputs using the pinned supplying proofs and the
+existing native identifications, including section 11's Phi transport.
+InWin height proximity, complete signed source, actual Frobenius/inertia,
+and original square clock must be preserved.
+
+The existing
+[`statementOCGz_eq_native`](../RHLean/Analysis/AlpogeNativeBoundHandoff.lean)
+identifies the literal finite prime-power source with
+`alpogeNativeGzArithmetic` without any estimate. Keep this exact source
+identification and prove the remaining compatibility with the pinned
+supplier application. The already-merged #1205 handoff exposes
+`riemannHypothesis_of_eventualRealBound`,
+`riemannHypothesis_of_squareClockBound`, and
+`riemannHypothesis_of_smallEpsilonWindowBound`. Use the weakest
+genuinely supplied input. #1206 is a distinct positive-moment alternative
+only if its actual stronger input is available.
+
+Status separation:
+- Existing upstream growth theorem and proof mechanism: EXISTING PROOF.
+  Do not reinvent them or label them as an undiscovered estimate.
+- Native same-family applicability and exact transport: OPEN until
+  actual prerequisites are discharged and Lean verifies them.
+- Native eventual critical estimate and closed `RiemannHypothesis`:
+  OPEN until that application has been verified end to end.
+
+For every open item, name the precise hypothesis, existing upstream
+supplying proof, native identification, remaining prerequisite and
+hosted status. No independently hypothesized critical bound, terminal
+RH import, artificial geometry/height, or new cancellation mechanism.
+The string is the existing proof securely attached to RH_Lean, not
+another mathematical discovery. The stone bridge is subsequent
+simplification of the verified connection. This section is a proof
+contract/status correction only; no new proof source or verification
+claim is made.

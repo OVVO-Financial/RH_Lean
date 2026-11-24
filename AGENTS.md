@@ -1,3 +1,66 @@
+## #1201 — inherit the proved quantitative bound (latest user directive)
+
+**NATIVE_PROVED_BOUND_APPLICATION_V1 (2026-11-24):** The quantitative
+estimate is not a new research target. Alpoge's existing proof supplies
+the growth inequality, its geometric/signed recovery cost mechanism,
+and its eventual application. The task in #1201 is to apply that
+existing mathematics to the actual RH_Lean objects, using the shortest
+proved identification and hypothesis-discharge route. This is the
+string-first mandate; no new cancellation, contraction, asymptotic
+estimate or independent proof of the growth inequality is requested.
+
+The pinned upstream
+[`proposition_at_point`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LipschitzWeightAndMinimum.lean)
+proves `GrowthBoundAtPoint`: for `GrowthInequalityDataExists C eps x`,
+`Gz x <= x ^ (1/2 + (C+3)*eps)`. The theorem has actual data hypotheses;
+follow its existing supplying chain, not merely its conclusion. The
+existing `chain_at_alt` in
+[PChain](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean)
+and `chain_analytic_at_point` in
+[AnalyticFirstToLatticeDiscriminant](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean)
+are supplier-trace starting points. A definition of a proposition is
+not proof of its premise, and a conditional theorem is not a completed
+native bound.
+
+**Required dependency order for all seven roles:**
+1. Identify the exact pinned upstream proof of each remaining premise,
+   including the source of its actual family, local recovery and measured
+   costs; apply those proofs, retaining their real hypotheses.
+2. Use existing RH_Lean identifications and the lossless Phi transport
+   wherever they give the same object, norm, index, determinant, or
+   signed arithmetic expression. Prove only necessary missing transport,
+   instantiation and dependency closure. Keep the actual integral and
+   measured data; no vacuous or assigned witnesses.
+3. Apply `nativeConstructedDyadicSignedSlopePayment_of_meanLoss` or
+   the shortest already proved equivalent supplier, not a new bound.
+   Its surviving HidaSetting/DIV/measurement/slope/local-loss/window
+   premises must be discharged on ONE compatible original family.
+4. Use `statementOCGz_eq_native` and the existing exact arithmetic
+   source bridge; keep all prime powers, centering, sign, and
+   uniformity. Inherit the required eventual real or square-clock
+   estimate, with fixed constants and arbitrarily small exponent loss.
+5. Invoke the existing #1205 bound handoff (or #1206 if the genuine
+   stronger input is supplied) to produce the closed Mathlib
+   `RiemannHypothesis` theorem. Do not import upstream terminal RH.
+
+**Status language is mandatory:** upstream quantitative mechanism and
+growth theorem = EXISTING PROOF; native supplier identifications and
+actual hypotheses = OPEN until discharged and hosted-verified; native
+unconditional estimate and terminal RH = OPEN until the application
+closes. Do not call the existing growth theorem an undiscovered
+quantitative objective. Do not mark the native estimate proved solely
+because the upstream theorem exists. Every report must name the first
+unclosed native hypothesis, the existing supplier proof, its exact
+application, and verification status. No further new conditional
+endpoint, unrelated construction, or proof-compression diversion
+before this string is secured. The original 43 conditions are coverage
+rather than a literal task count. Stone-bridge simplification follows
+verified completion. Preserve all source integrity, semantic
+noncircularity, hosted-only verification and human-only merge rules.
+This instruction changes no agent schedules or runtime configuration.
+
+---
+
 ## #1201 — integrate the existing Phi coordinates (latest user directive)
 
 **NATIVE_PHI_STRING_FIRST_V1 (2026-11-24):** Use the actual existing
