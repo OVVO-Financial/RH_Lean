@@ -92,12 +92,18 @@ theorem rigidified_originLinComb (f : I → (A ⟶ schemeOver W))
       · rfl
     obtain rfl := key j hp.1
     obtain rfl := key j' hp.2
-    have hdiag : ((LB.LinComb (originLB W) (fun i => (f i).left) e).pull
+    have hLB := LB.isLB_pull
+      (LB.isLB_linComb (originLB_isLB W) (fun i => (f i).left) e)
+      (identitySection A)
+    have hunit : ((LB.LinComb (originLB W) (fun i => (f i).left) e).pull
         (identitySection A)).g (fun _ _ => true) (fun _ _ => true) = 1 := by
-      simp only [LB.pull, LB.LinComb, originLB, LB.twoChart, map_one,
-        one_zpow, Finset.prod_const_one]
-    exact congrArg (fun u => ((Sp R).presheaf.germ _ p hp).hom
-      (u : Γ(Sp R, _))) hdiag
+      apply Units.ext
+      have hdiag := LB.res_g_self hLB (fun _ _ => true) le_rfl
+      have hval := congrArg Units.val hdiag
+      change resG (Sp R) _ _ = 1 at hval
+      rw [resG_self] at hval
+      exact hval
+    rw [hunit]
   change res _ 1 = _ * res _ 1
   rw [map_one, map_one, hg, _root_.one_mul]
 

@@ -55,6 +55,7 @@ theorem chartNormSq_transition (i j : (originLB W).ι) (z c : ℂ)
   rw [chartNormSq, chartNormSq, atlasFrame_compat W L C hC i j z h,
     mul_div_mul_left _ _ hu.ne_zero]
 
+omit [Algebra R ℂ] in
 /-- Lattice translations give the same metric on the same scheme point. -/
 theorem chartNormSq_period (i : (originLB W).ι) {w : ℂ} (hw : w ∈ L.lattice)
     (z c : ℂ) : chartNormSq W L C i (z + w) c = chartNormSq W L C i z c := by

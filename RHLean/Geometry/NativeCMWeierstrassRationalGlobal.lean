@@ -118,7 +118,7 @@ theorem exists_global_hom_of_rational_point_map
     rw [hinc, schemePointAction_ofAffinePoint, hmap]
     obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
     rw [he]
-  letI : LocallyOfFiniteType (schemeOver W).hom :=
+  have : LocallyOfFiniteType (schemeOver W).hom :=
     inferInstanceAs (LocallyOfFiniteType (toSpec W))
   obtain ⟨f, hjf, hf⟩ := GeometricPoints.exists_hom_of_kernel_open
     (rationalOpenIncl W D) (rationalOpenHom W α hα A D hshort hID)
@@ -155,6 +155,9 @@ theorem schemePointActionBetween_ofAffinePoint
 
 variable [IsAlgClosed k]
 
+-- The two-curve proof follows the compiled same-curve proof line by line;
+-- the hosted run hit the default whnf budget, so it gets a bounded raise.
+set_option maxHeartbeats 1000000 in
 /-- Apply the existing general two-patch gluing to two distinct curves. -/
 theorem exists_global_hom_of_rational_point_map_between
     (α : F) (hα : α ≠ 0) (A D : F[X])
@@ -216,7 +219,7 @@ theorem exists_global_hom_of_rational_point_map_between
     rw [hinc, schemePointActionBetween_ofAffinePoint, hmap]
     obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
     rw [he]
-  letI : LocallyOfFiniteType (schemeOver W).hom :=
+  have : LocallyOfFiniteType (schemeOver W).hom :=
     inferInstanceAs (LocallyOfFiniteType (toSpec W))
   obtain ⟨f, hjf, hf⟩ := GeometricPoints.exists_hom_of_kernel_open
     (rationalOpenIncl W D) (rationalOpenHomBetween W V α hα A D hshort hshortV hID)
@@ -407,8 +410,7 @@ theorem exists_scheme_latticeIsogeny
         _ = .some (A.eval x / D.eval x)
             (α⁻¹ * ((derivative A * D - A * derivative D).eval x / D.eval x ^ 2) * y) hp' := he
         _ = _ := by
-          simp only [pointCongr_some, _root_.WeierstrassCurve.Affine.Point.some.injEq,
-            ha, hd, hb, hαC, and_self]
+          simp only [pointCongr_some, ha, hd, hb, hαC]
   obtain ⟨f, hf, _, hfx⟩ := exists_global_hom_of_rational_point_map_between
     W' V' α' hα' A' D' hsW' hsV' hID φ hφ x₀ y₀ hxy hx
   refine ⟨K, hK, hFK, hW', hV', f, hf, fun z => ?_⟩

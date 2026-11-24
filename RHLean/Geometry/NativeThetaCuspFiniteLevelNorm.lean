@@ -93,7 +93,7 @@ theorem translated_ip_eq_zero
     exact zero_ne_one he
   have h0' : ip (heis (y - y') v) v = 0 := (mul_eq_zero.mp h0).resolve_left hε0
   have hu := (laws (-y') (laws y hv.1).1).2.2.2 _ (laws y' hv.1).1
-  rw [heis_neg_heis hv, (laws (-y') hv.1).2.2.1 y,
+  rw [heis_neg_heis hv.1, (laws (-y') hv.1).2.2.1 y,
     show -y' + y = y - y' by abel,
     ip_smul_left _ (laws (y - y') hv.1).1 hv.1, h0', mul_zero] at hu
   exact hu.symm
@@ -211,6 +211,8 @@ theorem tensor_clear_and_scale {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n 5) :
     have he : ctr H y ((s : H.E) • Pi.single i 1) = (s : 𝓞 H.E) • y i := by
       ext j
       simp [ctr, Finset.sum_apply, Algebra.smul_def]
+      rw [Finset.sum_eq_single_of_mem i (Finset.mem_univ i) fun c _ hc => by simp [hc]]
+      simp
     rwa [he] at ht
   · let A := (tens Λ N).comap
       (DistribSMul.toAddMonoidHom (Matrix (Fin n) (Fin r) H.E) (s : H.E))
@@ -248,8 +250,12 @@ theorem rows_tensor {Λ : Lt H.E n} {s : ℕ}
   have hl (i : Fin n) : ∃ z ∈ C • L,
       (s : 𝓞 H.E) • z = rows H D (C * Ideal.span {(s : 𝓞 H.E)}) hC a i := by
     have hi := rows_mem H D (C * Ideal.span {(s : 𝓞 H.E)}) hC a i
-    rw [mul_comm C, Submodule.mul_smul, Submodule.ideal_span_singleton_smul] at hi
-    exact Submodule.mem_smul_pointwise_iff_exists.mp hi
+    -- Rewrite only the target submodule: the same ideal also indexes `rows`
+    -- through its coprimality proof, so it cannot be rewritten there.
+    have hsm : (C * Ideal.span {(s : 𝓞 H.E)}) • L = (s : 𝓞 H.E) • (C • L) := by
+      rw [mul_comm C, Submodule.mul_smul, Submodule.ideal_span_singleton_smul]
+    rw [hsm] at hi
+    exact (Submodule.mem_smul_pointwise_iff_exists _ _ _).mp hi
   choose z hz he using hl
   have heq : rows H D (C * Ideal.span {(s : 𝓞 H.E)}) hC a = (s : H.E) • z := by
     ext i j
@@ -269,7 +275,7 @@ theorem rows_separate {Λ : Lt H.E n} {s : ℕ} (hs : s.Coprime 5)
   apply D.column_injective
   intro i
   rw [← D.liftColumn_mk C hC a i, ← D.liftColumn_mk C hC a' i]
-  apply Submodule.Quotient.eq.mpr
+  apply (Submodule.Quotient.eq _).mpr
   apply (mem_ideal_smul_top L D.P _).mpr
   have hx : (D.liftColumn C hC a i : Fin r → H.E) -
       (D.liftColumn C hC a' i : Fin r → H.E) ∈ L :=
@@ -388,15 +394,20 @@ theorem exists_full_level_theta (hn : k + m - 1 ≤ n) (heven : Even n)
   have hsep : ∀ a a', e (y a) - e (y a') ∈ A → a = a' := by
     intro a a' ha
     have hm : y a - y a' ∈ tens Λ L' := by
-      apply (AddSubgroup.mem_map_iff_mem e.injective).mp
-      simpa only [map_sub] using ha
+      have hmap : e (y a - y a') ∈ A := by
+        rw [map_sub]
+        exact ha
+      -- `A` is the image of `tens Λ L'` under the additive map of `e`.
+      exact (AddSubgroup.mem_map_iff_mem
+        (f := (ShiftedVacua.coordinates H B hB b (κ := Fin n)).toLinearMap.toAddMonoidHom)
+        e.injective).mp hmap
     exact rows_separate H D hs hclear hn _ hC a a' hm
   obtain ⟨hsb, hip⟩ := finite_translates_norm hε hA hv (fun a => e (y a)) hsep
   have hf : IsSB (thetaSum H B hB k m b D y v) := by
-    simpa only [thetaSum, finsum_eq_sum] using hsb
+    simpa only [thetaSum, finsum_eq_sum_of_fintype] using hsb
   have hnorm : ip (thetaSum H B hB k m b D y v) (thetaSum H B hB k m b D y v) =
       (Nat.card D.Group : ℂ) := by
-    simpa only [thetaSum, finsum_eq_sum] using hip
+    simpa only [thetaSum, finsum_eq_sum_of_fintype] using hip
   refine ⟨v, y, hv, rfl, fun a => rows_tensor H D hscale C hC a,
     fun a i => ?_, hf, hnorm, ?_, ?_⟩
   · refine ⟨D.liftColumn _ hC a i, rows_castLE H D hn _ hC a i, ?_⟩
@@ -446,6 +457,7 @@ theorem exists_native_full_level_family
             ∃ f' : Matrix (Fin n) (Fin g) ℚ → ℂ,
               IsSB f' ∧ TransS σ f f' ∧ ip f' f' = (Nat.card C.Group : ℂ) := by
   let H := nativeDyadicHostRaw e q d he hH
+  let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
   let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
     (nativeDyadicHostAx e q d he hH).der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH

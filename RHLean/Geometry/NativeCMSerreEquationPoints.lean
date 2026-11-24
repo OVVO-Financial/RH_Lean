@@ -68,7 +68,13 @@ theorem equationTensorEquiv_smul (a : 𝓞 E) (t : M ⊗[OK G] Torus G τ) :
   induction t using TensorProduct.inductionOn with
   | add t u ht hu => simp only [smul_add, map_add, ht, hu]
   | tmul x z =>
-    simp only [← TensorProduct.smul_tmul', equationTensorEquiv, LinearEquiv.lTensor_tmul]
+    -- Same explicit scalar transport as `conjugateTensor_smul`: move the
+    -- scalar onto the coefficient factor, apply the actual point
+    -- equivalence to the torus factor, and move the scalar back.
+    calc
+      _ = equationTensorEquiv G τ W C hC M ((a • x) ⊗ₜ[OK G] z) := rfl
+      _ = (a • x) ⊗ₜ[OK G] equationPointLinearEquiv G τ W C hC z := by rfl
+      _ = _ := TensorProduct.smul_tmul' a x _
 
 /-- The same trace-Hermitian frame presents the actual equation-point
 tensor as the fixed module of its original integral idempotent. -/

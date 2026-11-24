@@ -771,3 +771,60 @@ Repair the literal trace-form normalization, matrix-coordinate index and self-du
 The [linked preflight](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45408740936/job/138499685869?pr=1201) reached seven failing modules: NativeCMSerreMixedPeriods, NativeCMSerreSchemeBundle, NativeCMSerreBundleGram, NativeThetaCuspTensorVacua, NativeCMWeierstrassThetaAtlas, NativeCMWeierstrassMorphismTangent, and NativeCMWeierstrassRationalGlobal. NativeCMSerrePolarization, NativeCMWeierstrassGraphKernelTorsion, NativeCMSerreGramForm, NativeCMWeierstrassSectionJet and NativeCMWeierstrassOpenPoint compiled. The full native build remains skipped after preflight failure.
 
 The repair uses dependent dimension transport on the entire original mixed lattice, the actual tensor conjugation and coefficient action, the diagonal transition unit and explicit evaluation of the original trace frame, exact inverse-coordinate identities for the semicharacter, explicit chart witnesses, the original prime-ideal contradiction, and the already supplied finite-type instance and coefficient/point transports for both global rational maps. Statements and guarded roots are retained, without adding axioms, admitting proofs, changing CI, or expanding the proof target. Hosted Lean validation of the repair and further dependency closure remain required. This is a repair of reported Lean errors, not a claim of unconditional quantitative closure.
+
+## 17. Consolidation of #1208 and exact-head repair (496398b)
+
+#1208 is folded into this PR and closed as superseded. The consolidation
+record and the retained G1–G7 gate map are in
+[ALPOGE_ACTUAL_GEOMETRIC_SUPPLIERS_20261124.md](ALPOGE_ACTUAL_GEOMETRIC_SUPPLIERS_20261124.md).
+
+[Run 45418252140](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45418252140)
+on `496398b`: static audits passed; the warning-fatal changed-research
+closure rebuilt 343 modules (the main merge touched widely imported
+kernel sources) and failed after 29 minutes at
+NativeThetaCuspFiniteLevelNorm. The bounded diagnostic pass then reached
+NativeCMSerreSchemeBundle, NativeCMSerreEquationPoints,
+NativeCMSerreBundleGram, NativeCMWeierstrassRationalGlobal,
+NativeCMLineBundleSigmaMetric and a warning in
+NativeCMWeierstrassThetaAtlasMetric before the 35-minute job cap
+cancelled it. The cancellation also skipped the native-prerequisite
+cache save, so the next run would have recompiled the same modules.
+NativeCMSerreMixedPeriods, NativeCMSerreGramForm,
+NativeCMWeierstrassMorphismTangent, ThetaAtlas, OpenPoint, SectionJet,
+RationalSchemeOpen and the CMOpen layer compiled.
+
+Repairs on the same statements (no hypothesis added, nothing weakened):
+
+- FiniteLevelNorm: pass the `IsSB` component to `heis_neg_heis`; finish
+  the `Pi.single` contraction with `Finset.sum_eq_single_of_mem`; rewrite
+  only the target submodule `(C * span {s}) • L = s • (C • L)` because the
+  same ideal indexes `rows` through its coprimality proof; give
+  `Submodule.Quotient.eq` and `mem_smul_pointwise_iff_exists` their
+  explicit arguments; state the additive map for
+  `AddSubgroup.mem_map_iff_mem`; use `finsum_eq_sum_of_fintype`
+  (`finsum_eq_sum` needs a support hypothesis); supply `IsCMField H.E` for
+  the native host as ShiftedVacua already does.
+- SchemeBundle: adopt #1208's rigidification body (see the consolidation
+  record); #1201's body failed at this head.
+- EquationPoints: the tensor scalar case used `smul_tmul'` backwards; use
+  the three-step transport already compiled in `conjugateTensor_smul`.
+- BundleGram: parenthesize `coefficientEvaluation … (fr.x i)`; give
+  `sum_squareGram` its coefficient families explicitly (`?p k.1` is not a
+  higher-order pattern, which exhausted the whnf budget).
+- RationalGlobal: `have` instead of `letI` for the Prop instance (style
+  linter), drop two unused simp arguments, and a bounded 1M heartbeat
+  budget for the two-curve gluing theorem, whose proof mirrors the
+  compiled same-curve proof but exhausted the default budget.
+- LineBundleSigmaMetric: import NativeCMLineBundleGerms (home of
+  `LB.wchart_inter_le`); `Real.exp_int_mul` does not exist in the pinned
+  Mathlib, so derive the integer-power identity from `Real.rpow_intCast`
+  and `Real.exp_mul`; rewrite `Finset.prod_pow` in the needed direction;
+  drop unused simp arguments; omit the unused `Algebra R ℂ` section
+  instance (also in ThetaAtlasMetric).
+- research-iteration.yml: the changed-research job cap is 60 minutes so
+  that compile plus the bounded diagnostic pass reaches the cache save.
+
+These are proof repairs awaiting hosted validation. They do not discharge
+any G1–G7 supplier premise. The hypothesis `h` of
+`nativeSmallEpsilonWindowBound_of_principalCyclic`, the native critical
+estimate and `RiemannHypothesis` remain OPEN.

@@ -144,11 +144,11 @@ theorem integralEvaluation_frame
       rw [map_smul]
       have he : integralEvaluation H G F B
           (1 ⊗ₜ[OK G] (coefficientSerreFrame H G hbar B hB 1).x i) =
-          coefficientEvaluation H G F B (coefficientSerreFrame H G hbar B hB 1).x i :=
+          coefficientEvaluation H G F B ((coefficientSerreFrame H G hbar B hB 1).x i) :=
         (integralEvaluation_tmul H G F B 1 _).trans (one_smul _ _)
       rw [he]
       change integralPairing H G F hbar B hB i t •
-          coefficientEvaluation H G F B (coefficientSerreFrame H G hbar B hB 1).x i ρ = _
+          coefficientEvaluation H G F B ((coefficientSerreFrame H G hbar B hB 1).x i) ρ = _
       exact Algebra.smul_def _ _
 
 /-- The exact four-pullback expression of the constructed tensor bundle,
@@ -186,8 +186,12 @@ theorem tensorOriginGram_eq_sum
       (n : ℂ) * ∑ k : Fin fr.n × Fin fr.n, g k.1 k.2 *
         embeddedPairing H G F hbar B hB σ k.1 t *
         conj (embeddedPairing H G F hbar B hB σ k.2 u) :=
-    SerreGram.sum_squareGram (n : ℂ) _ (embeddedCoefficient_halfRoot H G F σ)
-      g hg _ _
+    -- Supply both coefficient families: `?p k.1` is not a higher-order
+    -- pattern, so leaving them implicit forces unbounded unfolding.
+    SerreGram.sum_squareGram (n : ℂ) (embeddedCoefficient H G F σ (wK G))
+      (embeddedCoefficient_halfRoot H G F σ) g hg
+      (fun i => embeddedPairing H G F hbar B hB σ i t)
+      (fun i => embeddedPairing H G F hbar B hB σ i u)
   rw [he]
   dsimp only [g, fr]
   congr 1

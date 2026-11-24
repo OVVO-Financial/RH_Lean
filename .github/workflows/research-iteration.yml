@@ -25,7 +25,10 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    # A cold-ish closure compile (~30 min) plus the bounded diagnostic pass
+    # (16 min) must still reach the native-prerequisite cache save below;
+    # at 35 minutes the job was cancelled first and every retry recompiled.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       # PR target selection happens in the cheap parent audit. This workflow

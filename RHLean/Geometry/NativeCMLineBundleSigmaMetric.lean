@@ -1,5 +1,6 @@
 import RHLean.Geometry.NativeCMWeierstrassThetaAtlasMetric
 import RHLean.Geometry.NativeCMWeierstrassSectionJet
+import RHLean.Geometry.NativeCMLineBundleGerms
 
 /-!
 # The actual sigma metric on a signed pullback atlas
@@ -65,15 +66,15 @@ open Weierstrass
 variable {R : Type} [CommRing R] [Algebra R ℂ] (W : _root_.WeierstrassCurve R)
     (L : PeriodPair) (C : _root_.WeierstrassCurve.VariableChange ℂ)
 
+omit [Algebra R ℂ] in
 theorem chartNormSq_scalar (i : (originLB W).ι) (z c : ℂ) :
     chartNormSq W L C i z c = ‖c‖ ^ 2 * chartNormSq W L C i z 1 := by
-  simp only [chartNormSq, fiberNormSq, div_eq_mul_inv, norm_mul, mul_pow,
-    norm_one, one_pow, one_mul]
+  simp only [chartNormSq, fiberNormSq, div_eq_mul_inv, norm_mul, mul_pow, one_mul]
   ring
 
 theorem norm_signed_product_sq {K : Type} [Fintype K] (f : K → ℂ) (ε : K → ℤ) :
     ‖∏ k, f k ^ ε k‖ ^ 2 = ∏ k, (‖f k‖ ^ 2) ^ ε k := by
-  rw [norm_prod, Finset.prod_pow]
+  rw [norm_prod, ← Finset.prod_pow]
   refine Finset.prod_congr rfl fun k _ => ?_
   rw [norm_zpow, pow_two, ← mul_zpow, ← pow_two]
 
@@ -99,7 +100,9 @@ theorem signedChartNormSq_gaussian (j : K → (originLB W).ι) (z : Z) (c : ℂ)
     simp only [signedFrame, Finset.prod_inv_distrib, inv_zpow]
   have he : (∏ k, (Real.exp (-π * (latticeForm L (l k z) (l k z)).re)) ^ ε k) =
       Real.exp (-π * ∑ k, (ε k : ℝ) * (latticeForm L (l k z) (l k z)).re) := by
-    simp_rw [← Real.exp_int_mul]
+    have hz (x : ℝ) (n : ℤ) : Real.exp x ^ n = Real.exp (n * x) := by
+      rw [← Real.rpow_intCast, ← Real.exp_mul, mul_comm]
+    simp_rw [hz]
     rw [← Real.exp_sum]
     congr 1
     rw [Finset.mul_sum]
@@ -110,6 +113,7 @@ theorem signedChartNormSq_gaussian (j : K → (originLB W).ι) (z : Z) (c : ℂ)
   simp only [div_eq_mul_inv, norm_mul, mul_pow]
   ring
 
+omit [Algebra R ℂ] in
 theorem signedChartNormSq_zero (j : K → (originLB W).ι) (z : Z) :
     signedChartNormSq W L C l ε j z 0 = 0 := by
   simp only [signedChartNormSq, norm_zero, zero_pow two_ne_zero, zero_mul]

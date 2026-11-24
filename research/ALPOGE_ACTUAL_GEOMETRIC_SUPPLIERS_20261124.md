@@ -26,13 +26,15 @@ against #1201 head `496398bb29800810b32556a97f440eb76b8db508`:
   research closure is always selected.
 - **Discarded:** #1208's AGENTS.md section requiring a PR stacked on
   #1201 (superseded by SINGLE_PR_SINGLE_FRONTIER_V1).
-- **Decided by #1201's exact-head evidence:** #1208's alternative proof
-  bodies for `rigidified_originLinComb` (NativeCMSerreSchemeBundle) and
-  for `mixedSerreExponential_coefficient` /
-  `exists_prescribedMixedSerreExponential` (NativeCMSerreMixedPeriods)
-  prove the same statements as #1201's bodies. Neither branch had a
-  hosted compile of either body; a body is swapped only where #1201's own
-  exact-head diagnostics show its version failing.
+- **Decided by #1201's exact-head evidence** ([run 45418252140](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45418252140)
+  on `496398b`): #1208's alternative proof bodies prove the same
+  statements as #1201's. #1201's `mixedSerreExponential_coefficient` /
+  `exists_prescribedMixedSerreExponential` bodies compiled
+  (NativeCMSerreMixedPeriods built), so they are kept. #1201's
+  `rigidified_originLinComb` body failed (unsolved diagonal-unit goal,
+  coercion mismatch and two unused simp arguments), so #1208's body —
+  `LB.isLB_linComb`/`LB.isLB_pull`, `LB.res_g_self` and `resG_self` on the
+  same chart — is adopted. It still awaits its own hosted compile.
 
 The status is unchanged: these are Lean repairs and bookkeeping, not
 discharge of any G1–G7 premise. The native critical estimate and RH
