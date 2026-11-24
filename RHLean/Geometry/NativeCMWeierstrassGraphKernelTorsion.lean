@@ -72,12 +72,12 @@ theorem torsionι_pow {S : Scheme.{0}} (G : Over S) [GrpObj G] (n : ℕ) :
   congr 1
   exact toUnit_unique _ _
 
--- DVR requires the domain instance as a parameter. Both project to
--- Nontrivial, but neither binder may be dropped from this declaration.
-set_option linter.overlappingInstances false in
+/-- Once etaleness is supplied, the equalizer argument uses only the
+fraction-field injection of a domain. The DVR assumption belongs to the
+wrapper constructing the etale torsion schemes, not to this lemma. -/
 theorem eq_one_of_pow_eq_one_of_comp_eq_one :
-    ∀ (T K : Type) [CommRing T] [IsDomain T] [IsDiscreteValuationRing T] [Field K] [Algebra T K] [IsFractionRing T K] (Ga G : Over (Sp T)) [GrpObj Ga] [GrpObj G] [IsCommMonObj Ga] [IsCommMonObj G] (p : Ga ⟶ G) (n : ℕ), IsMonHom p → IsSeparated Ga.hom → Etale (torsion Ga n).hom → Etale (torsion G n).hom → IsIso ((Over.pullback (spMap (algebraMap T K))).map p) → ∀ (Y : Over (Sp T)) (x : Y ⟶ Ga), x ^ n = 1 → x ≫ p = 1 → x = 1 := by
-  intro T K _ _ _ _ _ _ Ga G _ _ _ _ p n hp hsep hA hB hiso Y x hx hxp
+    ∀ (T K : Type) [CommRing T] [IsDomain T] [Field K] [Algebra T K] [IsFractionRing T K] (Ga G : Over (Sp T)) [GrpObj Ga] [GrpObj G] [IsCommMonObj Ga] [IsCommMonObj G] (p : Ga ⟶ G) (n : ℕ), IsMonHom p → IsSeparated Ga.hom → Etale (torsion Ga n).hom → Etale (torsion G n).hom → IsIso ((Over.pullback (spMap (algebraMap T K))).map p) → ∀ (Y : Over (Sp T)) (x : Y ⟶ Ga), x ^ n = 1 → x ≫ p = 1 → x = 1 := by
+  intro T K _ _ _ _ _ Ga G _ _ _ _ p n hp hsep hA hB hiso Y x hx hxp
   have hq : (torsion.ι Ga n ≫ p) ^ n = 1 := by
     rw [← MonObj.pow_comp, torsionι_pow, MonObj.one_comp]
   let q : torsion Ga n ⟶ torsion G n := torsionLift _ hq

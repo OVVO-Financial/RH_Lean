@@ -800,8 +800,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMAllPlaceTangentPeriod.lean",
-      "sha256": "7098b21da254babdaeb319af29c8484b32ca2e89e01f35d57de90e26246951e1",
-      "lines": 243
+      "sha256": "4b5550557f54389eab0d6732e2ad1d8ff243f8f802db0014053a4095fdd565aa",
+      "lines": 245
     },
     {
       "path": "RHLean/Geometry/NativeCMArithmeticPeriod.lean",
@@ -890,8 +890,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGenerators.lean",
-      "sha256": "7b3f1638bd9a973fb8e3e418a707c2650d7628720b2ef27045c2ff1abaa5e147",
-      "lines": 190
+      "sha256": "4852cddfcc8b66537e155b5a29554d7b01b23a22cc05b3feb15735002fead4cd",
+      "lines": 189
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleGerms.lean",
@@ -1050,7 +1050,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGramForm.lean",
-      "sha256": "2640c71f0dc5aa1834f54a67fe81d258d0218932b7fa8154d896663ca9ce9b8a",
+      "sha256": "4695eff228c09b876af13322c2c8aa4abf03cf2bc0621e82da97395fba77bc73",
       "lines": 156
     },
     {
@@ -1060,8 +1060,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePeriods.lean",
-      "sha256": "ceb5dd1f4f0e9e1bb94b56412f5c059e679e2f1d42b8314ef3139ce200f1afd0",
-      "lines": 420
+      "sha256": "705973ac9e0d02c2856e95031331a53e442d9386c85e0cf7d197e3dfc0400125",
+      "lines": 474
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePolarization.lean",
@@ -1080,8 +1080,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeEigenline.lean",
-      "sha256": "3c6ea508d4697f37ea68dbd7e9f6a81f8813af78d6b796bb309b00de022ee3e0",
-      "lines": 182
+      "sha256": "d26194b7d62a452e2e2e2ea72cba11cb22c08c44ce0d0000bc39ae304cdc136b",
+      "lines": 188
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeGeometry.lean",
@@ -1095,8 +1095,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeMetric.lean",
-      "sha256": "6cde976a017652829391d39cebc92ffd37a0e179253b9996123d7042c1380f5c",
-      "lines": 212
+      "sha256": "de855580379e9c26795ef8545b2eecea08a97506a920a0f6a366a479baac4c1b",
+      "lines": 213
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeTangent.lean",
@@ -1155,8 +1155,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMGlobal.lean",
-      "sha256": "7f207905e0ef3598528ac3f4a30d89322f0d7f372a61cb57fbe619af4b1f554b",
-      "lines": 168
+      "sha256": "b1667f7ea17bbb11c9904fb2578a12b2ad6510718595ccc31abad4ab065d1357",
+      "lines": 169
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMIntegrality.lean",
@@ -1185,7 +1185,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassDvrFlatness.lean",
-      "sha256": "55852fc78d964f457f8f649ea996462b53160cd56ef314cf302d7a8dff3ec196",
+      "sha256": "8d39c8addb5d60939d3b95197e46b781829bd527974620267ab2e45bfd1496f1",
       "lines": 213
     },
     {
@@ -1215,7 +1215,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGeometricKernel.lean",
-      "sha256": "ada955e51a50a298284a715ac5c2d80388347ffb779590cb07790ba7746cc066",
+      "sha256": "d6783fab9b71541a6b9c09b7c694ea4dec09fa93434a83c9f66a590d4b0b5560",
       "lines": 251
     },
     {
@@ -1235,7 +1235,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGraphKernelTorsion.lean",
-      "sha256": "4c199515515e0c56168381fbdb0e26e8613bf403a592e652d88048037cca44e2",
+      "sha256": "2d64d34a8bb31f5fd8e34cabaf9e27b3e85bb5833400c5d9602f11a65b107af3",
       "lines": 133
     },
     {
@@ -1260,7 +1260,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralExtension.lean",
-      "sha256": "abd900dd336975e0a4f6665b7f09d0135a2a76e18da7207a11beae1bfc9a3cfb",
+      "sha256": "4b635ad096b9f561edf63d3ddaf7f39b4cad54694c9c443ef5bf284d5371ccbe",
       "lines": 218
     },
     {
@@ -1285,8 +1285,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassLocalFlatness.lean",
-      "sha256": "61100097a4e278b4e86428ca9c19505adfc1b58eb0ef114a8922f595cb4295df",
-      "lines": 465
+      "sha256": "f433c52686b4184feef7c8feb7ea01f090d7803021ea3d7828b347266f745d32",
+      "lines": 467
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassModularJ.lean",
@@ -1300,8 +1300,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationEtale.lean",
-      "sha256": "374cd03ef4c21fa6d060fa4da22e9a707dd657d467c01f37dae25ff1d6bef504",
-      "lines": 112
+      "sha256": "00684af7e6d7d9032699b568be52289a570049b25940f6c55215a5de3696f29a",
+      "lines": 124
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationUnramified.lean",
@@ -1310,8 +1310,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassNormalizedModel.lean",
-      "sha256": "e36321a0caba0f5717addc5c582c275d0f69ba339f58835ab8a1041786b6b770",
-      "lines": 225
+      "sha256": "6b1d50ff83aa8ad10c5f620aaf7057d030171eff4abecac4d79ceced9fa3fbea",
+      "lines": 230
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOpenPoint.lean",
@@ -1370,8 +1370,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPeriodUniqueness.lean",
-      "sha256": "f7af4575e280171fc87569f74a66d734d804ee8e0038aebb8d3908d513ba6898",
-      "lines": 157
+      "sha256": "eec62d55a98d32ac9b2fd381a056c1107073723168788924bfe4a0d0c14e5b70",
+      "lines": 158
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPointChange.lean",
@@ -1425,7 +1425,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIsogeny.lean",
-      "sha256": "92308ec103d8cc319d48b8829cb0ded418894a106df2624f7359d354de2e5e2a",
+      "sha256": "1824911801aed056e6271161476f1527ff8a2855c52f3871817a958cb8203608",
       "lines": 146
     },
     {
@@ -1445,7 +1445,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRelativePoints.lean",
-      "sha256": "e266df9f238455ec99b09601197358585be4527957e8f79657628011c102ad64",
+      "sha256": "4ddc206ff02cf8db9dc444fe94a74f47339ff1e857e216f3d698b732875d1d59",
       "lines": 66
     },
     {
@@ -1490,7 +1490,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSmallTorsion.lean",
-      "sha256": "00260a74303b74a9b66e05a402d081d57b30df0d98c65056d16a128aa5289a97",
+      "sha256": "2caee268cb61a30282034522cf8b363fbaffac79cd39af5b03f5f3a0ccc2bed5",
       "lines": 105
     },
     {
@@ -1520,13 +1520,13 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaFrame.lean",
-      "sha256": "bf7476b70eabe0b6f810b1dcc6d54dbf109f3c13bc7aa952939234f5f8b7348c",
-      "lines": 148
+      "sha256": "5b196e126ddaf5c362d9e6aa977a407f5deb74de65f9bc46a1d28cb64c2caa95",
+      "lines": 147
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaMetric.lean",
-      "sha256": "54ef766de2ee4c93144c2863f1130d10d6216ec71ace01a772ba6e09bbb3742b",
-      "lines": 109
+      "sha256": "24eae5a246ac50f06e22ea9968b5c4030a9d04434c0e9aae4c2e50162d6aa835",
+      "lines": 110
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTorsion.lean",
@@ -1535,7 +1535,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTorsionAlgebraicity.lean",
-      "sha256": "bf3e8b64f54fd2816aaaa708cd88d1d2d3df9f765ecd447e5975c8f435484d8b",
+      "sha256": "b586edd9e5329f7c295ae7e9db8c066a3d448fb995612296d40ef9f897c5d642",
       "lines": 313
     },
     {
@@ -1545,8 +1545,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationScheme.lean",
-      "sha256": "09887f5ae429209b6074e9351154c884aaee40994c84f158a8b2726dc10a7a1c",
-      "lines": 262
+      "sha256": "24d37348a586c2d01a6ebedb18d01808e66bbf5b36d59df928eddd1285f86799",
+      "lines": 266
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassZeta.lean",
@@ -1560,8 +1560,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeMeasuredComponentNorm.lean",
-      "sha256": "d8de7c8922f2a0cec7a494fed84d382ec0e7cd3ddf6d10576d5c0d889f0d7824",
-      "lines": 412
+      "sha256": "5b1a03f79e2f592f1c7c35139bbcd3925e3b1d88c1e86e915f8a93308d271a96",
+      "lines": 413
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspAmbient.lean",
@@ -1570,7 +1570,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspAuxiliaryLattices.lean",
-      "sha256": "1222a69a269c701533b7d3b72684e057a34d1df68ac4d5f46d4f2381aa53bb85",
+      "sha256": "562de3a9e13b67ef82a8b41849bd260bea7ff95a6a60ba91bb17f94b7d640a7d",
       "lines": 224
     },
     {
@@ -1620,7 +1620,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFiniteLevelNorm.lean",
-      "sha256": "a20e6e6278992bbffb51a271fd8f506acb6238b33163765c372881b38083ee64",
+      "sha256": "2d90f57815120ce453dcc429007b917464790051ecd15d6a05166bf4e98d082c",
       "lines": 464
     },
     {
@@ -1775,8 +1775,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchemeTorsion.lean",
-      "sha256": "db6e0e163caa789b92afc6d2720a6932e9cf2485408e10f177868c647e154493",
-      "lines": 395
+      "sha256": "3a1b5a57f36013fc37e5e8e4e1de2aa91f55ccd02b48595b1816b5c4f7e7b948",
+      "lines": 396
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchwartz.lean",
@@ -1805,8 +1805,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspShiftedPhase.lean",
-      "sha256": "9b127a255fa53aa55a9c5fa615e0cd7cbac9f947406966559af8f6e7d2591620",
-      "lines": 169
+      "sha256": "98aa4fb4643f21fb7b8d0b68c4bd229fcd2b56ad5daa7f2a203220330efb1907",
+      "lines": 174
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspShiftedVacua.lean",
@@ -1830,8 +1830,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTensorLattices.lean",
-      "sha256": "72533538aad481e07ebf315c3cbdf21524dd25083a95e8a45064389c4e39e0a8",
-      "lines": 442
+      "sha256": "61cd3e141e46ad20089d38733c8ad7e08e958c61232c9616ca404d8241b0b65c",
+      "lines": 445
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTensorVacua.lean",

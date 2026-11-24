@@ -2,6 +2,33 @@
 
 For any RH-strength claim, read [the full semantic-risk audit](research/RHLEAN_FULL_SEMANTIC_RISK_AUDIT_20261124.md). Preserve the current proof-supplier and native-bound priority: no extra reconstruction merely for its own sake. Run the source census on all tracked Lean files and inspect the actual kernel theorem type, complete Pi telescope, original arithmetic source definitions, and independently earned geometry/rank/mass/height constructors. Treat scanner hits as candidates, not defects; no theorem may be counted as an unconditional supplier merely because its proof compiles or has permitted axioms. Do not use the raw window witness or assumed degree/slope fields as if they were independently proved. A literal exact root RiemannHypothesis candidate requires independent terminal-axiom, full supplier, same-data, and quantifier review before changing the open-phase guard. A closed type is necessary, not sufficient for modelling the intended arithmetic. No human-only merge or role permissions change.
 
+## #1201 — one PR, one proof frontier, one verification cycle (latest user directive)
+
+**SINGLE_PR_SINGLE_FRONTIER_V1 (2026-11-24):** All native RH completion
+work lands directly on #1201's branch. Do not open stacked, parallel or
+"dedicated supplier" PRs for any part of the same dependency chain:
+#1208 was closed as superseded after its useful repairs were consolidated
+here; its G1–G7 gate map is retained in
+[the consolidated supplier gates](research/ALPOGE_ACTUAL_GEOMETRIC_SUPPLIERS_20261124.md).
+Order of work: (1) the string across the chasm — establish the complete
+unconditional supplier chain on #1201 by applying Alpöge's existing
+mathematics, terminating in the hypothesis `h` of
+`nativeSmallEpsilonWindowBound_of_principalCyclic` and #1205's
+`riemannHypothesis_of_smallEpsilonWindowBound`; (2) verify #1201 —
+green hosted checks, independently earned geometric witnesses, exact
+arithmetic correspondence, complete dependency and semantic audit;
+(3) only then the stone bridge (native simplification). One
+verification cycle per exact head: read the complete diagnostic pass of
+the previous head, batch every known repair, and never introduce a
+second competing proof body for a declaration from another branch.
+#1201 is the intended final proof PR, not another conditional reduction;
+its unconditional closure is OPEN until a closed `RiemannHypothesis`
+theorem passes the full hosted and semantic gate. Hosted-only Lean,
+human-only merge, source integrity and report continuity are unchanged.
+This edit launches no agents and changes no schedules.
+
+---
+
 ## #1201 — VerifyTask exact-supplier integration (2026-11-24)
 
 **NATIVE_VERIFYTASK_EXACT_SUPPLIERS_V1:** Follow the pinned
