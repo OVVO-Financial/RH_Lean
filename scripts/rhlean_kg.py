@@ -1081,6 +1081,10 @@ def closed_propositions(nodes: dict[str, dict]) -> set[str]:
     for name, entry in nodes.items():
         if entry.get("kind") not in ("def", "abbrev"):
             continue
+        if "kernel_closed_prop" in entry:
+            if entry["kernel_closed_prop"]:
+                out.add(name)
+            continue
         m = _CLOSED_PROP_RE.match(str(entry.get("statement_preview", "")))
         if m and not m.group(2).strip():
             out.add(name)
@@ -1106,7 +1110,7 @@ def compute_status(
     """
 
     closed = closed_propositions(nodes)
-    all_props = prop_valued_defs(nodes)
+    all_props = prop_valued_defs(nodes) | closed
     assumed_all: dict[str, list[str]] = {}
     rules: dict[str, list[tuple[set[str], str]]] = defaultdict(list)
     refutes: dict[str, list[tuple[set[str], str]]] = defaultdict(list)
@@ -1192,7 +1196,11 @@ def compute_status(
         if kind in PROOF_KINDS:
             if tags is not None and "no-go" in tags[name]["roles"]:
                 status[name] = STATUS_NOGO
-            elif any(a not in proved_props for a in assumed_all.get(name, ())):
+            elif (any(a not in proved_props for a in assumed_all.get(name, ()))
+                  or (entry.get("hard_blocked") and (
+                      entry.get("kernel_returns_rh") or
+                      (entry.get("conclusion_form") in ("named", "not", "iff")
+                       and set(entry.get("conclusion_refs", ())) & closed)))):
                 status[name] = STATUS_REDUCED
             else:
                 status[name] = STATUS_PROVED

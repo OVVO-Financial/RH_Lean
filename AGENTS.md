@@ -1,3 +1,7 @@
+## 2026-11-24 — mandatory semantic proof-integrity review
+
+For any RH-strength claim, read [the full semantic-risk audit](research/RHLEAN_FULL_SEMANTIC_RISK_AUDIT_20261124.md). Preserve the current proof-supplier and native-bound priority: no extra reconstruction merely for its own sake. Run the source census on all tracked Lean files and inspect the actual kernel theorem type, complete Pi telescope, original arithmetic source definitions, and independently earned geometry/rank/mass/height constructors. Treat scanner hits as candidates, not defects; no theorem may be counted as an unconditional supplier merely because its proof compiles or has permitted axioms. Do not use the raw window witness or assumed degree/slope fields as if they were independently proved. A literal exact root RiemannHypothesis candidate requires independent terminal-axiom, full supplier, same-data, and quantifier review before changing the open-phase guard. A closed type is necessary, not sufficient for modelling the intended arithmetic. No human-only merge or role permissions change.
+
 ## #1201 — VerifyTask exact-supplier integration (2026-11-24)
 
 **NATIVE_VERIFYTASK_EXACT_SUPPLIERS_V1:** Follow the pinned
