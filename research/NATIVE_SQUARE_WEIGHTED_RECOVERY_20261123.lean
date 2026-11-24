@@ -44,10 +44,9 @@ theorem nativeSquareSurvivorWeight_eq_prime_add_composite
     {A R : ℕ} (hR : 2 ≤ R) (hAR : A ≤ R) (w : ℕ → ℝ) :
     nativeSquareSurvivorWeight A R w =
       nativeSquarePrimeWeight R w + nativeSquareCompositeWeight A R w := by
-  rw [nativeSquareSurvivorWeight,
-    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite hR hAR,
+  unfold nativeSquareSurvivorWeight nativeSquarePrimeWeight nativeSquareCompositeWeight
+  rw [vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite hR hAR,
     Finset.sum_union (vfMidSquareWheelPrimes_disjoint_prefixComposite A R)]
-  rfl
 
 /-- The dyadic sign classification survives arbitrary weights; no absolute
 values, probability law, or replacement coefficient field is introduced. -/
@@ -119,9 +118,9 @@ channel, with every original weight retained. -/
 theorem nativeSquareSurvivorWeight_full
     {R : ℕ} (hR : 2 ≤ R) (w : ℕ → ℝ) :
     nativeSquareSurvivorWeight R R w = nativeSquarePrimeWeight R w := by
-  rw [nativeSquareSurvivorWeight, vfMidSquarePrefixWheelSurvivors_full,
+  unfold nativeSquareSurvivorWeight nativeSquarePrimeWeight
+  rw [vfMidSquarePrefixWheelSurvivors_full,
     vfMidSquareWheelSurvivors_eq_primes R hR]
-  rfl
 
 theorem nativeSquareCompositeWeight_full
     {R : ℕ} (hR : 2 ≤ R) (w : ℕ → ℝ) :

@@ -9,14 +9,19 @@ The three-obligation plan was attacked on its actual native source. This
 change supplies a weighted integral recovery calculation, the complete
 candidate/removal source identity, a quantitative weakening of the period
 requirement in the global gain comparison, and an explicit scalar choice
-`m=R`, `k=(R²−1)R` on the existing dyadic host.
+`m=R`, `k=(R²−1)R` on the existing dyadic host. It also attaches the
+existing actual lattice and nonzero theta sections to those parameters,
+using one common half-different ideal, and tests iterated wheel recovery
+on the actual prime-power coefficients.
 
 **The complete P1/P2/P3 family and the critical bound remain OPEN.**
 The new finite recovery has two channels. It has not been identified with
 the physical `Ga`, and its measured energy cost does not earn multiplicity
 of order `R`. The global cost theorem still requires the measured degree,
 rank and slope premises on that same family. The scalar realization is not
-a geometric realization.
+the missing physical realization; the separately constructed base lattice
+and theta sections do not yet supply the recovery, degree, localized-height,
+and simultaneous loss estimates.
 
 At the initial commit, proof scripts and independent mathematical reviews
 are complete; hosted compilation and terminal-axiom checks are pending.

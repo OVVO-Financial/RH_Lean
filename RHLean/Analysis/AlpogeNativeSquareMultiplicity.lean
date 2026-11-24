@@ -87,12 +87,13 @@ theorem alpogeNativeSquareMultiplicity_lattice_sizes
     x * (m : ℝ) ≤ x * x ^ ((1 : ℝ) / 2 + ε / 2) :=
       mul_le_mul_of_nonneg_left hm hx0.le
     _ = x ^ (1 + ((1 : ℝ) / 2 + ε / 2)) := by
-      rw [Real.rpow_add hx0, Real.rpow_one]
+      simpa only [Real.rpow_one] using
+        (Real.rpow_add hx0 (1 : ℝ) ((1 : ℝ) / 2 + ε / 2)).symm
     _ ≤ x ^ (2 + ((1 : ℝ) / 2 - ε)) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith)
     _ = x ^ 2 * x ^ ((1 : ℝ) / 2 - ε) := by
-      rw [Real.rpow_add hx0]
-      norm_num
+      simpa only [Real.rpow_two] using
+        Real.rpow_add hx0 (2 : ℝ) ((1 : ℝ) / 2 - ε)
     _ ≤ (n : ℝ) ^ 2 * x ^ ((1 : ℝ) / 2 - ε) :=
       mul_le_mul_of_nonneg_right hnn (Real.rpow_nonneg hx0.le _)
 
