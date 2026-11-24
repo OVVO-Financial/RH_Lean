@@ -138,49 +138,95 @@ theorem orderSchemeMorphism_points (a : OK G)
   classical
   have hz (n : ℤ) (Q : (V.baseChange ℂ).toAffine.Point) :
       ofAffinePoint V ℂ (n • Q) = ofAffinePoint V ℂ Q ^ n :=
-    (affinePointMulEquiv V ℂ).map_zpow (Multiplicative.ofAdd Q) n
+    map_zpow (affinePointMulEquiv V ℂ).toMonoidHom (Multiplicative.ofAdd Q) n
   rw [orderSchemeMorphism, MonObj.comp_mul, GrpObj.comp_zpow, Category.comp_id,
-    GrpObj.comp_zpow, hf, ← hz, ← hz, ← ofAffinePoint_add, ← map_zsmul, ← map_zsmul,
-    ← map_add, ← rescaledOrderAction_coordinates]
+    GrpObj.comp_zpow, hf]
+  let m := (coordEquiv G).symm a
+  let e := (pointCongr hVC).symm
+  calc
+    _ = ofAffinePoint V ℂ (m.1 • e P) *
+        ofAffinePoint V ℂ (m.2 • e (rescaledCMAction G τ C P)) :=
+      congrArg₂ (· * ·) (hz m.1 (e P)).symm
+        (hz m.2 (e (rescaledCMAction G τ C P))).symm
+    _ = ofAffinePoint V ℂ (m.1 • e P + m.2 • e (rescaledCMAction G τ C P)) :=
+      (ofAffinePoint_add V ℂ _ _).symm
+    _ = _ := by
+      have hsum : m.1 • e P + m.2 • e (rescaledCMAction G τ C P) =
+          e (rescaledOrderAction G τ C a P) := by
+        calc
+          _ = e (m.1 • P) + e (m.2 • rescaledCMAction G τ C P) :=
+            congrArg₂ (· + ·) (map_zsmul e m.1 P).symm
+              (map_zsmul e m.2 (rescaledCMAction G τ C P)).symm
+          _ = e (m.1 • P + m.2 • rescaledCMAction G τ C P) :=
+            (map_add e _ _).symm
+          _ = _ := congrArg (fun Q => e Q)
+            (rescaledOrderAction_coordinates G τ C a P).symm
+      exact congrArg (ofAffinePoint V ℂ) hsum
 
+include hf in
 /-- The original quadratic order acts by actual finite-field scheme
 morphisms. The one, multiplication and addition laws are proved over F. -/
 def schemeOrderAction [IsMonHom f] : OAct (OK G) (schemeOver V) where
   act := orderSchemeMorphism G V f
   hom := isMonHom_orderSchemeMorphism G V f
   one := by
+    have : LocallyOfFiniteType (schemeOver V).hom :=
+      inferInstanceAs (LocallyOfFiniteType (toSpec V))
     apply GeometricPoints.over_hom_ext_of_embedded_points (K := ℂ)
     intro x
     obtain ⟨P, rfl⟩ := (affinePointEquiv V ℂ).surjective x
     obtain ⟨Q, rfl⟩ := (pointCongr hVC).symm.surjective P
-    rw [orderSchemeMorphism_points G V f τ C hVC hf, rescaledOrderAction_one,
-      Category.comp_id]
+    change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+        orderSchemeMorphism G V f 1 =
+      ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫ 𝟙 (schemeOver V)
+    rw [orderSchemeMorphism_points G V f τ C hVC hf 1 Q,
+      rescaledOrderAction_one, Category.comp_id]
   mul a b := by
+    have : LocallyOfFiniteType (schemeOver V).hom :=
+      inferInstanceAs (LocallyOfFiniteType (toSpec V))
     apply GeometricPoints.over_hom_ext_of_embedded_points (K := ℂ)
     intro x
     obtain ⟨P, rfl⟩ := (affinePointEquiv V ℂ).surjective x
     obtain ⟨Q, rfl⟩ := (pointCongr hVC).symm.surjective P
-    rw [← Category.assoc, orderSchemeMorphism_points G V f τ C hVC hf,
-      orderSchemeMorphism_points G V f τ C hVC hf,
-      orderSchemeMorphism_points G V f τ C hVC hf, rescaledOrderAction_mul]
+    change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+        orderSchemeMorphism G V f (a * b) =
+      ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+        (orderSchemeMorphism G V f a ≫ orderSchemeMorphism G V f b)
+    rw [← Category.assoc,
+      orderSchemeMorphism_points G V f τ C hVC hf (a * b) Q,
+      orderSchemeMorphism_points G V f τ C hVC hf a Q,
+      orderSchemeMorphism_points G V f τ C hVC hf b (rescaledOrderAction G τ C a Q),
+      rescaledOrderAction_mul]
   add a b := by
+    have : LocallyOfFiniteType (schemeOver V).hom :=
+      inferInstanceAs (LocallyOfFiniteType (toSpec V))
     apply GeometricPoints.over_hom_ext_of_embedded_points (K := ℂ)
     intro x
     obtain ⟨P, rfl⟩ := (affinePointEquiv V ℂ).surjective x
     obtain ⟨Q, rfl⟩ := (pointCongr hVC).symm.surjective P
-    rw [MonObj.comp_mul, orderSchemeMorphism_points G V f τ C hVC hf,
-      orderSchemeMorphism_points G V f τ C hVC hf,
-      orderSchemeMorphism_points G V f τ C hVC hf, rescaledOrderAction_add,
-      map_add, ofAffinePoint_add]
+    change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+        orderSchemeMorphism G V f (a + b) =
+      ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+        (orderSchemeMorphism G V f a * orderSchemeMorphism G V f b)
+    rw [MonObj.comp_mul,
+      orderSchemeMorphism_points G V f τ C hVC hf (a + b) Q,
+      orderSchemeMorphism_points G V f τ C hVC hf a Q,
+      orderSchemeMorphism_points G V f τ C hVC hf b Q,
+      rescaledOrderAction_add, map_add, ofAffinePoint_add]
 
 theorem schemeOrderAction_wK [IsMonHom f] :
     (schemeOrderAction G V f τ C hVC hf).act (wK G) = f := by
+  have : LocallyOfFiniteType (schemeOver V).hom :=
+    inferInstanceAs (LocallyOfFiniteType (toSpec V))
   apply GeometricPoints.over_hom_ext_of_embedded_points (K := ℂ)
   intro x
   obtain ⟨P, rfl⟩ := (affinePointEquiv V ℂ).surjective x
   obtain ⟨Q, rfl⟩ := (pointCongr hVC).symm.surjective P
-  change _ ≫ orderSchemeMorphism G V f (wK G) = _
-  rw [orderSchemeMorphism_points G V f τ C hVC hf, rescaledOrderAction_wK, hf]
+  change ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫
+      orderSchemeMorphism G V f (wK G) =
+    ofAffinePoint V ℂ ((pointCongr hVC).symm Q) ≫ f
+  rw [orderSchemeMorphism_points G V f τ C hVC hf (wK G) Q,
+    rescaledOrderAction_wK, hf]
 
 /-- Exact multiplication on the original period parameter for every order
 element, with no change to the original coordinate scale. -/
