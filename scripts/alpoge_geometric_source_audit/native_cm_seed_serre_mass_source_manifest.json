@@ -1065,8 +1065,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePolarization.lean",
-      "sha256": "b81c76e9a3c721e0b8fc0a0f1f55ae57990ab14f7b78ac2c23ddbb6f4b198c02",
-      "lines": 184
+      "sha256": "c25e37be7ba8a53c37f5842381a9f5854983a8b9694b4489982712346781d4dc",
+      "lines": 191
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeAction.lean",
@@ -1295,8 +1295,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMorphismTangent.lean",
-      "sha256": "c3598a17f69215ee410201e87f8ff8992ea4e549c740ccdbd3098f55d8f08c72",
-      "lines": 294
+      "sha256": "42488e58ce7b22b940ccdc92f4b81ff850bd50232b822ee2aa397269a52a03c9",
+      "lines": 312
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassMultiplicationEtale.lean",
@@ -1315,8 +1315,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOpenPoint.lean",
-      "sha256": "8b5f47c6409552bd7786739d5606b99a00c82be8fbc36b45a46f8b058ad1c8a5",
-      "lines": 136
+      "sha256": "126e072bd9e1facb3ab2149f765fc26e1686ca22e751ff19d6048e15a85636e6",
+      "lines": 151
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOriginAmple.lean",
@@ -1505,8 +1505,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaAtlas.lean",
-      "sha256": "66a12e27c6a93d69bffc3c36996aeb0a9bc1a31aff2fac88cd733f0fb95bf4bd",
-      "lines": 236
+      "sha256": "05a5e511192eb566001073d390120a4f9b2a61c770762f9ab7dff900901d4fcb",
+      "lines": 267
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassThetaAtlasMetric.lean",
@@ -1540,8 +1540,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationGroup.lean",
-      "sha256": "5a6c8195b9329aca214314d52718d615a6ae819328df51233dba59e2cffe0a31",
-      "lines": 167
+      "sha256": "d007e3b8b736361d8086cafc79f3df0e697484ef08ad2d9c5041f1544ef1d134",
+      "lines": 178
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationScheme.lean",
@@ -1835,8 +1835,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTensorVacua.lean",
-      "sha256": "07bf6b96b36a695c9e5ba6a21e2ad5bb912c41d05c3730ba2a7ee2ad88c8a051",
-      "lines": 225
+      "sha256": "80cf169de2a2e32c7e92b0851361530fe915ab9121cc8cc80bd2657273df6481",
+      "lines": 231
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspTransformationComposition.lean",
@@ -2004,6 +2004,13 @@
       "run_id": 45393478344,
       "preflight_job_id": 138443224895,
       "result": "PREFLIGHT_FAILED_DOWNSTREAM_GEOMETRY_PRINCIPAL_CYCLIC_MODULE_BUILT",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "92f46c80a678df7f05f4741437068b51607b643c",
+      "run_id": 45397859051,
+      "preflight_job_id": 138458541468,
+      "result": "PREFLIGHT_FAILED_SIX_REACHED_GEOMETRY_MODULES; CROSS_MODEL_RATIONAL_IDENTITY_AND_LOCALIZED_MAP_CMOPEN_SHIFTED_VACUA_BUILT",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

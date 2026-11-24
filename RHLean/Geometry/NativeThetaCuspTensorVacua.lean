@@ -65,13 +65,9 @@ theorem relativeIndex (A A' : AddSubgroup (Matrix (Fin n) (Fin (k + m - 1)) H.E)
     (A'.map (ShiftedVacua.coordinates H B hB b).toLinearMap.toAddMonoidHom).relIndex
         (A.map (ShiftedVacua.coordinates H B hB b).toLinearMap.toAddMonoidHom) =
       A'.relIndex A := by
-  symm
-  let e := ShiftedVacua.coordinates H B hB b (κ := Fin n)
-  refine PseudoBasis.relIndex_eq_of_hom e.toLinearMap.toAddMonoidHom
-    (fun y hy => AddSubgroup.mem_map_of_mem _ hy) (fun y hy => ?_) ?_
-  · exact AddSubgroup.mem_map_iff_mem e.injective
-  · rintro _ ⟨y, hy, rfl⟩
-    exact ⟨y, hy, by rw [sub_self]; exact zero_mem _⟩
+  exact AddSubgroup.relIndex_map_map_of_injective
+    (f := (ShiftedVacua.coordinates H B hB b (κ := Fin n)).toLinearMap.toAddMonoidHom)
+    _ _ (ShiftedVacua.coordinates H B hB b (κ := Fin n)).injective
 
 include hΨ hconj hbar hk hj hb in
 /-- The complete finite-vacuum hypotheses are proved on every actual
@@ -81,7 +77,9 @@ theorem good_tensor {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
     (hL : SelfDual H (negTail (k + m - 1) (m - j)) L) :
     FiniteOverlap.Good (ShiftedVacua.phase H B hB G k m j b)
       (lattice H B hB k m b Λ L) := by
-  let e := ShiftedVacua.coordinates H B hB b (κ := Fin n)
+  let e : Matrix (Fin n) (Fin (k + m - 1)) H.E ≃ₗ[ℚ]
+      (Matrix (Fin n) ι ℚ × Matrix (Fin n) ι ℚ) :=
+    ShiftedVacua.coordinates H B hB b (κ := Fin n)
   have hp (y y' : Matrix (Fin n) (Fin (k + m - 1)) H.E) :
       FiniteOverlap.omega (e y) (e y') =
         ∑ a, Ambient.pair H (negTail (k + m - 1) (m - j)) (y a) (y' a) :=
@@ -91,27 +89,32 @@ theorem good_tensor {M : ℕ} {Λ : Lt H.E n} (hΛ : Λ ∈ Vset H n M)
     constructor
     · rintro ⟨y, hy, rfl⟩ p' ⟨y', hy', rfl⟩
       obtain ⟨z, hz⟩ := (tens_selfDual H hΛ hL y).1 hy y' hy'
-      exact ⟨z, by rw [hp, hz]⟩
+      exact ⟨z, (hp y y').trans hz⟩
     · intro h
       have hy : e.symm p ∈ tens Λ L := by
         apply (tens_selfDual H hΛ hL _).2
         intro y' hy'
         obtain ⟨z, hz⟩ := h (e y') (AddSubgroup.mem_map_of_mem _ hy')
-        refine ⟨z, ?_⟩
-        rw [← hp, e.apply_symm_apply]
+        refine ⟨z, (hp (e.symm p) y').symm.trans ?_⟩
+        rw [e.apply_symm_apply]
         exact hz
-      have hm := AddSubgroup.mem_map_of_mem e.toLinearMap.toAddMonoidHom hy
-      simpa only [LinearEquiv.apply_symm_apply] using hm
+      have hm : e (e.symm p) ∈ lattice H B hB k m b Λ L :=
+        AddSubgroup.mem_map_of_mem e.toLinearMap.toAddMonoidHom hy
+      rw [e.apply_symm_apply] at hm
+      exact hm
   · rintro _ ⟨y, hy, rfl⟩
     have hs := phase_semichar H hΛ hL G.w0 (ShiftedPhase.prescribed_halfRoot H G hbar) hy
     constructor
-    · simpa only [ShiftedVacua.phase, LinearEquiv.symm_apply_apply] using hs.1
+    · change ShiftedPhase.phase H _ G.w0 (e.symm (e y)) ^ 2 = 1
+      rw [e.symm_apply_apply]
+      exact hs.1
     · rintro _ ⟨y', hy', rfl⟩
       change ShiftedPhase.phase H _ G.w0 (e.symm (e y + e y')) =
         ShiftedPhase.phase H _ G.w0 (e.symm (e y)) *
           ShiftedPhase.phase H _ G.w0 (e.symm (e y')) *
             Complex.exp (Real.pi * Complex.I * ((FiniteOverlap.omega (e y) (e y') : ℚ) : ℂ))
-      rw [map_add, e.symm_apply_apply, e.symm_apply_apply, hp]
+      simp only [map_add, e.symm_apply_apply]
+      rw [hp y y']
       exact hs.2 y' hy'
 
 include hΨ hconj hbar hk hj hb in
@@ -172,6 +175,7 @@ theorem shifted_family {P : Ideal (𝓞 H.E)} (hP0 : P ≠ ⊥) (hP1 : P ≠ ⊤
       FiniteOverlap.IsVac (ShiftedVacua.phase H B hB G k m j b)
         (lattice H B hB k m b Λ L') v' ∧
       ((L'.toAddSubgroup.relIndex L.toAddSubgroup : ℝ) ^ n) * ‖ip v v'‖ ^ 2 = 1 := by
+  dsimp only
   intro M Λ hΛ
   have hL := twisted_selfDual H B hB (negTail (k + m - 1) (m - j))
   have hL' := selfDual_idq H (negTail (k + m - 1) (m - j)) hP0 hP1 hPc hL
@@ -192,6 +196,7 @@ theorem exists_native_tensor_vacua
       differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) (n : ℕ) :
     let H := nativeDyadicHostRaw e q d he hH
+    let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
     let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
       (nativeDyadicHostAx e q d he hH).der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
@@ -210,6 +215,7 @@ theorem exists_native_tensor_vacua
             (lattice H B hB k m b Λ L') v' ∧
           ((L'.toAddSubgroup.relIndex L.toAddSubgroup : ℝ) ^ n) * ‖ip v v'‖ ^ 2 = 1 := by
   let H := nativeDyadicHostRaw e q d he hH
+  let _ : IsCMField H.E := (nativeDyadicHostAx e q d he hH).der.cm
   let _ : IsCMField (nativeDyadicHostAx e q d he hH).E :=
     (nativeDyadicHostAx e q d he hH).der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
