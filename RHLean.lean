@@ -74,6 +74,7 @@ import RHLean.Analysis.AlpogeNativeQuadraticDifferent
 import RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis
 import RHLean.Analysis.AlpogeNativeQuadraticPrimeSigns
 import RHLean.Analysis.AlpogeNativeQuadraticRoot
+import RHLean.Analysis.AlpogeNativeQuadraticRecovery
 import RHLean.Analysis.AlpogeNativeQuadraticSignRoot
 import RHLean.Analysis.AlpogeNativeQuadraticSplitting
 import RHLean.Analysis.AlpogeNativeReciprocitySurjective

@@ -202,3 +202,112 @@ the attempted eq_self simp argument was unused. The correction now
 explicitly closes the remaining goal after product simplification, using
 reflexivity or unit extensionality. The original theorem is unchanged.
 Full hosted preflight and axiom audit remain mandatory.
+
+
+## 5. Replace whole functions of the 43 conditions, not their literal forms
+
+The user has explicitly clarified that the 43 rows are a coverage map,
+not a construction mandate. The invariant is the complete native
+prime-power source, its exact centering, an independently earned gain
+on that same source, every normalized cost, and uniformity. The actual
+signed-excess estimate remains OPEN. The following two new finite
+inequalities replace additional numerical and recovery requirements;
+neither claims the geometric family has been constructed.
+
+### Signed quadratic height recovery
+
+Write S(x) for the literal principal prime-power ramp sum. The existing
+ordered bounds prove at every positive x,y
+
+    S(y)-S(x) >= (y-x)*nativeLambdaRecip(floor(x)).
+
+This is the supporting line of the convex piecewise-affine sum, valid
+even at prime-power jumps. Since log(y/x)<=y/x-1,
+
+    y log y - x log x - (log x+1)*(y-x) <= (y-x)^2/x.
+
+Keeping the affine Euler term gives the genuinely one-sided inequality
+
+    Gz(x) <= Gz(y) + s(x)*(x-y) + (x-y)^2/x,
+    s(x) = nativeLambdaRecip(floor(x)) - log x + gamma.
+
+Sum over the same physical heights v_t=a_t/b and divide by the actual
+nonzero top count. If their signed mean equals x, the first-order
+term vanishes exactly, and the recovery debt is the variance divided
+by x. Otherwise the signed first-moment term remains; it need not be
+separately absolutized. The theorem is unconditional arithmetic, not
+a bound on Gz itself. The native source is unchanged.
+
+For example, mean-square displacement <=3*x^(3/2+eps) costs at most
+3*x^(1/2+eps); the RMS allowance is of order x^(3/4+eps/2).
+This exceeds the absolute-displacement scale of the preceding section.
+A centered spread above x+1 is NOT permitted by the current analytic
+payment at scale x. To exploit the wider symmetric spread use the
+existing selected family at a comparable larger scale s, with
+Amax/b<=s+1 and s<=2*x, or separately relax its upper-height premise
+and prove the cost. All physical heights still belong to the selected
+analytic window. For fixed exponents the comparison s<=2*x changes
+only the constant, which the native handoff permits. No geometric
+selection of such centered families is claimed.
+
+### Smaller rank window from the exact joint cost ratios
+
+Let E>=1, with T,Delta,n,m,b,k all positive and aE>=0. The existing
+normalization is exactly
+
+    B/Q = 2*aE/(m*b*Delta)*(1+m^2/k)
+          + 4*n*m*E/(T*Delta) + 2*k*E^2/(n*T).
+
+The new arithmetic theorem proves B/Q <=18*m*E^3 from only
+
+    aE <= 2*m^2*b,
+    m^2 <= k <= n*T*m,
+    n <= 2*E*T,
+    1 <= E*Delta.
+
+Indeed the three separate costs are at most 8*m*E,
+8*m*E^3, and 2*m*E^2. For x=R^2-1, choose m=R and E=x^eps.
+Compared with the original k>=x*m this permits a smaller k by a
+factor approximately R. The upper k limit is now the joint quantity
+n*T*R. The top count may be as low as n/(2*x^eps); the literal
+x^(-eps/8)*n/2 condition is not needed for this scalar conclusion.
+
+If the physical same-family signed excess is bounded by x^(C*eps) B,
+the normalized geometric cost is at most
+18*R*x^((C+3)*eps). Combining it with the existing paid analytic
+remainder and a paid quadratic recovery gives a one-sided bound
+O_eps(R*x^((C+3)*eps)). This is RH-strength for fixed C and arbitrarily
+small positive eps, with the required uniform window quantifiers.
+The constant 18 and modest fixed comparison factors cause no
+exponent loss in the already-verified handoff. These are paper
+consequences of the precise finite Lean theorem and existing
+consumer; they are not assertions that its missing physical bound
+or family exists.
+
+The numerical lower-rank relaxation does not prove that the geometric
+recovery/degree theorem works at k=R^2. Use the smaller k only when
+its actual rank and gain are established. Conversely do not require
+the stronger original numerical window merely because it was used
+in the upstream proof.
+
+### Exact remaining attack
+
+1. Actual recovery gain plus retained low-central, orbitwise and ramified
+   losses: the shift cost is already paid, not a remaining target.
+2. Actual measured rank/slope and degree inequalities, with the same
+   original physical top excess, and with the joint normalized budget.
+3. Compatible family on the already-selected dyadic host and prime-pair
+   windows, with actual positive widths and a paid signed height
+   displacement/variance; fixed constants before the window choice.
+
+A substitute proof on the native complete candidate-removal, NNS, or
+square-block source is admissible if it independently earns the same
+critical estimate with those quantifiers. There is no obligation to
+realize the original geometry when another native proof supplies it.
+The two reductions above simplify the payment and recovery, not the
+missing complete signed gain. No new terminal RH wrapper is added.
+
+Implementation: [Native quadratic recovery](../RHLean/Analysis/AlpogeNativeQuadraticRecovery.lean)
+and [six-root audit](ALPOGE_NATIVE_QUADRATIC_RECOVERY_AUDIT_20261124.lean).
+Hosted validation required. Prior verified and draft geometric sources
+are preserved.

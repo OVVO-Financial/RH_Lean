@@ -1,3 +1,21 @@
+## 2026-11-24 — preserve the breadth, not the literal 43 conditions
+
+**NATIVE_SCALAR_FUNCTION_CUT_V1:** The four upstream bundles are a coverage
+map, not a reconstruction checklist. Apply the source-bound semantic gate
+below. Use [the scalar-function audit and reductions](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#5-replace-whole-functions-of-the-43-conditions-not-their-literal-forms).
+All seven roles prioritize an independently earned quantitative estimate
+on the actual complete native source, compatible normalization, and
+uniform windows. Whole groups of upstream conditions may be eliminated
+by stronger/sufficient native theorems. Use joint cost ratios and signed
+mean/variance height recovery when their actual premises are supplied;
+attack the remaining same-source local gain and measured global costs,
+not a literal geometric reconstruction. Do not claim the finite scalar
+reductions construct a gain or establish RH. Existing permissions,
+hosted-only checking, report continuity, and human-only merge stand.
+Repository instruction edits do not launch agents or alter schedules.
+
+---
+
 ## 2026-11-23 — native source bound and proof-meaning acceptance
 
 **USER SCOPE CORRECTION — NATIVE_BOUND_SEMANTIC_ACCEPTANCE_V1:** Read [the native-bound and proof-meaning directive](docs/RHLEAN_NATIVE_BOUND_SEMANTIC_ACCEPTANCE_20261123.md) before selecting further Alpoge reconstruction work. The goal is an independently proved quantitative bound on RH_Lean's existing arithmetic source. A full reconstruction of upstream CM, Serre, or cusp machinery is not a default prerequisite: the existing square-clock-to-RH consumer does not depend on it. A geometric task must identify the exact native premise it discharges, or the proved dependency that makes it necessary to that supplier. Preserve useful existing constructions and all actual hypotheses; do not assert that a shorter proof is already available.
