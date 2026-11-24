@@ -111,7 +111,7 @@ theorem alpogeNativeGzArithmetic_posPart_le_floorHistory (x : ℝ) (hx : 1 ≤ x
   have hmax : max (alpogeNativeGzArithmetic x) 0 ≤
       max (nativeAlpogeGz ⌊x⌋₊) 0 +
         nativeAlpogeSafeSlope * (x - (⌊x⌋₊ : ℝ)) :=
-    max_le (hsource.trans (add_le_add_right (le_max_left _ _) _))
+    max_le (hsource.trans (add_le_add (le_max_left _ _) le_rfl))
       (add_nonneg (le_max_right _ _) hgap)
   rw [nativeAlpogeGz_posPart_eq_NNSHistory ⌊x⌋₊ hn] at hmax
   exact hmax

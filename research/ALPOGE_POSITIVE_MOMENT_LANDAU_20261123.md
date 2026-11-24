@@ -69,6 +69,58 @@ At real endpoints the new theorem
 with the already proved nonnegative `nativeAlpogeSafeSlope` as `L`. This
 retains the full centered history and pays the floor movement explicitly.
 
+## Connection with primes in square blocks
+
+The upper and lower masses are accumulated positive and negative
+**Chebyshev errors**, rather than the cardinalities of prime and composite
+sets. Writing `D_N = U_N - L_N`, the definitions give, for `n >= 1`,
+
+\[
+D_{n+1}-D_n=\frac{\psi(n)-n}{n(n+1)},\qquad
+\psi(n)=n+n(n+1)(D_{n+1}-D_n).
+\]
+
+Thus the full endpoint-by-endpoint mass history retains the original
+Chebyshev data. For a square block with `a=R^2-1` and
+`b=(R+1)^2-1`, the exact prime-power weight is
+
+\[
+\psi(b)-\psi(a)=
+\sum_{a<p\le b}\log p+
+\sum_{\substack{j\ge2\\a<p^j\le b}}\log p.
+\]
+
+Here and in the following sums, `p` runs over primes. Removing the
+proper-prime-power part and unweighting each individual increment gives
+the literal prime count, for `1 <= a < b`:
+
+\[
+\pi(b)-\pi(a)=
+\sum_{a<n\le b}\frac{\psi(n)-\psi(n-1)}{\log n}
+-\sum_{\substack{j\ge2\\a<p^j\le b}}\frac1j.
+\]
+
+These displayed recovery formulas are elementary consequences of the
+definitions; the new moment audit does not claim additional named Lean
+declarations for them. An estimate on the aggregate history is not itself
+a prime-count estimate for each component block. Summing over consecutive
+blocks retains the same endpoint and prime-power accounting.
+
+There is also an existing exact **weighted** square-candidate identity:
+`nativeAlpogeGz_eq_candidateCapacity_sub_removal`. A prime-complete
+candidate set contributes the weights
+`log n * (N/n - 1)`. Subtracting composite candidate weights leaves all
+prime weights; adding the independent proper-power term and exact
+centering yields `Gz(N)`. These candidate/removal masses are distinct
+from the history masses `U_N,L_N`, though their completed differences
+represent the same native source.
+
+This distinction is quantitatively important. In the original Gz kernel,
+the single proper prime power `4` already contributes
+`log 2 * (N/4 - 1)`. The existing
+`nativeSquareProperPowerCapacity_linear_lower` proves a linear lower
+bound, so that correction cannot be dropped as a root-size error.
+
 ## Direct moment consumed by Landau
 
 For `sigma > 2` and natural `k`, define

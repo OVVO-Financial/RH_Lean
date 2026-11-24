@@ -503,7 +503,7 @@ theorem landau_coefficients_le_positiveMoment
   rw [hM]
   calc
     _ ≤ (∫ u in Ioi (0 : ℝ), |g u| * w u) +
-        ∫ u in Ioi (0 : ℝ), g u * w u := add_le_add_right hL _
+        ∫ u in Ioi (0 : ℝ), g u * w u := add_le_add hL le_rfl
     _ = ∫ u in Ioi (0 : ℝ), (|g u| * w u + g u * w u) :=
       (integral_add hI1 hI2).symm
     _ = ∫ u in Ioi (0 : ℝ), 2 * (max (g u) 0 * w u) := by
@@ -516,6 +516,7 @@ theorem landau_coefficients_le_positiveMoment
         ring
     _ = 2 * weightedPositiveMoment g σ k := by
       rw [integral_const_mul]
+      rfl
 
 private theorem landau_window_ineq {g : ℝ → ℝ} {B : ℝ} (hB : 0 ≤ B) (hg : Measurable g) {C₀ : ℝ}
     (hC : ∀ u : ℝ, 0 ≤ u → |g u| ≤ C₀ * Real.exp (2 * u)) {σ θ U V : ℝ} (hσ : 2 < σ) (hθ : θ < σ) (hU : 0 < U)
