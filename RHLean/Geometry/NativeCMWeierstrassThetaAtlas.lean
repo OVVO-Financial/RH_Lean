@@ -123,9 +123,12 @@ theorem analyticPoint_affine_iff (z : ℂ) :
     rw [he]
     have ha : ⊤ ≤ (ptOver W ![affineX L C z, affineY L C z, 1]
         (isUnimodularSol_some hp.1)).left ⁻¹ᵁ coordOpen W 2 := by
-      change ⊤ ≤ ptHom W (algebraMap R ℂ) _ _ ⁻¹ᵁ coordOpen W 2
-      rw [ptHom_preimage_coordOpen]
-      exact (PrimeSpectrum.basicOpen_one (R := ℂ)).ge
+      have hh : (ptOver W ![affineX L C z, affineY L C z, 1]
+          (isUnimodularSol_some hp.1)).left ⁻¹ᵁ coordOpen W 2 =
+            PrimeSpectrum.basicOpen (1 : ℂ) :=
+        ptHom_preimage_coordOpen W (algebraMap R ℂ)
+          ![affineX L C z, affineY L C z, 1] (isUnimodularSol_some hp.1) 2
+      exact hh.symm ▸ (PrimeSpectrum.basicOpen_one (R := ℂ)).ge
     exact ⟨fun _ => hz, fun _ => ha⟩
 
 theorem analyticPoint_origin_coordinates_ne_zero {z : ℂ} (hz : z ∉ L.lattice)
@@ -217,7 +220,6 @@ theorem atlas_section_factorization (i : (originLB W).ι) (z : ℂ)
           evalPt_congr_point he' _ h hq _
         _ = affineX L C z / affineY L C z := eval_originParam_of_affine W hp hxy.2 hq
         _ = _ := by
-          change affineX L C z / affineY L C z = canonicalSigma L z * globalOriginFrame L C z
           rw [globalOriginFrame, ite_eq_right hz]
           rw [← mul_div_assoc, mul_comm (canonicalSigma L z),
             mul_div_cancel_right₀ _ ((canonicalSigma_eq_zero_iff L).not.mpr hz)]

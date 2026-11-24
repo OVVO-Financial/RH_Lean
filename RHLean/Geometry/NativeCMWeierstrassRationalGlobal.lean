@@ -89,7 +89,9 @@ theorem exists_global_hom_of_rational_point_map
       change schemePointAction W φ (ofAffinePoint W k P) ≠ 1 at hx
       rw [schemePointAction_ofAffinePoint] at hx
       cases P with
-      | zero => exact (hx (by rw [map_zero, hzero])).elim
+      | zero =>
+          have hz : φ (0 : (W.baseChange k).toAffine.Point) = 0 := map_zero φ
+          exact (hx ((congrArg (ofAffinePoint _ k) hz).trans hzero)).elim
       | some x y h =>
         have hd : aeval x D ≠ 0 := fun hd => hx (by rw [(hφ x y h).1 hd, hzero])
         exact ⟨specOverMap (rationalOpenPoint W D x y h.left hd),
@@ -116,6 +118,8 @@ theorem exists_global_hom_of_rational_point_map
     rw [hinc, schemePointAction_ofAffinePoint, hmap]
     obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
     rw [he]
+  letI : LocallyOfFiniteType (schemeOver W).hom :=
+    inferInstanceAs (LocallyOfFiniteType (toSpec W))
   obtain ⟨f, hjf, hf⟩ := GeometricPoints.exists_hom_of_kernel_open
     (rationalOpenIncl W D) (rationalOpenHom W α hα A D hshort hID)
     (rationalOpenSection W D x₀ y₀ h₀ hD₀) Φ hU hfU
@@ -183,7 +187,9 @@ theorem exists_global_hom_of_rational_point_map_between
       change schemePointActionBetween W V φ (ofAffinePoint W k P) ≠ 1 at hx
       rw [schemePointActionBetween_ofAffinePoint] at hx
       cases P with
-      | zero => exact (hx (by rw [map_zero, hzero])).elim
+      | zero =>
+          have hz : φ (0 : (W.baseChange k).toAffine.Point) = 0 := map_zero φ
+          exact (hx ((congrArg (ofAffinePoint _ k) hz).trans hzero)).elim
       | some x y h =>
         have hd : aeval x D ≠ 0 := fun hd => hx (by rw [(hφ x y h).1 hd, hzero])
         exact ⟨specOverMap (rationalOpenPoint W D x y h.left hd),
@@ -210,6 +216,8 @@ theorem exists_global_hom_of_rational_point_map_between
     rw [hinc, schemePointActionBetween_ofAffinePoint, hmap]
     obtain ⟨h', he⟩ := (hφ _ _ hx).2 (rationalOpen_map_denominator W D g).1
     rw [he]
+  letI : LocallyOfFiniteType (schemeOver W).hom :=
+    inferInstanceAs (LocallyOfFiniteType (toSpec W))
   obtain ⟨f, hjf, hf⟩ := GeometricPoints.exists_hom_of_kernel_open
     (rationalOpenIncl W D) (rationalOpenHomBetween W V α hα A D hshort hshortV hID)
     (rationalOpenSection W D x₀ y₀ h₀ hD₀) Φ hU hfU
@@ -323,7 +331,8 @@ theorem exists_scheme_latticeIsogeny
     (fun j => hFK (hAF j))
   have hA' : A'.map (K.val : K →+* ℂ) = A := hA'sub
   have hD' : D'.map (K.val : K →+* ℂ) = D := by
-    rw [D', Polynomial.map_map]
+    change (D₀.map i.toRingHom).map (K.val : K →+* ℂ) = D
+    rw [Polynomial.map_map]
     exact hD₀
   have hα' : α' ≠ 0 := fun h => hα0 (congrArg Subtype.val h)
   have hW' : W'.baseChange ℂ = latticeCurve L := by
@@ -351,8 +360,9 @@ theorem exists_scheme_latticeIsogeny
     ((latticeIsogeny α hα).comp (pointCongr hW').toAddMonoidHom)
   have hφeq (P : (W'.baseChange ℂ).toAffine.Point) :
       pointCongr hV' (φ P) = latticeIsogeny α hα (pointCongr hW' P) := by
-    change pointCongr hV' ((pointCongr hV').symm _) = _
-    rw [AddEquiv.apply_symm_apply]
+    change pointCongr hV' ((pointCongr hV').symm
+      (latticeIsogeny α hα (pointCongr hW' P))) = _
+    exact (pointCongr hV').apply_symm_apply _
   have hφ : ∀ (x y : ℂ) (h : (W'.baseChange ℂ).toAffine.Nonsingular x y),
       (aeval x D' = 0 → φ (.some x y h) = 0) ∧
       (aeval x D' ≠ 0 → ∃ h', φ (.some x y h) =
@@ -361,10 +371,18 @@ theorem exists_scheme_latticeIsogeny
             (aeval x (derivative A' * D' - A' * derivative D') / aeval x D' ^ 2) * y) h') := by
     intro x y h
     have hp : (latticeCurve L).toAffine.Nonsingular x y := hW' ▸ h
-    have hd : aeval x D' = D.eval x := by rw [← Polynomial.eval_map, hD']
-    have ha : aeval x A' = A.eval x := by rw [← Polynomial.eval_map, hA']
+    have hd : aeval x D' = D.eval x :=
+      (show aeval x D' = (D'.map (K.val : K →+* ℂ)).eval x from
+        (Polynomial.eval_map (K.val : K →+* ℂ) x).symm).trans
+          (congrArg (fun p : ℂ[X] => p.eval x) hD')
+    have ha : aeval x A' = A.eval x :=
+      (show aeval x A' = (A'.map (K.val : K →+* ℂ)).eval x from
+        (Polynomial.eval_map (K.val : K →+* ℂ) x).symm).trans
+          (congrArg (fun p : ℂ[X] => p.eval x) hA')
     have hb : aeval x (derivative A' * D' - A' * derivative D') =
         (derivative A * D - A * derivative D).eval x := by
+      change (derivative A' * D' - A' * derivative D').eval₂
+        (K.val : K →+* ℂ) x = _
       rw [← Polynomial.eval_map]
       simp only [Polynomial.map_sub, Polynomial.map_mul, ← derivative_map, hA', hD']
     have hαC : algebraMap K ℂ α' = α := rfl
@@ -375,10 +393,22 @@ theorem exists_scheme_latticeIsogeny
       exact (hformula x y hp).1 (hd ▸ hz)
     · intro hz
       obtain ⟨hp', he⟩ := (hformula x y hp).2 (hd ▸ hz)
-      rw [← ha, ← hd, ← hb, ← hαC] at hp' he
-      refine ⟨hV'.symm ▸ hp', ?_⟩
+      have hpa : (latticeCurve L').toAffine.Nonsingular (aeval x A' / aeval x D')
+          ((algebraMap K ℂ α')⁻¹ *
+            (aeval x (derivative A' * D' - A' * derivative D') / aeval x D' ^ 2) * y) := by
+        rw [ha, hd, hb, hαC]
+        exact hp'
+      refine ⟨hV'.symm ▸ hpa, ?_⟩
       apply (pointCongr hV').injective
-      rw [hφeq, pointCongr_some, he, pointCongr_some]
+      calc
+        _ = latticeIsogeny α hα (.some x y hp) :=
+          (hφeq (.some x y h)).trans (congrArg (latticeIsogeny α hα)
+            (pointCongr_some hW' h))
+        _ = .some (A.eval x / D.eval x)
+            (α⁻¹ * ((derivative A * D - A * derivative D).eval x / D.eval x ^ 2) * y) hp' := he
+        _ = _ := by
+          simp only [pointCongr_some, _root_.WeierstrassCurve.Affine.Point.some.injEq,
+            ha, hd, hb, hαC, and_self]
   obtain ⟨f, hf, _, hfx⟩ := exists_global_hom_of_rational_point_map_between
     W' V' α' hα' A' D' hsW' hsV' hID φ hφ x₀ y₀ hxy hx
   refine ⟨K, hK, hFK, hW', hV', f, hf, fun z => ?_⟩

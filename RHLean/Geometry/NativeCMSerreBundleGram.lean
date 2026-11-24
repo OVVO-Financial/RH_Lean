@@ -132,10 +132,24 @@ theorem integralEvaluation_frame
     integralEvaluation H G F B t ρ =
       ∑ i, algebraMap (𝓞 F) F (integralPairing H G F hbar B hB i t) *
         coefficientEvaluation H G F B ((coefficientSerreFrame H G hbar B hB 1).x i) ρ := by
-  have he := congrArg (fun s => integralEvaluation H G F B s ρ)
-    (integralTensor_resolve H G F hbar B hB t)
-  simpa only [map_sum, map_smul, Finset.sum_apply, Pi.smul_apply,
-    integralEvaluation_tmul, one_smul, Algebra.smul_def] using! he
+  calc
+    _ = integralEvaluation H G F B
+        (∑ i, integralPairing H G F hbar B hB i t •
+          (1 ⊗ₜ[OK G] (coefficientSerreFrame H G hbar B hB 1).x i)) ρ :=
+      congrArg (fun s => integralEvaluation H G F B s ρ)
+        (integralTensor_resolve H G F hbar B hB t)
+    _ = _ := by
+      rw [map_sum, Finset.sum_apply]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [map_smul]
+      have he : integralEvaluation H G F B
+          (1 ⊗ₜ[OK G] (coefficientSerreFrame H G hbar B hB 1).x i) =
+          coefficientEvaluation H G F B (coefficientSerreFrame H G hbar B hB 1).x i :=
+        (integralEvaluation_tmul H G F B 1 _).trans (one_smul _ _)
+      rw [he]
+      change integralPairing H G F hbar B hB i t •
+          coefficientEvaluation H G F B (coefficientSerreFrame H G hbar B hB 1).x i ρ = _
+      exact Algebra.smul_def _ _
 
 /-- The exact four-pullback expression of the constructed tensor bundle,
 evaluated on the original integral tangent coefficients. -/
@@ -159,9 +173,23 @@ theorem tensorOriginGram_eq_sum
     tensorOriginGram H G F hbar B hB σ n t u =
       (n : ℂ) * ∑ ρ, σ (integralEvaluation H G F B t ρ) *
         conj (σ (integralEvaluation H G F B u ρ)) := by
-  unfold tensorOriginGram
-  rw [SerreGram.sum_squareGram _ _ (embeddedCoefficient_halfRoot H G F σ) _
-    (fun _ _ => by rw [kLin_barOK, embeddedCoefficient_bar])]
+  let fr := coefficientSerreFrame H G hbar B hB 1
+  let g : Fin fr.n → Fin fr.n → ℂ := fun i j =>
+    embeddedCoefficient H G F σ (kLin (coefficientTraceLattice H G hbar B hB) 1
+      (fr.x i) (fr.x j))
+  have hg (i j : Fin fr.n) : g j i = conj (g i j) := by
+    change embeddedCoefficient H G F σ (kLin (coefficientTraceLattice H G hbar B hB) 1
+      (fr.x j) (fr.x i)) = conj (embeddedCoefficient H G F σ
+        (kLin (coefficientTraceLattice H G hbar B hB) 1 (fr.x i) (fr.x j)))
+    rw [kLin_barOK, embeddedCoefficient_bar]
+  have he : tensorOriginGram H G F hbar B hB σ n t u =
+      (n : ℂ) * ∑ k : Fin fr.n × Fin fr.n, g k.1 k.2 *
+        embeddedPairing H G F hbar B hB σ k.1 t *
+        conj (embeddedPairing H G F hbar B hB σ k.2 u) :=
+    SerreGram.sum_squareGram (n : ℂ) _ (embeddedCoefficient_halfRoot H G F σ)
+      g hg _ _
+  rw [he]
+  dsimp only [g, fr]
   congr 1
   simp_rw [embeddedCoefficient_kLin_sum H G F hbar hroot B hB σ,
     integralEvaluation_frame H G F hbar B hB]
