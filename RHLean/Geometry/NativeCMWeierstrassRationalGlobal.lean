@@ -270,6 +270,125 @@ def pointConjugate {V W : _root_.WeierstrassCurve K} (h : V = W)
   change (pointCongr h).symm (φ (pointCongr h ((pointCongr h).symm P))) = _
   rw [AddEquiv.apply_symm_apply]
 
+section ActualLatticeIsogeny
+
+open NumberField PeriodPair IntermediateField
+open SchemeTheory SchemeTheory.WeierstrassCurve
+
+/-- Apply the same two-patch proof to the literal lattice isogeny and the
+two given equations over a finite coefficient field. Only the original
+translation point is adjoined; no model or multiplier is changed. -/
+theorem exists_scheme_latticeIsogeny
+    (F : IntermediateField ℚ ℂ) [NumberField F]
+    (W V : _root_.WeierstrassCurve F) [W.IsElliptic] [V.IsElliptic]
+    (L L' : PeriodPair)
+    (hW : W.baseChange ℂ = latticeCurve L)
+    (hV : V.baseChange ℂ = latticeCurve L')
+    (hsW : W.a₁ = 0 ∧ W.a₂ = 0 ∧ W.a₃ = 0)
+    (hsV : V.a₁ = 0 ∧ V.a₂ = 0 ∧ V.a₃ = 0)
+    (α : ℂ) (hα0 : α ≠ 0) (hα : ∀ l ∈ L.lattice, α * l ∈ L'.lattice)
+    (hαF : α ∈ F) (A D : ℂ[X])
+    (hAF : ∀ i, A.coeff i ∈ F) (hDF : ∀ i, D.coeff i ∈ F)
+    (hD : D ≠ 0)
+    (hformula : ∀ (x y : ℂ) (h : (latticeCurve L).toAffine.Nonsingular x y),
+      (D.eval x = 0 → latticeIsogeny α hα (.some x y h) = 0) ∧
+      (D.eval x ≠ 0 → ∃ h', latticeIsogeny α hα (.some x y h) =
+        .some (A.eval x / D.eval x)
+          (α⁻¹ * ((derivative A * D - A * derivative D).eval x / D.eval x ^ 2) * y) h')) :
+    ∃ (K : IntermediateField ℚ ℂ) (_ : NumberField K) (hFK : F ≤ K),
+      let W' := W.map (IntermediateField.inclusion hFK).toRingHom
+      let V' := V.map (IntermediateField.inclusion hFK).toRingHom
+      ∃ (hW' : W'.baseChange ℂ = latticeCurve L)
+        (hV' : V'.baseChange ℂ = latticeCurve L')
+        (f : schemeOver W' ⟶ schemeOver V'),
+        IsMonHom f ∧ ∀ z : ℂ,
+          ofAffinePoint W' ℂ ((pointCongr hW').symm (latticePoint L z)) ≫ f =
+            ofAffinePoint V' ℂ ((pointCongr hV').symm (latticePoint L' (α * z))) := by
+  classical
+  obtain ⟨D₀, hD₀sub, _⟩ := exists_polynomial_over_subfield F.toSubfield D hDF
+  have hD₀ : D₀.map (F.val : F →+* ℂ) = D := hD₀sub
+  have hD₀nz : D₀ ≠ 0 := by
+    intro h
+    apply hD
+    rw [← hD₀, h, Polynomial.map_zero]
+  obtain ⟨K, hK, hFK, x₀, y₀, hxy, hx⟩ :=
+    exists_numberField_point_off_denominator F W hsW D₀ hD₀nz
+  let _ : NumberField K := hK
+  let i : F →ₐ[ℚ] K := IntermediateField.inclusion hFK
+  let W' := W.map i.toRingHom
+  let V' := V.map i.toRingHom
+  let α' : K := ⟨α, hFK hαF⟩
+  let D' := D₀.map i.toRingHom
+  obtain ⟨A', hA'sub, _⟩ := exists_polynomial_over_subfield K.toSubfield A
+    (fun j => hFK (hAF j))
+  have hA' : A'.map (K.val : K →+* ℂ) = A := hA'sub
+  have hD' : D'.map (K.val : K →+* ℂ) = D := by
+    rw [D', Polynomial.map_map]
+    exact hD₀
+  have hα' : α' ≠ 0 := fun h => hα0 (congrArg Subtype.val h)
+  have hW' : W'.baseChange ℂ = latticeCurve L := by
+    change (W.map i.toRingHom).map (K.val : K →+* ℂ) = _
+    rw [_root_.WeierstrassCurve.map_map]
+    exact hW
+  have hV' : V'.baseChange ℂ = latticeCurve L' := by
+    change (V.map i.toRingHom).map (K.val : K →+* ℂ) = _
+    rw [_root_.WeierstrassCurve.map_map]
+    exact hV
+  have hsW' : W'.a₁ = 0 ∧ W'.a₂ = 0 ∧ W'.a₃ = 0 := by
+    simp only [W', _root_.WeierstrassCurve.map_a₁, _root_.WeierstrassCurve.map_a₂,
+      _root_.WeierstrassCurve.map_a₃, hsW.1, hsW.2.1, hsW.2.2, map_zero, and_self]
+  have hsV' : V'.a₁ = 0 ∧ V'.a₂ = 0 ∧ V'.a₃ = 0 := by
+    simp only [V', _root_.WeierstrassCurve.map_a₁, _root_.WeierstrassCurve.map_a₂,
+      _root_.WeierstrassCurve.map_a₃, hsV.1, hsV.2.1, hsV.2.2, map_zero, and_self]
+  have hID : RationalIdentityBetween W' V' α' A' D' := by
+    apply rationalIdentityBetween_of_map (K.val : K →+* ℂ)
+    have hWM : W'.map (K.val : K →+* ℂ) = latticeCurve L := hW'
+    have hVM : V'.map (K.val : K →+* ℂ) = latticeCurve L' := hV'
+    rw [hWM, hVM, hA', hD']
+    exact rationalIdentityBetween_of_point_formula L L' hα0 A D hD
+      (latticeIsogeny α hα) fun x y h hd => (hformula x y h).2 hd
+  let φ := (pointCongr hV').symm.toAddMonoidHom.comp
+    ((latticeIsogeny α hα).comp (pointCongr hW').toAddMonoidHom)
+  have hφeq (P : (W'.baseChange ℂ).toAffine.Point) :
+      pointCongr hV' (φ P) = latticeIsogeny α hα (pointCongr hW' P) := by
+    change pointCongr hV' ((pointCongr hV').symm _) = _
+    rw [AddEquiv.apply_symm_apply]
+  have hφ : ∀ (x y : ℂ) (h : (W'.baseChange ℂ).toAffine.Nonsingular x y),
+      (aeval x D' = 0 → φ (.some x y h) = 0) ∧
+      (aeval x D' ≠ 0 → ∃ h', φ (.some x y h) =
+        .some (aeval x A' / aeval x D')
+          ((algebraMap K ℂ α')⁻¹ *
+            (aeval x (derivative A' * D' - A' * derivative D') / aeval x D' ^ 2) * y) h') := by
+    intro x y h
+    have hp : (latticeCurve L).toAffine.Nonsingular x y := hW' ▸ h
+    have hd : aeval x D' = D.eval x := by rw [← Polynomial.eval_map, hD']
+    have ha : aeval x A' = A.eval x := by rw [← Polynomial.eval_map, hA']
+    have hb : aeval x (derivative A' * D' - A' * derivative D') =
+        (derivative A * D - A * derivative D).eval x := by
+      rw [← Polynomial.eval_map]
+      simp only [Polynomial.map_sub, Polynomial.map_mul, ← derivative_map, hA', hD']
+    have hαC : algebraMap K ℂ α' = α := rfl
+    constructor
+    · intro hz
+      apply (pointCongr hV').injective
+      rw [hφeq, map_zero, pointCongr_some]
+      exact (hformula x y hp).1 (hd ▸ hz)
+    · intro hz
+      obtain ⟨hp', he⟩ := (hformula x y hp).2 (hd ▸ hz)
+      rw [← ha, ← hd, ← hb, ← hαC] at hp' he
+      refine ⟨hV'.symm ▸ hp', ?_⟩
+      apply (pointCongr hV').injective
+      rw [hφeq, pointCongr_some, he, pointCongr_some]
+  obtain ⟨f, hf, _, hfx⟩ := exists_global_hom_of_rational_point_map_between
+    W' V' α' hα' A' D' hsW' hsV' hID φ hφ x₀ y₀ hxy hx
+  refine ⟨K, hK, hFK, hW', hV', f, hf, fun z => ?_⟩
+  rw [hfx]
+  change ofAffinePoint V' ℂ ((pointCongr hV').symm
+    (latticeIsogeny α hα (pointCongr hW' ((pointCongr hW').symm (latticePoint L z))))) = _
+  rw [AddEquiv.apply_symm_apply, latticeIsogeny_latticePoint]
+
+end ActualLatticeIsogeny
+
 end RHLean.Geometry.NativeCM.Weierstrass
 
 end

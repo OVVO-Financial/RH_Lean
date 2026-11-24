@@ -66,8 +66,10 @@ theorem exists_cm_rational_scheme_open :
   obtain ⟨F, hF, A', D', hMF, hA', hD', hm, hlc, hc, hdA, hdD, he, -⟩ :=
     exists_finite_field_rational_cm_action G τ M W w C hC hw
   let _ : NumberField F := hF
-  obtain ⟨A, hA, hdegA⟩ := exists_polynomial_over_subfield F.toSubfield A' hA'
-  obtain ⟨D, hD, hdegD⟩ := exists_polynomial_over_subfield F.toSubfield D' hD'
+  obtain ⟨A, hAsub, hdegA⟩ := exists_polynomial_over_subfield F.toSubfield A' hA'
+  obtain ⟨D, hDsub, hdegD⟩ := exists_polynomial_over_subfield F.toSubfield D' hD'
+  have hA : A.map (F.val : F →+* ℂ) = A' := hAsub
+  have hD : D.map (F.val : F →+* ℂ) = D' := hDsub
   have hω : omega G τ ∈ F := by
     rw [← hw]
     exact hMF (w : M).property
