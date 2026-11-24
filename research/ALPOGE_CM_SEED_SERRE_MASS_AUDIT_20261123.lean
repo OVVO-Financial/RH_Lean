@@ -388,7 +388,9 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_hasCubeGenerator,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_pure_pairing,
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.relativePointMulEquiv_left,
-    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finite_geometric_elliptic_graph_kernel]
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.finite_geometric_elliptic_graph_kernel,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.locallyQuasiFinite_of_finite_group_kernel,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.elliptic_graph_projection_locallyQuasiFinite]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

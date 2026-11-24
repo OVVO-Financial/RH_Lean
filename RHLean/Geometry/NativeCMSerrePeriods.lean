@@ -289,23 +289,26 @@ theorem pureSerreExponential_ker (B : Ideal (𝓞 H.E))
     apply (pureSerrePeriodEquiv H G hcompat B hB N).injective
     simp only [LinearEquiv.apply_symm_apply, pureSerrePeriodEquiv_tmul, one_smul]
 
+set_option maxHeartbeats 4000000 in
 /-- The quotient by the actual prescribed positive-type period image is
 the actual Serre tensor point module. -/
-set_option maxHeartbeats 800000 in
 def purePeriodQuotientEquiv (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (N : ℕ)
     (τ₀ : cmTypeFinset H) :
     ((cmTypeFinset H → Fin N → ℂ) ⧸ (purePeriodLinear H G hcompat B N).range)
       ≃ₗ[OK G] twistedLattice H B N ⊗[OK G]
         EllipticSeed.Torus G (τ₀ : H.E →+* ℂ) :=
-  (Submodule.quotEquivOfEq (purePeriodLinear H G hcompat B N).range
-    (LinearMap.ker (pureSerreExponential H G hcompat B hB N τ₀)) (by
-    ext v
-    change v ∈ (purePeriodLinear H G hcompat B N).range ↔
-      pureSerreExponential H G hcompat B hB N τ₀ v = 0
-    exact (pureSerreExponential_ker H G hcompat B hB N τ₀ v).symm)).trans
-      ((pureSerreExponential H G hcompat B hB N τ₀).quotKerEquivOfSurjective
-        (pureSerreExponential_surjective H G hcompat B hB N τ₀))
+  by
+    let P := purePeriodLinear H G hcompat B N
+    let ex := pureSerreExponential H G hcompat B hB N τ₀
+    have hker : P.range = ex.ker := by
+      ext v
+      change v ∈ P.range ↔ ex v = 0
+      exact (pureSerreExponential_ker H G hcompat B hB N τ₀ v).symm
+    have hsurj : Function.Surjective ex :=
+      pureSerreExponential_surjective H G hcompat B hB N τ₀
+    exact (Submodule.quotEquivOfEq P.range ex.ker hker).trans
+      (ex.quotKerEquivOfSurjective hsurj)
 
 /-- The pure-type source period map is exactly the same coordinate image,
 with only the existing finite enumeration applied. -/

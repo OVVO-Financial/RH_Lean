@@ -93,7 +93,7 @@ def oneGen : Gen (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim) wher
 theorem isGen_oneGen : (oneGen L (Y := Y)).IsGen := by
   intro i j
   have hg : (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim).g i j = 1 :=
-    Fintype.prod_empty _
+    by simp only [LinComb, Fintype.prod_empty]
   rw [hg, one_mul]
   exact (map_one _).trans (map_one _).symm
 

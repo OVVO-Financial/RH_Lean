@@ -1,5 +1,6 @@
 import RHLean.Geometry.NativeCMWeierstrassRelativePoints
 import RHLean.Geometry.NativeCMWeierstrassGraphKernelTorsion
+import Mathlib.AlgebraicGeometry.Morphisms.QuasiFinite
 
 /-!
 # The actual graph projection has finite geometric kernel
@@ -137,6 +138,112 @@ theorem finite_geometric_elliptic_graph_kernel (R K : Type) [CommRing R] [IsDoma
   refine finite_geometric_elliptic_kernel_of_no_small_torsion G Ga W io n hn hu ?_ k t
   intro Y x hx hp
   exact graph_kernel_no_torsion R K Ga G (io ≫ fst G (schemeOver W)) n hu Y x hx hp
+
+/- The following cut uses the standard translation of a nonempty group
+fibre into its kernel, and the Jacobson property of finite-type schemes
+over algebraically closed fields. It needs no geometric rank or mass
+assignment. Source comparison: Alpöge (with Claude),
+src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/
+LocallyQuasiFiniteOfFiniteGeometricPoints.lean, pinned as above. -/
+
+private theorem finite_points_of_finite_sections {k : Type} [Field k] [IsAlgClosed k]
+    {X : Scheme.{0}} (s : X ⟶ Spec (.of k)) [LocallyOfFiniteType s]
+    (hs : Finite {v : Spec (.of k) ⟶ X // v ≫ s = 𝟙 _}) : Finite X := by
+  letI := hs
+  letI : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace s
+  have hc : (closedPoints X).Finite := by
+    letI : Finite (closedPoints X) := Finite.of_equiv _ (pointEquivClosedPoint s)
+    exact Set.toFinite _
+  have hclosed : IsClosed (closedPoints X) := by
+    rw [← Set.biUnion_of_singleton (closedPoints X)]
+    exact hc.isClosed_biUnion fun x hx => hx
+  have hu : closedPoints X = Set.univ := by
+    have h := JacobsonSpace.closure_inter_closedPoints (X := X) isClosed_univ
+    rwa [Set.univ_inter, hclosed.closure_eq] at h
+  exact Set.finite_univ_iff.mp (hu ▸ hc)
+
+private theorem locallyQuasiFinite_of_geometric_fibres {X Y : Scheme.{0}}
+    (p : X ⟶ Y) [LocallyOfFiniteType p]
+    (h : ∀ (k : Type) [Field k] [IsAlgClosed k] (y : Spec (.of k) ⟶ Y),
+      Finite {x : Spec (.of k) ⟶ X // x ≫ p = y}) :
+    LocallyQuasiFinite p := by
+  refine LocallyQuasiFinite.of_finite_preimage_singleton p fun y => ?_
+  let k := AlgebraicClosure (Y.residueField y)
+  let t : Spec (.of k) ⟶ Y :=
+    Spec.map (CommRingCat.ofHom (algebraMap (Y.residueField y) k)) ≫
+      Y.fromSpecResidueField y
+  have hy : y ∈ Set.range t := by
+    obtain ⟨z⟩ : Nonempty ↥(Spec (.of k)) := inferInstance
+    exact ⟨z, (Scheme.Hom.comp_apply _ _ z).trans
+      (Scheme.fromSpecResidueField_apply y _)⟩
+  have hsections := h k t
+  letI : Finite {x : Spec (.of k) ⟶ X // x ≫ p = t} := hsections
+  have hfinite : Finite ↥(pullback p t) := by
+    apply finite_points_of_finite_sections (pullback.snd p t)
+    refine Finite.of_injective (β := {x : Spec (.of k) ⟶ X // x ≫ p = t})
+      (fun x => ⟨x.1 ≫ pullback.fst p t, by
+        rw [Category.assoc, pullback.condition, ← Category.assoc, x.2, Category.id_comp]⟩) ?_
+    intro x x' hxx
+    apply Subtype.ext
+    apply pullback.hom_ext
+    · exact congrArg Subtype.val hxx
+    · rw [x.2, x'.2]
+  letI := hfinite
+  refine (Set.finite_range (pullback.fst p t)).subset ?_
+  rw [Scheme.Pullback.range_fst]
+  exact Set.preimage_mono (Set.singleton_subset_iff.mpr hy)
+
+private theorem finite_fibre_of_finite_group_kernel {C : Type*} [Category C]
+    [CartesianMonoidalCategory C] {G A T : C} [GrpObj G] [GrpObj A]
+    (p : A ⟶ G) [IsMonHom p] (h : Finite {x : T ⟶ A // x ≫ p = 1})
+    (y : T ⟶ G) : Finite {x : T ⟶ A // x ≫ p = y} := by
+  letI := h
+  rcases isEmpty_or_nonempty {x : T ⟶ A // x ≫ p = y} with he | ⟨⟨x₀, hx₀⟩⟩
+  · infer_instance
+  · refine Finite.of_injective (β := {x : T ⟶ A // x ≫ p = 1})
+      (fun x => ⟨x₀⁻¹ * x.1, by
+        rw [MonObj.mul_comp, GrpObj.inv_comp, hx₀, x.2, inv_mul_cancel]⟩) ?_
+    intro a b hab
+    exact Subtype.ext (mul_left_cancel (congrArg Subtype.val hab))
+
+/-- Finiteness of the actual geometric kernel controls every geometric
+fibre of the same group-scheme morphism. -/
+theorem locallyQuasiFinite_of_finite_group_kernel {S : Scheme.{0}}
+    (A G : Over S) [GrpObj A] [GrpObj G] (p : A ⟶ G) [IsMonHom p]
+    [LocallyOfFiniteType p.left]
+    (h : ∀ (k : Type) [Field k] [IsAlgClosed k] (t : Sp k ⟶ S),
+      Finite {x : Over.mk t ⟶ A // x ≫ p = 1}) : LocallyQuasiFinite p.left := by
+  refine locallyQuasiFinite_of_geometric_fibres p.left fun k _ _ y => ?_
+  let t : Sp k ⟶ S := y ≫ G.hom
+  let y' : Over.mk t ⟶ G := Over.homMk y rfl
+  letI : Finite {x : Over.mk t ⟶ A // x ≫ p = y'} :=
+    finite_fibre_of_finite_group_kernel p (h k t) y'
+  refine Finite.of_injective (β := {x : Over.mk t ⟶ A // x ≫ p = y'})
+    (fun x => ⟨Over.homMk x.1 (by
+      change x.1 ≫ A.hom = y ≫ G.hom
+      rw [← Over.w p, ← Category.assoc, x.2]), Over.OverMorphism.ext x.2⟩) ?_
+  intro a b hab
+  exact Subtype.ext (congrArg (fun z => z.1.left) hab)
+
+/-- The original elliptic graph projection is locally quasi-finite:
+its finite geometric kernel is proved, not added as a hypothesis.
+This is the next step toward integral extension of the CM action. -/
+theorem elliptic_graph_projection_locallyQuasiFinite
+    (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    (G Ga : Over (Sp R)) [GrpObj G] [GrpObj Ga] [IsCommMonObj G] [IsCommMonObj Ga]
+    [Flat G.hom] [Flat Ga.hom] [LocallyOfFiniteType G.hom] [LocallyOfFiniteType Ga.hom]
+    [IsSeparated Ga.hom] (W : _root_.WeierstrassCurve R) [W.IsElliptic]
+    (io : Ga ⟶ G ⊗ schemeOver W) [IsMonHom io] [IsClosedImmersion io.left]
+    [IsIso ((Over.pullback (spMap (algebraMap R K))).map (io ≫ fst G (schemeOver W)))] :
+    LocallyQuasiFinite (io ≫ fst G (schemeOver W)).left := by
+  have hp : LocallyOfFiniteType (fst G (schemeOver W)).left :=
+    inferInstanceAs (LocallyOfFiniteType (pullback.fst G.hom (schemeOver W).hom))
+  have hp' : LocallyOfFiniteType (io ≫ fst G (schemeOver W)).left := by
+    rw [Over.comp_left]
+    infer_instance
+  exact locallyQuasiFinite_of_finite_group_kernel Ga G (io ≫ fst G (schemeOver W))
+    (finite_geometric_elliptic_graph_kernel R K G Ga W io)
 
 end RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension
 

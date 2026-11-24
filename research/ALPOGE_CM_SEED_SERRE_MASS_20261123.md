@@ -1366,3 +1366,36 @@ projective pseudobases and literal shifted self-duality. The explicit full-level
 quotient adjoint. The coefficient-matched subgroup/character and geometric
 Fourier identity, global automorphic realization and measured geometric
 rank shares remain open.
+
+## Continuation from df2209c: geometric fibres and the scalar cut
+
+The hosted attempt 45300257511 at df2209c failed mandatory preflight.
+The next revision preserves the actual geometric statements, fixes reached
+empty-product, quotient, eigenlattice and warning failures, and extends
+the geometric kernel proof to quasi-finiteness of the actual graph
+projection. Removing the unused DVR premise in the flat subgroup lemma
+generalizes the theorem. The new proofs require hosted verification.
+
+The argument translates a nonempty geometric fibre by a point in that
+fibre into the finite geometric kernel. Over an algebraically closed
+field the closed points are identified with rational points; the Jacobson
+property then gives a finite underlying fibre. Applying Mathlib's
+quasi-finiteness criterion to the algebraic closure of each residue field
+gives the required locally quasi-finite projection. Its isomorphism
+over the base remains open, as does the integral extension.
+
+The scalar target is the same complete Gz, not a replacement geometric
+quantity. The four immediate upstream bundles have 8, 16, 3 and 16
+conditions respectively; these are not 43 independent proof gaps.
+On main, nativeConstructedDyadicGzPayment already handles the selected
+host/prime-pair construction and the normalized character/analytic
+comparison, subject to the actual height, width, density and cutoff
+conditions. The remaining signed-excess budget must be proved on that
+same source. The averaged-loss slope consumer and scalar absorption
+already exist; neither assigns the desired slope inequality. PR 1205
+checks the literal arithmetic handoff and its conditional RH implication;
+PR 1206 checks the direct moment consumer at its verified head. Neither
+discharges the critical quantitative hypothesis. Global rank shares,
+measured component masses and the compatible arithmetic degree/metric
+comparison are not supplied by an unmeasured dimension or finite Haar
+norm. No unconditional RH claim follows from this continuation.

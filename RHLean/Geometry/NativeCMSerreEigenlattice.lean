@@ -63,6 +63,10 @@ def coefficientEvaluation (B : Ideal (𝓞 H.E)) :
     exact map_add (coefficientEmbedding H G F σ) _ _
   map_smul' a x := by
     ext σ
+    simp only [RingHom.id_apply, Submodule.coe_smul_of_tower, Pi.smul_apply]
+    have hs : a • (x : H.E) = ((a : 𝓞 H.E) : H.E) * (x : H.E) :=
+      Algebra.smul_def (a : 𝓞 H.E) (x : H.E)
+    rw [hs, Algebra.smul_def]
     change algebraMap H.E F (σ.1 (((a : 𝓞 H.E) : H.E) * (x : H.E))) =
       algebraMap H.E F ((a : 𝓞 H.E) : H.E) *
         algebraMap H.E F (σ.1 (x : H.E))
@@ -267,8 +271,7 @@ theorem integralEigenmodule_iff_coordinates
           algebraMap H.E F (a : H.E) * integralEvaluation H G F B t σ at ha
         exact mul_right_cancel₀ hn ha
       exact hσ (Subtype.ext (AlgEquiv.ext fun a => DFunLike.congr_fun hs a))
-  · intro ht
-    intro a
+  · intro ht a
     apply integralEvaluation_injective H G F hroot hbar B hB
     ext σ
     rw [integralEvaluation_action, map_smul, Pi.smul_apply, ht]
@@ -362,7 +365,7 @@ theorem coefficient_single_mem_iff
         ∑ m, algebraMap (𝓞 F) F (algebraMap (OK G) (𝓞 F)
           (kLin D 1 a (fr.y m))) • coefficientEvaluation H G F B (fr.x m) := by
     conv_lhs => rw [fr.resolve a, map_sum]
-    simp only [map_smul, algebraMap_smul]
+    simp only [map_smul, algebraMap_smul, D]
   have h := single_mem_span_iff_of_pairing (OK G) (𝓞 F) F (coefficientIdeal H B)
     (RootAut G) (algebraMap (OK G) (𝓞 F)) (fun a b => kLin D 1 a b)
     (coefficientEvaluation H G F B) (coefficientDualEvaluation H G F B)

@@ -72,7 +72,7 @@ lemma parallelogram {T P X : Scheme.{0}} (p q : P ⟶ X)
     (a b c d : T ⟶ P) (hap : a ≫ p = d ≫ p) (hbp : b ≫ p = c ≫ p)
     (haq : a ≫ q = c ≫ q) (hbq : b ≫ q = d ≫ q)
     {V : X.Opens} (hV : IsAffineOpen V) {V' : P.Opens} (hV' : IsAffineOpen V')
-    {W : T.Opens} (hW : IsAffineOpen W) (hp : V' ≤ p ⁻¹ᵁ V) (hq : V' ≤ q ⁻¹ᵁ V)
+    {W : T.Opens} (_hW : IsAffineOpen W) (hp : V' ≤ p ⁻¹ᵁ V) (hq : V' ≤ q ⁻¹ᵁ V)
     (ha : W ≤ a ⁻¹ᵁ V') (hb : W ≤ b ⁻¹ᵁ V') (hc : W ≤ c ⁻¹ᵁ V') (hd : W ≤ d ⁻¹ᵁ V')
     (h : ∀ s t, (a.appLE V' W ha s - c.appLE V' W hc s) *
       (b.appLE V' W hb t - c.appLE V' W hc t) = 0) (s : Γ(P, V')) :
