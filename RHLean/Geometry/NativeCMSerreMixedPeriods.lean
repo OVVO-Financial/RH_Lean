@@ -109,7 +109,10 @@ theorem conjugateTensor_smul (M : Type) [AddCommGroup M] [Module (𝓞 E) M]
   induction t using TensorProduct.inductionOn with
   | add t u ht hu => simp only [smul_add, map_add, ht, hu]
   | tmul x z =>
-    simp only [← TensorProduct.smul_tmul', conjugateTensor, LinearEquiv.lTensor_tmul]
+    change (conjugateTorus G τ).toLinearMap.lTensor M
+      ((a • x) ⊗ₜ[OK G] z) =
+        (a • x) ⊗ₜ[OK G] (conjugateTorus G τ) z
+    rw [LinearMap.lTensor_tmul]
 
 end RHLean.Geometry.NativeCM.EllipticSeed
 
@@ -214,7 +217,7 @@ theorem mixedInputCoordinates_left (p q : ℕ)
   change NativePeriodCoordinates.conjIf
     (NativePrescribedHermitian.negTail (p + q) q (Fin.castAdd q i)) _ = _
   rw [NativePrescribedHermitian.negTail_false (p + q) q (Fin.castAdd q i)
-    (by simpa using i.isLt)]
+    (by simp)]
   rfl
 
 omit [IsCMField H.E] [Algebra (OK G) ℂ] in
@@ -411,7 +414,9 @@ theorem mixedSerreExponential_coefficient (B : Ideal (𝓞 H.E))
   · exact pureSerreExponential_coefficient H G hcompat B hB p τ₀ a _
   · change EllipticSeed.conjugateTensor G (τ₀ : H.E →+* ℂ) (twistedLattice H B q)
       (pureSerreExponential H G hcompat B hB q τ₀
-        (rawCoefficientAction H q a (mixedInputCoordinates H p q v).2)) = _
+        (rawCoefficientAction H q a (mixedInputCoordinates H p q v).2)) =
+      a • EllipticSeed.conjugateTensor G (τ₀ : H.E →+* ℂ) (twistedLattice H B q)
+        (pureSerreExponential H G hcompat B hB q τ₀ (mixedInputCoordinates H p q v).2)
     rw [pureSerreExponential_coefficient, EllipticSeed.conjugateTensor_smul]
 
 include hcompat in
@@ -427,12 +432,23 @@ theorem exists_prescribedMixedSerreExponential (B : Ideal (𝓞 H.E))
       ∀ (a : 𝓞 H.E) v, ex (fun s => prescribedPeriodType H k m j s (a : H.E) * v s) =
         a • ex v := by
   have hpq : (k + j - 1) + (m - j) = k + m - 1 := by omega
-  unfold prescribedPeriodMap prescribedPeriodType
-  rw [← hpq]
-  exact ⟨mixedSerreExponential H G hcompat B hB (k + j - 1) (m - j) τ₀,
-    mixedSerreExponential_surjective H G hcompat B hB (k + j - 1) (m - j) τ₀,
-    mixedSerreExponential_ker H G hcompat B hB (k + j - 1) (m - j) τ₀,
-    mixedSerreExponential_coefficient H G hcompat B hB (k + j - 1) (m - j) τ₀⟩
+  -- Abstract the dimension before transporting: the lattice, period map,
+  -- source coordinates and coefficient action must all vary together.
+  have transport (N : ℕ) (hN : (k + j - 1) + (m - j) = N) :
+      ∃ ex : (Fin ((cmTypeFinset H).card * N) → ℂ) →+
+          mixedSerrePoints H G B (k + j - 1) (m - j) τ₀,
+        Function.Surjective ex ∧
+        (∀ v, ex v = 0 ↔
+          v ∈ (periodOfRealEquiv (twistedPeriodRealEquiv H B hB N (m - j))).range) ∧
+        ∀ (a : 𝓞 H.E) v,
+          ex (fun s => NativePeriodCoordinates.typeFn (cmTypeFinset H) N (m - j) s
+            (a : H.E) * v s) = a • ex v := by
+    subst N
+    exact ⟨mixedSerreExponential H G hcompat B hB (k + j - 1) (m - j) τ₀,
+      mixedSerreExponential_surjective H G hcompat B hB (k + j - 1) (m - j) τ₀,
+      mixedSerreExponential_ker H G hcompat B hB (k + j - 1) (m - j) τ₀,
+      mixedSerreExponential_coefficient H G hcompat B hB (k + j - 1) (m - j) τ₀⟩
+  exact transport (k + m - 1) hpq
 
 end RHLean.Analysis.AlpogeThin.NativeRawHostPolarization
 

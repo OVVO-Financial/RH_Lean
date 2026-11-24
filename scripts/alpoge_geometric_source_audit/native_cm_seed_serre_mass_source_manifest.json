@@ -1055,8 +1055,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreMixedPeriods.lean",
-      "sha256": "f98539b4ae0b7f0867ba6700dde5038d12484422fcb4936ae6927eb6f6cc9c65",
-      "lines": 497
+      "sha256": "003657005d17634e7d299b8578932cb6fb421f000caa8dd6f178f3ec895dfa0a",
+      "lines": 514
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePeriods.lean",
