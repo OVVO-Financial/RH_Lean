@@ -62,7 +62,7 @@ theorem fractionalIdealPeriod_j_integral
   change _ ∈ (L.lattice : Set ℂ)
   rw [hL]
   refine ⟨(a : quadraticField G) * x, ?_, map_mul _ _ _⟩
-  simpa only [Algebra.smul_def] using
+  simpa only [Algebra.smul_def] using!
     Submodule.smul_mem (I.1 : Submodule (𝓞 (quadraticField G)) (quadraticField G)) a hx
 
 /-- The arithmetic targets are models of the actual inverse ideals. The
@@ -92,7 +92,7 @@ theorem exists_inverseIdealClassModels_preserving_seed
     by_cases hc : c = 1
     · subst c
       exact ⟨EllipticSeed.periodPair G τ, by
-        simpa only [hb₁, map_one, inv_one, Units.val_one] using seedPeriod_eq_image_one G τ,
+        simpa only [hb₁, map_one, inv_one, Units.val_one] using! seedPeriod_eq_image_one G τ,
         fun _ => rfl⟩
     · obtain ⟨L, hL⟩ := PeriodArithmetic.QuadraticZeta.exists_periodPair
         (quadraticField_finrank G) (quadraticField_discr G) (quadraticEmbedding G τ)
@@ -125,7 +125,7 @@ theorem inverseIdealPeriod_forward
   change _ ∈ (L.lattice : Set ℂ)
   rw [hL]
   refine ⟨x * (a : quadraticField G), ?_, map_mul _ _ _⟩
-  simpa only [Algebra.smul_def, mul_comm] using
+  simpa only [Algebra.smul_def, mul_comm] using!
     Submodule.smul_mem (((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1 :
       Submodule (𝓞 (quadraticField G)) (quadraticField G)) a hx'
 

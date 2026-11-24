@@ -43,33 +43,33 @@ theorem rescaledPeriods_mem (z : ℂ) :
     z ∈ (rescaledPeriods G τ C).lattice ↔ (C.u : ℂ) * z ∈ (periodPair G τ).lattice := by
   have h := Weierstrass.isHomothetic_scalePeriods (periodPair G τ)
     (C.u : ℂ)⁻¹ (inv_ne_zero C.u.ne_zero) ((C.u : ℂ) * z)
-  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero] using h
+  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero] using! h
 
 theorem rescaledPeriods_g₂ :
     (rescaledPeriods G τ C).g₂ = (C.u : ℂ) ^ 4 * (periodPair G τ).g₂ := by
   have h := (Weierstrass.isHomothetic_scalePeriods (periodPair G τ)
     (C.u : ℂ)⁻¹ (inv_ne_zero C.u.ne_zero)).g₂_eq
-  simpa only [rescaledPeriods, inv_pow, inv_inv] using h
+  simpa only [rescaledPeriods, inv_pow, inv_inv] using! h
 
 theorem rescaledPeriods_g₃ :
     (rescaledPeriods G τ C).g₃ = (C.u : ℂ) ^ 6 * (periodPair G τ).g₃ := by
   have h := (Weierstrass.isHomothetic_scalePeriods (periodPair G τ)
     (C.u : ℂ)⁻¹ (inv_ne_zero C.u.ne_zero)).g₃_eq
-  simpa only [rescaledPeriods, inv_pow, inv_inv] using h
+  simpa only [rescaledPeriods, inv_pow, inv_inv] using! h
 
 theorem rescaledPeriods_weierstrassP (z : ℂ) :
     (rescaledPeriods G τ C).weierstrassP z =
       (C.u : ℂ) ^ 2 * (periodPair G τ).weierstrassP ((C.u : ℂ) * z) := by
   have h := (Weierstrass.isHomothetic_scalePeriods (periodPair G τ)
     (C.u : ℂ)⁻¹ (inv_ne_zero C.u.ne_zero)).weierstrassP_mul ((C.u : ℂ) * z)
-  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero, inv_pow, inv_inv] using h
+  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero, inv_pow, inv_inv] using! h
 
 theorem rescaledPeriods_derivWeierstrassP (z : ℂ) :
     (rescaledPeriods G τ C).derivWeierstrassP z =
       (C.u : ℂ) ^ 3 * (periodPair G τ).derivWeierstrassP ((C.u : ℂ) * z) := by
   have h := (Weierstrass.isHomothetic_scalePeriods (periodPair G τ)
     (C.u : ℂ)⁻¹ (inv_ne_zero C.u.ne_zero)).derivWeierstrassP_mul ((C.u : ℂ) * z)
-  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero, inv_pow, inv_inv] using h
+  simpa only [rescaledPeriods, inv_mul_cancel_left₀ C.u.ne_zero, inv_pow, inv_inv] using! h
 
 /-- The original order multiplication preserves the rescaled actual lattice. -/
 theorem rescaledPeriods_multiplier (a : OK G) (z : ℂ)
@@ -107,7 +107,7 @@ theorem cm_kernel_period_killed (z : ℂ)
   have he : embed G τ (1 - wK G) * omega G τ = (generatorNorm G : ℂ) := by
     rw [map_sub, map_one]
     exact generator_mul_conjugate G τ
-  simpa only [← mul_assoc, he] using h
+  simpa only [← mul_assoc, he] using! h
 
 /-- Literal multiplication by the original CM generator on the rescaled curve. -/
 def rescaledCMAction :
@@ -132,7 +132,7 @@ theorem rescaledCMAction_quadratic
     linear_combination z * omega_quadratic G τ
   have h' := congrArg (Weierstrass.latticePointHom (rescaledPeriods G τ C)) h
   simpa only [map_add, ← nsmul_eq_mul, map_nsmul,
-    Weierstrass.latticePointHom_apply] using h'
+    Weierstrass.latticePointHom_apply] using! h'
 
 /-- Homothety on the actual point groups, with both multipliers specified. -/
 def rescaledPointEquiv :
@@ -141,7 +141,7 @@ def rescaledPointEquiv :
   toFun := Weierstrass.latticeIsogeny (C.u : ℂ)
     (fun z hz => (rescaledPeriods_mem G τ C z).1 hz)
   invFun := Weierstrass.latticeIsogeny (C.u : ℂ)⁻¹ (fun z hz =>
-    (rescaledPeriods_mem G τ C _).2 (by simpa only [mul_inv_cancel_left₀ C.u.ne_zero] using hz))
+    (rescaledPeriods_mem G τ C _).2 (by simpa only [mul_inv_cancel_left₀ C.u.ne_zero] using! hz))
   left_inv P := by
     obtain ⟨z, rfl⟩ := Weierstrass.latticePoint_surjective (rescaledPeriods G τ C) P
     rw [Weierstrass.latticeIsogeny_latticePoint, Weierstrass.latticeIsogeny_latticePoint,
@@ -165,7 +165,7 @@ theorem rescaledEquationPointEquiv_latticePoint (z : ℂ) :
         (Weierstrass.latticePoint (rescaledPeriods G τ C) z) =
       equationExponential G τ W C hC ((C.u : ℂ) * z) := by
   change Weierstrass.variableChangePoint C hC
-    (Weierstrass.latticeIsogeny (C.u : ℂ) _
+    (Weierstrass.latticeIsogeny (C.u : ℂ) (fun z hz => (rescaledPeriods_mem G τ C z).1 hz)
       (Weierstrass.latticePoint (rescaledPeriods G τ C) z)) = _
   rw [Weierstrass.latticeIsogeny_latticePoint, equationExponential_apply]
 
@@ -218,6 +218,7 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (hC : C • W.baseChange ℂ = latticeCurve (periodPair G τ))
     (hw : ((w : M) : ℂ) = omega G τ)
 
+omit [NumberField M] in
 include hC in
 theorem rescaledPeriods_g₂_mem_field : (rescaledPeriods G τ C).g₂ ∈ M := by
   rw [rescaledPeriods_g₂_eq_invariant G τ C (W.baseChange ℂ) hC,
@@ -225,6 +226,7 @@ theorem rescaledPeriods_g₂_mem_field : (rescaledPeriods G τ C).g₂ ∈ M := 
   change (((W.c₄ : M) : ℂ) / 12) ∈ M
   exact div_mem (W.c₄ : M).property (ofNat_mem M 12)
 
+omit [NumberField M] in
 include hC in
 theorem rescaledPeriods_g₃_mem_field : (rescaledPeriods G τ C).g₃ ∈ M := by
   rw [rescaledPeriods_g₃_eq_invariant G τ C (W.baseChange ℂ) hC,
@@ -232,9 +234,9 @@ theorem rescaledPeriods_g₃_mem_field : (rescaledPeriods G τ C).g₃ ∈ M := 
   change (((W.c₆ : M) : ℂ) / 216) ∈ M
   exact div_mem (W.c₆ : M).property (ofNat_mem M 216)
 
+include hC in
 /-- The actual finite kernel coordinates lie in a finite extension of the
 same field of definition of W. -/
-include hC in
 theorem exists_kernel_coordinate_field :
     ∃ (F : IntermediateField ℚ ℂ) (_ : NumberField F), M ≤ F ∧
       ∀ z ∉ (rescaledPeriods G τ C).lattice,
@@ -269,7 +271,7 @@ theorem exists_kernel_coordinate_field :
   obtain ⟨t, ht⟩ := hr₅ z hαz
   have ht0 : t ≠ 0 := by
     intro h0
-    exact hz (by simpa using add_mem ht ((hr₄ t).mpr h0))
+    exact hz (by simpa using! add_mem ht ((hr₄ t).mpr h0))
   have hrt : r t ∉ L.lattice := (hr₄ t).not.mpr ht0
   have he : L.weierstrassP z = L.weierstrassP (r t) :=
     (weierstrassP_eq_iff L hz hrt).mpr (.inl ht)
@@ -277,10 +279,10 @@ theorem exists_kernel_coordinate_field :
   exact (le_sup_right : IntermediateField.adjoin ℚ S ≤ F)
     (IntermediateField.subset_adjoin ℚ S ⟨⟨t, ht0⟩, rfl⟩)
 
+include hw in
 /-- The original CM generator has a rational point formula over a proved
 number field containing the original field of W. Every scale and degree
 factor is retained and the resulting action is matched to the original W. -/
-include hw in
 theorem exists_finite_field_rational_cm_action :
     ∃ (F : IntermediateField ℚ ℂ) (_ : NumberField F) (A D : ℂ[X]),
       M ≤ F ∧
@@ -354,9 +356,9 @@ theorem exists_integral_seed_with_rational_cm_action
   let _ : NumberField M := hM
   let _ : W.IsElliptic := ⟨hΔ.symm ▸ isUnit_one⟩
   refine ⟨M, hM, W, w, C, hΔ, hhost, hw, hLie, hu, hC, ?_, ?_, ?_⟩
-  · simpa only [WeierstrassCurve.baseChange, WeierstrassCurve.map_c₄] using
+  · simpa only [WeierstrassCurve.baseChange, WeierstrassCurve.map_c₄] using!
       rescaledPeriods_g₂_eq_invariant G τ C (W.baseChange ℂ) hC
-  · simpa only [WeierstrassCurve.baseChange, WeierstrassCurve.map_c₆] using
+  · simpa only [WeierstrassCurve.baseChange, WeierstrassCurve.map_c₆] using!
       rescaledPeriods_g₃_eq_invariant G τ C (W.baseChange ℂ) hC
   · exact exists_finite_field_rational_cm_action G τ M W w C hC hw
 

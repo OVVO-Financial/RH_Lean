@@ -42,33 +42,33 @@ theorem tangentCoordinatePeriods_mem (z : ℂ) :
     z ∈ (tangentCoordinatePeriods L C).lattice ↔ (C.u : ℂ) * z ∈ L.lattice := by
   have h := isHomothetic_scalePeriods L (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero) ((C.u : ℂ) * z)
-  simpa only [tangentCoordinatePeriods, inv_mul_cancel_left₀ C.u.ne_zero] using h
+  simpa only [tangentCoordinatePeriods, inv_mul_cancel_left₀ C.u.ne_zero] using! h
 
 theorem tangentCoordinatePeriods_g₂ :
     (tangentCoordinatePeriods L C).g₂ = (C.u : ℂ) ^ 4 * L.g₂ := by
   have h := (isHomothetic_scalePeriods L (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero)).g₂_eq
-  simpa only [tangentCoordinatePeriods, inv_pow, inv_inv] using h
+  simpa only [tangentCoordinatePeriods, inv_pow, inv_inv] using! h
 
 theorem tangentCoordinatePeriods_g₃ :
     (tangentCoordinatePeriods L C).g₃ = (C.u : ℂ) ^ 6 * L.g₃ := by
   have h := (isHomothetic_scalePeriods L (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero)).g₃_eq
-  simpa only [tangentCoordinatePeriods, inv_pow, inv_inv] using h
+  simpa only [tangentCoordinatePeriods, inv_pow, inv_inv] using! h
 
 theorem tangentCoordinatePeriods_weierstrassP (z : ℂ) :
     ℘[tangentCoordinatePeriods L C] z = (C.u : ℂ) ^ 2 * ℘[L] ((C.u : ℂ) * z) := by
   have h := (isHomothetic_scalePeriods L (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero)).weierstrassP_mul ((C.u : ℂ) * z)
   simpa only [tangentCoordinatePeriods, inv_mul_cancel_left₀ C.u.ne_zero,
-    inv_pow, inv_inv] using h
+    inv_pow, inv_inv] using! h
 
 theorem tangentCoordinatePeriods_derivWeierstrassP (z : ℂ) :
     ℘'[tangentCoordinatePeriods L C] z = (C.u : ℂ) ^ 3 * ℘'[L] ((C.u : ℂ) * z) := by
   have h := (isHomothetic_scalePeriods L (C.u : ℂ)⁻¹
     (inv_ne_zero C.u.ne_zero)).derivWeierstrassP_mul ((C.u : ℂ) * z)
   simpa only [tangentCoordinatePeriods, inv_mul_cancel_left₀ C.u.ne_zero,
-    inv_pow, inv_inv] using h
+    inv_pow, inv_inv] using! h
 
 variable (W : _root_.WeierstrassCurve ℂ) (hC : C • W = latticeCurve L)
 
@@ -121,9 +121,9 @@ theorem tangentCoordinatePeriods_discriminant :
     _root_.WeierstrassCurve.variableChange_Δ, shortChange_u]
   simp
 
+include hC in
 /-- The normalized lattice is determined by the same equation, independently
 of the original analytic comparison choices. -/
-include hC in
 theorem tangentCoordinatePeriods_lattice_eq (L' : PeriodPair)
     (C' : _root_.WeierstrassCurve.VariableChange ℂ)
     (hC' : C' • W = latticeCurve L') :
@@ -165,7 +165,7 @@ theorem tangentCoordinatePeriods_exact_length :
       Real.pi * ‖(C.u : ℂ)‖ ^ 2 / ZLattice.covolume L.lattice := by
   have h := equation_comparison_tangent_length W L (tangentCoordinatePeriods L C)
     C (shortChange W) hC (shortChange_eq_tangentCoordinate_latticeCurve L C W hC)
-  simpa only [shortChange_u, Units.val_one, norm_one, one_pow, mul_one] using h
+  simpa only [shortChange_u, Units.val_one, norm_one, one_pow, mul_one] using! h
 
 include hC in
 theorem tangentCoordinatePeriods_log_covolume (hΔ : W.Δ = 1) :
@@ -204,7 +204,7 @@ theorem tangentCoordinateHolUnif_isAH :
 theorem tangentCoordinateHolUnif_integral_tangent :
     (tangentCoordinateHolUnif L C W hC).HasTangentDirection 1
       (SchemeTheory.WeierstrassLie.integralVector W) := by
-  simpa only [shortChange_u, Units.val_one] using
+  simpa only [shortChange_u, Units.val_one] using!
     WeierstrassTheta.canonicalHolUnif_integral_tangent
       (tangentCoordinatePeriods L C) W (shortChange W)
       (tangentCoordinate_holomorphicComparison L C W hC)

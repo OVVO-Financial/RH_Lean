@@ -32,7 +32,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension
 
-open WeierstrassCurve
+open SchemeTheory.WeierstrassCurve
 
 theorem exists_lift_of_isReduced_of_range_subset {Y X Z : Scheme.{0}} [IsReduced Y] (i : Z ⟶ X)
     [IsClosedImmersion i] (a : Y ⟶ X) (h : Set.range a ⊆ Set.range i) :
@@ -55,7 +55,7 @@ theorem finite_geometric_elliptic_kernel_of_no_small_torsion
     (k : Type) [Field k] [IsAlgClosed k] (t : Sp k ⟶ Sp R) :
     Finite {x : Over.mk t ⟶ Ga // x ≫ io ≫ fst G (schemeOver W) = 1} := by
   obtain ⟨φ, rfl⟩ := Spec.map_surjective t
-  letI : Algebra R k := φ.hom.toAlgebra
+  let _ : Algebra R k := φ.hom.toAlgebra
   change Finite {x : specOver R k ⟶ Ga // x ≫ io ≫ fst G (schemeOver W) = 1}
   let T := specOver R k
   let H := schemeOver W
@@ -79,7 +79,7 @@ theorem finite_geometric_elliptic_kernel_of_no_small_torsion
   let C := κ.range.comap (σ.comp ρ.toMonoidHom)
   have hnk : (n : k) ≠ 0 := by
     have hu : IsUnit (n : k) := by
-      simpa only [map_natCast] using hnR.map (algebraMap R k)
+      simpa only [map_natCast] using! hnR.map (algebraMap R k)
     exact hu.ne_zero
   have hC : Finite C := by
     refine finite_closed_subgroup_of_no_small_torsion (W.baseChange k) n hn hnk C

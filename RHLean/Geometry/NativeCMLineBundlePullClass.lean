@@ -146,7 +146,7 @@ theorem hasGen_iff (hL : L.IsLB) (φ : K → (Y ⟶ X)) (ε : K → ℤ) :
   refine ⟨fun h => ⟨K, inferInstance, φ, ε, h, rfl⟩, ?_⟩
   rintro ⟨K', _, φ', ε', h, e⟩
   refine h.of_formEq hL fun U _ f => ?_
-  simpa only [map_prod, map_zpow, Abelianization.lift_apply_of, FreeGroup.lift_apply_of] using
+  simpa only [map_prod, map_zpow, Abelianization.lift_apply_of, FreeGroup.lift_apply_of] using!
     congrArg (Abelianization.lift (FreeGroup.lift f)) e
 
 def chartDivOut (L : LB X) (φ : K → (Y ⟶ X)) (ε : K → ℤ)

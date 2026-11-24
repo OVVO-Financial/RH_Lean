@@ -175,9 +175,9 @@ theorem genericExponential_bundleMap (k : (Fin P.n × Fin P.n) × Fin 4)
       Additive.toMul (genericSeedExponential G τ V C hVC 0)
     rw [MonObj.comp_one, genericSeedExponential_zero]
 
+include hemb hact in
 /-- The original integral tensor periods go to actual periods under every
 one of the scheme bundle maps. -/
-include hemb hact in
 theorem complexBundleMap_period (k : (Fin P.n × Fin P.n) × Fin 4) (m : D.La) :
     P.complexBundleMap τ k (1 ⊗ₜ[OK G] m) ∈ lattice G τ := by
   have ht : P.genericExponential τ V C hVC a hact hemb (1 ⊗ₜ[OK G] m) = 0 :=

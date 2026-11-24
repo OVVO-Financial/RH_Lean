@@ -24,7 +24,7 @@ set_option maxHeartbeats 4000000
 noncomputable section
 
 open NumberField Filter PeriodPair AlgebraicGeometry CategoryTheory
-open scoped Topology
+open scoped Topology CategoryTheory.MonObj
 
 namespace RHLean.Geometry.NativeCM.WeierstrassTangent
 
@@ -100,7 +100,6 @@ theorem originZ_eq {z : ℂ} (hz : z ≠ 0) (hy : affineY L C z ≠ 0) :
     originZ L C z = -affineX L C z / affineY L C z := by
   rw [originZ, regularX_eq L C hz, regularY_eq L C hz]
   field_simp
-  ring
 
 theorem originW_eq {z : ℂ} (hz : z ≠ 0) (hy : affineY L C z ≠ 0) :
     originW L C z = -1 / affineY L C z := by
@@ -111,40 +110,45 @@ theorem originZ_hasDerivAt : HasDerivAt (originZ L C) (C.u : ℂ)⁻¹ 0 := by
   have hq : DifferentiableAt ℂ (fun z => -regularX L C z / regularY L C z) 0 :=
     (regularX_analytic L C).differentiableAt.neg.div
       (regularY_analytic L C).differentiableAt (regularY_zero_ne L C)
-  convert (hasDerivAt_id (0 : ℂ)).mul hq.hasDerivAt using 1
-  simp only [one_mul, zero_mul, add_zero, regularX_zero, regularY_zero, neg_div_neg_eq]
+  refine HasDerivAt.congr_deriv (f := originZ L C)
+    ((hasDerivAt_id (0 : ℂ)).mul hq.hasDerivAt) ?_
+  simp only [id, one_mul, zero_mul, add_zero, regularX_zero, regularY_zero, neg_div_neg_eq]
   field_simp
 
 theorem originW_hasDerivAt : HasDerivAt (originW L C) 0 0 := by
   have hq : DifferentiableAt ℂ (fun z => (-1 : ℂ) / regularY L C z) 0 :=
-    differentiableAt_const.div (regularY_analytic L C).differentiableAt (regularY_zero_ne L C)
-  convert ((hasDerivAt_id (0 : ℂ)).pow 3).mul hq.hasDerivAt using 1
-  norm_num
+    (differentiableAt_const (-1 : ℂ)).div (regularY_analytic L C).differentiableAt
+      (regularY_zero_ne L C)
+  refine HasDerivAt.congr_deriv (f := originW L C)
+    (((hasDerivAt_id (0 : ℂ)).pow 3).mul hq.hasDerivAt) ?_
+  simp
 
 /-- The direction given by the actual coordinate-change unit has origin
 coordinate derivative one. -/
 theorem scaled_originZ_hasDerivAt :
     HasDerivAt (fun z => originZ L C ((C.u : ℂ) * z)) 1 0 := by
   have hmul : HasDerivAt (fun z : ℂ => (C.u : ℂ) * z) (C.u : ℂ) 0 := by
-    simpa using (hasDerivAt_id (0 : ℂ)).const_mul (C.u : ℂ)
+    simpa using! (hasDerivAt_id (0 : ℂ)).const_mul (C.u : ℂ)
   have ho : HasDerivAt (originZ L C) (C.u : ℂ)⁻¹ ((C.u : ℂ) * 0) := by
-    simpa only [mul_zero] using originZ_hasDerivAt L C
-  simpa only [Function.comp_def, inv_mul_cancel₀ (Units.ne_zero C.u)] using ho.comp 0 hmul
+    simpa only [mul_zero] using! originZ_hasDerivAt L C
+  simpa only [Function.comp_def, inv_mul_cancel₀ (Units.ne_zero C.u)] using! ho.comp 0 hmul
 
 theorem scaled_originW_hasDerivAt :
     HasDerivAt (fun z => originW L C ((C.u : ℂ) * z)) 0 0 := by
   have hmul : HasDerivAt (fun z : ℂ => (C.u : ℂ) * z) (C.u : ℂ) 0 := by
-    simpa using (hasDerivAt_id (0 : ℂ)).const_mul (C.u : ℂ)
+    simpa using! (hasDerivAt_id (0 : ℂ)).const_mul (C.u : ℂ)
   have ho : HasDerivAt (originW L C) 0 ((C.u : ℂ) * 0) := by
-    simpa only [mul_zero] using originW_hasDerivAt L C
-  simpa only [Function.comp_def, zero_mul] using ho.comp 0 hmul
+    simpa only [mul_zero] using! originW_hasDerivAt L C
+  simpa only [Function.comp_def, zero_mul] using! ho.comp 0 hmul
 
 /-- The actual first jet is exactly the specified integral Lie generator. -/
 theorem scaled_origin_firstJet :
     (![TrivSqZeroExt.inr (deriv (fun z => originZ L C ((C.u : ℂ) * z)) 0), -1,
         TrivSqZeroExt.inr (deriv (fun z => originW L C ((C.u : ℂ) * z)) 0)] :
       Fin 3 → DualNumber ℂ) = ![DualNumber.eps, -1, 0] := by
-  rw [(scaled_originZ_hasDerivAt L C).deriv, (scaled_originW_hasDerivAt L C).deriv]
+  rw [(scaled_originZ_hasDerivAt L C).deriv, (scaled_originW_hasDerivAt L C).deriv,
+    TrivSqZeroExt.inr_zero]
+  rfl
 
 open SchemeTheory SchemeTheory.WeierstrassCurve SchemeTheory.WeierstrassLie
 
@@ -174,7 +178,8 @@ theorem integralVector_scalarExtension {R : Type} [CommRing R]
     · ext <;> simp [dualMap]
     · simp
     · simp
-  let h0 := isUnimodularSol_origin (equation_inr W 1)
+  let h0 : IsUnimodularSol (W.map (algebraMap R (DualNumber R))) ![DualNumber.eps, -1, 0] :=
+    isUnimodularSol_origin (equation_inr W 1)
   have h := h0.map_comp (dualMap φ)
   rw [hρ, hP] at h
   refine ⟨h, ?_⟩
@@ -196,8 +201,7 @@ theorem scaled_origin_firstJet_eq_integralVector {R : Type} [CommRing R]
   obtain ⟨h, hv⟩ := integralVector_scalarExtension W φ
   have hP := scaled_origin_firstJet L C
   refine ⟨hP.symm ▸ h, ?_⟩
-  rw [hP]
-  exact hv
+  exact hv.trans (ptHom_congr W _ _ h rfl hP.symm _)
 
 section ActualSeed
 
@@ -228,7 +232,7 @@ theorem actual_exponential_origin_coordinates :
     intro hm
     exact hz ⟨hm, hz0⟩
   have hzseed : z ∉ EllipticSeed.lattice G τ := by
-    simpa only [L, EllipticSeed.periodPair_lattice] using hzl
+    simpa only [L, EllipticSeed.periodPair_lattice] using! hzl
   have hy' : affineY L C z ≠ 0 := by
     intro hy0
     rw [regularY_eq L C hz0, hy0, mul_zero] at hy

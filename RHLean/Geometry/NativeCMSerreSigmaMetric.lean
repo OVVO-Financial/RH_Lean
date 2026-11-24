@@ -143,8 +143,8 @@ theorem schemeSigmaNormSq_transition (i j : (P.schemeBundle a (originLB V)).ι)
     (P.genericSchemePoint τ hemb V C hVC a hact)
     (P.genericSchemePoint_bundleMap τ hemb V C hVC a hact) i j t c h
 
-/-- The metric has exactly the original integral tensor periods. -/
 include hemb hact in
+/-- The metric has exactly the original integral tensor periods. -/
 theorem schemeSigmaNormSq_period (j : (P.schemeBundle a (originLB V)).ι)
     (t : ℂ ⊗[OK G] D.La) (m : D.La) (c : ℂ) :
     P.schemeSigmaNormSq τ V C a j (t + 1 ⊗ₜ[OK G] m) c =

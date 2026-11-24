@@ -38,9 +38,9 @@ variable {φ : Frame} (H : HostRaw φ) [IsCMField H.E]
     (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
 
+omit [IsCMField H.E] in
 /-- The singleton coordinate map retains the original product-span
 lattice and the original coefficient ideal. -/
-omit [IsCMField H.E] in
 def coefficientTwistedOne :
     twistedLattice H B 1 ≃ₗ[𝓞 H.E] (coefficientIdeal H B : Submodule (𝓞 H.E) H.E) :=
   (twistedCoordinates H B 1).trans

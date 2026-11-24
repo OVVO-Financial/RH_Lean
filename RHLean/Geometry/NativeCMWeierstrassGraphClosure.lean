@@ -33,7 +33,7 @@ namespace RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension
 theorem ringHom_flat_of_injective_of_isUnit {R A B : Type*} [CommRing R] [IsDomain R]
     [IsBezout R] [CommRing A] [CommRing B] (φ : R →+* A) (ψ : A →+* B)
     (hψ : Function.Injective ψ) (h : ∀ r : R, r ≠ 0 → IsUnit (ψ (φ r))) : φ.Flat := by
-  letI := φ.toAlgebra
+  let := φ.toAlgebra
   change Module.Flat R A
   rw [Module.Flat.flat_iff_torsion_eq_bot_of_isBezout, eq_bot_iff]
   rintro a ⟨⟨r, hr⟩, hra⟩
@@ -76,7 +76,7 @@ theorem flat_of_isSchemeTheoreticallyDominant_of_fractionRing (R K : Type) [Comm
   have hfl : ((Scheme.ΓSpecIso (.of R)).inv ≫ s.appLE ⊤ U le_top).hom.Flat := by
     refine ringHom_flat_of_injective_of_isUnit (R := R) _ (p.app U).hom (p.app_injective U) ?_
     intro r hr
-    have h1 : IsUnit (algebraMap R K r) := IsUnit.mk0 _ (by simpa using hr)
+    have h1 : IsUnit (algebraMap R K r) := IsUnit.mk0 _ (by simpa using! hr)
     have h2 := h1.map ((Scheme.ΓSpecIso (.of K)).inv ≫ z.appLE ⊤ (p ⁻¹ᵁ U) le_top).hom
     have h3 := congrArg (fun φ => CommRingCat.Hom.hom φ r) key
     exact h3 ▸ h2
@@ -119,12 +119,18 @@ theorem exists_flat_closure (R K : Type) [CommRing R] [IsDomain R]
       rfl (by simp)
   have htm : t ≫ m = i' := by
     apply pullback.hom_ext
-    · simp [t, m, f]
-    · simp [t, m, hw]
+    · rw [Category.assoc]
+      refine (congrArg (t ≫ ·) (pullback.lift_fst _ _ _)).trans ?_
+      rw [← Category.assoc]
+      exact (congrArg (· ≫ f.imageι) (pullback.lift_fst _ _ _)).trans f.toImage_imageι
+    · rw [Category.assoc]
+      refine (congrArg (t ≫ ·) (pullback.lift_snd _ _ _)).trans ?_
+      rw [Category.comp_id]
+      exact (pullback.lift_snd _ _ _).trans hw.symm
   have : IsClosedImmersion (t ≫ m) := htm ▸ inferInstanceAs (IsClosedImmersion i')
   have : IsClosedImmersion t := IsClosedImmersion.of_comp_isClosedImmersion t m
   have hpb : IsPullback (𝟙 Z.left) t f.toImage (pullback.fst (f.imageι ≫ X.hom) j) :=
-    IsPullback.of_horiz_isIso_mono ⟨by simp [t]⟩
+    IsPullback.of_horiz_isIso_mono ⟨(Category.id_comp _).trans (pullback.lift_fst _ _ _).symm⟩
   have : IsSchemeTheoreticallyDominant t := .of_isPullback hpb
   have : IsIso t := IsClosedImmersion.isIso_iff_ker_eq_bot.mpr t.ker_eq_bot
   refine ⟨Ga, io,

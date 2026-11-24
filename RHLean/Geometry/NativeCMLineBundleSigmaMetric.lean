@@ -131,8 +131,8 @@ theorem signedChartNormSq_pos (j : K → (originLB W).ι) (z : Z) {c : ℂ}
     exact h.trans ((p z).preimage_mono (LB.wchart_le (originLB W) f j k))
   exact chartNormSq_pos W L C hC (j k) h' one_ne_zero
 
-/-- The actual transition unit of the original signed atlas is an isometry. -/
 include hp in
+/-- The actual transition unit of the original signed atlas is an isometry. -/
 theorem signedChartNormSq_transition (i j : K → (originLB W).ι) (z : Z) (c : ℂ)
     (h : ⊤ ≤ p z ⁻¹ᵁ ((LB.LinComb (originLB W) f ε).U i ⊓
       (LB.LinComb (originLB W) f ε).U j)) :

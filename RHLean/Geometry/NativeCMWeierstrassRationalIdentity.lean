@@ -58,7 +58,7 @@ theorem rationalIdentity_of_map {K' : Type*} [Field K'] (f : K →+* K')
   apply Polynomial.map_injective f.injective
   simpa only [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_sub,
     Polynomial.map_pow, Polynomial.map_C, Polynomial.map_X, ← derivative_map,
-    map_pow, WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆] using h
+    map_pow, WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆] using! h
 
 /-- The coefficients already proved to lie in a subfield supply an actual
 polynomial over that subfield, with the same degree. -/

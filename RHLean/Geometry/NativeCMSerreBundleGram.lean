@@ -133,7 +133,7 @@ theorem integralEvaluation_frame
   have he := congrArg (fun s => integralEvaluation H G F B s ρ)
     (integralTensor_resolve H G F hbar B hB t)
   simpa only [map_sum, map_smul, Finset.sum_apply, Pi.smul_apply,
-    integralEvaluation_tmul, one_smul, Algebra.smul_def] using he
+    integralEvaluation_tmul, one_smul, Algebra.smul_def] using! he
 
 /-- The exact four-pullback expression of the constructed tensor bundle,
 evaluated on the original integral tangent coefficients. -/

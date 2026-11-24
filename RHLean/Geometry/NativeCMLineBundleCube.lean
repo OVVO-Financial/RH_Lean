@@ -83,7 +83,7 @@ theorem cubeMap_lift [GrpObj A] (x y z : T ⟶ A) (k : Fin 8) :
     lift x (lift y z) ≫ cubeMap A k = cubeTerm x y z k := by
   rw [cubeMap, cubeTerm_pre]
   simp only [cubePoint, Matrix.cons_val_zero, Matrix.cons_val_one,
-    Matrix.cons_val_two, Category.assoc, lift_fst, lift_snd_assoc, lift_snd]
+    Matrix.cons_val_two, Matrix.head_cons, Matrix.tail_cons, lift_fst, lift_snd_assoc, lift_snd]
 
 /-- The universal generator pulls back to every actual triple of
 scheme-valued points. -/

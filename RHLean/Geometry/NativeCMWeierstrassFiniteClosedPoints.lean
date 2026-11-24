@@ -25,7 +25,7 @@ set_option maxHeartbeats 4000000
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory Polynomial MonoidalCategory
-open scoped Classical
+open scoped Classical Polynomial.Bivariate CategoryTheory.MonObj
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
@@ -53,7 +53,7 @@ theorem affineEval_norm_eq_zero (f : W.toAffine.CoordinateRing) (x y : k)
   simp only [eval_sub, eval_mul, eval_pow, eval_add, eval_C, eval_X]
   have hE : y ^ 2 + W.a₁ * x * y + W.a₃ * y =
       x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆ := by
-    simpa only [_root_.WeierstrassCurve.map_id] using
+    simpa only [_root_.WeierstrassCurve.map_id] using!
       (_root_.WeierstrassCurve.Affine.equation_iff ..).mp h
   linear_combination (p.eval x - q.eval x * y - q.eval x * (W.a₁ * x + W.a₃)) * hf +
     (q.eval x) ^ 2 * hE
@@ -85,13 +85,13 @@ theorem exists_nonzero_vanishing_of_proper_closed (Z : Set (scheme W))
     have hr : Set.range (chartZ W) ⊆ Z := by
       rintro _ ⟨p, rfl⟩
       change p ∈ S
-      rw [hI, hi]
-      exact bot_le
+      rw [hI, hi, PrimeSpectrum.zeroLocus_bot]
+      exact Set.mem_univ p
     have hc : closure (Set.range (chartZ W)) ⊆ Z := hZ.closure_subset_iff.mpr hr
     exact hne (Set.eq_univ_of_forall fun z => hc (denseRange_chartZ W z))
   obtain ⟨f, hf, hf0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hI0
   refine ⟨f, hf0, fun x y h hp => ?_⟩
-  let q : Sp k := IsLocalRing.closedPoint k
+  let q : Spec (.of k) := IsLocalRing.closedPoint k
   have hm : PrimeSpectrum.comap (affineEval W (RingHom.id k) x y h.left) q ∈ S := by
     change (Spec.map (CommRingCat.ofHom (affineEval W (RingHom.id k) x y h.left)) ≫
       chartZ W) q ∈ Z
@@ -100,7 +100,7 @@ theorem exists_nonzero_vanishing_of_proper_closed (Z : Set (scheme W))
   rw [hI] at hm
   have he : affineEval W (RingHom.id k) x y h.left f ∈ q.asIdeal := hm hf
   rw [Ideal.eq_bot_of_prime q.asIdeal] at he
-  exact he
+  exact Ideal.mem_bot.mp he
 
 /-- The proper closed subset has finitely many actual elliptic-curve
 points over the given field. -/
@@ -124,7 +124,7 @@ theorem finite_schemePoints_of_proper_closed [W.IsElliptic] (Z : Set (scheme W))
 /-- Changing the self-spectrum presentation to the actual tensor unit
 keeps the underlying scheme point unchanged. -/
 def selfSpecPointMulEquiv [W.IsElliptic] :
-    (specOver k k ⟶ schemeOver W) ≃* (𝟙_ (Over (Sp k)) ⟶ schemeOver W) where
+    (specOver k k ⟶ schemeOver W) ≃* (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W) where
   toFun P := Over.homMk P.left (by rw [Over.w]; exact Spec.map_id _)
   invFun P := Over.homMk P.left (by rw [Over.w]; exact (Spec.map_id _).symm)
   left_inv P := Over.OverMorphism.ext rfl
@@ -135,7 +135,7 @@ def selfSpecPointMulEquiv [W.IsElliptic] :
 of a group-scheme morphism. -/
 theorem finite_unitPoints_of_proper_closed [W.IsElliptic] (Z : Set (scheme W))
     (hZ : IsClosed Z) (hne : Z ≠ Set.univ) :
-    {P : 𝟙_ (Over (Sp k)) ⟶ schemeOver W | Set.range P.left ⊆ Z}.Finite := by
+    {P : 𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W | Set.range P.left ⊆ Z}.Finite := by
   refine ((finite_schemePoints_of_proper_closed W Z hZ hne).image
     (selfSpecPointMulEquiv W)).subset ?_
   intro p hp

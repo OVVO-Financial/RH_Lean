@@ -31,7 +31,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory
 
-open SectionPoints WeierstrassCurve WeierstrassLie
+open SectionPoints SchemeTheory.WeierstrassCurve WeierstrassLie
 
 /-- The complete one-dimensional holomorphic atlas on an actual elliptic
 scheme and its actual origin line bundle, with the specified period lattice. -/

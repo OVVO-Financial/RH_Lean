@@ -39,7 +39,7 @@ theorem exists_grpObj_of_mono {H G : C} [GrpObj G] (j : H ⟶ G) [Mono j]
     (o : 𝟙_ C ⟶ H) (m : H ⊗ H ⟶ H) (n : H ⟶ H) (ho : o ≫ j = η[G])
     (hm : m ≫ j = (j ⊗ₘ j) ≫ μ[G]) (hn : n ≫ j = j ≫ GrpObj.inv) :
     ∃ _ : GrpObj H, IsMonHom j := by
-  letI M : MonObj H :=
+  let _ : MonObj H :=
     { one := o
       mul := m
       one_mul := by

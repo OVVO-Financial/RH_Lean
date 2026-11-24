@@ -96,7 +96,7 @@ theorem top_le_preimage_basicOpen_iff (x : Sp ℂ ⟶ X) (U : X.Opens)
     · intro hg
       have : IsUnit g := by
         have h2 := hg.map (Scheme.ΓSpecIso (CommRingCat.of ℂ)).inv.hom
-        simpa using h2
+        simpa using! h2
       exact (Sp ℂ).basicOpen_of_isUnit this
   · refine ⟨fun h' => (h (h'.trans (x.preimage_mono (X.basicOpen_le f)))).elim, ?_⟩
     intro h'
@@ -116,7 +116,7 @@ end RHLean.Geometry.NativeCM.SchemeTheory.SectionPoints
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet
 
-open WeierstrassCurve WeierstrassLie SectionPoints
+open SchemeTheory.WeierstrassCurve WeierstrassLie SectionPoints
 
 variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ)
     (C : _root_.WeierstrassCurve.VariableChange ℂ)
@@ -278,7 +278,7 @@ theorem locEval_regular (r : OriginRing W) :
         simp only [map_mul, TrivSqZeroExt.snd_mul, smul_eq_mul, MulOpposite.smul_eq_mul_unop,
           MulOpposite.unop_op, hE0]
         ring
-      one_mem' := by simpa using hconst 1
+      one_mem' := by simpa using! hconst 1
       add_mem' := fun {a b} ha hb => by
         have heq : (fun t => locEval L W C t (a + b)) =ᶠ[𝓝 0]
             fun t => locEval L W C t a + locEval L W C t b :=
@@ -287,7 +287,7 @@ theorem locEval_regular (r : OriginRing W) :
           (ha.2.add hb.2).congr heq.symm⟩
         simp only [map_add, TrivSqZeroExt.snd_add]
         ring
-      zero_mem' := by simpa using hconst 0
+      zero_mem' := by simpa using! hconst 0
       neg_mem' := fun {a} ha => by
         have heq : (fun t => locEval L W C t (-a)) =ᶠ[𝓝 0]
             fun t => -locEval L W C t a := hE.mono fun t ht => (ht a a).2.2

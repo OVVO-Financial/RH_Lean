@@ -99,7 +99,7 @@ theorem exists_cm_rational_scheme_open :
   · rw [hdegD, hdegA]
     exact hdD
   · intro x y h
-    simpa only [Polynomial.map_sub, Polynomial.map_mul, ← derivative_map, hA, hD] using he x y h
+    simpa only [Polynomial.map_sub, Polynomial.map_mul, ← derivative_map, hA, hD] using! he x y h
 
 end RHLean.Geometry.NativeCM.Weierstrass
 

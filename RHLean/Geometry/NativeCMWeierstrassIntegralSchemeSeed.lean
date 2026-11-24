@@ -26,7 +26,7 @@ open CartesianMonoidalCategory MonObj
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory
 
-open WeierstrassCurve WeierstrassLie
+open SchemeTheory.WeierstrassCurve WeierstrassLie
 
 section ComplexPoints
 

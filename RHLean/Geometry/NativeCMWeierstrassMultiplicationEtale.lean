@@ -56,7 +56,7 @@ theorem isPullback_torsion (G : Over S) [GrpObj G] (n : ℕ) :
 
 theorem isUnit_natCast_sections {R : Type} [CommRing R] {n : ℕ} (hn : IsUnit (n : R)) :
     IsUnit (n : Γ(Sp R, ⊤)) := by
-  simpa using hn.map (Scheme.ΓSpecIso (.of R)).inv.hom
+  simpa using! hn.map (Scheme.ΓSpecIso (.of R)).inv.hom
 
 theorem flat_mulN_field (k : Type) [Field k] (G : Over (Sp k)) [GrpObj G] [IsCommMonObj G] (n : ℕ)
     (hn : IsUnit (n : k)) (hG : LocallyOfFiniteType G.hom) : Flat (mulN G n).left := by
@@ -65,13 +65,13 @@ theorem flat_mulN_field (k : Type) [Field k] (G : Over (Sp k)) [GrpObj G] [IsCom
   refine flat_of_formallyUnramified_grpEnd _ _ _ ?_ (isMonHom_mulN _ n)
     (formallyUnramified_mulN _ _ n (isUnit_natCast_sections ?_))
   · exact inferInstanceAs (LocallyOfFiniteType (pullback.snd G.hom _))
-  · simpa using hn.map (algebraMap k (AlgebraicClosure k))
+  · simpa using! hn.map (algebraMap k (AlgebraicClosure k))
 
 theorem flat_pullback_mulN {T k : Type} [CommRing T] [Field k] (σ : T →+* k) (G : Over (Sp T))
     [GrpObj G] [IsCommMonObj G] (n : ℕ) (hn : IsUnit (n : T)) (hG : LocallyOfFiniteType G.hom) :
     Flat ((Over.pullback (spMap σ)).map (mulN G n)).left := by
   rw [pullback_map_mulN]
-  refine flat_mulN_field k _ n (by simpa using hn.map σ) ?_
+  refine flat_mulN_field k _ n (by simpa using! hn.map σ) ?_
   exact inferInstanceAs (LocallyOfFiniteType (pullback.snd G.hom _))
 
 end MulEtaleDvr

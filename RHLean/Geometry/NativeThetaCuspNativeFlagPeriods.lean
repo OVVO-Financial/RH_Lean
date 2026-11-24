@@ -121,7 +121,7 @@ theorem prescribed_frame_periods
     (fun _ => rfl) (prescribedRealEquiv H B hB k m) ?_ ?_ ?_
     (NativeFlag.matrix_hermitian H _ _) ?_ ?_
   · intro v
-    simpa only [Complex.ofReal_one, one_mul] using
+    simpa only [Complex.ofReal_one, one_mul] using!
       prescribedRealEquiv_tmul H B hB k m (1 : ℝ) v
   · rw [FlagDomain.cc, ← hc]
     exact conj_xi H
@@ -152,6 +152,7 @@ theorem native_frame_periods
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) :
     let H := nativeDyadicHostRaw e q d he hH
     let _ : IsCMField H.E := nativeDyadicHostRaw_cm e q d he hH
+    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E := (nativeDyadicHostAx e q d he hH).der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
     IsTypeFn G (k + j - 1) (m - j)

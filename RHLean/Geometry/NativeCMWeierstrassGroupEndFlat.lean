@@ -69,7 +69,7 @@ theorem flat_of_map_maximalIdeal {A B : Type*} [CommRing A] [CommRing B] [IsLoca
     refine ⟨a, ?_⟩
     have := Ideal.mem_map_of_mem (e : B →+* A) ha
     rw [he] at this
-    simpa using this
+    simpa using! this
   have := h.comp (RingHom.Flat.of_bijective (f := (e.symm : A →+* B)) e.symm.bijective)
   convert this
   ext x
@@ -78,10 +78,10 @@ theorem flat_of_map_maximalIdeal {A B : Type*} [CommRing A] [CommRing B] [IsLoca
 theorem flat_iff_comp_germ {X : Scheme.{0}} {U : X.Opens} (hU : IsAffineOpen U) {x : X}
     (hx : x ∈ U) {C : CommRingCat.{0}} (g : X.presheaf.stalk x ⟶ C) :
     g.hom.Flat ↔ (X.presheaf.germ U x hx ≫ g).hom.Flat := by
-  letI := X.presheaf.algebra_section_stalk (⟨x, hx⟩ : U)
+  let := X.presheaf.algebra_section_stalk (⟨x, hx⟩ : U)
   have := hU.isLocalization_stalk ⟨x, hx⟩
-  letI := g.hom.toAlgebra
-  letI := (X.presheaf.germ U x hx ≫ g).hom.toAlgebra
+  let := g.hom.toAlgebra
+  let := (X.presheaf.germ U x hx ≫ g).hom.toAlgebra
   have : IsScalarTower Γ(X, U) (X.presheaf.stalk x) C := IsScalarTower.of_algebraMap_eq' rfl
   exact Module.flat_iff_of_isLocalization (X.presheaf.stalk x)
     (hU.primeIdealOf ⟨x, hx⟩).asIdeal.primeCompl C
@@ -164,7 +164,7 @@ theorem flat_of_formallyUnramified_grpEnd (k : Type) [Field k] [IsAlgClosed k] (
   have hαβ : α.hom ≫ φ = φ ≫ β.hom := by
     simp [α, β, comp_lift_assoc]
   have hα : η[G] ≫ α.hom = x' := by
-    simpa [α, comp_lift_assoc] using lift_comp_one_left (𝟙 (𝟙_ (Over (Sp k)))) x'
+    simpa [α, comp_lift_assoc] using! lift_comp_one_left (𝟙 (𝟙_ (Over (Sp k)))) x'
   have hα' : α.hom.left o = x :=
     (congr(($hα).left (IsLocalRing.closedPoint k))).trans (pointOfClosedPoint_apply G.hom x hx _)
   have : IsIso α.hom.left := inferInstanceAs (IsIso ((Over.forget _).map α.hom))

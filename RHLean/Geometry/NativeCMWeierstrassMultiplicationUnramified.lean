@@ -185,7 +185,7 @@ lemma eq_one_of_pow_eq_one (G : Over S) [GrpObj G] {T₀ T : Over S} (j : T₀ �
       push_cast
       linear_combination ih
   have hn' : IsUnit (n : Γ(T.left, W)) := by
-    simpa using hn.map (T.hom.appLE ⊤ W le_top).hom
+    simpa using! hn.map (T.hom.appLE ⊤ W le_top).hom
   have fin : z.left.appLE V W (hW₁ _ hz) = e.left.appLE V W heW := by
     ext s
     have := ind n s
@@ -215,7 +215,7 @@ lemma mul_eq_zero_of_ker_sq {R R₀ : CommRingCat.{0}} (φ : R ⟶ R₀) (hφ : 
     rw [map_mul, map_zero, ← Ideal.mem_bot, ← hφ, pow_two]
     exact Ideal.mul_mem_mul (key s hs) (key t ht)
   have h' : RingHom.ker ((Spec.map φ).app W).hom ^ 2 = ⊥ := by
-    simpa using congr(($h).ideal ⟨W, hW⟩)
+    simpa using! congr(($h).ideal ⟨W, hW⟩)
   rw [← Ideal.mem_bot, ← h', pow_two]
   exact Ideal.mul_mem_mul hs ht
 

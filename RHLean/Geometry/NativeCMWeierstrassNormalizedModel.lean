@@ -97,8 +97,8 @@ section ActualComparison
 variable (W : WeierstrassCurve ℂ) (L : PeriodPair)
     (C : WeierstrassCurve.VariableChange ℂ) (hC : C • W = latticeCurve L)
 
-/-- The original comparison translations are forced by the same W. -/
 include hC in
+/-- The original comparison translations are forced by the same W. -/
 theorem variableChange_translations :
     C.r = (shortChange W).r ∧ C.s = (shortChange W).s ∧
       C.t = (shortChange W).t := by
@@ -195,8 +195,8 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (W : WeierstrassCurve (𝓞 M)) (C : WeierstrassCurve.VariableChange ℂ)
     (hC : C • W.baseChange ℂ = latticeCurve (periodPair G τ))
 
-/-- The actual rescaled equation is the base change of an equation over M. -/
 include hC in
+/-- The actual rescaled equation is the base change of an equation over M. -/
 theorem rescaled_model_defined_over_same_field :
     (shortModel (W.baseChange M)).baseChange ℂ =
       latticeCurve (rescaledPeriods G τ C) := by
@@ -204,8 +204,8 @@ theorem rescaled_model_defined_over_same_field :
   change shortModel (W.baseChange ℂ) = _
   exact shortModel_eq_rescaled_latticeCurve G τ C (W.baseChange ℂ) hC
 
-/-- Its equation isomorphism back to W is also defined over M, with unit one. -/
 include hC in
+/-- Its equation isomorphism back to W is also defined over M, with unit one. -/
 theorem normalized_change_defined_over_same_field :
     (shortChange (W.baseChange M)).u = 1 ∧
       ((shortChange (W.baseChange M)).map (M.val : M →+* ℂ)).r = C.r ∧

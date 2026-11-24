@@ -28,6 +28,7 @@ assigning one.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -90,7 +91,7 @@ theorem coefficientEvaluation_pairing
       ∑ σ, coefficientEvaluation H G F B x σ * coefficientDualEvaluation H G F B y σ := by
   have h := congrArg (algebraMap H.E F)
     (coefficient_kLin_sum H G hroot hbar B hB x y)
-  simpa only [map_sum, map_mul] using h
+  simpa only [map_sum, map_mul] using! h
 
 /-- The actual integral base change of the projective coefficient module. -/
 abbrev IntegralTensor (B : Ideal (𝓞 H.E)) :=
@@ -155,7 +156,8 @@ theorem integralPairing_sum
           ((coefficientSerreFrame H G hbar B hB 1).y i) σ := by
   induction t using TensorProduct.inductionOn with
   | tmul a x =>
-    rw [integralPairing_tmul, map_mul, coefficientEvaluation_pairing H G F hroot hbar]
+    rw [integralPairing_tmul, map_mul, coefficientEvaluation_pairing H G F hroot hbar B hB x
+      ((coefficientSerreFrame H G hbar B hB 1).y i)]
     simp only [integralEvaluation_tmul, Pi.smul_apply, Algebra.smul_def,
       Finset.mul_sum, mul_assoc]
   | add t u ht hu =>
@@ -172,8 +174,10 @@ theorem integralTensor_resolve
   induction t using TensorProduct.inductionOn with
   | tmul a x =>
     conv_lhs => rw [(coefficientSerreFrame H G hbar B hB 1).resolve x]
-    simp only [TensorProduct.tmul_sum, TensorProduct.tmul_smul, integralPairing_tmul,
-      ← TensorProduct.smul_tmul', Algebra.smul_def, mul_one, mul_comm]
+    rw [TensorProduct.tmul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [integralPairing_tmul, TensorProduct.smul_tmul', smul_eq_mul, mul_one,
+      ← TensorProduct.smul_tmul, Algebra.smul_def, mul_comm]
   | add t u ht hu =>
     simp only [map_add, add_smul, Finset.sum_add_distrib, ← ht, ← hu]
 
@@ -269,7 +273,9 @@ theorem integralEigenmodule_iff_coordinates
     ext σ
     rw [integralEvaluation_action, map_smul, Pi.smul_apply, ht]
     by_cases hσ : σ = identityAut G
-    · simp [hσ, identityAut, Algebra.smul_def]
+    · subst hσ
+      rw [Pi.single_eq_same, Algebra.smul_def]
+      rfl
     · simp [Pi.single_eq_of_ne hσ]
 
 variable [NumberField F]
@@ -295,8 +301,8 @@ theorem inverse_extended_mem_iff (I : FractionalIdeal (𝓞 H.E)⁰ H.E) (hI : I
       exact (FractionalIdeal.mem_one_iff _).mpr (ht x hx)
     | zero => simp
     | add x y _ _ hx hy =>
-      rw [mul_add]
-      exact add_mem hx hy
+      rw [mul_add, ← FractionalIdeal.mem_coe]
+      exact Submodule.add_mem _ hx hy
     | smul a x _ hx =>
       rw [mul_smul_comm, ← FractionalIdeal.mem_coe]
       exact Submodule.smul_mem _ a hx
@@ -316,7 +322,7 @@ theorem coefficient_dual_axis_iff (B : Ideal (𝓞 H.E))
   have hJ : J ≠ 0 := (halfDifferent_ne_zero H B hB).2
   have hB0 : B ≠ ⊥ := FractionalIdeal.coeIdeal_ne_zero.mp (halfDifferent_ne_zero H B hB).1
   have hrange : Set.range (fun y : coefficientIdeal H B => H.conj (y : H.E)) =
-      (J⁻¹ : Set H.E) := by
+      ((J⁻¹ : FractionalIdeal (𝓞 H.E)⁰ H.E) : Set H.E) := by
     ext z
     constructor
     · rintro ⟨y, rfl⟩
@@ -324,19 +330,19 @@ theorem coefficient_dual_axis_iff (B : Ideal (𝓞 H.E))
     · intro hz
       have hy : H.conj z ∈ coefficientIdeal H B := by
         apply (NativeRawHostDifferent.kc_mem_inv_smul H H.conj B hB0 _).mp
-        simpa only [conj_conj] using hz
+        simpa only [conj_conj] using! hz
       exact ⟨⟨H.conj z, hy⟩, conj_conj H z⟩
   rw [coefficientDifferent_eq_conjHalf H B hB]
   change _ ↔ t ∈ FractionalIdeal.extendedHom F (𝓞 F) J
   rw [← inv_inv J, map_inv₀, inverse_extended_mem_iff H F J⁻¹ (inv_ne_zero hJ)]
   constructor
   · intro ht y hy
-    rw [← hrange] at hy
+    rw [← SetLike.mem_coe, ← hrange] at hy
     obtain ⟨z, rfl⟩ := hy
     exact ht z
   · intro ht y
     apply ht
-    rw [← hrange]
+    rw [← SetLike.mem_coe, ← hrange]
     exact ⟨y, rfl⟩
 
 theorem coefficient_single_mem_iff
@@ -385,7 +391,8 @@ theorem eigenCoordinate_range
   constructor
   · rintro ⟨t, rfl⟩
     apply (coefficient_single_mem_iff H G F hroot hbar B hB _).mp
-    change Pi.single (identityAut G) (integralEvaluation H G F B t (identityAut G)) ∈ _
+    change (Pi.single (identityAut G) (integralEvaluation H G F B t (identityAut G)) :
+      RootAut G → F) ∈ _
     rw [← (integralEigenmodule_iff_coordinates H G F hroot hbar B hB t).mp t.property,
       ← integralEvaluation_range]
     exact ⟨t, rfl⟩
@@ -394,7 +401,7 @@ theorem eigenCoordinate_range
     rw [← integralEvaluation_range] at hm
     obtain ⟨t, ht⟩ := hm
     have ht0 : integralEvaluation H G F B t (identityAut G) = z := by
-      simpa using congrFun ht (identityAut G)
+      simpa using! congrFun ht (identityAut G)
     have heig : t ∈ integralEigenmodule H G F B := by
       apply (integralEigenmodule_iff_coordinates H G F hroot hbar B hB t).mpr
       rw [ht0]
@@ -457,7 +464,7 @@ theorem nativeDyadicHost_exists_integralSerreEigenlattice
     let _ : IsCMField H.E := H.der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     ∃ (B : Ideal (𝓞 H.E))
-      (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)),
+      (_hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)),
       B ⊔ H.conj • B = ⊤ ∧
       (∀ σ : H.E ≃ₐ[ℚ] H.E, H.gal σ ∈ (nativeDyadicFrame e).Psi → σ • B = B) ∧
       ∀ (F : Type) [Field F] [NumberField F] [Algebra H.E F],

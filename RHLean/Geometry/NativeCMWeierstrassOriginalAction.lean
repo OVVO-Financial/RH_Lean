@@ -109,8 +109,8 @@ variable [W.IsElliptic] (a : OAct (OK G) (schemeOver (shortModel W)))
         ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm
           (latticePoint (rescaledPeriods G τ C) (embed G τ b * z))))
 
-/-- The original period parameter has the exact original scalar action. -/
 include ha in
+/-- The original period parameter has the exact original scalar action. -/
 theorem originalOrderAction_period (b : OK G) (z : ℂ) :
     originalPeriodPoint G τ C W hVC z ≫ (originalOrderAction W a).act b =
       originalPeriodPoint G τ C W hVC (embed G τ b * z) := by

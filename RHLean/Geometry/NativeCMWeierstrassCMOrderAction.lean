@@ -95,7 +95,7 @@ theorem rescaledOrderAction_coordinates (a : OK G)
     ring
   have h := congrArg (Weierstrass.latticePointHom (rescaledPeriods G τ C)) he
   simpa only [map_add, ← zsmul_eq_mul, map_zsmul,
-    Weierstrass.latticePointHom_apply] using h
+    Weierstrass.latticePointHom_apply] using! h
 
 end RHLean.Geometry.NativeCM.EllipticSeed
 

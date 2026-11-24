@@ -92,8 +92,10 @@ def oneGen : Gen (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim) wher
 
 theorem isGen_oneGen : (oneGen L (Y := Y)).IsGen := by
   intro i j
-  change res _ 1 = (∏ k : PEmpty, _) * res _ 1
-  simp only [map_one, Fintype.prod_empty, one_mul]
+  have hg : (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim).g i j = 1 :=
+    Fintype.prod_empty _
+  rw [hg, one_mul]
+  exact (map_one _).trans (map_one _).symm
 
 def mulGen (φ : K → (Y ⟶ X)) (ε : K → ℤ)
     (φ' : K' → (Y ⟶ X)) (ε' : K' → ℤ)
@@ -137,9 +139,14 @@ theorem isGen_mulGen (φ : K → (Y ⟶ X)) (ε : K → ℤ)
         (gm_linComb L _ _ (𝟙 Y) y j j' hy.1 hy.2)
         ((gm_res (𝟙 Y) y _ hy _).trans
           (gm_mulGen L φ ε φ' ε' t t' (𝟙 Y) y j' hy.2)))).symm))
-  rw [gen_trans ht (𝟙 Y) y hj hj', gen_trans ht' (𝟙 Y) y hk hk']
-  simp only [trF, Fintype.prod_sum_type, Sum.elim_inl, Sum.elim_inr, Function.comp_apply]
-  ac_rfl
+  have hprod : (∏ k : K ⊕ K', gm (𝟙 Y ≫ Sum.elim φ φ' k) y (L.U (j k) ⊓ L.U (j' k))
+      (L.g (j k) (j' k)) ^ Sum.elim ε ε' k) =
+      trF φ ε (𝟙 Y) y (j ∘ Sum.inl) (j' ∘ Sum.inl) *
+        trF φ' ε' (𝟙 Y) y (j ∘ Sum.inr) (j' ∘ Sum.inr) := by
+    rw [Fintype.prod_sum_type]
+    rfl
+  exact (congrArg₂ (· * ·) (gen_trans ht (𝟙 Y) y hj hj') (gen_trans ht' (𝟙 Y) y hk hk')).trans
+    ((mul_mul_mul_comm _ _ _ _).trans (congrArg (· * _) hprod.symm))
 
 end LB
 

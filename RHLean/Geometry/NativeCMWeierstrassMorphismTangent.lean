@@ -28,7 +28,7 @@ open scoped Classical Topology
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent
 
-open WeierstrassCurve WeierstrassLie SectionPoints WeierstrassSectionJet
+open SchemeTheory.WeierstrassCurve WeierstrassLie SectionPoints WeierstrassSectionJet
 
 section BaseChangeVector
 
@@ -86,7 +86,7 @@ theorem exists_tangent_scalar (β : ℂ)
   let j := mapHom V (algebraMap R ℂ) rfl
   have hf0 : zero V ≫ f.left = zero V := by
     have h := congrArg Over.Hom.left (IsMonHom.one_hom f)
-    simpa only [Over.comp_left, one_left] using h
+    simpa only [Over.comp_left, one_left] using! h
   have hw : f.left ≫ toSpec V = toSpec V := Over.w f
   have hg : (vec V 1 ≫ f.left) ≫ toSpec V = spMap (algebraMap R (DualNumber R)) := by
     rw [Category.assoc, hw]
@@ -97,7 +97,7 @@ theorem exists_tangent_scalar (β : ℂ)
   refine ⟨c, hc, ?_⟩
   have hvj : vec (V.baseChange ℂ) 1 ≫ j =
       spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 := by
-    simpa only [map_one] using vec_mapHom V (algebraMap R ℂ) 1
+    simpa only [map_one] using! vec_mapHom V (algebraMap R ℂ) 1
   have hvjf : vec (V.baseChange ℂ) 1 ≫ j ≫ f.left =
       spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c := by
     rw [← Category.assoc, hvj, Category.assoc, hc]
@@ -119,7 +119,7 @@ theorem exists_tangent_scalar (β : ℂ)
         v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 →
         (evalPt v U hv s).snd = -1 := by
       rintro _ hv rfl
-      simpa only [map_one] using evalPt_extended_vec_ratio V (algebraMap R ℂ) 1 hv
+      simpa only [map_one] using! evalPt_extended_vec_ratio V (algebraMap R ℂ) 1 hv
     exact key _ hJ hvj
   have ef : (evalPt (vec (V.baseChange ℂ) 1) ((j ≫ f.left) ⁻¹ᵁ U) hF'
       (((j ≫ f.left).app U).hom s)).snd = -algebraMap R ℂ c := by
@@ -147,7 +147,7 @@ theorem exists_tangent_scalar (β : ℂ)
       (value_comp (expPoint L (V.baseChange ℂ) C hC z) (j ≫ f.left) U s).symm)
   have hdj' : HasDerivAt
       (fun z => value (expPoint L (V.baseChange ℂ) C hC z ≫ j) U s)
-      ((C.u : ℂ)⁻¹ * (-1)) (β * 0) := by simpa only [mul_zero] using hdj
+      ((C.u : ℂ)⁻¹ * (-1)) (β * 0) := by simpa only [mul_zero] using! hdj
   have hmul := hdj'.comp 0 ((hasDerivAt_id (0 : ℂ)).const_mul β)
   have hmul' : HasDerivAt
       (fun z => value (expPoint L (V.baseChange ℂ) C hC z ≫ j ≫ f.left) U s)

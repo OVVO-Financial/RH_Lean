@@ -156,6 +156,7 @@ theorem native_holomorphic_period_family
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) :
     let H := nativeDyadicHostRaw e q d he hH
     let _ : IsCMField H.E := nativeDyadicHostRaw_cm e q d he hH
+    let _ : IsCMField (nativeDyadicHostAx e q d he hH).E := (nativeDyadicHostAx e q d he hH).der.cm
     let G := nativeDyadicGeometricHostOfDerived e q d he hH
     let D := nativeDyadicPrescribedGeometricDatum e q d he hH B hB k m j hk hj
     let U := FlagDomain.GG (cmTypeFinset H)

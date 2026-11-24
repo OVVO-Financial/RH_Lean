@@ -49,7 +49,6 @@ theorem classPeriod_mean_eq_normDisc
     (Fintype.card (ClassGroup (𝓞 K)) : ℝ) =
       S / (6 * (Fintype.card (ClassGroup (𝓞 K)) : ℝ)) - Real.log Real.pi
   field_simp [hh]
-  ring
 
 /-- The arithmetic mean is now in the exact native period normalization.
 The hypotheses are the actual two-sided integral derivative and lattice

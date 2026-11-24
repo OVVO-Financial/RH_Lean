@@ -41,7 +41,7 @@ theorem deriv_canonicalSigma_add {w z : ℂ} (hw : w ∈ L.lattice) (hz : z ∈ 
   have h₂ := (multiplier_analytic L w z).differentiableAt.hasDerivAt.fun_mul
     (differentiable_canonicalSigma L z).hasDerivAt
   rw [funext (canonicalSigma_automorphy L hw)] at h₁
-  simpa only [(canonicalSigma_eq_zero_iff L).mpr hz, mul_zero, zero_add] using h₁.unique h₂
+  simpa only [(canonicalSigma_eq_zero_iff L).mpr hz, mul_zero, zero_add] using! h₁.unique h₂
 
 theorem affineX_periodic {w : ℂ} (hw : w ∈ L.lattice) (z : ℂ) :
     affineX L C (z + w) = affineX L C z := by

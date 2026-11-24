@@ -152,6 +152,6 @@ theorem transform_adjoint {F : Type} [Field F] {n : ℕ}
   intro b _
   obtain ⟨t, ht⟩ := hpair (qRep (x b)) (qRep (k.symm (q b)))
   refine ⟨t, ?_⟩
-  simpa only [qRep_mk, LinearEquiv.apply_symm_apply] using ht
+  simpa only [qRep_mk, LinearEquiv.apply_symm_apply, Nat.cast_ofNat] using! ht
 
 end RHLean.Geometry.NativeTheta.Cusp.FiniteFourier

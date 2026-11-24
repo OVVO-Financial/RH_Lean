@@ -34,7 +34,7 @@ theorem multiplier_ne_zero (w z : ℂ) : multiplier L w z ≠ 0 :=
 
 theorem canonicalSigma_automorphy {w : ℂ} (hw : w ∈ L.lattice) (z : ℂ) :
     canonicalSigma L (z + w) = multiplier L w z * canonicalSigma L z := by
-  simpa only [multiplier, div_mul_eq_mul_div] using canonicalSigma_add L hw z
+  simpa only [multiplier, div_mul_eq_mul_div] using! canonicalSigma_add L hw z
 
 theorem norm_multiplier_sq (w z : ℂ) :
     ‖multiplier L w z‖ ^ 2 =

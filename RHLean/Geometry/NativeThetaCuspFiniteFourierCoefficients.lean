@@ -86,7 +86,7 @@ theorem exists_five_fourier_coefficients (D : NativeGeometricDatum H)
     apply ι.injective
     have he := congrArg (fun f : (IQuot D P ≃ₗ[𝓞 E] IQuot D P) →* F'ˣ =>
       (f g : F')) h
-    simpa [ψ'] using he
+    simpa [ψ'] using! he
   have hact' : ∀ (k : IQuot D P ≃ₗ[𝓞 E] IQuot D P)
       (g : JQuot D P ≃ₗ[𝓞 E] JQuot D P),
       (∀ u v : D.La, (5 : ℤ) ∣
@@ -94,7 +94,7 @@ theorem exists_five_fourier_coefficients (D : NativeGeometricDatum H)
           D.EF u (cHalf H P • qRep (k (Submodule.Quotient.mk v)))) →
       ∀ x, ph' (fun b => g (x b)) = (((ψ' k)⁻¹ : F'ˣ) : F') * ph' x := by
     intro k g h x
-    simpa [ph', ψ'] using congrArg ι (hact k g h x)
+    simpa [ph', ψ'] using! congrArg ι (hact k g h x)
   have hbound' : ∀ x, IsIntegral ℤ (ph' x) ∧ ∀ σ : F' →+* ℂ, ‖σ (ph' x)‖ ≤ 1 := by
     intro x
     exact ⟨(hbound x).1.map ι.toRingHom.toIntAlgHom,
@@ -116,7 +116,7 @@ theorem exists_five_fourier_coefficients (D : NativeGeometricDatum H)
   · intro x x' hx
     exact congrArg ι (hrows x x' hx)
   · intro x
-    simpa only [ph', ne_eq, map_eq_zero] using hsupp x
+    simpa only [ph', ne_eq, map_eq_zero] using! hsupp x
   · change ι (ph x₀) = 1
     rw [hone, map_one]
   · intro L q

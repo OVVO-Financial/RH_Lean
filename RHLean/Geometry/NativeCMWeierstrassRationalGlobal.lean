@@ -137,7 +137,7 @@ theorem RationalIdentity.map {W : _root_.WeierstrassCurve K} {α : K} {A D : K[X
   have he := congrArg (Polynomial.map f) h
   simpa only [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_sub,
     Polynomial.map_pow, Polynomial.map_C, Polynomial.map_X, ← derivative_map,
-    map_pow, _root_.WeierstrassCurve.map_a₄, _root_.WeierstrassCurve.map_a₆] using he
+    map_pow, _root_.WeierstrassCurve.map_a₄, _root_.WeierstrassCurve.map_a₆] using! he
 
 variable [DecidableEq K]
 

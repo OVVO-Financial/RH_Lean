@@ -54,14 +54,14 @@ theorem placeHolUnif_isAH (v : InfinitePlace F) :
       (Weierstrass.sigmaSign (lattice W hΔ v)) :=
   canonicalHolUnif_isAH _ _ _ _
 
+omit [W.IsElliptic] in
 /-- This is the scalar extension of the original integral vector, not a
 new generator chosen after complex uniformization. -/
-omit [W.IsElliptic] in
 theorem integralVector_place_baseChange (v : InfinitePlace F) :
     (integralVector (complexEquation W v)).left ≫
         mapHom W (placeMap v) rfl =
       spMap (WeierstrassTangent.dualMap (placeMap v)) ≫ (integralVector W).left := by
-  simpa only [map_one] using vec_mapHom W (placeMap v) 1
+  simpa only [map_one] using! vec_mapHom W (placeMap v) 1
 
 theorem placeHolUnif_integral_tangent (v : InfinitePlace F) :
     (placeHolUnif W hΔ v).HasTangentDirection

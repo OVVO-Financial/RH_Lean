@@ -104,7 +104,7 @@ instance translationOverIso_isMonHom :
       MonObj.one_eq_one, MonObj.comp_one]
     have hV : ofAffinePoint V k 0 = 1 := (affinePointMulEquiv V k).map_one
     have hW : ofAffinePoint W k 0 = 1 := (affinePointMulEquiv W k).map_one
-    simpa only [map_zero, hV, hW] using
+    simpa only [map_zero, hV, hW] using!
       ofAffinePoint_translation W V r s t hC k 0
   mul_hom := by
     apply over_hom_eq_iff_forall_field_algebra.mpr

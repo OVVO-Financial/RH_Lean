@@ -25,7 +25,7 @@ attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet
 
-open WeierstrassCurve SectionPoints
+open SchemeTheory.WeierstrassCurve SectionPoints
 
 variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic]
   (C : _root_.WeierstrassCurve.VariableChange ℂ)
@@ -108,7 +108,7 @@ theorem isOpen_exponential_domain (U : (scheme W).Opens) :
     exact hz
   have hmem := eventually_mem_open L W C hC (f ⁻¹ᵁ U) h0
   have ht : Tendsto (fun x : ℂ => x - z) (𝓝 z) (𝓝 0) :=
-    by simpa only [sub_self] using
+    by simpa only [sub_self] using!
       (continuousAt_id.sub (continuousAt_const : ContinuousAt (fun _ : ℂ => z) z)).tendsto
   filter_upwards [ht.eventually hmem] with x hx
   rw [← Scheme.Hom.comp_preimage, expPoint_translate, sub_add_cancel] at hx

@@ -54,16 +54,21 @@ theorem originLB_symmetric : Sym (schemeOver W) (originLB W) := by
   intro _
   obtain ⟨t, ht⟩ := originLB_inversion_isomorphic W
   let jU := (toSpec W ⁻¹ᵁ (⊤ : (Sp R).Opens)).ι
-  have h := LB.isGen_pullGen (originLB W)
-    ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)]
-    ![1, -1] t ht jU
+  have h : ∃ v : LB.Gen (LB.LinComb (originLB W) (fun k : Fin 2 => jU ≫
+      ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)] k) ![1, -1]),
+      v.IsGen :=
+    ⟨_, LB.isGen_pullGen (originLB W)
+      ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)]
+      ![1, -1] t ht jU⟩
   have e : (fun k : Fin 2 => jU ≫
       ![(GrpObj.inv : schemeOver W ⟶ schemeOver W).left, 𝟙 (scheme W)] k) =
       ![jU ≫ (GrpObj.inv : schemeOver W ⟶ schemeOver W).left, jU] := by
     funext k
-    fin_cases k <;> simp
+    fin_cases k
+    · rfl
+    · exact Category.comp_id jU
   rw [e] at h
-  exact ⟨⊤, trivial, _, h⟩
+  exact ⟨⊤, trivial, h⟩
 
 theorem originLB_kTriv : KTriv (schemeOver W) (originLB W) := by
   have hz : ∀ (T : Scheme.{0}) (t : T ⟶ (schemeOver W).left) (i : (originLB W).ι)

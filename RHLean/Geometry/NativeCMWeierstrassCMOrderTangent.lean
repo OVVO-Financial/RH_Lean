@@ -89,9 +89,9 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
         ofAffinePoint V ℂ ((pointCongr hVC).symm
           (latticePoint (rescaledPeriods G τ C) (embed G τ b * z))))
 
+include ha in
 /-- The tangent scalars are forced by the actual morphisms, and form the
 original order embedding into the same field. They are all integral. -/
-include ha in
 theorem exists_integral_order_tangent :
     ∃ κ : OK G →+* 𝓞 F,
       (∀ b, algebraMap F ℂ (κ b : F) = embed G τ b) ∧

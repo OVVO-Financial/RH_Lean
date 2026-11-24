@@ -126,7 +126,7 @@ theorem exists_numberField_point_off_denominator
     rw [hshort.1, hshort.2.1, hshort.2.2]
     push_cast
     simp only [zero_mul, add_zero]
-    simpa only [t, map_add, map_mul, map_pow] using hy
+    simpa only [t, map_add, map_mul, map_pow] using! hy
   · change (D.map i.toRingHom).eval (i x) ≠ 0
     rw [Polynomial.eval_map, Polynomial.eval₂_at_apply]
     exact fun h => hx (i.injective (h.trans (map_zero i).symm))

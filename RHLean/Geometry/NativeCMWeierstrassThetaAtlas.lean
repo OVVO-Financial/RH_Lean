@@ -59,7 +59,7 @@ theorem point_coordinate_ne_zero (P : Fin 3 → ℂ)
   have e := h (show (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum ℂ) ∈
     (⊤ : TopologicalSpace.Opens (Sp ℂ)) from trivial)
   change P i ∉ (⊥ : Ideal ℂ) at e
-  simpa only [Ideal.mem_bot] using e
+  simpa only [Ideal.mem_bot] using! e
 
 theorem affinePoint_origin_coordinates_ne_zero {x y : ℂ}
     (hp : (W.baseChange ℂ).toAffine.Nonsingular x y)
