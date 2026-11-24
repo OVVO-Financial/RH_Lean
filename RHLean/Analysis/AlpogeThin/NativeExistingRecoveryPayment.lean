@@ -178,7 +178,7 @@ theorem nativeDIV_of_period_lower
   have h := nativeDivisorDebt_of_period_lower D C P 0 ha
     (fun u v => by simpa only [sub_zero] using hP u v) hDegree u v
   simpa only [mul_zero, add_zero, Data.SDiv, Data.sumA, Data.EDiv,
-    Finset.sum_sub_distrib, Finset.sum_mul] using h
+    Finset.sum_sub_distrib, Finset.sum_mul, ← add_assoc] using h
 
 end RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds
 

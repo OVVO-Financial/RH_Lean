@@ -94,7 +94,7 @@ theorem isGen_oneGen : (oneGen L (Y := Y)).IsGen := by
   intro i j
   have hg : (LinComb L (Y := Y) (K := PEmpty) PEmpty.elim PEmpty.elim).g i j = 1 := by
     delta LinComb
-    exact Fintype.prod_empty _
+    exact Fintype.prod_empty (ι := PEmpty) _
   rw [hg, one_mul]
   exact (map_one _).trans (map_one _).symm
 

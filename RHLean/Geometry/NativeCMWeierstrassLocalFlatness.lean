@@ -126,7 +126,8 @@ theorem relationsLift_pow {π : A} (h : RelationsLift (Ideal.span {π}) M)
       exact Submodule.smul_mem_smul (Ideal.pow_mem_pow (Ideal.mem_span_singleton_self π) k)
         Submodule.mem_top)
     rw [← lTensor_comp_apply]
-    refine range_lTensor_le _ _ (fun y => ?_) ⟨x₃, rfl⟩
+    refine range_lTensor_le (s ∘ₗ (Submodule.comap g (Ideal.span {π} ^ k)).subtype) _
+      (fun y => ?_) ⟨x₃, rfl⟩
     have := y.2
     change f (s y) ∈ Ideal.span {π} ^ (k + 1)
     rw [← comp_apply, hfs, pow_succ']
@@ -150,7 +151,6 @@ theorem flat_of_relationsLift [IsNoetherianRing A] (B : Type v) [CommRing B] [Al
     obtain ⟨y, rfl⟩ := h (n + k) J J.subtype x (by rw [mem_ker.mp hx]; simp)
     clear hx
     induction y with
-    | zero => simp
     | add a b ha hb => rw [map_add]; exact add_mem ha hb
     | tmul m j =>
       obtain ⟨⟨j, hj⟩, hj'⟩ := j
