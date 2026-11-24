@@ -1,0 +1,63 @@
+name: Semantic proof-risk census
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**.lean'
+      - 'scripts/semantic_source_audit.py'
+      - 'scripts/test_semantic_source_audit.py'
+      - 'scripts/rhlean_kg.py'
+      - 'scripts/decl_graph.py'
+      - 'scripts/proofq.py'
+      - '.github/workflows/semantic-proof-risk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: semantic-proof-risk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test risk detector
+        run: python3 -m unittest discover -s scripts -p test_semantic_source_audit.py -v
+      - name: Scan every tracked Lean source
+        run: python3 scripts/semantic_source_audit.py --json semantic-census/current.json --label current
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: semantic-source-census
+          path: semantic-census/
+  initial-pinned-census:
+    if: github.event_name == 'pull_request' && github.head_ref == 'audit/semantic-proof-integrity-20261124'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: main
+            ref: 9f84aae95729d566d4aa7189584620fbd0e1099a
+          - label: final-proof-1201
+            ref: 92f46c80a678df7f05f4741437068b51607b643c
+          - label: geometric-suppliers-1208
+            ref: b8e18c7c195537f5775273807e5b693f25896223
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+          path: pinned
+      - name: Census pinned snapshot
+        run: python3 scripts/semantic_source_audit.py --root pinned --json semantic-census/${{ matrix.label }}.json --label ${{ matrix.label }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: semantic-census-${{ matrix.label }}
+          path: semantic-census/
