@@ -23,7 +23,7 @@ No extension over a ring of integers is assumed.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
-set_option maxHeartbeats 4000000
+set_option maxHeartbeats 8000000
 
 noncomputable section
 
@@ -58,11 +58,11 @@ theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
           (translationChange_baseChange W V r s t hC k) P) := by
   cases P with
   | zero =>
-      change ofAffinePoint V k 0 ≫ (translationOverIso W V r s t hC).hom =
-        ofAffinePoint W k (Weierstrass.variableChangePoint
+      have he : Weierstrass.variableChangePoint
           (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
-          (translationChange_baseChange W V r s t hC k) 0)
-      rw [map_zero, ofAffinePoint_zero, ofAffinePoint_zero,
+          (translationChange_baseChange W V r s t hC k)
+          (0 : (V.baseChange k).toAffine.Point) = 0 := map_zero _
+      rw [he, ofAffinePoint_zero, ofAffinePoint_zero,
         zeroOver_eq_ptOver, zeroOver_eq_ptOver]
       apply Over.OverMorphism.ext
       change ptHom V (algebraMap R k) ![0, 1, 0] _ ≫
@@ -92,10 +92,21 @@ theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
         (q ≫ (translationOverIso W V r s t hC).hom) := by
   obtain ⟨P, rfl⟩ := (affinePointEquiv V k).surjective p
   obtain ⟨Q, rfl⟩ := (affinePointEquiv V k).surjective q
-  change (ofAffinePoint V k P * ofAffinePoint V k Q) ≫ _ =
-    (ofAffinePoint V k P ≫ _) * (ofAffinePoint V k Q ≫ _)
-  rw [← ofAffinePoint_add, ofAffinePoint_translation, map_add, ofAffinePoint_add,
-    ofAffinePoint_translation, ofAffinePoint_translation]
+  let f : schemeOver V ⟶ schemeOver W := (translationOverIso W V r s t hC).hom
+  let u := Weierstrass.variableChangePoint
+    (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
+    (translationChange_baseChange W V r s t hC k)
+  have hP : ofAffinePoint V k P ≫ f = ofAffinePoint W k (u P) :=
+    ofAffinePoint_translation W V r s t hC k P
+  have hQ : ofAffinePoint V k Q ≫ f = ofAffinePoint W k (u Q) :=
+    ofAffinePoint_translation W V r s t hC k Q
+  calc
+    _ = ofAffinePoint V k (P + Q) ≫ f :=
+      congrArg (fun p => p ≫ f) (ofAffinePoint_add V k P Q).symm
+    _ = ofAffinePoint W k (u (P + Q)) := ofAffinePoint_translation W V r s t hC k (P + Q)
+    _ = ofAffinePoint W k (u P) * ofAffinePoint W k (u Q) := by
+      rw [map_add, ofAffinePoint_add]
+    _ = _ := by rw [hP, hQ]
 
 /-- The actual triangular scheme isomorphism preserves the group law. -/
 instance translationOverIso_isMonHom :

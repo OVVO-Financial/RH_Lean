@@ -175,9 +175,16 @@ theorem nativeDyadic_coefficientSerreMetric
   constructor
   · intro hx
     apply seed_metric_kLin_diagonal_pos D 1 τ x
-    simpa [D, G, H, coefficientTraceLattice] using
-      (nativeDyadicHalfRoot_pureBlockPositivity e q d he hH B hB).1 x hx
-  · simpa [D, coefficientTraceLattice] using seed_metric_kLin_pi D 1 τ x
+    change 0 < (1 : ℤ) * integralTraceForm H.toHostRaw B hB (G.w0 • x) x
+    rw [one_mul]
+    exact (nativeDyadicHalfRoot_pureBlockPositivity e q d he hH B hB).1 x hx
+  · have hpi := seed_metric_kLin_pi D 1 τ x
+    change Real.pi * (EllipticSeed.hermitian G τ
+        (embed G τ (kLin D 1 x x)) 1).re =
+      (2 * Real.pi / Real.sqrt G.d) *
+        (((1 : ℤ) * integralTraceForm H.toHostRaw B hB (G.w0 • x) x : ℤ) : ℝ) at hpi
+    rw [one_mul] at hpi
+    exact hpi
 
 end RHLean.Analysis.AlpogeThin
 

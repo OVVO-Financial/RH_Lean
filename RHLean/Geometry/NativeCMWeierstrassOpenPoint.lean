@@ -34,8 +34,9 @@ theorem affineAeval_aeval (p : K[X]) :
   change affineAeval W x y hxy (eval₂ (algebraMap K _) (affineX W) p) = _
   rw [Polynomial.algHom_eval₂_algebraMap]
   change eval₂ (algebraMap K k) (affineEval W (algebraMap K k) x y hxy (affineX W)) p = _
-  rw [affineEval_affineX]
-  rfl
+  have hx : affineEval W (algebraMap K k) x y hxy (affineX W) = x :=
+    affineEval_affineX W (algebraMap K k) x y hxy
+  exact congrArg (fun t : k => eval₂ (algebraMap K k) t p) hx
 
 include hD in
 theorem isUnit_affineAeval_denominator :
@@ -50,13 +51,17 @@ def rationalOpenPoint : RationalOpenRing W D →ₐ[K] k :=
 
 theorem rationalOpenPoint_X :
     rationalOpenPoint W D x y hxy hD (rationalOpenX W D) = x := by
-  change IsLocalization.Away.lift _ _ (algebraMap W.toAffine.CoordinateRing _ (affineX W)) = _
+  change IsLocalization.Away.lift (aeval (affineX W) D)
+    (isUnit_affineAeval_denominator W D x y hxy hD)
+    (algebraMap W.toAffine.CoordinateRing (RationalOpenRing W D) (affineX W)) = x
   rw [IsLocalization.Away.lift_eq]
   exact affineEval_affineX W (algebraMap K k) x y hxy
 
 theorem rationalOpenPoint_Y :
     rationalOpenPoint W D x y hxy hD (rationalOpenY W D) = y := by
-  change IsLocalization.Away.lift _ _ (algebraMap W.toAffine.CoordinateRing _ (affineY W)) = _
+  change IsLocalization.Away.lift (aeval (affineX W) D)
+    (isUnit_affineAeval_denominator W D x y hxy hD)
+    (algebraMap W.toAffine.CoordinateRing (RationalOpenRing W D) (affineY W)) = y
   rw [IsLocalization.Away.lift_eq]
   exact affineEval_affineY W (algebraMap K k) x y hxy
 
@@ -67,7 +72,10 @@ theorem rationalOpenPoint_incl
       ofAffinePoint W k (.some x y h) := by
   rw [rationalOpenIncl, specOverMap_ptOver, ofAffinePoint_some]
   apply Over.OverMorphism.ext
-  refine pt_congr W _ _ ?_ _
+  let g := rationalOpenPoint W D x y hxy hD
+  refine pt_congr W (g ∘ ![rationalOpenX W D, rationalOpenY W D, 1])
+    ((isUnimodularSol_some (rationalOpen_equation W D)).baseChange g)
+    ?_ (isUnimodularSol_some h.left)
   funext i
   fin_cases i
   · exact rationalOpenPoint_X W D x y hxy hD
@@ -77,10 +85,15 @@ theorem rationalOpenPoint_incl
 /-- A point over the coefficient field is an actual section of the open scheme. -/
 def rationalOpenSection (x y : K) (hxy : W.toAffine.Equation x y) (hD : D.eval x ≠ 0) :
     𝟙_ (Over (Spec (.of K))) ⟶ specOver K (RationalOpenRing W D) :=
-  Over.homMk (Spec.map (CommRingCat.ofHom (rationalOpenPoint W D x y hxy hD).toRingHom)) (by
+  let hxy' : (W.baseChange K).toAffine.Equation x y := hxy
+  let hD' : aeval x D ≠ 0 := hD
+  let g := rationalOpenPoint W D x y hxy' hD'
+  Over.homMk (Spec.map (CommRingCat.ofHom g.toRingHom)) (by
     change Spec.map _ ≫ Spec.map _ = 𝟙 _
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
-      (rationalOpenPoint W D x y hxy hD).comp_algebraMap]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    have hg : g.toRingHom.comp (algebraMap K (RationalOpenRing W D)) =
+        algebraMap K K := g.comp_algebraMap
+    rw [hg]
     exact Spec.map_id _)
 
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
@@ -102,8 +115,7 @@ theorem exists_numberField_point_off_denominator
   obtain ⟨x, hx⟩ := hf.infinite_compl.nonempty
   have hx : D.eval x ≠ 0 := hx
   let t : F := x ^ 3 + V.a₄ * x + V.a₆
-  let y := Complex.sqrt (t : ℂ)
-  have hy : y ^ 2 = (t : ℂ) := Complex.sq_sqrt _
+  obtain ⟨y, hy⟩ := IsAlgClosed.exists_pow_nat_eq (t : ℂ) (n := 2) (by decide)
   have hyt : IsIntegral ℚ y := IsIntegral.of_pow (by decide : 0 < 2) (by
     rw [hy]
     exact ((Algebra.IsAlgebraic.isAlgebraic (R := ℚ) t).algHom F.val).isIntegral)
@@ -128,7 +140,10 @@ theorem exists_numberField_point_off_denominator
     simp only [zero_mul, add_zero]
     simpa only [t, map_add, map_mul, map_pow] using! hy
   · change (D.map i.toRingHom).eval (i x) ≠ 0
-    rw [Polynomial.eval_map, Polynomial.eval₂_at_apply]
+    rw [Polynomial.eval_map]
+    have he : D.eval₂ i.toRingHom (i x) = i (D.eval x) :=
+      Polynomial.eval₂_at_apply i.toRingHom x
+    rw [he]
     exact fun h => hx (i.injective (h.trans (map_zero i).symm))
 
 end RHLean.Geometry.NativeCM.Weierstrass

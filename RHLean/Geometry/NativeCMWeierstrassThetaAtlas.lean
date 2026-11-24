@@ -54,12 +54,14 @@ variable {R : Type} [CommRing R] [Algebra R ℂ] (W : WeierstrassCurve R)
 theorem point_coordinate_ne_zero (P : Fin 3 → ℂ)
     (hP : IsUnimodularSol (W.baseChange ℂ) P) (i : Fin 3)
     (h : ⊤ ≤ (ptOver W P hP).left ⁻¹ᵁ coordOpen W i) : P i ≠ 0 := by
-  change ⊤ ≤ ptHom W (algebraMap R ℂ) P hP ⁻¹ᵁ coordOpen W i at h
-  rw [ptHom_preimage_coordOpen] at h
-  have e := h (show (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum ℂ) ∈
+  have he : (ptOver W P hP).left ⁻¹ᵁ coordOpen W i =
+      PrimeSpectrum.basicOpen (P i) :=
+    ptHom_preimage_coordOpen W (algebraMap R ℂ) P hP i
+  have hb : ⊤ ≤ PrimeSpectrum.basicOpen (P i) := he ▸ h
+  intro hz
+  rw [hz, PrimeSpectrum.basicOpen_zero] at hb
+  exact hb (show IsLocalRing.closedPoint ℂ ∈
     (⊤ : TopologicalSpace.Opens (Sp ℂ)) from trivial)
-  change P i ∉ (⊥ : Ideal ℂ) at e
-  simpa only [Ideal.mem_bot] using! e
 
 theorem affinePoint_origin_coordinates_ne_zero {x y : ℂ}
     (hp : (W.baseChange ℂ).toAffine.Nonsingular x y)
@@ -80,7 +82,9 @@ theorem affinePoint_origin_coordinates_ne_zero {x y : ℂ}
   have e := evalPt_ptHom_ratioOn_mul (algebraMap R ℂ) ![x, y, 1]
     (isUnimodularSol_some hp.1)
     (inf_le_left.trans (originOpen_le W)) hb 0
-  exact ⟨e ▸ mul_ne_zero hu.ne_zero hy, hy⟩
+  change evalPt p (originOpen W ⊓ coordOpen W 2) hb
+      (ratioOn W _ 1 (inf_le_left.trans (originOpen_le W)) 0) * y = x at e
+  exact ⟨fun hx => mul_ne_zero hu.ne_zero hy (e.trans hx), hy⟩
 
 end PointCoordinates
 
@@ -113,7 +117,7 @@ theorem analyticPoint_affine_iff (z : ℂ) :
       Scheme.Hom.comp_preimage, zero_preimage_coordOpen_two]
     change (⊤ ≤ (⊥ : TopologicalSpace.Opens (Sp ℂ))) ↔ z ∉ L.lattice
     exact ⟨fun h => False.elim (h (show
-      (⟨⊥, Ideal.bot_prime⟩ : PrimeSpectrum ℂ) ∈ (⊤ : TopologicalSpace.Opens (Sp ℂ))
+      IsLocalRing.closedPoint ℂ ∈ (⊤ : TopologicalSpace.Opens (Sp ℂ))
       from trivial)), fun h => False.elim (h hz)⟩
   · obtain ⟨hp, he⟩ := analyticPoint_of_notMem W L C hC hz
     rw [he]
@@ -164,7 +168,13 @@ theorem atlasFrame_ne_zero (i : (originLB W).ι) {z : ℂ}
 theorem atlasFrame_differentiableOn (i : (originLB W).ι) :
     DifferentiableOn ℂ (atlasFrame W L C i)
       {z | ⊤ ≤ (analyticPoint W L C hC z).left ⁻¹ᵁ (originLB W).U i} :=
-  fun z hz => (atlasFrame_analytic W L C hC i hz).differentiableAt.differentiableWithinAt
+  fun _ hz => (atlasFrame_analytic W L C hC i hz).differentiableAt.differentiableWithinAt
+
+private theorem evalPt_congr_point {X : Scheme.{0}} {p q : Sp ℂ ⟶ X}
+    (e : p = q) (U : X.Opens) (hp : ⊤ ≤ p ⁻¹ᵁ U) (hq : ⊤ ≤ q ⁻¹ᵁ U)
+    (s : Γ(X, U)) : evalPt p U hp s = evalPt q U hq s := by
+  subst q
+  rfl
 
 theorem atlas_section_factorization (i : (originLB W).ι) (z : ℂ)
     (h : ⊤ ≤ (analyticPoint W L C hC z).left ⁻¹ᵁ (originLB W).U i) :
@@ -172,25 +182,45 @@ theorem atlas_section_factorization (i : (originLB W).ι) (z : ℂ)
       canonicalSigma L z * atlasFrame W L C i z := by
   cases i with
   | false =>
-    rw [originSec_f_false, map_one]
+    change evalPt (analyticPoint W L C hC z).left (coordOpen W 2) h
+      (1 : Γ(scheme W, coordOpen W 2)) = _
+    rw [map_one]
     exact affine_section_factorization L ((analyticPoint_affine_iff W L C hC z).mp h)
   | true =>
+    change evalPt (analyticPoint W L C hC z).left (originOpen W) h
+      (originParam W) = canonicalSigma L z * globalOriginFrame L C z
     by_cases hz : z ∈ L.lattice
-    · have he := analyticPoint_of_mem W L C hC hz
-      rw [he, zeroOver_left, originSec_f_true]
-      rw [evalPt_spMap_comp (algebraMap R ℂ) (zero W) (originOpen W)
-        (zero_preimage_originOpen W).ge]
-      rw [show evalPt (zero W) (originOpen W) (zero_preimage_originOpen W).ge
-        (originParam W) = 0 from originValue_originParam W,
-        map_zero, (canonicalSigma_eq_zero_iff L).mpr hz, zero_mul]
+    · have he : (analyticPoint W L C hC z).left =
+          spMap (algebraMap R ℂ) ≫ zero W :=
+        (congrArg Over.Hom.left (analyticPoint_of_mem W L C hC hz)).trans
+          (zeroOver_left W ℂ)
+      have hq : ⊤ ≤ (spMap (algebraMap R ℂ) ≫ zero W) ⁻¹ᵁ originOpen W := he ▸ h
+      calc
+        _ = evalPt (spMap (algebraMap R ℂ) ≫ zero W) (originOpen W) hq
+            (originParam W) := evalPt_congr_point he _ h hq _
+        _ = algebraMap R ℂ (evalPt (zero W) (originOpen W)
+            (zero_preimage_originOpen W).ge (originParam W)) :=
+          evalPt_spMap_comp (algebraMap R ℂ) (zero W) (originOpen W)
+            (zero_preimage_originOpen W).ge hq _
+        _ = _ := by
+          rw [show evalPt (zero W) (originOpen W) (zero_preimage_originOpen W).ge
+            (originParam W) = 0 from originValue_originParam W,
+            map_zero, (canonicalSigma_eq_zero_iff L).mpr hz, zero_mul]
     · obtain ⟨hp, he⟩ := analyticPoint_of_notMem W L C hC hz
       have hxy := analyticPoint_origin_coordinates_ne_zero W L C hC hz h
-      rw [he] at h ⊢
-      rw [originSec_f_true, eval_originParam_of_affine W hp hxy.2 h]
-      change affineX L C z / affineY L C z = canonicalSigma L z * globalOriginFrame L C z
-      rw [globalOriginFrame, ite_eq_right hz]
-      rw [← mul_div_assoc, mul_comm (canonicalSigma L z),
-        mul_div_cancel_right₀ _ ((canonicalSigma_eq_zero_iff L).not.mpr hz)]
+      have he' := congrArg Over.Hom.left he
+      have hq : ⊤ ≤ (ptOver W ![affineX L C z, affineY L C z, 1]
+          (isUnimodularSol_some hp.1)).left ⁻¹ᵁ originOpen W := he' ▸ h
+      calc
+        _ = evalPt (ptOver W ![affineX L C z, affineY L C z, 1]
+            (isUnimodularSol_some hp.1)).left (originOpen W) hq (originParam W) :=
+          evalPt_congr_point he' _ h hq _
+        _ = affineX L C z / affineY L C z := eval_originParam_of_affine W hp hxy.2 hq
+        _ = _ := by
+          change affineX L C z / affineY L C z = canonicalSigma L z * globalOriginFrame L C z
+          rw [globalOriginFrame, ite_eq_right hz]
+          rw [← mul_div_assoc, mul_comm (canonicalSigma L z),
+            mul_div_cancel_right₀ _ ((canonicalSigma_eq_zero_iff L).not.mpr hz)]
 
 theorem atlasFrame_compat (i j : (originLB W).ι) (z : ℂ)
     (h : ⊤ ≤ (analyticPoint W L C hC z).left ⁻¹ᵁ
@@ -222,6 +252,7 @@ theorem atlasFrame_compat (i j : (originLB W).ι) (z : ℂ)
       _ = _ := e
       _ = _ := by ring
 
+omit [Algebra R ℂ] in
 theorem atlasFrame_period (i : (originLB W).ι) {w : ℂ} (hw : w ∈ L.lattice) (z : ℂ) :
     atlasFrame W L C i (z + w) = atlasFrame W L C i z / multiplier L w z := by
   cases i with

@@ -36,7 +36,12 @@ variable {R : Type} [CommRing R] (V : _root_.WeierstrassCurve R)
 
 theorem vec_top_le_coordOpen (c : R) : ⊤ ≤ vec V c ⁻¹ᵁ coordOpen V 1 := by
   rw [vec, ptHom_preimage_coordOpen]
-  simp
+  intro p _
+  change (-1 : DualNumber R) ∉ p.asIdeal
+  intro hp
+  have hone := p.asIdeal.neg_mem hp
+  rw [neg_neg] at hone
+  exact p.isPrime.ne_top (Ideal.eq_top_iff_one.mpr hone)
 
 theorem evalPt_vec_ratio (c : R) (h : ⊤ ≤ vec V c ⁻¹ᵁ coordOpen V 1) :
     evalPt (vec V c) (coordOpen V 1) h (ratio V 1 0) = -TrivSqZeroExt.inr c := by
@@ -83,7 +88,8 @@ theorem exists_tangent_scalar (β : ℂ)
       expPoint L (V.baseChange ℂ) C hC z ≫ mapHom V (algebraMap R ℂ) rfl ≫ f.left =
         expPoint L (V.baseChange ℂ) C hC (β * z) ≫ mapHom V (algebraMap R ℂ) rfl) :
     ∃ c : R, (integralVector V).left ≫ f.left = vec V c ∧ algebraMap R ℂ c = β := by
-  let j := mapHom V (algebraMap R ℂ) rfl
+  let j : scheme (V.baseChange ℂ) ⟶ scheme V :=
+    mapHom V (algebraMap R ℂ) rfl
   have hf0 : zero V ≫ f.left = zero V := by
     have h := congrArg Over.Hom.left (IsMonHom.one_hom f)
     simpa only [Over.comp_left, one_left] using! h
@@ -100,7 +106,12 @@ theorem exists_tangent_scalar (β : ℂ)
     simpa only [map_one] using! vec_mapHom V (algebraMap R ℂ) 1
   have hvjf : vec (V.baseChange ℂ) 1 ≫ j ≫ f.left =
       spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c := by
-    rw [← Category.assoc, hvj, Category.assoc, hc]
+    calc
+      _ = (vec (V.baseChange ℂ) 1 ≫ j) ≫ f.left := (Category.assoc _ _ _).symm
+      _ = (spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1) ≫ f.left :=
+        congrArg (fun t => t ≫ f.left) hvj
+      _ = _ := (Category.assoc _ _ _).trans
+        (congrArg (fun t => spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ t) hc)
   let U := coordOpen V 1
   let s := ratio V 1 0
   have hJ : ⊤ ≤ (vec (V.baseChange ℂ) 1 ≫ j) ⁻¹ᵁ U := by
@@ -110,11 +121,13 @@ theorem exists_tangent_scalar (β : ℂ)
     rw [hvjf]
     exact fun p _ => vec_top_le_coordOpen V c (Set.mem_univ _)
   have hJ' : ⊤ ≤ vec (V.baseChange ℂ) 1 ⁻¹ᵁ (j ⁻¹ᵁ U) := by
-    rwa [Scheme.Hom.comp_preimage] at hJ
+    exact hJ
   have hF' : ⊤ ≤ vec (V.baseChange ℂ) 1 ⁻¹ᵁ ((j ≫ f.left) ⁻¹ᵁ U) := by
-    rwa [Scheme.Hom.comp_preimage] at hF
+    exact hF
   have ej : (evalPt (vec (V.baseChange ℂ) 1) (j ⁻¹ᵁ U) hJ' ((j.app U).hom s)).snd = -1 := by
-    rw [← evalPt_comp _ j U hJ hJ']
+    have he := congrArg (fun t : DualNumber ℂ => t.snd)
+      (evalPt_comp (vec (V.baseChange ℂ) 1) j U hJ hJ' s)
+    refine he.symm.trans ?_
     have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
         v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 →
         (evalPt v U hv s).snd = -1 := by
@@ -123,7 +136,9 @@ theorem exists_tangent_scalar (β : ℂ)
     exact key _ hJ hvj
   have ef : (evalPt (vec (V.baseChange ℂ) 1) ((j ≫ f.left) ⁻¹ᵁ U) hF'
       (((j ≫ f.left).app U).hom s)).snd = -algebraMap R ℂ c := by
-    rw [← evalPt_comp _ (j ≫ f.left) U hF hF']
+    have he := congrArg (fun t : DualNumber ℂ => t.snd)
+      (evalPt_comp (vec (V.baseChange ℂ) 1) (j ≫ f.left) U hF hF' s)
+    refine he.symm.trans ?_
     have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
         v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c →
         (evalPt v U hv s).snd = -algebraMap R ℂ c := by
@@ -151,9 +166,9 @@ theorem exists_tangent_scalar (β : ℂ)
   have hmul := hdj'.comp 0 ((hasDerivAt_id (0 : ℂ)).const_mul β)
   have hmul' : HasDerivAt
       (fun z => value (expPoint L (V.baseChange ℂ) C hC z ≫ j ≫ f.left) U s)
-      (((C.u : ℂ)⁻¹ * (-1)) * β) 0 :=
-    hmul.congr_of_eventuallyEq (Eventually.of_forall fun z =>
-      congrArg (fun x => value x U s) (hf z))
+      (((C.u : ℂ)⁻¹ * (-1)) * β) 0 := by
+    simpa only [mul_one] using hmul.congr_of_eventuallyEq
+      (Eventually.of_forall fun z => congrArg (fun x => value x U s) (hf z))
   have he := hdf.unique hmul'
   apply mul_left_cancel₀ (inv_ne_zero C.u.ne_zero)
   linear_combination -he
@@ -194,8 +209,10 @@ theorem exists_tangent_scalar_between (β : ℂ)
           mapHom V (algebraMap R ℂ) rfl) :
     ∃ c : R, (integralVector W).left ≫ f.left = vec V c ∧
       algebraMap R ℂ c = β * (C.u : ℂ) / (D.u : ℂ) := by
-  let j := mapHom W (algebraMap R ℂ) rfl
-  let j' := mapHom V (algebraMap R ℂ) rfl
+  let j : scheme (W.baseChange ℂ) ⟶ scheme W :=
+    mapHom W (algebraMap R ℂ) rfl
+  let j' : scheme (V.baseChange ℂ) ⟶ scheme V :=
+    mapHom V (algebraMap R ℂ) rfl
   have hf0 : zero W ≫ f.left = zero V := by
     have h := congrArg Over.Hom.left (IsMonHom.one_hom f)
     simpa only [Over.comp_left, one_left] using! h
@@ -216,7 +233,12 @@ theorem exists_tangent_scalar_between (β : ℂ)
     simpa only [map_one] using! vec_mapHom V (algebraMap R ℂ) 1
   have hvjf : vec (W.baseChange ℂ) 1 ≫ j ≫ f.left =
       spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c := by
-    rw [← Category.assoc, hvj, Category.assoc, hc]
+    calc
+      _ = (vec (W.baseChange ℂ) 1 ≫ j) ≫ f.left := (Category.assoc _ _ _).symm
+      _ = (spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec W 1) ≫ f.left :=
+        congrArg (fun t => t ≫ f.left) hvj
+      _ = _ := (Category.assoc _ _ _).trans
+        (congrArg (fun t => spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ t) hc)
   let U := coordOpen V 1
   let s := ratio V 1 0
   have hJ : ⊤ ≤ (vec (V.baseChange ℂ) 1 ≫ j') ⁻¹ᵁ U := by
@@ -226,12 +248,14 @@ theorem exists_tangent_scalar_between (β : ℂ)
     rw [hvjf]
     exact fun p _ => vec_top_le_coordOpen V c (Set.mem_univ _)
   have hJ' : ⊤ ≤ vec (V.baseChange ℂ) 1 ⁻¹ᵁ (j' ⁻¹ᵁ U) := by
-    rwa [Scheme.Hom.comp_preimage] at hJ
+    exact hJ
   have hF' : ⊤ ≤ vec (W.baseChange ℂ) 1 ⁻¹ᵁ ((j ≫ f.left) ⁻¹ᵁ U) := by
-    rwa [Scheme.Hom.comp_preimage] at hF
+    exact hF
   have ej : (evalPt (vec (V.baseChange ℂ) 1) (j' ⁻¹ᵁ U) hJ'
       ((j'.app U).hom s)).snd = -1 := by
-    rw [← evalPt_comp _ j' U hJ hJ']
+    have he := congrArg (fun t : DualNumber ℂ => t.snd)
+      (evalPt_comp (vec (V.baseChange ℂ) 1) j' U hJ hJ' s)
+    refine he.symm.trans ?_
     have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
         v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V 1 →
         (evalPt v U hv s).snd = -1 := by
@@ -240,7 +264,9 @@ theorem exists_tangent_scalar_between (β : ℂ)
     exact key _ hJ hvj'
   have ef : (evalPt (vec (W.baseChange ℂ) 1) ((j ≫ f.left) ⁻¹ᵁ U) hF'
       (((j ≫ f.left).app U).hom s)).snd = -algebraMap R ℂ c := by
-    rw [← evalPt_comp _ (j ≫ f.left) U hF hF']
+    have he := congrArg (fun t : DualNumber ℂ => t.snd)
+      (evalPt_comp (vec (W.baseChange ℂ) 1) (j ≫ f.left) U hF hF' s)
+    refine he.symm.trans ?_
     have key : ∀ (v : Sp (DualNumber ℂ) ⟶ scheme V) (hv : ⊤ ≤ v ⁻¹ᵁ U),
         v = spMap (WeierstrassTangent.dualMap (algebraMap R ℂ)) ≫ vec V c →
         (evalPt v U hv s).snd = -algebraMap R ℂ c := by
@@ -269,9 +295,9 @@ theorem exists_tangent_scalar_between (β : ℂ)
   have hmul := hdj'.comp 0 ((hasDerivAt_id (0 : ℂ)).const_mul β)
   have hmul' : HasDerivAt
       (fun z => value (expPoint L (W.baseChange ℂ) C hC z ≫ j ≫ f.left) U s)
-      (((D.u : ℂ)⁻¹ * (-1)) * β) 0 :=
-    hmul.congr_of_eventuallyEq (Eventually.of_forall fun z =>
-      congrArg (fun x => value x U s) (hf z))
+      (((D.u : ℂ)⁻¹ * (-1)) * β) 0 := by
+    simpa only [mul_one] using hmul.congr_of_eventuallyEq
+      (Eventually.of_forall fun z => congrArg (fun x => value x U s) (hf z))
   have he := hdf.unique hmul'
   calc
     algebraMap R ℂ c = -(C.u : ℂ) * ((C.u : ℂ)⁻¹ * (-algebraMap R ℂ c)) := by
