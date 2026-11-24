@@ -1,33 +1,23 @@
 #!/usr/bin/env python3
-"""Report which RH-facing theorems are still conditional on an assumed criterion.
+"""Report historical criterion-bearing declarations, or require exact kernel type evidence.
 
-`#print axioms` is necessary but **not sufficient** for the terminal acceptance
-test.  `ClassicalMertensRHCriterion` is a structure taken as an ordinary theorem
-*argument*, not an axiom, so a theorem that assumes it has a perfectly clean
-axiom printout while remaining conditional on an unproved classical equivalence.
-
-This script makes that visible mechanically.  It scans every declaration's
-signature -- the text between the declaration keyword and the `:=` that begins
-its proof -- and reports the ones that carry a flagged open hypothesis.
+The source scan is a navigation aid ONLY. The old --require-unconditional
+mode wrongly succeeded for nonexistent or unrelated declarations and could
+miss every open premise other than ClassicalMertensRHCriterion.
 
 Usage:
+    python3 scripts/check_rh_conditionality.py --list
+    python3 scripts/check_rh_conditionality.py --require-unconditional FULL_NAME --kernel-jsonl lean-decl-graph.jsonl
 
-    python3 scripts/check_rh_conditionality.py                 # report
-    python3 scripts/check_rh_conditionality.py --list          # full listing
-    python3 scripts/check_rh_conditionality.py \\
-        --require-unconditional theoremName                    # acceptance test
-
-The acceptance test for a terminal RH theorem is BOTH of:
-
-  1. `--require-unconditional <name>` passes, i.e. the classical equivalence has
-     actually been instantiated rather than assumed; and
-  2. `#print axioms <name>` reports only the standard logical axioms.
-
-Neither implies the other.
+The latter checks the literal closed root RH type in a fresh elaborated dump.
+It is necessary but not sufficient: independently verify the exact commit,
+proof term, transitive axiom audit, and mathematical supplier semantics.
+No missing kernel evidence can produce success.
 """
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -67,6 +57,26 @@ def scan() -> list[tuple[str, int, str, tuple[str, ...]]]:
     return findings
 
 
+def exact_terminal_type(required: str, dump: Path) -> tuple[bool, str]:
+    try:
+        records = [json.loads(line) for line in dump.read_text(encoding="utf-8").splitlines() if line]
+    except (OSError, ValueError) as exc:
+        return False, f"Cannot read kernel evidence: {exc}"
+    if not records or any("kernelTypeAudit" not in r for r in records):
+        return False, "Missing fresh kernel type audit metadata"
+    matches = [r for r in records if r.get("name") == required]
+    if len(matches) != 1:
+        return False, "Exact fully qualified declaration not found uniquely in kernel dump"
+    r = matches[0]
+    a = r["kernelTypeAudit"]
+    if (r.get("kind") != "theorem" or a.get("binders") != 0
+        or a.get("form") != "named" or a.get("targets") != ["RiemannHypothesis"]
+        or a.get("premises") != [] or a.get("blocked") is not False
+        or a.get("returnsRH") is not True or a.get("exactRH") is not True):
+        return False, "Declaration is not an exact closed theorem of root RiemannHypothesis"
+    return True, "Exact closed root RH type only; verify provenance, axioms and independent supplier semantics"
+
+
 def main(argv: list[str]) -> int:
     if not SOURCE_ROOT.is_dir():
         print(f"ERROR: {SOURCE_ROOT}/ not found; run from the repository root.")
@@ -82,21 +92,17 @@ def main(argv: list[str]) -> int:
             return 2
         required = argv[idx + 1]
 
-    by_name = {name: (path, line, hits) for path, line, name, hits in findings}
-
     if required is not None:
-        if required in by_name:
-            path, line, hits = by_name[required]
-            print(f"CONDITIONAL: {required} ({path}:{line}) assumes "
-                  f"{', '.join(hits)}.")
-            print("The classical equivalence is assumed, not proved, so this "
-                  "declaration is not a closed RH theorem regardless of its "
-                  "axiom printout.")
-            return 1
-        print(f"{required} carries no flagged open hypothesis.")
-        print("Remember this is only half the acceptance test; also run "
-              f"`#print axioms {required}`.")
-        return 0
+        if "--kernel-jsonl" not in argv:
+            print("ERROR: --require-unconditional requires a fresh --kernel-jsonl dump; a source scan cannot certify an endpoint.")
+            return 2
+        idx = argv.index("--kernel-jsonl")
+        if idx + 1 >= len(argv):
+            print("ERROR: --kernel-jsonl needs a path.")
+            return 2
+        ok, message = exact_terminal_type(required, Path(argv[idx+1]))
+        print(message)
+        return 0 if ok else 1
 
     print(f"Declarations conditional on an assumed criterion: {len(findings)}")
     print(f"Flagged hypotheses: {', '.join(FLAGGED)}")

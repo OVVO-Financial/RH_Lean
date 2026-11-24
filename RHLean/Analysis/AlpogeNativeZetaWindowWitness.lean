@@ -458,7 +458,10 @@ def AlpogeNativeCostWindows (x f b h θ : ℝ) : Prop :=
 
 /-- The minimum-cut witness at one scale, for the zeta-only level: averaging
 subgroup `⊤` and retained set `{0}`. See the module docstring for the status
-of each field. -/
+of each field. This raw interface admits arbitrary host data and includes
+the entire quantitative `top` premise. Its construction is not an independent
+supplier unless physical host identification and the top bound are proved
+without assuming an RH-strength input. See the window RH bridge. -/
 structure AlpogeNativeZetaWindowWitness (ε x C : ℝ) where
   /-- Field 1: the finite host and its physical data. -/
   H : Type

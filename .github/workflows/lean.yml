@@ -12,6 +12,7 @@ on:
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
+      - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -39,6 +40,7 @@ on:
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
+      - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -118,6 +120,288 @@ jobs:
           # Dedicated OAI/fractional-owner workflows retain their own gates.
           # Their exclusion here does not certify those sources.
           targets="$(grep -E '^research/.+[.]lean$' /tmp/lean-source-changes.txt | grep -vE '^research/(oai_434/|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$|UNIVERSAL_ENVELOPE_(OWNER_FRACTIONAL|FRACTIONAL_ACCEPTANCE)[.]lean$)' | sort -u | paste -sd ' ' - || true)"
+          # Geometry-only supplier changes must exercise the same guarded CM root
+          # as changes to its research audit. This also exposes independent
+          # supplier failures in the existing bounded diagnostic pass.
+          if [[ -f research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean ]] &&
+              grep -Eq '^RHLean/Geometry/Native(CM|Theta).*[.]lean'^([.]github/(actions/|workflows/(lean|research-iteration)[.]yml$)|scripts/(compile_research_import_closure|test_research_compile|lake_build_fail_fast|test_lake_build_fail_fast|repo_index|rhlean_kg)[.]py$)' /tmp/lean-source-changes.txt; then
+            targets='research/VF_MID_LI_UNIFORM_QUADRATURE.lean'
+          fi
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          echo "Changed research targets: ${targets:-none}"
+
+  # The changed closure catches new proof failures before a full native
+  # build. Reusing the workflow avoids a second independent PR run.
+  research:
+    name: Changed research closure
+    needs: audit
+    if: needs.audit.outputs.research-targets != ''
+    uses: ./.github/workflows/research-iteration.yml
+    with:
+      targets: ${{ needs.audit.outputs.research-targets }}
+
+  build:
+    name: Hosted Lean build
+    needs: [audit, research]
+    if: >-
+      !cancelled() && needs.audit.result == 'success' &&
+      (needs.research.result == 'success' || needs.research.result == 'skipped')
+    runs-on: ubuntu-latest
+    # A wedged proof search used to hold a runner for the six hour default.
+    # The slowest healthy build on record is under twenty minutes.
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: write                     # required to trim superseded caches
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Save cold dependencies before compiling proofs; exact complete hits
+      # skip the repeated Mathlib download/unpack.
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+
+      # The strong prime number theorem, the 1/log zero-free region and the
+      # finite-height zero-free box come from the pinned upstream PNT+ snapshot
+      # (the Quasi-Riemann Tracker pin), compiled unpatched on Lean v4.34.1.
+      # Build the external theorem boundary without --wfail so upstream linter
+      # warnings do not become RHLean policy failures. The project build below
+      # also runs without global --wfail because Lake re-emits dependency
+      # warnings while building RHLean. A separate post-build gate scopes
+      # warning-as-error to repository-owned RHLean sources only.
+      - name: Restore PNT+ build cache
+        id: strongpntcache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Prebuild PNT+ StrongPNT dependency
+        run: python3 scripts/lake_build_fail_fast.py PrimeNumberTheoremAnd.StrongPNT
+
+      # A missing PNT+ cache otherwise makes every proof-repair commit rebuild
+      # the same upstream dependency, even after it succeeded on the prior run.
+      # Save at this successful boundary so later RHLean errors do not discard it.
+      - name: Save PNT+ build cache
+        if: steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      # Content-addressed project build cache.
+      #
+      # The source hash covers this Lake project only.  A bare '**/*.lean'
+      # glob also matched .lake/packages, which is already on disk by this
+      # point, so every key hashed the whole of Mathlib; and it matched the
+      # export_* trees, which are independent Lake projects whose sources
+      # cannot affect this build, so editing an export needlessly missed the
+      # cache.  Fallback keys still allow partial hits when only a few files
+      # changed.
+      - name: Restore RHLean build cache
+        id: rhleancache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      - name: Build Lean project
+        id: directbuild
+        run: python3 scripts/lake_build_fail_fast.py RHLean > lean-build.log 2>&1
+
+      # Keep warning-as-error strict for repository-owned Lean without making
+      # RHLean responsible for linter churn in PNT+ or Mathlib.
+      # Lean and Lake have emitted both `warning: path` and
+      # `path:line:column: warning:` forms over time, so match the owned path
+      # anywhere on a warning line rather than depending on one formatter.
+      - name: Fail on RHLean-owned Lean warnings
+        id: rhlean_warnings
+        if: steps.directbuild.outcome == 'success'
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
+          owned = [
+              line for line in lines
+              if "warning:" in line.lower() and owned_path.search(line)
+          ]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
+
+      # The source graph is the fast navigation index. This step is the
+      # authoritative dependency graph: constants actually recorded by the
+      # elaborated environment, including dependencies introduced by simp,
+      # instances, notation and macro expansion.
+      - name: Validate exact elaborated declaration graph
+        if: steps.directbuild.outcome == 'success'
+        run: |
+          lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
+          python3 scripts/check_kernel_rh_status.py lean-decl-graph.jsonl
+          python3 scripts/decl_graph.py \
+            --from-lean lean-decl-graph.jsonl \
+            --json lean-decl-graph.json \
+            --require-acyclic
+          python3 scripts/decl_graph.py \
+            --json syntactic-decl-graph.json \
+            --require-acyclic \
+            --no-summary
+          python3 scripts/decl_graph.py \
+            --compare syntactic-decl-graph.json lean-decl-graph.json \
+            | tee decl-graph-compare.txt
+          python3 scripts/proof_inventory.py \
+            --json exact-proof-inventory.json > /dev/null
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('exact-proof-inventory.json'))
+          exact = json.load(open('lean-decl-graph.json'))
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          actual = exact['stats']['named_proofs']
+          if expected != actual:
+              raise SystemExit(
+                  f'elaborated/source named-proof mismatch: source={expected}, elaborated={actual}'
+              )
+          print(f'Elaborated graph agrees with source inventory on {actual:,} named proofs.')
+          PY
+
+      - name: Upload exact declaration graph
+        if: steps.directbuild.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-declaration-graph
+          path: |
+            lean-decl-graph.jsonl
+            lean-decl-graph.json
+            syntactic-decl-graph.json
+            decl-graph-compare.txt
+            exact-proof-inventory.json
+
+      # Saved on a red build on purpose, so the next compiler iteration resumes
+      # instead of recompiling; but not on a cancelled one, where .lake/build
+      # may not exist yet and the save only emits a path-validation warning.
+      - name: Save RHLean build cache
+        if: >-
+          !cancelled()
+          && steps.rhleancache.outcome == 'success'
+          && steps.rhleancache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      # A repository gets 10 GB of Actions cache.  Mathlib holds several of
+      # them, and every run of this workflow used to add another multi-gigabyte
+      # .lake/build entry under a fresh content hash, so a busy afternoon
+      # evicted the very entries the next run wanted and turned a two minute
+      # incremental build back into a fifteen minute cold one.  Keep only the
+      # newest build entry per ref; the save above has already written it.
+      #
+      # Forked pull requests get a read-only token, so this is best effort.
+      - name: Trim superseded build caches for this ref
+        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
+        run: |
+          set -euo pipefail
+          gh api --paginate \
+            "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
+            --jq '.actions_caches[] | select((.key | startswith("rhlean-build-")) or (.key | startswith("rhlean-preflight-build-v1-"))) | [.created_at, (.id|tostring), .key] | @tsv' \
+            > caches.tsv || : > caches.tsv
+          # Newest first, keep row one, delete the rest.
+          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
+            echo "deleting superseded cache ${key} (${created})"
+            gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
+          done
+
+      - name: Upload Lean build log
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-build-log
+          path: lean-build.log
+
+      - name: Print Lean build log
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        run: cat lean-build.log
+
+      # The full build log is thousands of lines, and a single unused `simp`
+      # argument in a dependency is reported once per rebuild of the module
+      # that contains it.  Collapse the diagnostics that are not RHLean's into
+      # one deduplicated, sorted inventory printed at the end of the job, so
+      # the tail of the log says exactly which upstream sites are still noisy.
+      # This does not gate the build.
+      - name: Dependency diagnostic inventory
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        shell: bash
+        run: python3 scripts/lean_diagnostic_inventory.py lean-build.log
+
+  cancel_dependents:
+    name: Stop remaining checks after failure
+    needs: [audit, research, build]
+    if: >-
+      always() && github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      contains(needs.*.result, 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      # Metadata only: never check out or execute PR code with this token.
+      - name: Cancel queued and running workflows for this exact PR revision
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+              ...context.repo, head_sha: pr.head.sha, event: 'pull_request', per_page: 100
+            });
+            for (const run of runs) {
+              if (run.id === context.runId || run.status === 'completed' ||
+                  run.head_sha !== pr.head.sha || run.head_branch !== pr.head.ref ||
+                  run.head_repository?.full_name !== pr.head.repo.full_name ||
+                  !run.pull_requests?.some(p => p.number === pr.number)) continue;
+              try {
+                await github.rest.actions.cancelWorkflowRun({...context.repo, run_id: run.id});
+                core.info(`Cancelled ${run.name} (${run.id}) after a prerequisite failed.`);
+              } catch (error) {
+                if (error.status === 409) core.info(`${run.id} finished before cancellation.`);
+                else throw error;
+              }
+            }
+            // A failed preflight still saves its completed prerequisites.
+            // Keep only the latest such cache for this PR, alongside its
+            // previous complete build, so repair rounds do not evict Mathlib.
+            const caches = await github.paginate('GET /repos/{owner}/{repo}/actions/caches', {
+              ...context.repo, ref: `refs/pull/${pr.number}/merge`, per_page: 100
+            });
+            const preflights = caches.filter(c => c.key.startsWith('rhlean-preflight-build-v1-'))
+              .sort((a, b) => b.created_at.localeCompare(a.created_at));
+            for (const cache of preflights.slice(1)) {
+              await github.request('DELETE /repos/{owner}/{repo}/actions/caches/{cache_id}', {
+                ...context.repo, cache_id: cache.id
+              });
+              core.info(`Removed superseded preflight cache ${cache.id}.`);
+            }
+ /tmp/lean-source-changes.txt; then
+            targets="$(printf '%s\n' "$targets" 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean' | tr ' ' '\n' | sed '/^$/d' | sort -u | paste -sd ' ' -)"
+          fi
           if [[ -z "$targets" ]] && grep -Eq '^([.]github/(actions/|workflows/(lean|research-iteration)[.]yml$)|scripts/(compile_research_import_closure|test_research_compile|lake_build_fail_fast|test_lake_build_fail_fast|repo_index|rhlean_kg)[.]py$)' /tmp/lean-source-changes.txt; then
             targets='research/VF_MID_LI_UNIFORM_QUADRATURE.lean'
           fi
@@ -245,6 +529,7 @@ jobs:
         if: steps.directbuild.outcome == 'success'
         run: |
           lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
+          python3 scripts/check_kernel_rh_status.py lean-decl-graph.jsonl
           python3 scripts/decl_graph.py \
             --from-lean lean-decl-graph.jsonl \
             --json lean-decl-graph.json \

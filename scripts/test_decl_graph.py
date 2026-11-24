@@ -250,5 +250,63 @@ theorem notP (h : A) : ¬ P := fun p => p
             self.assertEqual(nodes["P"]["status"], kg.STATUS_REFUTED)
 
 
+
+class KernelTypeAuditTests(unittest.TestCase):
+    def graph(self, source, overrides):
+        path = Path("RHLean/KernelTypeFixture.lean")
+        with patch.object(kg, "load_sources", return_value=[(path, source)]), \
+                patch.object(kg, "load_facets", return_value={"facets": {}, "roles": {}}):
+            declarations, _ = kg.build_declarations()
+            records = []
+            for d in declarations:
+                record = {"name": d.name, "module": d.module, "kind": d.kind,
+                          "typeRefs": d.statement_refs, "valueRefs": d.proof_refs}
+                if d.name in overrides:
+                    record["kernelTypeAudit"] = overrides[d.name]
+                records.append(record)
+            with tempfile.TemporaryDirectory() as temp:
+                jsonl = Path(temp) / "declarations.jsonl"
+                jsonl.write_text("".join(json.dumps(r) + "\n" for r in records))
+                return decl_graph.build_graph_from_lean(jsonl)["declarations"]
+
+    @staticmethod
+    def audit(binders=0, premises=(), form="", targets=(), closed=False, blocked=False,
+              returns_rh=False, exact_rh=False):
+        return dict(binders=binders, premises=list(premises), form=form,
+                    targets=list(targets), closedProp=closed, blocked=blocked,
+                    returnsRH=returns_rh, exactRH=exact_rh)
+
+    def test_actual_hidden_section_argument_overrides_source_guess(self):
+        source = "def P : Prop := False\nsection\nvariable (h : P)\ninclude h\ntheorem t : P := h\nend\n"
+        nodes = self.graph(source, {"P": self.audit(closed=True),
+            "t": self.audit(1, ("P",), "named", ("P",))})
+        self.assertEqual(nodes["P"]["status"], kg.STATUS_OPEN)
+        self.assertEqual(nodes["t"]["status"], kg.STATUS_REDUCED)
+        self.assertEqual(nodes["t"]["hypothesis_refs"], ["P"])
+        self.assertEqual(nodes["t"]["status_evidence"], "kernel-type")
+
+    def test_opaque_external_premise_and_universe_block(self):
+        source = "def P : Prop := False\ntheorem t : P := someProof\n"
+        for audit in (self.audit(1, ("False",), "named", ("P",)),
+                      self.audit(0, (), "named", ("P",), blocked=True)):
+            nodes = self.graph(source, {"P": self.audit(closed=True), "t": audit})
+            self.assertEqual(nodes["P"]["status"], kg.STATUS_OPEN)
+            self.assertTrue(nodes["t"]["hard_blocked"])
+
+    def test_genuine_closed_seed_still_propagates(self):
+        source = "def P : Prop := True\ntheorem t : P := trivial\n"
+        nodes = self.graph(source, {"P": self.audit(closed=True),
+            "t": self.audit(form="named", targets=("P",))})
+        self.assertEqual(nodes["P"]["status"], kg.STATUS_PROVED)
+
+    def test_direct_rh_consumer_marked_conditional(self):
+        source = "theorem t (h : RiemannHypothesis) : RiemannHypothesis := h\n"
+        nodes = self.graph(source, {"t": self.audit(1, ("RiemannHypothesis",),
+            "named", ("RiemannHypothesis",), returns_rh=True)})
+        self.assertTrue(nodes["t"]["kernel_returns_rh"])
+        self.assertFalse(nodes["t"]["kernel_exact_rh"])
+        self.assertEqual(nodes["t"]["status"], kg.STATUS_REDUCED)
+
+
 if __name__ == "__main__":
     unittest.main()

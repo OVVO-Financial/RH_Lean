@@ -109,10 +109,11 @@ theorem conjugateTensor_smul (M : Type) [AddCommGroup M] [Module (𝓞 E) M]
   induction t using TensorProduct.inductionOn with
   | add t u ht hu => simp only [smul_add, map_add, ht, hu]
   | tmul x z =>
-    change (conjugateTorus G τ).toLinearMap.lTensor M
-      ((a • x) ⊗ₜ[OK G] z) =
-        (a • x) ⊗ₜ[OK G] (conjugateTorus G τ) z
-    rw [LinearMap.lTensor_tmul]
+    calc
+      _ = conjugateTensor G τ M ((a • x) ⊗ₜ[OK G] z) :=
+        congrArg (conjugateTensor G τ M) (TensorProduct.smul_tmul' a x z).symm
+      _ = (a • x) ⊗ₜ[OK G] conjugateTorus G τ z := by rfl
+      _ = _ := TensorProduct.smul_tmul' a x _
 
 end RHLean.Geometry.NativeCM.EllipticSeed
 
