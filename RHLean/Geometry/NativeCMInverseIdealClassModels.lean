@@ -24,7 +24,7 @@ set_option relaxedAutoImplicit false
 
 noncomputable section
 
-open NumberField PeriodPair
+open NumberField PeriodPair Polynomial
 open scoped Classical nonZeroDivisors
 
 namespace RHLean.Geometry.NativeCM
@@ -230,5 +230,68 @@ theorem exists_inverseIdealTangentClassModels_preserving_seed
     exists_inverseIdealClassModels_preserving_seed G τ b hb₁ M W₀ hΔ₀ C₀ hC₀
   exact ⟨L, F, hF, hMF, W, C, hL, hL₁, hΔ, hC, hW₁, hC₁,
     fun c => inverseIdealPeriod_normalized_maps G τ (b c) (L c) (hL c) C₀ (C c)⟩
+
+
+/-- Apply the existing finite-field rational-isogeny supplier to the
+actual reverse map of one inverse-ideal class model. The multiplier is
+the previously proved normalized ratio times the nonzero ideal element.
+The finite extension contains the original equations. The rational
+formula and its kernel degree are those of this literal lattice map,
+not a chosen map with a stipulated tangent value. -/
+theorem exists_inverseIdeal_reverse_rational_isogeny
+    (b : (Ideal (𝓞 (quadraticField G)))⁰) (L : PeriodPair)
+    (hL : (L.lattice : Set ℂ) = quadraticEmbedding G τ ''
+      ((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1)
+    (M : IntermediateField ℚ ℂ) [NumberField M]
+    (W₀ W : _root_.WeierstrassCurve (𝓞 M))
+    (C₀ C : _root_.WeierstrassCurve.VariableChange ℂ)
+    (hC₀ : C₀ • W₀.baseChange ℂ = Weierstrass.latticeCurve (EllipticSeed.periodPair G τ))
+    (hC : C • W.baseChange ℂ = Weierstrass.latticeCurve L)
+    (a : 𝓞 (quadraticField G)) (ha : a ∈ (b : Ideal (𝓞 (quadraticField G)))) (ha0 : a ≠ 0) :
+    let Ls := Weierstrass.tangentCoordinatePeriods L C
+    let Lt := Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀
+    let α := ((C₀.u : ℂ) / (C.u : ℂ))⁻¹ * quadraticEmbedding G τ (a : quadraticField G)
+    ∃ (hα : ∀ l ∈ Ls.lattice, α * l ∈ Lt.lattice)
+      (F : IntermediateField ℚ ℂ) (_ : NumberField F) (A D : ℂ[X]),
+      M ≤ F ∧ α ∈ F ∧
+      (∀ i, A.coeff i ∈ F) ∧ (∀ i, D.coeff i ∈ F) ∧ D.Monic ∧
+      A.leadingCoeff = (α ^ 2)⁻¹ ∧ IsCoprime A D ∧
+      A.natDegree = Nat.card (Weierstrass.latticeIsogeny α hα).ker ∧
+      D.natDegree + 1 = A.natDegree ∧
+      (∀ (x y : ℂ) (h : (Weierstrass.latticeCurve Ls).toAffine.Nonsingular x y),
+        (D.eval x = 0 → Weierstrass.latticeIsogeny α hα (.some x y h) = 0) ∧
+        (D.eval x ≠ 0 → ∃ h', Weierstrass.latticeIsogeny α hα (.some x y h) =
+          .some (A.eval x / D.eval x)
+            (α⁻¹ * ((Polynomial.derivative A * D - A * Polynomial.derivative D).eval x /
+              D.eval x ^ 2) * y) h')) := by
+  dsimp only
+  let Ls := Weierstrass.tangentCoordinatePeriods L C
+  let Lt := Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀
+  let α := ((C₀.u : ℂ) / (C.u : ℂ))⁻¹ * quadraticEmbedding G τ (a : quadraticField G)
+  have hα : ∀ l ∈ Ls.lattice, α * l ∈ Lt.lattice :=
+    (inverseIdealPeriod_normalized_maps G τ b L hL C₀ C).2.2 a ha
+  have haK : (a : quadraticField G) ≠ 0 := by exact_mod_cast ha0
+  have hα0 : α ≠ 0 := mul_ne_zero
+    (inv_ne_zero (div_ne_zero C₀.u.ne_zero C.u.ne_zero)) ((map_ne_zero _).2 haK)
+  have h₂ (V : _root_.WeierstrassCurve (𝓞 M)) (P : PeriodPair)
+      (B : _root_.WeierstrassCurve.VariableChange ℂ)
+      (hB : B • V.baseChange ℂ = Weierstrass.latticeCurve P) :
+      (Weierstrass.tangentCoordinatePeriods P B).g₂ ∈ M := by
+    rw [Weierstrass.tangentCoordinatePeriods_g₂_eq_invariant P B (V.baseChange ℂ) hB,
+      _root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_c₄]
+    change (((V.c₄ : M) : ℂ) / 12) ∈ M
+    exact div_mem (V.c₄ : M).property (ofNat_mem M 12)
+  have h₃ (V : _root_.WeierstrassCurve (𝓞 M)) (P : PeriodPair)
+      (B : _root_.WeierstrassCurve.VariableChange ℂ)
+      (hB : B • V.baseChange ℂ = Weierstrass.latticeCurve P) :
+      (Weierstrass.tangentCoordinatePeriods P B).g₃ ∈ M := by
+    rw [Weierstrass.tangentCoordinatePeriods_g₃_eq_invariant P B (V.baseChange ℂ) hB,
+      _root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_c₆]
+    change (((V.c₆ : M) : ℂ) / 216) ∈ M
+    exact div_mem (V.c₆ : M).property (ofNat_mem M 216)
+  exact ⟨hα, Weierstrass.TorsionAlgebraicity.exists_finite_field_rational_latticeIsogeny
+    M hα0 hα (h₂ W L C hC) (h₃ W L C hC)
+    (h₂ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)
+    (h₃ W₀ (EllipticSeed.periodPair G τ) C₀ hC₀)⟩
 
 end RHLean.Geometry.NativeCM

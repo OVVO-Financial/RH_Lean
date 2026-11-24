@@ -554,3 +554,58 @@ the existing local recovery and measured slope suppliers remain to
 be instantiated. Three new axiom-audit roots are proposed. No successful
 Lean closure, all-place period supplier, complete signed estimate or
 RH is claimed; hosted validation remains mandatory.
+
+## 10. Supplier-first application: descend the literal reverse class isogeny
+
+The exact supplier at the preceding checkpoint is the existing
+`exists_latticeIsogeny_eq_div` theorem, reconstructed from
+[AddMonoidHomEqZeroOfEventually.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/HomogeneousIdeals/AddMonoidHomEqZeroOfEventually.lean).
+It needs the actual multiplier in a coefficient field and the actual
+kernel x-coordinates in that field. Do not assume either of these
+for the newly constructed inverse-ideal models.
+
+The native `exists_representatives` supplies the actual finite index;
+the standard subgroup relative-index theorem kills its kernel by
+that positive integer n. Choose an actual nonzero two-torsion target
+point with nonzero x-coordinate (existence follows from its nonsingular
+cubic). If w is its period parameter and z=alpha^(-1)*w, then 2n kills
+z and all z-r_t modulo the source lattice, while n kills the actual
+kernel representatives r_t. The existing `weierstrassP_mem` theorem
+of torsion algebraicity, reconstructed from
+[IntegralJAndAlgebraicData.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/FoundationProofs/IntegralJAndAlgebraicData.lean),
+applies to every term; lattice points have the existing value zero.
+
+The existing `weierstrassP_mul_eq_sum` identity gives
+
+    alpha^2 * wp_target(w)
+      = sum_t (wp_source(z-r_t) - wp_source(r_t)).
+
+The right side is algebraic; the target coordinate is algebraic
+and nonzero. Division and algebraicity of powers imply the actual
+alpha is algebraic. Adjoin alpha and the finitely many actual kernel
+x-coordinates to the common field, exactly as for the native CM
+generator. Apply the existing rational formula theorem on this field.
+The new [torsion applications](../RHLean/Geometry/NativeCMWeierstrassTorsionAlgebraicity.lean)
+are proposed Lean proofs of these steps, with the actual period
+inclusion and both algebraic equation invariants as inputs.
+
+The new [actual reverse class map](../RHLean/Geometry/NativeCMInverseIdealClassModels.lean)
+applies that result to the previously constructed tangent-coordinate
+periods of the two actual equations. Its multiplier is beta_C^(-1)
+times the embedded nonzero ideal element; the algebraic equation
+invariants come from the existing c4/12 and c6/216 identities.
+The field extension contains the original common model field.
+The point-map and kernel-degree statements are the literal original
+rational formula, not a replacement map or assigned derivative.
+
+Five additional audited roots are proposed. The exact next
+application is to extend this rational map between the actual two
+short equations to their scheme morphism and conjugate by their
+existing equation isomorphisms. Then use the submitted R25 integral
+extension and cross-model tangent comparison, transport across all
+embeddings and invoke the original one-sided period mean. Forward
+maps and the common-family assembly remain to be attached as needed.
+The actual scheme map, all-place period supplier, signed-excess
+bound and RH are not proved by these source changes. No hosted
+verification of the new roots is claimed; no new module or
+conditional RH endpoint is introduced.

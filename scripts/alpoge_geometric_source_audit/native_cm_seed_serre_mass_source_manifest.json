@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "5b186efa36c15db6e3e4a16b2ed84451de1429f5888d13986056d0ac0a857eab",
-      "lines": 234
+      "sha256": "00e6a5a1125a1f7544aea252b5f3c96c78ebed659226ed3cb4e325933686756b",
+      "lines": 297
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -1535,8 +1535,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTorsionAlgebraicity.lean",
-      "sha256": "5b2b09e11ea164a86b2e95c1f7075ccc78031021420349513dfbbe41d2a22e7e",
-      "lines": 125
+      "sha256": "bf3e8b64f54fd2816aaaa708cd88d1d2d3df9f765ecd447e5975c8f435484d8b",
+      "lines": 313
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationGroup.lean",
@@ -1857,7 +1857,7 @@
   "unproved_suppliers": [
     "Actual two-curve integral extension: proof source now composes the existing flat graph, finite geometric kernel, quasi-finite projection, Mathlib proper quasi-finite finiteness and smooth normalization to construct the inverse projection over a DVR; local integral tangent coordinate supplied in source. Hosted verification and actual global class-family/CM action integration remain outstanding.",
     "Hosted validation and consumer integration of the actual all-section Appell-Humbert tangent, normalized same-equation periods and exact all-place length",
-    "Actual cross-model generic isogeny construction, algebraicity of the common coordinate ratio, all-embedding exponential comparison and reverse derivative integrality. Proposed source now constructs the distinguished-embedding normalized ideal-class family with both lattice inclusions and proves the actual cross-model tangent scalar formula. One-sided mean and all new proofs require hosted validation; no global period supplier is claimed.",
+    "Actual cross-model scheme morphism, all-embedding exponential comparison and reverse derivative integrality. Proposed source now derives algebraicity of the literal lattice multiplier from the existing kernel sum at a nonzero two-torsion coordinate and constructs a finite-field rational point formula for the actual reverse ideal-class lattice map. The normalized class family and cross-model tangent formula remain subject to hosted checking. Rational-to-scheme extension, integral extension application and the one-sided mean are not claimed complete.",
     "Integral seed action and mixed-signature scheme assembly; actual seed cubical/Rosati identities, relative ampleness and trivial kernel of the signed tensor bundle; generic intrinsic Lie coordinates and the exact sigma trace Gram are constructed but unverified",
     "Geometric cover finite-Fourier and character-section tie, isotropic system and global cusp realization/span; full signed-flag periods, finite coefficients with all-embedding bounds and actual CM-fiber half-level marking are constructed but unverified",
     "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares",

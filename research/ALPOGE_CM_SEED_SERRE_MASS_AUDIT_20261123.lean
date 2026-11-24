@@ -401,7 +401,12 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_elliptic_extension_integral_coordinate,
     ``RHLean.Geometry.NativeCM.inverseIdealPeriod_normalized_maps,
     ``RHLean.Geometry.NativeCM.exists_inverseIdealTangentClassModels_preserving_seed,
-    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent.exists_tangent_scalar_between]
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassMorphismTangent.exists_tangent_scalar_between,
+    ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.exists_latticeKernel_annihilator,
+    ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.exists_nonzero_twoTorsion_wp,
+    ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.latticeMultiplier_mem,
+    ``RHLean.Geometry.NativeCM.Weierstrass.TorsionAlgebraicity.exists_finite_field_rational_latticeIsogeny,
+    ``RHLean.Geometry.NativeCM.exists_inverseIdeal_reverse_rational_isogeny]
   let env ← getEnv
   for root in roots do
     unless env.contains root do
