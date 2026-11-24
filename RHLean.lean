@@ -82,7 +82,9 @@ import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.AlpogeNativeSignedSlopeComparison
 import RHLean.Analysis.AlpogeNativeSignedWidthPayment
+import RHLean.Analysis.AlpogeNativeSquareCandidateCapacity
 import RHLean.Analysis.AlpogeNativeSquareClockCriterion
+import RHLean.Analysis.AlpogeNativeSquareMultiplicity
 import RHLean.Analysis.AlpogeNativeSubgroupProjection
 import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Analysis.AlpogeNativeWidthRecombination
@@ -1071,6 +1073,7 @@ import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
 import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
+import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement
