@@ -253,3 +253,250 @@ Policy/main `cad8dba7bbab6c709264061a3269790230c0d9a5`; AGENTS blob `c7715e559ab
 The [seven new review suggestions](https://github.com/OVVO-Financial/RH_Lean/pull/1201#pullrequestreview-6062878679) were posted and read back at `5eb0d87573d087aed794ef065ceea034021fa280`. They replace symmetry of a negation by a positive equality implication, remove unused index finiteness from pointwise Hasse entry lemmas, and prove the concrete consecutive colour minor via the preceding native separated-rows theorem and positive coset injectivity. No heartbeat or check is relaxed. The current native Gram repair already built. The two existing, separately measured manifest fixes and four missing explicit audit roots are included in the forward/reverse application-checked four-file patch, SHA-256 `93db99b94e22d3dd1e9fbbf38dadcd93d0be0aacd226b3010bfe1bc976b7330d`. `REPAIR=REVIEW_SUGGESTED; PROOF_BRANCH_COMMIT=BLOCKED_WRITE_ACCESS; HOSTED_VALIDATION_OF_PATCH=NOT_RUN`. A review is not a new commit.
 
 For the original seven active 43-reads on the published square host, the measured height/width projection has quotient elementary exponents (0,0,1,2) if the three competing read depths are (1,2,5), and (0,0,2,5) if they are (5,2,1). Same depth multiset, different largest exponent. Uniform (2,2,2) reproduces (0,0,2,2). The new formula agreed with all 216 mixtures in {0,...,5}^3, 1,512 capped lengths, and 21 independent checks by maximal minors. This is a falsification of a depth-multiset-only rule for that projection, not an instance of `EdgeFam` or a change of its common threshold. The geometric section/dual maps, signed bound and RH remain OPEN. Full proof and reproducible test follow in the final continuation.
+
+
+## Final findings | LV-20261125T181400Z-FINAL | 13:14 EST invocation
+
+### A. Result
+
+**The order of the three competing reads matters.** On the seven original active 43-reads in #1201's height/width projection, the depth lists (1,2,5) and (5,2,1) have identical entries but force different least full recovery depths, respectively 2 and 5. We give an exact formula for every list and a test that works on rectangular integral matrices with *all* competitors together. The formula was independently checked on the actual arithmetic read labels. It does not assign a Smith factor to geometric sections. The first missing constructor is identified below.
+
+**Engineering:** [seven applicable review suggestions][lv13-review] for the two files that failed in the hosted build; the [typed equality correction and final digest][lv13-line] are part of the same repair. Four-file patch checked in both directions, not committed or Lean-certified. The PR remains draft. **No unconditional native quantitative estimate or RH theorem.**
+
+### B-D. Authority, queue and disposition
+
+[Main policy][lv13-policy] `cad8dba7bbab6c709264061a3269790230c0d9a5`, AGENTS blob `c7715e559ab64a8b2ebbf4623ecc246cb43179af`; [proof contract][lv13-contract] `6fa886e125321056739a48d09fd33c95edaebf6b`; [economical recovery][lv13-directive] `8c16f05a43e8794fa78f77ba2645b3913669b93f`; final-closure directive `395378d0e6525fab6c6ed9b7315c5de4c36329dd`; semantic audit `1029b89123471c04da44b0d91f382d7291cf1f14`. #1201 branch AGENTS `4496eb12b74c58185eefa5d01b463ebca82e0ee4`. `native_economical_recovery_ack=NATIVE_ECONOMICAL_RECOVERY_V1; ECONOMICAL_RECOVERY_ROLE=LEAN; final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1; FINAL_1201_ROLE=LEAN; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1`. DIRECT_CORE_CUT_V1 and STRICT_NO_GEOCL_ANYGEOMETRY_V1 retained.
+
+1. **First, repair the reached #1201 build.** The prior GRAM1 fix is now in the source and the module built; do not reapply it. Reuse the pending, still-applicable explicit audit roots and measured manifest corrections.
+2. **First mathematical experiment:** independently identify the selected and competing maps on both localized lattices of one genuinely admissible edge. A previously proved existence of a nonzero complex section, an integral period pairing or the unrestricted colour minor supplies no such maps. No reviewed physical patch providing them was found. The exact test below is an instrument for that experiment, not a replacement instance.
+3. [#1213][lv13-1213] is a separate **unmerged research draft**, not governing policy. Its inspected head advanced from `c276bb6187b0d8e41ece76597fc6f6bf93271889` to `efb7debf682b3cee46187f157c86e004668a39e9`. The new V8 commit modifies docs, a Python diagnostic and CSV, with no Lean declaration; its height-two CRT model expressly lacks the actual period/metric identification. V7's two-chart counting experiments are not these section/dual maps either. #1207 (`0991c2f181f6943d0e57671cffebb1129d5ff4b4`, open, not draft) is a separate positive-moment citation. No new or stacked PR, no change to anyone's branch.
+
+### E-F. The joint-image test and its proof
+
+**LV-20261125-JOINTLEN1 | PAPER_PROOF, SELF_AUDIT.** Let $O$ be a DVR with uniformizer $\pi$, $L$ a finite free $O$-module with chosen basis, $E:L\longrightarrow O^r$, $C:L\longrightarrow O^s$ the actual integral evaluations if available. For arbitrary nonnegative depths $c_j$ set $D_c=\operatorname{diag}(\pi^{c_j})$, $K=D_c O^s$, and $I=E(C^{-1}K)$. For each integer $t\ge0$ form
+$$
+A_t=\begin{pmatrix}E&\pi^t1_r&0\\ C&0&D_c\end{pmatrix},
+\qquad B=(C\;\;D_c).
+$$
+Write $\nu(M)$ for the least valuation of the maximal **row-size** minors of a full-row-rank matrix. Set $\nu=0$ for zero rows. Then
+$$
+\lambda_t=\operatorname{length}_O O^r/(I+\pi^t O^r)=\nu(A_t)-\nu(B).
+$$
+Projection onto the competing coordinates maps $\mathrm{coker}\,A_t$ onto $\mathrm{coker}\,B$. Every kernel class has a representative $(u,0)$ by subtracting an image column combination. Two such representatives coincide exactly when the difference of their first coordinates is $Ex+\pi^t z$ with $Cx\in K$. Thus the kernel is the displayed selected quotient. Both matrices have full row rank thanks to the precision columns, so DVR elementary divisors identify the cokernel lengths with the two determinantal valuations. This proves the subtraction, including the zero-map and rank-deficient selected cases.
+
+Writing $\alpha_i$ for the elementary exponents of $I\subseteq O^r$, padded by $+\infty$ for missing rank, gives $\lambda_t=\sum_i\min(t,\alpha_i)$ and $\lambda_{t+1}-\lambda_t=\#\{i:\alpha_i>t\}$. In particular **all prescribed selected coordinates** can be lifted to depth $p^D$ with those competing constraints iff this increment is zero at $t=v_\pi(p)D$ (nonzero rational prime in $O$). Indeed this is precisely $p^DO^r\subseteq I$; lift each basis vector. Conversely a congruence matrix $EB=p^D(1+\pi U)$ is exactly rectifiable on the same admissible lifts because $1+\pi U$ is invertible over $O$. The intermediate difference counts elementary directions; it does not by itself select named edge directions at a partial rank. No finite residue-field size, arbitrary gain or global estimate is assumed. The criterion is invariant under a **common** unimodular domain change to $E,C$. It complements the existing [block image and fixed-frame minor theorems][lv13-joint], rather than proving the maps they take as inputs.
+
+### E-F continued. A measured arithmetic test
+
+**LV-20261125-READDEPTH1 | PAPER_PROOF / FINITE_COMPUTATION; depth-multiset-only rule REFUTED on this projection.** We took the row labels and partner multiplicities from the [exact #1201 diagnostic][lv13-width], not a freely generated host. Its square data are $R=m=10^7$, $N=x=Y=R^2-1$, $e=99$, $q=3$, $d=3814\cdot5^{400}+1$, $\epsilon=9/560$, $TT=\{[1],[17],[47],[43^2]\}$, $T_2=H$, $b=\beta=w=16$, $h=1$, $a_t=16N$. Arithmetic `WinPair`, `PageN` and sharpened cardinality checks were rerun. They do **not** certify `PairGood`, the geometric top-density requirement or $26\le x^{3\epsilon/8}$; the last two fail in this example. Original normalization is $Q=320{,}000{,}000$, not a wheel proportion. The local arithmetic coefficient ring here is $\mathbb Z_{(43)}$, uniformizer $p=43$, not the ramified edge tower.
+
+The four selected powers $i=1,3,5,7$ are at top $[1]$. For $i=3,5,7$ the same physical positive width site is also read at $([p^2],p^{i-2})$. We re-enumerated all partner reads in the prefix for those sites. On this projection retain both top heights and four independent widths: $E$ is $4\times6$, $C$ is $3\times6$. In normalized integral increments write the two heights as $p^7 A,p^5 B$. The active width cancels in the [original shifted atom difference][lv13-shift]. Hence a joint lift satisfies
+$$
+S_i \equiv p^{7-i}(A-B)\pmod{p^{c_i}}\quad(i=3,5,7).
+$$
+Conversely choose $A-B=u$ as prescribed; choose each shared width to produce the desired allowed competing multiple, and the unique first width freely. This proves equality of images for the seven-read projection. It says nothing about other geometric restrictions. The free $S_1$ contributes no quotient. The remaining quotient is $(\bigoplus_i O/p^{c_i})/O(p^4,p^2,1)$. For $m_i=\min(c_i,t)$ its capped length is
+$$
+\lambda_t=\sum_i m_i-\max_i (m_i-(7-i))_+ .
+$$
+Indeed after truncation the single cyclic generator has order ideal exponent equal to the maximum of its three component exponents. Subtract its length. In particular:
+
+| Depths at the competitors of selected powers 3, 5, 7 | Four selected Smith exponents | Length | Least $D$ with $p^D O^4\subseteq I$ |
+|---|---|---:|---:|
+| (2,2,2), existing uniform checkpoint | (0,0,2,2) | 4 | 2 |
+| (1,2,5) | (0,0,1,2) | 3 | 2 |
+| (5,2,1) | (0,0,2,5) | 7 | 5 |
+
+The checker below used elimination on the original six-column lift lattice, independent of the cyclic quotient formula. All **216** depth triples in $\{0,\ldots,5\}^3$ and all **1,512** truncations $t=0,\ldots,6$ matched. For the three displayed profiles and all seven precisions, **21** further bordered maximal-minor computations matched. These are exact integer computations, with no floating-point log or Gram values. Unequal thresholds are a falsifier for a proposed reassignment/rounding shortcut, not a change to the actual common `cStar` in `EdgeFam`. The unchanged equal-threshold case is a control, not a new discovery.
+
+### G-J. Implementation and hosted evidence
+
+[Draft #1201][lv13-pr], branch `research/cm-seed-serre-degree-20261123`; current base `cad8dba7bbab6c709264061a3269790230c0d9a5`; head `5eb0d87573d087aed794ef065ceea034021fa280`. [Workflow 45625259670][lv13-run], attempt 1, explicitly reports that head. CI checked merge `b225c317e9f102e67d183898205f4b226405048c`; its root Git tree and the PR head's root tree **both** equal `abea9be7f87a89eb7f8266ceae7780d52a4675e8`. Native Lean `v4.34.1`; `lean-toolchain` blob `ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5`; manifest `a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`. Main and proof head have matching toolchain and Lake pins.
+
+| Item | Reached diagnostic and change proposed |
+|---|---|
+| `NativePrimeExponentJet.lean`, blob `08a26394f1098aa9819c866c250f72e0132eb59b` | Line 37 tries `h.symm` with `h : b = a → False`, plus two deprecated `if_neg` uses. The replacement uses the implication `fun hab : a = b => h hab.symm` and the supported rewrite. Omit `[Fintype I]` from the three flagged entry/partition theorems, and also from the two signed entry corollaries that no longer need it. This removes an unnecessary instance, not a divisibility hypothesis. Finite prime axes, actual matrix products, inverses and column sums are unchanged. |
+| `NativeDyadicPrimePowerIncidence.lean`, blob `0f98e688c4ef42b3df552000cc812542f20bfc43` | Lines 323/333: deterministic definitional-equality timeout at 1,000,000 heartbeats. [Replacement][lv13-minor] uses native separated rows and proves separation with `frobeniusCoset_pos_inj`, since each index is strictly below the quotient order. The empty competitor type belongs only to the unused projection of a **selected-only arithmetic minor**. It is not used for the actual physical experiment. No resource-limit increase. |
+| Strict root audit `dfa59d2faef2f49c205eb88af2aee931dd5763ad` | Retain the existing roots and the pending four named checks for `nativePrincipalCyclicGm_eq`, `nativeConstructedDyadicSignedSlopePayment_of_meanLoss`, `nativeSmallEpsilonWindowBound_of_principalCyclic` and `nativeGz_le_of_mean_normalizedCosts`, with their imports. This requests type/body/opaque/axiom evidence; it is not that evidence. |
+| Native CM source manifest `e23684a7e5e2c12fe5ba1b16c23287175c9a12ed` | Re-measured `NativeCMSerreSigmaMetric` and `NativeThetaCuspSchemeTorsion`: respectively 268 and 413 lines, SHA-256 `afc4a8d43c15ca6fea1d0699ef8b41bfc743033381499cd562a0b2094b01740f` and `3311efce7e770d85828d393ff55667fff17035ce032b2573c89d37bceb067475`. No previously measured native module in this 214-entry list is in the 46-file change set from the preceding own head. No upstream source fingerprint or policy was modified. |
+
+`LV-20261125-REPAIR1`: the complete four-file patch with the explicit equality binder has SHA-256 **`691603220f422f4946e645089f1dbc6d1d82cae49207ef7f75763cb6291067f6`**. This supersedes the milestone digest (`93db99b9...`) only by annotating that binder. The original index hashes match all four fetched blobs. `git diff --check`, forward application against the original index, and reverse application against the edited files passed. The review and all seven suggestions were read back; the [first suggestion][lv13-line] records the final digest. Ordinary proof-source file writes via this connection are restricted to dated reports on `agent-reports`; the read-only direct archive transport also returned CONNECT 403, not proof that the owner lacks access. No lower-level workaround or speculative rerun. `DRAFT_PR / CI_FAILED; REPAIR_PROPOSED / BLOCKED_WRITE_ACCESS; PATCH_HOSTED_CI=NOT_RUN`.
+
+[Changed closure job][lv13-job] **failed**. Its log records builds of `NativeSummandCovolume`, `AlpogeNativeProperPowerCentering`, `NativeSquareCapacityPeriod`, `NativePrincipalEAtH`, `NativeExistingRecoveryPayment` and `NativeHostIntegralJetRows`. The diagnostic time cap was reached. The [full native build][lv13-full] was **skipped**; static [inventory][lv13-inv] and [public export][lv13-export] passed. The [semantic census][lv13-census] scanned **3,621/3,621** Lean files, 47,625 parsed declarations, no scan failures. Its own status is candidate census only. PNT's printed axioms are not certificates for the new native declarations. No passing complete root/opaque-dependency or terminal-kernel receipt on this revision; do not silently treat a failure as a certification or as a mathematical counterexample.
+
+### K-M. Meaning and the first unsupplied construction
+
+At $j=1$ on the very same actually selected `PairGood` window, fix a real host/place and an `IsEdge` witness $\eta$ with actual $n',r,\lambda_0,t_S,t_T,D,c_\star$. The [square-host result][lv13-host] constructs the half-different, period lattice (rank $R^3-1$ over the integer ring) and a nonzero complex theta. The [graded-section theorem][lv13-graded] takes component lattices, point actions, spanning/orbit data and vanishing. The [evaluated family][lv13-germ] takes, among other inputs, the formal group, directions, gauge and actual germs. The [local integral row/paired-basis result][lv13-hh] is on specified vectors/bases; period translates alone give [proportional evaluations][lv13-period].
+
+**First missing typed leaf:** construct the $O$-linear restriction of the localized measured integral $j=1$ sections to the edge germs in $V_{\lambda_0}(K_f)$, and separately the corresponding restriction of the admissible dual into $V_{\lambda_0}(K_f)^*$. Prove their normalized evaluations agree with the original $be(F,G)=G(p^{A_r}F)$, actual Frobenius/inertia, first-return restrictions, lattice polynomials and half-different at that place. On every retained source word prove membership in $w^{-t_S}HL(\mathrm{src})$ and $R_\eta$, as well as $w^{c_\star}R_{\eta'}$ for **every** distinct competing outgoing edge. For each primitive combination construct a legitimate incoming dual test in the scaled *target* dual and $R'_\eta$, with the off-edge memberships exactly as in [EdgeFam/SrcTests][lv13-edges]. In `SrcTests` the off-edge dual clause quantifies over the selected incoming edges, whereas `EdgeFam` tests every other incoming edge with that target. A primitive-combination-dependent dual is allowed; it is not supplied by transposing a width matrix. A smallest meaningful test is one nonzero genuine direction with one honest competitor, not a claim to know the least admissible numerical host. The concrete pair $([1],43^3),([43^2],43)$ exposes the first arithmetic overlap; it is not itself such an edge witness.
+
+| Required quantity for the true physical sections and admissible dual | Status on this run |
+|---|---|
+| Domains, dimensions and matrices $E_S,C_S,E_T,C_T$; selected/competing values, image before/after a prime partition | **BLOCKED** at the localization and pairing above. Not the $4\times6,3\times6$ arithmetic projection. |
+| Same lifts with $EB-p^D1$ divisible by $\pi^{v_\pi(p)D+1}$ and $CB$ divisible by $\pi^{c_\star}$; rank quota, depths, leakage | **BLOCKED**. Count $\sum_\eta n_\eta$ against actual $\dim V$, not orbit labels or period rank. In a ramified tower do not substitute $D$ for $v_\pi(p)D$. |
+| Grouped exceptional generators, their $d s^{\beta+1}$ decay, and $a^{VS}M\subseteq N_{\rm local}$ | **BLOCKED**; the [served length theorem][lv13-served] needs saturation, inverse shifts, stopping and $\ell(O/(a))$. Capped lengths of seven reads do not prove those premises. |
+| Global measured integral frame, local index, weighted Gram and both signed losses | **BLOCKED**. The [covolume theorem][lv13-gram] compares the two on one frame. No numeric physical rank, index, weighted loss or positive signed gain assigned. |
+
+In the coefficient space alone the divisor-closed Hasse matrix has signed binomial inverse and column mass $2^{\Omega(h)}\le N^{\log 2/\log z}$ for high primes $>z>1$. A proper high ancestor satisfies $z\ell d<\ell h$; a nonclosed window must include or pay for missing ancestors and any low-fibre mixing. A unimodular basis change creates neither physical index nor a weighted Gram bound. The source proof for the prime-exponent module failed on this head: do **not** label its complete declared chain Lean-verified. The projected tests neither discard higher powers nor prove a price for the complete signed source.
+
+The [upstream pin][lv13-edges] is `251c7b05dd869ceba1aa42c6001c00b4010f23f9`; independently read live community main `91b273530883b723ef4422436e0dc3557749325a`. `ManyEdges` has the same blob `7f043efac738a5e73ec785f5fe4435031babde4f`. `PlaneCountTheoremWithConstants` changed from `9093d64224dc052521d7114b52f833fa727eeb7d` to `e7243a5e0e15a0e320bb10f9757bbc56c79f7007`; the [inspected live body][lv13-linkg] still uses `hG1` for discarded quotient length and `hfill`/`h1` for the signed gain (`ParametersFill`/`Conclusion1`). They cannot be exchanged.
+
+On the actual native host, [`physicalData_Ga`][lv13-ga] keeps `D0.Ga`, not a valuation chosen from the desired inequality. [`nativeConstructedDyadicSignedSlopePayment_of_meanLoss`][lv13-mean] still consumes `QuotientSlopeBoundsWith DP C Xpp`, `DP.Losses C` (both averages of ASK minus gain and IO bounded by LoP), the other displayed size/degree/slope/error constraints and measured heights. The result controls an **average at $a_t/b$**, not automatically a point at $x$. Keep all prime powers, ramified terms, both signs, thin/principal/complement and MAIN; $Q=|TT|mb\Delta/2$, $\Delta=|T_2|/|H|$. The [square source][lv13-square] retains $\log(n)(N/n-1)$, proper powers and Euler centering.
+
+[Merged #1205][lv13-1205] (merge `fde7ea71ed88f540a8829554a8ab4602bda96f4d`; tested head `45d86f3f728e94e476427ffa41e5a0620bb74be0`) has a passing [named conditional root audit][lv13-handoffci] and [hosted build][lv13-handoffbuild]. The handoff blob `31dc576197075a0448ced1a1c58e24a35c6d80d6` is identical at both proof heads. [Exact type][lv13-window]: `0 < ε₁ → SmallEpsilonWindowBound K ε₁ → RiemannHypothesis` (with the real parameters implicit); printed axioms `propext, Classical.choice, Quot.sound`. Fix $e_D,e_L,\epsilon_1$ before $\epsilon$, put $K=e_D+e_L+7$ on this route. For each admissible $\epsilon$ one $C_\epsilon$ must serve every $Y_0$ and every real $y$ on a complete $[Y,Y^{3/2}]$ for some $Y\ge Y_0$. The conditional consumer is not its missing bound. Merged #1211's [external job][lv13-stage] really reports the three standard axioms and 1,478,181 dependencies for its separate replay; its external supplier calls [the excluded geometry][lv13-excluded]. Not used here. No terminal import or phase-guard change.
+
+### N. Continuity and specialist handoffs
+
+[Intake snapshot][lv13-inbox] `45025978c1d551f79b592e3dd4b7f1edf9b3e3c4`. Enumerated the available dated directories without a lookback cutoff. Verified complete provider-size/Git-blob bytes of the Nov 25 and all extant Nov 24 reports. Coordinator mirrors share the same bytes on each date and count once. No recovery siblings on these dates. The prior own final already verified older route-specific watermarks; no claim of an exhaustive reread before them. Local times below are EST. The newly consumed final sections include their opening and intermediate continuations, not just their titles.
+
+| Role / owned Nov 25 file (prefix) | Previous own intake -> latest actual section, blob | Status, scope and next handoff |
+|---|---|---|
+| Coordinator 00/90 | Nov 24 WIDTHLAW1-4 `960b5843affc6cf2765d90b92547e12d656b50e8` -> Nov 25 07:10 COORD-20261125-JETCUT1-3 `f00778c30a19c9500d0f82108c3296b5b33c3ba2` | New, paper/finite. Weight-filtered charts need the first restricted germ. Add the joint capped-image test only after the original maps exist. |
+| Owner 10 | Nov 24 LOCALGAIN1-4 `74f9baaea9fa0e4043e79e01e99d732e61daab86` -> 08:09:02 OP-20261125-FRAME1-4 `30355ef9ac83c1fc4e2d88f3edf6b72db08c766f` | New, paper/finite. The width product misses the sign of ASK and its two contrast rows need an actual common frame. READDEPTH1 sharpens the projected uniform check; not a physical rank or gain. |
+| Analytic 20 | 01:04:01 TOPLAW1-4 `11e89f84ece71cbaa810860ad37c268abfe754d1` -> 09:09:03 ATII-20261125-PRICE1-4 `37747c5895f879309caeebede03358b9c66740cf` | New, paper/finite. Keep signed first variations, genuine cutoff atoms and projected history costs. Bound remaining weighted error on the columns actually used. |
+| Wheel 30 | 02:05:01 FW-20261125-PARTNER1-4 `93f18c6e1475ff9ca69c1ae49df2dae1f07d3232`, unchanged | No new handoff. Actual pair overlap and grouped generator hypotheses are distinct. Supply the first integral source word and its underlying edge, with all competitors. |
+| Census 40 | 03:11:01 HEIGHTFIBRE1-4 `96b465a19ec643b83c8c21f27c20a100807246fc` -> 11:00:01 PC-20261125-HALFSTEP1-4 `a98104d74fca6cbf0f4d7338fc937b0f7c0e92af` | New, paper/finite. Keep odd ramified layers and target dual lattice. Run the joint test over the real DVR when maps arrive. Nov 24 missing (no Nov 23 folder); earlier Nov 22 verified FOURPOWER blob `f8f96d3ce7b2e2f1305b0a1984d6f936c9f55448`. |
+| Referee 50 | 04:13 REF-20261125-ROW1-4 `e857d047300ea59650c4c6eda319d64353c3c2ef`, unchanged | No new handoff. Keep scoped accepted/refuted items, in particular rejection of occurrence-count rank. Request independent scrutiny of the joint quotient exact sequence and unequal-depth test, not endorsement of a physical example. |
+| Lean 60 | 05:10 LV-20261125-LIFT1/2, GRAM1, ROOTS1 `665f7b85a0b93964f408c4342f6c8b09916fdf3a` -> this 13:14 run | Earlier common-lift result stays paper. Existing Gram repair built; new reached failures, review, finite checks and source/dual blocker as above. |
+
+All seven have actual reports today as of intake; no imagined later runs. No new external supplier: [external inbox][lv13-ext] `7d63d434690d00dffce9c90335d41c4f62d85798` retains the PNT signed remainder (`EXT-20261018-PNT-1`), the root-prime boundary (`EXT-20261017-XCOORD-1`) and the strictly scoped isolated-pair/limsup obstructions (`EXT-20261014-3/-5`). No independent Referee acceptance claimed for this run. Earlier dated status and acknowledgments are retained in the unchanged report prefix.
+
+### O-P. Next run and publication
+
+**Pinned native blobs for replay.** Square-host realization `b1d4cf64de78d94582c586b9b1651727c63389a9`; evaluated family `7e8c4a9f5b1cd5349f870a32842d61f935245a33`; graded sections `425808a47564def8823b788b3ccd53473ac606ce`; local paired rows `7a5190692f1a3292ff391f23823da06772a2a74d`; joint recovery `32ff6612607bf57c00167f025a2d59ac2d28ebdc`; shifted arithmetic rows `1decb7697d7b6865f52e438dc79689e54b3d54e2`; original candidate source `395e595d9ada914edbe41b441a4767a044634ad9`; served application `46369dc5352cc42bf6633b33836dfc2947fddb1a`; same-frame covolume `9232afd2fe0af4e1206f8d679213fdd9f46c79d2`; EAtH `ed98fe285987a38bc635a3729024bc3f3b1ac4b2`; signed comparison `d8250851cd4ddc640fdc89df8475dcc2c09a636a`; payment `1076fb12c5bb2b1a85ed97f20aadfb105c4e2747`; point transfer `51c8660dbc4d7109f71bbc9d6421e93aa06ce61a`. Latest pre-publication refresh: main and #1201 unchanged, no new specialist or recovery files since intake, report ref `a1ddbd736253824eda62e8800ca5af47e1a669a8`.
+
+1. On #1201 only, apply the reviewed exact-head repair once using an authorized branch writer; observe the new head and warning-fatal job, then inspect named roots, full kernel Pi telescope/body with opaque dependencies, inventory/export, standard axioms and full native build. Do not rerun unchanged red code. Neither a code suggestion nor a census counts as passing.
+2. Independently construct the first true section/dual localization at one admissible selected edge and verify agreement of the pairing and competitors. Then test the measured block at depth $v_\pi(p)D$ and the prescribed competitor depths. Retain blocked rank, decay, stopping, weighted and signed obligations until observed or proved. No new conditional endpoint or fresh proof PR.
+3. `EXECUTION=COMPLETED; MATHEMATICS=PAPER_PROOF/FINITE_COMPUTATION_ON_PROJECTED_ROWS; PHYSICAL_E_C=BLOCKED; PROOF_PR=DRAFT; CI=FAILED; NO_NEW_LEAN_CERTIFICATION; NATIVE_RH=OPEN`. Early report [commit 2648aee][lv13-open] (37,074 bytes, blob `7edbb98a104275c22f8ce201e29de9f57d6df615`) and [milestone a1ddbd7][lv13-mid] (38,785 bytes, blob `fa1c1e34e0b90d58fe4e80f49ec041d3a86963fa`) each verified by exact-commit readback with the full original prefix intact. This final section is an append, not a replacement for earlier evidence; its own immutable receipt will be given after readback.
+
+<details><summary>Reproduce the projected depth test (standard Python, no Lean)</summary>
+
+Use an unmodified #1201 checkout at `5eb0d87573d087aed794ef065ceea034021fa280`. The script below takes the checkout directory as its single argument and imports only the pinned arithmetic diagnostic (`74985f528f1ae6fb87aba534eb8a6053b09ea23e`) plus the standard library. Script SHA-256 `5179c5ddf8a691437028baf6ee2141c3c47824a28ace3804abf55b6ccff701ef`.
+
+```python
+"""Run beside the #1201 checkout using only Python's standard library."""
+
+import sys
+from itertools import combinations, product
+from math import gcd
+from pathlib import Path
+
+sys.path.insert(0, str(Path(sys.argv[1]) / "scripts"))
+import native_economical_recovery_widths as w
+
+
+def measured_rows(p):
+    w.certify_host()
+    w.check_stronger_size_band()
+    sites = w.selected_width_rows(p)["rows"]
+    idx = [row["i"] for row in sites]
+    assert idx == [1, 3, 5, 7]
+    selected, competing = [], []
+    for j, row in enumerate(sites):
+        k = row["i"]
+        others = row["other_reads_at_site"]
+        assert others == ([(p**2, p, k - 2, "retained")] if j else [])
+        widths = [-int(s == j) for s in range(4)]
+        selected.append([p ** (7-k), 0, *widths])
+        for _, _, v, _ in others:
+            competing.append([0, p ** (5-v), *widths])
+    return selected, competing
+
+
+def val(n, p):
+    assert n > 0
+    v = 0
+    while n % p == 0:
+        n //= p
+        v += 1
+    return v
+
+
+def capped_length(c, t):
+    m = [min(a, t) for a in c]
+    return sum(m) - max([0] + [x-b for x, b in zip(m, (4, 2, 0))])
+
+
+def full_minor_val(rows, p):
+    g = 0
+    for js in combinations(range(len(rows[0])), len(rows)):
+        g = gcd(g, w.minor_det([[row[j] for j in js] for row in rows]))
+        if g == 1:
+            break
+    return val(g, p)
+
+
+def check():
+    p = 43
+    E, C = measured_rows(p)
+    chosen = {(2, 2, 2), (1, 2, 5), (5, 2, 1)}
+    count = capped = bordered = 0
+    for c in product(range(6), repeat=3):
+        k = max(c)
+        rows = [[x*p**(k-v) for x in row] for row, v in zip(C, c)]
+        B = w.admissible_basis(rows, 6, p**k)
+        smith = w.smith_factors(w.matrix_product(E, B))
+        exps = [val(a, p) for a in smith]
+        assert smith == [p**a for a in exps]
+        count += 1
+        for t in range(7):
+            expected = sum(min(t, a) for a in exps)
+            assert capped_length(c, t) == expected
+            capped += 1
+            if c in chosen:
+                D = [[p**v * int(i == j) for j in range(3)] for i, v in enumerate(c)]
+                low = [x+y for x, y in zip(C, D)]
+                upper = [x+[p**t*int(i == j) for j in range(4)]+[0]*3
+                         for i, x in enumerate(E)]
+                lower = [x+[0]*4+y for x, y in zip(C, D)]
+                assert full_minor_val(upper+lower, p) - full_minor_val(low, p) == expected
+                bordered += 1
+        if c in chosen:
+            print(f"c={c}: exponents={exps}, length={sum(exps)}")
+    print(f"{count} Smith profiles; {capped} capped lengths; {bordered} bordered-minor checks")
+
+
+if __name__ == "__main__":
+    check()
+```
+
+</details>
+
+[lv13-1205]: https://github.com/OVVO-Financial/RH_Lean/pull/1205
+[lv13-1213]: https://github.com/OVVO-Financial/RH_Lean/pull/1213
+[lv13-policy]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/AGENTS.md
+[lv13-contract]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/CURRENT_PROOF_CONTRACT.md
+[lv13-directive]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md
+[lv13-pr]: https://github.com/OVVO-Financial/RH_Lean/pull/1201
+[lv13-review]: https://github.com/OVVO-Financial/RH_Lean/pull/1201#pullrequestreview-6062878679
+[lv13-line]: https://github.com/OVVO-Financial/RH_Lean/pull/1201#discussion_r4699159461
+[lv13-minor]: https://github.com/OVVO-Financial/RH_Lean/pull/1201#discussion_r4699159567
+[lv13-joint]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeJointEvaluationRecovery.lean#L58
+[lv13-width]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/scripts/native_economical_recovery_widths.py
+[lv13-shift]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeDyadicShiftedWidthRows.lean#L66
+[lv13-run]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670
+[lv13-job]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139243948070
+[lv13-full]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139255968247
+[lv13-inv]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259724/job/139243633882
+[lv13-export]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625260227/job/139243637426
+[lv13-census]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625260573/job/139243639205
+[lv13-host]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSquareHostRealization.lean#L71
+[lv13-graded]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeGradedShortSectionConstruction.lean#L54
+[lv13-germ]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaEvaluatedFamily.lean#L133
+[lv13-hh]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeHostIntegralJetRows.lean#L309
+[lv13-period]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaPeriodEvaluation.lean#L28
+[lv13-edges]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ManyEdges.lean#L23
+[lv13-linkg]: https://github.com/leanprover-community/riemann-hypothesis/blob/91b273530883b723ef4422436e0dc3557749325a/src/Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean#L598
+[lv13-served]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeServedPrimeApplication.lean#L172
+[lv13-gram]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSummandCovolume.lean#L143
+[lv13-ga]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean#L67
+[lv13-mean]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean#L99
+[lv13-square]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSquareCandidateCapacity.lean
+[lv13-handoffci]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45309220195/job/138160666430
+[lv13-handoffbuild]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45309220195/job/138161896915
+[lv13-window]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/RHLean/Analysis/AlpogeNativeBoundHandoff.lean#L158
+[lv13-stage]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45531344512/job/138927151494
+[lv13-excluded]: https://github.com/homeowmorphism/riemann-hypothesis-original/blob/774b9e8022f50d20be861ecc9d609cfc26436a81/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L60
+[lv13-inbox]: https://github.com/OVVO-Financial/RH_Lean/tree/45025978c1d551f79b592e3dd4b7f1edf9b3e3c4/research/agent_reports
+[lv13-ext]: https://github.com/OVVO-Financial/RH_Lean/blob/45025978c1d551f79b592e3dd4b7f1edf9b3e3c4/research/agent_reports/EXTERNAL_HANDOFFS.md
+[lv13-open]: https://github.com/OVVO-Financial/RH_Lean/commit/2648aee8d06cbeebe6b72f7b6ce26df144259563
+[lv13-mid]: https://github.com/OVVO-Financial/RH_Lean/commit/a1ddbd736253824eda62e8800ca5af47e1a669a8
