@@ -31,7 +31,8 @@ theorem logWeight_nonneg (N x : ℝ) (hx : 1 ≤ x) (hxN : x ≤ N) :
 theorem scaled_base (N d x : ℝ) (hd : 0 < d) (hx : 0 < x) :
     d * baseWeight N (d * x) = baseWeight N x - (d - 1) := by
   unfold baseWeight
-  field_simp [ne_of_gt hd, ne_of_gt hx] <;> ring
+  field_simp [ne_of_gt hd, ne_of_gt hx]
+  ring
 
 theorem scaled_log (N d x : ℝ) (hd : 0 < d) (hx : 0 < x) :
     d * logWeight N (d * x) =
@@ -94,7 +95,7 @@ theorem logWeight_scale_le (N p x : ℝ) (k : ℕ)
       _ ≤ logWeight N x + Real.log (p ^ k) * baseWeight N x :=
         sub_le_self _ hc
       _ ≤ logWeight N x + ((k : ℝ) * Real.log x) * baseWeight N x :=
-        add_le_add_left hg _
+        add_le_add (le_refl (logWeight N x)) hg
       _ = _ := by unfold logWeight; ring
   calc
     _ = (p ^ k * logWeight N (p ^ k * x)) / p ^ k := by
@@ -163,9 +164,9 @@ theorem finite_signed_ledger (F : Finset ℕ) (N d : ℝ)
     d * (∑ m ∈ F.filter active, b m * logWeight N (d * (m : ℝ))) -
       (∑ m ∈ F, a m * logWeight N (m : ℝ)) =
       (∑ m ∈ F.filter active,
-        b m * Real.log d * baseWeight N (m : ℝ) -
+        (b m * Real.log d * baseWeight N (m : ℝ) -
           (d - 1) * b m * Real.log (d * (m : ℝ)) -
-          (a m - b m) * logWeight N (m : ℝ)) -
+          (a m - b m) * logWeight N (m : ℝ))) -
       (∑ m ∈ F.filter (fun m => ¬ active m), a m * logWeight N (m : ℝ)) := by
   classical
   simp only [Finset.sum_filter, Finset.mul_sum, ← Finset.sum_sub_distrib]
@@ -224,7 +225,7 @@ theorem reciprocal_depth_tail_le (p R : ℝ) (hp : 1 < p) (hR : 0 < R)
     _ ≤ (1 / (R * p)) * (1 / (1 - 1 / p)) :=
       mul_le_mul_of_nonneg_right hc (div_nonneg zero_le_one hd.le)
     _ = _ := by
-      field_simp [ne_of_gt hp0, ne_of_gt hR, ne_of_gt hd, ne_of_gt (sub_pos.mpr hp)] <;> ring
+      field_simp [ne_of_gt hp0, ne_of_gt hR, ne_of_gt hd, ne_of_gt (sub_pos.mpr hp)]
 
 /-- Coordinate-support counterexample on an actual square block.
 There are no pure powers of 13 in this interval. -/
