@@ -9,7 +9,7 @@ maps is a separate missing step.
 import json
 from fractions import Fraction as Q
 from itertools import combinations
-from math import comb, gcd, isqrt
+from math import ceil, comb, floor, gcd, isqrt
 
 
 R = 10**7
@@ -80,6 +80,54 @@ def check_stronger_size_band():
     assert len(TOPS) * 4 < DYADIC // 4
     assert exp_bounds(33 * 3 * eps / 8)[1] < 2 < 26
     assert Q(11, 5)**4 < 26
+
+
+def original_integer_height_window(eps):
+    """Enclose the original SizeData₂.aT_win at the finite square anchor.
+
+    The original scale has b=exp(N^eps), a=N*b and A=26. At k=N*R
+    the upper endpoint is a + b/(R*N^13). Isolate N^eps by integer
+    powers and bound exp at both endpoints by rational Taylor sums.
+    """
+    scale = 10**24
+    degree = eps.denominator
+    target = N**eps.numerator * scale**degree
+    lo, hi = scale, 2 * scale
+    assert lo**degree < target < hi**degree
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if mid**degree < target:
+            lo = mid
+        else:
+            hi = mid
+    assert lo**degree < target < hi**degree
+    terms = 48
+    b_lo = exp_bounds(Q(lo, scale), terms)[0]
+    b_hi = exp_bounds(Q(hi, scale), terms)[1]
+    assert 0 < b_lo < b_hi < B
+
+    a_lo, a_hi = N * b_lo, N * b_hi
+    j = floor(a_lo)
+    million = 10**6
+    lower = floor((a_lo - j) * million)
+    upper = ceil((a_hi - j) * million)
+    # At any positive integer k the window length b/(k*N^12) is at
+    # most b/N^12. The same coarse bound B/R covers all such ranks.
+    assert Q(B, N**12) < Q(B, R)
+    window_upper = ceil((a_hi - j + Q(B, R)) * million)
+    assert 0 < lower < upper <= window_upper < million
+    # X' = exp(N^(eps/3)). The same root enclosure bounds its exponent.
+    assert Q(hi, scale) < Q(6, 5)**3
+    assert exp_bounds(Q(6, 5), terms)[1] < 4
+    return {
+        "original_X_prime_strict_upper_bound": 4,
+        "root_denominator": scale, "strict_root_numerators": [lo, hi],
+        "exp_taylor_terms": terms, "floor_of_a": j,
+        "strict_bounds_on_a_minus_floor_in_millionths": [lower, upper],
+        "strict_upper_bound_on_window_end_minus_floor_in_millionths": window_upper,
+        "integer_top_heights_in_original_window": 0,
+        "rank_scope": "all positive integer k at this N and epsilon",
+    }
 
 
 def power_of_prime(n):
@@ -365,10 +413,28 @@ def main():
             row["normalized_signed_width_change"] = {
                 "log_p": str(ask), "log_17_over_16": str(minus_main)}
     rows[43]["free_top_heights_on_listed_active_reads"] = shifted_height_image(43, rows[43])
+    # With the diagnostic b=16 retained, integer heights in the original
+    # window shape must equal its integer lower endpoint, since B/R < 1.
+    assert 0 < Q(B, R * N**13) <= Q(B, R) < 1
+    rows[43]["fixed_diagnostic_b_with_integer_height_window"] = {
+        "unique_height_at_every_top": N * B,
+        "height_increment_at_every_top": 0,
+        "smith_factors_on_the_listed_width_reads": rows[43]["Z_local_smith_values"],
+        "quotient_length_on_the_listed_width_reads": rows[43]["quotient_length"],
+    }
+    # Apply the unramified primeClass tests to the benchmark's raw data.
+    assert (2 * Q_PRIME * D) % 43 != 0 and (-D) % 43 == 20
+    assert pow((-D) % 43, 21, 43) == 42 and 43 % Q_PRIME == 1
+    assert frobenius(43)[:2] == (1, 0)
+    rows[43]["class_from_raw_host_characters"] = "signal"
     primes = (2, 3, 5, 7, 11, 13, 17, 37, 41, 43, 47)
     print(json.dumps({
         "eps_WinPair_and_PageN": ["1/64", "9/560"],
         "eps_sharpened_PageN_band": "9/560",
+        "integer_heights_at_original_exp_scale": {
+            str(eps): original_integer_height_window(eps)
+            for eps in [Q(1, 64), Q(9, 560)]
+        },
         "geometric_size_windows": "fails top-density and 26 threshold", "R=m": R, "N=x=Y": N, "e": E, "q": Q_PRIME,
         "d_expression": "3814*5^400+1", "d_bit_length": D.bit_length(),
         "TT_dyadic_unit_representatives": TOPS, "T2": "all H", "Delta": 1,

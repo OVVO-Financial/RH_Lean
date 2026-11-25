@@ -14,6 +14,8 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Geometry.NativeServedPrimeLength.lengthFromAllBut_of_sandwich
 #check RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment_of_meanLoss
 #check RHLean.Analysis.AlpogeThin.nativeOriginalHeightWindow
+#check RHLean.Analysis.AlpogeThin.nativeSquareClock_integerHeights_eq
+#check RHLean.Analysis.AlpogeThin.nativeSquareClock_ceilHeight_eventually
 #check RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeDIV_of_period_lower
 
 open Lean Elab Command in
@@ -27,6 +29,8 @@ run_cmd do
     ``RHLean.Geometry.NativeServedPrimeLength.lengthFromAllBut_of_sandwich,
     ``RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment_of_meanLoss,
     ``RHLean.Analysis.AlpogeThin.nativeOriginalHeightWindow,
+    ``RHLean.Analysis.AlpogeThin.nativeSquareClock_integerHeights_eq,
+    ``RHLean.Analysis.AlpogeThin.nativeSquareClock_ceilHeight_eventually,
     ``RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeDIV_of_period_lower]
   let env ← getEnv
   for root in roots do

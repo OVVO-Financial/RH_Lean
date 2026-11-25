@@ -156,6 +156,7 @@ theorem entry_zero_of_not_le (e : I → σ →₀ ℕ) (s : ℤ) {i j : I} (h : 
   rw [translation_apply]
   exact Finset.prod_eq_zero (Finset.mem_univ p) (by rw [Nat.choose_eq_zero_of_lt (Nat.lt_of_not_ge hp), Nat.cast_zero, zero_mul])
 
+omit [Fintype I] in
 theorem signed_entry (e : I → σ →₀ ℕ) {i j : I} (h : e i ≤ e j) :
     translation e (-1) i j = (-1 : ℤ) ^ ((e j).degree - (e i).degree) * translation e 1 i j := by
   have hs : (∑ p, (e j p - e i p)) + (∑ p, e i p) = ∑ p, e j p := by
@@ -166,6 +167,7 @@ theorem signed_entry (e : I → σ →₀ ℕ) {i j : I} (h : e i ≤ e j) :
     omega
   rw [translation_apply, unsigned_entry, Finset.prod_mul_distrib, Finset.prod_pow_eq_pow_sum, hn, mul_comm]
 
+omit [Fintype I] in
 theorem abs_signed_entry (e : I → σ →₀ ℕ) (i j : I) :
     |translation e (-1) i j| = translation e 1 i j := by
   by_cases h : e i ≤ e j
@@ -210,8 +212,8 @@ theorem oneNorm_pair (e : I → σ →₀ ℕ) (he : Function.Injective e) (hclo
   · exact Finset.sup_congr rfl fun h _ =>
       (congrArg Int.toNat (column_mass e he hclosed h).2).trans (hcast _)
 
-/-- Entries factor across any disjoint partition of the prime coordinates. -/
 omit [Fintype I] in
+/-- Entries factor across any disjoint partition of the prime coordinates. -/
 theorem translation_partition (e : I → σ →₀ ℕ) (s : ℤ) (i h : I) (P : Finset σ)
     [DecidableEq σ] :
     translation e s i h =

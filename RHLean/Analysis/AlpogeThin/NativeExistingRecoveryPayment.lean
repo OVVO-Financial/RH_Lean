@@ -222,6 +222,60 @@ theorem nativeOriginalHeightWindow (x b k sigma h : ℝ)
     nlinarith only [hhi, hsmall]
   exact ⟨hlo', hhi', by rw [abs_of_nonneg (sub_nonneg.mpr hlo')]; linarith⟩
 
+/-- At square-clock rank `k = x * R`, the original height window contains
+at most one integer when `b < R * sigma`. In that range, varying the
+integral top heights on this fixed window supplies no additional direction. -/
+theorem nativeSquareClock_integerHeights_eq (x b R sigma : ℝ)
+    (hx : 0 < x) (hR : 0 < R) (hsigma : 0 < sigma) (hb : b < R * sigma)
+    (h₁ h₂ : ℤ)
+    (hw₁ : (h₁ : ℝ) ∈ Set.Icc (x * b) (x * b + x * b / (x * R * sigma)))
+    (hw₂ : (h₂ : ℝ) ∈ Set.Icc (x * b) (x * b + x * b / (x * R * sigma))) :
+    h₁ = h₂ := by
+  have hw : x * b / (x * R * sigma) < 1 := by
+    apply (div_lt_one (mul_pos (mul_pos hx hR) hsigma)).2
+    rw [mul_assoc]
+    exact mul_lt_mul_of_pos_left hb hx
+  have hlt₁ : (h₁ : ℝ) < (h₂ : ℝ) + 1 := by linarith only [hw₁.2, hw₂.1, hw]
+  have hlt₂ : (h₂ : ℝ) < (h₁ : ℝ) + 1 := by linarith only [hw₂.2, hw₁.1, hw]
+  have hi₁ : h₁ < h₂ + 1 := by exact_mod_cast hlt₁
+  have hi₂ : h₂ < h₁ + 1 := by exact_mod_cast hlt₂
+  omega
+
+open Filter in
+/-- With the original exponential width and `Scale.A = 26`, the ceiling
+of the prescribed lower endpoint is an admissible integer height and
+has the required pointwise proximity, uniformly for `1 ≤ R ≤ x`. -/
+theorem nativeSquareClock_ceilHeight_eventually (eps : ℝ) (heps : 0 < eps) :
+    ∀ᶠ x : ℝ in atTop, ∀ R : ℝ, 1 ≤ R → R ≤ x →
+      let b := Real.exp (x ^ eps)
+      let a := x * b
+      let h : ℝ := (⌈a⌉ : ℤ)
+      h ∈ Set.Icc a (a + a / (x * R * x ^ (13 : ℕ))) ∧ |h / b - x| ≤ 1 := by
+  filter_upwards [dyadic_rpow_le_exp_eventually ((14 : ℕ) : ℝ) eps heps,
+    eventually_ge_atTop (1 : ℝ)] with x hb hx1
+  rw [Real.rpow_natCast] at hb
+  intro R hR hRx
+  let b := Real.exp (x ^ eps)
+  let a := x * b
+  let h : ℝ := (⌈a⌉ : ℤ)
+  have hx : 0 < x := zero_lt_one.trans_le hx1
+  have hs : 1 ≤ x ^ (13 : ℕ) := one_le_pow₀ hx1
+  have hden : 0 < x * R * x ^ (13 : ℕ) :=
+    mul_pos (mul_pos hx (zero_lt_one.trans_le hR)) (zero_lt_one.trans_le hs)
+  have hscale : R * x ^ (13 : ℕ) ≤ b := calc
+    R * x ^ (13 : ℕ) ≤ x * x ^ (13 : ℕ) :=
+      mul_le_mul_of_nonneg_right hRx (pow_nonneg hx.le _)
+    _ = x ^ (14 : ℕ) := by ring
+    _ ≤ b := hb
+  have hwidth : 1 ≤ a / (x * R * x ^ (13 : ℕ)) := by
+    apply (le_div_iff₀ hden).2
+    rw [one_mul, mul_assoc]
+    exact mul_le_mul_of_nonneg_left hscale hx.le
+  have hw : h ∈ Set.Icc a (a + a / (x * R * x ^ (13 : ℕ))) :=
+    ⟨Int.le_ceil a, (Int.ceil_lt_add_one a).le.trans (add_le_add_left hwidth a)⟩
+  exact ⟨hw, (nativeOriginalHeightWindow x b (x * R) (x ^ (13 : ℕ)) h hx
+    (Real.exp_pos _) (le_mul_of_one_le_right hx.le hR) hs hw.1 hw.2).2.2⟩
+
 end RHLean.Analysis.AlpogeThin
 
 namespace RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds

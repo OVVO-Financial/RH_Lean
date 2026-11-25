@@ -2,6 +2,8 @@
 
 The computation below uses the original prime-power, first-return and translated partner formulas. It produces a local image with positive quotient length at a high prime on an explicit native host. The integral module measured in that computation consists of width coordinates. A restriction of the native integral sections onto these coordinates remains to be constructed.
 
+On this finite host, the original exponential scale and integer weight window admit no top height at either recorded epsilon. Keeping the diagnostic width 16 while imposing the integer window fixes all top heights and restores the width-only length six. Both claims have exact rational certificates. The raw characters also place 43 in the signal branch. [Supplier completion report and original proof locations](NATIVE_P43_SUPPLIER_COMPLETION_20261125.md).
+
 ## Source and dependency check
 
 The community head inspected on November 25 was `8e5cefeeaffe7e4c12153385b7bb33fb7223c41a`. The relevant source files for the following table agree with the earlier pin `251c7b05`. The two projects use Lean 4.37.0-rc1 and 4.34.1 respectively. [Upstream source](https://github.com/leanprover-community/riemann-hypothesis/tree/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a) · [pillar map](https://riemann.verifytask.cn/?lang=en) · [native directive](../docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md)

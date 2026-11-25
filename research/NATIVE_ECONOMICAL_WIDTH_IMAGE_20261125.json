@@ -4,6 +4,42 @@
     "9/560"
   ],
   "eps_sharpened_PageN_band": "9/560",
+  "integer_heights_at_original_exp_scale": {
+    "1/64": {
+      "original_X_prime_strict_upper_bound": 4,
+      "root_denominator": 1000000000000000000000000,
+      "strict_root_numerators": [
+        1654817099943181164380442,
+        1654817099943181164380443
+      ],
+      "exp_taylor_terms": 48,
+      "floor_of_a": 523212287908719,
+      "strict_bounds_on_a_minus_floor_in_millionths": [
+        787157,
+        787158
+      ],
+      "strict_upper_bound_on_window_end_minus_floor_in_millionths": 787160,
+      "integer_top_heights_in_original_window": 0,
+      "rank_scope": "all positive integer k at this N and epsilon"
+    },
+    "9/560": {
+      "original_X_prime_strict_upper_bound": 4,
+      "root_denominator": 1000000000000000000000000,
+      "strict_root_numerators": [
+        1678804018122560044164161,
+        1678804018122560044164162
+      ],
+      "exp_taylor_terms": 48,
+      "floor_of_a": 535914269926097,
+      "strict_bounds_on_a_minus_floor_in_millionths": [
+        731729,
+        731730
+      ],
+      "strict_upper_bound_on_window_end_minus_floor_in_millionths": 731732,
+      "integer_top_heights_in_original_window": 0,
+      "rank_scope": "all positive integer k at this N and epsilon"
+    }
+  },
   "geometric_size_windows": "fails top-density and 26 threshold",
   "R=m": 10000000,
   "N=x=Y": 99999999999999,
@@ -443,7 +479,19 @@
         "quotient_length": 4,
         "unit_factors": 2,
         "competing_modulus": 1849
-      }
+      },
+      "fixed_diagnostic_b_with_integer_height_window": {
+        "unique_height_at_every_top": 1599999999999984,
+        "height_increment_at_every_top": 0,
+        "smith_factors_on_the_listed_width_reads": [
+          1,
+          1849,
+          1849,
+          1849
+        ],
+        "quotient_length_on_the_listed_width_reads": 6
+      },
+      "class_from_raw_host_characters": "signal"
     }
   },
   "physical_section_and_dual_E_C": "unconstructed",
