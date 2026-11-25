@@ -1,0 +1,231 @@
+/-
+Stage 1 only: compile in the frozen upstream Lean 4.33.1 environment.
+The source and window definitions are spliced verbatim from RH_Lean's
+AlpogeNativeBoundHandoff.lean by the replay script. No external premise
+is postulated. The original supplier proof is explicitly accepted
+in this stage; its independence from geometry is NOT claimed.
+-/
+import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.EveryCharacterOfLiteratureOfVWin
+import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.VwinOfRow
+import Development.AutomorphicArithmetic.Foundations.LocalLanglands.LocalCentralUnits.RecTExists
+import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.RowSrc
+import Development.AutomorphicArithmetic.PrimitiveCosets.LevelGmLeOnFamilyScales
+import Development.AutomorphicArithmetic.PrimitiveCosets.Imports
+import Formalism.GammaFactorNonvanishing.RhOfRight
+import Lean.Util.CollectAxioms
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option synthInstance.maxHeartbeats 200000
+set_option maxHeartbeats 4000000
+
+noncomputable section
+open Formalism.BasicNotions Formalism.MainNotions Formalism.HC
+open scoped ArithmeticFunction.vonMangoldt BigOperators
+
+-- NATIVE_SOURCE_DEFINITIONS
+
+namespace RHLean.Analysis.AlpogeStage1External
+
+open UpperTheory.Top AlpogeNativeBoundHandoff
+
+/-- The exact principal cyclic source, not the terminal RH theorem. -/
+theorem principalLevel_eq_native (x : ℝ) :
+    (Level.cyc PChar.one).Gm x = statementOCGz x := by
+  classical
+  let L := Level.cyc PChar.one
+  have h : L.KEPT = {PChar.one} := by
+    ext ψ
+    rw [Finset.mem_singleton]
+    constructor
+    · intro hψ
+      obtain ⟨χ, hχ, heq⟩ := (Level.mem_ofSub
+        (Subgroup.zpowers PChar.one.χ) ψ).mp hψ
+      obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hχ
+      have hOne : PChar.one.χ = 1 := rfl
+      rw [hOne, one_zpow] at hj
+      rw [← hj, PChar.of_one] at heq
+      exact heq.symm
+    · intro hψ
+      subst ψ
+      exact Level.mem_cyc _
+  change L.Gm x = _
+  rw [Level.Gm, Level.Nt, h]
+  simpa only [Finset.erase_singleton, Finset.sum_empty, add_zero] using
+    (show Formalism.Gz x = statementOCGz x from rfl)
+
+/-- Extract precisely the closed supplier argument used by the original
+every_character_of_literature_of_vWin -> every_character_of_theta_integrals_local_matching
+-> zero_free_all_of_green_v_win application, stopping before zero exclusion.
+The original geometry-dependent suppliers are admitted as proved external
+dependencies by Stage 1, not reconstructed or redefined here. -/
+private theorem externalTopG : UpperTheory.Top.TopG := by
+  let row := UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter
+  let O : UpperTheory.LiteratureTheorems.OpenLiteratureStatements :=
+    ⟨row, UpperTheory.Zero.LLC.recTExists, row⟩
+  let P := UpperTheory.LiteratureTheorems.published_results_eigen O
+  let F := UpperTheory.LiteratureTheorems.published_results_first O
+  have hAM := UpperTheory.LiteratureTheorems.theta_integrals_agree_and_local_matching_of_literature O
+  have hX := (_root_.SelfIntersectionVolumeEstimates.topCovolSlim2_use_alt_alt (_root_.UpperTheory.LiteratureTheorems.resolution_char_zero_of_literature O) (_root_.UpperTheory.LiteratureTheorems.principalisation_char_zero_of_literature O) (_root_.UpperTheory.LiteratureTheorems.poincare_lelong_inv_of_literature O) PositivityTheory.Pf1.HilbertSamuelMoriwaki.hsUse_outright PositivityTheory.Pf1.HilbertSamuelMoriwaki.moriwakiBig_outright (_root_.UpperTheory.LiteratureTheorems.fargues_exact_of_literature O) (_root_.UpperTheory.LiteratureTheorems.zarhin_statement O) (_root_.UpperTheory.LiteratureTheorems.nef_rr_of_literature O) (_root_.UpperTheory.LiteratureTheorems.siegel_toroidal_integral_of_literature O) (_root_.UpperTheory.LiteratureTheorems.toroidal_for_fan_ks_of_literature O) (_root_.UpperTheory.LiteratureTheorems.semi_abelian_lie_seminegative_of_literature O) (_root_.UpperTheory.LiteratureTheorems.point_separation_pair_of_literature O) (_root_.UpperTheory.LiteratureTheorems.ar_degree_of_literature O) (_root_.UpperTheory.LiteratureTheorems.published_results_arithmetic O) (_root_.UpperTheory.LiteratureTheorems.grothendieck_deformation_of_literature O))
+  have hL := UpperTheory.LiteratureTheorems.local_langlands_gl_recT_exists_of_literature O
+  have hG := GlobalTheory.GreenBridge.green_of_regular P.greenRegularCharacters
+  obtain ⟨h⟩ := UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound
+    P F hAM.1 hAM.2 hX hL
+    (fun cDep => UpperTheory.N.boundAtTwoThree_linked_of_recT P.nLink
+      (GlobalTheory.Mem.Top.Bl.parametersOfDependence hL cDep))
+  exact GlobalTheory.Fc.forall_goal_of_shape_of_hyps _ _ _ _
+    (UpperTheory.Top.shape_closed_link_n_of_green hG) trivial trivial h
+
+/-- A closed quantitative theorem before any zero-free or RH conclusion.
+The coefficient is exactly 1, and K and epsilon_1 are fixed before epsilon
+and the requested window location. All source expressions are native. -/
+theorem principalQuantitativeWindowBound :
+    ∃ K ε₁ : ℝ, 0 < ε₁ ∧ ∀ eps : ℝ, 0 < eps → eps < ε₁ →
+      HasWindows {x | statementOCGz x ≤ x ^ (1 / 2 + K * eps)} (3 / 2) := by
+  let ψ := PChar.one
+  have hS := UpperTheory.Top.supplyChi ψ
+    (UpperTheory.One.vwin_of_row UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter ψ)
+  obtain ⟨eD, eL, ε₁, h1, h2⟩ :=
+    externalTopG (3 / 2) (GChi ψ) (by norm_num) hS (hypV_of_cls ψ (3 / 2))
+  refine ⟨eD + eL + 7, ε₁, h1, fun eps he hl => ?_⟩
+  obtain ⟨Fm, hc, ht⟩ := h2 eps he hl
+  obtain ⟨x₁, hx⟩ := UpperTheory.Comparison₂.level_gm_le_on_family_scales
+    (Level.cyc ψ) eD eL eps he Fm (eFamC_of_cls ψ (3 / 2) Fm hc) ht
+  have hw : HasWindows Fm.toFamCore.Win (3 / 2) := hc.1
+  intro Y₀
+  obtain ⟨Y, hY, hWin⟩ := hw (max Y₀ (max x₁ 1))
+  refine ⟨Y, (le_max_left _ _).trans hY, fun y hy hy' => ?_⟩
+  change statementOCGz y ≤ y ^ (1 / 2 + (eD + eL + 7) * eps)
+  rw [← principalLevel_eq_native y]
+  exact hx y ((le_max_left x₁ 1).trans
+    ((le_max_right Y₀ (max x₁ 1)).trans (hY.trans hy))) (hWin y hy hy')
+
+/-- The exact merged #1205 input type, with no remaining arguments.
+This is the external-dependency boundary; its proof uses the upstream
+quantitative suppliers, not the upstream terminal RH proof. -/
+theorem externalQuantitative :
+    ∃ K ε₁ : ℝ, 0 < ε₁ ∧ SmallEpsilonWindowBound K ε₁ := by
+  obtain ⟨K, ε₁, h1, hbound⟩ := principalQuantitativeWindowBound
+  refine ⟨K, ε₁, h1, fun eps he hl => ⟨1, fun Y₀ => ?_⟩⟩
+  obtain ⟨Y, hY, hw⟩ := hbound eps he hl Y₀
+  refine ⟨Y, hY, fun y hy => ?_⟩
+  have hpoint := hw y hy.1 hy.2
+  change statementOCGz y ≤ y ^ (1 / 2 + K * eps) at hpoint
+  simpa only [one_mul] using hpoint
+
+/-- The isolated compatible-toolchain version of the native scalar
+handoff. It consumes exactly the merged #1205 input, using the original
+analytic window theorem with the constant retained. No geometry supplier
+or terminal RH proof is used in this conditional handoff. -/
+theorem riemannHypothesis_of_externalQuantitative
+    (hExternal : ∃ K ε₁ : ℝ, 0 < ε₁ ∧ SmallEpsilonWindowBound K ε₁) :
+    RiemannHypothesis := by
+  apply Formalism.VW.rh_of_right
+  intro s hs _hs1
+  obtain ⟨K, ε₁, h1, hbound⟩ := hExternal
+  let δ : ℝ := min (s.re - 1 / 2) (1 / 2) / 2
+  have hδ : 0 < δ := div_pos (lt_min (by linarith) (by norm_num)) (by norm_num)
+  have hδs : δ < s.re - 1 / 2 := by
+    have hm : min (s.re - 1 / 2) (1 / 2) ≤ s.re - 1 / 2 := min_le_left _ _
+    dsimp [δ]
+    linarith
+  have hδ1 : δ ≤ 1 / 4 := by
+    have hm : min (s.re - 1 / 2) (1 / 2) ≤ 1 / 2 := min_le_right _ _
+    dsimp [δ]
+    linarith
+  obtain ⟨eps, he, hel, hKe⟩ := exists_small_eps K hδ h1
+  obtain ⟨C, hC⟩ := hbound eps he hel
+  obtain ⟨F, hG, hZ⟩ := UpperTheory.Comparison₂.level_family (Level.cyc PChar.one)
+  have hz : (Level.cyc PChar.one).ZeroFreeAbove (1 / 2 + δ) := by
+    rw [← hZ]
+    refine Deduction.zeroFree_of_rpow_window F (δ := 1 / 2) (C := |C|)
+      (by linarith) (by linarith) (by norm_num) fun Y₀ => ?_
+    obtain ⟨Y, hY, hW⟩ := hC (max Y₀ 1)
+    refine ⟨Y, (le_max_left _ _).trans hY, fun y hy => ?_⟩
+    have hy1 : 1 ≤ y := (le_max_right Y₀ 1).trans (hY.trans hy.1)
+    have hpow : (1 : ℝ) + 1 / 2 = 3 / 2 := by norm_num
+    rw [hpow] at hy
+    rw [hG, principalLevel_eq_native]
+    calc
+      statementOCGz y ≤ C * y ^ (1 / 2 + K * eps) := hW y hy
+      _ ≤ |C| * y ^ (1 / 2 + K * eps) :=
+        mul_le_mul_of_nonneg_right (le_abs_self C) (Real.rpow_nonneg (by linarith) _)
+      _ ≤ |C| * y ^ (1 / 2 + δ) :=
+        mul_le_mul_of_nonneg_left
+          (Real.rpow_le_rpow_of_exponent_le hy1 (by linarith)) (abs_nonneg C)
+  have h := hz PChar.one (Level.mem_cyc PChar.one) s (by linarith)
+  change DirichletCharacter.LFunction (1 : DirichletCharacter ℂ 1) s ≠ 0 at h
+  rwa [DirichletCharacter.LFunction_modOne_eq] at h
+
+/-- Stage 1's actual closed declaration. The external bound is a proved
+declaration, not a local assumption or a global postulate. -/
+theorem riemannHypothesis : RiemannHypothesis :=
+  riemannHypothesis_of_externalQuantitative externalQuantitative
+
+#print axioms principalQuantitativeWindowBound
+#print axioms externalQuantitative
+#print axioms riemannHypothesis
+
+end RHLean.Analysis.AlpogeStage1External
+
+open Lean in
+private partial def stage1Closure (env : Environment) (queue : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match queue with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then stage1Closure env rest seen
+    else
+      let deps := match env.find? n with
+        | none => []
+        | some info => info.type.getUsedConstants.toList ++
+          ((info.value? (allowOpaque := true)).map
+            (fun e => e.getUsedConstants.toList)).getD []
+      stage1Closure env (deps ++ rest) (seen.insert n)
+
+open Lean Elab Command in
+run_cmd do
+  let env ← getEnv
+  let roots := [
+    `RHLean.Analysis.AlpogeStage1External.principalQuantitativeWindowBound,
+    `RHLean.Analysis.AlpogeStage1External.externalQuantitative,
+    `RHLean.Analysis.AlpogeStage1External.riemannHypothesis]
+  let allowed := #[`propext, `Classical.choice, `Quot.sound]
+  let rh := `RHLean.Analysis.AlpogeStage1External.riemannHypothesis
+  let some info := env.find? rh | throwError "Missing closed RH root"
+  unless info.type == mkConst `RiemannHypothesis do
+    throwError "Stage 1 root is not exactly Mathlib RiemannHypothesis"
+  for root in roots do
+    let axioms ← liftCoreM (Lean.collectAxioms root)
+    for a in axioms do
+      unless allowed.contains a do
+        throwError "Unapproved axiom in {root}: {a}"
+    logInfo m!"STAGE1_AXIOMS {root} {axioms}"
+  let quantitative := `RHLean.Analysis.AlpogeStage1External.externalQuantitative
+  let deps := stage1Closure env [rh]
+  let externalDeps := stage1Closure env [quantitative]
+  let required := #[
+    quantitative,
+    `UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound,
+    `UpperTheory.Comparison₂.level_gm_le_on_family_scales,
+    `Deduction.zeroFree_of_rpow_window]
+  for n in required do
+    unless deps.contains n do
+      throwError "Missing actual proof dependency: {n}"
+  let forbidden := #[
+    `riemannHypothesis, `rhOfAll, `allChi,
+    `UpperTheory.FinalTheorems.riemannHypothesis,
+    `UpperTheory.FinalTheorems.everyCharacter,
+    `UpperTheory.FinalTheorems.everyCharacter_of_row,
+    `UpperTheory.Top.zeroFreeAll_of_topG,
+    `UpperTheory.Top.zero_free_all_of_green_v_win,
+    `UpperTheory.Top.every_character_of_green_v_win,
+    `UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin,
+    `UpperTheory.Lit.every_character_of_theta_integrals_local_matching]
+  for n in forbidden do
+    if deps.contains n then
+      throwError "Forbidden shortcut through the original terminal proof: {n}"
+  if externalDeps.contains `Deduction.zeroFree_of_rpow_window then
+    throwError "The quantitative extraction depends on zero exclusion"
+  logInfo m!"STAGE1_DEPENDENCIES {deps.toList.length}"
+  logInfo "STAGE1_CLOSED_RH_CHECKED"

@@ -1,0 +1,93 @@
+name: Alpoge Stage 1 closed external proof
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'scripts/alpoge_stage1/**'
+      - '.github/workflows/alpoge-stage1-external.yml'
+      - 'RHLean/Analysis/AlpogeNativeBoundHandoff.lean'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: alpoge-stage1-external-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  closed-external-rh:
+    # Select only the import closure of the quantitative replay, not
+    # the entire upstream cache. Large hosted runner remains optional.
+    runs-on: ${{ vars.RHLEAN_ALPOGE_REPLAY_RUNNER || 'ubuntu-latest' }}
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reclaim unused SDK space on disposable hosted runner
+        if: runner.environment == 'github-hosted'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # This is a dedicated job on a fresh disposable GitHub runner,
+          # never a self-hosted runner or the native RH_Lean build.
+          # Keep Python, Node, git, curl, and all proof/cache directories.
+          available() { df -Pk . | awk 'NR==2 {print $4}'; }
+          if (( $(available) >= 115 * 1024 * 1024 )); then exit 0; fi
+          for sdk in /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/chromium /opt/hostedtoolcache/CodeQL /opt/hostedtoolcache/Go /opt/hostedtoolcache/Ruby /opt/hostedtoolcache/PyPy; do
+            if (( $(available) >= 115 * 1024 * 1024 )); then break; fi
+            if [[ -d "$sdk" && ! -L "$sdk" ]]; then
+              sudo du -sh "$sdk"
+              sudo rm -rf -- "$sdk"
+              df -h .
+            fi
+          done
+      - name: Check capacity before restoring the pinned external proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          df -h .
+          free -h
+          available=$(df -Pk . | awk 'NR==2 {print $4}')
+          # Keep the established initial resource reserve. Actual usage
+          # is checked after downloads and before every extraction batch.
+          minimum_gib=110
+          if (( available < minimum_gib * 1024 * 1024 )); then
+            echo "::error::Frozen Alpoge replay requires at least ${minimum_gib} GiB free disk including headroom. Configure RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized sufficiently large hosted runner."
+            exit 1
+          fi
+          echo "::notice::Disk preflight passed: $available KiB available (minimum ${minimum_gib} GiB). This is a resource estimate, not proof verification."
+      - name: Check out frozen upstream with published compiled cache
+        uses: actions/checkout@v4
+        with:
+          repository: homeowmorphism/riemann-hypothesis-original
+          ref: 774b9e8022f50d20be861ecc9d609cfc26436a81
+          path: alpoge-stage1-upstream
+          persist-credentials: false
+      - name: Restore exact upstream toolchain and compressed proof cache
+        id: frozen-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            ~/.elan/toolchains
+            alpoge-stage1-upstream/.lake/cache
+          key: alpoge-stage1-closure-v2-${{ runner.os }}-${{ runner.arch }}-774b9e8022f50d20be861ecc9d609cfc26436a81
+      - name: Download and verify only the quantitative import closure
+        run: bash scripts/alpoge_stage1/replay.sh alpoge-stage1-upstream fetch
+      - name: Save verified compressed cache before extraction
+        if: steps.frozen-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            ~/.elan/toolchains
+            alpoge-stage1-upstream/.lake/cache
+          key: ${{ steps.frozen-cache.outputs.cache-primary-key }}
+      - name: Restore needed proof objects in batches and compile closed roots
+        run: bash scripts/alpoge_stage1/replay.sh alpoge-stage1-upstream compile
+      - name: Publish compilation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alpoge-stage1-closed-rh
+          path: |
+            alpoge-stage1.log
+            alpoge-stage1-import-closure.json
+            alpoge-stage1-upstream/RHLeanStage1.olean
+            alpoge-stage1-upstream/RHLeanStage1.lean
+          if-no-files-found: warn
