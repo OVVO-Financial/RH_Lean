@@ -299,7 +299,7 @@ theorem alpogeNativePhysicalSubgroupTopExcess_upper_width_le
     _ = _ := by
       congr 1
       unfold alpogeNativeProjectionDivisor
-      field_simp [hu, hT, hm', hb.ne', hδ.ne'] <;> ring
+      field_simp [hu, hT, hm', hb.ne', hδ.ne']
 
 /-- Lower endpoint of the logarithmic cell containing a positive width. -/
 def alpogeNativeLowerLogWidth (η v : ℝ) : ℝ :=

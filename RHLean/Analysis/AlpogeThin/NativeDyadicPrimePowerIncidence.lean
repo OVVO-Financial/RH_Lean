@@ -330,7 +330,7 @@ theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
   let H := alpogeNativeHostData e q d
   exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    (H.inertia p) (H.frob p) K (nativeDyadicPrimePowerIncidence e q d p)
+    (H.inertia p) (H.frob p) K (fun i z => nativeDyadicPrimePowerIncidence e q d p i z)
     (fun _ _ => rfl)
 
 open Classical in
