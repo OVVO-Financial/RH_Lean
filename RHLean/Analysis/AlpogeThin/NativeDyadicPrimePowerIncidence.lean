@@ -223,19 +223,30 @@ private theorem frobenius_self_sub_mem {A : Type*} [AddGroup A] (I : AddSubgroup
   rw [sub_self]
   exact I.zero_mem
 
-open Classical in
-private theorem frobeniusCoset_consecutive_matrix (I : AddSubgroup G) (g : G) (K : ℕ)
-    (row : ℕ → G → ℤ)
-    (hrow : ∀ i z, row i z = if z - i • g ∈ I then (1 : ℤ) else 0) :
-    let n := min K (frobeniusCosetOrder I g)
-    (Matrix.of fun i j : Fin n => row (i.val + 1) ((j.val + 1) • g)) = 1 := by
+/-- The integral incidence read for a positive or zero power at a group site. -/
+def frobeniusCosetIncidence (I : AddSubgroup G) (g : G) (i : ℕ) (z : G) : ℤ := by
+  classical
+  exact if z - i • g ∈ I then 1 else 0
+
+/-- The literal identity-matrix assertion on the consecutive representatives.
+Keeping the matrix size inside this definition lets the same proof specialize
+to a dyadic host without reducing its Frobenius order during elaboration. -/
+def ConsecutiveFrobeniusMinor (I : AddSubgroup G) (g : G) (K : ℕ) : Prop :=
+  let n := min K (frobeniusCosetOrder I g)
+  (Matrix.of fun i j : Fin n =>
+    frobeniusCosetIncidence I g (i.val + 1) ((j.val + 1) • g)) =
+    (1 : Matrix (Fin n) (Fin n) ℤ)
+
+private theorem frobeniusCoset_consecutive_matrix (I : AddSubgroup G) (g : G) (K : ℕ) :
+    ConsecutiveFrobeniusMinor I g K := by
   classical
   let n := min K (frobeniusCosetOrder I g)
-  change (Matrix.of fun i j : Fin n => row (i.val + 1) ((j.val + 1) • g)) = 1
+  change (Matrix.of fun i j : Fin n =>
+    frobeniusCosetIncidence I g (i.val + 1) ((j.val + 1) • g)) = 1
   have hdeg (i : Fin n) : i.val < frobeniusCosetOrder I g :=
     i.isLt.trans_le (Nat.min_le_right _ _)
   ext i j
-  rw [Matrix.of_apply, hrow, Matrix.one_apply]
+  rw [Matrix.of_apply, frobeniusCosetIncidence, Matrix.one_apply]
   by_cases hij : i = j
   · subst j
     rw [ite_eq_left (frobenius_self_sub_mem I ((i.val + 1) • g)), ite_eq_left rfl]
@@ -261,10 +272,9 @@ end FrobeniusCoset
 /-- Integral indicator of the original Frobenius coset of inertia at a
 prime-power site. -/
 def nativeDyadicPrimePowerIncidence (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
-    (g : AlpogeNativeE0 × AlpogeNativeDyadicH e) : ℤ := by
-  classical
+    (g : AlpogeNativeE0 × AlpogeNativeDyadicH e) : ℤ :=
   let H := alpogeNativeHostData e q d
-  exact if g - i • H.frob p ∈ H.inertia p then 1 else 0
+  frobeniusCosetIncidence (H.inertia p) (H.frob p) i g
 
 open Classical in
 /-- Normalization relating the integer row to the full kernel at each
@@ -319,19 +329,15 @@ theorem nativeDyadic_colourIncidence_minor {I J : Type*} [DecidableEq I]
     change (if selected j • H.frob p - competing s • H.frob p ∈ H.inertia p then (1 : ℤ) else 0) = 0
     exact ite_eq_right (hdisj s j)
 
-set_option maxHeartbeats 1000000 in
 /-- Consecutive positive powers have an explicit identity minor up to the
-order of the actual Frobenius class modulo inertia. -/
+order of the actual Frobenius class modulo inertia. Its entries are the same
+coset reads as `nativeDyadicPrimePowerIncidence` at the original sites. -/
 theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     [Fact q.Prime] [Fact d.Prime] :
     let H := alpogeNativeHostData e q d
-    let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
-    (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
-        ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
-  let H := alpogeNativeHostData e q d
-  exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    (H.inertia p) (H.frob p) K (fun i z => nativeDyadicPrimePowerIncidence e q d p i z)
-    (fun _ _ => rfl)
+    ConsecutiveFrobeniusMinor (H.inertia p) (H.frob p) K :=
+  frobeniusCoset_consecutive_matrix
+    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p) K
 
 open Classical in
 /-- Both numerator and denominator in the ramified colour normalization are
