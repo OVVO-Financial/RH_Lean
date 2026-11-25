@@ -363,6 +363,34 @@ def main() -> None:
         "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
+    # Final #1201 mandate: check every operational entrypoint and actual
+    # copyable role, not merely a banner outside the standalone prompt.
+    final_name = "RHLEAN_FINAL_PR_1201_PROOF_CLOSURE_20261124.md"
+    final_tag = "FINAL_PR_1201_PROOF_CLOSURE_V1"
+    final_doc = read("docs/" + final_name)
+    for required in ("DIRECT_CORE_CUT_V1", "STRICT_NO_GEOCL_ANYGEOMETRY_V1",
+                     "nativePrincipalEAtH_windows", "nativeConstructedDyadicGzPayment",
+                     "nativeConstructedDyadicSignedSlopePayment_of_meanLoss",
+                     "average-to-pointwise", "same-host", "GeoCl", "anyGeometry",
+                     "Q=T*m*b*Delta/2", "own-report-only", "human-only merge",
+                     "RH OPEN", "propext", "Classical.choice", "Quot.sound"):
+        assert required.lower() in final_doc.lower(), f"final mandate missing {required}"
+    for entry in ["AGENTS.md","CURRENT_PROOF_CONTRACT.md","CURRENT_RESEARCH_HANDOFF.md","docs/DYNAMIC_RESEARCH_AGENTS.md","docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md","docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md","docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md","docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md","docs/DOCUMENTATION_INDEX.md","README.md","llms.txt","docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md"]:
+        data = read(entry)
+        assert final_name in data and final_tag in data, f"missing final routing: {entry}"
+    final_roles = ["COORDINATOR","OWNER","REFEREE","CENSUS","ANALYTIC","WHEEL","LEAN"]
+    for role, block in zip(final_roles, blocks):
+        copied_prompt = block.split("\x60\x60\x60text", 1)[1].split("\x60\x60\x60", 1)[0]
+        assert f"FINAL_1201_ROLE={role}" in copied_prompt, f"missing copied role: {role}"
+        assert final_name in copied_prompt and "final_1201_ack=" + final_tag in copied_prompt
+        for live_doc in (role_prompts, engine):
+            match = re.search(r"^#{2,3} NEXT-" + role + r":[\s\S]*?(?=^#{1,3} |\Z)",
+                              live_doc, re.MULTILINE)
+            assert match and f"FINAL_1201_ROLE={role}" in match.group(), (
+                f"missing live final role: {role}")
+        assert f"FINAL_1201_ROLE={role}" in setup
+    assert final_name in read(".github/workflows/rh-proof-portfolio-agent-instructions.yml")
+
     print("PASS: constructed descent/full-source payment routing and all seven distinct roles; "
           "retained tractability/contribution/proof charter and historical route safeguards; "
           "optional OAI source-first specialist reference; historical archives; "
