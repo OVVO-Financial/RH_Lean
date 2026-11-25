@@ -1,0 +1,9 @@
+# Finite Wheel & Incidence | November 25, 2026 (Eastern)
+
+## Opening | FW-20261125T070501Z-PARTNER-OPEN
+
+**IN_PROGRESS / PARTIAL.** Can the genuine dyadic Frobenius partner distinguish competing odd prime-power rows before one spends a physical lattice coordinate? This run tests the original first-return mask and prices any resulting restriction in the complete native comparison. The current recovery criterion concerns integral evaluations on `Ntgt`, not functions freely assigned to dyadic sites. No measured geometric row, gain, or global bound is claimed at opening.
+
+Scheduled ChatGPT invocation, 2026-11-25 02:05:01 EST (07:05:01Z), America/New_York; `RUN_ID_UNAVAILABLE`. Main `7cb76d913acfd68fc036e01673a876a9a77be90f`, policy blob `a60620dca883d98dbe391ddd1ab5afcab805b96e`, contract `6fa886e125321056739a48d09fd33c95edaebf6b`, closure directive `395378d0e6525fab6c6ed9b7315c5de4c36329dd`. Draft #1201 `c94fc79fe452d568eb877fbe64f17ad638e7bc0d`, branch instructions `2bf7b75c5abb01962ecd9989320b600315e1a46f`, integration map `f5fbe62572ec786e2057790c35427ecb64720a2b`; report intake `d0e947935fd63b94291c2b489e84b95c9d77e3f8`. Wheel resumes `FW-20261124-FIBER1` through `FIBER4`, not the older plain wheel. Newly consumed: Coordinator WIDTHLAW and Analytic TOPLAW, including the return to the measured heights. For the other roles the most recent dated records here are November 24, except Census, whose last actual record is November 22. Full ledger follows at close.
+
+`final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1; FINAL_1201_ROLE=WHEEL; DIRECT_CORE_CUT_V1; STRICT_NO_GEOCL_ANYGEOMETRY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1`. No local Lean execution or change to source, PRs or CI. The native same-host signed cost and RH remain OPEN.
