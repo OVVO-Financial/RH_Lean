@@ -159,8 +159,10 @@ TopG supplier application and level_gm_le_on_family_scales. It supplies
 externalQuantitative, with literally the #1205 SmallEpsilonWindowBound
 statement copied from the checked-out native source. The new
 RHLean.Analysis.AlpogeStage1External.riemannHypothesis declaration has no
-arguments and uses the upstream scalar FormB analytic criterion and the
-functional equation. The original terminal RH proof is not applied.
+arguments and applies the explicit externalQuantitative proof to the
+compatible scalar handoff using Deduction.zeroFree_of_rpow_window and
+the functional equation. This uses the same analytic criterion as FormB
+with its general constant retained. The original terminal RH proof is not applied.
 The native 4.34.1 research consumer remains separate. This choice is
 necessary to avoid mixing incompatible compiler/mathlib pins; a closed
 4.34.1 native-library root would still require porting the upstream proof
@@ -168,7 +170,9 @@ or a verified proof-term transfer. We do not claim such a port here.
 
 The dedicated workflow verifies the source/dependency pins, restores
 the frozen community cache, and elaborates the new root, enforcing its
-exact kernel type and standard axiom list. No native workflow or
+exact kernel type, standard axiom list, required quantitative dependencies
+and exclusion of named original terminal shortcuts. The source closure
+walk is a dependency diagnostic; it is not a geometry-free audit. No native workflow or
 independent-proof status gate is weakened. Acceptance requires the new
 compile and its closed-root marker; a green native conditional check
 alone does not complete Stage 1.

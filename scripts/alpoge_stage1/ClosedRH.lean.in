@@ -105,14 +105,16 @@ theorem externalQuantitative :
   obtain ⟨Y, hY, hw⟩ := hbound eps he hl Y₀
   exact ⟨Y, hY, fun y hy => by simpa only [one_mul] using hw y hy.1 hy.2⟩
 
-/-- Analytic handoff in the compatible external toolchain. This uses
-the already proved scalar window criterion FormB (and the functional
-equation), not the upstream final RH theorem. The 4.34.1 native consumer
-is separately checked in RH_Lean's ordinary workflow. -/
-theorem riemannHypothesis : RiemannHypothesis := by
+/-- The isolated compatible-toolchain version of the native scalar
+handoff. It consumes exactly the merged #1205 input, using the original
+analytic window theorem with the constant retained. No geometry supplier
+or terminal RH proof is used in this conditional handoff. -/
+theorem riemannHypothesis_of_externalQuantitative
+    (hExternal : ∃ K ε₁ : ℝ, 0 < ε₁ ∧ SmallEpsilonWindowBound K ε₁) :
+    RiemannHypothesis := by
   apply Formalism.VW.rh_of_right
-  intro s hs hs1
-  obtain ⟨K, ε₁, h1, hbound⟩ := principalQuantitativeWindowBound
+  intro s hs _hs1
+  obtain ⟨K, ε₁, h1, hbound⟩ := hExternal
   let δ : ℝ := min (s.re - 1 / 2) (1 / 2) / 2
   have hδ : 0 < δ := div_pos (lt_min (by linarith) (by norm_num)) (by norm_num)
   have hδs : δ < s.re - 1 / 2 := by
@@ -124,28 +126,54 @@ theorem riemannHypothesis : RiemannHypothesis := by
     dsimp [δ]
     linarith
   obtain ⟨eps, he, hel, hKe⟩ := exists_small_eps K hδ h1
-  have hw : HasWindows {x | (Level.cyc PChar.one).Gm x ≤
-      x ^ (1 / 2 + δ)} (3 / 2) := by
-    intro Y₀
-    obtain ⟨Y, hY, hW⟩ := hbound eps he hel (max Y₀ 1)
-    refine ⟨Y, (le_max_left _ _).trans hY, fun y hy hy' => ?_⟩
-    have hy1 : 1 ≤ y := (le_max_right Y₀ 1).trans (hY.trans hy)
-    have hsrc := hW y hy hy'
-    change statementOCGz y ≤ y ^ (1 / 2 + K * eps) at hsrc
-    change (Level.cyc PChar.one).Gm y ≤ y ^ (1 / 2 + δ)
-    rw [principalLevel_eq_native]
-    exact hsrc.trans (Real.rpow_le_rpow_of_exponent_le hy1 (by linarith))
-  have hz := UpperTheory.Comparison₂.formB (Level.cyc PChar.one)
-    (3 / 2) (by norm_num) (1 / 2 + δ) (by linarith) (by linarith) hw
+  obtain ⟨C, hC⟩ := hbound eps he hel
+  obtain ⟨F, hG, hZ⟩ := UpperTheory.Comparison₂.level_family (Level.cyc PChar.one)
+  have hz : (Level.cyc PChar.one).ZeroFreeAbove (1 / 2 + δ) := by
+    rw [← hZ]
+    refine Deduction.zeroFree_of_rpow_window F (δ := 1 / 2) (C := |C|)
+      (by linarith) (by linarith) (by norm_num) fun Y₀ => ?_
+    obtain ⟨Y, hY, hW⟩ := hC (max Y₀ 1)
+    refine ⟨Y, (le_max_left _ _).trans hY, fun y hy => ?_⟩
+    have hy1 : 1 ≤ y := (le_max_right Y₀ 1).trans (hY.trans hy.1)
+    have hpow : (1 : ℝ) + 1 / 2 = 3 / 2 := by norm_num
+    rw [hpow] at hy
+    rw [hG, principalLevel_eq_native]
+    calc
+      statementOCGz y ≤ C * y ^ (1 / 2 + K * eps) := hW y hy
+      _ ≤ |C| * y ^ (1 / 2 + K * eps) :=
+        mul_le_mul_of_nonneg_right (le_abs_self C) (Real.rpow_nonneg (by linarith) _)
+      _ ≤ |C| * y ^ (1 / 2 + δ) :=
+        mul_le_mul_of_nonneg_left
+          (Real.rpow_le_rpow_of_exponent_le hy1 (by linarith)) (abs_nonneg C)
   have h := hz PChar.one (Level.mem_cyc PChar.one) s (by linarith)
   change DirichletCharacter.LFunction (1 : DirichletCharacter ℂ 1) s ≠ 0 at h
   rwa [DirichletCharacter.LFunction_modOne_eq] at h
+
+/-- Stage 1's actual closed declaration. The external bound is a proved
+declaration, not a local assumption or a global postulate. -/
+theorem riemannHypothesis : RiemannHypothesis :=
+  riemannHypothesis_of_externalQuantitative externalQuantitative
 
 #print axioms principalQuantitativeWindowBound
 #print axioms externalQuantitative
 #print axioms riemannHypothesis
 
 end RHLean.Analysis.AlpogeStage1External
+
+open Lean in
+private partial def stage1Closure (env : Environment) (queue : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match queue with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then stage1Closure env rest seen
+    else
+      let deps := match env.find? n with
+        | none => []
+        | some info => info.type.getUsedConstants.toList ++
+          ((info.value? (allowOpaque := true)).map
+            (fun e => e.getUsedConstants.toList)).getD []
+      stage1Closure env (deps ++ rest) (seen.insert n)
 
 open Lean Elab Command in
 run_cmd do
@@ -165,4 +193,31 @@ run_cmd do
       unless allowed.contains a do
         throwError "Unapproved axiom in {root}: {a}"
     logInfo m!"STAGE1_AXIOMS {root} {axioms}"
+  let quantitative := `RHLean.Analysis.AlpogeStage1External.externalQuantitative
+  let deps := stage1Closure env [rh]
+  let externalDeps := stage1Closure env [quantitative]
+  let required := #[
+    quantitative,
+    `UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound,
+    `UpperTheory.Comparison₂.level_gm_le_on_family_scales,
+    `Deduction.zeroFree_of_rpow_window]
+  for n in required do
+    unless deps.contains n do
+      throwError "Missing actual proof dependency: {n}"
+  let forbidden := #[
+    `riemannHypothesis, `rhOfAll, `allChi,
+    `UpperTheory.FinalTheorems.riemannHypothesis,
+    `UpperTheory.FinalTheorems.everyCharacter,
+    `UpperTheory.FinalTheorems.everyCharacter_of_row,
+    `UpperTheory.Top.zeroFreeAll_of_topG,
+    `UpperTheory.Top.zero_free_all_of_green_v_win,
+    `UpperTheory.Top.every_character_of_green_v_win,
+    `UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin,
+    `UpperTheory.Lit.every_character_of_theta_integrals_local_matching]
+  for n in forbidden do
+    if deps.contains n then
+      throwError "Forbidden shortcut through the original terminal proof: {n}"
+  if externalDeps.contains `Deduction.zeroFree_of_rpow_window then
+    throwError "The quantitative extraction depends on zero exclusion"
+  logInfo m!"STAGE1_DEPENDENCIES {deps.toList.length}"
   logInfo "STAGE1_CLOSED_RH_CHECKED"
