@@ -184,3 +184,14 @@ default runner has insufficient space. The connector cannot provision
 or verify such a runner. No claim of successful compilation until the
 exact-head replay passes. The cache setup may also require substantial
 RAM. Stage 1 is deliberately not a strict geometry-free proof.
+
+### Exact-head resource preflight result
+
+Run 45521381855, job 138893826723, on b5180ddc, reached the capacity
+check and failed with 87 GiB free disk (145 GiB filesystem) and 15 GiB RAM.
+The Lean compile was skipped, not failed on a theorem. The follow-up
+workflow reclaims only explicitly listed unused SDK directories, only on
+disposable GitHub-hosted runners and only until the disk threshold is
+met. It does not touch Lean, Mathlib, upstream caches or native checks.
+If insufficient space remains, the preflight still fails. The larger
+runner variable remains available. Actual proof verification is pending.

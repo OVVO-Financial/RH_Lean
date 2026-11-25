@@ -21,6 +21,24 @@ jobs:
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
+      - name: Reclaim unused SDK space on disposable hosted runner
+        if: runner.environment == 'github-hosted'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # This is a dedicated job on a fresh disposable GitHub runner,
+          # never a self-hosted runner or the native RH_Lean build.
+          # Keep Python, Node, git, curl, and all proof/cache directories.
+          available() { df -Pk . | awk 'NR==2 {print $4}'; }
+          if (( $(available) >= 115 * 1024 * 1024 )); then exit 0; fi
+          for sdk in /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/chromium /opt/hostedtoolcache/CodeQL /opt/hostedtoolcache/Go /opt/hostedtoolcache/Ruby /opt/hostedtoolcache/PyPy; do
+            if (( $(available) >= 115 * 1024 * 1024 )); then break; fi
+            if [[ -d "$sdk" && ! -L "$sdk" ]]; then
+              sudo du -sh "$sdk"
+              sudo rm -rf -- "$sdk"
+              df -h .
+            fi
+          done
       - name: Check capacity before restoring the pinned external proof
         shell: bash
         run: |
