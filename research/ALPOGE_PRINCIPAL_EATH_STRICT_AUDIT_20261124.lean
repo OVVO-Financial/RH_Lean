@@ -1,6 +1,7 @@
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Analysis.AlpogeNativeBoundHandoff
+import RHLean.Geometry.NativeSquareCapacityPeriod
 import Lean.Util.CollectAxioms
 
 /-!
@@ -32,6 +33,10 @@ run_cmd do
     `RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_EAtH,
     `RHLean.Analysis.AlpogeThin.nativePrincipalEAtH_windows,
     `RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment,
+    `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeRelativeDegreeCount_le,
+    `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeGa_bound_of_coupled_period,
+    `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeMean_bound_of_coupled_period,
+    `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_coupled_period,
     `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound]
   let allowed := #[`propext, `Classical.choice, `Quot.sound]
   for root in roots do

@@ -215,6 +215,256 @@ theorem nativeMean_bound_of_period_lower
     hne hS (nativeDivisorDebt_of_period_lower D C P rho ha hP hDegree)
     hE hH hCount hSl hSN hLoss hSI hHH hFP
 
+
+/-- The literal width sum, with the original finite CM averaging. -/
+def nativeWidthLog (u0 : U0) : ℝ :=
+  ∑ j : Fin m, (1 / (f : ℝ)) * ∑ ρ : Fin f, Real.log (D.w u0 j ρ)
+
+/-- Both comparisons use the same independently supplied period at each
+fiber. No equality with logOm, absolute period normalization, or choice
+of new height, slope, or gain data is required. The measured divisor and
+count inequalities themselves still need genuine suppliers. -/
+def NativeCoupledDegree (P : (u0 : U0) → W u0 → ℝ) : Prop :=
+  ∀ u0 (u : W u0), D.muCC u0 + D.h u0 u - D.Fo u0 ≤
+    (∑ t, ((m : ℝ) * (ph (D.aT t) - D.aT t * P u0 u) -
+      D.aT t * Real.log (D.T u0 u))) + D.EDiv C
+
+def NativeCoupledCount (P : (u0 : U0) → W u0 → ℝ) : Prop :=
+  ∀ u0 (u : W u0),
+    nativeWidthLog D u0 + (m : ℝ) * (D.gam - D.LpL - P u0 u) +
+      (m : ℝ) * D.lg - C.cCount * (D.La + (m : ℝ) ^ 2 * D.La / D.k) ≤
+        Real.log (D.T u0 u)
+
+/-- The original upper and oscillation count conditions, retaining the
+measured T. The period-dependent lower condition is separate. -/
+def NativeCountRest : Prop :=
+  ∀ u0 (u : W u0), Real.log (D.T u0 u) ≤ C.cCount * (m : ℝ) * D.L ∧
+    ∀ u' : W u0, |Real.log (D.T u0 u) - Real.log (D.T u0 u')| ≤
+      C.cCount * Real.log D.k
+
+omit [Fintype U0] [∀ u0, Fintype (W u0)] [∀ u0, Nonempty (W u0)] in
+private theorem main_eq_widthLog (u0 : U0) :
+    D.Main u0 = (m : ℝ) * (∑ t, ph (D.aT t)) -
+      D.sumA * (nativeWidthLog D u0 + (m : ℝ) * (D.gam - D.LpL)) := by
+  have hcard : ∀ c : ℝ, ∑ _j : Fin m, c = (m : ℝ) * c := fun c => by simp
+  have hj : ∀ j : Fin m,
+      (∑ t, D.aT t * (Real.log (D.aT t) - 1 - D.gam + D.LpL -
+        (1 / (f : ℝ)) * ∑ ρ : Fin f, Real.log (D.w u0 j ρ))) =
+      (∑ t, ph (D.aT t)) -
+        D.sumA * (D.gam - D.LpL +
+          (1 / (f : ℝ)) * ∑ ρ : Fin f, Real.log (D.w u0 j ρ)) := by
+    intro j
+    calc
+      _ = ∑ t, (ph (D.aT t) - D.aT t * (D.gam - D.LpL +
+          (1 / (f : ℝ)) * ∑ ρ : Fin f, Real.log (D.w u0 j ρ))) := by
+        apply Finset.sum_congr rfl
+        intro t _
+        unfold ph
+        ring
+      _ = _ := by rw [Finset.sum_sub_distrib, Data.sum_aT_mul]
+  unfold Data.Main nativeWidthLog
+  rw [Finset.sum_congr rfl (fun j (_ : j ∈ Finset.univ) => hj j),
+    Finset.sum_sub_distrib, hcard, ← Finset.mul_sum, Finset.sum_add_distrib, hcard]
+  ring
+
+omit [Fintype U0] [∀ u0, Fintype (W u0)] [∀ u0, Nonempty (W u0)] in
+/-- Exact cancellation of an arbitrary common measured period. In contrast
+to a one-sided period approximation, no additional period debt appears. -/
+theorem nativeRelativeDegreeCount_le
+    (P : (u0 : U0) → W u0 → ℝ) (hS : D.HidaSetting C)
+    (hDegree : NativeCoupledDegree D C P) (hCount : NativeCoupledCount D C P)
+    (u0 : U0) (u : W u0) :
+    D.muCC u0 + D.h u0 u - D.Fo u0 ≤
+      D.Main u0 - (m : ℝ) * D.sumA * D.lg +
+        D.sumA * (C.cCount * (D.La + (m : ℝ) ^ 2 * D.La / D.k)) + D.EDiv C := by
+  have hdeg := hDegree u0 u
+  have hsplit : (∑ t, ((m : ℝ) * (ph (D.aT t) - D.aT t * P u0 u) -
+      D.aT t * Real.log (D.T u0 u))) =
+      (m : ℝ) * (∑ t, ph (D.aT t)) - (m : ℝ) * D.sumA * P u0 u -
+        D.sumA * Real.log (D.T u0 u) := by
+    rw [Finset.sum_sub_distrib, ← Finset.mul_sum, Finset.sum_sub_distrib,
+      Data.sum_aT_mul, Data.sum_aT_mul]
+    ring
+  rw [hsplit] at hdeg
+  have hc := mul_le_mul_of_nonneg_left (hCount u0 u) (D.sumA_nonneg C hS)
+  have hmain := main_eq_widthLog D u0
+  nlinarith only [hdeg, hc, hmain]
+
+omit [Fintype U0] in
+private theorem native_s_lower_of_coupled_period
+    (P : (u0 : U0) → W u0 → ℝ) (hS : D.HidaSetting C)
+    (hDegree : NativeCoupledDegree D C P) (hCount : NativeCoupledCount D C P)
+    (hE : EComp5 D C) (hSl : D.Slopes C)
+    (hSN : QuotientSlopeBoundsWith D C Xpp) (u0 : U0) :
+    D.Ga u0 + D.muCC u0 - D.Main u0 - K0v5 D C -
+      wmean (D.d u0) (Lo5 D C Xpp u0) ≤ D.s u0 := by
+  have hd := hS.2.2.2.2.2.2.2.2.2.1
+  unfold Data.s
+  have hbound := sub_wmean_le (hd u0)
+    (D.Ga u0 + D.muCC u0 - D.Main u0 - K0v5 D C)
+    (Y := Lo5 D C Xpp u0) (X := fun u => D.muN u0 u - D.h u0 u) (fun u => by
+      have h1 := (hSN u0 u).2
+      have h2 := nativeRelativeDegreeCount_le D C P hS hDegree hCount u0 u
+      have h5 := exponent_le_upper D C hE u0 u
+      have h6 := (hSl u0 u).1
+      unfold K0v5
+      linarith)
+  exact hbound
+
+omit [Fintype U0] [∀ u0, Fintype (W u0)] [∀ u0, Nonempty (W u0)] in
+private theorem nativeVvar_bound_of_countRest
+    (hS : D.HidaSetting C) (hE : EComp5 D C) (hH : D.HComp C)
+    (hCount : NativeCountRest D C) (u0 : U0) (u u' : W u0) :
+    (-D.Ee u0 u - D.h u0 u) - (-D.Ee u0 u' - D.h u0 u') ≤ D.Vvar C := by
+  have hA := D.sumA_nonneg C hS
+  have h1 := exponent_le_upper D C hE u0 u'
+  have h2 := exponent_ge_lower D C hE u0 u
+  have h3 := (abs_le.mp (hH u0 u' u)).2
+  rw [Data.sum_aT_mul, Data.sum_aT_mul] at h3
+  have h4 := (abs_le.mp ((hCount u0 u).2 u')).2
+  have h5 := mul_le_mul_of_nonneg_left h4 hA
+  unfold Data.Vvar
+  linarith
+
+omit [Fintype U0] in
+private theorem native_uF_bound_of_countRest
+    (hS : D.HidaSetting C) (hE : EComp5 D C) (hH : D.HComp C)
+    (hCount : NativeCountRest D C) (hSl : D.Slopes C)
+    (hSN : QuotientSlopeBoundsWith D C Xpp) (u0 : U0) :
+    D.uF u0 ≤ D.K3 C + wmean (D.d u0) (Lo5 D C Xpp u0) := by
+  have hd := hS.2.2.2.2.2.2.2.2.2.1
+  have hs : ∀ u, (D.muMaxN u0 u - D.h u0 u - D.K3 C) -
+      wmean (D.d u0) (Lo5 D C Xpp u0) ≤ D.s u0 := by
+    intro u
+    unfold Data.s
+    refine sub_wmean_le (hd u0) _ (fun u' => ?_)
+    have h1 := (hSN u0 u).1
+    have h2 := (hSN u0 u').2
+    have h3 := (hSl u0 u).2
+    have h4 := (hSl u0 u').1
+    have h5 := nativeVvar_bound_of_countRest D C hS hE hH hCount u0 u u'
+    unfold Data.K3
+    try dsimp only
+    linarith
+  unfold Data.uF
+  have hsup := Finset.sup'_le (Finset.univ_nonempty (α := W u0))
+    (fun u : W u0 => D.muMaxN u0 u - D.h u0 u)
+    (a := D.s u0 + (D.K3 C + wmean (D.d u0) (Lo5 D C Xpp u0)))
+    (fun u _ => by have := hs u; linarith)
+  linarith
+
+omit [Fintype U0] in
+private theorem nativeLo5_le_of_countRest
+    (hS : D.HidaSetting C) (hCount : NativeCountRest D C) (u0 : U0) :
+    wmean (D.d u0) (Lo5 D C Xpp u0) ≤ C.cSl1 * D.IO u0 + K7v5 D C Xpp := by
+  obtain ⟨-, -, ha, hb', hk, -, -, -, -, hd, -, -, hcSl1, -⟩ := hS
+  refine wmean_le_const (hd u0) _ (fun u => ?_)
+  have hc : 0 ≤ C.cSl1 * D.nT * (m : ℝ) * (D.a / D.k + D.b') :=
+    mul_nonneg (mul_nonneg (mul_nonneg hcSl1 D.nT_nonneg) (Nat.cast_nonneg _))
+      (add_nonneg (div_nonneg ha hk.le) hb')
+  have h1 := mul_le_mul_of_nonneg_left (hCount u0 u).1 hc
+  unfold Lo5 K7v5
+  linarith
+
+omit [Fintype U0] in
+/-- The same finite global gain bound with no absolute period comparison.
+Both degree and counting inequalities use the original measured data.
+All rank, slope, variation and error conditions are retained. -/
+theorem nativeGa_bound_of_coupled_period
+    (P : (u0 : U0) → W u0 → ℝ) (hS : D.HidaSetting C)
+    (hDegree : NativeCoupledDegree D C P) (hCount : NativeCoupledCount D C P)
+    (hRest : NativeCountRest D C) (hE : EComp5 D C) (hH : D.HComp C)
+    (hSl : D.Slopes C) (hSN : QuotientSlopeBoundsWith D C Xpp)
+    (hSI : D.SlopeIneq) (hHH : D.HHBound C) (hFP : D.FParams) (u0 : U0) :
+    D.Ga u0 ≤ D.Main u0 + Real.log (Fintype.card (W u0) : ℝ) + K0v5 D C
+      + wmean (D.d u0) (Lo5 D C Xpp u0)
+      + (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH)
+          * (D.K3 C + wmean (D.d u0) (Lo5 D C Xpp u0) + D.b)
+        + (D.etaBar + 4 * Real.sqrt D.eBar) * (D.x ^ C.cHH * D.b)) := by
+  have hsl := native_s_lower_of_coupled_period D C Xpp P hS hDegree hCount hE hSl hSN u0
+  have huF0 := D.uF_nonneg C hS u0
+  have huF := native_uF_bound_of_countRest D C Xpp hS hE hH hRest hSl hSN u0
+  obtain ⟨hx, hb, -, -, -, -, -, -, -, -, -, -, -, hdelBar, hetaBar, -, heBar⟩ := hS
+  obtain ⟨hdel0, hdelle, heta0, hetale, he0, hele⟩ := hFP u0
+  obtain ⟨hHH1, hHH2, hHH3⟩ := hHH u0
+  have hSI' := hSI u0 hdel0 (by linarith) heta0 he0 (by linarith) hHH1 hHH2
+  have hX : 0 < D.x ^ C.cHH := Real.rpow_pos_of_pos hx _
+  have hphi := phi_bound huF0 hHH2 hHH3 hb hX huF
+  have hA0 : 0 ≤ 4 * D.uF u0 * Real.log (1 + D.HH u0 / D.uF u0) :=
+    mul_nonneg (by linarith)
+      (Real.log_nonneg (by have := div_nonneg hHH2.le huF0; linarith))
+  have hsq : Real.sqrt (D.e u0) ≤ Real.sqrt D.eBar := Real.sqrt_le_sqrt hele
+  have hc0 : 0 ≤ D.η u0 + 4 * Real.sqrt (D.e u0) :=
+    add_nonneg heta0 (mul_nonneg (by norm_num) (Real.sqrt_nonneg _))
+  have hc1 : 0 ≤ D.etaBar + 4 * Real.sqrt D.eBar :=
+    add_nonneg hetaBar (mul_nonneg (by norm_num) (Real.sqrt_nonneg _))
+  have hB : (D.η u0 + 4 * Real.sqrt (D.e u0)) * D.HH u0
+      ≤ (D.etaBar + 4 * Real.sqrt D.eBar) * (D.x ^ C.cHH * D.b) :=
+    calc (D.η u0 + 4 * Real.sqrt (D.e u0)) * D.HH u0
+        ≤ (D.etaBar + 4 * Real.sqrt D.eBar) * D.HH u0 :=
+          mul_le_mul_of_nonneg_right (by linarith) hHH2.le
+      _ ≤ (D.etaBar + 4 * Real.sqrt D.eBar) * (D.x ^ C.cHH * D.b) :=
+          mul_le_mul_of_nonneg_left hHH3 hc1
+  have hB0 : 0 ≤ (D.η u0 + 4 * Real.sqrt (D.e u0)) * D.HH u0 := mul_nonneg hc0 hHH2.le
+  have hinv : (1 - D.del u0)⁻¹ ≤ (1 - D.delBar)⁻¹ := inv_anti₀ (by linarith) (by linarith)
+  have hinv0 : 0 ≤ (1 - D.delBar)⁻¹ := inv_nonneg.mpr (by linarith)
+  have hPhi : (1 - D.del u0)⁻¹ * (4 * D.uF u0 * Real.log (1 + D.HH u0 / D.uF u0)
+        + (D.η u0 + 4 * Real.sqrt (D.e u0)) * D.HH u0)
+      ≤ (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH)
+          * (D.K3 C + wmean (D.d u0) (Lo5 D C Xpp u0) + D.b)
+        + (D.etaBar + 4 * Real.sqrt D.eBar) * (D.x ^ C.cHH * D.b)) :=
+    calc _ ≤ (1 - D.delBar)⁻¹ * (4 * D.uF u0 * Real.log (1 + D.HH u0 / D.uF u0)
+          + (D.η u0 + 4 * Real.sqrt (D.e u0)) * D.HH u0) :=
+          mul_le_mul_of_nonneg_right hinv (by linarith)
+      _ ≤ _ := mul_le_mul_of_nonneg_left (by linarith) hinv0
+  linarith
+
+/-- The original complete mean-loss cost with the same errorTermWith,
+now independent of the absolute period. The common period may vary
+over the individual fibers. -/
+theorem nativeMean_bound_of_coupled_period
+    (P : (u0 : U0) → W u0 → ℝ)
+    (hne : Nonempty U0) (hS : D.HidaSetting C)
+    (hDegree : NativeCoupledDegree D C P) (hCount : NativeCoupledCount D C P)
+    (hRest : NativeCountRest D C) (hE : EComp5 D C) (hH : D.HComp C)
+    (hSl : D.Slopes C) (hSN : QuotientSlopeBoundsWith D C Xpp)
+    (hLoss : D.Losses C) (hSI : D.SlopeIneq) (hHH : D.HHBound C)
+    (hFP : D.FParams) :
+    umean D.ASK ≤ umean D.Main + errorTermWith D C Xpp := by
+  have := hne
+  have hx : 0 < D.x := hS.1
+  have hdelBar : D.delBar < 1 := hS.2.2.2.2.2.2.2.2.2.2.2.2.2.1
+  have hcSl1 : 0 ≤ C.cSl1 := hS.2.2.2.2.2.2.2.2.2.2.2.2.1
+  have hinv0 : 0 ≤ (1 - D.delBar)⁻¹ := inv_nonneg.mpr (by linarith)
+  have hX : 0 < D.x ^ C.cHH := Real.rpow_pos_of_pos hx _
+  have hLX : 0 ≤ Real.log (1 + D.x ^ C.cHH) := Real.log_nonneg (by linarith)
+  have hc4 : 0 ≤ (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH)) :=
+    mul_nonneg hinv0 (mul_nonneg (by norm_num) hLX)
+  have hp : 0 ≤ (1 + (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH))) * C.cSl1 :=
+    mul_nonneg (by linarith) hcSl1
+  have hGa : ∀ u0, D.Ga u0 ≤ D.Main u0 + Real.log (Fintype.card (W u0) : ℝ)
+      + ((1 + (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH))) * C.cSl1) * D.IO u0
+      + 0 * D.IO u0
+      + (K0v5 D C + (1 + (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH))) * K7v5 D C Xpp
+        + (1 - D.delBar)⁻¹ * (4 * Real.log (1 + D.x ^ C.cHH)) * (D.K3 C + D.b)
+        + (1 - D.delBar)⁻¹ * ((D.etaBar + 4 * Real.sqrt D.eBar) * (D.x ^ C.cHH * D.b))) := by
+    intro u0
+    have h1 := nativeGa_bound_of_coupled_period D C Xpp P hS hDegree hCount hRest hE hH hSl hSN hSI hHH hFP u0
+    have h2 := nativeLo5_le_of_countRest D C Xpp hS hRest u0
+    have h3 := mul_le_mul_of_nonneg_left h2 hc4
+    linarith
+  have h1 := umean_le_comb (X := D.Ga) (A := D.Main)
+    (B := fun u0 => Real.log (Fintype.card (W u0) : ℝ)) (P := D.IO) (E := D.IO) _ _ _ hGa
+  have h2 := umean_le_comb (X := D.ASK) (A := fun u0 => D.ASK u0 - D.Ga u0) (B := D.Ga)
+    (P := D.Ga) (E := D.Ga) 0 0 0 (fun i => by
+      show D.ASK i ≤ (D.ASK i - D.Ga i) + D.Ga i + 0 * D.Ga i + 0 * D.Ga i + 0
+      linarith)
+  have h3 := mul_le_mul_of_nonneg_left hLoss.2 hp
+  have h4 := hLoss.1
+  unfold K0v5 Data.K3 K7v5 Data.EDiv at h1
+  unfold errorTermWith UBar5 MLo5
+  linarith
+
 end RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds
 
 namespace RHLean.Analysis
@@ -295,6 +545,35 @@ theorem physicalTopExcess_div_le_errorTerm_of_period_lower
     _ = _ := by
       rw [add_div, alpogeNativePeriodDebt_div_projectionDivisor TT T2 m D0.b
         (DP).sumA rho hTT hT2 hm hS.2.1]
+
+
+/-- Exact physical attachment of the paired-period comparison.
+No geometry is constructed here and no estimate for the target
+source is assumed. The relative measured suppliers are explicit. -/
+theorem physicalTopExcess_div_le_errorTerm_of_coupled_period
+    (P : (u : A0) → W u → ℝ)
+    (hS : (DP).HidaSetting C)
+    (hDegree : NativeCoupledDegree DP C P)
+    (hCount : NativeCoupledCount DP C P)
+    (hRest : NativeCountRest DP C)
+    (hE : EComp5 DP C) (hH : (DP).HComp C)
+    (hSl : (DP).Slopes C) (hSN : QuotientSlopeBoundsWith DP C Xpp)
+    (hLoss : (DP).Losses C) (hSI : (DP).SlopeIneq)
+    (hHH : (DP).HHBound C) (hFP : (DP).FParams)
+    (T2 : Finset H) (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w /
+        alpogeNativeProjectionDivisor TT T2 m D0.b ≤
+      errorTermWith DP C Xpp / alpogeNativeProjectionDivisor TT T2 m D0.b := by
+  have hmean := nativeMean_bound_of_coupled_period DP C Xpp P
+    (inferInstance : Nonempty A0) hS hDegree hCount hRest
+    hE hH hSl hSN hLoss hSI hHH hFP
+  have hsource : alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w ≤
+      errorTermWith DP C Xpp := by
+    rw [physicalTopExcess_eq_meanGap A0 TT D0 inertia frob ell N a w eP]
+    linarith
+  have hQ : 0 < alpogeNativeProjectionDivisor TT T2 m D0.b :=
+    alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm D0.b hS.2.1
+  exact div_le_div_of_nonneg_right hsource hQ.le
 
 end RHLean.Analysis.AlpogeNativeSignedSlope
 
