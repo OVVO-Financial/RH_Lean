@@ -475,6 +475,7 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicFixedAuxiliaryLevel
 import RHLean.Analysis.AlpogeThin.NativeDyadicFrame
 import RHLean.Analysis.AlpogeThin.NativeDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicHigherOddTail
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostCore
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostDecomposition
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostDer
@@ -494,7 +495,10 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicHostRootDiscriminant
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostSideConditions
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostSplitting
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
+import RHLean.Analysis.AlpogeThin.NativeDyadicInertPrimeRange
 import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicPrimePowerIncidence
+import RHLean.Analysis.AlpogeThin.NativeDyadicRamifiedWindow
 import RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
@@ -545,6 +549,7 @@ import RHLean.Analysis.AlpogeThin.NativeRayShortInterval
 import RHLean.Analysis.AlpogeThin.NativeRayTheta
 import RHLean.Analysis.AlpogeThin.NativeRayZeroFreeRegion
 import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
+import RHLean.Analysis.AlpogeThin.NativeSquareDefectSelection
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.Global
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.GlobalA
@@ -1191,6 +1196,7 @@ import RHLean.Geometry.NativeDyadicAdelicIsometry
 import RHLean.Geometry.NativeDyadicAdelicNorm
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeFramedShortSectionConstruction
+import RHLean.Geometry.NativeFrobeniusHasse
 import RHLean.Geometry.NativeGenericFrameFaithfulness
 import RHLean.Geometry.NativeGeometricDatum
 import RHLean.Geometry.NativeGeometricHost
@@ -1204,11 +1210,13 @@ import RHLean.Geometry.NativeGroupDeterminant
 import RHLean.Geometry.NativeHermitianLatticeSpan
 import RHLean.Geometry.NativeHermitianShortVectors
 import RHLean.Geometry.NativeHermitianTraceMinimum
+import RHLean.Geometry.NativeHostIntegralJetRows
 import RHLean.Geometry.NativeHostThetaPolynomial
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
 import RHLean.Geometry.NativeIntegralSymplecticBasis
 import RHLean.Geometry.NativeJetRankBudget
+import RHLean.Geometry.NativeJointEvaluationRecovery
 import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
@@ -1304,6 +1312,7 @@ import RHLean.Geometry.NativeThetaCuspTransformationComposition
 import RHLean.Geometry.NativeThetaCuspVacuum
 import RHLean.Geometry.NativeThetaCuspWeil
 import RHLean.Geometry.NativeThetaEvaluatedFamily
+import RHLean.Geometry.NativeThetaExponentDigits
 import RHLean.Geometry.NativeThetaFaithfullyFlatDescent
 import RHLean.Geometry.NativeThetaFiniteFamily
 import RHLean.Geometry.NativeThetaFiniteFlatCover
@@ -1317,6 +1326,8 @@ import RHLean.Geometry.NativeThetaGridParametrization
 import RHLean.Geometry.NativeThetaHarmonicPolynomials
 import RHLean.Geometry.NativeThetaHighestMinor
 import RHLean.Geometry.NativeThetaHighestWeights
+import RHLean.Geometry.NativeThetaIntegralGrid
+import RHLean.Geometry.NativeThetaIntegralJets
 import RHLean.Geometry.NativeThetaInvariantDerivatives
 import RHLean.Geometry.NativeThetaJetEvaluation
 import RHLean.Geometry.NativeThetaJetFrame

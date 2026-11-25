@@ -177,91 +177,76 @@ with the constant fixed before the window. [Native period comparison](ALPOGE_NAT
 
 ## 6. Recommended route on the native square clock
 
-Use Cores 19 and 20 to locate what makes the evaluated rows recover the
-source. Use Core 15 at its input to Core 21 to locate what pays for those
-rows. Core 19 returns an evaluation grid, Core 20 gives a Fourier coefficient
-fit, and Core 21 combines those results with the covolume estimate. None of
-their statements identifies a row of the native square-block operator or
-supplies its physical gain. Cores 16–18 build the upstream Galois and
-automorphy route into Core 14's all-character conclusion. RH_Lean has a
-principal-character host and its own window-to-RH theorem. The DAG observation
-is from board revision `a3b23dd031e9861f`; the pinned community declarations
-above determine the actual hypotheses. [VerifyTask map](https://riemann.verifytask.cn/?lang=en).
+The November 25 source check used community revision `251c7b05`, RH_Lean `c94fc79`, and VerifyTask board revision `4c156e9a205084bb`. The board identifies 19 → 20, 19/20 → 21, 15 → 21 and 21 → 14. Its 39 pillars include Cores 40 and 41. Core 41 treats nongeneric orbital terms in a Siegel-lattice trace formula. Its application here would require identifying a term of the native sum with that orbital integral. The community uses Lean 4.37.0-rc1 and the native project uses 4.34.1. [Pillar descriptions and revision](https://riemann.verifytask.cn/api/board) · [community toolchain](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/lean-toolchain) · [native toolchain](../lean-toolchain).
 
-1. **Use one pair throughout a square-clock window.** Put $X_R=R^2-1$, $m=R$,
-   $k=X_R R$. For $A\ge2$ and $A\le R\le A^{3/2}$, choose the pair from
-   `nativeConstructedDyadicGzPayment` with external window exponent two
-   and $Y=A^2-1$. Every evaluation in $[X_R,X_R+1]$ lies in $[Y,Y^2]$
-   because $R^2\le A^3$ and $(A^2-1)^2-A^3=A^2(A-2)(A+1)+1$.
-   `nativePrincipalEAtH_squareClock_of_pair` accepts that very pair and
-   the actual dyadic exponent at $X_R$. The local size, physical height
-   interval and density still belong to the constructed family.
-   [Square-window inclusion and principal host](../RHLean/Analysis/AlpogeThin/NativePrincipalEAtH.lean)
-   · [physical height interval](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean).
-2. **Prove the finite-place gain on those rows first.** For one retained prime
-   orbit, use the original Frobenius, inertia and partner map. Construct
-   integral combinations of its evaluations that recover $p^D$ times each
-   of $n$ independent coordinates, with $n\ge(1-\kappa)\dim V$. Bound
-   evaluations on the other edges from the same source. This is the content
-   of the community's `GoodRankK` and `LPprimeAt`.
-   [Integral recovery and off-edge conditions](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean#L208-L223).
+### What the upstream consumer reads
 
-   A smaller first theorem is available. Fix the independent row functionals
-   $\phi_i$ on the actual local target lattice $L$ and the exponent $D$
-   allowed by the local budget before choosing coefficients. For each coefficient
-   vector $c$ with a unit entry, exhibit $G\in L$ for which the integral
-   value $\sum_i c_i\phi_i(G)$ divides $p^D$. The community theorem
-   `goodRank_of_prim` converts this and integral linearity into the
-   recovery map by Smith normal form. Its caller separately supplies the
-   row count and off-edge divisibility. Test the coupled orbit rows here.
-   On the plain native wheel, every difference iterate retains coefficient
-   one at the first site of each prime-power fibre. Repetition alone cannot
-   supply a positive valuation on that coefficient.
-   [Primitive-combination theorem](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/GoodRankOfPrim.lean#L34-L65)
-   · [use with edge and rank data](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/GoodRankOfPrim.lean#L109-L132)
-   · [native wheel coefficient theorem](NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean).
+`PrimAt` tests every combination of the actual source products with a unit coefficient modulo the edge lattice. `TestAt` chooses one dual vector with bounded depth, integral on the selected edge and divisible on all competing incoming edges. `SrcTests` separately requires source sections divisible on competing outgoing edges and the quota $\sum_e n_e\ge(1-\kappa)\dim V$. `goodRank_of_prim` converts primitive tests into an integral decoder by Smith normal form. A unit coefficient in polynomial coordinates detects edge primitivity only after proving that those coefficient functionals are integral on the edge lattice. For example $1\in\varpi(\varpi^{-1}\mathcal O)$. [Primitive and dual tests](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/SourcePrimitiveIntegrality.lean#L292-L322) · [source sections and quota](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ManyEdges.lean#L23-L35) · [decoder](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/GoodRankOfPrim.lean#L34-L77).
 
-   The community's `admG1` makes two different measurements. Every retained
-   vector satisfies a lower valuation bound involving the sum of the local
-   gains. The quotient of the ramified lattice by the retained submodule
-   has a length **upper** bound involving `tauP + ioP`. Identify the actual
-   native partner widths, gain and errors as in `ParametersFill`. Prove
-   their local inequality with the orbit deduction `dl`, the deduction
-   `tauP`, and the allowances `lo` and `m*fl`. The native
-   `nativeDyadicDe_re_le_localRetainedSource` supplies the prior signed
-   upper bound including exclusions, shifts and ramification.
-   `lengthFromAllBut_of_sandwich` handles the quotient once the lattice
-   inclusions, exceptional layers and stopping exponent are supplied.
-   The positive gain still requires the valuation estimate.
-   [Local valuation and quotient length](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/SmallOrderPrimes.lean#L212-L223)
-   · [identification of parameters](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L427-L437)
-   · [primewise budget and orbit deduction](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/Conclusion1OfGainBoundAll.lean#L125-L156)
-   · [native local source](../RHLean/Analysis/AlpogeNativeLocalGainSource.lean)
-   · [lattice length](../RHLean/Geometry/NativeServedPrimeApplication.lean)
-   · [exact deductions and existing bounds](ALPOGE_NATIVE_PHYSICAL_SUPPLIER_REDUCTION_20261123.md).
-3. **Pay the global cost on the same family.** Attach the actual widths,
-   quotient slopes, count and relative degree. Use the ordered period
-   comparison and, where a summand covolume is needed, the frame estimate
-   in §5. The community's `MeanKappaBound` averages over amplitude and
-   height boxes. A native proof must either establish the corresponding
-   defect budget directly for the subgroup average or prove the change of
-   measure. Use that average to prove both
-   $\operatorname{umean}(\mathrm{ASK}-\mathrm{Ga})\le\mathrm{LoP}$ and
-   $\operatorname{umean}(\mathrm{IO})\le\mathrm{LoP}$. The physical numerator
-   is the full signed top excess and its divisor is
-   $Q=|TT|\,m b\,(|T_2|/|H|)/2$. Core 33 can supply a matching local
-   stabilizer obligation. Core 36 applies when the actual period sublattices
-   are pure and span. Both have narrower conclusions than this signed estimate.
-   [Community defect average](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L350-L360)
-   · [signed mean comparison](../RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean)
-   · [Core 33 premises](../RHLean/Geometry/NativeCore33HostDegree.lean).
-4. **Use the existing one-sided window theorem.** Apply
-   `nativeGz_le_of_mean_normalizedCosts` with the actual average height
-   displacement. The square-clock theorem requires that for each $\eta>0$ there be
-   one $C_\eta$ such that for arbitrarily large $A$, every integer
-   $A\le R\le A^{3/2}$ satisfies
-   $G_z(X_R)\le C_\eta X_R^{1/2+\eta}$. This is the hypothesis of
-   `riemannHypothesis_of_squareClock_Gz_windows` at $\delta=1/2$.
-   Its proof transports the one-sided estimate across each whole real window.
-   [Mean-to-point theorem](../RHLean/Analysis/AlpogeThin/NativeScalarSupplierPayment.lean)
-   · [square-clock window theorem](../RHLean/Analysis/AlpogeNativeWindowLandau.lean).
+`admG1` is a predicate with three clauses. In `linkG_at_core`, the middle clause gives an upper bound for the length of the discarded quotient. The signed primewise inequality instead comes from `Conclusion1` and the gain identification in `ParametersFill`. The auxiliary `zeroCh` retains the levels and replaces the operator by zero. Its valuation clause holds for any lower bound and is discarded in this call. If a later slope estimate uses valuations of actual operator columns, `kernel_valuation_served` requires the separate comparison on those columns. [Definition](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/SmallOrderPrimes.lean#L177-L187) · [actual length and gain calls](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean#L598-L646) · [auxiliary construction](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/LocalToGlobal/GroupLattices/LinkGConcreteNoKer.lean#L1374-L1418) · [operator comparison](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/WeilJacquetShalikaLaw.lean#L317-L332).
+
+### Native local recovery
+
+At $x=R^2-1$, $m=R$, $k=xR$, `nativeSquareHost_exists_lattice_theta` constructs an actual period lattice of rank $R^3-1$ over the host's ring of integers and a nonzero complex theta section. The local quota counts sections in $V$. The first physical construction needed here is an integral pairing of those sections and dual evaluations on the same Frobenius edges, including the lattices on which each functional is integral. [Square host](../RHLean/Geometry/NativeSquareHostRealization.lean) · [formal evaluations and their input germs](../RHLean/Geometry/NativeThetaEvaluatedFamily.lean).
+
+For integral maps $E,C$ on one lattice $L$, and submodules $P,K$ in their respective targets, the inclusion $P\subset E(C^{-1}K)$ is equivalent to $P\oplus0\subseteq\operatorname{im}(E,C)+(0\oplus K)$. On a chosen square frame write $A=E(v)$, $B=C(v)$, $\delta=\det A\ne0$, $a=p^D$, $b=\varpi^c$. There is an integral matrix $T$ with $AT=aI$ and $BT\equiv0\bmod b$ exactly when
+\[
+  \delta\mid a\,\operatorname{adj}(A)_{ik},\qquad
+  \delta b\mid a(B\operatorname{adj}(A))_{jk}
+\]
+entrywise. This tests one and the same lift. Over a DVR the example $E(x,y)=x$, $C_1(x,y)=y$, $C_2(x,y)=x-y$ admits unit lifts separately and has joint image $\varpi^c\mathcal O$ under both congruences. Source-side and dual-side competitors require their respective integral presentations. [Block and adjugate criteria](../RHLean/Geometry/NativeJointEvaluationRecovery.lean).
+
+For a polynomial on $0\le j_i\le d_i$, put $D_g=\prod_i d_i!$. Scaled interpolation places $D_g\,\mathrm{coeff}_m(P)$ in the ideal of its grid values. A unit coefficient yields a grid evaluation of valuation at most $v_\varpi(D_g)$. The monic polynomial $\prod_i(X_i)_{d_i}$ in falling-factorial notation attains exactly this cost at the upper corner and vanishes elsewhere on the box. Compare $v_\varpi(D_g)$ with $D\,v_\varpi(p)$. For the constructed leading-minor products, zero-one matrices distinguish column flags at depth zero whenever a positive-weight minor contains a missing column for every competing flag. Both tests still require mapping their grid evaluations to the admissible physical dual. [Integral interpolation, determinant polynomials and column tests](../RHLean/Geometry/NativeThetaIntegralGrid.lean).
+
+The actual integer colour row for $p^i$ is the indicator of $i\,\mathrm{Frob}_p+I_p$. The original kernel is this indicator times $2/|I_p|$. The first $K$ powers have an identity minor of size $\min(K,\operatorname{ord}(\mathrm{Frob}_p\bmod I_p))$ on their representatives. Disjoint competitors vanish there. At odd $p$, both $2$ and $|I_p|$ are units locally because $|I_p|$ divides the power-of-two host order. A repeated coset gives identical colour rows. For the first-return exclusion from $t$, let $g=\mathrm{Frob}_p$. The exact conditions are odd $i$, central bit $g_{1,2}=1$, $i<\operatorname{ord}(g_H)$ and $t+i g_H\in TT$. They apply at every cutoff, including the cutoff $\lceil A_{\max}/\beta\rceil$. Recovery on the unrestricted site module still requires a lift to the physical section lattice with the required source and dual divisibilities. [Native prime powers and masks](../RHLean/Analysis/AlpogeThin/NativeDyadicPrimePowerIncidence.lean).
+
+The normalized tail estimate removes the high unramified odd powers of exponent at least three from the critical-scale loss. Write $X=x+1$. For $p^i>X$, $i\ge3$, a positive-width ASK atom is at most $a_t/p^i\le a_t X^{\sigma-1}p^{-\sigma i}$. At $\sigma=3/8$, summing even over all integers $p\ge2$ and all $i\ge3$ costs at most
+\[
+ K=\frac{256}{1-2^{-3/8}}.
+\]
+Indeed, summing the geometric series costs $(1-2^{-3/8})^{-1}$ and $\log n\le16n^{1/16}$ gives $\sum_{n\ge2}\log n/n^{9/8}\le16\sum_{n\ge2}n^{-17/16}\le256$. Restore the native $2\log p$ weight, sum over $t,j$, take the subgroup mean and divide by $Q$. With $a_t/b\le x+1$ and $\Delta\ge x^{-\varepsilon}$ the normalized tail is at most $4K(x+1)^{3/8}x^\varepsilon$. The Lean estimate uses a fixed convergent-series majorant in place of this explicit paper constant. It is uniform in $\beta$, the cutoff $N$, the subgroup translate and any mask on these nonnegative atoms. At $X=R^2$ and $0<\varepsilon<1/52$ the exponent of $R$ is at most $41/52$. The exact finite partition keeps the complementary masked summand in the original ASK. The unramified first powers above $x+1$ still enter the signed estimate. [Masked tail and normalized comparison](../RHLean/Analysis/AlpogeThin/NativeDyadicHigherOddTail.lean) · [normalizing divisor](../RHLean/Analysis/AlpogeNativeCostNormalization.lean).
+
+The selected pair also excludes all inert primes $p\le Y^{\varepsilon/5}$ on the literal native prime support. For $p^i\le Y^2$, this yields $i<10/\varepsilon$ independently of the window. [Actual inert-prime support](../RHLean/Analysis/AlpogeThin/NativeDyadicInertPrimeRange.lean).
+
+For the same selected pair and $\exp(16)\le Y$, its lower bound on $\log d$ gives $d\ge Y^8\ge x^4$ throughout $1\le x\le Y^2$. The existing estimate for the **entire** ramified-$d$ contribution then gives
+\[
+\frac{\left\|\sum_{j,t}\operatorname{ASK}_d\right\|}{Q}
+\le \frac{2(x+1)\log d}{\Delta(d-1)}
+\le \frac{16}{\Delta x}\le16 x^{\varepsilon-1}.
+\]
+This keeps every $d$-power and the original divisor, uniformly in the cutoff and width data satisfying the native bounds. [Complete ramified estimate](../RHLean/Analysis/AlpogeThin/NativeDyadicRamifiedWindow.lean).
+
+### Full exponent recovery on one integral edge
+
+For $P=p^g$ the map from degree-$d$ monomials to $(\rho,\beta)$ is a bijection onto $\sum_i\rho_i+P\sum_i\beta_i=d$, $0\le\rho_i<P$. Both indices remain in the coefficient functional. With $n$ variables the full count is $\binom{n+d-1}{d}$. A fixed residue with $d=|\rho|+Pk$ retains exactly $\binom{n+k-1}{k}$ coarse monomials. At $n=4,d=8,P=3$, the 27 residue classes carry 165 distinct monomials. The native square-clock floor operation already gives this coordinatewise division on each full integer fibre. Applying it to exponent indices requires the choice of actual symbol and section. [Digit bijection, exact counts and factorial unit](../RHLean/Geometry/NativeThetaExponentDigits.lean) · [native floor fibres](../RHLean/Analysis/AlpogeSquareRootArithmeticMultiplicity.lean).
+
+Write $v(n!)=v_p(n!)$. The recursion $v(n!)=\lfloor n/p\rfloor+v(\lfloor n/p\rfloor!)$ gives
+\[
+v((\rho+P\beta)!)=v(\rho!)+\beta v(P!)+v(\beta!).
+\]
+The ratio of these factorials has $p$-valuation zero. The remaining local approximation is quantitative: for every precision $c\ge1$, both this multivariate unit and its inverse require integral binomial expressions of total degree at most $4c$ valid on *all* coarse coordinates. Divided-derivative congruences carry their own coarse-order bound. [Exact upstream statements](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/Lemma5aAt.lean#L114-L137).
+
+For a full exponent $\alpha$, use $H_{\alpha,z}(F)=[U^\alpha]F(z+U)$. For degree at most $|\alpha|$ this is $[X^\alpha]F$ at every center. On any finite family of distinct monomials the mixed-order matrix has determinant one. For the native product of leading minors with antitone row weights ending at zero and injective selected columns, the coefficient at the diagonal exponent, **with every row repeated to its prescribed weight**, is exactly one. Row homogeneity shows why evaluating at the unit mask sees this one coefficient. The other full-exponent jets now distinguish polynomials with identical mask values. These assertions concern the indicated symbol families. The integral span of a Cartan orbit can be smaller: every mixed coefficient of $(aX+bY)^p$ vanishes modulo $p$. [Integral jets](../RHLean/Geometry/NativeThetaIntegralJets.lean) · [leading coefficient and jet](../RHLean/Geometry/NativeThetaIntegralGrid.lean).
+
+At a native Frobenius orbit of order $o$ modulo inertia, all the exponents $a+oj$ return to a single colour. Before forgetting the exponent, their Hasse rows form $\binom{a+oj}{k}$ with determinant $o^{m(m-1)/2}$ for $0\le j,k<m$. This determinant is a unit at odd places since $o$ is a power of two. Within the cyclic quotient the relation $(1+u)^o=1$ forces every nilpotent deformation $u$ to vanish when $o$ is a unit. A physical recovery proof must therefore carry the lifted section labels through the projection. [Native Frobenius progression and quotient](../RHLean/Geometry/NativeFrobeniusHasse.lean).
+
+The source proof of `PrimStep` lifts a split family with its remaining Weyl basis, reduces the transported tensor identity modulo the uniformizer, and obtains independence for primitive combinations. The independent `TestStep` supplies a *single* dual satisfying the selected test, the height constraint and all incoming competitor conditions. The per-edge quota includes the flat count, the remaining Weyl count and the factor $1/p^{fr(n-r)}$. The number of available edges alone cannot certify the sum of independent local ranks. [Primitive step](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/DualFockLinear/Closed.lean#L532-L658) · [dual test](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/DualFockLinear/TestSideExplicitIdentification.lean#L153-L197) · [rank factors](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ManyEdges.lean#L82-L112).
+
+For a native DVR let $e_0=v_\pi(p)$. On integral candidate lifts $B$, it suffices to prove $E_{\rm actual}B-p^D I\in\pi^{e_0D+1}\operatorname{Mat}(\mathcal O)$ and $C_{\rm actual}B\in\pi^c\operatorname{Mat}(\mathcal O)$. Then $E_{\rm actual}B=p^D U$, $U\equiv I\bmod\pi$, and $BU^{-1}$ gives the exact joint decoder with the same competitor divisibility. Upstream uses $w^2=p$ and the stronger competing modulus $p^{D+1}$. On each incoming edge its adapted target basis $u_i$ and offsets $o_i\ge0$ require an integral row $G$ to satisfy $G(u_i)\in w^{\max(c_\star-o_i,0)}\mathcal O$ for competing-edge suppression. The native jet frame uses iterated invariant derivatives and the physical normalizer $1/(\beta\,[L:F]\,|Q|\,N^{\deg F})$. Even an integral formal group can mix derivative orders. For $F(X,Y)=X+Y+XY$, $D=(1+X)\partial_X$ gives $(D^2X)(0)=1$ and $[U^2](0+U)=0$. The physical row comparison may instead be a measured high-precision congruence on the proposed lifts, with the normalization, neighboring edges, and height costs included. [Upstream actual-versus-symbolic condition](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ScaleZpowMono.lean#L24-L48) · [adapted basis](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/EdgeLatticeAdaptedBasis.lean#L166-L180) · [native physical jet](../RHLean/Geometry/NativeThetaJetEvaluation.lean).
+
+On the prescribed host itself, an integral coordinate row on $(B^{-1})^{k+m-1}$ is exactly a vector in $B^{k+m-1}$. The finite native theta family also supplies an integral polynomial algebra. Substituting integral polynomial combinations of *actual Hermitian lattice directions* in a polynomial of this algebra gives a polynomial with integral coefficients. This proves integrality of its translated coefficient rows under the family's own Hermitian-integrality condition. The integral formal-group identity $F(X,0)=X$ recovers the original germ coefficients under pullback to the identity. Matching these functionals to all competing normalized edge tests still requires the adapted basis and loss bounds above. [Prescribed host dual and Hermitian coefficient rows](../RHLean/Geometry/NativeHostIntegralJetRows.lean) · [formal-group and polynomial coefficient recovery](../RHLean/Geometry/NativeThetaIntegralJets.lean) · [common congruent-frame decoder](../RHLean/Geometry/NativeJointEvaluationRecovery.lean).
+
+### From recovery to the measured frame index
+
+For the actual frame $F=\langle e_i\rangle\subset M$, choose a residue map on $M$ that kills each $e_i$. If its image contains a finite subgroup $T$, then $|T|\mid[M:F]$ by factoring through $M/F$. At comaximal moduli, the Chinese remainder theorem combines lifts in the same global module. Within a single prime power they must be simultaneous. The layer $(\mathfrak p^a/\mathfrak p^{a+b})^n$ has size $N(\mathfrak p)^{bn}$. The extra depth $b$ is the difference between the selected-coordinate frame-vanishing and recovery depths. Using the actual place bounds $B_v$ now gives
+\[
+ \frac{\operatorname{lcv}(X,M)}{D_{\rm amb}}\leq
+ \frac{2}{[K:\mathbb Q]D_{\rm amb}}\log\!\frac{\prod_v B_v}{|T|}.
+\]
+Each $B_v$ measures that same frame. For $M=\mathbb Z[i]$, frame $e=n$ and unit archimedean metric, the Gram determinant and index both equal $n^2$. Scaling the vectors leaves their ratio equal to one. The geometric obligation is a measured upper bound on the Gram cost together with the actual residue map, degree comparison and ordered count and degree periods. [Relative index and normalized covolume](../RHLean/Geometry/NativeSummandCovolume.lean) · [ordered-period comparison](../RHLean/Geometry/NativeSquareCapacityPeriod.lean).
+
+### Signed gain and window
+
+The upstream prime inequality keeps the orbit deductions $d_l,\tau_p$, exceptional layers and both allowances $\mathrm{lo},m\,\mathrm{fl}$. The native physical ASK contains the retained term, low-central exclusions, shifts and ramified correction. Its finite slope consumer preserves the original $D_0.\mathrm{Ga}$. Prove both $\mathrm{umean}(\mathrm{ASK}-\mathrm{Ga})\le\mathrm{LoP}$ and $\mathrm{umean}(\mathrm{IO})\le\mathrm{LoP}$ for one choice of heights and weights on the actual subgroup. Upstream selection averages over full coordinate boxes and sums the defects over the primes before choosing a single profile. The square-clock size $m=R$, PageN and $|TT|\le|H|$ pay the scalar `NumMean.tot` budget $x^{-9}/4$ uniformly for $x\ge96^4$, $0<\varepsilon<1/52$. The per-orbit defect estimate and the identification with the common physical profile still require proof. [Square-clock scalar estimate](../RHLean/Analysis/AlpogeThin/NativeSquareDefectSelection.lean) [Prime and orbit estimates](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/Conclusion1OfGainBoundAll.lean#L90-L121) · [box selection](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/MeanNum.lean#L447-L517) · [native arithmetic](../RHLean/Analysis/AlpogeNativeLocalGainSource.lean) · [signed comparison](../RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean).
+
+Fix one prime pair for the outer window beginning at $Y=A^2-1$ and ending at $Y^2$. For $A\le R\le A^{3/2}$ the interval $[R^2-1,R^2]$ lies inside it. The actual height box must also place $a_t/b$ near $x$ to pass from the signed mean to the anchor. Divide by the original $Q=|TT|\,m b\,|T_2|/(2|H|)$. The final target is one $C_\eta$ for every $\eta>0$ valid on arbitrarily late complete windows, with $\mathcal C_R-\mathcal D_R\le C_\eta R^{1+\eta}$ throughout each window. At an endpoint exponent $1/2+\varepsilon$, use the root exponent $1+2\varepsilon$ and $R^2\le2X_R$ for $R\ge2$. Existing interpolation and #1205 then give the RH implication. The physical recovery, relative capacity and both uniform signed losses remain open. [Window inclusion](../RHLean/Analysis/AlpogeThin/NativePrincipalEAtH.lean) · [mean-to-anchor comparison](../RHLean/Analysis/AlpogeThin/NativeScalarSupplierPayment.lean) · [complete-window implication](../RHLean/Analysis/AlpogeNativeWindowLandau.lean).

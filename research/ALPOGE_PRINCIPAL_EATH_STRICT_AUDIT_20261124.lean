@@ -4,6 +4,17 @@ import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeSummandCovolume
 import RHLean.Geometry.NativeCore33HostDegree
+import RHLean.Analysis.AlpogeThin.NativeDyadicHigherOddTail
+import RHLean.Analysis.AlpogeThin.NativeDyadicPrimePowerIncidence
+import RHLean.Analysis.AlpogeThin.NativeSquareDefectSelection
+import RHLean.Geometry.NativeJointEvaluationRecovery
+import RHLean.Geometry.NativeThetaIntegralGrid
+import RHLean.Analysis.AlpogeThin.NativeDyadicInertPrimeRange
+import RHLean.Analysis.AlpogeThin.NativeDyadicRamifiedWindow
+import RHLean.Geometry.NativeFrobeniusHasse
+import RHLean.Geometry.NativeHostIntegralJetRows
+import RHLean.Geometry.NativeThetaExponentDigits
+import RHLean.Geometry.NativeThetaIntegralJets
 import Lean.Util.CollectAxioms
 
 /-!
@@ -44,6 +55,36 @@ run_cmd do
     `RHLean.Analysis.AlpogeThin.nativePrincipalEAtH_squareClock_of_pair,
     `RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment,
     `RHLean.Geometry.NativeSummandCovolume.normalized_lcv_le_of_gram_bounds,
+    `RHLean.Geometry.NativeJointEvaluationRecovery.exists_decoder_of_frame_congruence,
+    `RHLean.Geometry.NativeTheta.IntegralJets.recover_monomial_family,
+    `RHLean.Geometry.NativeTheta.IntegralJets.formalGroupHasse_recovers_family,
+    `RHLean.Geometry.NativeTheta.minorMonomial_dividedJet,
+    `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitIndex,
+    `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitFiber,
+    `RHLean.Geometry.NativeTheta.ExponentDigits.factorial_digit_unit,
+    `RHLean.Geometry.NativeFrobeniusHasse.det_ordinary_progression,
+    `RHLean.Analysis.nativeDyadic_frobPeriod_rigid,
+    `RHLean.Analysis.nativeDyadic_returning_hasse_det_isUnit,
+    `RHLean.Geometry.NativeTheta.Paired.isIntegral_coeff_hermitianJet_of_unimodular,
+    `RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_row_integral_iff,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicDPrimeASK_normalized_le_of_winPair,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicInertPrime_exponent_lt_of_winPair,
+    `RHLean.Geometry.NativeJointEvaluationRecovery.recovery_iff_blockImage,
+    `RHLean.Geometry.NativeJointEvaluationRecovery.exists_decoder_of_frame_minors,
+    `RHLean.Geometry.NativeTheta.Paired.exists_coordProd_grid_addVal_le_factorial,
+    `RHLean.Geometry.NativeTheta.eval_minorCombination,
+    `RHLean.Geometry.NativeSummandCovolume.normalized_lcv_le_of_recovered_residues,
+    `RHLean.Geometry.NativeSummandCovolume.joint_residues_of_comaximal,
+    `RHLean.Geometry.NativeSummandCovolume.card_idealPower_residue_grid,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicFrobenius_exp_lt_order_of_short_power,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicLocalExcludedSource_eq_order_sum,
+    `RHLean.Analysis.nativeDyadic_colourKernel_eq_incidence,
+    `RHLean.Analysis.nativeDyadic_consecutive_colourIncidence_minor,
+    `RHLean.Analysis.nativeDyadic_colourNormalization_coprime,
+    `RHLean.Analysis.nativeDyadic_competing_dvd_of_colour_return,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicOddClassASK_re_eq_tail_add_complement,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicHigherOddTail_normalized_le,
+    `RHLean.Analysis.AlpogeThin.squareClock_defectSelection_total,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.NativeCoupledCount.mono,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeRelativeDegreeCount_le,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeGa_bound_of_coupled_period,

@@ -1,16 +1,17 @@
 # PR #1201 final proof closure — seven-agent execution contract
 
-**FINAL_PR_1201_PROOF_CLOSURE_V1 — controlling task selection after human-reviewed policy merge (2026-11-24).** All seven agents must use the latest actual #1201 head and this directive before older dated tasks or saved prompt assignments. The only intended mathematical completion PR is [#1201](https://github.com/OVVO-Financial/RH_Lean/pull/1201). This separate policy PR is expressly authorized to deploy instructions to main; it is not a parallel mathematical proof branch.
+**FINAL_PR_1201_PROOF_CLOSURE_V1 — controlling task selection after human-reviewed policy merge (2026-11-24).** All seven agents must use the latest actual #1201 head and this directive before older dated tasks or saved prompt assignments. The only intended mathematical completion PR is [#1201](https://github.com/OVVO-Financial/RH_Lean/pull/1201). The standing policy was deployed separately. This branch carries the working assignments and mathematics for #1201.
 
 ## Objective and verified boundary
 
-At inspected #1201 head [973a881](https://github.com/OVVO-Financial/RH_Lean/blob/973a8810f35d5ca3b9fa2f30d2315edac412a193/AGENTS.md), DIRECT_CORE_CUT_V1 and STRICT_NO_GEOCL_ANYGEOMETRY_V1 govern. Re-read the actual current head on every invocation; the pin is an inspection receipt, not a frozen work target. Preserve the exact native prime-power source and the already merged [#1205](https://github.com/OVVO-Financial/RH_Lean/pull/1205) conditional RH handoff. The native principal EAtH window construction is submitted but not hosted-verified at the inspected pin. The first unpaid mathematical frontier is the independently justified **complete same-host signed gain-to-cost inequality**; neither the clean quantitative supplier nor unconditional RH is established. Do not read an older PR description or G1–G7 table as current task priority over the direct-core cut.
+The November 25 recovery-and-capacity update starts at [c94fc79](https://github.com/OVVO-Financial/RH_Lean/commit/c94fc79fe452d568eb877fbe64f17ad638e7bc0d). DIRECT_CORE_CUT_V1 and STRICT_NO_GEOCL_ANYGEOMETRY_V1 govern. Re-read the actual current head on every invocation; the pin is an inspection receipt, not a frozen work target. Preserve the exact native prime-power source and the already merged [#1205](https://github.com/OVVO-Financial/RH_Lean/pull/1205) conditional RH handoff. The native principal EAtH window construction is submitted but not hosted-verified at the inspected pin. The first unpaid mathematical frontier is the independently justified **complete same-host signed gain-to-cost inequality**; neither the clean quantitative supplier nor unconditional RH is established. Do not read an older PR description or G1–G7 table as current task priority over the direct-core cut.
 
 Read the actual theorem types and bodies:
-- [NativePrincipalEAtH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/973a8810f35d5ca3b9fa2f30d2315edac412a193/RHLean/Analysis/AlpogeThin/NativePrincipalEAtH.lean): nativePrincipalEAtH_windows, principal kept set and PairGood on an actual dyadic host.
-- [NativeExistingRecoveryPayment.lean](https://github.com/OVVO-Financial/RH_Lean/blob/973a8810f35d5ca3b9fa2f30d2315edac412a193/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean): nativeConstructedDyadicGzPayment, nativeConstructedDyadicSignedSlopePayment_of_meanLoss, nativePrincipalCyclicGm_eq, nativeSmallEpsilonWindowBound_of_principalCyclic.
-- Use the cleaned community source for supplier updates. Its `core_gm` takes `EAtH` and `CoreAtH` for the same host and kept set. The native application still requires those data at every selected point or a proof of the complete signed cost on that host. [Pinned pointwise theorem](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean#L1337-L1341) · [Core 21 summand and native obligations](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#5-the-community-covolume-supplier).
-- At the square anchors $X_R=R^2-1$, use one prime pair on the outer window $[A^2-1,(A^2-1)^2]$. Prove the retained-orbit integral recovery, the valuation lower bound for its gain and the quotient-length upper bound for its error. Aggregate both losses on the original host. [Native route and community declarations](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock).
+- [NativePrincipalEAtH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/c94fc79fe452d568eb877fbe64f17ad638e7bc0d/RHLean/Analysis/AlpogeThin/NativePrincipalEAtH.lean): nativePrincipalEAtH_windows, principal kept set and PairGood on an actual dyadic host.
+- [NativeExistingRecoveryPayment.lean](https://github.com/OVVO-Financial/RH_Lean/blob/c94fc79fe452d568eb877fbe64f17ad638e7bc0d/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean): nativeConstructedDyadicGzPayment, nativeConstructedDyadicSignedSlopePayment_of_meanLoss, nativePrincipalCyclicGm_eq, nativeSmallEpsilonWindowBound_of_principalCyclic.
+- Use the cleaned community source for supplier updates. Its `core_gm` takes `EAtH` and `CoreAtH` for the same host and kept set. The native application still requires those data at every selected point or a proof of the complete signed cost on that host. [Pinned pointwise theorem](https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean#L1337-L1341) · [Core 21 summand and native obligations](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#5-the-community-covolume-supplier).
+- Retain each full exponent as a residue and a coarse index, and its residual Weyl factor on each edge. Prove that the normalized physical evaluation is congruent on the chosen lifts to its divided-power symbol, with every competing condition on the same lifts. [Exponent and edge comparison](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#full-exponent-recovery-on-one-integral-edge).
+- At each square anchor construct integral source sections and their admissible dual on the selected pair. Pay the discarded length and the primewise signed gain at their separate consumers. [Current source and native declarations](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock).
 - Prefer the established native consumer and exact arithmetic/geometry mappings wherever they suffice. Retain G1–G7 and other constructed geometry as reserve work only when a named indispensable clean supplier requires it. Do not reconstruct FamP, ChainTied, HypsAlt or TopG as mandatory objects, revive the rejected tied-family route, or undertake proof compression before verified closure.
 
 ## Single binding payment and proof path
@@ -23,33 +24,35 @@ Proof order: independently checked principal analytic host; independently earned
 
 ## Seven distinct role assignments
 
+Use the [November 25 source audit and native lemmas](../research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock) for the next work on each assignment. Record the actual prime pair, anchor, source module and residual quantitative premise in each report.
+
 ### 1. Research Coordinator (COORDINATOR)
 
-Own the exact-head first-unpaid-premise ledger and minimal dependency cut. Read #1201's current AGENTS.md and native consumer types; assign distinct typed leaves, identify dependencies that can be removed with a proved substitute, and reconcile the same-host evidence across reports. Keep one mathematical PR and one batched verification queue; do not restart the complete family or G1–G7.
+Maintain the dependency cut from primitive local recovery through relative capacity and the signed estimate to #1205. Trace the clause used at each call. Track the section dimension and the period-lattice rank separately.
 
 ### 2. Owner Payment (OWNER)
 
-Attack the independently earned same-host complete signed gain-to-cost inequality first. Start at nativeConstructedDyadicGzPayment and nativeConstructedDyadicSignedSlopePayment_of_meanLoss; identify the binding physicalData premises, actual signed source, measured rank/degree/height/mass costs, and derived normalization. Extract the shortest valid supplying argument from the pinned upstream proof, or a proved native substitute. A proof that merely assumes the cost or changes the witnesses is rejected.
+Identify the original finite-place gain on the subgroup used by physicalData. Prove both means, including ASK minus the measured Ga and IO, for the same heights and widths. Attach the primewise gain, low-central corrections, shifts, ramification and original divisor.
 
 ### 3. Adversarial Referee (REFEREE)
 
-Independently audit core_gm and every retained supplier through elaborated types and proof bodies, including opaque values. Reject GeoCl, geoCl, anyGeometry, aliases, renamed/inlined vacuous geometry, assigned heights, copied witnesses, circular estimates, and terminal RH imports. Check the averaged-to-pointwise step, quantifiers, actual witnesses, and whether each proposed payment is genuinely sufficient. Give an exact counterexample or typed failure if a proposed transfer is invalid.
+Audit integral coordinates on the actual edge lattices, primitive combinations, competing outgoing and incoming edges, and the same-frame residue and Gram comparison. Trace whether a consumer takes the quotient length, the arithmetic gain or an actual operator valuation. Check all quantities for circularity.
 
 ### 4. Prime Census Laboratory (CENSUS)
 
-Preserve the exact native prime-power source, actual chosen q,d,e, host, TT, Frobenius/inertia, ramified-prime corrections, original signed masks and recovery. Audit nativePrincipalEAtH_windows / PairGood and the nativePrincipalCyclicGm_eq identification on the identical host, and test proposed cost transfers with exact finite cases. Do not replace a global proof with census or omit complement terms.
+Use the native Frobenius modulo inertia, the exact first-visit mask and every prime power at its true cutoff. Count retained and defective layers on the chosen host. Distinguish colour-site rank from section rank, and keep the ramified term.
 
 ### 5. Analytic Type II (ANALYTIC)
 
-Prove the clean quantitative application and uniform complete-window transfer. Audit EAtH, CoreAtH, IdentU, SizeData₂, ErrWindows, BNBoundsU, Deduction.ch_top and core_gm only where actually needed. Fix eD,eL and eps1 before epsilon, keep other required constants uniform in scale, and prove all threshold/error absorption and average-to-pointwise steps on the actual same data. Use #1205's existing handoff, not another conditional RH endpoint.
+Prove the normalized costs and common height/weight selection. Transfer the actual signed mean to each anchor on complete windows with one constant independent of the window. Verify the original size and density requirements and distinguish the amplitude-box average from the subgroup average.
 
 ### 6. Finite Wheel & Incidence (WHEEL)
 
-Attack the same signed gain-to-cost inequality independently via the existing square-clock, VF, NNS, Euler, incidence, Phi and signed-recovery identities. Prove any cross-coordinate identification and retained rank/width/height/density bounds; preserve signs, physical host, indices and Q. Prefer an already proved native payment or strictly sufficient clean dependency reduction; finite experiments and new equivalent targets do not pay the bound.
+Realize the selected and competing evaluations as integral coordinates of the physical source and admissible dual. Apply joint recovery on each side, exhibit the actual separating minor or Smith factors and prove the quota and depths. Identify the map taking a decoded site to a section.
 
 ### 7. Lean Verification (LEAN)
 
-Only this role may implement task-relevant proof changes under existing non-main reviewable access. Coordinate with the human/owner on the authorized #1201 branch; batch nonconflicting accepted patches, refresh manifests and run hosted-only warning-fatal exact-head verification. Verify nativePrincipalEAtH_windows, the actual signed-cost supplier, clean transitive proof closure, uniform window and literal Mathlib RiemannHypothesis with no premises. Preserve all audit gates; report exact job URLs and distinguish failures, pending, conditional and closed results. No push to main or automated merge.
+Integrate accepted proofs on #1201. Check the integral grid, Frobenius masks, joint decoder, residue-index and Gram theorems in the hosted warning-fatal audit. Verify the actual suppliers and #1205 together when the window bound closes. Preserve the established source-integrity, semantic, human-review and role access rules.
 
 ## Execution and continuity
 
