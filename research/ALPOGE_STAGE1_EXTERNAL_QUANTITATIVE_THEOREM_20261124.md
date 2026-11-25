@@ -178,7 +178,7 @@ compile and its closed-root marker; a green native conditional check
 alone does not complete Stage 1.
 
 Resource constraint: upstream documents about 105 GB free disk; this
-workflow requires 115 GiB with headroom. Set the repository variable
+workflow targets 115 GiB during cleanup and requires 110 GiB at preflight. Set the repository variable
 RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized large hosted runner if the
 default runner has insufficient space. The connector cannot provision
 or verify such a runner. No claim of successful compilation until the
@@ -195,3 +195,20 @@ disposable GitHub-hosted runners and only until the disk threshold is
 met. It does not touch Lean, Mathlib, upstream caches or native checks.
 If insufficient space remains, the preflight still fails. The larger
 runner variable remains available. Actual proof verification is pending.
+
+### Correct the excess preflight reserve
+
+Run 45521504929, job 138894238473, on 3e977d7d, completed the
+approved unused-SDK cleanup and reported 113 GiB free, versus 87 GiB
+previously. It was stopped solely by our 115 GiB preflight reserve.
+The pinned upstream CACHE.md documents approximately 105 GB free disk
+for its full published cache setup, including 4.94 GB of compressed
+project archives. We therefore retain 115 GiB as the cleanup target
+but set the hard resource estimate to 110 GiB. This is about 118 GB
+in decimal units and retains at least 5 GiB above the documented
+number even if interpreted conservatively in binary units. No proof
+check, source pin, cache integrity check, or axiom/dependency audit
+changes. Actual peak disk and RAM usage still need hosted measurement;
+the new threshold is a documented estimate, not a guarantee that the
+full cache and proof elaboration fit. A successful resource preflight
+must never be treated as a successful Lean replay.

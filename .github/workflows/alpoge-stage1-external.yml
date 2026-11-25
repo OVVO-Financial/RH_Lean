@@ -46,10 +46,16 @@ jobs:
           df -h .
           free -h
           available=$(df -Pk . | awk 'NR==2 {print $4}')
-          if (( available < 115 * 1024 * 1024 )); then
-            echo "::error::Frozen Alpoge replay requires at least 115 GiB free disk including headroom. Configure RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized sufficiently large hosted runner."
+          # Pinned upstream verification/CACHE.md documents about 105 GB.
+          # Keep the 115 GiB cleanup target, but do not confuse that
+          # aspirational target with a required minimum. Even interpreting
+          # upstream's GB conservatively as GiB, 110 GiB leaves headroom.
+          minimum_gib=110
+          if (( available < minimum_gib * 1024 * 1024 )); then
+            echo "::error::Frozen Alpoge replay requires at least ${minimum_gib} GiB free disk including headroom. Configure RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized sufficiently large hosted runner."
             exit 1
           fi
+          echo "::notice::Disk preflight passed: $available KiB available (minimum ${minimum_gib} GiB). This is a resource estimate, not proof verification."
       - name: Check out frozen upstream with published compiled cache
         uses: actions/checkout@v4
         with:
