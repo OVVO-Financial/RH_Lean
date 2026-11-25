@@ -1184,6 +1184,7 @@ import RHLean.Geometry.NativeCMWeierstrassZeta
 import RHLean.Geometry.NativeCharacterTraceMaps
 import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
+import RHLean.Geometry.NativeCore33HostDegree
 import RHLean.Geometry.NativeDerivedGeometricHost
 import RHLean.Geometry.NativeDescentCostPayment
 import RHLean.Geometry.NativeDyadicAdelicIsometry

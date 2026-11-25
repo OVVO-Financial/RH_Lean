@@ -2,6 +2,7 @@ import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Geometry.NativeSquareCapacityPeriod
+import RHLean.Geometry.NativeCore33HostDegree
 import Lean.Util.CollectAxioms
 
 /-!
@@ -28,6 +29,12 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    `RHLean.Geometry.NativeCore33.primeOrder_le_degree,
+    `RHLean.Geometry.NativeCore33.primePower_eq_one,
+    `RHLean.Geometry.NativeCore33.local_unipotent_primePower,
+    `RHLean.Geometry.NativeCore33.local_unipotent_eq_one,
+    `RHLean.Analysis.AlpogeThin.nativeCore33_primeOrder_le,
+    `RHLean.Analysis.AlpogeThin.nativeCore33_localStabilizer_eq_one,
     `RHLean.Analysis.AlpogeThin.nativeDyadic_trivialCharacter_signs,
     `RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_principalTwist,
     `RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_EAtH,
