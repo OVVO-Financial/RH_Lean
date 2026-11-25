@@ -1,6 +1,7 @@
 import RHLean.Analysis.AlpogeNativeLocalGainSource
 import RHLean.Analysis.AlpogeNativeDyadicHostSize
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
+import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
 
 /-!
 # Prime powers and first visits on the dyadic host
@@ -193,11 +194,8 @@ def frobeniusCosetOrder (I : AddSubgroup G) (g : G) : ℕ :=
   addOrderOf (QuotientAddGroup.mk' I g)
 
 theorem frobeniusCosetOrder_dvd_natCard (I : AddSubgroup G) (g : G) :
-    frobeniusCosetOrder I g ∣ Nat.card G := by
-  apply dvd_trans _ (addOrderOf_dvd_natCard g)
-  apply addOrderOf_dvd_of_nsmul_eq_zero
-  change addOrderOf g • (QuotientAddGroup.mk' I) g = 0
-  rw [← map_nsmul, addOrderOf_nsmul_eq_zero, map_zero]
+    frobeniusCosetOrder I g ∣ Nat.card G :=
+  (addOrderOf_map_dvd (QuotientAddGroup.mk' I) g).trans (addOrderOf_dvd_natCard g)
 
 theorem frobeniusCosetOrder_dvd_iff (I : AddSubgroup G) (g : G) (k : ℕ) :
     frobeniusCosetOrder I g ∣ k ↔ k • g ∈ I := by
@@ -220,9 +218,31 @@ private theorem frobeniusCoset_pos_inj (I : AddSubgroup G) (g : G) {i j : ℕ}
     pow_injOn_Iio_orderOf (x := Multiplicative.ofAdd x)
   exact (hinj hj hi hx).symm
 
-private theorem frobenius_self_sub_mem (I : AddSubgroup G) (v : G) : v - v ∈ I := by
+private theorem frobenius_self_sub_mem {A : Type*} [AddGroup A] (I : AddSubgroup A)
+    (v : A) : v - v ∈ I := by
   rw [sub_self]
   exact I.zero_mem
+
+open Classical in
+private theorem frobeniusCoset_consecutive_matrix (I : AddSubgroup G) (g : G) (K : ℕ) :
+    let n := min K (frobeniusCosetOrder I g)
+    (Matrix.of fun i j : Fin n =>
+      if (j.val + 1) • g - (i.val + 1) • g ∈ I then (1 : ℤ) else 0) = 1 := by
+  classical
+  let n := min K (frobeniusCosetOrder I g)
+  change (Matrix.of fun i j : Fin n =>
+    if (j.val + 1) • g - (i.val + 1) • g ∈ I then (1 : ℤ) else 0) = 1
+  have hdeg (i : Fin n) : i.val < frobeniusCosetOrder I g :=
+    i.isLt.trans_le (Nat.min_le_right _ _)
+  ext i j
+  rw [Matrix.of_apply, Matrix.one_apply]
+  by_cases hij : i = j
+  · subst j
+    rw [ite_eq_left (frobenius_self_sub_mem I ((i.val + 1) • g)), ite_eq_left rfl]
+  · have hsep : (j.val + 1) • g - (i.val + 1) • g ∉ I :=
+      fun h => hij (Fin.ext (frobeniusCoset_pos_inj (G := G) I g (i := i.val) (j := j.val)
+        (hdeg i) (hdeg j) h))
+    rw [ite_eq_right hsep, ite_eq_right hij]
 
 private theorem frobenius_nsmul_shift (g : G) (i k : ℕ) :
     (i + k) • g - i • g = k • g := by rw [add_nsmul]; abel
@@ -261,11 +281,7 @@ theorem nativeDyadic_colourKernel_eq_incidence (e q d p i : ℕ) [Fact q.Prime] 
   by_cases h : g - i • H.frob p ∈ H.inertia p
   · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 1 := ite_eq_left h
     simp only [ite_eq_left h, hrow, Int.cast_one, mul_one]
-    first
-    | rfl
-    | apply congrArg (fun S : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e) => 2 / (S.card : ℂ))
-      ext u
-      simp only [Finset.mem_filter, Finset.mem_univ, true_and, H]
+    rfl
   · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 0 := ite_eq_right h
     simp only [ite_eq_right h, hrow, Int.cast_zero, mul_zero]
 
@@ -294,7 +310,10 @@ theorem nativeDyadic_colourIncidence_minor {I J : Type*} [DecidableEq I]
       (1 : Matrix I I ℤ) i j
     by_cases hij : i = j
     · subst j
-      rw [ite_eq_left (frobenius_self_sub_mem (H.inertia p) _), Matrix.one_apply_eq]
+      have hz : selected i • H.frob p - selected i • H.frob p ∈ H.inertia p :=
+        frobenius_self_sub_mem (A := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+          (H.inertia p) (selected i • H.frob p)
+      exact (ite_eq_left hz).trans (Matrix.one_apply_eq (α := ℤ) i).symm
     · rw [ite_eq_right (fun h => hij (hsep i j h)), Matrix.one_apply, ite_eq_right hij]
   · ext s j
     change (if selected j • H.frob p - competing s • H.frob p ∈ H.inertia p then (1 : ℤ) else 0) = 0
@@ -308,18 +327,9 @@ theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
     (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
-  classical
   let H := alpogeNativeHostData e q d
-  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
-  let n := min K o
-  change (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
-    ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ)
-  have hdeg (i : Fin n) : i.val < o := lt_of_lt_of_le i.isLt (Nat.min_le_right _ _)
-  have hsep (i j : Fin n)
-      (h : (j.val + 1) • H.frob p - (i.val + 1) • H.frob p ∈ H.inertia p) : i = j := by
-    exact Fin.ext (frobeniusCoset_pos_inj (H.inertia p) (H.frob p) (hdeg i) (hdeg j) h)
-  exact (nativeDyadic_colourIncidence_minor (I := Fin n) (J := Empty) e q d p
-    (fun i => i.val + 1) (fun z => nomatch z) hsep (fun z => nomatch z)).1
+  exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+    (H.inertia p) (H.frob p) K
 
 open Classical in
 /-- Both numerator and denominator in the ramified colour normalization are
@@ -404,3 +414,90 @@ theorem nativeDyadic_competing_dvd_of_colour_return {O L : Type*} [CommRing O]
 end RHLean.Analysis
 
 end
+
+namespace RHLean.Analysis.AlpogeThin
+
+/-- All four sign pairs and every displacement on this PageN host. -/
+theorem squareClock_bareColourCard_le (R e : ℕ) (hR : 2 ≤ R)
+    (ε : ℝ) (hε : ε < 1 / 52)
+    (hPage : UpperTheory.Top.PageN ε ((R ^ 2 - 1 : ℕ) : ℝ) e) :
+    Fintype.card (AlpogeNativeE0 × AlpogeNativeDyadicH e) ≤ 8 * R ^ 6 := by
+  let x : ℝ := (R ^ 2 - 1 : ℕ)
+  change UpperTheory.Top.PageN ε x e at hPage
+  have hR2 : 4 ≤ R ^ 2 := Nat.pow_le_pow_left hR 2
+  have hx : 1 ≤ x := by
+    dsimp [x]
+    exact_mod_cast (show 1 ≤ R ^ 2 - 1 by omega)
+  have hxR : x ≤ (R : ℝ) ^ 2 := by
+    dsimp [x]
+    exact_mod_cast Nat.sub_le (R ^ 2) 1
+  have hpow : x ^ (2 + 8 * ε) ≤ ((R : ℝ) ^ 2) ^ (3 : ℕ) := by
+    calc
+      x ^ (2 + 8 * ε) ≤ x ^ ((3 : ℕ) : ℝ) :=
+        Real.rpow_le_rpow_of_exponent_le hx (by norm_num at hε ⊢; linarith)
+      _ = x ^ (3 : ℕ) := Real.rpow_natCast x 3
+      _ ≤ ((R : ℝ) ^ 2) ^ (3 : ℕ) := pow_le_pow_left₀ (by linarith) hxR 3
+  have hreal : (2 : ℝ) ^ e ≤ 2 * (R : ℝ) ^ 6 := by
+    calc
+      (2 : ℝ) ^ e ≤ 2 * x ^ (2 + 8 * ε) := hPage.2
+      _ ≤ 2 * ((R : ℝ) ^ 2) ^ (3 : ℕ) := mul_le_mul_of_nonneg_left hpow (by norm_num)
+      _ = 2 * (R : ℝ) ^ 6 := by ring
+  have hn : 2 ^ e ≤ 2 * R ^ 6 := by exact_mod_cast hreal
+  have hfour : Fintype.card AlpogeNativeE0 = 4 := by
+    norm_num [AlpogeNativeE0, Fintype.card_prod, ZMod.card]
+  rw [Fintype.card_prod, hfour, alpogeNativeDyadicH_card]
+  omega
+
+private theorem eight_mul_pow_six_lt (R : ℕ) (hR : 3 ≤ R) :
+    8 * R ^ 6 < 13 ^ (2 * (R - 1)) := by
+  induction R, hR using Nat.le_induction with
+  | base => norm_num
+  | succ R hR ih =>
+    have hstep : R + 1 ≤ 2 * R := by omega
+    have he : 2 * ((R + 1) - 1) = 2 * (R - 1) + 2 := by omega
+    calc
+      8 * (R + 1) ^ 6 ≤ 8 * (2 * R) ^ 6 :=
+        Nat.mul_le_mul_left 8 (Nat.pow_le_pow_left hstep 6)
+      _ = (8 * R ^ 6) * 64 := by ring
+      _ < 13 ^ (2 * (R - 1)) * 64 := Nat.mul_lt_mul_of_pos_right ih (by decide)
+      _ ≤ 13 ^ (2 * (R - 1)) * 13 ^ 2 := Nat.mul_le_mul_left _ (by decide)
+      _ = 13 ^ (2 * ((R + 1) - 1)) := by rw [he, pow_add]
+
+/-- The graph quota dominates the square-clock polynomial throughout the
+interior rank range. This only uses a lower bound on the base and on the
+residue degree. -/
+theorem squareClock_polynomial_lt_graphQuota (R r f p : ℕ) (hp : 13 ≤ p)
+    (hf : 1 ≤ f) (hr : 2 ≤ r) (hr' : r ≤ (R + 1) - 2) :
+    8 * R ^ 6 < p ^ (f * (r * (R + 1 - r))) := by
+  let s := R + 1 - r
+  have hs : 2 ≤ s := by dsimp [s]; omega
+  have hrs : r + s = R + 1 := by dsimp [s]; omega
+  obtain ⟨a, ha⟩ : ∃ a, r = a + 2 := ⟨r - 2, by omega⟩
+  obtain ⟨b, hb⟩ : ∃ b, s = b + 2 := ⟨s - 2, by omega⟩
+  have hmin : 2 * (R - 1) ≤ r * s := by
+    rw [show R - 1 = a + b + 2 by omega, ha, hb]
+    nlinarith only [Nat.zero_le (a * b)]
+  have hexp : 2 * (R - 1) ≤ f * (r * s) :=
+    hmin.trans (by simpa only [one_mul] using Nat.mul_le_mul_right (r * s) hf)
+  calc
+    8 * R ^ 6 < 13 ^ (2 * (R - 1)) := eight_mul_pow_six_lt R (by omega)
+    _ ≤ 13 ^ (f * (r * s)) := Nat.pow_le_pow_right (by decide) hexp
+    _ ≤ p ^ (f * (r * s)) := Nat.pow_le_pow_left hp _
+
+/-- Every assignment of a full graph quota to the bare native colours
+identifies two labels. The label type can be any finite set realizing the
+upstream lower cardinality. -/
+theorem squareClock_not_injective_graphLabels_to_colours {A : Type*} [Fintype A]
+    (R e r f p : ℕ) (hp : 13 ≤ p) (hf : 1 ≤ f)
+    (hr : 2 ≤ r) (hr' : r ≤ (R + 1) - 2) (ε : ℝ) (hε : ε < 1 / 52)
+    (hPage : UpperTheory.Top.PageN ε ((R ^ 2 - 1 : ℕ) : ℝ) e)
+    (hA : p ^ (f * (r * (R + 1 - r))) ≤ Fintype.card A)
+    (colour : A → AlpogeNativeE0 × AlpogeNativeDyadicH e) :
+    ¬ Function.Injective colour := by
+  intro hinj
+  have hlarge := squareClock_polynomial_lt_graphQuota R r f p hp hf hr hr'
+  have hsmall := squareClock_bareColourCard_le R e (by omega) ε hε hPage
+  exact (not_lt_of_ge ((Fintype.card_le_of_injective colour hinj).trans hsmall))
+    (hlarge.trans_le hA)
+
+end RHLean.Analysis.AlpogeThin

@@ -249,9 +249,9 @@ theorem halfDifferent_local_eq_top {φ : Frame} (H : HostAx φ) (B : Ideal (𝓞
   have hD := relativeDifferent_not_le_of_prime H p hp P
   rw [hB] at hD
   constructor
-  · apply IsLocalization.AtPrime.map_eq_top_of_not_le
+  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (p := P)
     exact fun h => hD (Ideal.mul_le_left.trans h)
-  · apply IsLocalization.AtPrime.map_eq_top_of_not_le
+  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (p := P)
     exact fun h => hD (Ideal.mul_le_right.trans h)
 
 /-- A member of the actual relative different clears every integral-weight
@@ -291,7 +291,7 @@ theorem prescribedLattice_weighted_herm_local {φ : Frame} (H : HostAx φ)
       IsIntegral ℤ ((a : H.E) * ∑ i, (c i : H.E) * H.conj (x.1 i) * y.1 i) := by
   have hD := relativeDifferent_not_le_of_prime H p hp P
   change ¬ ∀ a, a ∈ differentIdeal (𝓞 H.K) (𝓞 H.E) → a ∈ P at hD
-  push_neg at hD
+  push Not at hD
   obtain ⟨a, ha, hnot⟩ := hD
   exact ⟨a, hnot, prescribedLattice_weighted_herm_integral H.toHostRaw B hB a ha⟩
 
@@ -319,13 +319,13 @@ theorem adaptedEdge_pairing (b : Module.Basis I K V) (w p : K)
   by_cases hij : i = j
   · subst j
     rw [ite_eq_left (rfl : i = i)]
-    simp only [LinearMap.smul_apply, map_smul, RingHom.id_apply,
+    simp only [LinearMap.smul_apply, map_smul,
       Module.Basis.coord_apply, Module.Basis.repr_self, Finsupp.single_eq_same,
       smul_eq_mul, mul_one, hpz, ← zpow_add₀ hw]
     congr 1
     omega
   · simp [LinearMap.smul_apply, map_smul, Module.Basis.coord_apply,
-      Module.Basis.repr_self, Finsupp.single_apply, hij]
+      Module.Basis.repr_self, hij]
 
 theorem adaptedEdge_pairing_same_cutoff (b : Module.Basis I K V) (w p : K)
     (hw : w ≠ 0) (hp : p = w ^ 2) (A : ℤ) (π : I → ℤ)

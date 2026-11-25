@@ -18,10 +18,11 @@ open Polynomial
 
 namespace RHLean.Geometry.NativeTheta.HasseDigits
 
-def block (P : ℕ) : ℤ[X] := (1 + X) ^ P - 1
+noncomputable def block (P : ℕ) : ℤ[X] := (1 + X) ^ P - 1
 
 /-- Integral coefficient of the kth coarse binomial polynomial. -/
-def digitCoeff (P ρ M k : ℕ) : ℤ := (((1 + X) ^ ρ : ℤ[X]) * (block P) ^ k).coeff M
+noncomputable def digitCoeff (P ρ M k : ℕ) : ℤ :=
+  (((1 + X) ^ ρ : ℤ[X]) * (block P) ^ k).coeff M
 
 /-- The exact integral Hasse expansion in the binomial basis of the coarse exponent. -/
 theorem choose_eq_digit_expansion (P ρ β M : ℕ) :
@@ -80,11 +81,14 @@ theorem prime_pow_dvd_prod_digitCoeff_of_degree {ι : Type*} {p : ℕ} (hp : p.P
     (g c : ℕ) (s : Finset ι) (ρ M k : ι → ℕ)
     (h : (∑ i ∈ s, M i / p ^ g) + c ≤ ∑ i ∈ s, k i) :
     (p : ℤ) ^ c ∣ ∏ i ∈ s, digitCoeff (p ^ g) (ρ i) (M i) (k i) := by
-  have hs : (∑ i ∈ s, k i) ≤ (∑ i ∈ s, k i - M i / p ^ g) +
+  have hs : (∑ i ∈ s, k i) ≤ (∑ i ∈ s, (k i - M i / p ^ g)) +
       (∑ i ∈ s, M i / p ^ g) := by
     rw [← Finset.sum_add_distrib]
-    exact Finset.sum_le_sum fun i _ => by omega
-  have hc : c ≤ ∑ i ∈ s, k i - M i / p ^ g := by omega
+    apply Finset.sum_le_sum
+    intro i _
+    change k i ≤ (k i - M i / p ^ g) + M i / p ^ g
+    omega
+  have hc : c ≤ ∑ i ∈ s, (k i - M i / p ^ g) := by omega
   refine (pow_dvd_pow (p : ℤ) hc).trans ?_
   rw [← Finset.prod_pow_eq_pow_sum]
   exact Finset.prod_dvd_prod_of_dvd _ _ fun i _ => prime_pow_dvd_digitCoeff hp g (ρ i) (M i) (k i)
@@ -103,8 +107,7 @@ private theorem choose_cast_eq_sum_range {p : ℕ} (hp : p.Prime) (g c ρ β M B
   · apply Finset.sum_subset (Finset.range_mono h)
     intro k _ hk
     have hβ : β < k := by
-      have := fun hlt : k < β + 1 => hk (Finset.mem_range.mpr hlt)
-      omega
+      exact Nat.le_of_not_gt (fun hlt : k < β + 1 => hk (Finset.mem_range.mpr hlt))
     simp only [f, Nat.choose_eq_zero_of_lt hβ, Nat.cast_zero, mul_zero]
   · symm
     apply Finset.sum_subset (Finset.range_mono (by omega : B ≤ β + 1))
@@ -138,7 +141,8 @@ theorem choose_prod_eq_bounded_hasse_sum {ι : Type*} [Fintype ι] {p : ℕ} (hp
         apply Finset.prod_congr rfl
         intro i _
         have hM : M i / p ^ g ≤ ∑ j, M j / p ^ g :=
-          Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_univ i)
+          Finset.single_le_sum (f := fun j => M j / p ^ g)
+            (fun _ _ => Nat.zero_le _) (Finset.mem_univ i)
         dsimp only [f]
         rw [Fin.sum_univ_eq_sum_range (fun k : ℕ =>
           (digitCoeff (p ^ g) (ρ i) (M i) k : ZMod (p ^ c)) * (β i).choose k) B]

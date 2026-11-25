@@ -33,7 +33,7 @@ theorem coeff_mul_leading (a : σ →₀ ℕ) (t f : MvPowerSeries σ R)
   rw [coeff_mul, Finset.sum_eq_single (0, a)]
   · rw [coeff_zero_eq_constantCoeff_apply]
   · rintro ⟨b, c⟩ hbc hne
-    have he : b + c = a := Finset.mem_antidiagonal.mp hbc
+    have he : b + c = a := Finset.HasAntidiagonal.mem_antidiagonal.mp hbc
     have hb : b ≠ 0 := by
       rintro rfl
       have hc : c = a := by simpa only [zero_add] using he
@@ -56,12 +56,12 @@ def factorialWeight [Fintype σ] (a : σ →₀ ℕ) : ℕ := ∏ j, (a j).facto
 private theorem factorialWeight_step [Fintype σ] (a : σ →₀ ℕ) (j : σ) :
     factorialWeight (a + Finsupp.single j 1) = (a j + 1) * factorialWeight a := by
   classical
-  have ht (k : σ) : ((a + Finsupp.single j 1) k).factorial =
+  have ht (k : σ) : ((a + Finsupp.single j 1 : σ →₀ ℕ) k).factorial =
       (if k = j then a k + 1 else 1) * (a k).factorial := by
     by_cases hk : k = j
     · subst k
-      simp [Nat.factorial_succ]
-    · simp [Finsupp.single_apply, hk, Ne.symm hk]
+      rw [Finsupp.add_apply, Finsupp.single_eq_same, ite_eq_left rfl, Nat.factorial_succ]
+    · rw [Finsupp.add_apply, Finsupp.single_eq_of_ne hk, Nat.add_zero, ite_eq_right hk, one_mul]
   simp only [factorialWeight, ht, Finset.prod_mul_distrib, Fintype.prod_ite_eq']
 
 variable {d : ℕ}
@@ -80,7 +80,8 @@ private theorem coeff_step (G : FormalGroup R d) (j : Coord d) (a : Coord d →�
       rw [map_add, Finsupp.degree_single]
       omega), zero_mul]
   have hc (k : Fin d) :
-      constantCoeff (co G (Pi.single j.2 1) ((0 : Fin 1), k)) = Pi.single j.2 (1 : R) k := by
+      constantCoeff (co G (Pi.single j.2 1) ((0 : Fin 1), k)) =
+        (Pi.single j.2 (1 : R) : Fin d → R) k := by
     simp [co, cc_jac', mul_ite]
   obtain ⟨j₀, j⟩ := j
   have h₀ : j₀ = 0 := Subsingleton.elim _ _
@@ -160,7 +161,7 @@ private theorem profile_native [Fintype σ] (a : σ →₀ ℕ) :
         (s.map (fun j => Finsupp.single j (a j))).sum := by
     have hs (j : σ) : a j • (Finsupp.single j 1 : σ →₀ ℕ) = Finsupp.single j (a j) := by
       ext k
-      by_cases hk : j = k <;> simp [Finsupp.single_apply, hk, nsmul_eq_mul]
+      by_cases hk : j = k <;> simp [hk]
     induction s with
     | nil => rfl
     | cons j s ih =>
@@ -288,6 +289,7 @@ private def word (u : ι → Fin d → R) (a : ι →₀ ℕ) : List ι → List
   | [] => []
   | i :: s => word u a s ++ List.replicate (a i) (u i)
 
+omit [CommRing R] in
 private theorem word_length (u : ι → Fin d → R) (a : ι →₀ ℕ) (s : List ι) :
     (word u a s).length = (s.map (fun i => a i)).sum := by
   induction s with

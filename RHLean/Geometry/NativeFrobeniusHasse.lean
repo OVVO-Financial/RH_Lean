@@ -158,24 +158,18 @@ two is a unit. It divides the order of the native dyadic host. -/
 theorem nativeDyadic_frobPeriod_isUnit {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
     (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
     let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    IsUnit (addOrderOf x : O) := by
+    IsUnit (frobeniusCosetOrder (H.inertia p) (H.frob p) : O) := by
   let H := alpogeNativeHostData e q d
-  let π := QuotientAddGroup.mk' (H.inertia p)
-  let x := π (H.frob p)
-  change IsUnit (addOrderOf x : O)
-  have hdiv : addOrderOf x ∣ addOrderOf (H.frob p) := by
-    apply addOrderOf_dvd_of_nsmul_eq_zero
-    change addOrderOf (H.frob p) • π (H.frob p) = 0
-    rw [← map_nsmul, addOrderOf_nsmul_eq_zero, map_zero]
+  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
+  change IsUnit (o : O)
   have hsize : Nat.card (AlpogeNativeE0 × AlpogeNativeDyadicH e) = 2 ^ (e + 2) := by
     rw [Nat.card_eq_fintype_card, Fintype.card_prod, alpogeNativeDyadicH_card, pow_add]
     have h4 : Fintype.card AlpogeNativeE0 = 4 := by decide
     rw [h4]
     ring
-  have hd : addOrderOf x ∣ 2 ^ (e + 2) := by
-    rw [← hsize]
-    exact hdiv.trans (addOrderOf_dvd_natCard _)
+  have hd : o ∣ 2 ^ (e + 2) :=
+    (frobeniusCosetOrder_dvd_natCard (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+      (H.inertia p) (H.frob p)).trans (dvd_of_eq hsize)
   obtain ⟨k, hk⟩ := hd
   refine isUnit_of_dvd_unit (y := (2 : O) ^ (e + 2)) ⟨(k : O), ?_⟩ (h2.pow _)
   simpa only [Nat.cast_pow, Nat.cast_ofNat, Nat.cast_mul] using congrArg (Nat.cast : ℕ → O) hk
@@ -185,25 +179,24 @@ parameters to vanish at the native Frobenius, at every odd local place. -/
 theorem nativeDyadic_frobPeriod_rigid {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
     (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] (u : O) (hu : IsNilpotent u) :
     let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    (1 + u) ^ addOrderOf x = 1 ↔ u = 0 :=
+    (1 + u) ^ frobeniusCosetOrder (H.inertia p) (H.frob p) = 1 ↔ u = 0 :=
   cyclic_period_rigid _ (nativeDyadic_frobPeriod_isUnit h2 e q d p) u hu
 
-/-- Any two actual unit-valued characters of the dyadic quotient agreeing
-at Frobenius up to a nilpotent relative perturbation agree there exactly.
-The period equation follows from the homomorphisms themselves. -/
-theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing O]
-    (h2 : IsUnit (2 : O)) (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
-    let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    let z := Multiplicative.ofAdd x
-    ∀ χ ψ : Multiplicative ((AlpogeNativeE0 × AlpogeNativeDyadicH e) ⧸ H.inertia p) →* Oˣ,
-      IsNilpotent ((((ψ z / χ z : Oˣ) : O) - 1)) → ψ z = χ z := by
-  let H := alpogeNativeHostData e q d
-  let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
+/-- Two unit-valued characters on the inertia quotient agree at the specified
+Frobenius whenever their ratio there differs from one by a nilpotent. -/
+def FrobeniusCharactersRigid (O : Type*) [CommRing O] {G : Type*} [AddCommGroup G]
+    (I : AddSubgroup G) (g : G) : Prop :=
+  let z := Multiplicative.ofAdd ((QuotientAddGroup.mk' I) g)
+  ∀ χ ψ : Multiplicative (G ⧸ I) →* Oˣ,
+    IsNilpotent (((ψ z / χ z : Oˣ) : O) - 1) → ψ z = χ z
+
+private theorem frobeniusCharactersRigid_of_unit {O G : Type*} [CommRing O] [AddCommGroup G]
+    (I : AddSubgroup G) (g : G) (hu : IsUnit (frobeniusCosetOrder I g : O)) :
+    FrobeniusCharactersRigid O I g := by
+  let x := (QuotientAddGroup.mk' I) g
   let z := Multiplicative.ofAdd x
-  change ∀ χ ψ : Multiplicative ((AlpogeNativeE0 × AlpogeNativeDyadicH e) ⧸ H.inertia p) →* Oˣ,
-    IsNilpotent ((((ψ z / χ z : Oˣ) : O) - 1)) → ψ z = χ z
+  change ∀ χ ψ : Multiplicative (G ⧸ I) →* Oˣ,
+    IsNilpotent (((ψ z / χ z : Oˣ) : O) - 1) → ψ z = χ z
   intro χ ψ hnil
   let ratio := ψ z / χ z
   have ho : z ^ addOrderOf x = 1 :=
@@ -216,34 +209,44 @@ theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing
   have he : (1 + ((ratio : O) - 1)) ^ addOrderOf x = 1 := by
     rw [show 1 + ((ratio : O) - 1) = (ratio : O) by ring]
     simpa only [Units.val_pow_eq_pow_val, Units.val_one] using congrArg Units.val hp
-  have hzero := (nativeDyadic_frobPeriod_rigid h2 e q d p ((ratio : O) - 1) hnil).mp he
+  have hzero := (cyclic_period_rigid (addOrderOf x) hu ((ratio : O) - 1) hnil).mp he
   have hratio : ratio = 1 := Units.ext (sub_eq_zero.mp hzero)
   exact div_eq_one.mp hratio
+
+/-- Rigidity at the actual dyadic Frobenius, proved from the period relation
+of the two characters on the native inertia quotient. -/
+theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing O]
+    (h2 : IsUnit (2 : O)) (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
+    let H := alpogeNativeHostData e q d
+    FrobeniusCharactersRigid O (H.inertia p) (H.frob p) :=
+  frobeniusCharactersRigid_of_unit (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p)
+    (nativeDyadic_frobPeriod_isUnit h2 e q d p)
+
+private theorem returning_sub_mem {G : Type*} [AddCommGroup G] (I : AddSubgroup G)
+    (g : G) (a j : ℕ) : a • g - (a + frobeniusCosetOrder I g * j) • g ∈ I := by
+  have hk := (frobeniusCosetOrder_dvd_iff I g _).mp (dvd_mul_right (frobeniusCosetOrder I g) j)
+  have hz : a • g - (a + frobeniusCosetOrder I g * j) • g =
+      -((frobeniusCosetOrder I g * j) • g) := by rw [add_nsmul]; abel
+  rw [hz]
+  exact I.neg_mem hk
 
 /-- Keep the exponent of the physical prime power before the quotient.
 All these powers return to the same literal colour, whose integral
 incidence is one. Their labelled Hasse minor has the displayed determinant. -/
 theorem nativeDyadic_returning_hasse_minor (e q d p a m : ℕ) [Fact q.Prime] [Fact d.Prime] :
     let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    let o := addOrderOf x
+    let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
     let n (j : Fin m) := a + o * j.val
     (Matrix.of fun r j : Fin m => nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) *
       ((n j).choose r.val : ℤ)).det = (o : ℤ) ^ (∑ j : Fin m, j.val) := by
   classical
   let H := alpogeNativeHostData e q d
-  let π := QuotientAddGroup.mk' (H.inertia p)
-  let x := π (H.frob p)
-  let o := addOrderOf x
+  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
   let n (j : Fin m) := a + o * j.val
   have hrow (j : Fin m) : nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) = 1 := by
-    have hq : π (a • H.frob p - n j • H.frob p) = 0 := by
-      rw [map_sub, map_nsmul, map_nsmul]
-      change a • x - (a + o * j.val) • x = 0
-      have hzero : (o * j.val) • x = 0 :=
-        addOrderOf_dvd_iff_nsmul_eq_zero.mp (dvd_mul_right o j.val)
-      rw [add_nsmul, hzero, add_zero, sub_self]
-    exact ite_eq_left ((QuotientAddGroup.eq_zero_iff _).mp hq)
+    exact ite_eq_left (returning_sub_mem (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+      (H.inertia p) (H.frob p) a j.val)
   have he : (Matrix.of fun r j : Fin m => nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) *
       ((n j).choose r.val : ℤ)) = progressionMatrix a o m := by
     ext r j
@@ -256,14 +259,12 @@ local unit on every square-clock place where two is invertible. -/
 theorem nativeDyadic_returning_hasse_det_isUnit {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
     (e q d p a m : ℕ) [Fact q.Prime] [Fact d.Prime] :
     let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    let o := addOrderOf x
+    let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
     let n (j : Fin m) := a + o * j.val
     IsUnit ((Int.castRingHom O) (Matrix.of fun r j : Fin m =>
       nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) * ((n j).choose r.val : ℤ)).det) := by
   let H := alpogeNativeHostData e q d
-  let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-  let o := addOrderOf x
+  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
   let n (j : Fin m) := a + o * j.val
   change IsUnit ((Int.castRingHom O) (Matrix.of fun r j : Fin m =>
     nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) * ((n j).choose r.val : ℤ)).det)

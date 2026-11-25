@@ -27,9 +27,10 @@ theorem part_mul_complement (P : ℕ → Prop) [DecidablePred P] {n : ℕ} (hn :
 
 theorem factorization_part (P : ℕ → Prop) [DecidablePred P] (n : ℕ) :
     (part P n).factorization = n.factorization.filter P := by
-  apply Nat.factorization_prod_pow_eq_self_of_le_factorization
+  apply Nat.factorization_prod_pow_eq_self_of_le_factorization (n := n)
   intro p
-  by_cases h : P p <;> simp [Finsupp.filter_apply, h]
+  rw [Finsupp.filter_apply]
+  split <;> first | exact le_rfl | exact Nat.zero_le _
 
 theorem high_prime (z n p : ℕ) (hp : p ∈ (part (fun q => ¬ q ≤ z) n).primeFactors) :
     z < p := by
@@ -48,7 +49,7 @@ theorem cutoff_pow_omega_le {z h : ℕ} (hh : h ≠ 0)
     z ^ omegaTotal h = ∏ p ∈ h.primeFactors, z ^ h.factorization p :=
       (Finset.prod_pow_eq_pow_sum _ _ _).symm
     _ ≤ ∏ p ∈ h.primeFactors, p ^ h.factorization p := by
-      exact Finset.prod_le_prod' fun p hp => Nat.pow_le_pow_left (hrough p hp).le _
+      exact Finset.prod_le_prod fun p hp => Nat.pow_le_pow_left (hrough p hp).le _
     _ = h := Nat.prod_factorization_pow_eq_self hh
 
 /-- This is the bound for the unweighted column mass of either signed or

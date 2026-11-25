@@ -36,8 +36,9 @@ private theorem degreeOf_gridFalling (w : σ) (T : MvPolynomial σ R) (k : ℕ) 
   refine (degreeOf_prod_le w (Finset.range k) _).trans ?_
   calc
     _ ≤ ∑ _j ∈ Finset.range k, T.degreeOf w := by
-      exact Finset.sum_le_sum fun j _ => (degreeOf_sub_le w T (C (j : R))).trans (by simp)
-    _ = _ := by simp [nsmul_eq_mul]
+      exact Finset.sum_le_sum fun j _ => (degreeOf_sub_le w T (C (j : R))).trans
+        (le_of_eq (by rw [degreeOf_C, max_eq_left (Nat.zero_le _)]))
+    _ = _ := by simp
 
 /-- The integral cardinal polynomial for node `j`. Its value there is `d!`. -/
 private def gridWeight (i : σ) (d j : ℕ) : MvPolynomial σ R :=
@@ -62,7 +63,8 @@ private theorem eval_gridWeight (x : σ → ℕ) (i : σ) (d j : ℕ) (hx : x i 
 private theorem degreeOf_gridWeight [Nontrivial R] [DecidableEq σ] (w i : σ) (d j : ℕ)
     (hj : j ≤ d) : (gridWeight i d j : MvPolynomial σ R).degreeOf w ≤ if w = i then d else 0 := by
   have hright : (C (d : R) - X i : MvPolynomial σ R).degreeOf w ≤ if w = i then 1 else 0 :=
-    (degreeOf_sub_le w _ _).trans (by simp [degreeOf_X])
+    (degreeOf_sub_le w _ _).trans
+      (le_of_eq (by rw [degreeOf_C, max_eq_right (Nat.zero_le _), degreeOf_X]))
   calc
     _ ≤ j * (X i : MvPolynomial σ R).degreeOf w +
         (d - j) * (C (d : R) - X i : MvPolynomial σ R).degreeOf w :=

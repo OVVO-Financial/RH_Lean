@@ -184,7 +184,8 @@ theorem pow_dvd_coefficient_inverse (p : O) (f q : ℕ → O) (hf0 : f 0 = 1)
     exact dvd_add (coefficient_const_dvd p 1 k) (dvd_neg.mpr (hf k))
   have hup (n : ℕ) : p ∣ u n := by
     change p ∣ 1 + -f n
-    simpa only [neg_sub, sub_eq_add_neg] using (dvd_neg.mpr (hmod n))
+    rw [show (1 : O) + -f n = -(f n - 1) by ring]
+    exact dvd_neg.mpr (hmod n)
   have approx (N : ℕ) : ∃ a : ℕ → O,
       (∀ k, p ^ ((k + 1) / 2) ∣ coefficient a k) ∧ ∀ n, p ^ N ∣ q n - a n := by
     induction N with
@@ -200,7 +201,8 @@ theorem pow_dvd_coefficient_inverse (p : O) (f q : ℕ → O) (hf0 : f 0 = 1)
         exact dvd_add (coefficient_const_dvd p 1 k)
           (product_bound p k 0 0 u a (fun m _ => hu m) (fun m _ => ha m))
       · intro n
-        have heq : q n - ((fun _ => 1) + u * a) n = u n * (q n - a n) := by
+        change p ^ (N + 1) ∣ q n - (1 + u n * a n)
+        have heq : q n - (1 + u n * a n) = u n * (q n - a n) := by
           change q n - (1 + (1 + -f n) * a n) = (1 + -f n) * (q n - a n)
           linear_combination hinv n
         rw [heq, pow_succ']

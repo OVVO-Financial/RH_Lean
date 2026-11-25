@@ -70,6 +70,7 @@ import RHLean.Analysis.AlpogeNativePositiveMomentCriterion
 import RHLean.Analysis.AlpogeNativePrimeDecomposition
 import RHLean.Analysis.AlpogeNativePrimeLift
 import RHLean.Analysis.AlpogeNativePrincipalProjection
+import RHLean.Analysis.AlpogeNativeProperPowerCentering
 import RHLean.Analysis.AlpogeNativeQuadraticDifferent
 import RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis
 import RHLean.Analysis.AlpogeNativeQuadraticPrimeSigns
@@ -471,6 +472,7 @@ import RHLean.Analysis.AlpogeThin.NativeCftThin
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicChiField
+import RHLean.Analysis.AlpogeThin.NativeDyadicColourImage
 import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicFixedAuxiliaryLevel
 import RHLean.Analysis.AlpogeThin.NativeDyadicFrame
@@ -501,12 +503,16 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicPrimePowerIncidence
 import RHLean.Analysis.AlpogeThin.NativeDyadicRamifiedWindow
 import RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm
+import RHLean.Analysis.AlpogeThin.NativeDyadicReturnBudget
+import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
+import RHLean.Analysis.AlpogeThin.NativeDyadicUnramifiedPrefix
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativeIdealClassBound
 import RHLean.Analysis.AlpogeThin.NativePrimeExponentAncestry
+import RHLean.Analysis.AlpogeThin.NativePrimeTowerCentering
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
@@ -551,6 +557,7 @@ import RHLean.Analysis.AlpogeThin.NativeRayShortInterval
 import RHLean.Analysis.AlpogeThin.NativeRayTheta
 import RHLean.Analysis.AlpogeThin.NativeRayZeroFreeRegion
 import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
+import RHLean.Analysis.AlpogeThin.NativeSignedPrimeExponentAncestor
 import RHLean.Analysis.AlpogeThin.NativeSquareDefectSelection
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.Global
@@ -1242,6 +1249,7 @@ import RHLean.Geometry.NativePrescribedHermitianSpaces
 import RHLean.Geometry.NativePrescribedPolarizationDomain
 import RHLean.Geometry.NativePrescribedPolarizationLattice
 import RHLean.Geometry.NativePrescribedPolarizationRealization
+import RHLean.Geometry.NativePrimeExponentJet
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
@@ -1351,6 +1359,7 @@ import RHLean.Geometry.NativeThetaOrbitLattice
 import RHLean.Geometry.NativeThetaOrbitSpanClosure
 import RHLean.Geometry.NativeThetaOrbitTorsion
 import RHLean.Geometry.NativeThetaPairedPolynomials
+import RHLean.Geometry.NativeThetaPeriodEvaluation
 import RHLean.Geometry.NativeThetaPeriodFreeness
 import RHLean.Geometry.NativeThetaPeriodIndexFreeness
 import RHLean.Geometry.NativeThetaPeriodTorsion

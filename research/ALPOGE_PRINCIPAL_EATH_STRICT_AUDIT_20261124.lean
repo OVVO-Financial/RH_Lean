@@ -20,6 +20,15 @@ import RHLean.Geometry.NativeThetaHasseDigitRecovery
 import RHLean.Geometry.NativeThetaInvariantPrincipalSymbol
 import RHLean.Analysis.AlpogeThin.NativeDyadicGridFactorialBudget
 import RHLean.Analysis.AlpogeThin.NativePrimeExponentAncestry
+import RHLean.Analysis.AlpogeNativeProperPowerCentering
+import RHLean.Analysis.AlpogeThin.NativeDyadicColourImage
+import RHLean.Analysis.AlpogeThin.NativeDyadicReturnBudget
+import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
+import RHLean.Analysis.AlpogeThin.NativeDyadicUnramifiedPrefix
+import RHLean.Analysis.AlpogeThin.NativePrimeTowerCentering
+import RHLean.Analysis.AlpogeThin.NativeSignedPrimeExponentAncestor
+import RHLean.Geometry.NativePrimeExponentJet
+import RHLean.Geometry.NativeThetaPeriodEvaluation
 import Lean.Util.CollectAxioms
 
 /-!
@@ -75,6 +84,17 @@ run_cmd do
     `RHLean.Analysis.AlpogeThin.PrimeExponent.part_mul_complement,
     `RHLean.Analysis.AlpogeThin.PrimeExponent.mass_le_rpow,
     `RHLean.Analysis.AlpogeThin.PrimeExponent.ancestor_clock,
+    `RHLean.Geometry.NativePrimeExponentJet.factorization_recovery,
+    `RHLean.Geometry.NativePrimeExponentJet.factorization_signed_entry,
+    `RHLean.Analysis.nativeHighFirstPrimeCenter_error,
+    `RHLean.Analysis.nativeProperPowerCenter_square_error,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicPageN_unramifiedPrefix_minor,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicPageN_small_bases_before_return_full_cutoff,
+    `RHLean.Analysis.nativeDyadic_partnerColourImage,
+    `RHLean.Analysis.alpogeNativePartner_add_two_no_separation,
+    `RHLean.Analysis.AlpogeThin.nativeDyadic_signedAncestor_all_primes,
+    `RHLean.Analysis.nativePrimeTower_finite_payment,
+    `RHLean.Geometry.NativeTheta.AppellHumbert.period_value_two_minor,
     `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitIndex,
     `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitFiber,
     `RHLean.Geometry.NativeTheta.ExponentDigits.factorial_digit_unit,

@@ -28,7 +28,7 @@ private theorem shifted_interval_prod (a lo hi : ℕ) (h : lo ≤ hi) :
     (∏ u ∈ Finset.Ioc lo hi, ((a : ℚ) + u)) =
       ((a + hi).factorial : ℚ) / ((a + lo).factorial : ℚ) := by
   induction hi, h using Nat.le_induction with
-  | base => simp [factorial_cast_ne_zero]
+  | base => rw [Finset.Ioc_self, Finset.prod_empty, div_self (factorial_cast_ne_zero (a + lo))]
   | succ hi h ih =>
     rw [Finset.prod_Ioc_succ_top h, ih, show a + (hi + 1) = (a + hi) + 1 by omega,
       Nat.factorial_succ (a + hi)]
@@ -45,16 +45,16 @@ theorem factorialDigitUnit_succ_ratio (P ρ b : ℕ) (hρ : ρ < P) :
     if u ≤ ρ then ((P * (b + 1) : ℕ) : ℚ) + u else ((P * b : ℕ) : ℚ) + u
   have hlow : (∏ u ∈ Finset.Ioc 0 ρ, n u) =
       ∏ u ∈ Finset.Ioc 0 ρ, (((P * (b + 1) : ℕ) : ℚ) + u) := by
-    exact Finset.prod_congr rfl fun u hu => if_pos (Finset.mem_Ioc.mp hu).2
+    exact Finset.prod_congr rfl fun u hu => ite_eq_left (Finset.mem_Ioc.mp hu).2
   have hhigh : (∏ u ∈ Finset.Ioc ρ P, n u) =
       ∏ u ∈ Finset.Ioc ρ P, (((P * b : ℕ) : ℚ) + u) := by
-    exact Finset.prod_congr rfl fun u hu => if_neg (not_le.mpr (Finset.mem_Ioc.mp hu).1)
+    exact Finset.prod_congr rfl fun u hu => ite_eq_right (not_le.mpr (Finset.mem_Ioc.mp hu).1)
   have hnum : (∏ u ∈ Finset.Ioc 0 P, n u) =
       ((P * (b + 1) + ρ).factorial : ℚ) / ((P * b + ρ).factorial : ℚ) := by
     rw [← Finset.prod_Ioc_consecutive n (Nat.zero_le ρ) hρ.le, hlow, hhigh,
-      shifted_interval_prod _ _ _ (Nat.zero_le ρ), shifted_interval_prod _ _ _ hρ.le,
-      Nat.add_zero, ← Nat.mul_succ P b]
-    field_simp [factorial_cast_ne_zero] <;> ring
+      shifted_interval_prod _ _ _ (Nat.zero_le ρ), shifted_interval_prod _ _ _ hρ.le]
+    simp only [Nat.add_zero, Nat.mul_succ]
+    exact div_mul_div_cancel₀ (factorial_cast_ne_zero _)
   have hden : (∏ u ∈ Finset.Ioc 0 P, (u : ℚ)) = (P.factorial : ℚ) := by
     simpa using shifted_interval_prod 0 0 P (Nat.zero_le P)
   have hfull : (∏ u ∈ Finset.Ioc 0 P, f u) =
@@ -65,7 +65,7 @@ theorem factorialDigitUnit_succ_ratio (P ρ b : ℕ) (hρ : ρ < P) :
         apply Finset.prod_congr rfl
         intro u hu
         have hu' : (u : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Finset.mem_Ioc.mp hu).1.ne'
-        by_cases hh : u ≤ ρ <;> simp only [f, n, hh, if_true, if_false] <;>
+        by_cases hh : u ≤ ρ <;> simp only [f, n, hh, ite_true, ite_false] <;>
           push_cast <;> field_simp [hu'] <;> ring
       _ = _ := by rw [Finset.prod_div_distrib, hnum, hden]
   have hset : Finset.Ioc 0 P = insert P (Finset.Ico 1 P) := by
