@@ -165,3 +165,7 @@ All 255 incoming-prime tests for each of: raw Perron twisted cofactor reindexing
 - LEAN: compile new finite suppliers and the V3 linter repair, then formalize the actual scalar specialization/initial-prime theorem. Prove quantitative high-owner closure before calling the existing square-clock RH consumer. No new assumed terminal estimate.
 
 This is a repository-scoped directive. It does not launch or reconfigure any external agent runtime. The final integration PR #1201 is unchanged.
+
+## 8. V5 complete-cell attack
+
+See [the new native mod-four two-clock discrepancy reduction and seven-role directive](RHLEAN_CROSS_CELL_PERRON_COMPENSATION_20261125.md). This supersedes the immediate V4 high-owner attack by an exactly centered finite-window sufficient target; V4 suppliers remain intact. All new V5 bounds are paper derivations pending formalization.
