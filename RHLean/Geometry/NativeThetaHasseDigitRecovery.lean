@@ -44,6 +44,7 @@ theorem recover_bounded_hasse_digits {ι : Type} [Fintype ι] {p : ℕ} (hp : p.
   have hD (j k : S) : D j k = ∏ i, ((j.val i).val.choose (k.val i).val : ZMod (p ^ c)) := by
     change IntegralJets.mixedTaylorWeight (fun _ : ι => (1 : ZMod (p ^ c))) (a k) (a j) = _
     simp only [IntegralJets.mixedTaylorWeight_eq_binomial, one_pow, mul_one]
+    rfl
   have he : D.mulVec v = y := by
     funext j
     change ∑ k : S, D j k * v k = y j

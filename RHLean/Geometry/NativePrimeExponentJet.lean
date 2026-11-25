@@ -31,7 +31,10 @@ private theorem weight_binomial (t : ℤ) (a b : ℕ) :
 private theorem weight_self_zero (a b : ℕ) :
     weight 0 a b = if a = b then 1 else 0 := by
   simp only [weight, Polynomial.taylor_zero, Polynomial.coeff_monomial]
-  rw [eq_comm b a]
+  by_cases h : b = a
+  · subst b
+    rfl
+  · rw [if_neg h, if_neg h.symm]
 
 private theorem weight_comp (s t : ℤ) (a b : ℕ) :
     ∑ v : Fin (b + 1), weight s a v * weight t v b = weight (s + t) a b := by
@@ -98,6 +101,7 @@ private theorem column_sum (e : I → σ →₀ ℕ) (he : Function.Injective e)
 def translation (e : I → σ →₀ ℕ) (s : ℤ) : Matrix I I ℤ :=
   IntegralJets.jetMatrix (fun _ => s) e
 
+omit [Fintype I] in
 theorem translation_apply (e : I → σ →₀ ℕ) (s : ℤ) (i j : I) :
     translation e s i j = ∏ p, ((e j p).choose (e i p) : ℤ) * s ^ (e j p - e i p) :=
   IntegralJets.mixedTaylorWeight_eq_binomial _ _ _
@@ -115,6 +119,7 @@ theorem translation_mul (e : I → σ →₀ ℕ) (he : Function.Injective e)
     (fun p a b hab => by simp [weight_binomial, Nat.choose_eq_zero_of_lt hab])]
   exact Finset.prod_congr rfl fun p _ => weight_comp s t (e i p) (e h p)
 
+omit [Fintype I] in
 theorem translation_zero [DecidableEq I] (e : I → σ →₀ ℕ) (he : Function.Injective e) :
     translation e 0 = 1 := by
   classical
@@ -194,8 +199,9 @@ def oneNorm (A : Matrix I I ℤ) : ℕ :=
 theorem oneNorm_pair (e : I → σ →₀ ℕ) (he : Function.Injective e) (hclosed : DivisorClosed e) :
     oneNorm (translation e (-1)) = Finset.univ.sup (fun h => (2 : ℕ) ^ (e h).degree) ∧
     oneNorm (translation e 1) = Finset.univ.sup (fun h => (2 : ℕ) ^ (e h).degree) := by
-  have hcast (n : ℕ) : ((2 : ℤ) ^ n).toNat = (2 : ℕ) ^ n :=
-    congrArg Int.toNat (Nat.cast_pow (R := ℤ) 2 n).symm
+  have hcast (n : ℕ) : ((2 : ℤ) ^ n).toNat = (2 : ℕ) ^ n := by
+    have hz : ((2 ^ n : ℕ) : ℤ) = (2 : ℤ) ^ n := Nat.cast_pow 2 n
+    exact congrArg Int.toNat hz.symm
   constructor
   · exact Finset.sup_congr rfl fun h _ =>
       (congrArg Int.toNat (column_mass e he hclosed h).1).trans (hcast _)

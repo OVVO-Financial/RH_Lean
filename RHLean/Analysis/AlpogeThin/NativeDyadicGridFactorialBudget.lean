@@ -39,7 +39,7 @@ theorem nativeDyadicInertPrime_gridFactorial_cost {ι : Type*} {eps Y x : ℝ} {
     (s : Finset ι) (deg : ι → ℕ) :
     x ^ (eps / 10) * (padicValNat p (∏ j ∈ s, (deg j).factorial) : ℝ) ≤
       2 * (∑ j ∈ s, (deg j : ℝ)) := by
-  letI : Fact p.Prime := ⟨census_prime hp⟩
+  let : Fact p.Prime := ⟨census_prime hp⟩
   have hleg :
       (p - 1) * padicValNat p (∏ j ∈ s, (deg j).factorial) ≤ ∑ j ∈ s, deg j := by
     rw [val_prod_factorial, Finset.mul_sum]
@@ -73,7 +73,7 @@ theorem nativeDyadicInertPrime_gridFactorial_val_eq_zero {ι : Type*} {eps Y : �
     (hp : p ∈ nativeDyadicInertPrimes e q d N) (s : Finset ι) (deg : ι → ℕ)
     (hdeg : ∀ j ∈ s, (deg j : ℝ) ≤ Y ^ (eps / 5)) :
     padicValNat p (∏ j ∈ s, (deg j).factorial) = 0 := by
-  letI : Fact p.Prime := ⟨census_prime hp⟩
+  let : Fact p.Prime := ⟨census_prime hp⟩
   rw [val_prod_factorial]
   apply Finset.sum_eq_zero
   intro j hj
@@ -127,7 +127,7 @@ theorem nativeDyadicInertPrime_exists_grid_eval_at_rationalDepth
     ∃ j : (i : σ) → Fin (deg i + 1), IsDiscreteValuationRing.addVal O
         (MvPolynomial.eval (fun i => ((j i : ℕ) : O)) P) ≤
       padicValNat p (∏ i, (deg i).factorial) • IsDiscreteValuationRing.addVal O (p : O) := by
-  letI : Fact p.Prime := ⟨(Finset.mem_filter.mp (Finset.mem_filter.mp hp).1).2⟩
+  let : Fact p.Prime := ⟨(Finset.mem_filter.mp (Finset.mem_filter.mp hp).1).2⟩
   obtain ⟨j, hj⟩ := RHLean.Geometry.NativeTheta.GridInterpolation.exists_grid_eval_addVal_le_factorial
     deg P hdeg m hm
   refine ⟨j, hj.trans_eq ?_⟩
@@ -150,6 +150,6 @@ theorem nativeDyadicInertPrime_exists_grid_unit_of_winPair
   have hv := nativeDyadicInertPrime_gridFactorial_val_eq_zero hpair e N p hp Finset.univ deg
     (fun j _ => hsmall j)
   rw [hv, zero_nsmul] at hj
-  exact ⟨j, IsDiscreteValuationRing.addVal_eq_zero_iff.mp (le_antisymm hj (zero_le _))⟩
+  exact ⟨j, IsDiscreteValuationRing.addVal_eq_zero_iff.mp (le_antisymm hj zero_le)⟩
 
 end RHLean.Analysis.AlpogeThin

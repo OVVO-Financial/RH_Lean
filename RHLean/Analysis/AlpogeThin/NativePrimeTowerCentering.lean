@@ -37,9 +37,11 @@ theorem nativePrimeTower_add_remainder (N p a : ℕ) (hp : p.Prime) :
         nativePrimeTowerRemainder N p (a + 1) = nativePrimeTowerRemainder N p a := by
       rw [ArithmeticFunction.vonMangoldt_apply_pow (Nat.succ_ne_zero _),
         ArithmeticFunction.vonMangoldt_apply_prime hp]
-      simp only [nativeSquareCandidateKernel, nativePrimeTowerRemainder, Nat.cast_pow,
-        Nat.cast_add, Nat.cast_one, pow_succ]
-      field_simp [h0, h1] <;> ring
+      unfold nativeSquareCandidateKernel nativePrimeTowerRemainder
+      rw [Nat.cast_pow]
+      simp only [Nat.cast_add, Nat.cast_one, pow_succ]
+      field_simp [h0, h1]
+      ring
     change (∑ k ∈ Finset.range (a + 1), _) + _ = _
     rw [Finset.sum_range_succ, add_assoc, hstep]
     exact ih
@@ -93,7 +95,7 @@ theorem nativePrimeTower_finite_payment (N z : ℕ) (hN : N ≠ 0) (S : Finset �
         have hl := Real.log_le_log (by exact_mod_cast hprime.pos : 0 < (p : ℝ))
           (by exact_mod_cast hle : (p : ℝ) ≤ z)
         linarith [(nativePrimeTowerRemainder_bounds N p hprime hN).2]
-      _ = _ := by simp
+      _ = _ := by rw [Finset.sum_const, nsmul_eq_mul]
 
 end RHLean.Analysis
 

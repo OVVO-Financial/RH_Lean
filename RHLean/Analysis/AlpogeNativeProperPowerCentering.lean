@@ -70,7 +70,8 @@ private theorem proper_capacity_eq (N : ℕ) :
   rw [Finset.sum_filter, Finset.mul_sum, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro n _
-  by_cases h : n.Prime <;> simp [nativeProperPowerAtom, h] <;> ring
+  by_cases h : n.Prime <;> simp [nativeProperPowerAtom, h]
+  ring
 
 private theorem sqrt_kernel {x y : ℝ} (hx : 0 < x) (hy : 0 < y) :
     Real.sqrt x * (1 / x - 1 / y) ≤ 2 * (1 / Real.sqrt x - 1 / Real.sqrt y) := by
@@ -83,7 +84,8 @@ private theorem sqrt_kernel {x y : ℝ} (hx : 0 < x) (hy : 0 < y) :
   have he : 2 * (1 / a - 1 / b) - a * (1 / x - 1 / y) =
       (b - a) ^ 2 / (a * b ^ 2) := by
     rw [← ha2, ← hb2]
-    field_simp [ha.ne', hb.ne'] <;> ring
+    field_simp [ha.ne', hb.ne']
+    ring
   have hn : 0 ≤ (b - a) ^ 2 / (a * b ^ 2) := by positivity
   change a * (1 / x - 1 / y) ≤ 2 * (1 / a - 1 / b)
   linarith only [he, hn]

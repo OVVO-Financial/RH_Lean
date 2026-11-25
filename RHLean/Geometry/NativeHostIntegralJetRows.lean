@@ -249,9 +249,9 @@ theorem halfDifferent_local_eq_top {φ : Frame} (H : HostAx φ) (B : Ideal (𝓞
   have hD := relativeDifferent_not_le_of_prime H p hp P
   rw [hB] at hD
   constructor
-  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (p := P)
+  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (Localization.AtPrime P) (p := P)
     exact fun h => hD (Ideal.mul_le_left.trans h)
-  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (p := P)
+  · apply IsLocalization.AtPrime.map_eq_top_of_not_le (Localization.AtPrime P) (p := P)
     exact fun h => hD (Ideal.mul_le_right.trans h)
 
 /-- A member of the actual relative different clears every integral-weight

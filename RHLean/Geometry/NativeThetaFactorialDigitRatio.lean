@@ -85,7 +85,7 @@ theorem factorialDigitUnit_succ_ratio (P ρ b : ℕ) (hρ : ρ < P) :
       simp only [Nat.cast_mul, Nat.cast_add, Nat.cast_one]
       have hb : (b : ℚ) + 1 ≠ 0 := by positivity
       have hpow := pow_ne_zero b (factorial_cast_ne_zero P)
-      field_simp [factorial_cast_ne_zero, hb, hpow] <;> ring
+      field_simp [factorial_cast_ne_zero, hb, hpow]
     _ = _ := (div_eq_iff (by positivity : (b : ℚ) + 1 ≠ 0)).2
       (hfull.symm.trans (mul_comm _ _))
 

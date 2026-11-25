@@ -76,12 +76,13 @@ theorem pow_dvd_coefficient_factorialDigitUnit (p g ρ : ℕ) [Fact p.Prime] (h�
         apply congrArg (fun z : ℚ => factorialDigitUnit (p ^ g) ρ n * z)
         apply Finset.prod_congr rfl
         intro u hu
-        have hm : 1 ≤ u ∧ u < p ^ g := Finset.mem_Ico.mp hu
         have hp0 : (p : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : p.Prime).ne_zero
-        have hu0 : (u : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega : u ≠ 0)
         have hc : φ (c u) = (p : ℚ) ^ g / ((p : ℚ) * u) := by simp [φ, c, hu]
-        simp only [map_add, map_one, map_mul, map_natCast, hc, Nat.cast_pow]
-        by_cases h : u ≤ ρ <;> simp [d, h] <;> field_simp [hp0, hu0] <;> ring
+        have hd : φ (d u) = if u ≤ ρ then 1 else 0 := by
+          by_cases h : u ≤ ρ <;> simp [d, h]
+        have hslope : (p : ℚ) * ((p : ℚ) ^ g / ((p : ℚ) * u)) = (p : ℚ) ^ g / u := by
+          rw [← mul_div_assoc, mul_div_mul_left _ _ hp0]
+        simp only [map_add, map_one, map_mul, map_natCast, hc, hd, Nat.cast_pow, hslope]
   have hf : ∀ k, (p : R) ^ ((k + 1) / 2) ∣ coefficient f k :=
     pow_dvd_coefficient_of_affine_product_rec (p : R) S c d f hs
   cases reciprocal with

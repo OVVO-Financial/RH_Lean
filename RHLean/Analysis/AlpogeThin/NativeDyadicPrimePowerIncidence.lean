@@ -319,6 +319,7 @@ theorem nativeDyadic_colourIncidence_minor {I J : Type*} [DecidableEq I]
     change (if selected j • H.frob p - competing s • H.frob p ∈ H.inertia p then (1 : ℤ) else 0) = 0
     exact ite_eq_right (hdisj s j)
 
+set_option maxHeartbeats 1000000 in
 /-- Consecutive positive powers have an explicit identity minor up to the
 order of the actual Frobenius class modulo inertia. -/
 theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
@@ -327,6 +328,7 @@ theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
     (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
+  dsimp only [nativeDyadicPrimePowerIncidence]
   let H := alpogeNativeHostData e q d
   exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
     (H.inertia p) (H.frob p) K
