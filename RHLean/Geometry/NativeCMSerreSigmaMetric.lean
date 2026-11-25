@@ -220,10 +220,7 @@ theorem sigmaGram_eq (t u : ℂ ⊗[OK G] D.La) :
           latticeForm (periodPair G τ)
             (![a₁ + b₁, a₁, b₁, 0] j) (![a₂ + b₂, a₂, b₂, 0] j) := by
         refine Finset.sum_congr rfl fun j _ => ?_
-        fin_cases j <;> first
-        | rfl
-        | simp [complexBundleMap, schemeBundleExponent, complexBundleFirst,
-            complexBundleSecond, a₁, b₁, a₂, b₂, g, p, q, ω, smul_eq_mul]
+        fin_cases j <;> rfl
       _ = _ := four_latticeForm_eq_squareGram (periodPair G τ) a₁ b₁ a₂ b₂
   change P.sigmaGram τ C t u = c *
     ∑ ij : Fin P.n × Fin P.n, g ij.1 ij.2 * p ij.1 * conj (q ij.2)
@@ -246,6 +243,7 @@ theorem sigmaGram_eq (t u : ℂ ⊗[OK G] D.La) :
       Finset.sum_congr rfl fun ij _ => h4 ij
     _ = _ := SerreGram.sum_squareGram c ω hω g hg p q
 
+omit [Algebra F ℂ] in
 /-- Gaussian expression of the actual metric, using its proved signed
 trace Gram and actual product of seed sigma frames. -/
 theorem schemeSigmaNormSq_gaussian (j : (P.schemeBundle a (originLB V)).ι)

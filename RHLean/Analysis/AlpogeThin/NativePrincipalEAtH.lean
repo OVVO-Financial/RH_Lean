@@ -110,8 +110,12 @@ theorem nativeDyadic_trivialCharacter_signs (e : ℕ)
     · change (θ (1 : φ.GG) : ℂ) = _
       simp
     · simpa only [Frame.iod, Units.val_neg, Units.val_one, Int.cast_neg, Int.cast_one] using hj
+  have hmem : φ.iotaInv v ∈ φ.A0 := by
+    change φ.iotaInv v ∈ (nativeDyadicFrame e).A0
+    rw [nativeDyadicFrame_A0]
+    simp
   have ht : θ (φ.tau1 (φ.iotaInv v)) = 1 :=
-    hθ _ (by rw [nativeDyadicFrame_A0]; exact AddSubgroup.mem_top)
+    hθ (φ.iotaInv v) hmem
   have hg : (((s, t), v) : φ.GG) =
       ((s, 1), 1) * ((1, t), 1) * φ.tau1 (φ.iotaInv v) := by
     simp [Frame.tau1]
@@ -155,8 +159,18 @@ theorem nativeDyadicHostRaw_principalTwist
   rw [rawDirAt_unit _ θ a ha, hsign]
   change ((((nativeDyadicArt e q d (ZMod.unitOfCoprime a ha)).1.1 : ℤˣ) : ℤ) : ℂ) ^ (i : ℕ) *
     ((((nativeDyadicArt e q d (ZMod.unitOfCoprime a ha)).1.2 : ℤˣ) : ℤ) : ℂ) ^ (j : ℕ) = _
+  have haN : a.Coprime (alpogeNativeHostN e q d) := ha
+  have hq := legUnit_nat (alpogeNativeHostN e q d) q a
+    (alpogeNativeQ_dvd_hostN e q d) haN
+  have hd := legUnit_nat (alpogeNativeHostN e q d) d a
+    (alpogeNativeD_dvd_hostN e q d) haN
   rw [nativeDyadicArt_apply]
-  simp only [legUnit_nat, UpperTheory.Top.tw, principal_value, one_mul]
+  change (((alpogeNativeLegU _ q (alpogeNativeQ_dvd_hostN e q d)
+    (ZMod.unitOfCoprime a haN) : ℤˣ) : ℤ) : ℂ) ^ (i : ℕ) *
+    (((alpogeNativeLegU _ d (alpogeNativeD_dvd_hostN e q d)
+    (ZMod.unitOfCoprime a haN) : ℤˣ) : ℤ) : ℂ) ^ (j : ℕ) = _
+  rw [hq, hd]
+  simp only [UpperTheory.Top.tw, principal_value, one_mul]
 
 private theorem principalBounded_induces
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -179,7 +193,7 @@ private theorem principalBounded_induces
   obtain ⟨i, j, hj, htw⟩ := nativeDyadicHostRaw_principalTwist e q d he hH θ htriv
   have hn : i ≠ 0 ∨ j ≠ 0 := by
     by_contra hh
-    push_neg at hh
+    push Not at hh
     obtain ⟨rfl, rfl⟩ := hh
     rcases hθ' with ⟨_, hnk⟩ | hm
     · apply hnk
@@ -233,7 +247,7 @@ theorem nativeDyadicHostRaw_EAtH
       rw [principal_value] at hval
       unfold HostRaw.dirAt at hval
       rw [ZMod.natCast_zmod_val, H.dir_unit, hu] at hval
-      change (1 : ℂ) = -1 at hval
+      change (1 : ℂ) = (((-1 : ℤˣ) : ℤ) : ℂ) at hval
       norm_num at hval
   · intro θ hθ N _ χ hχ
     obtain ⟨i, j, hij, hI⟩ := principalBounded_induces e q d he hH θ hθ N χ hχ
@@ -268,8 +282,8 @@ theorem nativePrincipalEAtH_windows (eps : ℝ) (heps : 0 < eps)
   have he := nativeDyadicPageN_two_le heps hx2 hP
   refine ⟨exponent x, he, hP, ?_⟩
   intro TT
-  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
-  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  let _ : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let _ : Fact d.Prime := ⟨hG.pair.d_prime⟩
   exact nativeDyadicHostRaw_EAtH (exponent x) q d he
     (nativeDyadicHostHyp_of_winPair hG.pair) heps hx1 hG hx.1 hx.2 TT
 

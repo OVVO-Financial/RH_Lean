@@ -292,6 +292,18 @@ theorem coefficient_half_quotient_equiv
     (coefficientLevelPoint_zero_iff H G hbar B hB τ₀ V C hVC a hact hcompat N hN)
     (coefficientLevelPoint_surjective_torsion H G hbar B hB τ₀ V C hVC a hact hcompat N hN)
 
+/-- Factor the dependent inner proposition before introducing the nested
+field and host witnesses. The equivalence and its point formula are
+definitionally the original conclusion of `coefficient_half_quotient_equiv`. -/
+abbrev coefficientHalfLevelFormula (N : ℕ) (I : Ideal (𝓞 H.E)) : Prop :=
+    ∃ lev : (twistedLattice H B 1 ⧸
+        (I • ⊤ : Submodule (𝓞 H.E) (twistedLattice H B 1))) ≃ₗ[𝓞 H.E]
+        idealTorsion (A := Pts
+          (coefficientSerreSchemeFullAction H G hbar B hB 1 a) (specOver F ℂ)) I,
+      ∀ x, (lev (Submodule.Quotient.mk x) :
+          Pts (coefficientSerreSchemeFullAction H G hbar B hB 1 a) (specOver F ℂ)) =
+        coefficientLevelPoint H G hbar B hB τ₀ V C hVC a hact hcompat N (cHalf G I • x)
+
 include hVC hact hcompat in
 /-- The cardinal of actual half-torsion is the norm of the half ideal,
 because the unchanged coefficient lattice has projective O(E)-rank one. -/
@@ -354,14 +366,8 @@ theorem nativeDyadicHost_exists_genericHalfLevel
           IsCoprime I (I.map (G.bar : 𝓞 H.E →+* 𝓞 H.E)) ∧
           I * I.map (G.bar : 𝓞 H.E →+* 𝓞 H.E) = Ideal.span {(5 : 𝓞 H.E)} ∧
           ∃ (hc : ∀ τ : cmTypeFinset H.toHostRaw,
-            embed G (τ : H.E →+* ℂ) = algebraMap (OK G) ℂ)
-            (lev : (twistedLattice H.toHostRaw B 1 ⧸
-              (I • ⊤ : Submodule (𝓞 H.E) (twistedLattice H.toHostRaw B 1))) ≃ₗ[𝓞 H.E]
-              idealTorsion (A := Pts
-                (coefficientSerreSchemeFullAction H.toHostRaw G hbar B hB 1 a) (specOver F ℂ)) I),
-            ∀ x, (lev (Submodule.Quotient.mk x) : Pts
-              (coefficientSerreSchemeFullAction H.toHostRaw G hbar B hB 1 a) (specOver F ℂ)) =
-              coefficientLevelPoint H.toHostRaw G hbar B hB τ₀ V C hVC a hact hc 5 (cHalf G I • x) := by
+            embed G (τ : H.E →+* ℂ) = algebraMap (OK G) ℂ),
+            coefficientHalfLevelFormula H.toHostRaw G hbar B hB τ₀ V C hVC a hact hc 5 I := by
   let H := nativeDyadicHostAx e q d he hH
   let _ : IsCMField H.E := H.der.cm
   let G := nativeDyadicGeometricHostOfDerived e q d he hH
@@ -370,15 +376,15 @@ theorem nativeDyadicHost_exists_genericHalfLevel
     nativeDyadicHost_exists_genericSerreSeed e q d he hH
   refine ⟨B, hB, ?_⟩
   intro τ₀
-  letI : Algebra (OK G) ℂ := (embed G (τ₀ : H.E →+* ℂ)).toAlgebra
+  let _ : Algebra (OK G) ℂ := (embed G (τ₀ : H.E →+* ℂ)).toAlgebra
   have hseedτ := hseed τ₀
   obtain ⟨M, hM, W, w, C, hΔ, _hhost, _hw, _hLie, _hLB, _hpol, _hu,
     hC, _hsurj, _hker, _hderiv, hgeneric⟩ := hseedτ
-  letI : NumberField M := hM
-  letI : W.IsElliptic := ⟨hΔ.symm ▸ isUnit_one⟩
+  let _ : NumberField M := hM
+  let _ : W.IsElliptic := ⟨hΔ.symm ▸ isUnit_one⟩
   obtain ⟨F, hF, _hMF, V, hV, hVC, a, _hnorm, hact, _hrest⟩ := hgeneric
-  letI : NumberField F := hF
-  letI : V.IsElliptic := hV
+  let _ : NumberField F := hF
+  let _ : V.IsElliptic := hV
   obtain ⟨I, hI1, hI0, hIc, _hI2, hI5⟩ :
       ∃ I : Ideal (𝓞 H.E), I ≠ ⊤ ∧ I ≠ ⊥ ∧
         IsCoprime I (H.conj • I) ∧ IsCoprime I (Ideal.span {(2 : 𝓞 H.E)}) ∧

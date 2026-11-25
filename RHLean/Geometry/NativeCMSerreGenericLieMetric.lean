@@ -34,7 +34,7 @@ set_option relaxedAutoImplicit false
 noncomputable section
 
 open NumberField AlgebraicGeometry CategoryTheory MonoidalCategory CartesianMonoidalCategory MonObj
-open scoped Classical TensorProduct BigOperators ComplexConjugate Real
+open scoped Classical TensorProduct BigOperators ComplexConjugate Real Pointwise
 
 attribute [local instance] Over.cartesianMonoidalCategory
 
@@ -166,8 +166,7 @@ theorem genericLieDirection_exponential_coordinate
   rw [genericExponential_coordinate, map_smul, genericLieDirection_coordinate,
     genericSeedExponential_apply]
   congr 3
-  change (C.u : ℂ)⁻¹ * (z * ((C.u : ℂ) * _)) = _
-  rw [mul_left_comm z, ← mul_assoc, inv_mul_cancel₀ C.u.ne_zero, _root_.one_mul]
+  exact inv_mul_cancel_left₀ C.u.ne_zero _
 
 /-- This is the Gaussian form of the actual signed sigma metric evaluated
 in the directions determined by the actual projection derivatives. -/
