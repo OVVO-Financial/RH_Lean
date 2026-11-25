@@ -14,9 +14,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   closed-external-rh:
-    # The frozen upstream cache requires about 105 GB of free disk. Use
-    # an authorized large hosted runner through a repository variable.
-    # On a smaller runner the resource preflight fails before downloading.
+    # Select only the import closure of the quantitative replay, not
+    # the entire upstream cache. Large hosted runner remains optional.
     runs-on: ${{ vars.RHLEAN_ALPOGE_REPLAY_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 240
     steps:
@@ -46,10 +45,8 @@ jobs:
           df -h .
           free -h
           available=$(df -Pk . | awk 'NR==2 {print $4}')
-          # Pinned upstream verification/CACHE.md documents about 105 GB.
-          # Keep the 115 GiB cleanup target, but do not confuse that
-          # aspirational target with a required minimum. Even interpreting
-          # upstream's GB conservatively as GiB, 110 GiB leaves headroom.
+          # Keep the established initial resource reserve. Actual usage
+          # is checked after downloads and before every extraction batch.
           minimum_gib=110
           if (( available < minimum_gib * 1024 * 1024 )); then
             echo "::error::Frozen Alpoge replay requires at least ${minimum_gib} GiB free disk including headroom. Configure RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized sufficiently large hosted runner."
@@ -70,10 +67,10 @@ jobs:
           path: |
             ~/.elan/toolchains
             alpoge-stage1-upstream/.lake/cache
-          key: alpoge-stage1-frozen-v1-${{ runner.os }}-${{ runner.arch }}-774b9e8022f50d20be861ecc9d609cfc26436a81
-      - name: Compile and audit the closed quantitative and RH roots
-        run: bash scripts/alpoge_stage1/replay.sh alpoge-stage1-upstream
-      - name: Save pinned compressed cache on success
+          key: alpoge-stage1-closure-v2-${{ runner.os }}-${{ runner.arch }}-774b9e8022f50d20be861ecc9d609cfc26436a81
+      - name: Download and verify only the quantitative import closure
+        run: bash scripts/alpoge_stage1/replay.sh alpoge-stage1-upstream fetch
+      - name: Save verified compressed cache before extraction
         if: steps.frozen-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
@@ -81,6 +78,8 @@ jobs:
             ~/.elan/toolchains
             alpoge-stage1-upstream/.lake/cache
           key: ${{ steps.frozen-cache.outputs.cache-primary-key }}
+      - name: Restore needed proof objects in batches and compile closed roots
+        run: bash scripts/alpoge_stage1/replay.sh alpoge-stage1-upstream compile
       - name: Publish compilation evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -88,6 +87,7 @@ jobs:
           name: alpoge-stage1-closed-rh
           path: |
             alpoge-stage1.log
+            alpoge-stage1-import-closure.json
             alpoge-stage1-upstream/RHLeanStage1.olean
             alpoge-stage1-upstream/RHLeanStage1.lean
           if-no-files-found: warn

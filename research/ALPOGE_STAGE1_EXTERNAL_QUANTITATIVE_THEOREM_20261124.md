@@ -212,3 +212,40 @@ changes. Actual peak disk and RAM usage still need hosted measurement;
 the new threshold is a documented estimate, not a guarantee that the
 full cache and proof elaboration fit. A successful resource preflight
 must never be treated as a successful Lean replay.
+
+### Import-closure-only replay after the actual ENOSPC failure
+
+Run 45522129793/job 138896348040 passed resource preflight but failed
+during the original 175187-module bulk restore with ENOSPC (user-supplied
+job log). We cannot fix that by reducing a disk threshold. Stage 1 only
+requires the original quantitative suppliers and scalar analytic handoff.
+
+ClosedRH.lean.in now explicitly imports the four original supplier
+modules of MainConclusion.lean plus the quantitative window and analytic
+criterion modules. It no longer imports MainConclusion directly or asks
+Lake to build Main. The frozen supplier files themselves still contain
+some terminal consumers beside the required declarations; deleting their
+theorems would change the accepted upstream dependency. Actual proof-term
+audit still forbids the named terminal shortcuts.
+
+restore_closure.py traverses the literal imports of the pinned original
+source from these roots, validates the entire pinned manifest, selects
+only the transitive project module closure, and delegates SHA-256-checked
+downloads and per-module archive/output validation to the original mirror
+helpers. Restore is batched (512 modules, four leantar workers) rather
+than a single 24-worker restore. After each batch discard generated C
+source and editor .ilean indexes only. Preserve every compiled .olean
+variant, Lean IR/signature and original proof expression. Never edit
+the frozen source. The command-line Lean elaboration still fails on
+any missing import. This deliberately accepts the published external
+proof objects; it is not a fresh independent build of the original proof.
+
+Save verified compressed archives before unpacking, so a later resource
+or elaboration failure need not repeat the downloads. Report exact
+selected and omitted module counts, imports and disk use. Initial disk
+guard is retained; batch guards stop before exhausting the remaining
+filesystem. No change to closed RH theorem, quantitative statement,
+axiom whitelist or transitive proof audit. The actual closure cardinality,
+peak storage and successful Lean replay are not yet measured. In
+particular the supplier closure may still be large; the larger-runner
+option remains available if the selected cache cannot fit.

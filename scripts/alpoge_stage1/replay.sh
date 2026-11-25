@@ -9,14 +9,24 @@ test "$(git -C "$upstream" rev-parse HEAD:src)" = 24df20b62d9976ccd20da819bc20b1
 test "$(cat "$upstream/lean-toolchain")" = leanprover/lean4:v4.33.1
 test "$(git -C "$upstream" hash-object lake-manifest.json)" = b4d1ec31575a26b2159ec3a262b482bc051f3f6f
 
-# Do not create a new file inside the frozen src tree before restoring
-# its pinned public community cache.
+# Only the selected proof import closure is restored. Never invoke the
+# frozen project's full-cache entrypoint or build its terminal Main.
+phase="${2:-all}"
+case "$phase" in fetch|compile|all) ;; *) echo "Unknown replay phase: $phase" >&2; exit 2;; esac
 cd "$upstream"
-bash "$root/scripts/ci/install_pinned_lean_retry.sh"
 export PATH="$HOME/.elan/bin:$PATH"
 export LEAN_ABORT_ON_PANIC=1
-lake exe cache get
-lake build --no-build Main
+if [[ "$phase" != compile ]]; then
+  bash "$root/scripts/ci/install_pinned_lean_retry.sh"
+  MATHLIB_CACHE_GET_URL=https://cache.mathlib.org/mathlib4 lake exe mathlib/cache get
+  python3 "$root/scripts/alpoge_stage1/restore_closure.py" fetch "$upstream" \
+    "$root/scripts/alpoge_stage1/ClosedRH.lean.in" --report "$root/alpoge-stage1-import-closure.json"
+fi
+if [[ "$phase" == fetch ]]; then exit 0; fi
+python3 "$root/scripts/alpoge_stage1/restore_closure.py" restore "$upstream" \
+  "$root/scripts/alpoge_stage1/ClosedRH.lean.in" --report "$root/alpoge-stage1-import-closure.json"
+df -h .
+free -h
 
 # Splice the actual main-branch-compatible source definitions, rather
 # than maintaining a possibly divergent redefinition.

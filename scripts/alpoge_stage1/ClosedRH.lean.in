@@ -5,7 +5,12 @@ AlpogeNativeBoundHandoff.lean by the replay script. No external premise
 is postulated. The original supplier proof is explicitly accepted
 in this stage; its independence from geometry is NOT claimed.
 -/
-import Development.AutomorphicArithmetic.CharacterBoxes.MainConclusion
+import Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.EveryCharacterOfLiteratureOfVWin
+import Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.VwinOfRow
+import Development.AutomorphicArithmetic.Foundations.LocalLanglands.LocalCentralUnits.RecTExists
+import Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.RowSrc
+import Development.AutomorphicArithmetic.PrimitiveCosets.LevelGmLeOnFamilyScales
+import Development.AutomorphicArithmetic.PrimitiveCosets.Imports
 import Formalism.GammaFactorNonvanishing.RhOfRight
 import Lean.Util.CollectAxioms
 
