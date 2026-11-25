@@ -1,4 +1,5 @@
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
+import RHLean.Geometry.NativeThetaFactorialDigitReadout
 import RHLean.Geometry.NativeJointEvaluationRecovery
 import RHLean.Analysis.AlpogeNativeThickFreezing
 import Lean.Util.CollectAxioms
@@ -9,6 +10,7 @@ ties, global degree and the remaining quantitative hypotheses. -/
 
 #check RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests
 #check RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests
+#check RHLean.Geometry.NativeTheta.ExponentDigits.factorialDigitUnit_sum_readout_precision
 #check RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_congruent_primitive_tests
 #check RHLean.Analysis.alpogeNativeSignedWidthSource_upper_width_le
 #check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_upper_width_le
@@ -28,6 +30,7 @@ run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[``RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests,
+    ``RHLean.Geometry.NativeTheta.ExponentDigits.factorialDigitUnit_sum_readout_precision,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_congruent_primitive_tests,
     ``RHLean.Analysis.alpogeNativeSignedWidthSource_upper_width_le,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_upper_width_le,

@@ -108,4 +108,33 @@ theorem factorialDigitUnit_pow_dvd_sub_totalReadout {ι : Type*} [Fintype ι] [D
   exact pow_dvd_prod_sub_totalReadout (p : primeLocalRationals p) c hc _
     (fun i j => pow_dvd_coefficient_factorialDigitUnit p (g i) (ρ i) (hρ i) (reciprocal i) j) n
 
+/-- A degree 2D readout has enough precision for a depth-D primitive
+pairing, after base change and summation with arbitrary integral coefficients.
+The residue and coarse exponent data may vary independently at every term. -/
+theorem factorialDigitUnit_sum_readout_precision {ι J O : Type*}
+    [Fintype ι] [DecidableEq ι] [CommRing O] (p : ℕ) [Fact p.Prime]
+    (φ : primeLocalRationals p →+* O) (π : O) (hπ : π ∣ (p : O))
+    (D : ℕ) (S : Finset J) (coeff : J → O) (g ρ n : J → ι → ℕ)
+    (hρ : ∀ j i, ρ j i < p ^ g j i) (reciprocal : J → ι → Bool) :
+    let f (j : J) (i : ι) :=
+      signedLocalFactorialDigitUnit p (g j i) (ρ j i) (hρ j i) (reciprocal j i)
+    (p : O) ^ D * π ∣
+      (∑ j ∈ S, coeff j * φ (∏ i, f j i (n j i))) -
+      (∑ j ∈ S, coeff j * φ (totalReadout (f j) (2 * D) (n j))) := by
+  dsimp only
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.dvd_sum
+  intro j _
+  rw [← mul_sub]
+  apply dvd_mul_of_dvd_right
+  have hdepth : (p : O) ^ D * π ∣ (p : O) ^ (D + 1) := by
+    rw [pow_succ]
+    exact mul_dvd_mul_left _ hπ
+  apply hdepth.trans
+  obtain ⟨z, hz⟩ := factorialDigitUnit_pow_dvd_sub_totalReadout
+    p (g j) (ρ j) (hρ j) (reciprocal j) (D + 1) (Nat.succ_pos D) (n j)
+  refine ⟨φ z, ?_⟩
+  simpa only [map_sub, map_mul, map_pow, map_natCast, Nat.add_sub_cancel] using
+    congrArg φ hz
+
 end RHLean.Geometry.NativeTheta.ExponentDigits

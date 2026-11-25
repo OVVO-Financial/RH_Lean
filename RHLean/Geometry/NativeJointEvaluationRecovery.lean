@@ -164,26 +164,27 @@ theorem recovery_of_primitive_tests
     (show a • y ∈ (K.comap C).map E from smith_mem_of_primitive_tests S a hS y)
   exact ⟨v, hv, he⟩
 
-/-- An integral comparison on each primitive test suffices. The comparison maps
-live on the same lattice. Their competing read may differ inside K, and their
-selected pairing may differ by a multiple of a * π. For a = p^D in a DVR,
+/-- An integral comparison on each primitive test suffices. Only the physical
+readings need linear maps. The comparison supplies a scalar on the same
+witness and a competing reading modulo K. For a = p^D in a DVR,
 one uniformizer digit beyond the valuation of p^D preserves the depth D. -/
 theorem recovery_of_congruent_primitive_tests
     {O L I V : Type*} [CommRing O] [IsDomain O] [IsPrincipalIdealRing O]
     [IsLocalRing O] [Fintype I] [AddCommGroup L] [Module O L]
     [AddCommGroup V] [Module O V]
-    (E E₀ : L →ₗ[O] (I → O)) (C C₀ : L →ₗ[O] V)
+    (E : L →ₗ[O] (I → O)) (C : L →ₗ[O] V)
+    (pairing : (I → O) → L → O) (C₀ : L → V)
     (K : Submodule O V) (a π : O) (hπ : π ∈ IsLocalRing.maximalIdeal O)
     (htest : ∀ c : I → O, (∃ i, IsUnit (c i)) → ∃ v : L,
-      C₀ v ∈ K ∧ C v - C₀ v ∈ K ∧ (∑ i, c i * E₀ v i) ∣ a ∧
-      a * π ∣ (∑ i, c i * E v i) - (∑ i, c i * E₀ v i)) :
+      C₀ v ∈ K ∧ C v - C₀ v ∈ K ∧ pairing c v ∣ a ∧
+      a * π ∣ (∑ i, c i * E v i) - pairing c v) :
     ∀ y : I → O, ∃ v : L, C v ∈ K ∧ E v = a • y := by
   apply recovery_of_primitive_tests E C K a
   intro c hc
   obtain ⟨v, hv, hdiff, hdiv, hcong⟩ := htest c hc
   obtain ⟨b, hb⟩ := hdiv
   obtain ⟨z, hz⟩ := hcong
-  let s := ∑ i, c i * E₀ v i
+  let s := pairing c v
   have hab : a = s * b := hb
   have hunit : IsUnit (1 + π * (b * z)) := by
     apply (IsLocalRing.residue_ne_zero_iff_isUnit _).mp
