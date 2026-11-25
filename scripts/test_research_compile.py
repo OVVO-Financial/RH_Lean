@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+import textwrap
 import unittest
 from unittest.mock import patch
 
@@ -251,6 +252,29 @@ class ResearchCacheTests(unittest.TestCase):
         self.assertNotIn('continue-on-error:', stage)
         self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
         self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
+
+    def test_cm_diagnostic_accepts_actual_34_target_plan_and_fails_closed(self):
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        diagnostic = workflow.split('      - name: Collect independent CM supplier diagnostics after failure', 1)[1]
+        source = diagnostic.split("          python3 - <<'PY'\n", 1)[1].split('\n          PY', 1)[0]
+        script = compile(textwrap.dedent(source), '<CM diagnostic workflow>', 'exec')
+        targets = [f'RHLean.Geometry.CMTarget{i}' for i in range(34)]
+        with patch.object(Path, 'read_text', return_value=json.dumps({'library': targets})), \
+                patch.object(subprocess, 'Popen') as popen, contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit) as failed:
+                exec(script, {})
+            self.assertEqual(failed.exception.code, 1)
+            popen.assert_called_once_with(['lake', 'build', *targets], start_new_session=True)
+            popen.return_value.wait.assert_called_once_with(timeout=900)
+        for bad in ([], targets + targets, ['-bad'],
+                    [f'RHLean.Geometry.CMTarget{i}' for i in range(65)]):
+            with self.subTest(targets=bad), \
+                    patch.object(Path, 'read_text', return_value=json.dumps({'library': bad})), \
+                    patch.object(subprocess, 'Popen') as popen:
+                with self.assertRaises(SystemExit) as failed:
+                    exec(script, {})
+                self.assertIn('Unexpected CM diagnostic target set', str(failed.exception))
+                popen.assert_not_called()
 
     def test_plan_keys_track_leaf_content_not_mtimes(self):
         _, initial = self.compile()

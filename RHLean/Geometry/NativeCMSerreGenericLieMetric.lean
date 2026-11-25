@@ -166,7 +166,8 @@ theorem genericLieDirection_exponential_coordinate
   rw [genericExponential_coordinate, map_smul, genericLieDirection_coordinate,
     genericSeedExponential_apply]
   congr 3
-  exact inv_mul_cancel_left₀ C.u.ne_zero _
+  change (C.u : ℂ)⁻¹ * (z * ((C.u : ℂ) * algebraMap F ℂ (P.fieldCoefficient i t))) = _
+  rw [mul_left_comm ((C.u : ℂ)⁻¹) z, inv_mul_cancel_left₀ C.u.ne_zero]
 
 /-- This is the Gaussian form of the actual signed sigma metric evaluated
 in the directions determined by the actual projection derivatives. -/

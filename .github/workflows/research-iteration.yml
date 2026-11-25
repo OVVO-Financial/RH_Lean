@@ -147,10 +147,17 @@ jobs:
           from pathlib import Path
 
           plan = json.loads(Path('/tmp/rhlean-research-plan.json').read_text())
-          targets = list(plan['library'])
-          if not targets or len(targets) > 24:
-              raise SystemExit('Unexpected CM diagnostic target set')
-          print('DIAGNOSTIC ONLY; REQUIRED PREFLIGHT REMAINS FAILED', flush=True)
+          targets = plan['library']
+          # The actual final-proof closure already plans 34 library targets.
+          # Allow a bounded, validated diagnostic plan; keep the 900s limit
+          # and the original mandatory warning-fatal preflight failure.
+          if (not isinstance(targets, list) or not targets or len(targets) > 64
+                  or any(not isinstance(t, str) or not t.startswith('RHLean.')
+                         or not all(part.isidentifier() for part in t.split('.'))
+                         for t in targets)
+                  or len(set(targets)) != len(targets)):
+              raise SystemExit('Unexpected CM diagnostic target set (expected 1..64 unique RHLean modules)')
+          print(f'DIAGNOSTIC ONLY; REQUIRED PREFLIGHT REMAINS FAILED; {len(targets)} targets', flush=True)
           process = subprocess.Popen(['lake', 'build', *targets], start_new_session=True)
           try:
               process.wait(timeout=900)
