@@ -349,6 +349,42 @@ theorem alpogeNativePhysicalSubgroupTopExcess_logGrid_le
     rw [one_div, ← div_eq_inv_mul]
     exact (div_le_iff₀ hcard).2 (hsum.trans_eq (mul_comm _ _))
 
+/-- On the full native host a fixed first-coset colour is charged once
+for each thick site. This is the density earned in the signed ASK saving. -/
+theorem alpogeNativeThickColour_translate_count (T2 : Finset H) (t h : H) :
+    (Finset.univ.filter (fun u : H =>
+      alpogeNativeProjectionE1 h ∈ alpogeNativeProjectionThickColours T2 u t)).card =
+      T2.card := by
+  classical
+  have hset : Finset.univ.filter (fun u : H =>
+      alpogeNativeProjectionE1 h ∈ alpogeNativeProjectionThickColours T2 u t) =
+      T2.image (fun s => h + t - s) := by
+    ext u
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and,
+      alpogeNativeProjectionThickColours, Finset.mem_image]
+    constructor
+    · rintro ⟨s, hs, heq⟩
+      have hx : s + u - t = h := congrArg Prod.snd heq
+      exact ⟨s, hs, by rw [← hx]; abel⟩
+    · rintro ⟨s, hs, rfl⟩
+      exact ⟨s, hs, congrArg alpogeNativeProjectionE1 (by abel)⟩
+  rw [hset]
+  exact Finset.card_image_of_injective _ (fun _ _ hxy => sub_right_injective hxy)
+
+/-- The rounded widths still pay the physical thick cutoff. For each
+selected colour the saving is the difference of two sharp cuts. -/
+theorem alpogeNativeLowerLogWidth_cut_le (η z c w : ℝ)
+    (hη : 0 < η) (hw : 0 < w) (hc : c ≤ w) :
+    alpogeASKPos z (alpogeNativeLowerLogWidth η w) ≤
+      alpogeASKPos z (c * Real.exp (-η)) := by
+  have hlog := (lowerLogWidth_bounds hη hw).2
+  have hle : Real.log w - η ≤ Real.log (alpogeNativeLowerLogWidth η w) := by linarith
+  have hw' : 0 < alpogeNativeLowerLogWidth η w := Real.exp_pos _
+  have hbound := Real.exp_le_exp.mpr hle
+  rw [sub_eq_add_neg, Real.exp_add, Real.exp_log hw, Real.exp_log hw'] at hbound
+  apply max_le_max _ le_rfl
+  exact sub_le_sub_left ((mul_le_mul_of_nonneg_right hc (Real.exp_pos _).le).trans hbound) z
+
 /-- Independent upper estimate on the comparison source. Every positive-part cut
 is at most its height divided by the prime power. The full signed MAIN is
 retained, and the mass-two estimate uses the given inertia and Frobenius. -/

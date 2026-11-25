@@ -18,6 +18,8 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Analysis.AlpogeThin.nativeDiscrepancyPrice_le
 #check RHLean.Analysis.AlpogeThin.nativeConstructedDyadicDiscrepancyLedger
 #check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound
+#check RHLean.Analysis.alpogeNativeLowerLogWidth_cut_le
+#check RHLean.Analysis.alpogeNativeThickColour_translate_count
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift
 #check RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated
@@ -41,6 +43,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDiscrepancyPrice_le,
     ``RHLean.Analysis.AlpogeThin.nativeConstructedDyadicDiscrepancyLedger,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound,
+    ``RHLean.Analysis.alpogeNativeLowerLogWidth_cut_le,
+    ``RHLean.Analysis.alpogeNativeThickColour_translate_count,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift,
     ``RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated,
