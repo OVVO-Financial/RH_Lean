@@ -86,3 +86,8 @@ Use original G(N) and square-clock handoff from #1205. Preserve class selectors,
 - verify the three original numerical obligations on one coherent instance/family, not different artificial witnesses; keep full error bounds and fixed complete windows. The local result here is only progress on the construction problem, and the global real-size inequality, actual map attachment, admissible family and RH-strength estimate are still open in RH_Lean.
 
 Priority is mathematical dependency minimization, not token compression or proof-count reduction. The dashboard core percentages are navigation and verification telemetry, not proof of these native suppliers. No runtime retask, merge or main change. This update adds research documentation and a reproducible Python diagnostic, not Lean declarations.
+
+
+## V9 — controlling height-free refinement
+
+[Height-free joint comparison and root-scale native frame control](RHLEAN_HEIGHT_FREE_JOINT_FRAME_ATTACK_20261125.md) supersedes geometric height reconstruction as a research requirement. Actual norm, valuation, covolume, rank and signed payment remain. Log-free distributional frame refinement and native high-prime Gram/common-range bounds are paper results; no terminal signed estimate.
