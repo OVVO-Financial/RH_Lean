@@ -249,3 +249,28 @@ axiom whitelist or transitive proof audit. The actual closure cardinality,
 peak storage and successful Lean replay are not yet measured. In
 particular the supplier closure may still be large; the larger-runner
 option remains available if the selected cache cannot fit.
+
+### First actual Lean replay: quantitative root verified
+
+Run 45524750963/job 138905200712 on ec75c336 restored all 175174
+selected modules (13 omitted from the 175187-module manifest) and
+retained 5.50 GiB free. This is an import closure, not the number of
+theorems logically used. The verified compressed cache was saved before
+the extraction. The full restore finished at 01:38:43 UTC; Lean
+reported its result at 02:09:40 UTC on 2026-11-25.
+
+The first substantive root, principalQuantitativeWindowBound,
+elaborated with exactly the allowed axioms propext, Classical.choice,
+Quot.sound. It is the closed principal-character cofinal-window
+quantitative inequality on RH_Lean's literal statementOCGz source.
+
+The only reported elaboration error was in externalQuantitative:
+simp only [one_mul] did not unfold the set comprehension membership
+returned by the HasWindows witness. Explicitly change the witness's
+type to the pointwise inequality before simplifying 1 * rpow.
+The downstream sorryAx reports are consequences of this failed
+declaration, not independent missing quantitative premises. The
+conditional analytic handoff had no separate reported elaboration error.
+The exact-root, axiom and transitive dependency audits remain mandatory;
+the latter did not complete on this attempt. No claim of a verified
+closed RH declaration until the repaired exact-head job passes.

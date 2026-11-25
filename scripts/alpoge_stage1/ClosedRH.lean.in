@@ -108,7 +108,10 @@ theorem externalQuantitative :
   obtain ⟨K, ε₁, h1, hbound⟩ := principalQuantitativeWindowBound
   refine ⟨K, ε₁, h1, fun eps he hl => ⟨1, fun Y₀ => ?_⟩⟩
   obtain ⟨Y, hY, hw⟩ := hbound eps he hl Y₀
-  exact ⟨Y, hY, fun y hy => by simpa only [one_mul] using hw y hy.1 hy.2⟩
+  refine ⟨Y, hY, fun y hy => ?_⟩
+  have hpoint := hw y hy.1 hy.2
+  change statementOCGz y ≤ y ^ (1 / 2 + K * eps) at hpoint
+  simpa only [one_mul] using hpoint
 
 /-- The isolated compatible-toolchain version of the native scalar
 handoff. It consumes exactly the merged #1205 input, using the original
