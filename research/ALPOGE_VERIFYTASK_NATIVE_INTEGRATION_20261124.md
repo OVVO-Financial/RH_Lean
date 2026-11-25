@@ -206,6 +206,21 @@ above determine the actual hypotheses. [VerifyTask map](https://riemann.verifyta
    of the community's `GoodRankK` and `LPprimeAt`.
    [Integral recovery and off-edge conditions](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean#L208-L223).
 
+   A smaller first theorem is available. Fix the independent row functionals
+   $\phi_i$ on the actual local target lattice $L$ and the exponent $D$
+   allowed by the local budget before choosing coefficients. For each coefficient
+   vector $c$ with a unit entry, exhibit $G\in L$ for which the integral
+   value $\sum_i c_i\phi_i(G)$ divides $p^D$. The community theorem
+   `goodRank_of_prim` converts this and integral linearity into the
+   recovery map by Smith normal form. Its caller separately supplies the
+   row count and off-edge divisibility. Test the coupled orbit rows here.
+   On the plain native wheel, every difference iterate retains coefficient
+   one at the first site of each prime-power fibre. Repetition alone cannot
+   supply a positive valuation on that coefficient.
+   [Primitive-combination theorem](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/GoodRankOfPrim.lean#L34-L65)
+   · [use with edge and rank data](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/GoodRankOfPrim.lean#L109-L132)
+   · [native wheel coefficient theorem](NATIVE_PRIME_POWER_RECOVERY_TEST_20261123.lean).
+
    The community's `admG1` makes two different measurements. Every retained
    vector satisfies a lower valuation bound involving the sum of the local
    gains. The quotient of the ramified lattice by the retained submodule

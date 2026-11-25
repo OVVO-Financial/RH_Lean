@@ -4,7 +4,7 @@ Use the [leanprover-community cleanup](https://github.com/leanprover-community/r
 
 At this community revision the row theorem lives in `MainConclusion`, which imports both large suppliers. Isolate the row theorem and its inputs if retaining that route. Removing the two imports from the caller alone saves zero modules.
 
-Prioritize the [native square-clock route](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock). At $X_R=R^2-1$, construct the integral recovery map on the actual retained rows. Prove its valuation gain and bound the discarded quotient length, then pay both averaged losses. Use Cores 19/20 and 15/21 to locate the recovery and covolume obligations. Use one prime pair for the full window and measure the heights and widths on its dyadic host at each anchor.
+Prioritize the [native square-clock route](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock). Apply `goodRank_of_prim` to the actual retained rows at $X_R=R^2-1$ by exhibiting, for each coefficient vector with a unit entry, a lattice element whose combined evaluation divides $p^D$. Track the number of recovered coordinates and divisibility on competing edges. Prove the valuation gain and bound the discarded quotient length, then pay both averaged losses. Use Cores 19/20 and 15/21 to locate the recovery and covolume obligations. Use one prime pair for the full window and measure the heights and widths on its dyadic host at each anchor.
 
 **DIRECT_CORE_CUT_V1 — controlling task selection under STRICT_NO_GEOCL_ANYGEOMETRY_V1.**
 Do not attempt to rebuild `FamP`, `ChainTied`, `HypsAlt`, or `TopG` as

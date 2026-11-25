@@ -35,7 +35,7 @@ theorem primeOrder_le_degree (E : Type) [Field E] [NumberField E]
     (r p : ℕ) (A : Matrix (Fin r) (Fin r) E)
     (hp : p.Prime) (hA : A ^ p = 1) (hne : A ≠ 1) :
     p - 1 ≤ Module.finrank ℚ E * r := by
-  letI := Fact.mk hp
+  let : Fact p.Prime := ⟨hp⟩
   let f : (Fin r → E) →ₗ[ℚ] (Fin r → E) :=
     (Matrix.toLin' A).restrictScalars ℚ
   have hpow : ∀ v : Fin r → E, (f ^ p) v = v := by
@@ -68,12 +68,7 @@ theorem primeOrder_le_degree (E : Type) [Field E] [NumberField E]
     apply hne
     have hcop : IsCoprime (minpoly ℚ f) (cyclotomic p ℚ) :=
       ((hi.coprime_iff_not_dvd).2 hc).symm
-    have h : minpoly ℚ f ∣ X - 1 := by
-      first
-      | exact hcop.dvd_of_dvd_mul_left hd
-      | exact hcop.dvd_of_dvd_mul_right hd
-      | exact hcop.dvd_of_dvd_mul_left (by rwa [mul_comm] at hd)
-      | exact hcop.dvd_of_dvd_mul_right (by rwa [mul_comm] at hd)
+    have h : minpoly ℚ f ∣ X - 1 := hcop.dvd_of_dvd_mul_left hd
     have ha : aeval f (X - 1 : Polynomial ℚ) = 0 := by
       obtain ⟨Q, hQ⟩ := h
       rw [hQ, map_mul, minpoly.aeval, zero_mul]
@@ -128,7 +123,9 @@ theorem local_eq_one_of_red_eq_one
       Ideal.Quotient.eq_zero_iff_mem.2 ((IsLocalRing.mem_maximalIdeal _).2 h)
     rw [hz] at h3
     exact not_isUnit_zero h3
-  exact sub_eq_zero.1 ((Matrix.isUnit_iff_isUnit_det.2 h4).mul_right_eq_zero.1 h1)
+  have hu : IsUnit (∑ i ∈ Finset.range m, M ^ i) :=
+    (Matrix.isUnit_iff_isUnit_det _).2 h4
+  exact sub_eq_zero.1 (hu.mul_right_eq_zero.1 h1)
 
 /-- A single local reduction is enough to remove the coprime part of
 the actual finite order. No rational-level torsion assumption is made. -/
