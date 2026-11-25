@@ -349,6 +349,45 @@ theorem alpogeNativePhysicalSubgroupTopExcess_logGrid_le
     rw [one_div, ← div_eq_inv_mul]
     exact (div_le_iff₀ hcard).2 (hsum.trans_eq (mul_comm _ _))
 
+/-- Independent upper estimate on the comparison source. Every positive-part cut
+is at most its height divided by the prime power. The full signed MAIN is
+retained, and the mass-two estimate uses the given inertia and Frobenius. -/
+theorem alpogeNativePhysicalSubgroupTopExcess_mass_bound
+    (A0 : AddSubgroup H) (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N m : ℕ) (TT : Finset H) (a : H → ℝ)
+    (w : H → Fin m → AlpogeNativeE0 × H → ℝ)
+    (ha : ∀ t ∈ TT, 0 ≤ a t)
+    (hw : ∀ (u : A0) j ρ, alpogeNativeInPhi ρ → 0 ≤ w u j ρ) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w ≤
+      (1 / (Fintype.card A0 : ℝ)) * ∑ u : A0, ∑ t ∈ TT, ∑ j : Fin m,
+        ((∑ n ∈ Finset.Icc 1 N, (2 * Λ n) * (a t / (n : ℝ))) -
+          (alpogeNativeMAIN ell (a t) (w u j)).re) := by
+  classical
+  unfold alpogeNativePhysicalSubgroupTopExcess
+  apply mul_le_mul_of_nonneg_left _ (by positivity)
+  apply Finset.sum_le_sum
+  intro u _
+  apply Finset.sum_le_sum
+  intro t ht
+  apply Finset.sum_le_sum
+  intro j _
+  rw [Complex.sub_re]
+  apply sub_le_sub_right
+  rw [alpogeNativeFullKernelASK_re_eq_weighted]
+  apply Finset.sum_le_sum
+  intro n _
+  have hz : 0 ≤ a t / (n : ℝ) := div_nonneg (ha t ht) (Nat.cast_nonneg n)
+  apply le_trans _ (mul_le_mul_of_nonneg_right
+    (alpogeNativeASKRealWeight_sum_le_two_lambda inertia frob n) hz)
+  rw [Finset.sum_mul]
+  apply Finset.sum_le_sum
+  intro g hg
+  apply mul_le_mul_of_nonneg_left _ (alpogeNativeASKRealWeight_nonneg inertia frob n g)
+  exact max_le (sub_le_self _ (hw u j _ (alpogeNativeFreezing_partner_inPhi t g
+    (Finset.mem_filter.mp hg).2))) hz
+
 /-- Paid movement of the COMPLETE signed source. No characterwise norm is
 taken, and unchanged thin widths do not enter the freezing cost. -/
 theorem alpogeNativeSignedWidthSource_lower_width_le

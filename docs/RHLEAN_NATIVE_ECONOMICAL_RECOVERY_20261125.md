@@ -14,6 +14,8 @@ Target the complete original signed physical top excess divided by Q at x^(1/2+O
 
 ## Transport of inequalities on #1201
 
+Use the [quantitative discrepancy ledger](../research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md) to record contributions to the complete signed comparison on the selected family. It includes the original divisor, three independently priced transfers and the outstanding comparison-source bound.
+
 For each equality previously requested of the geometry, locate the first inequality that consumes it. Use that inequality directly whenever native measurements prove it on the selected host. Write the direction, the independently measured comparison quantity, the discrepancy in its original units, and its contribution after division by $Q=|TT|mb\Delta/2$. Preserve the complete signed source. The estimate must hold for every anchor on each cofinal window, with one exponent coefficient fixed before $\varepsilon$ and an implied constant independent of the window. The threshold may depend on $\varepsilon$.
 
 | Comparison | First sufficient estimate to pursue | Where the error goes |

@@ -1,4 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
+import RHLean.Analysis.AlpogeNativeThickFreezing
+import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
 import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Analysis.AlpogeThin.Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.ExplicitFormulaErrorOfHostConditions
 import RHLean.Geometry.NativeSquareCapacityPeriod
@@ -221,6 +223,122 @@ theorem nativeOriginalHeightWindow (x b k sigma h : ℝ)
     apply (div_le_iff₀ hb).2
     nlinarith only [hhi, hsmall]
   exact ⟨hlo', hhi', by rw [abs_of_nonneg (sub_nonneg.mpr hlo')]; linarith⟩
+
+set_option maxHeartbeats 1800000 in
+/-- The pointwise discrepancy ledger on the selected arithmetic host. All eligible
+profiles use their original cutoff and divisor. The comparison widths are computed
+from the supplied widths. Original-window heights pay a single movement constant. -/
+theorem nativeConstructedDyadicDiscrepancyLedger
+    (eps A : ℝ) (he : 0 < eps) (he52 : eps < 1 / 52) (hA : 1 ≤ A) :
+    ∃ (exponent : ℝ → ℕ) (Y₀ x₀ : ℝ),
+      (∀ x : ℝ, x₀ ≤ x →
+        UpperTheory.Top.PageN eps x (exponent x) ∧
+        x ^ (2 + 8 * eps - eps / 100) ≤
+            (Fintype.card (AlpogeNativeDyadicH (exponent x)) : ℝ) ∧
+        (Fintype.card (AlpogeNativeDyadicH (exponent x)) : ℝ) ≤
+            x ^ (2 + 8 * eps + eps / 100)) ∧
+      ∀ Y : ℝ, Y₀ ≤ Y →
+        ∃ (q d : ℕ) (hG : UpperTheory.Top.PairGood 1 eps Y (Y ^ A) q d),
+          letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+          letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+          ∀ x : ℝ, x₀ ≤ x → Y ≤ x →
+            let e := exponent x
+            let r := alpogeNativeRecMap e q d
+            let D := alpogeNativeHostData e q d
+            let ell := alpogeNativeCanonicalHostEll r
+            ∀ (m : ℕ) (TT T2 : Finset (AlpogeNativeDyadicH e)),
+              TT.Nonempty → T2.Nonempty → 0 < m →
+              ∀ (a : AlpogeNativeDyadicH e → ℝ) (b h Amax beta : ℝ)
+                (w : AlpogeNativeDyadicH e → Fin m →
+                  AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+                0 < beta → beta ≤ b → 0 ≤ h →
+                Real.exp (x ^ eps) ≤ b → h ≤ Real.exp (x ^ (eps / 4)) + 1 →
+                (∀ t ∈ TT, 0 < a t) → (∀ t ∈ TT, a t ≤ Amax) →
+                Amax / b ≤ x + 1 →
+                x ^ (-eps) ≤ alpogeNativeProjectionDensity T2 →
+                (∀ u j ρ, alpogeNativeInPhi ρ → beta ≤ w u j ρ) →
+                (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T2 u →
+                  b ≤ w u j ρ ∧ w u j ρ ≤ b + h) →
+                (∀ (u : (⊤ : AddSubgroup (AlpogeNativeDyadicH e))) t,
+                  t ∈ TT → ∀ (j : Fin m) g,
+                  g ∈ (Finset.univ.filter
+                      (fun g : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+                        ¬ alpogeNativeInPhi g)) \
+                        alpogeNativeProjectionThickColours T2 u t →
+                    Real.exp (x ^ (eps / 3)) / 3 ≤
+                      a t / w u j (alpogeNativePartner t g)) →
+                (∀ t ∈ TT, a t / b ∈ Set.Icc Y (Y ^ A)) →
+                1 ≤ x → (∀ t ∈ TT, x ≤ a t / b) →
+                let η := b * alpogeNativeProjectionDensity T2 * Real.sqrt x / (2 * Amax)
+                alpogeNativeGzArithmetic x ≤
+                  alpogeNativePhysicalSubgroupTopExcess
+                      (⊤ : AddSubgroup (AlpogeNativeDyadicH e))
+                      D.inertia D.frob ell (Nat.ceil (Amax / beta)) TT a
+                      (fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)) /
+                    alpogeNativeProjectionDivisor TT T2 m b +
+                  (alpogeNativeMoveConstant + x ^ ((1 : ℝ) / 2 + eps) + Real.sqrt x) := by
+  classical
+  obtain ⟨exponent, Y₀, x₀, hHost, hPair⟩ := nativeConstructedDyadicGzPayment eps A he he52 hA
+  refine ⟨exponent, Y₀, x₀, hHost, ?_⟩
+  intro Y hY
+  obtain ⟨q, d, hG, hPaid⟩ := hPair Y hY
+  refine ⟨q, d, hG, ?_⟩
+  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  intro x hx hYx
+  dsimp only
+  intro m TT T2 hTT hT2 hm a b h Amax beta w hbeta hbetab hh hbexp hupper ha
+    haMax hmax hDensity hwBeta hwThick hwThin hWindow hx1 hLower
+  have hAnalytic := hPaid x hx hYx m TT T2 hTT hT2 hm a b h Amax beta w
+    hbeta hbetab hh hbexp hupper ha haMax hmax hDensity hwBeta hwThick hwThin hWindow
+  have hb : 0 < b := hbeta.trans_le hbetab
+  obtain ⟨t₀, ht₀⟩ := hTT
+  have hAmax := (ha t₀ ht₀).trans_le (haMax t₀ ht₀)
+  have hδ : 0 < alpogeNativeProjectionDensity T2 := by
+    unfold alpogeNativeProjectionDensity
+    exact div_pos (by exact_mod_cast hT2.card_pos) (by exact_mod_cast Fintype.card_pos)
+  let η := b * alpogeNativeProjectionDensity T2 * Real.sqrt x / (2 * Amax)
+  have hxpos : 0 < x := lt_of_lt_of_le zero_lt_one hx1
+  have hη : 0 < η := div_pos (mul_pos (mul_pos hb hδ) (Real.sqrt_pos.2 hxpos)) (by positivity)
+  have hGrid := alpogeNativePhysicalSubgroupTopExcess_logGrid_le
+    (⊤ : AddSubgroup (AlpogeNativeDyadicH (exponent x)))
+    (alpogeNativeHostData (exponent x) q d).inertia (alpogeNativeHostData (exponent x) q d).frob
+    (alpogeNativeCanonicalHostEll (alpogeNativeRecMap (exponent x) q d))
+    (Nat.ceil (Amax / beta)) m TT T2 a Amax b η w ⟨t₀, ht₀⟩ hT2 hm hb hη
+    (fun t ht => ⟨(ha t ht).le, haMax t ht⟩)
+    (fun u j ρ hρ => hbeta.trans_le (hwBeta u j ρ hρ))
+  have hPrice : 2 * Amax * η / (b * alpogeNativeProjectionDensity T2) = Real.sqrt x := by
+    dsimp [η]
+    field_simp [hb.ne', hδ.ne', hAmax.ne'] <;> ring
+  rw [hPrice] at hGrid
+  have hPoint := alpogeNativeGzArithmetic_le_mean_add_move TT ⟨t₀, ht₀⟩ x
+    (fun t => a t / b) hx1 (fun t ht => hx1.trans (hLower t ht))
+  have hSum := Finset.sum_le_sum (s := TT) (g := fun _ => (1 : ℝ))
+    (fun t ht => (show |x - a t / b| ≤ 1 by
+      rw [abs_of_nonpos (sub_nonpos.mpr (hLower t ht))]
+      have hu := (div_le_div_of_nonneg_right (haMax t ht) hb.le).trans hmax
+      linarith))
+  simp only [Finset.sum_const, nsmul_eq_mul, mul_one] at hSum
+  have hTT' : TT.Nonempty := ⟨t₀, ht₀⟩
+  have hCard : (0 : ℝ) < TT.card := by exact_mod_cast hTT'.card_pos
+  have hMeanMove : (1 / (TT.card : ℝ)) * ∑ t ∈ TT, |x - a t / b| ≤ 1 := by
+    rw [one_div, ← div_eq_inv_mul]
+    exact (div_le_iff₀ hCard).2 (by simpa using hSum)
+  have hMove := mul_le_mul_of_nonneg_left hMeanMove alpogeNativeMoveConstant_nonneg
+  dsimp only [η] at hGrid
+  dsimp only at hAnalytic hPoint ⊢
+  linarith only [hPoint, hAnalytic, hGrid, hMove]
+
+/-- Uniform normalized price of the three discrepancy entries. -/
+theorem nativeDiscrepancyPrice_le (x eps : ℝ) (hx : 1 ≤ x) (he : 0 ≤ eps) :
+    alpogeNativeMoveConstant + x ^ ((1 : ℝ) / 2 + eps) + Real.sqrt x ≤
+      (alpogeNativeMoveConstant + 2) * x ^ ((1 : ℝ) / 2 + eps) := by
+  have h1 : 1 ≤ x ^ ((1 : ℝ) / 2 + eps) := Real.one_le_rpow hx (by linarith)
+  have hs : Real.sqrt x ≤ x ^ ((1 : ℝ) / 2 + eps) := by
+    rw [Real.sqrt_eq_rpow]
+    exact Real.rpow_le_rpow_of_exponent_le hx (by linarith)
+  have hc := mul_le_mul_of_nonneg_left h1 alpogeNativeMoveConstant_nonneg
+  linarith only [hs, hc]
 
 /-- At square-clock rank `k = x * R`, the original height window contains
 at most one integer when `b < R * sigma`. In that range, varying the

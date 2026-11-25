@@ -15,6 +15,9 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Analysis.alpogeNativeSignedWidthSource_upper_width_le
 #check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_upper_width_le
 #check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_logGrid_le
+#check RHLean.Analysis.AlpogeThin.nativeDiscrepancyPrice_le
+#check RHLean.Analysis.AlpogeThin.nativeConstructedDyadicDiscrepancyLedger
+#check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift
 #check RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated
@@ -35,6 +38,9 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativeSignedWidthSource_upper_width_le,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_upper_width_le,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_logGrid_le,
+    ``RHLean.Analysis.AlpogeThin.nativeDiscrepancyPrice_le,
+    ``RHLean.Analysis.AlpogeThin.nativeConstructedDyadicDiscrepancyLedger,
+    ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift,
     ``RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated,
