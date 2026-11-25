@@ -432,3 +432,371 @@ Question: what can be charged to the measured ancestor or width perturbation at 
 Opening read back at `e4a140b3900183662059da803c040549e0bba0b9`, blob `dad9cea6fdfdc60ec2fdb85d3638d94e1c943077`, 50,711 bytes. New paper finding: after keeping the actual signed logarithmic first variation of ASK minus MAIN, the remaining *upper* width-crossing charge at height $a$, reference width $g$ and relative tolerance $r$ is bounded by $2g$ times the true von Mangoldt tent about $a/g$. A short product of consecutive integers gives a uniform quadratic-times-log price in a band containing many candidates; a discrete one-prime term is necessary in a band narrower than one integer. On the $e=2,q=3,d=23$ modular source a product-preserving change at the $5$ cutoff costs exactly $2r\log(5)/(1+r)$ before division by $Q$. Separately, after paying the historical columns on the same frame, only the orthogonally projected column error increases its Gram upper certificate; integral history shears cost no additional determinant. No identification of a geometric width perturbation, integral section or dual is assumed.
 
 Exact replay: 22,578 binomial divisibility checks, 1,998 narrow bands, 75,888 top/prime-power prices, five original-arithmetic wall cases, and 4,050 abstract rational Gram checks. Paper proofs and interpretation follow in the final section; independent review pending. `PHYSICAL_E_C=BLOCKED; NATIVE_SUPPLIER=OPEN; RH=OPEN`.
+
+## Final findings | ANA-20261125T140903Z-PRICE-FINAL
+
+### A. Most important development
+
+**A width change has a signed first variation that must be paid, but its cutoff-crossing error can be bounded at square-root scale.** For the complete original ASK minus MAIN, we give an explicit tolerance in the number of distinct reference widths, uniform in the number of sites, lifts, tops and the potentially much larger ASK cutoff. It applies to upward and downward perturbations together, not just thick freezing. The term from a single prime at the exact cutoff is real: the original modular arithmetic at 5 supplies a counterexample to a purely quadratic remainder.
+
+**For the weighted history cost, compare volumes after projecting off the historical columns that are actually included and paid for.** Even when the weighted decoder norm is large, the extra Gram charge depends on the singular values of the *remaining* normalized error. This is an upper certificate with a proof; it is not a bound on the size of the unknown physical error. Neither result constructs the missing physical section and dual, earns a residue index, or pays the signed first variation. **No physical Smith experiment, improved exponent, or native RH proof.**
+
+| Claim | Evidence and scope |
+|---|---|
+| `ATII-20261125-PRICE1` | `PAPER_PROOF`: signed width tangent, all-prime-power crossing estimate and uniform tolerance, on the defined finite arithmetic carrier. No estimate for the baseline or the tangent is assumed in the proof. |
+| `ATII-20261125-PRICE2` | `PAPER_PROOF / REFUTED`: one genuine cutoff atom rules out an unqualified quadratic upper remainder at arbitrarily small displacements. `FINITE_TEST_ONLY` for the additional modular and binomial checks. |
+| `ATII-20261125-PRICE3` | `PAPER_PROOF`: rank-sensitive Gram upper bound for an actual measured frame compared to restored-history columns. Its application to normalized geometric sections is `CONDITIONAL / BLOCKED`. |
+| `ATII-20261125-PRICE4` | `CONDITIONAL` budget handoff using the existing square-clock consumer and previously proved one-sided interpolation. No new endpoint or new interpolation claim. |
+
+All four are self-audited, independent referee review pending. `PHYSICAL_E_C=BLOCKED; NATIVE_SIGNED_SUPPLIER=OPEN; RH=OPEN`.
+
+### B. Objective and policy
+
+[Main instructions][prc-policy] at `cad8dba7bbab6c709264061a3269790230c0d9a5`, [contract][prc-contract], [economical recovery directive][prc-dir], [final closure][prc-closure], [semantic audit][prc-audit]. [#1201][prc-pr] is the sole native completion PR; its inspected head is `5eb0d87573d087aed794ef065ceea034021fa280`, not the older policy inspection pin. The canonical [actual-prime statement][prc-vf] is $\exists C\ge0\;\forall R\ge2:\ |\pi(R^2)-VF_{\rm can}(R^2)|\le C R\log R$. Here the active sufficient path uses the original physical top excess and the [principal window consumer][prc-handoff]. At $N=R^2-1$ the [candidate-capacity identity][prc-candidate] keeps $\log(n)(N/n-1)$, every proper prime power, all composite removals, $-N\log N+(1+\gamma)N$. Changing the prime-complete candidate set alone yields no bound. The arithmetic prefix $N$, theta level and $N_A=\lceil A_{\max}/\beta\rceil$ used for ASK are three different parameters.
+
+### C. First physical gate
+
+The [square-host theorem][prc-host] takes the actual `WinPair` and `PageN` at $x=R^2-1$, $m=R,k=xR$. On its *same* half-different $B$ it supplies a rank $R^3-1$ period lattice and a nonzero holomorphic theta with its transformation and metric-invariance laws. That rank is not $\dim V$. The [evaluated family][prc-family] still takes $F,\mathrm{actW0},h,u,\mathrm{germ}$ and the level/weights; the [half-different row criterion][prc-jet] tests given coefficients, not the restriction of the nonzero section. The analytic theta laws are homogeneous: replacing $\theta$ by any nonzero scalar multiple preserves them. In particular, **if** a nonzero local evaluation on an integral realization is found, its multiples $p^{-k}$ cannot all remain integral there. This refutes extracting a uniform integral normalization for *every* such section from those laws alone; it does not refute an independently constructed integral model or normalized section.
+
+**First missing typed map:** on one actually selected host, at $j=1$ and one genuine `IsEdge` $\eta$, construct the localization of its integral sections into the edge germs and identify its normalized evaluation with the original pairing `be`. Source sections must land in the prescribed shifted `HL` and `Re`, with all competing outgoing restrictions. Separately localize the admissible dual, with shifted dual host lattice, `Re'`, all required incoming restrictions and a test for each primitive combination. [`EdgeFam` and `SrcTests`][prc-many] differ in the exact incoming quantifier: the latter has the selected incoming family and `Ntgt`. Do not infer a simultaneous fixed dual frame from an existential dual per combination. One nonzero section, one selected read and one distinct competitor is the smallest useful comparison, not a rank quota.
+
+The [four-top example][prc-instance] gives genuine arithmetic reads at $R=10^7,p=43$; the selected $([1],43^3)$ and competing $([43^2],43)$ share a width. The $43$-factors $(1,43^2,43^2,43^2)$ are for **width increments**, not for sections. `PairGood` is not fully certified there and top density fails. Do not substitute this example, or the small finite test below, for the physical experiment. On each realized side the required types are $E:L\to O^n$, $C:L\to O^s$, $L_c=C^{-1}(\pi^cO^s)$; numerical dimensions, $E(L_c)$, before/after invariant factors, leakage and physical rank/depth are **unavailable, not zero**. [`exists_decoder_of_frame_congruence`][prc-joint] starts only after the same integral lifts satisfy $EB-p^D I\in\pi^{v_\pi(p)D+1}\mathrm{Mat}$ and $CB\in\pi^c\mathrm{Mat}$. Apply it separately on the actual source and dual. The actual $\sum_\eta n_\eta\ge(1-\kappa)\dim V$, grouped exceptions $\le d_{\rm rk}s_0^{j+1}$ ($0\le s_0\le1/2$), saturation, inverse shift, $\mathrm{length}(O/(a))$ and stopping $a^{VS}M\subset N_{\rm loc}$ are still unpaid. The [served quotient consumer][prc-served] and [`linkG_at_core`][prc-core] distinguish `admG1` length from `ParametersFill` and `Conclusion1` signed gain.
+
+### D. Original arithmetic and signed first variation
+
+Fix the actual finite host, $TT,T_2\ne\varnothing$, $T=|TT|,\ \Delta=|T_2|/|H|,\ m\ge1,\ b>0,\ Q=Tmb\Delta/2$. Fix $a_t>0$, cutoff $N_A$, canonical $\ell$, and one uniform base member $u$ and lift $j$. Write $X(w)=\sum_{t\in TT}\Re(\mathrm{ASK}_{utj}-\mathrm{MAIN}_{utj})$ and use $\mathcal S(w)=|H|^{-1}\sum_u\sum_j X_{uj}(w)$ for the original whole excess. At this $(u,j)$ compare positive measured widths $w_i$ to any declared reference widths $g_i>0$ on the *same* sites $i\in\Phi$. Other data do not change. A comparison array evaluates arithmetic; it is not assumed to come from another physical geometry.
+
+For each [original read][prc-ask] $\alpha=(t,p,k,\xi)$ with $1\le p^k\le N_A$, $k\ge1$, $\xi\notin\Phi$, $\xi-k\,{\rm Frob}_p\in I_p$, put $i=P_t\xi$, $h_\alpha=a_t/p^k$, $\mu_\alpha=2\log p/|I_p|$. Its ASK contribution is $\mu_\alpha(h_\alpha-w_i)_+$. Over all these sites at fixed $(t,p^k)$, $\sum\mu_\alpha\le2\Lambda(p^k)$ by the [native mass-two lemma][prc-mass], also at ramified primes. A first-return enumeration must restore every excluded and repeated piece before using this formula. Define
+$$
+s_i=\log(w_i/g_i),\quad
+\lambda_i=\sum_{\alpha\to i,\;h_\alpha>g_i}\mu_\alpha,\qquad
+L_i={\sum_t a_t\over|\Phi|}-g_i\lambda_i .
+$$
+The strict boundary convention is part of the definition. Then **exactly**
+$$
+ X(w)-X(g)=\sum_i L_i s_i
+ -\sum_i g_i\lambda_i(e^{s_i}-1-s_i)+D_{\rm cut},                  \tag{1}
+$$
+where $D_{\rm cut}\ge0$ sums $\mu_\alpha(w_i-h_\alpha)_+$ on $h_\alpha>g_i$ and $\mu_\alpha(h_\alpha-w_i)_+$ on $h_\alpha\le g_i$. Indeed subtract the two hinges at each read. Minus MAIN contributes exactly $(\sum_t a_t/|\Phi|)\sum_i s_i$; only the unchanged terms, including $\ell$, cancel in the *difference*. The negative sum in (1) has the favorable sign even for widths moving in opposite directions. No common product, equal read multiplicities, or cancellation of the signed linear form is required for the formula. Owner's `OP-20261125-FRAME1` already supplied the hinge identity for common-product groups; the new price below is for the complete repeated cutoffs, after retaining the signed tangent.
+
+### E. Uniform crossing price
+
+For one $(u,j)$, let $\mathcal G$ be the distinct reference values on the sites where a width actually changes. Suppose $|w_i/g_i-1|\le\rho$, $0<\rho\le1/8$. At fixed $t,n$, the price per unit read mass at a site of level $g$ is at most $g(\rho-|a_t/(ng)-1|)_+$. Consequently
+$$
+ D_{\rm cut}\le 2\sum_{t\in TT}\sum_{1\le n\le N_A}\Lambda(n)
+       \max_{g\in\mathcal G} g(\rho-|a_t/(ng)-1|)_+.              \tag{2}
+$$
+Empty maximum means zero. The maximum, rather than a sum, is legitimate because the *total* mass at each power is at most $2\Lambda(n)$. This is an upper bound only on the nonnegative wall term; it does not take the absolute value of the signed arithmetic source.
+
+For an explicit size bound, majorize that maximum by the sum over levels. At one height and level let $y=a_t/g$ and $I=[y/(1+\rho),\,y/(1-\rho)]$, intersected with $[1,N_A]$ in (2). For the upper estimate one can drop this last restriction by positivity. The charge from this pair is bounded by
+$$
+ \begin{cases}
+ 8a_t\rho^2\log(e/\rho), & \rho y\ge1,\\
+ 6g\rho\log(2+2y), & \rho y<1 .
+ \end{cases}                                                     \tag{3}
+$$
+There is no hidden $\log N_A$, PNT error, or distribution-in-progressions assumption. **Proof.** If $\rho y<1$ the closed interval has length $2\rho y/(1-\rho^2)<128/63$ and contains at most three integers. Otherwise $y\ge8$. Write $M=\lfloor y/(1-\rho)\rfloor$, $l=\lceil y/(1+\rho)\rceil-1$, $k=M-l$. Then $k\le 2\rho y/(1-\rho^2)+1\le4\rho y\le y/2\le l$, and $M\le2y$. For each $p^a\in(l,M]$ the $p^a$-level in $v_p\binom Mk$ is one: $p^a>k$, and this interval contains that multiple. All other levels contribute nonnegatively. Thus the product of $p$, once **for each power in the interval**, divides $\binom Mk$. For $k>0$,
+$$
+ \sum_{n\in I}\Lambda(n)\le \log\binom Mk
+ \le k\log(eM/k)\le4\rho y\log(e/\rho).
+$$
+Here $\binom Mk(k/M)^k\le(1+k/M)^M\le e^k$ and $u\log(2ey/u)$ is increasing for $0<u\le2y$; $k=0$ costs nothing. Multiply by $2g\rho$. All endpoint, ramified, repeated-power and truncation cases have been retained.
+
+**Critical-scale tolerance.** Suppose $x\ge3$, $a_t/b\le x+1$, $g\le2b$ on changed levels, and each $(u,j)$ uses at most $K$ such distinct levels, with arbitrary sites and multiplicities and integer $1\le K\le\sqrt x$. Write $\overline D=|H|^{-1}\sum_u\sum_j D_{{\rm cut},uj}$. Then
+$$
+ {\overline D\over Q}\le {16K\over\Delta}
+ \big[(x+1)\rho^2\log(e/\rho)+2\rho\log(x+3)\big].              \tag{4}
+$$
+Indeed $s\log(2+2A/s)$ increases on $s>0$ for $A\ge0$ (differentiate); take $s=g/b\le2$, $A=a_t/b$. Summing (3) costs at most $mTK$ terms after the uniform base mean; division by the original $Q$ gives (4). The unrestricted alternatives are the measured tent (2) and (3); there is no assumption that the physical widths have this few levels.
+
+In particular, uniformly in all these data,
+$$
+ \rho\le {x^{-1/4}\over64\sqrt{K\log(e x)}}\quad\Longrightarrow\quad
+ {\overline D\over Q}\le{\sqrt x\over\Delta}\le x^{1/2+\epsilon}
+ \quad\text{if }\Delta\ge x^{-\epsilon}.                         \tag{5}
+$$
+For details, call the displayed upper tolerance $\rho_0$. The function $\rho^2\log(e/\rho)$ increases up to $1$; $\log(e/\rho_0)\le3\log(e x)$ for $x\ge3,K\le\sqrt x$. After multiplication by $16K$ the first term in (4) is $\le(96/4096)\sqrt x$; the second is $\le\tfrac12\log(x+3)/\sqrt{\log(e x)}\le\tfrac12\sqrt x$. If no width changes the charge is zero. The absolute constant 64 is a convenient sufficient choice, not asserted optimal. Crucially (5) prices **only curvature/crossings**. The signed $\sum_i L_i s_i$ in (1) can remain of first order; do not charge it to (5) or to a different word's gain.
+
+### F. Weighted ancestor and cumulative Gram costs
+
+On a divisor-closed high-prime fibre, the known $J[d,h]=\prod_p\binom{v_p(h)}{v_p(d)}$ and $K[d,h]=(-1)^{\Omega(h)-\Omega(d)}J[d,h]$ invert by summing over **all intermediate divisors**. Both unweighted column norms are bounded by $N^{\log2/\log z}$ for $z>1$, subpower at $z\asymp\log N$. A proper ancestor $\ell d$ of $\ell h$ satisfies $z\ell d<\ell h$. Prior blocks cover it when $zR^2\ge(R+1)^2$ on the indicated block; otherwise keep it explicitly. No independence of truncated prime partitions. [Native ancestry and earlier counterexamples][prc-instance] already show failure of a subpower weighted absolute column bound. Indeed, at $R=p+1$, $N=p^2+2p$, high prime $p>z$, and $w(n)=\log n(N/n-1)$, even the **positive-coordinate Hilbert matrix entry** at $(p,p^2)$ has magnitude $2\sqrt{w(p)/w(p^2)}=\sqrt{p(p+1)}$. It is not a Petersson norm. On a semidefinite arithmetic weight one cannot conjugate by an inverse at $1,N$; first prove invariance of its nullspace or retain the boundary. For a true positive Gram $G$, the same-metric operator norm would be $\|G^{1/2}KG^{-1/2}\|_2$.
+
+**PRICE3: charge the error transverse to the restored history.** Fix one complex place, Euclideanizing the *original* positive Hermitian metric, not a diagonal surrogate. Let $H$ be the independent historical columns **included in the full measured frame**, $U$ its retained columns, $U_0$ any archimedean reference of the same shape such that $[H,U_0]$ has full column rank. All products use this one metric. Write $P$ for orthogonal projection off $\mathrm{span}\,H$, $G_0=(PU_0)^*PU_0$, $Z=P(U-U_0)G_0^{-1/2}$, with nonzero singular values $\sigma_1,\ldots,\sigma_k$. Then
+$$
+ \det{\rm Gram}[H,U]\ \le\ \det{\rm Gram}[H,U_0]
+              \prod_{i=1}^k(1+\sigma_i)^2.                         \tag{6}
+$$
+No smallness or orthogonality of the perturbation to the retained columns is needed. **Proof:** block Gram elimination gives the historical determinant times $\det{\rm Gram}(PU)$, likewise for $U_0$. Whiten by $G_0^{-1/2}$, so $V=PU_0G_0^{-1/2}$ is an isometry. In a right singular basis of $Z$, including its nullspace, the columns of $V+Z$ have lengths at most $1+\sigma_i$ (one on the nullspace). Hadamard gives (6); it is applied *after* restoring the historical determinant and the original mixed inner products. In particular no factor depending on the raw history shear, or on the ambient rank in place of $k$, is necessary. The estimate is sharp for $Z$ aligned with the corresponding isometric columns. The stronger factor $1+\sigma_i^2$ is false already for $U_0=e_2,\ U=(1+t)e_2,\ H=e_1,\ t>0$.
+
+For the totally complex number field $\mathbb K$ and normalization $D_{\rm norm}>0$ of [`normalized_lcv_le_of_recovered_residues`][prc-gram], use its actual global frame $[H,U]$, reduction vanishing on that frame and independent lifts of its residue subgroup $\mathcal T$. If the comparison determinants are bounded by measured $B_{0,v}$, one may put $B_v=B_{0,v}\prod_i(1+\sigma_{vi})^2$. The additional **upper-certificate** cost, over the reference logarithmic expression with the *same credited* $|\mathcal T|$, is
+$$
+ {4\over[\mathbb K:\mathbb Q]D_{\rm norm}}
+       \sum_{v\mid\infty}\sum_{i=1}^{k_v}\log(1+\sigma_{vi}).      \tag{7}
+$$
+The remainder of that expression is $2\log(\prod_v B_{0,v}/|\mathcal T|)/([\mathbb K:\mathbb Q]D_{\rm norm})$. These are the source's place conventions. No lower bound on the true index, or identification with `Ga`, follows from (6). For many restorations, always compare once to the fully reconstructed frame, or sum (7) at **each** step in that step's own whitened metric; no claim that an iterated $O(1)$ remains $O(1)$. Across places keep all multiplicities. The obligations for the coupled degree/count, measured period ordering and both signed means do not disappear.
+
+In particular an *integral global* history shear $U\mapsto U+HA$ changes neither the integral column span nor its Gram determinant; the history itself still costs $\det{\rm Gram}H$. A merely archimedean shear still preserves volume but cannot transfer an old reduction claim. Over $\mathbb Z^2$, $H=(2,0)$, $U_0=(0,1)$, $U=(1,1)=U_0+H/2$ have equal Gram determinant; reduction of the first coordinate mod 2 vanishes on the reference frame and **not** on the true one. Test the original $E,C$ and reductions on the same lifts. A singular reference needs additional independent columns or a separate quotient proof; no inverse there. Do not project an integral lift and declare the projection integral.
+
+**Where the actual derivatives would enter.** In [`shortValueOfFormalGerms`][prc-short], at fixed homogeneous degree $D$, $c=(\beta_{\rm jet}\,\mathrm{index}\,|\mathcal Q|\,N_{\rm lev}^D)^{-1}$ is the original nonzero-data normalizer, distinct from the physical divisor $Q$. For each normalized entry keep $c\sum_{\xi\in\mathcal Q} w(\xi)\sum_j\sum_{\alpha\in P_0.\mathrm{support}} P_{0,\alpha}\prod_b v_b$, with $v_b$ the prescribed column jet on the same gauge, directions and germs at $N_{\rm lev}^2$. If a restricted prefix supplies $v_b^0$, subtract *before* taking norms: the exact product difference is $\sum_b(\prod_{l<b}v_l)(v_b-v_b^0)(\prod_{l>b}v_l^0)$ in a fixed column order. It includes every mixed term and the original finite translations and weights. Only a proved identification of those normalized values with the measured frame entries permits this difference to be used in $U-U_0$; only a **measured** historical span permits the projection. There is no general conversion from $p$-adic divisibility to small $\sigma_{vi}$, or from (7) to a bound on log-width changes. This describes a concrete measurement for the first chart, not a claimed physical value.
+
+### G. Return to the complete window
+
+Use $s=x=R^2-1,\ s_*=s^{1/2+\epsilon},\ z_0=s^\epsilon,\ n=|H|$ and the original normalized bracket
+$$
+ \mathcal P_s={2a_E(1+m^2/k)\over mb\Delta}
+             +{4nm z_0\over T\Delta}+{2kz_0^2\over nT}.
+$$
+Let $\mathcal L=|H|^{-1}\sum_u\sum_j\sum_i L_i s_i$. If the reference baseline **plus this signed term**, on the same host/data, is independently paid at $(\mathcal S(g)+\mathcal L)/Q\le s^{CErr(C)\epsilon}\mathcal P_s$, then (1),(5) give $\mathcal S(w)/Q\le s^{CErr(C)\epsilon}\mathcal P_s+s_*$. This is a **conditional use**, not how that baseline or tangent is proved. One may retain the favorable term of (1). Do not obtain the reference estimate by assigning `Ga` or importing a gain for other widths. To use the geometric theorem one still needs the original $\operatorname{umean}(\mathrm{ASK}-\mathrm{Ga})\le\mathrm{LoP}$ and $\operatorname{umean}(\mathrm{IO})\le\mathrm{LoP}$ in `DP.Losses`. A scalar upper comparison does not imply either premise separately.
+
+Accounting: one $s_*$ for the original analytic mean-to-excess comparison, one for the crossing term, at most two for movement to the anchor when the *measured* $s\le a_t/b\le s+1,\ s\ge9$ ($\log4+4<6$). [`normalizedCosts_add_remainder_le`][prc-size] absorbs $4s_*$ under the original geometric size windows. Keep $a_E\le2sb$, $T\ge n s^{-\epsilon/8}/2$, $\Delta\ge s^{-\epsilon}$, $s^{1/2-\epsilon}\le m\le s^{1/2+\epsilon/2}$, $sm\le k\le n^2s^{1/2-\epsilon}$, $26\le s^{3\epsilon/8}$ and its positivity conditions. The [mean-loss consumer][prc-pay] also requires `HidaSetting, DIV, EComp5, HComp, Count5, Slopes, QuotientSlopeBoundsWith, Losses, SlopeIneq, HHBound, FParams, ErrWindows, LargeX` and the displayed $B_0,N_c$ bounds. Keep $0<\beta\le b$, $b\ge\exp(s^\epsilon)$, $0\le h\le\exp(s^{\epsilon/4})+1$, $0<a_t\le A_{\max}$, $A_{\max}/b\le s+1$, all positive-site lower widths, $[b,b+h]$ thick windows, complementary thin ratio and the *same* outer height window. None of the height, width, gradient, period, rank, or local lift measurements was inferred from (5) or (6).
+
+Window order (retain `WINDOW1–2` and `TOPLAW4`, not new here): obtain uniform caps $C.eDiv\le e_D,\ C.eLoss\le e_L$, and a positive physical range **before** choosing $\epsilon$. For nonnegative caps put $D'=e_D+e_L+6$ and fix $0<\epsilon_1\le\min(\eta_{\rm phys},1/52,1/(2D'))$. For each $0<\epsilon<\epsilon_1$ need a single constant $C_\epsilon$ before $Y_0$. On cofinally many integers $A$ use the pair for $[Y,Y^2]$, $Y=A^2-1$, and its prescribed exponent and a paid certificate at **every** required anchor. For the target $[Y,B_*]$, $B_*=Y^{3/2}$, retain $Y$, $\lfloor\sqrt{B_*}\rfloor^2-1$, and all interior fourth powers minus one. The existing one-sided chord costs $\le(v-u)^2/(8u)$ between adjacent paid anchors, and movement repairs the short right edge; no missing left interval or sum over the number of anchors. For late enough $Y$ the previous explicit calculation gives $Z(y)\le22y^{1/2+D'\epsilon}\le y^{1/2+(e_D+e_L+7)\epsilon}$ across the whole window. Use [`nativePrincipalCyclicGm_eq`][prc-id] and #1205. No such cofinal paid anchor family is asserted.
+
+### H. Falsification and replay
+
+For the sharp discrete hazard use the actual modular reciprocity map with $e=2,q=3,d=23$, $H=(\mathbb Z/16)^\times/\{\pm1\}$ indexed by powers of 5, $TT=\{0\}$, $m=1$, $a_0=5$, and constant reference $g=1$ at all positive sites. Fix $T_2=H$, $b=\beta=8/9$, $A_{\max}=5$, so the actual common $N_A=\lceil45/8\rceil=6$ and $Q=4/9$ for all $0<r\le1/8$. At every base put $w_{(0,1)}=1/(1+r),\ w_{(0,0)}=1+r$ in the second-bit/dyadic notation on $\Phi$; other widths stay at 1. Their product is unchanged, so MAIN does not move. At $2,2^2,3$ the ramified data have no negative first bit, including inertia, since $(2/23)=(3/23)=1$. At 5 both bits are negative and its dyadic coordinate is 1, so $P_0$ reads precisely $(0,1)$ with mass $2\log5$. At the reference this read is **on**, not strictly inside, the wall. Hence the complete difference is $2r\log5/(1+r)$ before division and $9r\log5/[2(1+r)]$ after the original divisor; all $\lambda_i=0$ here and the summed MAIN log tangent is zero. No uniform $O(r^2\log(e/r))$ upper remainder at fixed $a,g$ is possible for this finite-data class. This is genuine host arithmetic, not a `PairGood/EdgeFam` size-window instance, nor a counterexample to (5), which includes the small-band term.
+
+Replayed with integers and rationals, separating coefficients of each $\log p$. Across $y=j/4$, $1\le j\le4096$, $\rho^{-1}\in\{8,16,32,64,125,256\}$: 22,578 macroscopic binomial divisibilities and 1,998 discrete bands. Two small modular hosts, full modular local inertia/Frobenius (including ramification), all nonempty top sets, varying references, nonmonotone widths and cutoff 80: 1,188 profiles, 75,888 fixed-top/prime-power prices checked using (2); five exact wall values. The common finite cutoff 80 deliberately overcovers those fixture heights; only the explicit atom uses its literal 6. The separate real rational Gram check uses the full projected two-column Gram, including off-diagonals, for 4,050 abstract comparisons; 306 have zero projected error and unchanged determinant. The algebraic proof, not numerics, gives (4)–(7). The script follows. No geometric matrix or Lean verification is claimed from these tests.
+
+### I. What changes
+
+Rank, metric cost and signed arithmetic now have distinct tests. Use the restored historical span to price only transverse *metric* error, and use the actual active read counts to preserve the *sign* of the scalar response. A small chart tail does not by itself imply a small signed price. The source's earlier [thick-freezing bound][prc-freeze] already gives a full one-sided linear comparison in its ordered regime; do not rerun it or claim an improvement there without comparing the actual prices. (1)–(5) accommodate two-sided changes, multiple reference levels and sharp crossings once the tangent is retained. No use of CRT site independence, a raw masked determinant as global gain, `GeoCl/geoCl/anyGeometry` (direct or transitive), a zero chain, or an external terminal theorem. No switch of campaign.
+
+### J. Specialist handoffs
+
+| Recipient | First actionable check |
+|---|---|
+| Coordinator | Keep the first localized section and admissible dual as the binding task. Only book (5) as *one* error allowance, not as payment of the tangent, baseline, or first gate. |
+| Wheel | On a real edge label every historical column needed for the lift; prove which restored shears belong to the global integral span and which competitors they preserve. Retain the residual Weyl/exponent directions. |
+| Census | On that same word, measure $g_i,w_i,a_t$ and the signed $L_i$ from all preimages through $N_A$. Compute the tent (2), number of changed levels, and residual separately. Do not substitute the four-top diagnostic for section measurements. |
+| Owner | Compare $\mathcal S(g)+\mathcal L$ to the actual signed gain holding the original `D0.Ga` fixed; retain both losses and the ordered relative periods. Use the actual residue map on $[H,U]$ and the total (7), not one side's marginal costs. |
+| Referee | Check the strict equality convention, binomial divisibility for repeated powers, factor $16K/\Delta$, mixed Gram terms, and the impossibility of transferring finite reduction through a fractional history shear. Check the reported host at 5 independently. |
+| Lean Verification | After independent acceptance and a demonstrated use, the finite cutoff estimate can specialize the existing `alpogeNativeASKRealWeight_sum_le_two_lambda` and real signed source. Do not encode an unspecified restriction, metric or first variation as a proved hypothesis. No PR or local Lean run requested. |
+
+### K. First unpaid theorem
+
+Supply an independent realization of **one normalized source and dual evaluation** on the actual square host, with one competing restriction and the full half-different/denominator data as in C; then extend to all competitors at the prescribed depths. In the displayed 43 diagnostic test the two reads on the same width only *after* $j=1$ is identified with a real section; an arithmetic width cannot distinguish them. For that same realized frame the next analytic measurements are (i) the normalized projected tail at every archimedean place, reserving the entire historical subframe, and (ii) the signed linear price on its measured widths. If either is too expensive, reject that attachment, not the critical estimate. First gate still `BLOCKED`; no mathematical or operational authority to change #1201.
+
+### L. Continuity, source receipts and resume
+
+**Actual intake.** Enumerated all 42 dated folders at [the immutable report snapshot][prc-ledger], not a two-day cutoff. The [20-commit delta][prc-delta] from the 01:04 Analytic intake changed precisely today's eight canonical files (seven roles, no recovery siblings). Retrieved both days' available full reports; local Git blob hashes matched the directory entries, and the two complete Coordinator mirrors matched byte-for-byte on both dates. The carry-forward Census before today is November 22, blob `f8f96d3ce7b2e2f1305b0a1984d6f936c9f55448`; Nov 23 has no dated folder, and there is no Nov 24 Census file. All seven roles had verified Nov 25 publications at this intake. This does not imply all seven have executed under the newly merged directive. No new recovery section or new relevant [external handoff][prc-inbox] after that watermark.
+
+| Latest verified Nov 25 file, time EST; prior consumed result → newly consumed final; resume |
+|---|
+| `00/90`, 07:10:00, `f00778c30a19c9500d0f82108c3296b5b33c3ba2`: `COORD-20261124-WIDTHLAW1–4` → `COORD-20261125-JETCUT1–3`. Test the weighted filtration on the actual normalized germs, not arbitrary smooth charts. |
+| `10`, 08:09:02, `30355ef9ac83c1fc4e2d88f3edf6b72db08c766f`: `OP-20261124-LOCALGAIN1–4` → `OP-20261125-FRAME1–4`. Product-only sign fails; primitive rows and the true signed budget remain. |
+| `20`, 01:04:01, `11e89f84ece71cbaa810860ad37c268abfe754d1`: `ATII-20261124-WINDOW1–4` → `ATII-20261125-TOPLAW1–4`. Maintain measured heights, signed first variation and complete cofinal windows. This invocation is additional. |
+| `30`, 02:05:01, `93f18c6e1475ff9ca69c1ae49df2dae1f07d3232`: `FW-20261124-FIBER1–4` → `FW-20261125-PARTNER1–4`. Prefix freezing retains the first return and repeats; partial rank transfer requires the same module. |
+| `40`, 03:11:01, `96b465a19ec643b83c8c21f27c20a100807246fc`: `PC-20261122-FOURPOWER1–4` → `PC-20261125-HEIGHTFIBRE1–4`. A ramified square can decide the price; measured unequal heights cannot be merged freely. |
+| `50`, 04:13:00, `e857d047300ea59650c4c6eda319d64353c3c2ef`: `REF-20261124-CORE1–5` → `REF-20261125-ROW1–4`. $3L$ retained occurrences can give only $2L-1$ model rows. The competing-dual quotient is a necessary test, not new physical rank. |
+| `60`, 05:10:00, `665f7b85a0b93964f408c4342f6c8b09916fdf3a`: `LV-20261124-METRIC1/PERIOD1` → `LV-20261125-LIFT1–2`. Separate cheap competing lifts need not be jointly cheap. Do not carry older review suggestions forward as current CI. |
+
+`LAST_VERIFIED=LAST_CONSUMED` at the actual listed final sections, including intervening openings and milestones; `NEW_UNCONSUMED=NONE` through intake. `CONTINUITY_COMPLETE` for this delta, not certification of the legacy Nov 13–15 archive. Inbox blob `7d63d434690d00dffce9c90335d41c4f62d85798`: `EXT-20261018-PNT-1/3` retain cofactor endpoints and the historical anchor, `EXT-20261017-XCOORD-1` restores $q=R$, `EXT-20261014-3/-5` do not yield global signed payment. Reviewed historical #933; it does not supersede the native assignment. On the later report refresh only this role's new checkpoints had been added.
+
+**Verified status.** Draft #1201's actual head `5eb0d87573d087aed794ef065ceea034021fa280` includes a hosted-elaboration repair after Owner's `2ec32fc`; it is not green. [Mandatory closure job][prc-ci] on actual merge checkout `b225c317e9f102e67d183898205f4b226405048c` failed at `NativePrimeExponentJet.lean:37` (invalid `symm`); independent diagnostics also reported timeouts at `NativeDyadicPrimePowerIncidence.lean:323/333`. `NativeExistingRecoveryPayment` individually built; [full hosted build][prc-full] skipped. [Semantic census][prc-census] scanned 3,621/3,621 tracked Lean files with no scan failures, 191 visible-premise RH-return candidates; not a semantic clearance. No local Lean, new axiom audit, proof-branch write, imported terminal RH or finding upgraded to `LEAN_VERIFIED_CLOSED`. For merged #1205 (head `45d86f3f728e94e476427ffa41e5a0620bb74be0`, merge `fde7ea71ed88f540a8829554a8ab4602bda96f4d`), [exact audit][prc-hci] and [full build][prc-hfull] succeeded on `80b2b2098513d467af9e370fbf41b0592c4b4cb9`. The audited `riemannHypothesis_of_smallEpsilonWindowBound` has the explicit positive $\epsilon_1$ and window premise, with `propext, Classical.choice, Quot.sound`. **LEAN_VERIFIED_CONDITIONAL**, not its supplier.
+
+[#1212][prc-policypr] merged November 25 at 07:08 EST (instructions only); #1210 final closure and #1209 semantic rules stand. Merged #1211's Stage 1 [native companion][prc-stage] takes `hExternal`; not this route. [#1207][prc-mom] remains open, non-draft; [#1213][prc-new] is an open **draft** at `33942099c80665ef0d461efa0824cfb574fbc00f`. Its proposed single-prime research assignment is not merged main policy and its centered signed estimate is not a #1201 supplier. The observed main and #1201 SHAs were unchanged on prepublication refresh.
+
+**Source provenance.** Policy's community pin `251c7b05dd869ceba1aa42c6001c00b4010f23f9` and inspected live community head `d91ae2678eea19a0c3045ffca37f1da757c2e719`. `ManyEdges.lean` is blob `7f043efac738a5e73ec785f5fe4435031babde4f` at both; `PlaneCountTheoremWithConstants.lean` is `9093d64224dc052521d7114b52f833fa727eeb7d` at the pin and `700619442da4ead8fdebfd8d54eedce03dcf755a` live. Diff: two unused local bindings removed elsewhere; the inspected `linkG_at_core` statement/body is unchanged. No community terminal result was used. The following are actual Git blobs, not the enclosing commit:
+
+| Material (in stated order) | Blob SHA(s) |
+|---|---|
+| Main AGENTS / contract / Nov 25 directive | `c7715e559ab64a8b2ebbf4623ecc246cb43179af`; `6fa886e125321056739a48d09fd33c95edaebf6b`; `8c16f05a43e8794fa78f77ba2645b3913669b93f` |
+| Final closure / semantic audit / continuity / publishing | `395378d0e6525fab6c6ed9b7315c5de4c36329dd`; `1029b89123471c04da44b0d91f382d7291cf1f14`; `7eef0b36c7442be922d9bc99c6b35d853c4f1f4f`; `a9583516fd2e603320c771e32c170132bf0c53e9` |
+| #1201 AGENTS / economical experiment / width script | `4496eb12b74c58185eefa5d01b463ebca82e0ee4`; `587e48fd7a37dbdc3d3374a178d65ac06ceb2718`; `74985f528f1ae6fb87aba534eb8a6053b09ea23e` |
+| SquareHostRealization / HostIntegralJetRows / JointEvaluationRecovery | `b1d4cf64de78d94582c586b9b1651727c63389a9`; `7a5190692f1a3292ff391f23823da06772a2a74d`; `32ff6612607bf57c00167f025a2d59ac2d28ebdc` |
+| ThetaJetEvaluation / ThetaEvaluatedFamily / SummandCovolume / SquareCapacityPeriod | `a2fb3f5dcf3e5371aa02a3103facb5b9f9b2d74f`; `7e8c4a9f5b1cd5349f870a32842d61f935245a33`; `9232afd2fe0af4e1206f8d679213fdd9f46c79d2`; `099ef253ece4a800434515e7da2b9a6d4c845dfb` |
+| PrimeExponentJet / PrimeExponentAncestry / SignedPrimeExponentAncestor / ServedPrimeApplication | `08a26394f1098aa9819c866c250f72e0132eb59b`; `b7262666116bdf2be9ca5686e1b4982bae80703c`; `3f68e99c3843530e3e50e2ca65b3fd02ba290ed4`; `46369dc5352cc42bf6633b33836dfc2947fddb1a` |
+| SharpASKBalance / ThickFreezing / SignedSlopeComparison / SquareCandidateCapacity | `3b6c2035d23b235ff9c0e1cb287eec8fdc516acc`; `3cdd42173c809b28752f8f9b686425bd9aa0d5f6`; `d8250851cd4ddc640fdc89df8475dcc2c09a636a`; `395e595d9ada914edbe41b441a4767a044634ad9` |
+| NativeExistingRecoveryPayment / GeometricCostWindows / PrincipalEAtH / BoundHandoff | `1076fb12c5bb2b1a85ed97f20aadfb105c4e2747`; `ebadfe97d09408a04b64a36a328b19a667d729ee`; `ed98fe285987a38bc635a3729024bc3f3b1ac4b2`; `31dc576197075a0448ced1a1c58e24a35c6d80d6` |
+
+**Resume capsule.** Start at the physical localization in C, not another decoder inversion or a larger width-only Smith scan. Compare the full source and dual to the first competing read, price the transverse error by (6)–(7), and use (1)–(5) for width restoration only after the map to measured widths is known. No physical data supplied in this run. Prior result/claim IDs and both previous verified checkpoints are unchanged. Opening commit `e4a140b3900183662059da803c040549e0bba0b9`; derivation checkpoint `0d10c875436649ae499bcd62c4a595b816ed2e78`, blob `f2656621d4093d9d7c1e6ea58610251b2730f598`, 52,122 bytes. This section is prepared for a SHA-guarded append with exact-commit readback; the publication receipt belongs to that subsequent verification, not to the paper proof.
+
+[prc-policy]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/AGENTS.md
+[prc-contract]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/CURRENT_PROOF_CONTRACT.md
+[prc-dir]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md
+[prc-closure]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/docs/RHLEAN_FINAL_PR_1201_PROOF_CLOSURE_20261124.md
+[prc-audit]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/research/RHLEAN_FULL_SEMANTIC_RISK_AUDIT_20261124.md
+[prc-pr]: https://github.com/OVVO-Financial/RH_Lean/pull/1201
+[prc-vf]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean#L24
+[prc-handoff]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/RHLean/Analysis/AlpogeNativeBoundHandoff.lean#L158
+[prc-candidate]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSquareCandidateCapacity.lean#L88
+[prc-host]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSquareHostRealization.lean#L71
+[prc-family]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaEvaluatedFamily.lean#L133
+[prc-jet]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeHostIntegralJetRows.lean#L147
+[prc-many]: https://github.com/leanprover-community/riemann-hypothesis/blob/d91ae2678eea19a0c3045ffca37f1da757c2e719/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ManyEdges.lean#L23
+[prc-instance]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/research/NATIVE_ECONOMICAL_RECOVERY_20261125.md
+[prc-joint]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeJointEvaluationRecovery.lean#L182
+[prc-served]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeServedPrimeApplication.lean#L172
+[prc-core]: https://github.com/leanprover-community/riemann-hypothesis/blob/d91ae2678eea19a0c3045ffca37f1da757c2e719/src/Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean#L591
+[prc-ask]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSharpASKBalance.lean#L1043
+[prc-mass]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeThickFreezing.lean#L33
+[prc-gram]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSummandCovolume.lean#L143
+[prc-short]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaJetEvaluation.lean#L268
+[prc-size]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeGeometricCostWindows.lean#L277
+[prc-pay]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean#L99
+[prc-id]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean#L65
+[prc-freeze]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeThickFreezing.lean#L506
+[prc-ledger]: https://github.com/OVVO-Financial/RH_Lean/tree/0f6aa7ccbc7f786790d28347e3bd2076a8fc8530/research/agent_reports
+[prc-delta]: https://github.com/OVVO-Financial/RH_Lean/compare/3344ccbb30ccbee146dd587e8274f8ab49ad7656...0f6aa7ccbc7f786790d28347e3bd2076a8fc8530
+[prc-inbox]: https://github.com/OVVO-Financial/RH_Lean/blob/0f6aa7ccbc7f786790d28347e3bd2076a8fc8530/research/agent_reports/EXTERNAL_HANDOFFS.md
+[prc-ci]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139243948070
+[prc-full]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139255968247
+[prc-census]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625260573/job/139243639205
+[prc-hci]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45309220195/job/138160666430
+[prc-hfull]: https://github.com/OVVO-Financial/RH_Lean/actions/runs/45309220195/job/138161896915
+[prc-policypr]: https://github.com/OVVO-Financial/RH_Lean/pull/1212
+[prc-stage]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/research/ALPOGE_STAGE1_EXTERNAL_QUANTITATIVE_CONSEQUENCES_20261124.lean
+[prc-mom]: https://github.com/OVVO-Financial/RH_Lean/pull/1207
+[prc-new]: https://github.com/OVVO-Financial/RH_Lean/pull/1213
+
+<details>
+<summary>Executable replay: width crossings, prime-power binomials and projected Gram costs</summary>
+
+```python
+"""Independent finite checks for ATII-20261125-PRICE. No Lean or local edge model."""
+from collections import Counter
+from fractions import Fraction as F
+from itertools import product
+from math import ceil, comb, floor, gcd, isqrt
+
+
+def primes(n):
+    return [p for p in range(2, n + 1) if all(p % j for j in range(2, isqrt(p) + 1))]
+
+
+def powers(n):
+    for p in primes(n):
+        v, k = p, 1
+        while v <= n:
+            yield p, k, v
+            v, k = v * p, k + 1
+
+
+def factor_test():
+    # Multiplicative version of the log bound, keeping repeated prime powers.
+    endpoint = 1200
+    prod = [1] * (endpoint + 1)
+    for p, k, v in powers(endpoint):
+        prod[v] = p
+    for i in range(1, endpoint + 1):
+        prod[i] *= prod[i - 1]
+    cases = Counter()
+    for j, inv in product(range(1, 4097), (8, 16, 32, 64, 125, 256)):
+        y, r = F(j, 4), F(1, inv)
+        M, L = floor(y / (1 - r)), max(0, ceil(y / (1 + r)) - 1)
+        k = M - L
+        if r * y >= 1:
+            assert y >= 8 and k <= 4 * r * y and k <= y / 2 and L >= k
+            assert comb(M, k) % (prod[M] // prod[L]) == 0
+            cases["macroscopic_bins"] += 1
+        else:
+            assert k <= 3
+            cases["atomic_bins"] += 1
+    return dict(cases)
+
+
+def reads(e, q, d, N):
+    order, two = 2**e, 2**(e + 2)
+    mod = two * q * d
+    units = [u for u in range(mod) if gcd(u, mod) == 1]
+    coord = {(s * pow(5, k, two)) % two: k for s, k in product((-1, 1), range(order))}
+
+    def rec(u):
+        return (int(pow(u, (d-1)//2, d) != 1), int(pow(u, (q-1)//2, q) != 1),
+                coord[u % two])
+
+    out = []
+    for p in primes(N):
+        co = mod
+        while co % p == 0:
+            co //= p
+        part = mod // co
+        fr, = [rec(u) for u in units if (u-p) % co == 0 and (u-1) % part == 0]
+        inertia = {rec(u) for u in units if (u-1) % co == 0}
+        v, k = p, 1
+        while v <= N:
+            sites = [((1 + k*fr[1] + z[1]) % 2, (k*fr[2] + z[2]) % order,
+                      F(2, len(inertia))) for z in inertia if (k*fr[0] + z[0]) % 2 == 1]
+            assert sum(c for _, _, c in sites) <= 2
+            out.append((p, v, sites))
+            v, k = v*p, k+1
+    return out
+
+
+def signed_tests():
+    cases = Counter()
+    pos = lambda z: max(0, z)
+    for e, q, d in ((1,5,3), (2,3,23)):
+        n = 2**e
+        pp = reads(e,q,d,80)
+        sites = list(product(range(2),range(n)))
+        for mask, u, j, a0, inv in product(range(1,2**n),range(n),range(2),
+                                                 (F(5),F(93,4),F(42)), (8,16,64)):
+            r = F(1,inv)
+            g = {(c,h): F(1 + (3*c+h+u+j) % 3) for c,h in sites}
+            w = {(c,h): g[c,h]*(1 + r*((c+2*h+u+j) % 3 - 1)) for c,h in sites}
+            for t in range(n):
+                if not mask >> t & 1:
+                    continue
+                a = a0 + F((2*t+u) % 4, 4)
+                for p, v, occ in pp:
+                    bnd = 2 * max(G*pos(r - abs(a/(v*G) - 1)) for G in set(g.values()))
+                    cost = 0
+                    for c,h,mu in occ:
+                        site = c,(h+t) % n
+                        g0,w1,h0 = g[site],w[site],a/v
+                        cut = pos(w1-h0) if h0 > g0 else pos(h0-w1)
+                        direct = pos(h0-w1)-pos(h0-g0)
+                        affine = -(w1-g0)*int(h0>g0)
+                        assert direct == affine + cut
+                        cost += mu*cut
+                    assert 0 <= cost <= bnd
+                    cases["top_power_prices"] += 1
+            cases["modular_profiles"] += 1
+    pp = reads(2,3,23,6)
+    for inv in (8,16,64,256,1024):
+        r=F(1,inv)
+        w={(0,1):1/(1+r), (0,0):1+r}
+        delta=Counter()
+        assert w[0,1]*w[0,0] == 1
+        for p,v,occ in pp:
+            for c,h,mu in occ:
+                delta[p] += mu*(pos(F(5,v)-w.get((c,h),1))-pos(F(5,v)-1))
+        assert {p:k for p,k in delta.items() if k} == {5:2*r/(1+r)}
+        cases["physical_arithmetic_atoms"] += 1
+    return dict(cases)
+
+
+def gram_test():
+    hist = (1,1,0,0)
+    base = ((0,1,1,0),(1,0,1,1))
+    dot=lambda x,y:sum(i*j for i,j in zip(x,y))
+    res=lambda x,y: dot(x,y)-F(dot(x,hist)*dot(y,hist), dot(hist,hist))
+    det=lambda v:res(v[0],v[0])*res(v[1],v[1])-res(v[0],v[1])**2
+    d0 = det(base)
+    A,B,C = res(base[0],base[0]), res(*base), res(base[1],base[1])
+    cases=Counter()
+    for v,a,b,m in product(product((-1,0,1),repeat=4),range(-2,3),range(-2,3),(0,17)):
+        coeff=(a,b)
+        new=[tuple(base[i][j]+coeff[i]*v[j]+(i+1)*m*hist[j] for j in range(4))
+             for i in range(2)]
+        q=res(v,v)*(C*a*a-2*B*a*b+A*b*b)/d0
+        ratio=det(new)/d0
+        assert ratio >= 0 and q >= 0
+        gap=ratio-1-q
+        assert gap <= 0 or gap*gap <= 4*q
+        if not q:
+            assert ratio == 1
+            cases["zero_projected_tail"]+=1
+        cases["abstract_gram_comparisons"]+=1
+    return dict(cases)
+
+
+if __name__ == "__main__":
+    print(factor_test())
+    print(signed_tests())
+    print(gram_test())
+```
+
+</details>
