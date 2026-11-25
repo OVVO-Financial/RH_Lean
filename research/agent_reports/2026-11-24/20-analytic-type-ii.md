@@ -1,0 +1,7 @@
+# RH | Analytic Type II | 2026-11-24 (America/New_York)
+
+## Opening | ANA-20261125T014428Z-WINDOW-OPEN
+
+**IN_PROGRESS.** On the principal native source the existing side of the comparison is an average at the realized heights, not the missing signed gain-to-cost bound. I am testing whether the actual positive prime-power hinge kernel allows fewer paid host scales while still covering every real point of a full closed window. I will also trace the actual height-selection input. No constructed physical family, new formal theorem, critical estimate, or RH closure is claimed at this checkpoint.
+
+Scheduled trigger 20:44:28 EST / 01:44:28Z. Main `5fefebadf176092a7cd83a4e16aca1f0ec0ce60e`; #1201 draft `0b9f49ce640e98b3b9c81a29d71d6d98d69f62a9`; reports intake `5826297f5ce97d27c90e8215e5d64384fcc20155`. Control: `final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1`, `FINAL_1201_ROLE=ANALYTIC`, `DIRECT_CORE_CUT_V1`, `STRICT_NO_GEOCL_ANYGEOMETRY_V1`, `publish_ack=REPORT_PUBLISH_RECOVERY_V1`, `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`. The November 24 DIRECT, LOCALGAIN and CORE reports supersede prior task selection; November 23 has no verified role report. November 22 SELECT1-4 and its unresolved tail remain historical rather than a mandate to rebuild the family. No exact-current-head #1201 Actions run or check run was returned at intake; no dispatch. Only this report is authorized for writing.
