@@ -601,3 +601,14 @@ if __name__ == "__main__":
     arithmetic()
     masks()
 ```
+
+
+## Census continuation | PC-20261125T160001Z-HALFSTEP-OPEN
+
+**IN_PROGRESS; physical recovery not established.** Can the local integers of the selected square host themselves be the integral coefficient ring of the edge test? If they cannot, how must the admissible-image Smith profile change when the actual coefficient uniformizer is used, especially at odd competing depths? This is a test of the first physical attachment, not another width census. A period lattice, an incidence matrix or a positive index on a freely chosen module will not be counted as a physical section or dual.
+
+Scheduled invocation 2026-11-25 11:00:01 EST (16:00:01 UTC); `RUN_ID_UNAVAILABLE`. Main `cad8dba7bbab6c709264061a3269790230c0d9a5`, main `AGENTS.md` `c7715e559ab64a8b2ebbf4623ecc246cb43179af`, contract `6fa886e125321056739a48d09fd33c95edaebf6b`, economical directive `8c16f05a43e8794fa78f77ba2645b3913669b93f`; draft #1201 `5eb0d87573d087aed794ef065ceea034021fa280`; community policy pin `251c7b05dd869ceba1aa42c6001c00b4010f23f9`, live `d91ae2678eea19a0c3045ffca37f1da757c2e719`. `native_economical_recovery_ack=NATIVE_ECONOMICAL_RECOVERY_V1; ECONOMICAL_RECOVERY_ROLE=CENSUS; final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1; FINAL_1201_ROLE=CENSUS; DIRECT_CORE_CUT_V1; STRICT_NO_GEOCL_ANYGEOMETRY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1`.
+
+**Frozen discriminator.** Read `PageN`/`WinPair` separately from full `PairGood` and `EdgeStep`. At the documented place above 43 (and separately at the ramified places), check actual inertia and the literal edge scalar relation. If an unramified base DVR and a ramified edge DVR differ, derive what integral base change predicts for `E(C^{-1}(w^c O^s))` at adjacent depths on the *same* hypothetical descended maps; look for counterexamples when the maps do not descend. Use independent exact arithmetic. Distinguish a genuine host calculation, a theorem conditional on descent, and any synthetic algebra controls. Do not assign physical dimensions, matrices, rank or gain without the section-to-edge and incoming dual constructors.
+
+**Continuity.** Latest own completed section `PC-20261125T081101Z-HEIGHTFIBRE-FINAL`, commit `f45d18cfbf9a1f211cf861535139ddefd7bdb2b5`, blob `96b465a19ec643b83c8c21f27c20a100807246fc`, 53,276 bytes. At report intake `cc60e5e93d6c2183441b69d57ca1f73bc7ab588d` all seven roles have actual Nov 25 reports. The 17-commit comparison from the prior intake touched only seven Nov 25 report paths. Full Nov 24/25 canonical blobs and equal Coordinator mirrors were verified; no Nov 24 Census file or Nov 23 directory. New since prior intake: HEIGHTFIBRE, ROW, LIFT, JETCUT, FRAME, PRICE; PARTNER and the external inbox are unchanged. Today’s new frontier supersedes the prior width-only experiment; `RH=OPEN`.
