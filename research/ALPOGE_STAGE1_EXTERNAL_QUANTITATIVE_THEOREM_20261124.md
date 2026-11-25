@@ -137,3 +137,46 @@ unconditional RH objective remains OPEN. Any later independent stage
 must remove or independently discharge the external premise, not
 invoke this stage as a geometry-free supplier. A green conditional
 consumer cannot count as an independent proof.
+
+## 5. Closed external-dependency replay (Stage 1 completion gate)
+
+The user clarified that Stage 1 must compile a **closed** Lean RH declaration,
+not merely the conditional native consumer. See
+`scripts/alpoge_stage1/ClosedRH.lean.in` and its dedicated hosted workflow
+`alpoge-stage1-external.yml`.
+
+The frozen dependency is homeowmorphism/riemann-hypothesis-original@
+774b9e8022f50d20be861ecc9d609cfc26436a81, with Lean 4.33.1 and original Mathlib
+0df444a360eaa60ab8c11dca51a86af692955474. The mirror's source tree
+24df20b62d9976ccd20da819bc20b16f808f0fdd includes its separate challenge
+setup; it is not claimed identical as a whole Git tree to the CocoSgt mirror.
+No mixed-toolchain imports. The replay uses the published pinned community
+cache described at https://github.com/homeowmorphism/riemann-hypothesis-original/blob/774b9e8022f50d20be861ecc9d609cfc26436a81/verification/CACHE.md.
+It accepts cached external proofs, not an independent fresh full build.
+
+The root principalQuantitativeWindowBound uses the actual original
+TopG supplier application and level_gm_le_on_family_scales. It supplies
+externalQuantitative, with literally the #1205 SmallEpsilonWindowBound
+statement copied from the checked-out native source. The new
+RHLean.Analysis.AlpogeStage1External.riemannHypothesis declaration has no
+arguments and uses the upstream scalar FormB analytic criterion and the
+functional equation. The original terminal RH proof is not applied.
+The native 4.34.1 research consumer remains separate. This choice is
+necessary to avoid mixing incompatible compiler/mathlib pins; a closed
+4.34.1 native-library root would still require porting the upstream proof
+or a verified proof-term transfer. We do not claim such a port here.
+
+The dedicated workflow verifies the source/dependency pins, restores
+the frozen community cache, and elaborates the new root, enforcing its
+exact kernel type and standard axiom list. No native workflow or
+independent-proof status gate is weakened. Acceptance requires the new
+compile and its closed-root marker; a green native conditional check
+alone does not complete Stage 1.
+
+Resource constraint: upstream documents about 105 GB free disk; this
+workflow requires 115 GiB with headroom. Set the repository variable
+RHLEAN_ALPOGE_REPLAY_RUNNER to an authorized large hosted runner if the
+default runner has insufficient space. The connector cannot provision
+or verify such a runner. No claim of successful compilation until the
+exact-head replay passes. The cache setup may also require substantial
+RAM. Stage 1 is deliberately not a strict geometry-free proof.
