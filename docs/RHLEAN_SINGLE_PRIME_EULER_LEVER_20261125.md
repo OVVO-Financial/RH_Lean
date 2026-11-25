@@ -116,3 +116,73 @@ Use [ManyEdges/EdgeFam/EdgeStep/SrcTests](https://github.com/leanprover-communit
 - LEAN: verify the submitted arithmetic module under hosted warning-fatal Lean; formalize square-clock and prefix joins, exact centered target and proven suppliers only. Coordinate any final bound with #1201 rather than adding a competing RH endpoint.
 
 Acceptance: independently prove the centered aggregate lower bound for the actual arithmetic source, or report the first explicit local rank/payment inequality that remains unproved. A green build of the submitted identities alone is not closure. Preserve existing role access, report continuity, model/cadence, hosted-only verification, semantic dependency audit and human-only merge. The directive is scoped to this PR until reviewed; repository edits do not themselves launch or reconfigure agents.
+
+
+## 6. V2 — trace Alpöge's own single-prime operation first
+
+**Directive SINGLE_PRIME_FROBENIUS_GAIN_V2 (2026-11-25).** Refines the attack order in section 5; the centered source and acceptance gates remain unchanged. Before attempting a native inequality, reconstruct the actual upstream prime action, its two channels and its two distinct quantitative payments. Do not assume an Euler-wheel insertion is literally Alpöge's construction.
+
+### 6.1 Pinned source ledger
+
+All links below are to community commit 8e5cefeeaffe7e4c12153385b7bb33fb7223c41a.
+
+- [Host group and Frobenius](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/FrobeniusOrbits/Statement.lean#L26-L46), [HostFrob](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/FrobeniusOrbits/Statement.lean#L172-L183): the host is two sign characters times the unit group modulo 2^(e+2), quotiented by ±1. For unramified p the signs are the Jacobi symbols (-q/p),(-d/p), and the remaining coordinate is the class of p modulo 2^(e+2). The fixed host action is arithmetically computable without constructing a CM variety. It is not a succession of enlarging squarefree Euler wheels. The ordinary old wheel does not in general encode the 2-power coordinate; use an auxiliary modular coordinate and explicit characters if reproducing the host action. Treat p=2,q,d separately. Do not replace the host's geometric suppliers by this finite-group observation.
+- [partner, stepP, nP, fillG](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L99-L165): partner(p,s,k) = (IsSg(p) and Odd(k), s+k*hP(p)). Signal primes use stepP=2*hP; the Boolean sheet is meaningful. Plain orbit parity is not well-defined modulo an odd orbit order. Prime 3 acting on the previous wheel 2 already has order 1. Retain the exponent and sheet separately.
+- [gamma, rho, gainG, excessGain](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/GrowthSums/StatementA.lean#L34-L50) and [CappedGainSubLE](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/GrowthSums/StatementG.lean#L14-L22): distinguish a capped-gain formula from the hypotheses that actual intermediate quantities are bounded by each cap. In particular CappedGainSubLE is a stated proposition, not by itself a supplying proof.
+- [capU, Excl, dl, g0, gU, Pr](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L218-L261) and [tauP, ioP, gainP, askG, askP](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L330-L365): the operative gainP is a sum of maxima of zero, g0, and (on VV) gU-Pr, not simply gainG. g0 excludes selected first-hit displacements, gU has a restricted set of capped terms, dl charges orbit length and top multiplicity, and tauP and ioP are additional expenditure. Record all exclusions, offsets, normalizations, small-prime and exceptional sectors.
+- [isEdge_of_basis](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/EdgePlane.lean#L137-L200): the prime-local lattice extension has quotient size p^(f*r) under its residue-ring and basis hypotheses. CRT lift counts do not establish the selected evaluation rank or actual divisibility.
+- [GainBoundAt](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/Conclusion1OfGainBoundAll.lean#L89-L107), [admG1](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/SmallOrderPrimes.lean#L177-L187) and [linkG_at_core](https://github.com/leanprover-community/riemann-hypothesis/blob/8e5cefeeaffe7e4c12153385b7bb33fb7223c41a/src/Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean#L592-L646): separate the signed ask/gain inequality from the local quotient-length and valuation supplier. Both are required by the downstream comparison. Inspect proofs of the suppliers, not merely the consumers.
+
+### 6.2 Exact operator and physical prime-power transport
+
+For a fresh prime p and old wheel P coprime to p, let T_p push a vector on reduced residues forward by a -> p*a mod P. It is a permutation. In any finite-dimensional norm in which it is isometric, the convergent operators are
+
+    O_p = sum_{k>=1, k odd} p^(-k) T_p^k
+        = (T_p/p) (Id-T_p^2/p^2)^(-1)
+    E_p = sum_{k>=2, k even} p^(-k) T_p^k
+        = (T_p^2/p^2) (Id-T_p^2/p^2)^(-1).
+
+Summing coordinates gives gamma_p=p/(p^2-1) and rho_p=1/(p^2-1). This is an exact finite-wheel realization of the scalar geometric series, not a bound on the physical source.
+
+For a physical positive integer interval I=[L,U], define A_t as its old-wheel population at residue t. For d=p^k, let B_k(t) count n in I with n=t mod P and d|n. The actual weighted layer for arbitrary original w is exactly
+
+    B_k(t;w) = sum_{m in [ceil(L/d),floor(U/d)], m=d^(-1)*t mod P} w(d*m).
+
+The inverse is taken modulo P; no division by a residue that is not a unit. For k=1, summing over t gives the actual one-prime removal from section 1. The higher layers are nested; sum over odd k of 1_{p^k|n} is ceil(v_p(n)/2) and sum over positive even k is floor(v_p(n)/2). Their difference detects odd valuation, not squarefreeness and not total first-prime removal. Keep this separate from the signed Möbius recursion and the terminal proper-power payment.
+
+**Exact boundary theorem (paper proof):** the A_t sites in I form one consecutive arithmetic progression of difference P. Divisibility by d selects exactly one residue class of its index modulo d. If A_t=d*q+r, 0<=r<d, then B_k(t)=q+epsilon, where epsilon is 0 or 1 determined by the position of that residue class in the remaining r indices. Consequently
+
+    d*B_k(t)-A_t = d*epsilon-r,  |d*B_k(t)-A_t| < d.
+
+If s=d^(-1)*t mod P, then |A_s-A_t|<=1 for an unweighted contiguous interval, since all residue classes modulo P have floor or ceil(|I|/P) representatives. Thus
+
+    B_k(t)-A_s/d = (d*epsilon-r)/d + (A_t-A_s)/d,
+    |d*B_k(t)-A_s| <= d.
+
+The latter follows by integer rounding from the strict first bound. This decomposition isolates the physical endpoint phase and source/destination mismatch. For weights use the exact pulled-back weight or Abel summation of the interval counts; do not replace weights by a uniform density. A per-fibre O(1) bound is not a useful global estimate when the number of active fibres grows with the physical block length.
+
+### 6.3 Decisive exact obstruction to a bare wheel gain
+
+Set P=30, p=7 and use two half-open-in-spirit, closed integer subintervals of the *same* square block [900,960]:
+
+    I=[900,929], J=[930,959].
+
+Each contains precisely one member of every old reduced residue 1,7,11,13,17,19,23,29. Hence the old vector A and every output of the theoretical operators O_p,E_p on it are identical. But actual p-removal in I is {917}, and in J is {931,959}. The second interval has one p^2-divisible site, 931=49*19. Thus delta_p(I)=1-8/7=-1/7, while delta_p(J)=2-8/7=6/7. There can be no function of the old count vector and fixed p alone computing the exact removal for all physical subintervals.
+
+Furthermore for I, n=917=7*131 has source residue 11 and target residue 17. Its actual count 1 exceeds the proposed cap A_11/7=1/7. Therefore the literal assignment i(s,k)=actual raw occupancy and al(s)=old raw count does not satisfy the cap premise in CappedGainSubLE, even for full old-wheel periods. This does not refute Alpöge's theorem: his capacities are auxiliary quantities in an appropriately normalized selected family. It refutes this naive transfer of the theorem.
+
+The obstruction is not a claim that all endpoint-enriched wheel constructions fail, nor a lower bound on the aggregate error. It identifies exactly what an economical native supplier has to recover: the prime-indexed endpoint phase (or a signed aggregate that controls its effect). A new lattice with a chosen diagonal and a p^r quotient is not evidence of that recovery.
+
+Reproduce with node scripts/single_prime_frobenius_orbit_20261125.js. This exact-integer diagnostic compares direct physical enumeration, inverse cofactor enumeration, the fibre rounding identity, the source/destination bound, and the odd/even depth identity. Over primes 2,3,5,7,11,13,17 with old wheels containing all preceding primes, and full square blocks r=p..128: 845 block/prime cases, 4136 prime-power layers, 56342 fibre comparisons, all passed; 2458 strict violations of the naive raw-count cap. The two subintervals above are additional tests. All numbers are safe exact integers in this bounded diagnostic; no assertion of asymptotic uniformity. A finite Lean counterexample is submitted in the existing research module; hosted verification pending.
+
+### 6.4 Revised single-prime quantitative assignment
+
+The next supplier is a same-frame recovery/payment for the signed endpoint phase, not another wheel identity or a copy of the upstream geometric definitions.
+
+1. WHEEL/LEAN: formalize exact T_p, the two geometric resolvents, the independent sheet/exponent label, the restricted p^k transport and the quotient/remainder boundary identity. Produce the explicit correspondence of the unramified upstream host action in an enriched native residue coordinate, with ramified exceptions separated. Verify the finite old-count collision. Do not import the terminal RH proof.
+2. OWNER: trace the actual supplier of g0/gU and the min-cap hypotheses to the original selected orbit, its degree budget dl and tauP/ioP. Construct a physical readout whose recovered quantities satisfy a proved cap (or a new inequality with an explicit paid rounding term). The same physical interval, weights, lift and competing sites must appear in the signed ask and the rank/depth proof. Retain all exclusions and the partner-sheet normalization.
+3. CENSUS: compute phase errors d*epsilon-r and source/destination mismatch, grouped by p, k, t, and square block. Keep the signed sum, not only the counts of cap failures. Check near-empty fibres, odd order orbits, p^2 layers and shared targets. Do not infer uniform bounds from the diagnostic.
+4. ANALYTIC: connect the paid phase residual to the exact attenuated defects of section 2, and to K_N (not raw D_N), including p=2, other exceptional primes, semiprime high owners, and the proper-power payment exactly once. Keep the original square-clock quantifiers.
+5. REFEREE/COORDINATOR: require separate proofs of the physical analogue of GainBoundAt (signed ask minus allowances bounded by recoverable gain minus expenditure) and admG1 (actual recovery rank/depth/quotient length at a paid cost), or a demonstrably sufficient native replacement for those two inequalities. Neither a CRT full-fibre rank nor the resolvent identity discharges either. Follow upstream supplying proof dependencies if a native inequality fails. Report the first precise missing inequality and a counterexample if available.
+
+Finish only by proving the centered aggregate lower bound in section 2 and feeding the existing native square-clock consumer. The V2 directive does not retask or launch external agent runtimes; it specifies the work in this PR. All actual new mathematical proofs need hosted verification and semantic review.

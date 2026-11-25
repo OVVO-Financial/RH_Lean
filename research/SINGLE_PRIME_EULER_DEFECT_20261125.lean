@@ -147,4 +147,46 @@ theorem centered_iff (I : Finset ℕ) (w : ℕ → ℝ) (ps : List ℕ)
 #print axioms telescoping
 #print axioms centered_iff
 
+
+/-- Concrete old-wheel population vector for the finite source obstruction. -/
+def oldWheelVector30 (lo hi : ℕ) (a : Fin 30) : ℕ :=
+  ((Finset.Icc lo hi).filter
+    (fun n => Nat.Coprime n 30 ∧ n % 30 = a.val)).card
+
+/-- Actual removal at the fresh prime 7, not a predicted Euler proportion. -/
+def actualRemoval7 (lo hi : ℕ) : ℕ :=
+  ((Finset.Icc lo hi).filter
+    (fun n => Nat.Coprime n 30 ∧ n % 7 = 0)).card
+
+set_option maxRecDepth 4096 in
+/-- Two subintervals of the same square block have identical old residue counts. -/
+theorem oldWheelVector30_collision_pointwise :
+    ∀ a : Fin 30, oldWheelVector30 900 929 a = oldWheelVector30 930 959 a := by
+  decide
+
+theorem oldWheelVector30_collision :
+    oldWheelVector30 900 929 = oldWheelVector30 930 959 := by
+  funext a
+  exact oldWheelVector30_collision_pointwise a
+
+/-- But the actual new-prime removal differs on those two physical intervals. -/
+theorem actualRemoval7_collision :
+    actualRemoval7 900 929 = 1 ∧ actualRemoval7 930 959 = 2 := by
+  decide
+
+/-- No function of the old-wheel count vector alone can recover both removals. -/
+theorem noBareWheelRecovery30 :
+    ¬ ∃ f : (Fin 30 → ℕ) → ℕ,
+      f (oldWheelVector30 900 929) = actualRemoval7 900 929 ∧
+      f (oldWheelVector30 930 959) = actualRemoval7 930 959 := by
+  rintro ⟨f, hI, hJ⟩
+  rw [actualRemoval7_collision.1] at hI
+  rw [actualRemoval7_collision.2] at hJ
+  have h := (congrArg f oldWheelVector30_collision).symm.trans hI
+  exact (by decide : (1 : ℕ) ≠ 2) (h.symm.trans hJ)
+
+#print axioms oldWheelVector30_collision
+#print axioms actualRemoval7_collision
+#print axioms noBareWheelRecovery30
+
 end RHLean.Research.SinglePrimeEuler
