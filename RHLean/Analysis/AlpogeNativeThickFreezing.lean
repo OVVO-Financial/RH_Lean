@@ -494,6 +494,38 @@ theorem alpogeNativeFreezing_partner_mem_iff
     rw [alpogeNativeProjectionThick_partner]
     exact Finset.mem_image.mpr ⟨s, hs, rfl⟩
 
+/-- For an actual first-coset colour, the entire translate sum of rounded
+sharp cuts earns the full thick saving. All thin widths may vary with u. -/
+theorem alpogeNativeLowerLogWidth_thick_translate_cuts_le
+    (T2 : Finset H) (t h : H) (η z beta b : ℝ) (w : H → ℝ)
+    (hη : 0 < η) (hbeta : 0 < beta) (hw : ∀ u, beta ≤ w u)
+    (hthick : ∀ u, alpogeNativeProjectionE1 h ∈ alpogeNativeProjectionThickColours T2 u t →
+      b ≤ w u) :
+    let P := fun c : ℝ => alpogeASKPos z (c * Real.exp (-η))
+    (∑ u : H, alpogeASKPos z (alpogeNativeLowerLogWidth η (w u))) ≤
+      (Fintype.card H : ℝ) * P beta - (T2.card : ℝ) * (P beta - P b) := by
+  classical
+  let P := fun c : ℝ => alpogeASKPos z (c * Real.exp (-η))
+  let selected := fun u => alpogeNativeProjectionE1 h ∈ alpogeNativeProjectionThickColours T2 u t
+  have hpay : (∑ u : H, if selected u then P beta - P b else 0) =
+      (T2.card : ℝ) * (P beta - P b) := by
+    rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul]
+    rw [show (Finset.univ.filter selected).card = T2.card from
+      alpogeNativeThickColour_translate_count T2 t h]
+  change _ ≤ (Fintype.card H : ℝ) * P beta - (T2.card : ℝ) * (P beta - P b)
+  calc
+    _ ≤ ∑ u : H, (P beta - (if selected u then P beta - P b else 0)) := by
+      apply Finset.sum_le_sum
+      intro u _
+      have hw0 := hbeta.trans_le (hw u)
+      by_cases hu : selected u
+      · rw [if_pos hu, sub_sub_cancel]
+        exact alpogeNativeLowerLogWidth_cut_le η z b (w u) hη hw0 (hthick u hu)
+      · rw [if_neg hu, sub_zero]
+        exact alpogeNativeLowerLogWidth_cut_le η z beta (w u) hη hw0 (hw u)
+    _ = _ := by
+      rw [Finset.sum_sub_distrib, hpay, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+
 theorem alpogeNativeProjectionActualThick_freeze
     (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ)
     (T2 : Finset H) (a b : ℝ) (u t : H)

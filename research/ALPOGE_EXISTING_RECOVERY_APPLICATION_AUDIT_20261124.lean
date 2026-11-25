@@ -20,6 +20,7 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound
 #check RHLean.Analysis.alpogeNativeLowerLogWidth_cut_le
 #check RHLean.Analysis.alpogeNativeThickColour_translate_count
+#check RHLean.Analysis.alpogeNativeLowerLogWidth_thick_translate_cuts_le
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift
 #check RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated
@@ -45,6 +46,7 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound,
     ``RHLean.Analysis.alpogeNativeLowerLogWidth_cut_le,
     ``RHLean.Analysis.alpogeNativeThickColour_translate_count,
+    ``RHLean.Analysis.alpogeNativeLowerLogWidth_thick_translate_cuts_le,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift,
     ``RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated,
