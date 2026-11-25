@@ -86,6 +86,7 @@ theorem removal_reindex (I S : Finset ℕ) {p : ℕ} (hp : p.Prime)
     rw [Nat.mul_div_cancel' hd] at hm
     rw [Nat.mul_div_cancel' hd, ← hm]
   · intro a ha b hb hab
+    change a / p = b / p at hab
     have ha' := (Finset.mem_filter.mp ha).2
     have hb' := (Finset.mem_filter.mp hb).2
     calc

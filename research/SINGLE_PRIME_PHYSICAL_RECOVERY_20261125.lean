@@ -149,6 +149,7 @@ theorem weighted_cofactor_layer_le (J : Finset ℕ) (N p k : ℕ)
     _ = _ := by
       rw [Finset.mul_sum, Finset.sum_image]
       intro x hx y hy hxy
+      change x / p ^ k = y / p ^ k at hxy
       calc
         x = p ^ k * (x / p ^ k) := (Nat.mul_div_cancel' (hdiv x hx)).symm
         _ = p ^ k * (y / p ^ k) := by rw [hxy]
