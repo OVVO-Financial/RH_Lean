@@ -54,4 +54,31 @@ theorem nativeDyadicInertPrime_exponent_lt_of_winPair {eps Y : ℝ} {q d : ℕ}
   apply (lt_div_iff₀ heps).mpr
   nlinarith
 
+open scoped Classical in
+/-- For one actual inert prime, the original exponent cutoff and any further
+    mask select at most ceil (5 / eps) odd powers below the outer endpoint. -/
+theorem nativeDyadicInertPrime_odd_mask_card_le {eps Y X : ℝ} {q d : ℕ}
+    (hpair : UpperTheory.Top.WinPair eps Y q d) (heps : 0 < eps) (hY : 1 < Y)
+    (e N p : ℕ) (hp : p ∈ nativeDyadicInertPrimes e q d N)
+    (hX : X ≤ Y ^ (2 : ℝ)) (mask : ℕ → Prop) :
+    ((Finset.Icc 1 N).filter (fun i => Odd i ∧ ((p ^ i : ℕ) : ℝ) ≤ X ∧ mask i)).card ≤
+      ⌈5 / eps⌉₊ := by
+  let S := (Finset.Icc 1 N).filter (fun i => Odd i ∧ ((p ^ i : ℕ) : ℝ) ≤ X ∧ mask i)
+  have hmap (i : ℕ) (hi : i ∈ S) : i / 2 ∈ Finset.range ⌈5 / eps⌉₊ := by
+    obtain ⟨hI, ho, hcap, _⟩ := Finset.mem_filter.mp hi
+    obtain ⟨j, hj⟩ := ho
+    have hbound := nativeDyadicInertPrime_exponent_lt_of_winPair hpair heps hY e N p i hp
+      (Finset.mem_Icc.mp hI).1 (hcap.trans hX)
+    have hnat : i = 2 * j + 1 := by omega
+    have hreal : (i : ℝ) = 2 * (j : ℝ) + 1 := by exact_mod_cast hnat
+    rw [Finset.mem_range, show i / 2 = j by omega, Nat.lt_ceil]
+    have hscale : 10 / eps = 2 * (5 / eps) := by ring
+    linarith only [hbound, hreal, hscale]
+  have hinj : Set.InjOn (fun i : ℕ => i / 2) (S : Set ℕ) := by
+    intro i hi k hk hik
+    obtain ⟨j, hj⟩ := (Finset.mem_filter.mp hi).2.1
+    obtain ⟨l, hl⟩ := (Finset.mem_filter.mp hk).2.1
+    omega
+  simpa only [Finset.card_range] using Finset.card_le_card_of_injOn (fun i : ℕ => i / 2) hmap hinj
+
 end RHLean.Analysis.AlpogeThin

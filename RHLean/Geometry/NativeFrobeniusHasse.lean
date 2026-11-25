@@ -1,6 +1,5 @@
 import RHLean.Analysis.AlpogeNativeDyadicHostSize
 import RHLean.Analysis.AlpogeThin.NativeDyadicPrimePowerIncidence
-import Mathlib.LinearAlgebra.Matrix.Block
 
 /-!
 # Hasse coefficients before and after the Frobenius period quotient
@@ -189,6 +188,37 @@ theorem nativeDyadic_frobPeriod_rigid {O : Type*} [CommRing O] (h2 : IsUnit (2 :
     let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
     (1 + u) ^ addOrderOf x = 1 ↔ u = 0 :=
   cyclic_period_rigid _ (nativeDyadic_frobPeriod_isUnit h2 e q d p) u hu
+
+/-- Any two actual unit-valued characters of the dyadic quotient agreeing
+at Frobenius up to a nilpotent relative perturbation agree there exactly.
+The period equation follows from the homomorphisms themselves. -/
+theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing O]
+    (h2 : IsUnit (2 : O)) (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
+    let H := alpogeNativeHostData e q d
+    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
+    let z := Multiplicative.ofAdd x
+    ∀ χ ψ : Multiplicative ((AlpogeNativeE0 × AlpogeNativeDyadicH e) ⧸ H.inertia p) →* Oˣ,
+      IsNilpotent ((((ψ z / χ z : Oˣ) : O) - 1)) → ψ z = χ z := by
+  let H := alpogeNativeHostData e q d
+  let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
+  let z := Multiplicative.ofAdd x
+  change ∀ χ ψ : Multiplicative ((AlpogeNativeE0 × AlpogeNativeDyadicH e) ⧸ H.inertia p) →* Oˣ,
+    IsNilpotent ((((ψ z / χ z : Oˣ) : O) - 1)) → ψ z = χ z
+  intro χ ψ hnil
+  let ratio := ψ z / χ z
+  have ho : z ^ addOrderOf x = 1 :=
+    congrArg Multiplicative.ofAdd (addOrderOf_nsmul_eq_zero x)
+  have hp : ratio ^ addOrderOf x = 1 := by
+    change (ψ z / χ z) ^ addOrderOf x = 1
+    calc (ψ z / χ z) ^ addOrderOf x = ψ (z ^ addOrderOf x) / χ (z ^ addOrderOf x) := by
+           rw [div_pow, map_pow, map_pow]
+         _ = 1 := by simp only [ho, map_one, div_one]
+  have he : (1 + ((ratio : O) - 1)) ^ addOrderOf x = 1 := by
+    rw [show 1 + ((ratio : O) - 1) = (ratio : O) by ring]
+    simpa only [Units.val_pow_eq_pow_val, Units.val_one] using congrArg Units.val hp
+  have hzero := (nativeDyadic_frobPeriod_rigid h2 e q d p ((ratio : O) - 1) hnil).mp he
+  have hratio : ratio = 1 := Units.ext (sub_eq_zero.mp hzero)
+  exact div_eq_one.mp hratio
 
 /-- Keep the exponent of the physical prime power before the quotient.
 All these powers return to the same literal colour, whose integral
