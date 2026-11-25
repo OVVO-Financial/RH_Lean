@@ -1,6 +1,9 @@
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.LinearAlgebra.Prod
 import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+import Mathlib.LinearAlgebra.FreeModule.PID
+import Mathlib.RingTheory.Ideal.BigOperators
+import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
 
 /-!
 # Simultaneous integral recovery on a chosen frame
@@ -70,6 +73,98 @@ theorem recovery_iff_blockImage (E : L →ₗ[O] U) (C : L →ₗ[O] V)
     exact h (show (y, (0 : V)) ∈ P.prod (⊥ : Submodule O V) from ⟨hy, Submodule.zero_mem _⟩)
 
 end BlockImage
+
+section PrimitiveTests
+
+open Module
+
+/-- Smith step of Alpöge's actual primitive-test recovery, specialized to an
+integral evaluation image. Adapted from
+leanprover-community/riemann-hypothesis@8e5cefee,
+Formalism/SharpRestriction/GrowthBounds/ScaleEdges/DvdOfAdd.lean (smith_mem).
+The submodule S is the actual image, not an assumed full coordinate lattice. -/
+theorem smith_mem_of_primitive_tests
+    {O I : Type*} [CommRing O] [IsDomain O] [IsPrincipalIdealRing O]
+    [IsLocalRing O] [Fintype I] (S : Submodule O (I → O)) (a : O)
+    (h : ∀ c : I → O, (∃ i, IsUnit (c i)) →
+      ∃ s ∈ S, (∑ i, c i * s i) ∣ a) (x : I → O) : a • x ∈ S := by
+  classical
+  obtain ⟨n, snf⟩ := S.smithNormalForm (Pi.basisFun O I)
+  have key : ∀ j, a • snf.bM j ∈ S := by
+    intro j
+    set φ : I → O := fun i => snf.bM.coord j (Pi.single i 1) with hφdef
+    have hφ : ∀ y : I → O, ∑ i, φ i * y i = snf.bM.coord j y := by
+      intro y
+      conv_rhs => rw [show y = ∑ i, y i • Pi.single i (1 : O) by
+        ext k; simp [Finset.sum_apply, Pi.single_apply]]
+      simp only [map_sum, map_smul, smul_eq_mul, hφdef, mul_comm]
+    have hprim : ∃ i, IsUnit (φ i) := by
+      by_contra! hne
+      have h1 : snf.bM.coord j (snf.bM j) = 1 := by simp
+      rw [← hφ] at h1
+      have hmem : ∑ i, φ i * snf.bM j i ∈ IsLocalRing.maximalIdeal O :=
+        Ideal.sum_mem _ fun i _ =>
+          Ideal.mul_mem_right _ _ ((IsLocalRing.mem_maximalIdeal _).2 (hne i))
+      rw [h1] at hmem
+      exact (IsLocalRing.maximalIdeal.isMaximal O).ne_top ((Ideal.eq_top_iff_one _).2 hmem)
+    obtain ⟨s, hs, hsd⟩ := h φ hprim
+    rw [hφ] at hsd
+    have hs' : s = ∑ k, snf.bN.repr ⟨s, hs⟩ k • snf.a k • snf.bM (snf.f k) := by
+      have hrepr := congrArg Subtype.val (snf.bN.sum_repr ⟨s, hs⟩)
+      simp only [Submodule.coe_sum, Submodule.coe_smul, snf.snf] at hrepr
+      exact hrepr.symm
+    have hc : snf.bM.coord j s =
+        ∑ k, snf.bN.repr ⟨s, hs⟩ k * snf.a k * (if snf.f k = j then 1 else 0) := by
+      conv_lhs => rw [hs']
+      simp [map_sum, map_smul, Finsupp.single_apply]
+    by_cases hj : ∃ k, snf.f k = j
+    · obtain ⟨k0, rfl⟩ := hj
+      have hc0 : snf.bM.coord (snf.f k0) s = snf.bN.repr ⟨s, hs⟩ k0 * snf.a k0 := by
+        rw [hc, Finset.sum_eq_single k0]
+        · simp
+        · intro k _ hk
+          simp [snf.f.injective.ne hk]
+        · simp
+      rw [hc0] at hsd
+      obtain ⟨t, ht⟩ := (Dvd.intro_left _ rfl :
+        snf.a k0 ∣ snf.bN.repr ⟨s, hs⟩ k0 * snf.a k0).trans hsd
+      rw [ht, mul_comm, mul_smul, ← snf.snf k0]
+      exact S.smul_mem t (snf.bN k0).2
+    · have hj' : ∀ k, snf.f k ≠ j := fun k hk => hj ⟨k, hk⟩
+      have hc0 : snf.bM.coord j s = 0 := by
+        rw [hc]
+        exact Finset.sum_eq_zero fun k _ => by simp [hj' k]
+      rw [hc0, zero_dvd_iff] at hsd
+      simp [hsd]
+  rw [← snf.bM.sum_repr x, Finset.smul_sum]
+  refine S.sum_mem fun j _ => ?_
+  rw [smul_comm]
+  exact S.smul_mem _ (key j)
+
+/-- The original goodRank primitive-test mechanism on the constrained native
+lattice. The chosen test may depend on the primitive coefficients, as in
+SrcTests. The competing constraints are imposed before taking the image.
+No separately constructed square frame or invertible minor is required. -/
+theorem recovery_of_primitive_tests
+    {O L I V : Type*} [CommRing O] [IsDomain O] [IsPrincipalIdealRing O]
+    [IsLocalRing O] [Fintype I] [AddCommGroup L] [Module O L]
+    [AddCommGroup V] [Module O V]
+    (E : L →ₗ[O] (I → O)) (C : L →ₗ[O] V) (K : Submodule O V) (a : O)
+    (h : ∀ c : I → O, (∃ i, IsUnit (c i)) →
+      ∃ v : L, C v ∈ K ∧ (∑ i, c i * E v i) ∣ a) :
+    ∀ y : I → O, ∃ v : L, C v ∈ K ∧ E v = a • y := by
+  let S := (K.comap C).map E
+  have hS : ∀ c : I → O, (∃ i, IsUnit (c i)) →
+      ∃ s ∈ S, (∑ i, c i * s i) ∣ a := by
+    intro c hc
+    obtain ⟨v, hv, hdiv⟩ := h c hc
+    exact ⟨E v, Submodule.mem_map.mpr ⟨v, hv, rfl⟩, hdiv⟩
+  intro y
+  obtain ⟨v, hv, he⟩ := Submodule.mem_map.mp
+    (show a • y ∈ (K.comap C).map E from smith_mem_of_primitive_tests S a hS y)
+  exact ⟨v, hv, he⟩
+
+end PrimitiveTests
 
 section Minors
 

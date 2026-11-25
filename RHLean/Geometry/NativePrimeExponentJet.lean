@@ -34,7 +34,7 @@ private theorem weight_self_zero (a b : ℕ) :
   by_cases h : b = a
   · subst b
     rfl
-  · rw [if_neg h, if_neg h.symm]
+  · rw [ite_eq_right h, ite_eq_right (Ne.symm h)]
 
 private theorem weight_comp (s t : ℤ) (a b : ℕ) :
     ∑ v : Fin (b + 1), weight s a v * weight t v b = weight (s + t) a b := by
@@ -143,10 +143,12 @@ theorem signed_inverse [DecidableEq I] (e : I → σ →₀ ℕ) (he : Function.
 theorem det_one [DecidableEq I] (e : I → σ →₀ ℕ) (he : Function.Injective e) :
     (translation e 1).det = 1 := IntegralJets.jetMatrix_det _ e he
 
+omit [Fintype I] in
 theorem unsigned_entry (e : I → σ →₀ ℕ) (i j : I) :
     translation e 1 i j = ∏ p, ((e j p).choose (e i p) : ℤ) := by
   simp only [translation_apply, one_pow, mul_one]
 
+omit [Fintype I] in
 theorem entry_zero_of_not_le (e : I → σ →₀ ℕ) (s : ℤ) {i j : I} (h : ¬e i ≤ e j) :
     translation e s i j = 0 := by
   classical
@@ -209,6 +211,7 @@ theorem oneNorm_pair (e : I → σ →₀ ℕ) (he : Function.Injective e) (hclo
       (congrArg Int.toNat (column_mass e he hclosed h).2).trans (hcast _)
 
 /-- Entries factor across any disjoint partition of the prime coordinates. -/
+omit [Fintype I] in
 theorem translation_partition (e : I → σ →₀ ℕ) (s : ℤ) (i h : I) (P : Finset σ)
     [DecidableEq σ] :
     translation e s i h =

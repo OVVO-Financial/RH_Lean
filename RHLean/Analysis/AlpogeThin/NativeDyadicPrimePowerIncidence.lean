@@ -328,10 +328,24 @@ theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
     (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
-  dsimp only [nativeDyadicPrimePowerIncidence]
+  classical
   let H := alpogeNativeHostData e q d
-  exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    (H.inertia p) (H.frob p) K
+  let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
+  change (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
+    ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ)
+  have hdeg (i : Fin n) : i.val < frobeniusCosetOrder (H.inertia p) (H.frob p) :=
+    i.isLt.trans_le (Nat.min_le_right _ _)
+  ext i j
+  change (if (j.val + 1) • H.frob p - (i.val + 1) • H.frob p ∈ H.inertia p
+    then (1 : ℤ) else 0) = (1 : Matrix (Fin n) (Fin n) ℤ) i j
+  rw [Matrix.one_apply]
+  by_cases hij : i = j
+  · subst j
+    rw [ite_eq_left (frobenius_self_sub_mem (H.inertia p) ((i.val + 1) • H.frob p)), ite_eq_left rfl]
+  · have hsep : (j.val + 1) • H.frob p - (i.val + 1) • H.frob p ∉ H.inertia p :=
+      fun h => hij (Fin.ext (frobeniusCoset_pos_inj (H.inertia p) (H.frob p)
+        (hdeg i) (hdeg j) h))
+    rw [ite_eq_right hsep, ite_eq_right hij]
 
 open Classical in
 /-- Both numerator and denominator in the ramified colour normalization are

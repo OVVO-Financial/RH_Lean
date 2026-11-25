@@ -1,10 +1,13 @@
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
+import RHLean.Geometry.NativeJointEvaluationRecovery
 import Lean.Util.CollectAxioms
 
 /-! Application of the actual upstream recovery/compatibility results.
 The physical family must still supply the exceptional sets, their operator
 ties, global degree and the remaining quantitative hypotheses. -/
 
+#check RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests
+#check RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict
 #check RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift
 #check RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated
@@ -16,7 +19,9 @@ ties, global degree and the remaining quantitative hypotheses. -/
 open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
-  let roots : Array Name := #[``RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict,
+  let roots : Array Name := #[``RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests,
+    ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests,
+    ``RHLean.Geometry.NativeServedPrimeLength.allButLE_restrict,
     ``RHLean.Geometry.NativeServedPrimeLength.allButLE_inverse_shift,
     ``RHLean.Geometry.NativeServedPrimeLength.fractionIntersection_saturated,
     ``RHLean.Geometry.NativeServedPrimeLength.lengthFromAllBut_of_sandwich,
