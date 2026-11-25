@@ -619,3 +619,454 @@ Scheduled invocation 2026-11-25 11:00:01 EST (16:00:01 UTC); `RUN_ID_UNAVAILABLE
 **An actual edge has a layer that a raw integer frame cannot represent by a common unramified base change.** At the tested place over 43 the native host is unramified, with residue degree exactly $2^{99}$ (modular powering independently agrees with the 2-adic order formula). In the upstream `UnramifiedQuadraticSetting`, $w$ is irreducible, $w^2=p$, and the residue degree of $O$ over that of $W$ is two. These are two different rings. The actual `LeAt` of any `IsEdge` is the intermediate lattice $S_O+wT_O$ on each twisted factor. The source `Re` relative to `HL(src)` and dual `Re'` relative to `HL(tgt)`'s dual have the **same** orders $o_i$ separately, before competitors. For every noncentral dominant tensor weight and $0<r<k$, some $o_i=1$ (and some $o_i=0$): change the rightmost tableau column in one noncentral block to move one letter past $r$. The paired, equal-cutoff diagonal can nevertheless be a pure power of $p$. None of these orders is a Smith factor of the physically restricted evaluation image without the actual maps.
 
 **Independent finite check.** Original interlacing counts versus a separate Jacobi-Trudi determinant: 150 discovery profiles, 145 held-out profiles and 18 boundary profiles; no disagreement. For $k=6,r=2$ and even-slot raw weight $(2,1,0,0,0,0)$ the order histogram is $(2,16,32,20)$; the odd slot with the same raw weight gives its reverse. Together the 4,900 basis indices include exactly 2,452 odd orders. These are exact weight-carrier diagnostics, not a selected host or rank quota. Actual source/dual restriction, signed payment and RH remain open. Opening commit `f606404d54c31a9da915c6f4679881fa40b74d6e`, 56,096 bytes, verified at that commit.
+
+
+## The Odd Edge Layer | PC-20261125T160001Z-HALFSTEP-FINAL
+
+### A. Finding
+
+**A noncentral physical edge weight necessarily has a depth-one direction in its original, unrestricted local lattice.** Its depth is one in the edge uniformizer $w$, not one in the rational prime $p=w^2$. This holds for both the source relative to its source host lattice and the dual relative to the **target dual** lattice. The same pairing at equal cutoffs can show only integral powers of $p$, hiding this direction. This rules out identifying both lattices, in one frame, with plain scalar extensions of unramified lattices. It does **not** prove that a geometric section hits the direction, that it survives the competing edges, or that using native arithmetic coordinates is impossible.
+
+At a genuine native host place above 43 I constructed, on paper, a coefficient tower meeting the upstream local-ring predicate for the host residue degree. I did not find a full `PairGood`/geometric instance with a pairing-preserving map from its integral sections and dual. **Physical $E,C$, their admissible Smith factors and the signed payment: `BLOCKED`; RH remains open.** Claims `PC-20261125-HALFSTEP1–4` below are paper mathematics or exact finite checks, not new Lean declarations. Independent specialist review pending.
+
+### B. Authority and question
+
+[Main policy][hs-main] `cad8dba7bbab6c709264061a3269790230c0d9a5`; [current contract][hs-contract]; [November 25 assignment][hs-policy]; [November 24 closure][hs-closure]; actual [#1201 instructions][hs-prinst] at `5eb0d87573d087aed794ef065ceea034021fa280`. The public [square endpoint][hs-vf] remains $\exists C\ge0\ \forall R\ge2:\ |\pi(R^2)-VF_{\rm can}(R^2)|\le CR\log R$. Today's assignment is its independent native proof campaign, specifically the same-host selected/competing evaluations, not another equivalent endpoint.
+
+**Mystery.** Can a computation in ordinary integral prime-exponent coordinates correctly measure the original edge before we have a geometric restriction? Prediction 1: if both members of a lattice pair descend in a common unramified frame, every relative elementary exponent becomes even after quadratic ramification. Prediction 2: if the original weights read the intermediate lattice, odd orders are intrinsic and equal-cutoff pairing alone can miss them. A single order-one witness discriminates. A separate test asks what survives for *jointly descended* selected and competing maps. No incidence array was declared to be either map.
+
+### C. Genuine arithmetic | HALFSTEP1
+
+Used the [versioned exact diagnostic][hs-hostscript] only for its genuine `WinPair`, `PageN` and original site clauses; the following residue-degree and coefficient-tower test is new to this continuation. $R=m=10^7$, $N=x=Y=R^2-1$, $\epsilon=9/560$, $e=99$, $q=3$, $d=3814\cdot5^{400}+1$. $TT=\{[1],[17],[47],[43^2]\}$, $T_2=H$, $b=\beta=w_{\rm width}=16$, $h=1$, $a_t=A_{\max}=16N$. Here, and only because of these data, $\lceil A_{\max}/\beta\rceil=N$, $\Delta=1$ and $Q=320000000$. The height and width diagnostic is not a physical payment. The two originally excluded first returns are $([1],17,1),([1],47,1)$. At partner $43^3$ the two retained reads are $([1],43,3)$ and $([43^2],43,1)$; shared value is not shared section. The native coefficient is $2/|I_p|$ times the **whole** coset indicator of $i\,{\rm Frob}_p+I_p$ before the signed source's logarithm and positive part. At 2 and 3 the non-$\Phi$ read vanishes on this test; $d>N$. These are verified endpoints, not a rule to remove ramified contributions on other windows.
+
+The prime certificate for $d$ uses $5^{400}\mid d-1$, $5^{800}>d$, $2^{d-1}=1\bmod d$ and $\gcd(2^{(d-1)/5}-1,d)=1$. Thus every prime divisor of $d$ is $1\bmod 5^{400}$ and there cannot be two counting multiplicity. The script's strict inequalities use exact rational Taylor enclosures or integer powers. The [actual `PairGood.bounds/boxes`][hs-pair] at $X=Y^2$ are not certified for this tuple, and the [geometric window][hs-size] fails both top density and $26\le x^{3\epsilon/8}$. An eventual existence theorem does not select this tuple.
+
+**Local field at 43.** The native conductor is $2^{101}qd$. The [actual Artin/inertia clauses][hs-primes] show that away from the conductor inertia is trivial. In native **$d,q$** order the bits at 43 are $(1,0)$, and the dyadic class is $[43]$ modulo sign. Independently, $d\bmod43=23$ is a square, so quadratic reciprocity gives $(43/d)=-1$; $43\bmod3=1$. An odd power of 43 is $3\bmod8$, not $-1$. For $j\ge1$, $v_2(43^{2^j}-1)=j+2$, by factoring the first square and then doubling. Hence its order modulo sign at $2^{101}$ is $f=2^{99}$. Exact modular powering gives $43^{f/2}=1+2^{100}\bmod 2^{101}$ and $43^f=1+2^{101}\bmod 2^{102}$. The sign factors do not enlarge this even order. The [degree of the native field][hs-square] is $4\cdot2^{99}$. Using the original inertia factors and Frobenius **modulo inertia**, the checks give:
+
+| Rational prime | Ramification index in the native field | Residue degree | Places above it |
+|---|---:|---:|---:|
+| $2$ | $2^{99}$ | $2$ | $2$ |
+| $q=3$ | $2$ | $2^{99}$ | $2$ |
+| $d$ | $2$ | $2^{98}$ | $4$ |
+| $43$ | $1$ | $2^{99}$ | $4$ |
+
+In the first three rows the inertia images are respectively the dyadic factor, the $q$ sign and the $d$ sign, by the CRT unit description in [the prime source][hs-primes]. This is CRT on the full conductor, **not** CRT independence of a truncated block. The order checks treat the coordinate belonging to inertia as a coset; $d\equiv7\bmod16$ in particular. No local unramified formula was applied uniformly across this table.
+
+Fix any actual $P\mid43$ and put $W=\widehat{\mathcal O_{H.E,P}}$, $Q_q=\operatorname{Frac}W$. It cannot serve as the edge ring $O$: $v_W(43)=1$, whereas a square has even valuation. Nor does just adjoining $\sqrt{43}$ give the extra residue degree required by [`UnramifiedQuadraticSetting`][hs-setting]. Here is a coefficient construction, with no change to the physical host: take $A=W[\zeta_{2^{102}}]$ in a fixed unramified closure, $O=A[w]$, $w^2=43$, $K_f=\operatorname{Frac}O$. The order calculation above gives $2^{102}\nmid43^f-1$, $2^{102}\mid43^{2f}-1$. The primitive residue root therefore first appears over the **quadratic** residue extension of $W$; it lifts by Hensel since 43 is odd. Thus $A/W$ is unramified quadratic. $X^2-43$ is Eisenstein over $A$: $O$ is the complete quadratic ramified DVR, with uniformizer $w$, residue cardinal $43^{2f}$ and rank four over $W$. Use the actual unramified arithmetic Frobenius on $Q_q$ (order $f$, reduces to $x\mapsto x^{43}$) and the natural inclusions. For every nonzero integer $z=43^s u$, the residue of its unit part in $\mathbb F_{43}^{\times}$ is a square in the even-degree residue field of $O$; lift a root of $u$ by Hensel and multiply by $w^s$. Zero is immediate. This checks even the predicate's `∀ z : ℤ, ∃ y, y²=z` field; $f\ge2$ is even. See the [DVR ramification conventions](https://stacks.math.columbia.edu/tag/0EXQ).
+
+**Scope:** this supplies a local coefficient setting with $n'=f$ at a native place, not an identification of that $n'$ with the selected geometric orbit length of an actual `PairGood`/`EdgeStep` instance. No $r,\lambda_0,c_\star,D,t_S,t_T$ are assigned to that place. Bare `HidaSetting` only imposes $w^2=p$, not irreducibility of $w$; the uniformizer statements below use the *stronger* predicate.
+
+### D. The original edge | HALFSTEP2
+
+Let $k=m_{\rm loc}+1$, $0<r<k$, and take **any actual `IsEdge`** $\eta=(S,T)$ in the strong coefficient setting: $pT\subset S\subset T$ and $|T/S|=p^{n'r}$. This quantification does not assert that the displayed numerical host supplies a selected such edge. For each prescribed Frobenius twist, extend **both endpoints by the same twist** and denote them $S_O,T_O$. The literal [`LeAt`][hs-setting] applies $w^{-1}$ to the image of $pT$, hence
+\[
+ M_\eta=S_O+wT_O,\qquad
+ T_O/M_\eta \xrightarrow{\;\times w\;} M_\eta/S_O
+ \quad\text{is an isomorphism of residue spaces of dimension }r .
+\]
+Indeed the $W$-elementary exponents of $S$ in $T$ are $r$ ones and $k-r$ zeros. In one adapted target basis, $S_O=(w^2O)^r\oplus O^{k-r}$ and $M_\eta=(wO)^r\oplus O^{k-r}$. This describes an actual first constituent; a colour of a prime power has no such automatic identification. The two successive quotients are not two independent gains.
+
+Now take dominant weights, using [`lamAt`][hs-setting], including the **negative reversed weight on odd slots**. Write $\lambda_s=\operatorname{lamAt}(\lambda_0,s)$, $\mu_{s,i}=\lambda_{s,i}-\lambda_{s,k}$ in one-based notation. Put $A_r=\sum_s\sum_{i\le r}\lambda_{s,i}$. In the [actual adapted basis][hs-basis], $x_i$ spans `HL(src)`, $p^{\nu_i}x_i$ spans `HL(tgt)`, and $o_i=A_r-\nu_i\ge0$. Consequently the two **separate** quotients
+\[
+ Q_S=R_\eta/HL(S),\qquad Q_T=R'_\eta/HL(T)^\vee
+\]
+have the same multiset $O/(w^{o_i})$. For the dual, the denominator basis is $p^{-\nu_i}x_i^\vee$, **not** the unscaled source dual. This is a relative-lattice calculation before any off-edge test; it is not `admG1`'s quotient or $E(L_c)$.
+
+**Exact order spectrum (paper proof).** For each slot the basis proof indexes [`ssIdx`][hs-ss] by arrays of nonnegative integers with shape row totals $\mu_{s,j}$ and [the original interlacing inequalities][hs-inter]. Ordering the letters in each tableau row gives exactly these arrays: the number of letters $\le a$ in row $j+1$ cannot exceed the number $<a$ in row $j$. Thus there is no multiplicity lost in using semistandard tableaux. For a tableau $T_s$, let $b_r(T_s)$ count its letters $\le r$. The `pos_basisO/ten_basisO` exponents give
+\[
+ o=\sum_s\left(\sum_{i\le r}\mu_{s,i}-b_r(T_s)\right).
+\]
+The $r\lambda_{s,k}$ determinant twists cancel in this **difference**, not in the original $p^{-\nu_i}$ dual basis.
+
+All integer orders from $0$ to
+\[
+ d_*=\sum_s\left(\sum_{i\le r}\mu_{s,i}-\sum_{i>k-r}\mu_{s,i}\right)
+\]
+occur. In a column of height $h$, the smallest entries are $1,\ldots,h$ and the largest are $k-h+1,\ldots,k$; these simultaneous extrema are legal tableaux. Transform the first to the last from the rightmost column to the left, within each column from bottom to top, increasing entries one unit at a time. Strict columns remain strict, and the column already finalized on the right is no taller, so weak rows are preserved. The count $b_r$ decreases by zero or one each time. The extremes above follow by summing $\min(h,r)$ and $\max(0,h+r-k)$ by column. Concatenate this path across slots.
+
+In particular **$o=1$ occurs iff at least one block is noncentral**, under $0<r<k$. A direct witness: start in the top tableau; in the rightmost column of any nonempty normalized shape, of height $1\le h<k$, replace $h$ by $r+1$ if $h\le r$. If $h>r$, replace the suffix $r,\ldots,h$ by $r+1,\ldots,h+1$. Other slots remain top. A central weight has empty normalized shape and no such witness. The endpoints $r=0,k$ have only order zero. The unequal-to-equal cutoff distinction matters: [`adaptedEdge_pairing`][hs-rows] has exponent $(o_i-t_S)_++(o_i-t_T)_+$ in $w$; at $t_S=t_T=t$ it is $p^{(o_i-t)_+}$. An even pairing diagonal cannot rule out an odd lattice step.
+
+**What is refuted:** for noncentral weights, the claim that either of these whole lattice pairs is a simultaneous, unshifted scalar extension from an unramified DVR in one common frame. Such an extension doubles **all** elementary exponents, whereas the pair has exponent one. A common homothety or compatible integral basis change does not change relative exponents. A ramification-aware construction, a charged shift, or a smaller realized submodule is not refuted. There is no inference that the odd directions are exceptionally bad or paid.
+
+### E. Exact counts and falsification
+
+For repeated slots count **all** basis indices, not just distinct exponents. If $s_\mu$ is the Schur polynomial, $a_s=\sum_{i\le r}\mu_{s,i}$ and $d_s=s_{\mu_s}(1^k)$, the number of odd orders is
+\[
+ \frac{\prod_s d_s-
+ (-1)^{\sum_s a_s}\prod_s s_{\mu_s}(\underbrace{-1,\ldots,-1}_{r},1,\ldots,1)}{2}.
+\]
+This follows by taking the signed trace of the preceding exact tableau count. The two sides of the edge are not additional tensor factors.
+
+| Test range | Shapes | $(\mu,r)$ profiles | Basis tableaux enumerated | Independent determinant evaluations |
+|---|---:|---:|---:|---:|
+| Discovery: all last-zero partitions, $2\le k\le5$, $|\mu|\le5$, every $1\le r<k$ | 52 | 150 | 1,725 | 750 |
+| Holdout: $k=6$, $|\mu|\le6$, same rules | 29 | 145 | 8,113 | 850 |
+| Boundary: $k=7$, zero, $(2,2,2,2,2,2,0)$, $(4,1,1,0,0,0,0)$, all $r$ | 3 | 18 | 2,129 | 111 |
+
+Method one enumerates the original interlaced integer arrays. Method two does **not** use them: it evaluates the Jacobi–Trudi determinant by fraction-free elimination, specializing $r$ variables to $u$ and the rest to one. For $h_j$, use $\sum_{a=0}^j {r+a-1\choose a}{k-r+j-a-1\choose j-a}u^a$; $h_j=0$ for $j<0$. Evaluations at $0,\ldots,\sum_{i\le r}\mu_i$ determine the whole polynomial, and $u=-1$ separately checks parity. [Jacobi–Trudi formulas](https://faabian.github.io/algebraic-combinatorics/docs/AlgebraicCombinatorics.SymmetricFunctions.PieriJacobiTrudi.html). All **313 profiles / 1,711 evaluations** agreed. The theorem rests on the proof, not extrapolation.
+
+Hand controls: the single-box order histogram is $(r,k-r)$; a determinant twist alone has $(1)$. At $k=6,r=2$ the raw block $(2,1,0,0,0,0)$ has counts $(2,16,32,20)$. Using that same raw weight on an odd slot gives $(20,32,16,2)$. Together the counts are $(40,384,1184,1684,1184,384,40)$, hence 2,452 odd among 4,900 indices. The tall rightmost-column control at $k=7,r=2$ gives $(15,10,3)$. None of these example weights is asserted to satisfy the numerical `Hyps` for a selected host. Missing directions can cancel in parity under tensoring; do not sum the odd counts of individual slots.
+
+### F. The missing variable | HALFSTEP3
+
+For any actual finite torsion module $Q'$ over a DVR with uniformizer $w$, $w^2=p$, set $V_j=p^jQ'/p^{j+1}Q'$ and let $N_j$ be **multiplication by $w$** there. Then $N_j^2=0$. If $b_i$ are the actual $w$-elementary exponents, with residue field $\kappa$, then
+\[
+ \dim_\kappa N_j V_j=\#\{i:b_i\ge2j+2\},\qquad
+ \dim_\kappa(\ker N_j/N_jV_j)=\#\{i:b_i=2j+1\}.
+\]
+Proof on one summand: the $p$-layer has length $0,1$ or $2$. Only the length-two summand has nonzero image under $w$; only the length-one summand contributes to kernel modulo image. Both displayed spaces are killed by $w$, so no unspecified coefficient-field embedding into $V_j$ is needed. These counts at all $j$ determine every positive exponent, not the number of zero factors unless the ambient rank is known.
+
+**Smallest length ambiguity:** $O/(w^2)$ and $O/(w)\oplus O/(w)$ both have unramified Smith group $\kappa^2$ in the explicit coefficient tower, but the two $w$-image ranks at $j=0$ are one and zero. Pad the first presentation with a unit factor for identical target rank. No ambiguity occurs at lengths 0 or 1. Direct multiplication at residue characteristic 43 gives image sizes 43 and 1 on the separate $\mathbb F_{43}$ algebra control of size 1,849, not the residue field of the numerical host. For the $(2,1)$ single-slot test, the kernel/image defects at $j=0,1$ are 16 and 20. Thus a count of integral $p$-layers alone loses information on the original edge lattice. Apply this test to any **separately constructed** admissible-image quotient; never substitute the unfiltered $Q_S,Q_T$ as its answer.
+
+### G. Joint lifts | HALFSTEP4
+
+There is a constructive replacement for rounding a depth to an integer. On the actual tower $O=A\oplus wA$, any **already constructed** integral map $U=U_0+wU_1$ acts on $a+wb$ by
+\[
+ (a,b)\longmapsto(U_0a+pU_1b,\;U_1a+U_0b).
+\]
+Demanding divisibility by $w^c$ means divisibility of these two outputs by $p^{\lceil c/2\rceil}$ and $p^{\lfloor c/2\rfloor}$ respectively. For a selected column with threshold $w^{2D+1}$ subtract the actual $p^D e_i$ in the first output, and use depths $D+1,D$. The **same** $a,b$ must satisfy every competing row. These are algebraically equivalent integral tests, not a way to construct unknown coefficients. Use them on source and admissible dual separately. In a bare Hida setting use $v_\pi(w)$ rather than silently setting it to one.
+
+A useful falsifier for a **claimed unramified descent** on a common frame: let $E,C$ and the source lattice all be defined over $A$, with $I_j=E\{v:Cv\in p^j A^s\}$ and base change both maps to $O$. Write $J_c$ for the actual image at competitor depth $w^c$. Then
+\[
+ J_{2k}=I_k+w I_k,\qquad J_{2k+1}=I_{k+1}+w I_k .
+\]
+The two coefficients of each lift are separately free here *because the same matrices are over $A$*. In a common saturated target span, sorted $A$-exponents $\alpha_i(k)$ of $I_k$ give $w$-exponents $2\alpha_i(k)$ at $2k$ and $\alpha_i(k+1)+\alpha_i(k)$ at $2k+1$. Indeed $pI_k\subseteq I_{k+1}\subseteq I_k$ gives $\alpha_i(k)\le\alpha_i(k+1)\le\alpha_i(k)+1$. Modulo $w^{2t}$ the two coefficient quotients of the odd image have respective caps $p^t,p^t$; modulo $w^{2t+1}$ they have caps $p^{t+1},p^t$. Successive differences of the resulting lengths count exactly the proposed exponents. This does not presume compatible Smith bases for different depths. Deficient image ranks are handled in their common saturation, not by calling an infinite factor zero.
+
+Five deterministic two-input matrix controls include dependent selected rows, zero competitors and nonunit pivots. Complete finite-ring enumeration versus the split base images agreed on 245 readout/competitor precision pairs at $p=2$ modulo $w^6$, and 125 at $p=3$ modulo $w^4$. These are **synthetic algebra checks only**. With $E(x)=x,C(x)=wx$ the scalar image exponents at $c=0,1,2,3,4$ are $0,0,1,2,3$: the even-depth parity prediction already fails at $c=2$ when descent is removed. Neither this example nor a width matrix is a physical counterexample. A divisor-closed prime partition changes no physical Smith factors under a **common** domain change $(E,C)\mapsto(EU,CU)$, since the selected image is identical. The previously checked $z=16,32,64$ width comparisons remain width-only; physical partition and boundary comparisons are `BLOCKED`, not zero. No CRT approximation or independent sign model was used.
+
+### H. What is still missing
+
+[`nativeSquareHost_exists_lattice_theta`][hs-square] supplies the actual half-different $B$, prescribed period lattice of rank $R^3-1$ over $\mathcal O_{H.E}$ and a nonzero complex theta for $1\le j\le R$ on the same pair. [`halfDifferent_local_eq_top`][hs-rows] gives the unit half-different away from its relative support; it does not construct a local section. [Period evaluation][hs-period] gives only proportional values under period translates. [The evaluated family][hs-family] takes the actual charts, formal group, directions, gauges and germs; [section descent][hs-section] takes faithful flatness and phase transport. None of these inputs can be replaced by a power of 43.
+
+**First typed attachment to build on a genuinely selected pair:** at $j=1$, one actual place and one selected $\eta$, construct the localization of the measured integral section module into $V_{\lambda_0}(K_f)$, matching the normalized geometric evaluation with $be(F,G)=G(p^{A_r}F)$ in the actual adapted bases. Construct separately the incoming-dual localization, with the same $W,O,\iota,\sigma,w$, half-different, shifts and pairing. Verify the actual local $n'$, weights, target lattice and `IsEdge`, not only the scalar-ring predicate. Source membership is in $w^{-t_S}HL(S)$ and $R_\eta$, and every other outgoing restriction must land in $w^{c_\star}R_{\eta'}$. The dual is in $w^{-t_T}HL(T)^\vee$ and $R'_\eta$ and meets all other incoming conditions for [`EdgeFam`][hs-edges]. For `SrcTests`, retain `Ntgt` and exactly the other **selected** incoming off-edge clauses; the dual test may depend on the primitive combination. An arbitrary transpose does not construct it. At least one actual nonzero direction with an honest competitor is the smallest meaningful test; there is no numerically certified least full host. If the image avoids the odd constituent, prove that and charge any lost dimension; the existence of an odd direction does not require selecting it.
+
+| Quantity on the **physical** section and dual | Status |
+|---|---|
+| Dimensions of $E_S,C_S,E_T,C_T$; selected/competing lifts; image before/after prime partitions | `BLOCKED`; not the period rank, the example's 4,900 tableau indices, or the four width sites |
+| $E(C^{-1}(w^{c_\star}O^s))$, leakage, relative quota $\sum n_\eta/\dim V$ and actual recovery at $p^D$ | `BLOCKED`; no numeric rank or exponent supplied |
+| Grouped exceptional generators, decay and stopping $a^{VS}M\subset N_{\rm loc}$ | `BLOCKED`; the $N_j$ test is not the `AllButLE` theorem |
+| Same-frame residue index, placewise Gram, heights, both signed mean losses, normalized complete excess | `BLOCKED`; no index gain, signed saving or improved exponent |
+
+The coefficient Hasse matrix on divisor-closed fibres has inverse $(-1)^{\Omega(h)-\Omega(d)}\prod_p{v_p(h)\choose v_p(d)}$ and unweighted column norm $\max_h2^{\Omega(h)}\le N^{\log2/\log z}$. Incomplete windows owe every omitted ancestor; at $zR^2\ge(R+1)^2$ a proper high ancestor is earlier, otherwise keep the boundary explicitly. No such norm measures the [original same-frame Gram][hs-gram] or identifies the physical operator. [`admG1`][hs-linkg] pays discarded quotient length only after its genuine generators and stopping inclusion; `Conclusion1`/`ParametersFill` supply signed gain separately. Keep [both mean losses][hs-slope], $\langle{\rm ASK}-{\rm Ga}\rangle\le{\rm LoP}$ and $\langle{\rm IO}\rangle\le{\rm LoP}$, without assigning `D0.Ga`. Retain every prime power, both character signs, ramified, complementary, thin and principal returns, and $Q=|TT|mb\Delta/2$. The terminal [square arithmetic][hs-candidate] is $G_N=C_N-D_N$ with $\log(n)(N/n-1)$, complete proper powers and Euler centering. No bound on it was inferred from the lattice result.
+
+The [existing native payment and principal identity][hs-pay] and [merged #1205 window handoff][hs-window] require the actual height transfer and constants $e_D,e_L,\epsilon_1$ fixed before $\epsilon$. For every $0<\epsilon<\epsilon_1$, one $C_\epsilon$ must serve every requested $Y_0$ and the whole real window $[Y,Y^{3/2}]$ for some $Y\ge Y_0$, at exponent $1/2+(e_D+e_L+7)\epsilon$. This experiment neither proves nor refutes that statement. No prohibited geometry, imported terminal RH, new conditional endpoint or local Lean execution.
+
+### I. Source and continuity receipts
+
+Authority retrieval began shortly after the 16:00:01 UTC trigger. [#1212](https://github.com/OVVO-Financial/RH_Lean/pull/1212) merged policy at 12:08:04 UTC; [#1211](https://github.com/OVVO-Financial/RH_Lean/pull/1211) merged the separate external stage, not a native supplier. [#1205](https://github.com/OVVO-Financial/RH_Lean/pull/1205) merged as `fde7ea71ed88f540a8829554a8ab4602bda96f4d`. Open PRs on refresh: [#1201](https://github.com/OVVO-Financial/RH_Lean/pull/1201) draft (sole proof PR); [#1207](https://github.com/OVVO-Financial/RH_Lean/pull/1207) open `0991c2f181f6943d0e57671cffebb1129d5ff4b4`; [#1213](https://github.com/OVVO-Financial/RH_Lean/pull/1213) Euler-lever draft, observed `6719752c` then `ee9ab44585af73a5eaef2801883827d3aa594279`, not merged policy. Main and #1201 unchanged on prepublication refresh. [#1201 changed-closure job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139243948070) **failed** on merge checkout `b225c317e9f102e67d183898205f4b226405048c`: `NativePrimeExponentJet.lean:37` invalid `.symm`; independent build diagnostics reported `NativeDyadicPrimePowerIncidence.lean:323/333` timeouts. [Full build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625259670/job/139255968247) skipped. [Semantic census](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45625260573/job/139243639205) scanned 3,621/3,621 tracked Lean files; 191 visible-premise RH-return candidates are review leads, not proof defects or transitive clearance. `SOURCE_INSPECTED; NEW_LEAN_VERIFICATION=NONE`.
+
+| Inspected source (same order as hashes) | Git blob SHA |
+|---|---|
+| Main AGENTS / contract / economical / final directives | `c7715e559ab64a8b2ebbf4623ecc246cb43179af` / `6fa886e125321056739a48d09fd33c95edaebf6b` / `8c16f05a43e8794fa78f77ba2645b3913669b93f` / `395378d0e6525fab6c6ed9b7315c5de4c36329dd` |
+| PR AGENTS / square-host constructor / host prime clauses / local rows | `4496eb12b74c58185eefa5d01b463ebca82e0ee4` / `b1d4cf64de78d94582c586b9b1651727c63389a9` / `5aa87d548312f8f5bf06ae72e88d874ac6eb70d0` / `7a5190692f1a3292ff391f23823da06772a2a74d` |
+| PairGood / arithmetic diagnostic / joint recovery / evaluated family | `65cf7392ca0826eb602b18e580826b2719185a2a` / `74985f528f1ae6fb87aba534eb8a6053b09ea23e` / `32ff6612607bf57c00167f025a2d59ac2d28ebdc` / `7e8c4a9f5b1cd5349f870a32842d61f935245a33` |
+| Original square statistic / mean-loss consumer / #1205 | `395e595d9ada914edbe41b441a4767a044634ad9` / `1076fb12c5bb2b1a85ed97f20aadfb105c4e2747` / `31dc576197075a0448ced1a1c58e24a35c6d80d6` |
+| Community setting / adapted basis / interlacing / basis index | `1c9ff6676bad3634a65d75f248b53bb82c03d1ee` / `a06905c304fb168551eff773fd926ccfcc09fcab` / `025e77dfa0c5e44742149b694838176a95c77a46` / `a048c410ff3f38091ca6969a6aec35839366ed8a` |
+
+Community policy pin `251c7b05dd869ceba1aa42c6001c00b4010f23f9`; live `d91ae2678eea19a0c3045ffca37f1da757c2e719`. ManyEdges (`7f043efac738a5e73ec785f5fe4435031babde4f`) and the adapted basis have identical complete blobs at both. PlaneCount changed `9093d64224dc052521d7114b52f833fa727eeb7d` to `700619442da4ead8fdebfd8d54eedce03dcf755a`: only two unused local bindings outside `linkG_at_core` were removed. No terminal upstream theorem was used.
+
+**Latest actual reports.** Enumerated all 42 dated folders at [intake][hs-intake], not a date-limited search. The [17-commit backfill][hs-history] since the last verified Census intake touched only seven Nov 25 files and no recoveries. Fully fetched and verified the Git blob hash and UTF-8 length of all 15 available Nov 24/25 canonical files; the 00/90 mirror bytes agree on both dates. No Nov 23 folder, no Nov 24 Census file; previous actual Census was Nov 22, not a silent Nov 24 run. The prior watermark's documented older gaps remain gaps. All roles had actual Nov 25 sections; no `TODAY=PENDING` at intake. In the table, the left claim is the previous consumed section and the right is the new verified/consumed watermark on Nov 25 (EST). `GAP` as above; `NEW_UNCONSUMED=NONE` through the stated snapshot. Later runs are not inferred.
+
+| Role/file stem | Prior → latest claim, timestamp; resume | Latest blob |
+|---|---|---|
+| Coordinator 00/90 | WIDTHLAW → JETCUT1–3, 07:10; chart filtration on the real germs | `f00778c30a19c9500d0f82108c3296b5b33c3ba2` |
+| Owner 10 | LOCALGAIN → FRAME1–4, 08:09; the shared 43-power widths lose directions; use original signed operator | `30355ef9ac83c1fc4e2d88f3edf6b72db08c766f` |
+| Analytic 20 | TOPLAW1–4, 01:04 → PRICE1–4, 09:09; restore crossings, projected Gram and whole-window movement | `37747c5895f879309caeebede03358b9c66740cf` |
+| Wheel 30 | PARTNER1–4, 02:05, unchanged after FIBER; first-return labels retain all collateral | `93f18c6e1475ff9ca69c1ae49df2dae1f07d3232` |
+| Census 40 | FOURPOWER → HEIGHTFIBRE1–4, 03:11; genuine height-fibre support test retained, not a primitive section | `96b465a19ec643b83c8c21f27c20a100807246fc` |
+| Referee 50 | CORE → ROW1–4, 04:13; occurrence count is not relative rank; keep competing dual and bare-Hida distinction | `e857d047300ea59650c4c6eda319d64353c3c2ef` |
+| Lean 60 | METRIC/PERIOD → LIFT1–2, 05:10; pay joint kernel correction on actual words | `665f7b85a0b93964f408c4342f6c8b09916fdf3a` |
+
+[External inbox][hs-inbox] unchanged `7d63d434690d00dffce9c90335d41c4f62d85798`: EXT-20261018-PNT-1, corrected XCOORD and the #915 limsup do not attach an integral section. No historical table or settled build was rerun as a substitute. `CONTINUITY_COMPLETE` for the stated interval, not a retrospective certificate for every archived run.
+
+### J. Specialist handoffs and resume
+
+| Recipient | Concrete next use |
+|---|---|
+| Proof Architect | Record the strong local coefficient predicate as constructible at the arithmetic place with the stated $n'$, and the full selected instance as unbuilt. Require the actual orbit-length identification and first section before booking any rank. |
+| Wheel | On one measured edge compute the $w$-odd component of the actual section germ and incoming dual, or prove that their images miss it. Use the two-row integral formula at the prescribed $c_\star,D$; no new prime partition until the same maps exist. |
+| Referee | Check `lamAt` on odd slots, the two different host denominators of $Q_S,Q_T$, the rightmost-column witness and the necessity versus sufficiency of the parity obstruction. |
+| Owner | On a claimed unramified Smith calculation retain multiplication by $w$ and compare local length to the same measured global frame; do not count $Q_S,Q_T$ twice or convert them into `Ga`. |
+| Analytic | Charge any removed ancestor and its actual Gram/width cost; an order-one direction is neither an archimedean norm nor the signed height cost. |
+| Lean Verification | Review the order-one witness and the $w$-layer recovery lemma as nonterminal candidates on #1201 only if useful; first obtain a pairing-preserving section/dual detail and resolve current hosted failures. No implementation or workflow requested by this report. |
+
+**Ranked portfolio.** (1) **Continue** the ramification-aware physical restriction: choose an actually supplied $j=1$ section and a primitive dual at the same admitted $\eta$; measure the normalized pair and the complete competitor stack in its given bases. (2) **Retain** the $w$-action test for any realized quotient, using the exact odd-profile prediction above to catch a hidden change of lattice. Even factors alone do not prove descent or recoverability. (3) **Reject** plain common unramified base change of the full noncentral adapted pair; **suspend** new width-only, determinant-only or unweighted $J$ scans unless a new physical comparison or boundary is supplied.
+
+**Next run, one decisive test:** obtain one actual source-to-germ restriction *and* its compatible incoming-dual test on a `PairGood` window at a certified place; evaluate their projections to the order-one constituent on the original `be` normalization and test a nontrivial competing edge on the identical lift. Then and only then extend to all competitors and calculate the image, quota, leak and stopping layers. If no such data appear, report the first missing map rather than repeat the 313 profiles. No scheduling, proof PR, Lean source or other role's report was changed.
+
+`EXECUTION_COMPLETED; MATH=PAPER_PROOF / FINITE_COMPUTATION at the stated scopes; INDEPENDENT_SPECIALIST_REVIEW=PENDING; PHYSICAL_E_C=BLOCKED; SAME_HOST_PAYMENT=OPEN; NATIVE_RH=OPEN`. Opening `f606404d54c31a9da915c6f4679881fa40b74d6e` (56,096 bytes) and milestone `468d23adb4a23f0cca89d5834e151dc6a37707d9` (57,853 bytes, blob `240591824d87e671191cf301a03932a4df5fbe51`) were re-fetched at the exact commits. Direct Git tunnel 403; the replacement endpoint was not credited after validation/service errors. Authenticated, non-forced Git-data publication was restricted to this path with a fresh head lease and complete-prefix checks. Final receipt follows commit readback outside this text.
+
+### K. Reproduction
+
+CPython 3.12.14, Linux, standard library only; integer/rational arithmetic, no random seed, floating sign, local Lean, or manual prime table. Final replay: 2.163 s shell wall time. Interlaced arrays are exhaustively enumerated in the stated small shapes; the independent determinants are polynomial in matrix size per evaluation. The joint control enumerates $p^{4t}$ input pairs for a two-input map over $O/(w^{2t})$; this was intentionally not scaled. On a checkout of #1201 at the pinned SHA, extract the single Python block below as `halfstep.py` and run `python halfstep.py scripts/native_economical_recovery_widths.py`. Script SHA-256 `aaa94d8a96822d4059984ced84912847d53b278c38035e57c5fcce6f1c186677`; input script Git blob as listed above.
+
+<details><summary>Complete exact replay</summary>
+
+```python
+"""Census HALFSTEP: integer-only host, adapted-weight, and congruence tests."""
+from collections import Counter
+from functools import cache
+from itertools import product
+from math import comb, gcd
+from pathlib import Path
+import runpy
+import sys
+
+
+def valuation2(n):
+    return (n & -n).bit_length() - 1
+
+
+def host(script):
+    src = runpy.run_path(str(script))
+    src["certify_host"]()
+    src["check_stronger_size_band"]()
+    d, mod, p, e = src["D"], src["DYADIC"], 43, src["E"]
+    assert gcd(p, mod * 3 * d) == 1
+    f = 1
+    while pow(p, f, mod) not in (1, mod-1):
+        f *= 2
+    assert p % 8 == 3 and f == 2**(e+2-valuation2(p-1)-valuation2(p+1)+1)
+    assert pow(p, f//2, mod) == 1 + mod//2 and pow(p, f, mod) == 1
+    assert pow(p,f,2*mod)==1+mod and pow(p,2*f,2*mod)==1
+    # Independent reciprocity check: p,d are both 3 mod 4.
+    sq43 = {t*t % p for t in range(1,p)}
+    d_sign = -1 if d % p in sq43 else 1
+    assert (d_sign, pow(p, (d-1)//2, d), p % 3) == (-1, d-1, 1)
+    assert src["frobenius"](p) == (1,0,p)
+    assert src["active_reads_at_site"](1, p**3) == [
+        (1,p,3,"retained"), (p**2,p,1,"retained")]
+    assert [(t,l,i) for h in (1,17,47,p*p)
+            for t,l,i,label in src["active_reads_at_site"](0,h)
+            if label=="first-excluded"] == [(1,17,1),(1,47,1)]
+    print("HOST", "d mod 43", d%p, "f", f, "g", 4*2**e//f,
+          "half-power", pow(p,f//2,mod), "bits", src["frobenius"](p))
+    for l, inertia in ((2,2**e),(3,2),(d,2),(p,1)):
+        db,qb,h = src["frobenius"](l)
+        u=h if l!=2 else 1
+        n=1
+        while (pow(u,n,mod) not in (1,mod-1) or
+               (l!=d and db*n%2) or (l!=3 and qb*n%2)):
+            n*=2
+        print("efg",str(l) if l!=d else "d",inertia,n,4*2**e//(inertia*n))
+
+
+@cache
+def parts(total, k):
+    if k == 1:
+        return ((total,),)
+    return tuple((a,)+b for a in range(total+1) for b in parts(total-a,k-1))
+
+
+def interlaced(mu):
+    k = len(mu)
+    def walk(j, prev, wt):
+        if j == k:
+            yield wt
+            return
+        for col in parts(mu[j], k):
+            left = right = 0
+            for a in range(k):
+                right += col[a]
+                if prev is not None and right > left:
+                    break
+                left += prev[a] if prev is not None else 0
+            else:
+                yield from walk(j+1, col, tuple(x+y for x,y in zip(wt,col)))
+    return walk(0,None,(0,)*k)
+
+
+def det(A):
+    M = [r[:] for r in A]
+    prev = sign = 1
+    for i in range(len(M)-1):
+        j = next((j for j in range(i,len(M)) if M[j][i]),None)
+        if j is None:
+            return 0
+        if j != i:
+            M[i], M[j] = M[j], M[i]
+            sign *= -1
+        for j in range(i+1,len(M)):
+            for l in range(i+1,len(M)):
+                num = M[i][i]*M[j][l]-M[j][i]*M[i][l]
+                assert num % prev == 0
+                M[j][l] = num//prev
+        prev = M[i][i]
+    return sign*M[-1][-1] if M else 1
+
+
+def schur(mu,r,t):
+    k = len(mu)
+    @cache
+    def h(j):
+        return sum(comb(r+a-1,a)*comb(k-r+j-a-1,j-a)*t**a for a in range(j+1))
+    n = sum(v>0 for v in mu)
+    return det([[h(mu[i]-i+j) for j in range(n)] for i in range(n)])
+
+
+def weights(shapes, label):
+    cases = states = evaluations = 0
+    pick = {}
+    for mu in shapes:
+        k = len(mu)
+        hist = [Counter() for _ in range(k)]
+        for occ in interlaced(mu):
+            states += 1
+            for r in range(1,k):
+                hist[r][sum(mu[:r])-sum(occ[:r])] += 1
+        for r in range(1,k):
+            cases += 1
+            H, top = hist[r], sum(mu[:r])
+            assert set(H) == set(range(top-sum(mu[-r:])+1))
+            if any(mu):
+                assert H[0] and H[1]
+            for t in range(-1,top+1):
+                assert schur(mu,r,t) == sum(v*t**(top-j) for j,v in H.items())
+                evaluations += 1
+            assert sum(v for j,v in H.items() if j%2) == (
+                schur(mu,r,1)-(-1)**top*schur(mu,r,-1))//2
+            if r==2 and (mu in ((1,0,0,0,0,0),(2,1,0,0,0,0),(2,2,2,2,2,2,0))):
+                pick[mu] = [H[i] for i in range(len(H))]
+    print(label, "shapes",len(shapes),"profiles",cases,"tableaux",states,"det-checks",evaluations)
+    if pick:
+        print("FIXTURES",pick)
+
+
+def shapes(k,size):
+    return [x for n in range(size+1) for x in parts(n,k)
+            if x[-1]==0 and all(a>=b for a,b in zip(x,x[1:]))]
+
+
+def paired_and_layers():
+    k,r=6,2
+    lam=(2,1,0,0,0,0)
+    factors=[]
+    for a in (lam,tuple(-x for x in reversed(lam))):
+        mu=tuple(x-a[-1] for x in a)
+        H=Counter(sum(a[:r])-r*a[-1]-sum(v[:r]) for v in interlaced(mu))
+        factors.append(H)
+    joint=Counter()
+    for i,x in factors[0].items():
+        for j,y in factors[1].items():
+            joint[i+j]+=x*y
+    A=lambda H: [H[i] for i in range(max(H)+1)]
+    # At -1 the signed order-trace reverses by the sum of the two top sizes.
+    traces=[]
+    for a in (lam,tuple(-x for x in reversed(lam))):
+        mu=tuple(x-a[-1] for x in a)
+        traces.append((-1)**sum(mu[:r])*schur(mu,r,-1))
+    odd=sum(v for h,v in joint.items() if h%2)
+    assert 2*odd==sum(joint.values())-traces[0]*traces[1]
+    print("TENSOR",A(factors[0]),A(factors[1]),A(joint),odd)
+    # Enumerate actual multiplication by w on every small two-step quotient.
+    p=43
+    for a in range(8):
+        for j in range(4):
+            d=max(0,min(2,a-2*j))
+            X=list(product(range(p),repeat=d))
+            image={tuple(([0]+list(x))[:d]) for x in X}
+            kernel=[x for x in X if not any(([0]+list(x))[:d])]
+            assert len(image)==p**int(a>=2*j+2)
+            assert len(kernel)//len(image)==p**int(a==2*j+1)
+    print("W-ACTION",p,32,"layer checks; twin groups of size",p*p,
+          "w-image sizes",p,1)
+
+
+def dot(row,x):
+    return sum(a*b for a,b in zip(row,x))
+
+
+def variants(E,C,p,t):
+    # Explicit quotient images at each readout precision, over the two rings.
+    mod = p**t
+    domain = list(product(range(mod),repeat=2))
+    proj = lambda rows,x: tuple(dot(row,x) for row in rows)
+    L = [(proj(E,x),proj(C,x)) for x in domain]
+    def depth(vals):
+        j=0
+        while j<t and all(v%p**(j+1)==0 for v in vals):
+            j+=1
+        return j
+    # In the independent O path we enumerate actual a+w*b as base-p digit
+    # strings; a competing output vanishes iff its first c w-digits vanish.
+    def raw(a,b):
+        z=0
+        for j in range(t):
+            z+=(a//p**j%p)*p**(2*j)+(b//p**j%p)*p**(2*j+1)
+        return z
+    R = [(tuple(raw(x,y) for x,y in zip(a,b)),
+          tuple(raw(x,y) for x,y in zip(s,v))) for (a,s),(b,v) in product(L,repeat=2)]
+    integ = []
+    for k in range(t+1):
+        I = {tuple(y%mod for y in v) for v,c in L if depth(c)>=k}
+        integ.append([len({tuple(y%p**j for y in v) for v in I}) for j in range(t+1)])
+    checks = 0
+    for c in range(2*t+1):
+        Im = {v for v,a in R if not any(y%p**c for y in a)}
+        for j in range(2*t+1):
+            got = len({tuple(y%p**j for y in v) for v in Im})
+            expect = integ[(c+1)//2][(j+1)//2] * integ[c//2][j//2]
+            assert got == expect
+            checks+=1
+    return checks
+
+
+def main():
+    host(Path(sys.argv[1]))
+    weights([mu for k in range(2,6) for mu in shapes(k,5)],"DISCOVERY")
+    weights(shapes(6,6),"HOLDOUT")
+    weights([(2,2,2,2,2,2,0),(4,1,1,0,0,0,0),(0,)*7],"ADVERSARIAL")
+    paired_and_layers()
+    examples = [([[1,0],[0,1]],[[1,1]]), ([[1,1],[0,3]],[[1,-1],[0,3]]),
+                ([[2,1],[4,2]],[[2,-1]]), ([[3,0],[0,9]],[[0,0]]),
+                ([[2,3],[-1,1]],[[1,2],[2,4]])]
+    for p,t in ((2,3),(3,2)):
+        print("JOINT",p,t,len(examples),sum(variants(E,C,p,t) for E,C in examples))
+    # Genuinely w-valued scalar competitor: C(x)=w*x and E(x)=x.
+    p=3
+    for c in range(5):
+        # O/(w^4), represented as a+b*w, a,b mod 9. Multiply by w=(p*b)+a*w.
+        def ord4(a,b):
+            av = 2 if a%9==0 else int(a%3==0)
+            bv = 2 if b%9==0 else int(b%3==0)
+            return min(4,2*av,1+2*bv)
+        got=min(ord4(a,b) for a,b in product(range(p*p),repeat=2) if ord4(p*b,a)>=c)
+        assert got==max(0,c-1)
+    print("NONDESCENDED", [max(0,c-1) for c in range(5)])
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+[hs-main]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/AGENTS.md
+[hs-contract]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/CURRENT_PROOF_CONTRACT.md
+[hs-policy]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md
+[hs-closure]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/docs/RHLEAN_FINAL_PR_1201_PROOF_CLOSURE_20261124.md
+[hs-prinst]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/AGENTS.md
+[hs-vf]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean#L24
+[hs-hostscript]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/scripts/native_economical_recovery_widths.py
+[hs-pair]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/CharacterBoxes/PairGood.lean#L37
+[hs-size]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeGeometricCostWindows.lean#L26
+[hs-primes]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean#L36
+[hs-square]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSquareHostRealization.lean#L71
+[hs-setting]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean
+[hs-basis]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/EdgeLatticeAdaptedBasis.lean#L166
+[hs-ss]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/GradedWeylDivisibility/StatementD.lean#L15
+[hs-inter]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/GradedWeylDivisibility/StatementC.lean#L43
+[hs-rows]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeHostIntegralJetRows.lean
+[hs-period]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaPeriodEvaluation.lean
+[hs-section]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaSectionRealization.lean#L82
+[hs-family]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeThetaEvaluatedFamily.lean#L133
+[hs-edges]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/ScaleEdges/ManyEdges.lean#L23
+[hs-gram]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Geometry/NativeSummandCovolume.lean
+[hs-linkg]: https://github.com/leanprover-community/riemann-hypothesis/blob/251c7b05dd869ceba1aa42c6001c00b4010f23f9/src/Formalism/SharpRestriction/GrowthBounds/PlaneCountTheoremWithConstants.lean#L598
+[hs-slope]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean
+[hs-candidate]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeNativeSquareCandidateCapacity.lean#L88
+[hs-pay]: https://github.com/OVVO-Financial/RH_Lean/blob/5eb0d87573d087aed794ef065ceea034021fa280/RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean#L99
+[hs-window]: https://github.com/OVVO-Financial/RH_Lean/blob/cad8dba7bbab6c709264061a3269790230c0d9a5/RHLean/Analysis/AlpogeNativeBoundHandoff.lean#L158
+[hs-inbox]: https://github.com/OVVO-Financial/RH_Lean/blob/cc60e5e93d6c2183441b69d57ca1f73bc7ab588d/research/agent_reports/EXTERNAL_HANDOFFS.md
+[hs-history]: https://github.com/OVVO-Financial/RH_Lean/compare/7b6c494fdb99a179835c93b7591b6b122a1be5b0...cc60e5e93d6c2183441b69d57ca1f73bc7ab588d
+[hs-intake]: https://github.com/OVVO-Financial/RH_Lean/tree/cc60e5e93d6c2183441b69d57ca1f73bc7ab588d/research/agent_reports
