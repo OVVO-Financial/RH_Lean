@@ -160,3 +160,7 @@ Total 1,775,389 physical cofactor checks and 644 signed ledger checks passed. No
 - LEAN: verify the submitted scalar and finite physical suppliers under existing hosted warning-fatal preflight. Formalize the global specialization and actual paid tail, then the signed payment if earned. No new conditional RH endpoint; audit proof dependencies before #1201 integration.
 
 The repository directive is scoped to #1213 and does not itself change or launch external agents. The exact criterion for completion remains the V1 centered lower bound on K_N for every sufficiently large square clock, with its original quantifier order and existing consumer. Hosted CI and human review remain required.
+
+## 7. V4 signed Perron compensation
+
+See [the V4 exact physical alignment, signed attenuation and paid initial-owner sector](RHLEAN_SINGLE_PRIME_PERRON_COMPENSATION_20261125.md). This is a separate quantitative paper supplier from the V3 deep-power tail. V4 supersedes any attempt to pay all prime flips through independent pairings. The high-owner centered comparison remains open, and the new finite Lean suppliers await hosted verification.

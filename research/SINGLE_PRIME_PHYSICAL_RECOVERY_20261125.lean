@@ -99,7 +99,7 @@ theorem logWeight_scale_le (N p x : ℝ) (k : ℕ)
       _ = _ := by unfold logWeight; ring
   calc
     _ = (p ^ k * logWeight N (p ^ k * x)) / p ^ k := by
-      field_simp [ne_of_gt hd0] <;> ring
+      field_simp [ne_of_gt hd0]
     _ ≤ (((k : ℝ) + 1) * logWeight N x) / p ^ k :=
       div_le_div_of_nonneg_right hscaled hd0.le
     _ = _ := by ring

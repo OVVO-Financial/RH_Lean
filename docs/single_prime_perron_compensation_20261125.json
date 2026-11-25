@@ -1,0 +1,314 @@
+[
+  {
+    "R": 64,
+    "N": 4095,
+    "T": 16383,
+    "incomingPrimes": 18,
+    "initialPrimeCount": 6,
+    "lastLowPrime": 13,
+    "floorChecks": 343,
+    "hazardChecks": 651,
+    "phaseChecks": 18,
+    "crossingChecks": 18,
+    "abelChecks": 18,
+    "maxRelErr": 9.923780909800492e-15,
+    "lowBoundViolations": 0,
+    "raw": 2441.320859696608,
+    "lowRaw": 1820.8345583827045,
+    "lowMainApprox": 1841.7726349510567,
+    "lowCenteredApprox": -20.938076568352244,
+    "lowErrorBound": 1048.0077715321834,
+    "lowTailErrorBound": 152.80163911588164,
+    "lowMaxPrefixRatio": 0.5,
+    "rows": [
+      {
+        "p": 2,
+        "faceBudget": 1,
+        "maxPrefix": 0.5,
+        "rawDefect": 480.4162811049614,
+        "mainAtFiniteT": 481.28914078720453,
+        "centeredApprox": -0.8728596822431314,
+        "errorBound": 16.63504399257434,
+        "truncationBound": 2.4254228431092324
+      },
+      {
+        "p": 3,
+        "faceBudget": 2,
+        "maxPrefix": 0.6666666666666666,
+        "rawDefect": 359.8979235115947,
+        "mainAtFiniteT": 360.85559383244,
+        "centeredApprox": -0.9576703208452955,
+        "errorBound": 33.27008798514868,
+        "truncationBound": 4.850845686218465
+      },
+      {
+        "p": 5,
+        "faceBudget": 4,
+        "maxPrefix": 1.2,
+        "rawDefect": 321.8069550265292,
+        "mainAtFiniteT": 323.10163183313534,
+        "centeredApprox": -1.2946768066061622,
+        "errorBound": 66.54017597029735,
+        "truncationBound": 9.70169137243693
+      },
+      {
+        "p": 7,
+        "faceBudget": 8,
+        "maxPrefix": 1.7142857142857142,
+        "rawDefect": 263.2853199477833,
+        "mainAtFiniteT": 267.2141405189297,
+        "centeredApprox": -3.928820571146389,
+        "errorBound": 133.0803519405947,
+        "truncationBound": 19.40338274487386
+      },
+      {
+        "p": 11,
+        "faceBudget": 16,
+        "maxPrefix": 2.909090909090909,
+        "rawDefect": 219.8120154275324,
+        "mainAtFiniteT": 227.87778365497263,
+        "centeredApprox": -8.06576822744023,
+        "errorBound": 266.1607038811894,
+        "truncationBound": 38.80676548974772
+      },
+      {
+        "p": 13,
+        "faceBudget": 32,
+        "maxPrefix": 4.153846153846154,
+        "rawDefect": 175.61606336430353,
+        "mainAtFiniteT": 181.4343443243743,
+        "centeredApprox": -5.81828096007078,
+        "errorBound": 532.3214077623788,
+        "truncationBound": 77.61353097949544
+      }
+    ]
+  },
+  {
+    "R": 317,
+    "N": 100488,
+    "T": 401955,
+    "incomingPrimes": 65,
+    "initialPrimeCount": 8,
+    "lastLowPrime": 19,
+    "floorChecks": 2459,
+    "hazardChecks": 11399,
+    "phaseChecks": 65,
+    "crossingChecks": 65,
+    "abelChecks": 65,
+    "maxRelErr": 2.6142975706496924e-13,
+    "lowBoundViolations": 0,
+    "raw": 93405.92495601762,
+    "lowRaw": 52860.752358173275,
+    "lowMainApprox": 52916.750238631364,
+    "lowCenteredApprox": -55.99788045808964,
+    "lowErrorBound": 5874.074734147215,
+    "lowTailErrorBound": 822.6280553594893,
+    "lowMaxPrefixRatio": 0.5,
+    "rows": [
+      {
+        "p": 2,
+        "faceBudget": 1,
+        "maxPrefix": 0.5,
+        "rawDefect": 11812.962418184607,
+        "mainAtFiniteT": 11813.993395610427,
+        "centeredApprox": -1.0309774258203106,
+        "errorBound": 23.035587192734177,
+        "truncationBound": 3.2259923739587815
+      },
+      {
+        "p": 3,
+        "faceBudget": 2,
+        "maxPrefix": 0.6666666666666666,
+        "rawDefect": 8847.647392849365,
+        "mainAtFiniteT": 8848.60762211311,
+        "centeredApprox": -0.9602292637446226,
+        "errorBound": 46.07117438546835,
+        "truncationBound": 6.451984747917563
+      },
+      {
+        "p": 5,
+        "faceBudget": 4,
+        "maxPrefix": 1.2,
+        "rawDefect": 7932.155949688841,
+        "mainAtFiniteT": 7933.5352480211795,
+        "centeredApprox": -1.3792983323382941,
+        "errorBound": 92.1423487709367,
+        "truncationBound": 12.903969495835126
+      },
+      {
+        "p": 7,
+        "faceBudget": 8,
+        "maxPrefix": 1.7142857142857142,
+        "rawDefect": 6557.522326785498,
+        "mainAtFiniteT": 6562.413239425058,
+        "centeredApprox": -4.890912639560156,
+        "errorBound": 184.2846975418734,
+        "truncationBound": 25.80793899167025
+      },
+      {
+        "p": 11,
+        "faceBudget": 16,
+        "maxPrefix": 2.909090909090909,
+        "rawDefect": 5567.181628680155,
+        "mainAtFiniteT": 5575.632387700558,
+        "centeredApprox": -8.450759020402984,
+        "errorBound": 368.5693950837468,
+        "truncationBound": 51.6158779833405
+      },
+      {
+        "p": 13,
+        "faceBudget": 32,
+        "maxPrefix": 4.153846153846154,
+        "rawDefect": 4477.321232068198,
+        "mainAtFiniteT": 4486.0535349953025,
+        "centeredApprox": -8.732302927104683,
+        "errorBound": 737.1387901674937,
+        "truncationBound": 103.231755966681
+      },
+      {
+        "p": 17,
+        "faceBudget": 64,
+        "maxPrefix": 5.529411764705882,
+        "rawDefect": 4176.954055816632,
+        "mainAtFiniteT": 4190.383216009575,
+        "centeredApprox": -13.429160192943527,
+        "errorBound": 1474.2775803349873,
+        "truncationBound": 206.463511933362
+      },
+      {
+        "p": 19,
+        "faceBudget": 128,
+        "maxPrefix": 6.473684210526316,
+        "rawDefect": 3489.007354099972,
+        "mainAtFiniteT": 3506.1315947561598,
+        "centeredApprox": -17.124240656187794,
+        "errorBound": 2948.5551606699746,
+        "truncationBound": 412.927023866724
+      }
+    ]
+  },
+  {
+    "R": 1027,
+    "N": 1054728,
+    "T": 4218915,
+    "incomingPrimes": 172,
+    "initialPrimeCount": 10,
+    "lastLowPrime": 29,
+    "floorChecks": 10141,
+    "hazardChecks": 96455,
+    "phaseChecks": 172,
+    "crossingChecks": 172,
+    "abelChecks": 172,
+    "maxRelErr": 2.2329192057376746e-12,
+    "lowBoundViolations": 0,
+    "raw": 1264074.4166637086,
+    "lowRaw": 619772.237584589,
+    "lowMainApprox": 619881.0729453827,
+    "lowCenteredApprox": -108.83536079362966,
+    "lowErrorBound": 28375.55144319196,
+    "lowTailErrorBound": 3901.485256690891,
+    "lowMaxPrefixRatio": 0.5,
+    "rows": [
+      {
+        "p": 2,
+        "faceBudget": 1,
+        "maxPrefix": 0.5,
+        "rawDefect": 124000.66794458595,
+        "mainAtFiniteT": 124001.79476149005,
+        "centeredApprox": -1.1268169040995417,
+        "errorBound": 27.73758694349165,
+        "truncationBound": 3.8137685793654854
+      },
+      {
+        "p": 3,
+        "faceBudget": 2,
+        "maxPrefix": 0.6666666666666666,
+        "rawDefect": 92871.89911291515,
+        "mainAtFiniteT": 92872.8602439049,
+        "centeredApprox": -0.9611309897445608,
+        "errorBound": 55.4751738869833,
+        "truncationBound": 7.627537158730971
+      },
+      {
+        "p": 5,
+        "faceBudget": 4,
+        "maxPrefix": 1.2,
+        "rawDefect": 83269.47542705103,
+        "mainAtFiniteT": 83270.7818962237,
+        "centeredApprox": -1.306469172675861,
+        "errorBound": 110.9503477739666,
+        "truncationBound": 15.255074317461942
+      },
+      {
+        "p": 7,
+        "faceBudget": 8,
+        "maxPrefix": 1.7142857142857142,
+        "rawDefect": 68869.62849671097,
+        "mainAtFiniteT": 68874.68538595579,
+        "centeredApprox": -5.056889244820923,
+        "errorBound": 221.9006955479332,
+        "truncationBound": 30.510148634923883
+      },
+      {
+        "p": 11,
+        "faceBudget": 16,
+        "maxPrefix": 2.909090909090909,
+        "rawDefect": 58504.377401211816,
+        "mainAtFiniteT": 58512.32969893005,
+        "centeredApprox": -7.952297718235059,
+        "errorBound": 443.8013910958664,
+        "truncationBound": 61.02029726984777
+      },
+      {
+        "p": 13,
+        "faceBudget": 32,
+        "maxPrefix": 4.153846153846154,
+        "rawDefect": 47073.9826727212,
+        "mainAtFiniteT": 47083.5161987507,
+        "centeredApprox": -9.533526029503264,
+        "errorBound": 887.6027821917328,
+        "truncationBound": 122.04059453969553
+      },
+      {
+        "p": 17,
+        "faceBudget": 64,
+        "maxPrefix": 5.764705882352941,
+        "rawDefect": 43986.98259441148,
+        "mainAtFiniteT": 44000.74220632096,
+        "centeredApprox": -13.759611909481464,
+        "errorBound": 1775.2055643834656,
+        "truncationBound": 244.08118907939107
+      },
+      {
+        "p": 19,
+        "faceBudget": 128,
+        "maxPrefix": 7.7894736842105265,
+        "rawDefect": 36807.34752898298,
+        "mainAtFiniteT": 36819.47457496035,
+        "centeredApprox": -12.1270459773732,
+        "errorBound": 3550.411128766931,
+        "truncationBound": 488.16237815878213
+      },
+      {
+        "p": 23,
+        "faceBudget": 256,
+        "maxPrefix": 11.782608695652174,
+        "rawDefect": 33549.7124143219,
+        "mainAtFiniteT": 33565.54938358527,
+        "centeredApprox": -15.83696926337143,
+        "errorBound": 7100.822257533862,
+        "truncationBound": 976.3247563175643
+      },
+      {
+        "p": 29,
+        "faceBudget": 512,
+        "maxPrefix": 13.793103448275861,
+        "rawDefect": 30838.16399167669,
+        "mainAtFiniteT": 30879.338595261026,
+        "centeredApprox": -41.17460358433527,
+        "errorBound": 14201.644515067725,
+        "truncationBound": 1952.6495126351285
+      }
+    ]
+  }
+]
