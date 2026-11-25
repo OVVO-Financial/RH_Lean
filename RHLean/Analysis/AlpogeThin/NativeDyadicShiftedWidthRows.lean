@@ -61,6 +61,33 @@ theorem nativeDyadicLocalSourceAtom_sub_of_top_add_two
     max_eq_left (sub_nonneg.mpr hb)]
   ring
 
+/-- After restoring each clipped part, the whole tower of shifted differences
+reads a single height difference. On active reads both clipping terms vanish. -/
+theorem nativeDyadicLocalSourceAtom_scaled_shift_difference
+    (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime] (hp : p ≠ 0)
+    (t : AlpogeNativeDyadicH e) (a b : ℝ) (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) :
+    let g := (alpogeNativeHostData e q d).frob p
+    let s := t + (2 : ℕ) • g.2
+    let width := w (alpogeNativePartner s (i • g))
+    (p : ℝ) ^ (i + 2) *
+      ((nativeDyadicLocalSourceAtom e q d p a t w (i + 2) -
+          max (width - a / (p : ℝ) ^ (i + 2)) 0) -
+        (nativeDyadicLocalSourceAtom e q d p b s w i -
+          max (width - b / (p : ℝ) ^ i) 0)) = a - (p : ℝ) ^ 2 * b := by
+  have splitCut (x y : ℝ) : max (x - y) 0 - max (y - x) 0 = x - y := by
+    rcases le_total y x with h | h
+    · rw [max_eq_left (sub_nonneg.mpr h), max_eq_right (sub_nonpos.mpr h), sub_zero]
+    · rw [max_eq_right (sub_nonpos.mpr h), max_eq_left (sub_nonneg.mpr h)]
+      ring
+  have hp' : (p : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hp
+  have cancel (k : ℕ) (x : ℝ) : (p : ℝ) ^ k * (x / (p : ℝ) ^ k) = x := by
+    rw [← mul_div_assoc, mul_div_cancel_left₀ _ (pow_ne_zero k hp')]
+  dsimp only
+  simp only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re,
+    Nat.cast_pow, alpogeNativePartner_add_two, splitCut, sub_sub_sub_cancel_right]
+  rw [mul_sub, cancel, pow_add, mul_comm ((p : ℝ) ^ i) ((p : ℝ) ^ 2),
+    mul_assoc, cancel]
+
 end AlpogeThin
 end RHLean.Analysis
 

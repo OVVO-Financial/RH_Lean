@@ -92,6 +92,7 @@ run_cmd do
     `RHLean.Analysis.AlpogeThin.nativeDyadicPageN_small_bases_before_return_full_cutoff,
     `RHLean.Analysis.nativeDyadic_partnerColourImage,
     `RHLean.Analysis.alpogeNativePartner_add_two_no_separation,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicLocalSourceAtom_scaled_shift_difference,
     `RHLean.Analysis.AlpogeThin.nativeDyadic_signedAncestor_all_primes,
     `RHLean.Analysis.nativePrimeTower_finite_payment,
     `RHLean.Geometry.NativeTheta.AppellHumbert.period_value_two_minor,

@@ -428,6 +428,21 @@
           1849,
           1849
         ]
+      },
+      "free_top_heights_on_listed_active_reads": {
+        "height_increment_p_exponents_by_top": {
+          "1": 7,
+          "1849": 5
+        },
+        "smith_factors": [
+          1,
+          1,
+          1849,
+          1849
+        ],
+        "quotient_length": 4,
+        "unit_factors": 2,
+        "competing_modulus": 1849
       }
     }
   },

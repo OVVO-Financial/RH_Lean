@@ -41,6 +41,14 @@ $$
 $$
 It is strictly negative since $N/2^{99}<1$, $\log(17/16)<1/16$ and $p\ge13$. This variation is at the original $Q$ and measures every active preimage. The geometric cost of moving an actual section in that direction has not been obtained. The experiment computes a congruence-kernel basis by Bézout column operations and then takes gcds of minors of its selected image. It repeats the calculation in the original coordinates and after the divisor-closed basis changes at $z=16,32,64$. Extension by zero off the tested width sites realizes every listed image direction. The general one-prime fibre calculation also describes missed cosets and repeated labels. [Reproduce the host and Smith computation](../scripts/native_economical_recovery_widths.py) · [exact output](NATIVE_ECONOMICAL_WIDTH_IMAGE_20261125.json) · [translated width identity](../RHLean/Analysis/AlpogeThin/NativeDyadicShiftedWidthRows.lean) · [integral coset images](../RHLean/Analysis/AlpogeThin/NativeDyadicColourImage.lean)
 
+Allow both original top heights to vary as well as the four widths. Write $S_j$ for the active atom at $([1],43^j)$ and $C_{j-2}$ for its competitor at $([43^2],43^{j-2})$, before their common $2\log 43$ weight. Each of the three differences obeys
+$$
+43^j(S_j-C_{j-2})=a_{[1]}-43^2a_{[43^2]},\qquad j=3,5,7.
+$$
+This follows by subtracting the two original atoms at their shared width. The Lean identity retains both clipping terms at inactive sites. Thus varying both heights introduces just one independent difference across the three active pairs. [Shifted atom identity](../RHLean/Analysis/AlpogeThin/NativeDyadicShiftedWidthRows.lean)
+
+On these seven reads take $\mathcal O=\mathbb Z_{(43)}$ and require integral width and atom increments. In this enlarged arithmetic model the two height increments range over $43^7\mathcal O$ and $43^5\mathcal O$. If the three competing increments belong to $43^c\mathcal O$, the selected increments at exponents $3,5,7$ reduce to $(43^4u,43^2u,u)$ modulo $43^c$ for a single $u\in\mathcal O$. Every such tuple lifts in the model by choosing the two heights and the three common widths, and the selected first-power width is free. The Smith factors are $1,1,43^c,43^c$. At $c=2$ the exact quotient length drops from six to four. Two independent residue directions still require information outside these height and width reads. Other competitors and restrictions on genuine sections can further shrink the image. [Exact integer calculation](../scripts/native_economical_recovery_widths.py)
+
 ## Signed ancestry and a paid terminal sector
 
 For the principal weight $f_N(n)=\Lambda(n)(N/n-1)$, when $\ell>1$ the exact signed column is $(-1)^{\Omega(h)} f_N(\ell)$. Each term with a nontrivial high divisor is supported on at least two different primes and vanishes. On $\ell=1$, writing $a_p=v_p(h)$, the exact column is

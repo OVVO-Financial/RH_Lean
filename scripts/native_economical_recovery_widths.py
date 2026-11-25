@@ -284,6 +284,54 @@ def recompute_width_image(p, selected):
         result["original" if z == 0 else str(z)] = factors
     return result
 
+
+def shifted_height_image(p, selected):
+    """Exact integral image on the listed reads with both top heights free.
+
+    On an active site the height coefficient is 1/p**i and the width
+    coefficient is -1. Keeping all widths and measured atoms integral makes
+    the height increment at each top a multiple of its largest listed p**i.
+    Other sites and the geometric restrictions are outside this projection.
+    """
+    reads = selected["rows"]
+    groups = [[(1, p, row["i"], "retained"), *row["other_reads_at_site"]]
+              for row in reads]
+    height_exponents = {}
+    for group in groups:
+        for top, base, exponent, label in group:
+            assert base == p and label == "retained"
+            height_exponents[top] = max(height_exponents.get(top, 0), exponent)
+    tops = sorted(height_exponents)
+
+    def active_row(top, exponent, site):
+        heights = [p**(height_exponents[t] - exponent) if t == top else 0 for t in tops]
+        widths = [-int(j == site) for j in range(len(groups))]
+        return heights + widths
+
+    E, competitors = [], []
+    for site, group in enumerate(groups):
+        top, _, exponent, _ = group[0]
+        E.append(active_row(top, exponent, site))
+        for top, _, exponent, _ in group[1:]:
+            competitors.append(active_row(top, exponent, site))
+
+    modulus = p**C
+    allowed = admissible_basis(competitors, len(tops) + len(groups), modulus)
+    image = matrix_product(E, allowed)
+    factors = smith_factors(image)
+    # The shared heights contribute one new residue direction on the three
+    # duplicated sites. These two primitive relations characterize its image.
+    exponents = [row["i"] for row in reads]
+    assert exponents == [1, 3, 5, 7] and tops == [1, p**2]
+    for i in (1, 2):
+        ratio = p**(exponents[-1] - exponents[i])
+        assert all((u - ratio*v) % modulus == 0 for u, v in zip(image[i], image[-1]))
+    assert factors == [1, 1, modulus, modulus]
+    return {"height_increment_p_exponents_by_top": height_exponents,
+            "smith_factors": factors, "quotient_length": 2*C,
+            "unit_factors": 2, "competing_modulus": modulus}
+
+
 def main():
     certify_host()
     check_stronger_size_band()
@@ -316,6 +364,7 @@ def main():
             assert 0 < minus_main < 1 and p >= 13
             row["normalized_signed_width_change"] = {
                 "log_p": str(ask), "log_17_over_16": str(minus_main)}
+    rows[43]["free_top_heights_on_listed_active_reads"] = shifted_height_image(43, rows[43])
     primes = (2, 3, 5, 7, 11, 13, 17, 37, 41, 43, 47)
     print(json.dumps({
         "eps_WinPair_and_PageN": ["1/64", "9/560"],
