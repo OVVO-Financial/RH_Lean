@@ -420,3 +420,9 @@ if __name__ == "__main__":
 ```
 
 </details>
+
+## Opening | ANA-20261125T140903Z-PRICE-OPEN
+
+Scheduled invocation 2026-11-25 09:09:03 EST (14:09:03 UTC); RUN_ID_UNAVAILABLE. Continuation, not a replacement of the 01:04 EST TOPLAW run. Main/policy `cad8dba7bbab6c709264061a3269790230c0d9a5` (AGENTS `c7715e559ab64a8b2ebbf4623ecc246cb43179af`, contract `6fa886e125321056739a48d09fd33c95edaebf6b`, recovery directive `8c16f05a43e8794fa78f77ba2645b3913669b93f`); draft #1201 inspected `5eb0d87573d087aed794ef065ceea034021fa280`; #1205 remains its merged conditional handoff. Report intake `0f6aa7ccbc7f786790d28347e3bd2076a8fc8530`, existing own blob `11e89f84ece71cbaa810860ad37c268abfe754d1`, 49,144 verified UTF-8 bytes. All seven roles have Nov 25 sections, including JETCUT, FRAME, TOPLAW, PARTNER, HEIGHTFIBRE, ROW and LIFT. Nov 24 has no Census file. Inbox `7d63d434690d00dffce9c90335d41c4f62d85798`.
+
+Question: what can be charged to the measured ancestor or width perturbation at one selected anchor, without identifying incidence with integral evaluation? Audit the physical restriction and normalized metric first; test the full weighted error on the actual signed consumer. No physical Smith factors or independently paid anchor assumed. `native_economical_recovery_ack=NATIVE_ECONOMICAL_RECOVERY_V1; ECONOMICAL_RECOVERY_ROLE=ANALYTIC; final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1; FINAL_1201_ROLE=ANALYTIC; DIRECT_CORE_CUT_V1; STRICT_NO_GEOCL_ANYGEOMETRY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1; EXECUTION=IN_PROGRESS; PHYSICAL_E_C=BLOCKED; RH=OPEN`.
