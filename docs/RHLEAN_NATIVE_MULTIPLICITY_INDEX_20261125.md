@@ -152,3 +152,8 @@ See JSONL for exact recorded precision. LP normalized log(P)/(Q*mN): R16 grid128
 - LEAN: reuse the integral change-of-basis and exponent-jet lemmas where available; formalize the exact valuation, factorial lift divisibility and shared-grid recovery suppliers, then the actual certificate family and independently proved size. Use #1205 existing handoff only after the quantitative bound. No sorry, axioms, vacuous geometry, or new assumed critical estimate.
 
 This is a repository-scoped directive only; no external runtime retasking, merge, or RH claim. V6 paper suppliers need Lean formalization and hosted review.
+
+
+## V7 follow-on (2026-11-25)
+
+Prioritize [native two-chart density recovery for finite C](RHLEAN_NATIVE_TWO_CHART_DENSITY_RECOVERY_20261125.md), using existing concurrent coordinates and signed shared density errors. V6 local factorial recovery is retained; neither V6 global size nor V7 global signed bound is proved.
