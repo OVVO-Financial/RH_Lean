@@ -93,3 +93,8 @@ Prioritize V7 before V6 research selection; retain prior valid results and #1201
 ## Reproduction
 
 Compile the four C++ scripts with g++ -O3 -std=c++17 -Wall -Wextra -Werror. Run native_two_chart_recovery, native_two_chart_rooted_cuts (argument small for R=2..512), native_two_chart_global_capacity, native_two_chart_density_capacity. Run native_two_chart_density_lp.py using numpy/scipy (HiGHS). All four C++ diagnostics compiled locally and all assertions passed; small-root mode tested with the equivalent fixed root-vector edit before publication. Python LP ran. Environment lacked lean/lake. New scripts and CSVs are research, not Lean imports. #1201 unchanged.
+
+
+## V8 follow-on
+
+[Trace the actual numerical core and elementary height-two valuation attack](RHLEAN_NUMERICAL_CORE_HEIGHT_TWO_ATTACK_20261125.md). Local integral constructions and their global cost obstruction, not a new finite-C or RH bound.
