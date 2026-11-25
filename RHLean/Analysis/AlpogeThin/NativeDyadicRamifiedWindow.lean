@@ -31,8 +31,8 @@ theorem nativeDyadicDPrimeASK_normalized_le_of_winPair
     let Z := ‖∑ j ∈ J, ∑ t ∈ T, nativeDyadicDPrimeASK e q d N (a t) t (w j)‖ /
       alpogeNativeProjectionDivisor T T2 J.card b
     Z ≤ 16 / (alpogeNativeProjectionDensity T2 * x) ∧ Z ≤ 16 * x ^ (ε - 1) := by
-  letI : Fact q.Prime := ⟨hpair.q_prime⟩
-  letI : Fact d.Prime := ⟨hpair.d_prime⟩
+  let : Fact q.Prime := ⟨hpair.q_prime⟩
+  let : Fact d.Prime := ⟨hpair.d_prime⟩
   let Δ := alpogeNativeProjectionDensity T2
   let Z := ‖∑ j ∈ J, ∑ t ∈ T, nativeDyadicDPrimeASK e q d N (a t) t (w j)‖ /
     alpogeNativeProjectionDivisor T T2 J.card b

@@ -121,9 +121,9 @@ theorem det_progressionMatrix (a o m : ℕ) :
     rw [hf, Polynomial.coeff_X_pow_mul']
   have hD : D.IsLowerTriangular := by
     intro r j hrj
-    exact (hentry r j).trans (if_neg (Nat.not_le_of_lt hrj))
+    exact (hentry r j).trans (ite_eq_right (Nat.not_le_of_lt hrj))
   have hdiag (j : Fin m) : D j j = (o : ℤ) ^ j.val := by
-    rw [hentry, if_pos le_rfl, Nat.sub_self]
+    rw [hentry, ite_eq_left le_rfl, Nat.sub_self]
     change Polynomial.constantCoeff (((X + 1 : ℤ[X]) ^ a) * q ^ j.val) = _
     have hq' : Polynomial.constantCoeff q = (o : ℤ) := hq0
     have h1 : Polynomial.constantCoeff (X + 1 : ℤ[X]) = 1 := by simp
@@ -243,7 +243,7 @@ theorem nativeDyadic_returning_hasse_minor (e q d p a m : ℕ) [Fact q.Prime] [F
       have hzero : (o * j.val) • x = 0 :=
         addOrderOf_dvd_iff_nsmul_eq_zero.mp (dvd_mul_right o j.val)
       rw [add_nsmul, hzero, add_zero, sub_self]
-    exact if_pos ((QuotientAddGroup.eq_zero_iff _).mp hq)
+    exact ite_eq_left ((QuotientAddGroup.eq_zero_iff _).mp hq)
   have he : (Matrix.of fun r j : Fin m => nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) *
       ((n j).choose r.val : ℤ)) = progressionMatrix a o m := by
     ext r j

@@ -51,9 +51,9 @@ private theorem eval_gridWeight (x : σ → ℕ) (i : σ) (d j : ℕ) (hx : x i 
   rw [gridWeight, map_mul, map_mul, eval_C, eval_gridFalling _ _ _ _ hleft,
     eval_gridFalling _ _ _ _ hright]
   by_cases he : x i = j
-  · rw [if_pos he, he, Nat.descFactorial_self, Nat.descFactorial_self, ← Nat.cast_mul,
+  · rw [ite_eq_left he, he, Nat.descFactorial_self, Nat.descFactorial_self, ← Nat.cast_mul,
       ← Nat.cast_mul, Nat.choose_mul_factorial_mul_factorial hj]
-  · rw [if_neg he]
+  · rw [ite_eq_right he]
     rcases lt_or_gt_of_ne he with h | h
     · simp [Nat.descFactorial_eq_zero_iff_lt.mpr h]
     · have hsub : d - x i < d - j := by omega
@@ -74,9 +74,9 @@ private theorem degreeOf_gridWeight [Nontrivial R] [DecidableEq σ] (w i : σ) (
       exact Nat.add_le_add_left (Nat.mul_le_mul_left _ hright) _
     _ = _ := by
       by_cases h : w = i
-      · simp only [if_pos h, Nat.mul_one]
+      · simp only [ite_eq_left h, Nat.mul_one]
         omega
-      · simp only [if_neg h, Nat.mul_zero, Nat.add_zero]
+      · simp only [ite_eq_right h, Nat.mul_zero, Nat.add_zero]
 
 variable [Fintype σ]
 
@@ -101,13 +101,13 @@ private theorem eval_gridKernel [DecidableEq σ] (d : σ → ℕ) (x a : (i : σ
     (Nat.le_of_lt_succ (x i).isLt) (Nat.le_of_lt_succ (a i).isLt)
   by_cases h : x = a
   · subst a
-    rw [if_pos rfl]
-    exact Finset.prod_congr rfl fun i _ => (hw i).trans (if_pos rfl)
-  · rw [if_neg h]
+    rw [ite_eq_left rfl]
+    exact Finset.prod_congr rfl fun i _ => (hw i).trans (ite_eq_left rfl)
+  · rw [ite_eq_right h]
     obtain ⟨i, hi⟩ : ∃ i, x i ≠ a i := by
       by_contra! hall
       exact h (funext hall)
-    exact Finset.prod_eq_zero (Finset.mem_univ i) ((hw i).trans (if_neg fun he => hi (Fin.ext he)))
+    exact Finset.prod_eq_zero (Finset.mem_univ i) ((hw i).trans (ite_eq_right fun he => hi (Fin.ext he)))
 
 variable [IsDomain R] [CharZero R]
 
@@ -135,7 +135,7 @@ theorem factorial_mul_coeff_mem_of_grid_eval_mem (d : σ → ℕ) (P : MvPolynom
         eval_gridKernel d b a
       simp only [S, map_sub, map_mul, eval_C, map_sum, hev]
       rw [Finset.sum_eq_single b]
-      · rw [if_pos rfl]
+      · rw [ite_eq_left rfl]
         change D * eval (fun i => (x i : R)) P - eval (fun i => (x i : R)) P * D = 0
         rw [mul_comm D, sub_self]
       · intro a _ hab
@@ -229,8 +229,8 @@ theorem exists_coordProd_grid_addVal_le_factorial [IsDomain R] [CharZero R] [IsD
   have hcoeff (s : ((Fin p ⊕ Fin p ⊕ Fin q) × ι) →₀ ℕ) : P.coeff s = l (F.coeff s) := by
     simp only [P, coeff_sum, coeff_monomial, Finset.sum_ite_eq']
     by_cases hs : s ∈ F.support
-    · rw [if_pos hs]
-    · rw [if_neg hs, notMem_support_iff.mp hs, map_zero]
+    · rw [ite_eq_left hs]
+    · rw [ite_eq_right hs, notMem_support_iff.mp hs, map_zero]
   have hdeg (i : (Fin p ⊕ Fin p ⊕ Fin q) × ι) : P.degreeOf i ≤ dg := by
     apply degreeOf_le_iff.mpr
     intro s hs
@@ -295,7 +295,7 @@ theorem minorMonomial_eval_gridPoint_eq_zero (R : Type) [CommRing R]
     apply Matrix.det_eq_zero_of_row_eq_zero u
     intro v
     simp only [RingHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply, MvPolynomial.eval_X,
-      minorGridPoint, if_neg (hmiss v)]
+      minorGridPoint, ite_eq_right (hmiss v)]
   rw [hz, zero_pow (Nat.ne_of_gt (Nat.sub_pos_of_lt hpos))]
 
 /-- Each zero-one evaluation reads one coefficient of a combination of separated
@@ -338,14 +338,14 @@ theorem eval_gridPoint_eq_diagonalCoeff (K : Type) [Field K] (a : T → ℕ → 
     rw [hj]
     by_cases hb : b = col τ i
     · subst b
-      rw [if_pos rfl]
+      rw [ite_eq_left rfl]
       have hsum : (∑ k : Fin n, m ⟨τ,i,k⟩) = m ⟨τ,i,col τ i⟩ := by
         apply Finset.sum_eq_single (col τ i)
         · intro k _ hk
           exact hs ⟨τ,i,k⟩ hk
         · simp
       exact hsum.symm.trans (hP m hm τ i)
-    · rw [if_neg hb]
+    · rw [ite_eq_right hb]
       exact hs ⟨τ,i,b⟩ hb
   change MvPolynomial.eval _ P = P.coeff J
   rw [MvPolynomial.eval_eq, Finset.sum_eq_single J]
@@ -354,8 +354,8 @@ theorem eval_gridPoint_eq_diagonalCoeff (K : Type) [Field K] (a : T → ℕ → 
       intro ℓ hℓ
       have ht : ℓ.2.2 = col ℓ.1 ℓ.2.1 := by
         by_contra h
-        exact (Finsupp.mem_support_iff.mp hℓ) ((hj ℓ).trans (if_neg h))
-      simp only [minorGridPoint, if_pos ht, one_pow]
+        exact (Finsupp.mem_support_iff.mp hℓ) ((hj ℓ).trans (ite_eq_right h))
+      simp only [minorGridPoint, ite_eq_left ht, one_pow]
     rw [hprod, mul_one]
   · intro m hm hne
     obtain ⟨ℓ, hcol, hn⟩ : ∃ ℓ : Letter T r n, ℓ.2.2 ≠ col ℓ.1 ℓ.2.1 ∧ m ℓ ≠ 0 := by
@@ -363,7 +363,7 @@ theorem eval_gridPoint_eq_diagonalCoeff (K : Type) [Field K] (a : T → ℕ → 
       exact hne (hdet m hm h)
     rw [Finset.prod_eq_zero (Finsupp.mem_support_iff.mpr hn)
       (show minorGridPoint r n col K ℓ ^ m ℓ = 0 from by
-        simp only [minorGridPoint, if_neg hcol, zero_pow hn]), mul_zero]
+        simp only [minorGridPoint, ite_eq_right hcol, zero_pow hn]), mul_zero]
   · intro hn
     rw [MvPolynomial.notMem_support_iff.mp hn, zero_mul]
 

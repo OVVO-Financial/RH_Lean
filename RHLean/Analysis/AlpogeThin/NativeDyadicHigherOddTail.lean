@@ -238,7 +238,8 @@ theorem nativeDyadicHigherOddTail_normalized_le (e q d N m : ℕ) [Fact q.Prime]
     hQ.le).trans_eq ?_
   simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
   dsimp only [B, alpogeNativeProjectionDivisor]
-  field_simp [hu.ne', ht.ne', hm'.ne', hb.ne', hDelta.ne'] <;> ring
+  field_simp [hu.ne', ht.ne', hm'.ne', hb.ne', hDelta.ne']
+  ring
 
 end RHLean.Analysis.AlpogeThin
 end

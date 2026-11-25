@@ -53,7 +53,7 @@ theorem unscaledWeight_eq_factorial_mul (z : σ → R) (k m : σ →₀ ℕ) :
     ((k i).factorial : R) * (Polynomial.taylor (z i) p).coeff (k i)
   rw [← h, Polynomial.taylor_coeff]
   change (Polynomial.evalRingHom (z i)) ((k i).factorial • Polynomial.hasseDeriv (k i) p) = _
-  rw [map_nsmul, nsmul_eq_mul]
+  rw [map_nsmul, nsmul_eq_mul, Polynomial.coe_evalRingHom]
 
 /-- Integral linear measurement of the original polynomial coefficients. -/
 def dividedJet (z : σ → R) (k : σ →₀ ℕ) : MvPolynomial σ R →ₗ[R] R :=
@@ -96,15 +96,15 @@ theorem dividedJet_eq_coeff_of_totalDegree_le (z : σ → R) (k : σ →₀ ℕ)
       refine Finset.sum_congr rfl fun m hm => ?_
       by_cases h : m = k
       · subst m
-        rw [weight_self, mul_one, if_pos rfl]
+        rw [weight_self, mul_one, ite_eq_left rfl]
       · have hmdeg := le_totalDegree hm
         rw [Finsupp.sum_fintype _ _ (fun _ => rfl)] at hmdeg
-        rw [if_neg h, weight_zero z (missing_coordinate h (hmdeg.trans hdeg)), mul_zero]
+        rw [ite_eq_right h, weight_zero z (missing_coordinate h (hmdeg.trans hdeg)), mul_zero]
     _ = _ := by
       rw [Finset.sum_ite_eq']
       by_cases hk : k ∈ P.support
-      · rw [if_pos hk]
-      · rw [if_neg hk, notMem_support_iff.mp hk]
+      · rw [ite_eq_left hk]
+      · rw [ite_eq_right hk, notMem_support_iff.mp hk]
 
 section Family
 
@@ -133,10 +133,10 @@ theorem jetMatrix_det [DecidableEq I] (z : σ → R) (a : I → σ →₀ ℕ) (
     rw [Matrix.one_apply]
     by_cases h : i = j
     · subst j
-      rw [if_pos rfl, weight_self]
+      rw [ite_eq_left rfl, weight_self]
     · have hne : a j.val ≠ a i.val := fun he => h (Subtype.ext (ha he).symm)
       have hle : grade j.val ≤ grade i.val := (j.property.trans i.property.symm).le
-      exact (weight_zero z (missing_coordinate hne hle)).trans (if_neg h).symm
+      exact (weight_zero z (missing_coordinate hne hle)).trans (ite_eq_right h).symm
   change M.det = 1
   rw [ht.det]
   exact Finset.prod_eq_one fun d _ => by rw [hb d, Matrix.det_one]
@@ -178,7 +178,7 @@ theorem dividedJet_at_origin (k : σ →₀ ℕ) (P : MvPolynomial σ R) :
     have hz : mixedTaylorWeight (0 : σ → R) k m = 0 := by
       apply Finset.prod_eq_zero (Finset.mem_univ i)
       change (Polynomial.taylor 0 (Polynomial.monomial (m i) (1 : R))).coeff (k i) = 0
-      rw [Polynomial.taylor_zero, Polynomial.coeff_monomial, if_neg hi]
+      rw [Polynomial.taylor_zero, Polynomial.coeff_monomial, ite_eq_right hi]
     rw [hz, mul_zero]
   · intro hk
     rw [notMem_support_iff.mp hk, map_zero, zero_mul]

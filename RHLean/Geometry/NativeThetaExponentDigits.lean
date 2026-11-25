@@ -62,6 +62,7 @@ def degreeDigitEquiv (ι : Type*) [Fintype ι] (P d : ℕ) (hP : 0 < P) :
 /-- Stars and bars with both exponent digits retained. -/
 theorem card_digitIndex (ι : Type*) [Fintype ι] (P d : ℕ) (hP : 0 < P) :
     Nat.card (DigitIndex ι P d) = (Fintype.card ι + d - 1).choose d := by
+  classical
   calc
     _ = Nat.card (Sym ι d) := Nat.card_congr
       ((degreeDigitEquiv ι P d hP).symm.trans (Sym.equivNatSumOfFintype ι d).symm)

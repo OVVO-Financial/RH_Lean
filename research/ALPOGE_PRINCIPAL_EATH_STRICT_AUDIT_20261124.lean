@@ -15,6 +15,11 @@ import RHLean.Geometry.NativeFrobeniusHasse
 import RHLean.Geometry.NativeHostIntegralJetRows
 import RHLean.Geometry.NativeThetaExponentDigits
 import RHLean.Geometry.NativeThetaIntegralJets
+import RHLean.Geometry.NativeThetaFactorialDigitReadout
+import RHLean.Geometry.NativeThetaHasseDigitRecovery
+import RHLean.Geometry.NativeThetaInvariantPrincipalSymbol
+import RHLean.Analysis.AlpogeThin.NativeDyadicGridFactorialBudget
+import RHLean.Analysis.AlpogeThin.NativePrimeExponentAncestry
 import Lean.Util.CollectAxioms
 
 /-!
@@ -59,6 +64,17 @@ run_cmd do
     `RHLean.Geometry.NativeTheta.IntegralJets.recover_monomial_family,
     `RHLean.Geometry.NativeTheta.IntegralJets.formalGroupHasse_recovers_family,
     `RHLean.Geometry.NativeTheta.minorMonomial_dividedJet,
+    `RHLean.Geometry.NativeTheta.ExponentDigits.factorialDigitUnit_pow_dvd_sub_totalReadout,
+    `RHLean.Geometry.NativeTheta.HasseDigits.choose_prod_eq_bounded_hasse_sum,
+    `RHLean.Geometry.NativeTheta.HasseDigits.recover_bounded_hasse_digits,
+    `RHLean.Geometry.NativeTheta.InvariantPrincipalSymbol.formalColumnJet_principal,
+    `RHLean.Geometry.NativeTheta.InvariantLeadingJets.formalColumnJet_zero_of_extra_factor,
+    `RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_weighted_herm_local,
+    `RHLean.Geometry.NativeTheta.adaptedEdge_pairing_same_cutoff,
+    `RHLean.Analysis.AlpogeThin.nativeDyadicInertPrime_exists_grid_unit_of_winPair,
+    `RHLean.Analysis.AlpogeThin.PrimeExponent.part_mul_complement,
+    `RHLean.Analysis.AlpogeThin.PrimeExponent.mass_le_rpow,
+    `RHLean.Analysis.AlpogeThin.PrimeExponent.ancestor_clock,
     `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitIndex,
     `RHLean.Geometry.NativeTheta.ExponentDigits.card_digitFiber,
     `RHLean.Geometry.NativeTheta.ExponentDigits.factorial_digit_unit,

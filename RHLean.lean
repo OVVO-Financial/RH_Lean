@@ -474,6 +474,7 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicChiField
 import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicFixedAuxiliaryLevel
 import RHLean.Analysis.AlpogeThin.NativeDyadicFrame
+import RHLean.Analysis.AlpogeThin.NativeDyadicGridFactorialBudget
 import RHLean.Analysis.AlpogeThin.NativeDyadicGzPayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicHigherOddTail
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostCore
@@ -505,6 +506,7 @@ import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativeIdealClassBound
+import RHLean.Analysis.AlpogeThin.NativePrimeExponentAncestry
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
@@ -1224,6 +1226,7 @@ import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativeMeanEnergyDescent
 import RHLean.Geometry.NativeMeasuredComponentDegree
 import RHLean.Geometry.NativeMeasuredComponentNorm
+import RHLean.Geometry.NativeNewtonCongruence
 import RHLean.Geometry.NativeNumberFieldIntegralDescent
 import RHLean.Geometry.NativeOneSidedIsogenyNorm
 import RHLean.Geometry.NativePeriodTypeCoordinates
@@ -1311,8 +1314,11 @@ import RHLean.Geometry.NativeThetaCuspTensorVacua
 import RHLean.Geometry.NativeThetaCuspTransformationComposition
 import RHLean.Geometry.NativeThetaCuspVacuum
 import RHLean.Geometry.NativeThetaCuspWeil
+import RHLean.Geometry.NativeThetaDigitUnitApproximation
 import RHLean.Geometry.NativeThetaEvaluatedFamily
 import RHLean.Geometry.NativeThetaExponentDigits
+import RHLean.Geometry.NativeThetaFactorialDigitRatio
+import RHLean.Geometry.NativeThetaFactorialDigitReadout
 import RHLean.Geometry.NativeThetaFaithfullyFlatDescent
 import RHLean.Geometry.NativeThetaFiniteFamily
 import RHLean.Geometry.NativeThetaFiniteFlatCover
@@ -1324,11 +1330,14 @@ import RHLean.Geometry.NativeThetaGaussianSeries
 import RHLean.Geometry.NativeThetaGridInterpolation
 import RHLean.Geometry.NativeThetaGridParametrization
 import RHLean.Geometry.NativeThetaHarmonicPolynomials
+import RHLean.Geometry.NativeThetaHasseDigitRecovery
+import RHLean.Geometry.NativeThetaHasseDigits
 import RHLean.Geometry.NativeThetaHighestMinor
 import RHLean.Geometry.NativeThetaHighestWeights
 import RHLean.Geometry.NativeThetaIntegralGrid
 import RHLean.Geometry.NativeThetaIntegralJets
 import RHLean.Geometry.NativeThetaInvariantDerivatives
+import RHLean.Geometry.NativeThetaInvariantPrincipalSymbol
 import RHLean.Geometry.NativeThetaJetEvaluation
 import RHLean.Geometry.NativeThetaJetFrame
 import RHLean.Geometry.NativeThetaLatticeGridBounds

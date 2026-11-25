@@ -71,12 +71,12 @@ theorem joint_residues_of_comaximal {R V ι : Type*} [CommRing R] [AddCommGroup 
   change red j (∑ i, b i • v i) = y j
   simp only [map_sum, map_smul]
   rw [Fintype.sum_eq_single j]
-  · have hm : b j - 1 ∈ I j := by simpa only [if_pos rfl] using hb j j
+  · have hm : b j - 1 ∈ I j := by simpa using hb j j
     have hs := hzero j _ hm (red j (v j))
     rw [sub_smul, one_smul, sub_eq_zero] at hs
     exact hs.trans (hv j)
   · intro i hij
-    have hm : b i ∈ I j := by simpa only [if_neg hij.symm, sub_zero] using hb i j
+    have hm : b i ∈ I j := by simpa [hij.symm] using hb i j
     exact hzero j _ hm _
 
 /-- Recovered residue coordinates contribute to the index when every measured frame

@@ -76,6 +76,7 @@ theorem nativeDyadicInertPrime_odd_mask_card_le {eps Y X : ℝ} {q d : ℕ}
     linarith only [hbound, hreal, hscale]
   have hinj : Set.InjOn (fun i : ℕ => i / 2) (S : Set ℕ) := by
     intro i hi k hk hik
+    change i / 2 = k / 2 at hik
     obtain ⟨j, hj⟩ := (Finset.mem_filter.mp hi).2.1
     obtain ⟨l, hl⟩ := (Finset.mem_filter.mp hk).2.1
     omega

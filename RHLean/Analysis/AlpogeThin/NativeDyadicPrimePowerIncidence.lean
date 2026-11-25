@@ -184,6 +184,60 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+section FrobeniusCoset
+
+variable {G : Type*} [AddCommGroup G]
+
+/-- Order of the image of the specified Frobenius in its inertia quotient. -/
+def frobeniusCosetOrder (I : AddSubgroup G) (g : G) : ℕ :=
+  addOrderOf (QuotientAddGroup.mk' I g)
+
+theorem frobeniusCosetOrder_dvd_natCard (I : AddSubgroup G) (g : G) :
+    frobeniusCosetOrder I g ∣ Nat.card G := by
+  apply dvd_trans _ (addOrderOf_dvd_natCard g)
+  apply addOrderOf_dvd_of_nsmul_eq_zero
+  change addOrderOf g • (QuotientAddGroup.mk' I) g = 0
+  rw [← map_nsmul, addOrderOf_nsmul_eq_zero, map_zero]
+
+theorem frobeniusCosetOrder_dvd_iff (I : AddSubgroup G) (g : G) (k : ℕ) :
+    frobeniusCosetOrder I g ∣ k ↔ k • g ∈ I := by
+  change addOrderOf ((QuotientAddGroup.mk' I) g) ∣ k ↔ _
+  rw [addOrderOf_dvd_iff_nsmul_eq_zero, ← map_nsmul]
+  exact QuotientAddGroup.eq_zero_iff _
+
+private theorem frobeniusCoset_pos_inj (I : AddSubgroup G) (g : G) {i j : ℕ}
+    (hi : i < frobeniusCosetOrder I g) (hj : j < frobeniusCosetOrder I g)
+    (h : (j + 1) • g - (i + 1) • g ∈ I) : i = j := by
+  let π := QuotientAddGroup.mk' I
+  let x := π g
+  have hq : π ((j + 1) • g - (i + 1) • g) = 0 :=
+    (QuotientAddGroup.eq_zero_iff _).mpr h
+  have he : (j + 1) • x = (i + 1) • x := by
+    simpa only [map_sub, map_nsmul, sub_eq_zero] using hq
+  have hx : j • x = i • x := by
+    simpa only [add_nsmul, one_nsmul, add_right_cancel_iff] using he
+  have hinj : (Set.Iio (addOrderOf x)).InjOn (fun z : ℕ => z • x) :=
+    pow_injOn_Iio_orderOf (x := Multiplicative.ofAdd x)
+  exact (hinj hj hi hx).symm
+
+private theorem frobenius_self_sub_mem (I : AddSubgroup G) (v : G) : v - v ∈ I := by
+  rw [sub_self]
+  exact I.zero_mem
+
+private theorem frobenius_nsmul_shift (g : G) (i k : ℕ) :
+    (i + k) • g - i • g = k • g := by rw [add_nsmul]; abel
+
+private theorem frobenius_translate_mem (I : AddSubgroup G) (g a : G) (i k : ℕ)
+    (hk : k • g ∈ I) : a - (i + k) • g ∈ I ↔ a - i • g ∈ I := by
+  have hs : a - (i + k) • g = a - i • g - k • g := by rw [add_nsmul]; abel
+  rw [hs]
+  constructor
+  · intro h
+    simpa only [sub_add_cancel] using I.add_mem h hk
+  · exact fun h => I.sub_mem h hk
+
+end FrobeniusCoset
+
 /-- Integral indicator of the original Frobenius coset of inertia at a
 prime-power site. -/
 def nativeDyadicPrimePowerIncidence (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -205,10 +259,15 @@ theorem nativeDyadic_colourKernel_eq_incidence (e q d p i : ℕ) [Fact q.Prime] 
   change alpogeNativeColourKernel H.inertia H.frob (p ^ i) g = _
   rw [alpogeNativeColourKernel_primePower H.inertia H.frob p i hp hi g]
   by_cases h : g - i • H.frob p ∈ H.inertia p
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 1 := if_pos h
-    simp only [if_pos h, hrow, Int.cast_one, mul_one]
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 0 := if_neg h
-    simp only [if_neg h, hrow, Int.cast_zero, mul_zero]
+  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 1 := ite_eq_left h
+    simp only [ite_eq_left h, hrow, Int.cast_one, mul_one]
+    first
+    | rfl
+    | apply congrArg (fun S : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e) => 2 / (S.card : ℂ))
+      ext u
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, H]
+  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g = 0 := ite_eq_right h
+    simp only [ite_eq_right h, hrow, Int.cast_zero, mul_zero]
 
 /-- Distinct retained Frobenius cosets have an integral identity submatrix
 on their actual representatives. Every competing coset disjoint from those
@@ -235,40 +294,30 @@ theorem nativeDyadic_colourIncidence_minor {I J : Type*} [DecidableEq I]
       (1 : Matrix I I ℤ) i j
     by_cases hij : i = j
     · subst j
-      simp
-    · rw [if_neg (fun h => hij (hsep i j h)), Matrix.one_apply, if_neg hij]
+      rw [ite_eq_left (frobenius_self_sub_mem (H.inertia p) _), Matrix.one_apply_eq]
+    · rw [ite_eq_right (fun h => hij (hsep i j h)), Matrix.one_apply, ite_eq_right hij]
   · ext s j
     change (if selected j • H.frob p - competing s • H.frob p ∈ H.inertia p then (1 : ℤ) else 0) = 0
-    exact if_neg (hdisj s j)
+    exact ite_eq_right (hdisj s j)
 
 /-- Consecutive positive powers have an explicit identity minor up to the
 order of the actual Frobenius class modulo inertia. -/
 theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     [Fact q.Prime] [Fact d.Prime] :
     let H := alpogeNativeHostData e q d
-    let x := QuotientAddGroup.mk' (H.inertia p) (H.frob p)
-    let n := min K (addOrderOf x)
+    let n := min K (frobeniusCosetOrder (H.inertia p) (H.frob p))
     (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
   classical
   let H := alpogeNativeHostData e q d
-  let π := QuotientAddGroup.mk' (H.inertia p)
-  let x := π (H.frob p)
-  let n := min K (addOrderOf x)
+  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
+  let n := min K o
   change (Matrix.of fun i j : Fin n => nativeDyadicPrimePowerIncidence e q d p (i.val + 1)
     ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ)
-  have hdeg (i : Fin n) : i.val < addOrderOf x := lt_of_lt_of_le i.isLt (Nat.min_le_right _ _)
+  have hdeg (i : Fin n) : i.val < o := lt_of_lt_of_le i.isLt (Nat.min_le_right _ _)
   have hsep (i j : Fin n)
       (h : (j.val + 1) • H.frob p - (i.val + 1) • H.frob p ∈ H.inertia p) : i = j := by
-    have hq : π ((j.val + 1) • H.frob p - (i.val + 1) • H.frob p) = 0 :=
-      (QuotientAddGroup.eq_zero_iff _).mpr h
-    have he : (j.val + 1) • x = (i.val + 1) • x := by
-      simpa only [map_sub, map_nsmul, sub_eq_zero] using hq
-    have hx : j.val • x = i.val • x := by
-      simpa only [add_nsmul, one_nsmul, add_right_cancel_iff] using he
-    have hinj : (Set.Iio (addOrderOf x)).InjOn (fun z : ℕ => z • x) :=
-      pow_injOn_Iio_orderOf (x := Multiplicative.ofAdd x)
-    exact Fin.ext (hinj (hdeg j) (hdeg i) hx).symm
+    exact Fin.ext (frobeniusCoset_pos_inj (H.inertia p) (H.frob p) (hdeg i) (hdeg j) h)
   exact (nativeDyadic_colourIncidence_minor (I := Fin n) (J := Empty) e q d p
     (fun i => i.val + 1) (fun z => nomatch z) hsep (fun z => nomatch z)).1
 
@@ -287,9 +336,8 @@ theorem nativeDyadic_colourNormalization_coprime (e q d p : ℕ) [Fact q.Prime] 
     have h4 : Fintype.card AlpogeNativeE0 = 4 := by decide
     rw [h4]
     ring
-  have hd : Nat.card I ∣ 2 ^ (e + 2) := by
-    rw [← hsize]
-    exact I.card_addSubgroup_dvd_card
+  have hd : Nat.card I ∣ 2 ^ (e + 2) :=
+    I.card_addSubgroup_dvd_card.trans (dvd_of_eq hsize)
   have hc : (Finset.univ.filter (fun u : AlpogeNativeE0 × AlpogeNativeDyadicH e => u ∈ I)).card =
       Nat.card I := by
     change _ = Nat.card {u : AlpogeNativeE0 × AlpogeNativeDyadicH e // u ∈ I}
@@ -315,30 +363,20 @@ theorem nativeDyadic_colourKernel_eq_iff_frob_return (e q d p i k : ℕ)
   · intro h
     let g := (i + k) • H.frob p
     have hval := congrFun h g
-    have hself : g - (i + k) • H.frob p ∈ H.inertia p := by simp [g]
-    have hshift : g - i • H.frob p = k • H.frob p := by
-      change (i + k) • H.frob p - i • H.frob p = _
-      rw [add_nsmul, add_sub_cancel_left]
+    have hself : g - (i + k) • H.frob p ∈ H.inertia p :=
+      frobenius_self_sub_mem (H.inertia p) g
+    have hshift : g - i • H.frob p = k • H.frob p := frobenius_nsmul_shift (H.frob p) i k
     rw [alpogeNativeColourKernel_primePower H.inertia H.frob p (i + k) hp hik g,
       alpogeNativeColourKernel_primePower H.inertia H.frob p i hp hi g,
-      if_pos hself, hshift] at hval
+      ite_eq_left hself, hshift] at hval
     by_contra hn
-    rw [if_neg hn] at hval
+    rw [ite_eq_right hn] at hval
     have hc : (Finset.univ.filter (fun u : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
         u ∈ H.inertia p)).card ≠ 0 := Finset.card_ne_zero.mpr ⟨0, by simp⟩
     exact (div_ne_zero (by norm_num : (2 : ℂ) ≠ 0) (Nat.cast_ne_zero.mpr hc)) hval
   · intro hreturn
     funext g
-    have hs : g - (i + k) • H.frob p = (g - i • H.frob p) - k • H.frob p := by
-      rw [add_nsmul]
-      abel
-    have hcoset : g - (i + k) • H.frob p ∈ H.inertia p ↔ g - i • H.frob p ∈ H.inertia p := by
-      rw [hs]
-      constructor
-      · intro h
-        simpa only [sub_add_cancel] using (H.inertia p).add_mem h hreturn
-      · intro h
-        exact (H.inertia p).sub_mem h hreturn
+    have hcoset := frobenius_translate_mem (H.inertia p) (H.frob p) g i k hreturn
     rw [alpogeNativeColourKernel_primePower H.inertia H.frob p (i + k) hp hik g,
       alpogeNativeColourKernel_primePower H.inertia H.frob p i hp hi g, hcoset]
 
