@@ -213,6 +213,142 @@ theorem alpogeNativeMAIN_re_antitone_width
     Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
   nlinarith
 
+/-- Increasing the physical widths decreases every real ASK summand.
+The remaining price for the signed source is exactly the MAIN log change
+as an upper bound. The two profiles use the same height, host and cutoff. -/
+theorem alpogeNativeSignedWidthSource_upper_width_le
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N : ℕ) (a : ℝ) (t : H) (w₀ w : AlpogeNativeE0 × H → ℝ)
+    (horder : ∀ ρ, alpogeNativeInPhi ρ → w₀ ρ ≤ w ρ) :
+    alpogeNativeSignedWidthSource inertia frob ell N a t w ≤
+      alpogeNativeSignedWidthSource inertia frob ell N a t w₀ +
+        a * ((1 / ((alpogeNativePhiSet H).card : ℝ)) *
+          ∑ ρ ∈ alpogeNativePhiSet H, (Real.log (w ρ) - Real.log (w₀ ρ))) := by
+  classical
+  have hAsk : (alpogeNativeFullKernelASK inertia frob N a t w).re ≤
+      (alpogeNativeFullKernelASK inertia frob N a t w₀).re := by
+    rw [alpogeNativeFullKernelASK_re_eq_weighted, alpogeNativeFullKernelASK_re_eq_weighted]
+    apply Finset.sum_le_sum
+    intro n _
+    apply Finset.sum_le_sum
+    intro g hg
+    apply mul_le_mul_of_nonneg_left _ (alpogeNativeASKRealWeight_nonneg inertia frob n g)
+    exact max_le_max (sub_le_sub_left (horder _
+      (alpogeNativeFreezing_partner_inPhi t g (Finset.mem_filter.mp hg).2)) _) le_rfl
+  unfold alpogeNativeSignedWidthSource alpogeNativeMAIN
+  simp only [Complex.sub_re, Complex.mul_re, Complex.add_re, Complex.ofReal_re,
+    Complex.ofReal_im, zero_mul, sub_zero, Finset.sum_sub_distrib]
+  linarith only [hAsk]
+
+/-- Upper width enclosures on the original top excess. A bound on the mean
+log-width distortion on each row suffices. The subgroup mean, top count and
+row count cancel against the original divisor, leaving its density visible. -/
+theorem alpogeNativePhysicalSubgroupTopExcess_upper_width_le
+    (A0 : AddSubgroup H) (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N m : ℕ) (TT T2 : Finset H) (a : H → ℝ) (A b η : ℝ)
+    (w₀ w : H → Fin m → AlpogeNativeE0 × H → ℝ)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) (hb : 0 < b)
+    (hη : 0 ≤ η) (ha : ∀ t ∈ TT, 0 ≤ a t ∧ a t ≤ A)
+    (horder : ∀ (u : A0) j ρ, alpogeNativeInPhi ρ → w₀ u j ρ ≤ w u j ρ)
+    (hlog : ∀ (u : A0) j, (1 / ((alpogeNativePhiSet H).card : ℝ)) *
+      ∑ ρ ∈ alpogeNativePhiSet H, (Real.log (w u j ρ) - Real.log (w₀ u j ρ)) ≤ η) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w /
+        alpogeNativeProjectionDivisor TT T2 m b ≤
+      alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w₀ /
+        alpogeNativeProjectionDivisor TT T2 m b +
+      2 * A * η / (b * alpogeNativeProjectionDensity T2) := by
+  classical
+  let S (v : H → Fin m → AlpogeNativeE0 × H → ℝ) (u : A0) (t : H) (j : Fin m) :=
+    alpogeNativeSignedWidthSource inertia frob ell N (a t) t (v u j)
+  have hsum : (∑ u : A0, ∑ t ∈ TT, ∑ j : Fin m, S w u t j) ≤
+      ∑ u : A0, ∑ t ∈ TT, ∑ j : Fin m, (S w₀ u t j + A * η) := by
+    apply Finset.sum_le_sum
+    intro u _
+    apply Finset.sum_le_sum
+    intro t ht
+    apply Finset.sum_le_sum
+    intro j _
+    have hrow := alpogeNativeSignedWidthSource_upper_width_le inertia frob ell
+      N (a t) t (w₀ u j) (w u j) (horder u j)
+    exact hrow.trans (add_le_add_left
+      ((mul_le_mul_of_nonneg_left (hlog u j) (ha t ht).1).trans
+        (mul_le_mul_of_nonneg_right (ha t ht).2 hη)) _)
+  have hu : (Fintype.card A0 : ℝ) ≠ 0 := by exact_mod_cast Fintype.card_ne_zero
+  have hQ := alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm b hb
+  have hδ : 0 < alpogeNativeProjectionDensity T2 := by
+    unfold alpogeNativeProjectionDensity
+    exact div_pos (by exact_mod_cast hT2.card_pos) (by exact_mod_cast Fintype.card_pos)
+  have hT : (TT.card : ℝ) ≠ 0 := by exact_mod_cast hTT.card_pos.ne'
+  have hm' : (m : ℝ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hmean := mul_le_mul_of_nonneg_left hsum
+    (show 0 ≤ 1 / (Fintype.card A0 : ℝ) by positivity)
+  simp only [Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ,
+    Fintype.card_fin, nsmul_eq_mul, mul_add] at hmean
+  change alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w ≤
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w₀ +
+      (1 / (Fintype.card A0 : ℝ)) * ((Fintype.card A0 : ℝ) *
+        ((TT.card : ℝ) * ((m : ℝ) * (A * η)))) at hmean
+  have hdiv := div_le_div_of_nonneg_right hmean hQ.le
+  rw [add_div] at hdiv
+  calc
+    _ ≤ _ := hdiv
+    _ = _ := by
+      congr 1
+      unfold alpogeNativeProjectionDivisor
+      field_simp [hu, hT, hm', hb.ne', hδ.ne'] <;> ring
+
+/-- Lower endpoint of the logarithmic cell containing a positive width. -/
+def alpogeNativeLowerLogWidth (η v : ℝ) : ℝ :=
+  Real.exp ((⌊Real.log v / η⌋ : ℤ) * η)
+
+private theorem lowerLogWidth_bounds {η v : ℝ} (hη : 0 < η) (hv : 0 < v) :
+    alpogeNativeLowerLogWidth η v ≤ v ∧
+      Real.log v - Real.log (alpogeNativeLowerLogWidth η v) ≤ η := by
+  let k : ℤ := ⌊Real.log v / η⌋
+  have hlo : (k : ℝ) * η ≤ Real.log v :=
+    (le_div_iff₀ hη).mp (Int.floor_le _)
+  have hhi : Real.log v < ((k : ℝ) + 1) * η :=
+    (div_lt_iff₀ hη).mp (Int.lt_floor_add_one _)
+  change Real.exp ((k : ℝ) * η) ≤ v ∧ Real.log v - Real.log (Real.exp ((k : ℝ) * η)) ≤ η
+  rw [Real.log_exp]
+  exact ⟨(Real.exp_le_exp.mpr hlo).trans_eq (Real.exp_log hv), by linarith only [hhi]⟩
+
+/-- The coarsened width profile is constructed from the physical widths.
+Its one-sided transfer price after the actual projection is at most
+2 A η / (b Δ), uniformly in the subgroup, the top count and the row count. -/
+theorem alpogeNativePhysicalSubgroupTopExcess_logGrid_le
+    (A0 : AddSubgroup H) (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N m : ℕ) (TT T2 : Finset H) (a : H → ℝ) (A b η : ℝ)
+    (w : H → Fin m → AlpogeNativeE0 × H → ℝ)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) (hb : 0 < b)
+    (hη : 0 < η) (ha : ∀ t ∈ TT, 0 ≤ a t ∧ a t ≤ A)
+    (hw : ∀ (u : A0) j ρ, alpogeNativeInPhi ρ → 0 < w u j ρ) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w /
+        alpogeNativeProjectionDivisor TT T2 m b ≤
+      alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a
+          (fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)) /
+        alpogeNativeProjectionDivisor TT T2 m b +
+      2 * A * η / (b * alpogeNativeProjectionDensity T2) := by
+  apply alpogeNativePhysicalSubgroupTopExcess_upper_width_le A0 inertia frob ell
+    N m TT T2 a A b η _ w hTT hT2 hm hb hη.le ha
+  · exact fun u j ρ hρ => (lowerLogWidth_bounds hη (hw u j ρ hρ)).1
+  · intro u j
+    have hsum := Finset.sum_le_sum (s := alpogeNativePhiSet H)
+      (fun ρ hρ => (lowerLogWidth_bounds hη (hw u j ρ (Finset.mem_filter.mp hρ).2)).2)
+    have hcard : (0 : ℝ) < (alpogeNativePhiSet H).card := by
+      exact_mod_cast Finset.card_pos.mpr
+        (show (alpogeNativePhiSet H).Nonempty from
+          ⟨0, by simp [alpogeNativePhiSet, alpogeNativeInPhi]⟩)
+    rw [Finset.sum_const, nsmul_eq_mul] at hsum
+    rw [one_div, ← div_eq_inv_mul]
+    exact (div_le_iff₀ hcard).2 (hsum.trans_eq (mul_comm _ _))
+
 /-- Paid movement of the COMPLETE signed source. No characterwise norm is
 taken, and unchanged thin widths do not enter the freezing cost. -/
 theorem alpogeNativeSignedWidthSource_lower_width_le

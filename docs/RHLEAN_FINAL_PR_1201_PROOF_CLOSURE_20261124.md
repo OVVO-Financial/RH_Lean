@@ -2,6 +2,8 @@
 
 **FINAL_PR_1201_PROOF_CLOSURE_V1 — controlling task selection after human-reviewed policy merge (2026-11-24).** All seven agents must use the latest actual #1201 head and this directive before older dated tasks or saved prompt assignments. The only intended mathematical completion PR is [#1201](https://github.com/OVVO-Financial/RH_Lean/pull/1201). The standing policy was deployed separately. This branch carries the working assignments and mathematics for #1201.
 
+For remaining geometric comparisons, apply the [revised inequality directive](RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md#transport-of-inequalities-on-1201). A quantitative estimate in the direction consumed by #1201 can discharge an attachment previously described as an exact identification.
+
 ## Objective and verified boundary
 
 The November 25 recovery-and-capacity update starts at [c94fc79](https://github.com/OVVO-Financial/RH_Lean/commit/c94fc79fe452d568eb877fbe64f17ad638e7bc0d). DIRECT_CORE_CUT_V1 and STRICT_NO_GEOCL_ANYGEOMETRY_V1 govern. Re-read the actual current head on every invocation; the pin is an inspection receipt, not a frozen work target. Preserve the exact native prime-power source and the already merged [#1205](https://github.com/OVVO-Financial/RH_Lean/pull/1205) conditional RH handoff. The native principal EAtH window construction is submitted but not hosted-verified at the inspected pin. The first unpaid mathematical frontier is the independently justified **complete same-host signed gain-to-cost inequality**; neither the clean quantitative supplier nor unconditional RH is established. Do not read an older PR description or G1–G7 table as current task priority over the direct-core cut.
