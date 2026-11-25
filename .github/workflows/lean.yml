@@ -56,7 +56,10 @@ permissions:
 
 concurrency:
   group: lean-audit-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Let an active expensive build reach its cache checkpoint. GitHub still
+  # coalesces superseded pending revisions; actual failed prerequisites
+  # retain the separate exact-revision fail-fast gate.
+  cancel-in-progress: false
 
 jobs:
   # Reject inexpensive source/configuration failures before starting Lean.

@@ -20,7 +20,10 @@ permissions:
 
 concurrency:
   group: research-iteration-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
+  # Let an active expensive build reach its cache checkpoint. GitHub still
+  # coalesces superseded pending revisions; actual failed prerequisites
+  # retain the separate exact-revision fail-fast gate.
+  cancel-in-progress: false
 
 jobs:
   check:
@@ -171,18 +174,6 @@ jobs:
               print('CM diagnostic time limit reached', flush=True)
           raise SystemExit(1)
           PY
-      # A second compiler pass must reuse exactly this PR's selected targets.
-      - name: Verify selected closure reuses compiled artifacts
-        if: github.event_name == 'pull_request'
-        env:
-          RHLEAN_RESEARCH_TARGETS: ${{ steps.targets.outputs.targets }}
-        run: |
-          set -euo pipefail
-          read -r first_target _ <<< "$RHLEAN_RESEARCH_TARGETS"
-          touch "$first_target"
-          python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
-          grep -q 'compiled=0 cached=' research-cache-smoke.log
-
       # Preserve completed native prerequisites for both the next stage and
       # a repair iteration. The key is distinct from a complete root build.
       - name: Save completed native prerequisites
@@ -195,3 +186,15 @@ jobs:
         with:
           path: .lake/build
           key: ${{ steps.preflightcache.outputs.cache-primary-key }}
+
+      # A second compiler pass must reuse exactly this PR's selected targets.
+      - name: Verify selected closure reuses compiled artifacts
+        if: github.event_name == 'pull_request'
+        env:
+          RHLEAN_RESEARCH_TARGETS: ${{ steps.targets.outputs.targets }}
+        run: |
+          set -euo pipefail
+          read -r first_target _ <<< "$RHLEAN_RESEARCH_TARGETS"
+          touch "$first_target"
+          python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
+          grep -q 'compiled=0 cached=' research-cache-smoke.log
