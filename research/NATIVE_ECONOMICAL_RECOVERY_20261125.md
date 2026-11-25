@@ -81,7 +81,13 @@ $$
 H_{N,z}-G_z(N)=\theta(z)+Nc_{\rm pp}-P_N,\qquad
 0\le H_{N,z}-G_z(N)\le (\log 4)z+2C\sqrt N.
 $$
-In the left side $G_z$ denotes the repository's principal source; the new cutoff is used only in the explicit comparison $H_{N,z}$. The coefficient of the low-prime linear term varies with $z$ and is retained. At $N=R^2-1$ and $z\asymp\log N$ the discrepancy is $O(R)$ with a constant independent of the window. A remaining first-prime bound still has to cancel the displayed Euler and low-prime terms. [Terminal centering and complete prime-power estimate](../RHLean/Analysis/AlpogeNativeProperPowerCentering.lean) · [finite prime-tower payment](../RHLean/Analysis/AlpogeThin/NativePrimeTowerCentering.lean)
+Here $G_z$ denotes the repository's principal source. The low-prime linear coefficient in $H_{N,z}$ varies with $z$. At $N=R^2-1$ and $z\asymp\log N$ the discrepancy is $O(R)$ with a constant independent of the window. [Terminal centering and complete prime-power estimate](../RHLean/Analysis/AlpogeNativeProperPowerCentering.lean) · [finite prime-tower payment](../RHLean/Analysis/AlpogeThin/NativePrimeTowerCentering.lean)
+
+For every real $x\ge1$, write $N=\lfloor x\rfloor$. Keep the exact boundary $\theta(z)$ and put $F_N=H_{N,z}-\theta(z)$. The integer identity shows that $F_N$ has the same value at every choice of cutoff. Let $L$ be the existing upper bound on the unit-cell slope, and $D$ the uniform bound on $|G_z(x)-G_z(N)|$. The sign of the proper-power correction gives
+$$
+G_z(x)\le F_N+L(x-N),\qquad F_N\le G_z(x)+D+2C\sqrt{x}.
+$$
+The cost in the first inequality is zero at every integer and is uniformly bounded between integers. The remaining prime estimate must bound $F_N$ throughout arbitrarily distant complete windows. [Real comparison](../RHLean/Analysis/AlpogeNativeProperPowerCentering.lean) · [unit-cell estimate](../RHLean/Analysis/AlpogeNativeGzRealInterpolation.lean)
 
 For the original ASK, the type-I sums at 2 and $q$ vanish by the actual character formulas. At each unramified inert prime, only odd powers survive. In a high-only column their signed weights all have the same parity. The $d$-term has the opposite sign at even powers. These statements retain the actual positive-part widths and all exponents. On a prefix $N\le Y^2$ for the **same** WinPair at sufficiently late $Y$, put $P=Y^{\epsilon/5}\ge3$ and $z\le P$. The selected pair forces $d>N$ and every active unramified inert prime exceeds $P$. At each fixed original top $t$, member and lift, the sum of the absolute transformed ASK columns is at most
 $$

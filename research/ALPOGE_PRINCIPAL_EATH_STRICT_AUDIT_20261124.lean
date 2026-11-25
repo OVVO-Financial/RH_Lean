@@ -87,6 +87,7 @@ run_cmd do
     `RHLean.Geometry.NativePrimeExponentJet.factorization_recovery,
     `RHLean.Geometry.NativePrimeExponentJet.factorization_signed_entry,
     `RHLean.Analysis.nativeHighFirstPrimeCenter_error,
+    `RHLean.Analysis.nativeHighFirstPrimeCenter_real_comparison,
     `RHLean.Analysis.nativeProperPowerCenter_square_error,
     `RHLean.Analysis.AlpogeThin.nativeDyadicPageN_unramifiedPrefix_minor,
     `RHLean.Analysis.AlpogeThin.nativeDyadicPageN_small_bases_before_return_full_cutoff,

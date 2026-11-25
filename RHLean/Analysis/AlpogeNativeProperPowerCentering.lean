@@ -1,4 +1,5 @@
 import RHLean.Analysis.AlpogeNativeSquareCandidateCapacity
+import RHLean.Analysis.AlpogeNativeGzRealInterpolation
 import Mathlib.NumberTheory.Chebyshev
 import Mathlib.Algebra.BigOperators.Intervals
 import Mathlib.Tactic
@@ -143,7 +144,17 @@ private theorem finite_proper_power_error (C : ℝ) (hC : 0 ≤ C)
   · have h := hpot M hM
     unfold potential at h
     have hz : 0 ≤ (N : ℝ) * (C / Real.sqrt (M : ℝ)) := by positivity
-    linarith only [h, mul_le_mul_of_nonneg_left hquot hn.le, hz]
+    have hboundary : (N : ℝ) * (mass M / (M : ℝ)) ≤
+        2 * C * (N : ℝ) / Real.sqrt (M : ℝ) := calc
+      _ ≤ (N : ℝ) * (C / Real.sqrt (M : ℝ)) := mul_le_mul_of_nonneg_left hquot hn.le
+      _ ≤ (N : ℝ) * (C / Real.sqrt (M : ℝ)) + (N : ℝ) * (C / Real.sqrt (M : ℝ)) :=
+        le_add_of_nonneg_right hz
+      _ = _ := by ring
+    calc
+      _ = (N : ℝ) * recipPrefix M - nativeSquareProperPowerCapacity N -
+          (N : ℝ) * (mass M / (M : ℝ)) + (N : ℝ) * (mass M / (M : ℝ)) :=
+        (sub_add_cancel _ _).symm
+      _ ≤ _ := (add_le_add le_rfl hboundary).trans h
 
 /-- The complete nonprime von Mangoldt reciprocal series converges. Its centered
 weighted contribution lies between zero and `2*C*sqrt N` at every positive
@@ -260,6 +271,29 @@ theorem nativeHighFirstPrimeCenter_error :
   rw [nativeHighFirstPrimeCenter_sub_gz N z hz]
   have hθ := Chebyshev.theta_le_log4_mul_x (Nat.cast_nonneg z : 0 ≤ (z : ℝ))
   exact ⟨add_nonneg (Chebyshev.theta_nonneg _) (h N hN).1, by linarith only [hθ, (h N hN).2]⟩
+
+/-- Subtracting the exact low-prime boundary makes the real comparison
+uniform even for changing cutoffs. In the upper bound for the full source
+only the original fractional-step cost remains. -/
+theorem nativeHighFirstPrimeCenter_real_comparison :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ (x : ℝ) (z : ℕ), 1 ≤ x → z ≤ ⌊x⌋₊ →
+      alpogeNativeGzArithmetic x ≤ nativeHighFirstPrimeCenter ⌊x⌋₊ z - Chebyshev.theta z +
+        nativeAlpogeSafeSlope * (x - ⌊x⌋₊) ∧
+      nativeHighFirstPrimeCenter ⌊x⌋₊ z - Chebyshev.theta z ≤ alpogeNativeGzArithmetic x +
+        (K * Real.sqrt x + (alpogeGzInterpolationSlope + 1)) := by
+  obtain ⟨C, hC, h⟩ := nativeProperPowerCenter_summable_and_error.2
+  have hK : 0 ≤ 2 * C := by positivity
+  refine ⟨2 * C, hK, ?_⟩
+  intro x z hx hz
+  have hx0 : 0 ≤ x := zero_le_one.trans hx
+  have hn : 1 ≤ ⌊x⌋₊ := (Nat.le_floor_iff hx0).mpr (by simpa using hx)
+  have hid := nativeHighFirstPrimeCenter_sub_gz ⌊x⌋₊ z hz
+  obtain ⟨hlow, hhigh⟩ := h ⌊x⌋₊ hn
+  have hfloorLo := (abs_le.mp (alpogeNativeGzArithmetic_sub_floor_abs_le x hx)).1
+  have hroot := mul_le_mul_of_nonneg_left (Real.sqrt_le_sqrt (Nat.floor_le hx0)) hK
+  constructor
+  · linarith only [hid, hlow, alpogeNativeGzArithmetic_le_floor x hx]
+  · linarith only [hid, hhigh, hfloorLo, hroot]
 
 end RHLean.Analysis
 end
