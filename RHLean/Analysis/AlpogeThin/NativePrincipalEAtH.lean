@@ -287,6 +287,55 @@ theorem nativePrincipalEAtH_windows (eps : ℝ) (heps : 0 < eps)
   exact nativeDyadicHostRaw_EAtH (exponent x) q d he
     (nativeDyadicHostHyp_of_winPair hG.pair) heps hx1 hG hx.1 hx.2 TT
 
+/-- All square-clock anchors on the root window, including a unit of upward
+height movement, fit inside the one prime-pair window starting at A²−1. -/
+theorem squareClock_height_mem_pairWindow {A R : ℕ} (hA : 2 ≤ A) (hAR : A ≤ R)
+    (hR : (R : ℝ) ≤ (A : ℝ) ^ ((3 : ℝ) / 2)) {v : ℝ}
+    (hlo : ((R ^ 2 - 1 : ℕ) : ℝ) ≤ v) (hhi : v ≤ ((R ^ 2 - 1 : ℕ) : ℝ) + 1) :
+    v ∈ Set.Icc ((A ^ 2 - 1 : ℕ) : ℝ) (((A ^ 2 - 1 : ℕ) : ℝ) ^ (2 : ℝ)) := by
+  have hA4 : 4 ≤ A ^ 2 := Nat.pow_le_pow_left hA 2
+  have hR4 : 4 ≤ R ^ 2 := Nat.pow_le_pow_left (hA.trans hAR) 2
+  have hAnc : ((A ^ 2 - 1 : ℕ) : ℝ) = (A : ℝ) ^ 2 - 1 := by
+    rw [Nat.cast_sub (show 1 ≤ A ^ 2 by omega), Nat.cast_pow, Nat.cast_one]
+  have hRnc : ((R ^ 2 - 1 : ℕ) : ℝ) = (R : ℝ) ^ 2 - 1 := by
+    rw [Nat.cast_sub (show 1 ≤ R ^ 2 by omega), Nat.cast_pow, Nat.cast_one]
+  have ha : (2 : ℝ) ≤ A := by exact_mod_cast hA
+  have har : (A : ℝ) ≤ R := by exact_mod_cast hAR
+  have hl := (sq_le_sq₀ (Nat.cast_nonneg (α := ℝ) A) (Nat.cast_nonneg R)).2 har
+  have hu := (sq_le_sq₀ (Nat.cast_nonneg (α := ℝ) R)
+    (Real.rpow_nonneg (Nat.cast_nonneg A) ((3 : ℝ) / 2))).2 hR
+  have hpow : ((A : ℝ) ^ ((3 : ℝ) / 2)) ^ 2 = (A : ℝ) ^ 3 := by
+    rw [← Real.rpow_mul_natCast (Nat.cast_nonneg (α := ℝ) A) _ 2,
+      show (3 : ℝ) / 2 * (↑(2 : ℕ) : ℝ) = (↑(3 : ℕ) : ℝ) by norm_num,
+      Real.rpow_natCast]
+  rw [hpow] at hu
+  have hcap : (A : ℝ) ^ 3 ≤ ((A : ℝ) ^ 2 - 1) ^ 2 := by
+    nlinarith only [mul_nonneg (sq_nonneg (A : ℝ))
+      (mul_nonneg (sub_nonneg.mpr ha) (by positivity : 0 ≤ (A : ℝ) + 1))]
+  rw [hRnc] at hlo
+  rw [hRnc, sub_add_cancel] at hhi
+  rw [Set.mem_Icc, hAnc, Real.rpow_two]
+  exact ⟨(sub_le_sub_right hl 1).trans hlo, hhi.trans (hu.trans hcap)⟩
+
+/-- Reuse the pair chosen by the signed-cost construction at window exponent
+two for every anchor of the root window and every top set on its host. -/
+theorem nativePrincipalEAtH_squareClock_of_pair {A R : ℕ}
+    (hA : 2 ≤ A) (hAR : A ≤ R) (hR : (R : ℝ) ≤ (A : ℝ) ^ ((3 : ℝ) / 2))
+    {eps : ℝ} (heps : 0 < eps) (e : ℕ) (he : 2 ≤ e) {q d : ℕ}
+    (hG : UpperTheory.Top.PairGood 1 eps ((A ^ 2 - 1 : ℕ) : ℝ)
+      (((A ^ 2 - 1 : ℕ) : ℝ) ^ (2 : ℝ)) q d) (TT : Finset (nativeDyadicFrame e).A) :
+    EAtH (Level.cyc PChar.one) (nativeDyadicHostAx_of_winPair e he hG.pair).toHostRaw
+      TT ((R ^ 2 - 1 : ℕ) : ℝ) eps 4 := by
+  let _ : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let _ : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  have hr4 : 4 ≤ R ^ 2 := Nat.pow_le_pow_left (hA.trans hAR) 2
+  have hx : (1 : ℝ) ≤ ((R ^ 2 - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 1 ≤ R ^ 2 - 1 by omega)
+  have hwin := squareClock_height_mem_pairWindow hA hAR hR
+    (v := ((R ^ 2 - 1 : ℕ) : ℝ)) le_rfl (by linarith)
+  exact nativeDyadicHostRaw_EAtH e q d he (nativeDyadicHostHyp_of_winPair hG.pair)
+    heps hx hG hwin.1 hwin.2 TT
+
 end RHLean.Analysis.AlpogeThin
 
 end

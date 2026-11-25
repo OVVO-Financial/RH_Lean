@@ -2,6 +2,7 @@ import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Geometry.NativeSquareCapacityPeriod
+import RHLean.Geometry.NativeSummandCovolume
 import RHLean.Geometry.NativeCore33HostDegree
 import Lean.Util.CollectAxioms
 
@@ -39,11 +40,16 @@ run_cmd do
     `RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_principalTwist,
     `RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_EAtH,
     `RHLean.Analysis.AlpogeThin.nativePrincipalEAtH_windows,
+    `RHLean.Analysis.AlpogeThin.squareClock_height_mem_pairWindow,
+    `RHLean.Analysis.AlpogeThin.nativePrincipalEAtH_squareClock_of_pair,
     `RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment,
+    `RHLean.Geometry.NativeSummandCovolume.normalized_lcv_le_of_gram_bounds,
+    `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.NativeCoupledCount.mono,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeRelativeDegreeCount_le,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeGa_bound_of_coupled_period,
     `RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeMean_bound_of_coupled_period,
     `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_coupled_period,
+    `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_ordered_periods,
     `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound]
   let allowed := #[`propext, `Classical.choice, `Quot.sound]
   for root in roots do

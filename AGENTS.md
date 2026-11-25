@@ -1,5 +1,11 @@
 ## #1201 — direct local core cut and native principal EAtH (2026-11-24)
 
+Use the [leanprover-community cleanup](https://github.com/leanprover-community/riemann-hypothesis/tree/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59) for updates to the suppliers of the critical window bound. Record the exact revision and declaration when adopting a subsequent update. Community [PR #466](https://github.com/leanprover-community/riemann-hypothesis/pull/466) removed the vacuous geometry arguments from the Core 21 assembly. The [Core 15 and Core 21 source map and native proof obligations](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#5-the-community-covolume-supplier) identify the actual summand estimate on the selected host. The replay in #1211 records the original project's footprint.
+
+At this community revision the row theorem lives in `MainConclusion`, which imports both large suppliers. Isolate the row theorem and its inputs if retaining that route. Removing the two imports from the caller alone saves zero modules.
+
+Prioritize the [native square-clock route](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock). At $X_R=R^2-1$, construct the integral recovery map on the actual retained rows. Prove its valuation gain and bound the discarded quotient length, then pay both averaged losses. Use Cores 19/20 and 15/21 to locate the recovery and covolume obligations. Use one prime pair for the full window and measure the heights and widths on its dyadic host at each anchor.
+
 **DIRECT_CORE_CUT_V1 — controlling task selection under STRICT_NO_GEOCL_ANYGEOMETRY_V1.**
 Do not attempt to rebuild `FamP`, `ChainTied`, `HypsAlt`, or `TopG` as
 mandatory objects. The late quantitative estimate is already pointwise

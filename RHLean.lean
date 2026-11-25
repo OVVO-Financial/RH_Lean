@@ -1239,6 +1239,7 @@ import RHLean.Geometry.NativeServedPrimeLength
 import RHLean.Geometry.NativeShortIndependentIntegers
 import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeSquareHostRealization
+import RHLean.Geometry.NativeSummandCovolume
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaChartAgreement

@@ -235,6 +235,19 @@ def NativeCoupledCount (P : (u0 : U0) → W u0 → ℝ) : Prop :=
       (m : ℝ) * D.lg - C.cCount * (D.La + (m : ℝ) ^ 2 * D.La / D.k) ≤
         Real.log (D.T u0 u)
 
+omit [Fintype U0] [∀ u0, Fintype (W u0)] [∀ u0, Nonempty (W u0)] [Fintype Top] in
+/-- Raising the period weakens the required lower bound for the measured count. -/
+theorem NativeCoupledCount.mono {Pcount Pdegree : (u0 : U0) → W u0 → ℝ}
+    (hCount : NativeCoupledCount D C Pcount)
+    (hPeriod : ∀ u0 u, Pcount u0 u ≤ Pdegree u0 u) :
+    NativeCoupledCount D C Pdegree := by
+  intro u0 u
+  have h : (m : ℝ) * (D.gam - D.LpL - Pdegree u0 u) ≤
+      (m : ℝ) * (D.gam - D.LpL - Pcount u0 u) :=
+    mul_le_mul_of_nonneg_left (sub_le_sub le_rfl (hPeriod u0 u)) (Nat.cast_nonneg m)
+  apply le_trans ?_ (hCount u0 u)
+  exact sub_le_sub (add_le_add (add_le_add le_rfl h) le_rfl) le_rfl
+
 /-- The original upper and oscillation count conditions, retaining the
 measured T. The period-dependent lower condition is separate. -/
 def NativeCountRest : Prop :=
@@ -574,6 +587,28 @@ theorem physicalTopExcess_div_le_errorTerm_of_coupled_period
   have hQ : 0 < alpogeNativeProjectionDivisor TT T2 m D0.b :=
     alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm D0.b hS.2.1
   exact div_le_div_of_nonneg_right hsource hQ.le
+
+/-- The normalized physical estimate for independently measured degree and count
+periods ordered on each fiber of the same host. -/
+theorem physicalTopExcess_div_le_errorTerm_of_ordered_periods
+    (Pcount Pdegree : (u : A0) → W u → ℝ)
+    (hS : (DP).HidaSetting C)
+    (hDegree : NativeCoupledDegree DP C Pdegree)
+    (hCount : NativeCoupledCount DP C Pcount)
+    (hPeriod : ∀ u v, Pcount u v ≤ Pdegree u v)
+    (hRest : NativeCountRest DP C)
+    (hE : EComp5 DP C) (hH : (DP).HComp C)
+    (hSl : (DP).Slopes C) (hSN : QuotientSlopeBoundsWith DP C Xpp)
+    (hLoss : (DP).Losses C) (hSI : (DP).SlopeIneq)
+    (hHH : (DP).HHBound C) (hFP : (DP).FParams)
+    (T2 : Finset H) (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w /
+        alpogeNativeProjectionDivisor TT T2 m D0.b ≤
+      errorTermWith DP C Xpp / alpogeNativeProjectionDivisor TT T2 m D0.b :=
+  physicalTopExcess_div_le_errorTerm_of_coupled_period
+    A0 TT D0 inertia frob ell N a w eP C Xpp Pdegree hS hDegree
+    (NativeCoupledCount.mono DP C hCount hPeriod) hRest hE hH hSl hSN hLoss hSI hHH hFP
+    T2 hTT hT2 hm
 
 end RHLean.Analysis.AlpogeNativeSignedSlope
 

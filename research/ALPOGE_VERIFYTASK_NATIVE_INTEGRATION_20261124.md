@@ -101,3 +101,152 @@ all-place integral derivative, signed source, actual measures and the
 entire cost budget. Close principal-window application first; stone
 bridge compression second. All other candidate entries above are
 SOURCE_INSPECTED only, not proof credit.
+
+## 5. The community covolume supplier
+
+Use `leanprover-community/riemann-hypothesis` at
+`27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59` as the reference for this reduction.
+Community PR #466 removed the vacuous geometry field and arguments. At this revision
+`OAt` retains `LamAre`, which constrains the actual isotropy spaces and logarithmic
+scalings. The community source uses Lean 4.37.0-rc1. The native declarations below
+use RH_Lean's 4.34.1 definitions. The import counts recorded for #1211 describe
+its frozen original revision. [Cleanup](https://github.com/leanprover-community/riemann-hypothesis/pull/466)
+· [retained field](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/OverIx.lean#L58-L74)
+· [reference toolchain](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/lean-toolchain).
+
+A whole-word source scan of all 59,582 `.lean` files under `src/` at this
+revision found zero occurrences of `GeoP`, `anyGeometry`, `GeoCl` and
+`geoCl`. The native audit separately traverses the types and proof terms of
+its declared roots. The external replay template now imports the community
+module containing `core_gm`. Running that template still requires a closed
+same-host window supplier. [Pointwise theorem](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean#L1337-L1341).
+
+The four original supplier declarations map to a different import graph at this
+revision. The row declaration `galoisLocalGlobalStrong_recParameter` now lives
+in `MainConclusion`. That module directly imports both `VwinOfRow` and
+`EveryCharacterOfLiteratureOfVWin`. Its row proof applies
+`galoisRepresentations_of_thetaLift` to `tLift_holds_k`. Only the final
+member's recorded import header names the two large suppliers.
+[Module imports](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L30-L35)
+· [row proof and final consumer](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L923-L960).
+
+| Community source import graph | Project modules |
+|---|---:|
+| Reachable from all four supplier modules | 59,543 |
+| Saved by deleting the two explicit imports while retaining `MainConclusion` | 0 |
+| Reachable from the other direct imports of `MainConclusion`, retaining `RecTExists` explicitly | 22,963 |
+| Reachable exclusively through the two edges in that split, excluding `MainConclusion` itself | 36,579 |
+
+These counts follow the actual module imports under `src/`, including public
+imports, with each module counted once. The last two rows model an extraction.
+To realize that saving while retaining the row proof, isolate it with its
+geometric-realization and theta-lift inputs and verify the extracted proof.
+The direct signed-cost route can instead establish the principal estimate
+inside RH_Lean. The quantitative estimates on the chosen native host remain open.
+
+| Step | What the community proof uses |
+|---|---|
+| Core 15 supplies `CovolumeBoundOfX` | The literature assembly passes `topCovolSlim2_use_alt_alt` as the covolume argument. [Call site](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean#L1472-L1478) |
+| Core 21 consumes it | `nonempty_hyps_definite_side_of_closed_bound` passes `hX` once to `linked_bundles_l3_of_open_alt`. The final call consumes `hL3` at `GridA (max CF0 CF1)` together with the grid evaluation, row and Fourier inputs. The intervening selection uses actual row summands and `RecTied` on those points. [Assembly](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L1933-L1957) · [selection](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L1156-L1172) |
+| The finite inequality | On the false branch of the selected summand's data, `L3` asks for every `j` that `lcv (S.XW j) (S.M j) / S.D ≤ N.l3 j`. In `IndefScale.num` this budget is `Z.l3m j + C * Z.l3u`. [Summand](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SummandFunctionalBound.lean#L85) · [budget](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/LocalToGlobal/IndefiniteForms/IndefSide.lean#L228-L235) · [inequality](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/LocalToGlobal/IndefiniteForms/IndefSide.lean#L319-L320) |
+
+For a totally complex field, the native `normalized_lcv_le_of_gram_bounds`
+uses a linearly independent frame in the actual integral lattice of the same
+rank. If its Gram determinant at place $v$ is at most $B_v$, the height
+formula gives
+
+$$
+\frac{\operatorname{lcv}(X,M)}{D}
+\;\le\; \frac{2}{[K:\mathbb Q] D}
+\log\!\left(\frac{\prod_v B_v}{[M:\langle e\rangle_{\mathcal O_K}]}\right),
+\qquad D>0 .
+$$
+
+The index belongs to that frame in that lattice. To supply the Core 21
+estimate, identify the selected `XW j` and `M j`, prove the place bounds,
+and show that this expression fits the displayed budget with one admissible
+`C` across the required points and summands. The ambient `S.D` and the
+summand rank are separate inputs. [Native frame estimate](../RHLean/Geometry/NativeSummandCovolume.lean).
+
+On the signed-cost route, independently measured count and degree periods
+can be used as soon as `Pcount ≤ Pdegree` on each fiber. The degree/count
+estimates, the order itself and the remaining signed estimates still need
+proof on the actual dyadic host at each anchor. The target
+remains one bound for all points of arbitrarily distant complete windows,
+with the constant fixed before the window. [Native period comparison](ALPOGE_NATIVE_PAIRED_PERIOD_CAPACITY_20261124.md).
+
+## 6. Recommended route on the native square clock
+
+Use Cores 19 and 20 to locate what makes the evaluated rows recover the
+source. Use Core 15 at its input to Core 21 to locate what pays for those
+rows. Core 19 returns an evaluation grid, Core 20 gives a Fourier coefficient
+fit, and Core 21 combines those results with the covolume estimate. None of
+their statements identifies a row of the native square-block operator or
+supplies its physical gain. Cores 16–18 build the upstream Galois and
+automorphy route into Core 14's all-character conclusion. RH_Lean has a
+principal-character host and its own window-to-RH theorem. The DAG observation
+is from board revision `a3b23dd031e9861f`; the pinned community declarations
+above determine the actual hypotheses. [VerifyTask map](https://riemann.verifytask.cn/?lang=en).
+
+1. **Use one pair throughout a square-clock window.** Put $X_R=R^2-1$, $m=R$,
+   $k=X_R R$. For $A\ge2$ and $A\le R\le A^{3/2}$, choose the pair from
+   `nativeConstructedDyadicGzPayment` with external window exponent two
+   and $Y=A^2-1$. Every evaluation in $[X_R,X_R+1]$ lies in $[Y,Y^2]$
+   because $R^2\le A^3$ and $(A^2-1)^2-A^3=A^2(A-2)(A+1)+1$.
+   `nativePrincipalEAtH_squareClock_of_pair` accepts that very pair and
+   the actual dyadic exponent at $X_R$. The local size, physical height
+   interval and density still belong to the constructed family.
+   [Square-window inclusion and principal host](../RHLean/Analysis/AlpogeThin/NativePrincipalEAtH.lean)
+   · [physical height interval](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean).
+2. **Prove the finite-place gain on those rows first.** For one retained prime
+   orbit, use the original Frobenius, inertia and partner map. Construct
+   integral combinations of its evaluations that recover $p^D$ times each
+   of $n$ independent coordinates, with $n\ge(1-\kappa)\dim V$. Bound
+   evaluations on the other edges from the same source. This is the content
+   of the community's `GoodRankK` and `LPprimeAt`.
+   [Integral recovery and off-edge conditions](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/UnramifiedQuadraticSetting.lean#L208-L223).
+
+   The community's `admG1` makes two different measurements. Every retained
+   vector satisfies a lower valuation bound involving the sum of the local
+   gains. The quotient of the ramified lattice by the retained submodule
+   has a length **upper** bound involving `tauP + ioP`. Identify the actual
+   native partner widths, gain and errors as in `ParametersFill`. Prove
+   their local inequality with the orbit deduction `dl`, the deduction
+   `tauP`, and the allowances `lo` and `m*fl`. The native
+   `nativeDyadicDe_re_le_localRetainedSource` supplies the prior signed
+   upper bound including exclusions, shifts and ramification.
+   `lengthFromAllBut_of_sandwich` handles the quotient once the lattice
+   inclusions, exceptional layers and stopping exponent are supplied.
+   The positive gain still requires the valuation estimate.
+   [Local valuation and quotient length](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/SmallOrderPrimes.lean#L212-L223)
+   · [identification of parameters](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L427-L437)
+   · [primewise budget and orbit deduction](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/LogarithmicSums/Conclusion1OfGainBoundAll.lean#L125-L156)
+   · [native local source](../RHLean/Analysis/AlpogeNativeLocalGainSource.lean)
+   · [lattice length](../RHLean/Geometry/NativeServedPrimeApplication.lean)
+   · [exact deductions and existing bounds](ALPOGE_NATIVE_PHYSICAL_SUPPLIER_REDUCTION_20261123.md).
+3. **Pay the global cost on the same family.** Attach the actual widths,
+   quotient slopes, count and relative degree. Use the ordered period
+   comparison and, where a summand covolume is needed, the frame estimate
+   in §5. The community's `MeanKappaBound` averages over amplitude and
+   height boxes. A native proof must either establish the corresponding
+   defect budget directly for the subgroup average or prove the change of
+   measure. Use that average to prove both
+   $\operatorname{umean}(\mathrm{ASK}-\mathrm{Ga})\le\mathrm{LoP}$ and
+   $\operatorname{umean}(\mathrm{IO})\le\mathrm{LoP}$. The physical numerator
+   is the full signed top excess and its divisor is
+   $Q=|TT|\,m b\,(|T_2|/|H|)/2$. Core 33 can supply a matching local
+   stabilizer obligation. Core 36 applies when the actual period sublattices
+   are pure and span. Both have narrower conclusions than this signed estimate.
+   [Community defect average](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SharpRestriction/GrowthBounds/IsResidueClassZero.lean#L350-L360)
+   · [signed mean comparison](../RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean)
+   · [Core 33 premises](../RHLean/Geometry/NativeCore33HostDegree.lean).
+4. **Use the existing one-sided window theorem.** Apply
+   `nativeGz_le_of_mean_normalizedCosts` with the actual average height
+   displacement. The square-clock theorem requires that for each $\eta>0$ there be
+   one $C_\eta$ such that for arbitrarily large $A$, every integer
+   $A\le R\le A^{3/2}$ satisfies
+   $G_z(X_R)\le C_\eta X_R^{1/2+\eta}$. This is the hypothesis of
+   `riemannHypothesis_of_squareClock_Gz_windows` at $\delta=1/2$.
+   Its proof transports the one-sided estimate across each whole real window.
+   [Mean-to-point theorem](../RHLean/Analysis/AlpogeThin/NativeScalarSupplierPayment.lean)
+   · [square-clock window theorem](../RHLean/Analysis/AlpogeNativeWindowLandau.lean).

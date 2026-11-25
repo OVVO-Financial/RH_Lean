@@ -5,12 +5,10 @@ No closed supplier, no unconditional RH claim.
 
 ## The upstream cut
 
-The pinned source
-https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32cfa1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/SBrDiv.lean
-already isolates DivFree, CountFree, CountRest and VElim. In particular
-VElim permits eliminating the positive scalar v in a paired period comparison.
-The native proof uses direct algebra rather than selecting a new v or rewriting
-any measured geometry. It permits a *different measured P at each fiber*.
+The community version's `Count5` gives the lower count, upper count and pairwise
+variation of the measured `T`. The native degree and count comparisons below
+eliminate the common period term on each fiber using those actual counts.
+[Pinned community count definition](https://github.com/leanprover-community/riemann-hypothesis/blob/27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59/src/Formalism/SizeWindowBrackets/QuotientSlopeBoundsWith.lean#L70-L76).
 
 Use the literal Data, original prime-power gain and original MAIN. Let A=sumA,
 W=sum_j(1/f)sum_rho log(w_jrho), J=muCC+h-Fo, E_C=cCount*(La+m^2*La/k).
@@ -26,8 +24,11 @@ Since A>=0, multiplying the second by A and combining gives
 using the exact MAIN formula and no sign-discarding. The same actual P
 appears on both sides and cancels. No hypothesis P=logOm or lower bound
 P>=logOm-rho is needed. No v, h, Fo, muCC, ASK or Ga field is overwritten.
-If the two supplier periods differ, the cancellation fails: the residual
-is m*A*(P_count-P_degree), so require identical periods or pay that debt.
+For independently measured periods the residual on the right is
+`m*A*(P_count-P_degree)`. The pointwise order `P_count ≤ P_degree` makes
+that term nonpositive. Equivalently the count inequality at `P_count`
+implies the count inequality at `P_degree` because its coefficient is
+`-m`. A positive mismatch contributes the displayed signed amount on that fiber.
 In particular a supplier that uses logOm through the independent count
 still owes the stated coupled count inequality with the actual P; it is
 not automatically implied by this reduction.
@@ -42,6 +43,9 @@ NativeSquareCapacityPeriod.lean now contains:
 - nativeMean_bound_of_coupled_period (same original errorTermWith).
 - physicalTopExcess_div_le_errorTerm_of_coupled_period (same physical source
   and exact original positive divisor, no period debt).
+- `NativeCoupledCount.mono` and `physicalTopExcess_div_le_errorTerm_of_ordered_periods`
+  apply the two measured comparisons under the pointwise order. The physical
+  theorem keeps the full signed numerator, projection divisor and error term.
 
 The remaining count upper and pairwise variation, actual mean-loss,
 quotient-slope, rank-gap, HH and FParams hypotheses are unchanged. Neither

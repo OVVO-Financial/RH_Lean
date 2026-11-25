@@ -1,14 +1,13 @@
 /-
-RH_Lean late-attachment replay root. Mathematical source: Levent Alpöge
-with Claude, upstream pin 7cbf7a0c32fca1badf05931879a37c3f8a2b03b4.
-The rejected family construction is not used. This extraction targets
-the local pointwise core_gm theorem, without FamP, ChainTied, TopG or
-HypsAlt. The required same-host EAtH/CoreAtH windows must still be
-constructed by a closed, strictly clean proof in RHLeanCleanPrincipalCore.
-Do not vendor or mix compiled artifacts across toolchains.
+RH_Lean late-attachment replay root for the community edition of
+Levent Alpöge's proof with Claude, leanprover-community/riemann-hypothesis
+at 27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59 (Lean 4.37.0-rc1).
+The module LevelGmLeOnFamilyScales contains the pointwise core_gm theorem.
+RHLeanCleanPrincipalCore must supply its two inputs on the same host
+throughout the selected windows, in this compiler environment.
 -/
 import RHLeanCleanPrincipalCore
-import Development.AutomorphicArithmetic.PrimitiveCosets.CoreGm
+import Development.AutomorphicArithmetic.PrimitiveCosets.LevelGmLeOnFamilyScales
 import Lean.Util.CollectAxioms
 
 set_option autoImplicit false
