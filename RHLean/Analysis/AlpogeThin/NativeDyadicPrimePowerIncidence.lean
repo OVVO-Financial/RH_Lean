@@ -224,18 +224,18 @@ private theorem frobenius_self_sub_mem {A : Type*} [AddGroup A] (I : AddSubgroup
   exact I.zero_mem
 
 open Classical in
-private theorem frobeniusCoset_consecutive_matrix (I : AddSubgroup G) (g : G) (K : ℕ) :
+private theorem frobeniusCoset_consecutive_matrix (I : AddSubgroup G) (g : G) (K : ℕ)
+    (row : ℕ → G → ℤ)
+    (hrow : ∀ i z, row i z = if z - i • g ∈ I then (1 : ℤ) else 0) :
     let n := min K (frobeniusCosetOrder I g)
-    (Matrix.of fun i j : Fin n =>
-      if (j.val + 1) • g - (i.val + 1) • g ∈ I then (1 : ℤ) else 0) = 1 := by
+    (Matrix.of fun i j : Fin n => row (i.val + 1) ((j.val + 1) • g)) = 1 := by
   classical
   let n := min K (frobeniusCosetOrder I g)
-  change (Matrix.of fun i j : Fin n =>
-    if (j.val + 1) • g - (i.val + 1) • g ∈ I then (1 : ℤ) else 0) = 1
+  change (Matrix.of fun i j : Fin n => row (i.val + 1) ((j.val + 1) • g)) = 1
   have hdeg (i : Fin n) : i.val < frobeniusCosetOrder I g :=
     i.isLt.trans_le (Nat.min_le_right _ _)
   ext i j
-  rw [Matrix.of_apply, Matrix.one_apply]
+  rw [Matrix.of_apply, hrow, Matrix.one_apply]
   by_cases hij : i = j
   · subst j
     rw [ite_eq_left (frobenius_self_sub_mem I ((i.val + 1) • g)), ite_eq_left rfl]
@@ -330,7 +330,8 @@ theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
         ((j.val + 1) • H.frob p)) = (1 : Matrix (Fin n) (Fin n) ℤ) := by
   let H := alpogeNativeHostData e q d
   exact frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    (H.inertia p) (H.frob p) K
+    (H.inertia p) (H.frob p) K (nativeDyadicPrimePowerIncidence e q d p)
+    (fun _ _ => rfl)
 
 open Classical in
 /-- Both numerator and denominator in the ramified colour normalization are

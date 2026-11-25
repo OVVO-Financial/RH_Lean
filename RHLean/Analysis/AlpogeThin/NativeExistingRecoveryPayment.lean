@@ -272,7 +272,7 @@ theorem nativeSquareClock_ceilHeight_eventually (eps : ℝ) (heps : 0 < eps) :
     rw [one_mul, mul_assoc]
     exact mul_le_mul_of_nonneg_left hscale hx.le
   have hw : h ∈ Set.Icc a (a + a / (x * R * x ^ (13 : ℕ))) :=
-    ⟨Int.le_ceil a, (Int.ceil_lt_add_one a).le.trans (add_le_add_left hwidth a)⟩
+    ⟨Int.le_ceil a, (Int.ceil_lt_add_one a).le.trans (add_le_add (le_refl a) hwidth)⟩
   exact ⟨hw, (nativeOriginalHeightWindow x b (x * R) (x ^ (13 : ℕ)) h hx
     (Real.exp_pos _) (le_mul_of_one_le_right hx.le hR) hs hw.1 hw.2).2.2⟩
 

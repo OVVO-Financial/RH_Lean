@@ -274,9 +274,9 @@ theorem alpogeNativePhysicalSubgroupTopExcess_upper_width_le
     intro j _
     have hrow := alpogeNativeSignedWidthSource_upper_width_le inertia frob ell
       N (a t) t (w₀ u j) (w u j) (horder u j)
-    exact hrow.trans (add_le_add_left
+    exact hrow.trans (add_le_add le_rfl
       ((mul_le_mul_of_nonneg_left (hlog u j) (ha t ht).1).trans
-        (mul_le_mul_of_nonneg_right (ha t ht).2 hη)) _)
+        (mul_le_mul_of_nonneg_right (ha t ht).2 hη)))
   have hu : (Fintype.card A0 : ℝ) ≠ 0 := by exact_mod_cast Fintype.card_ne_zero
   have hQ := alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm b hb
   have hδ : 0 < alpogeNativeProjectionDensity T2 := by
