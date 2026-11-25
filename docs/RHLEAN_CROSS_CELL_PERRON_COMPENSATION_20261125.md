@@ -124,3 +124,7 @@ At R=4096 freezing error 0.02624, sum abs density correction 592.96 (bound 3669.
 - LEAN: reuse research/SINGLE_PRIME_PERRON_COMPENSATION_20261125.lean (oldSites_image_eq_removedSites, actual_centered_phase_eq_perron_difference, finiteAbel) and GLOBAL_RETURNED_CORE_WEIGHTED_ALIGNMENT_INTERTWINING.lean. Formalize V5 finite suppliers, then the quantitative comparison and terminal specialization. No new assumed endpoint, sorry, vacuous predicates or custom axioms.
 
 Repository-scoped instructions only. No external agent runtime change or merge. New paper suppliers await Lean formalization and semantic review; no new Lean declarations in this update.
+
+## 8. V6 — integral multiplicity rather than a restated energy gap
+
+See [the native multiplicity-and-index construction, exact factorial recovery and revised role directive](RHLEAN_NATIVE_MULTIPLICITY_INDEX_20261125.md). V6 is the priority experiment: independent arithmetic divisibility and size, not a renamed cumulative negative-balance bound. V5's physical reduction remains available; V6 introduces no new Lean declarations or assumed terminal inequality.
