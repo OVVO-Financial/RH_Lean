@@ -521,6 +521,56 @@ theorem nativeSquareClock_ceilHeight_eventually (eps : ℝ) (heps : 0 < eps) :
   exact ⟨hw, (nativeOriginalHeightWindow x b (x * R) (x ^ (13 : ℕ)) h hx
     (Real.exp_pos _) (le_mul_of_one_le_right hx.le hR) hs hw.1 hw.2).2.2⟩
 
+open Filter in
+/-- Consecutive integers realize distinct heights on the whole dyadic host
+at the original exponential width. Their logs price divisibility exceptions
+on the same profile uniformly throughout the square-clock collar. -/
+theorem nativeSquareClock_injectiveHeights_log_eventually (eps : ℝ) (heps : 0 < eps) :
+    ∀ᶠ x : ℝ in atTop, ∀ (e : ℕ) (R : ℝ), 1 ≤ R → R ≤ x →
+      (Fintype.card (AlpogeNativeDyadicH e) : ℝ) ≤ x^3 →
+      let b := Real.exp (x^eps)
+      ∃ a : AlpogeNativeDyadicH e → ℕ, Function.Injective a ∧ ∀ t,
+        0 < a t ∧ (a t : ℝ) ∈ Set.Ico (x*b) (x*b + x*b/(x*R*x^13)) ∧
+        (a t : ℝ) ≤ (x+1)*b ∧ Real.log (a t : ℝ) ≤ x^eps + Real.log (x+1) := by
+  filter_upwards [dyadic_rpow_le_exp_eventually ((17 : ℕ) : ℝ) eps heps,
+    eventually_ge_atTop (1 : ℝ)] with x hscale hx
+  rw [Real.rpow_natCast] at hscale
+  intro e R hR hRx hcard
+  let b := Real.exp (x^eps)
+  have hb : 0 < b := Real.exp_pos _
+  have hx0 : 0 < x := zero_lt_one.trans_le hx
+  have hR0 : 0 < R := zero_lt_one.trans_le hR
+  have hden : 0 < x*R*x^13 := by positivity
+  have hroom : (Fintype.card (AlpogeNativeDyadicH e) : ℝ) ≤ x*b/(x*R*x^13) := by
+    apply hcard.trans ((le_div_iff₀ hden).2 ?_)
+    calc
+      _ = (x*x^16)*R := by ring
+      _ ≤ (x*x^16)*x := mul_le_mul_of_nonneg_left hRx (by positivity)
+      _ = x*x^17 := by ring
+      _ ≤ _ := mul_le_mul_of_nonneg_left hscale hx0.le
+  have hcap : x*b/(x*R*x^13) ≤ b := by
+    apply (div_le_iff₀ hden).2
+    have h1 : 1 ≤ R*x^13 := one_le_mul_of_one_le_of_one_le hR (one_le_pow₀ hx)
+    calc
+      _ ≤ (x*b)*(R*x^13) := le_mul_of_one_le_right (by positivity) h1
+      _ = _ := by ring
+  let ix := Fintype.equivFin (AlpogeNativeDyadicH e)
+  let a := fun t => ⌈x*b⌉₊ + (ix t).val
+  refine ⟨a, fun i j hij => ix.injective (Fin.ext (Nat.add_left_cancel hij)), fun t => ?_⟩
+  have hcast : (a t : ℝ) = (⌈x*b⌉₊ : ℝ) + ((ix t).val : ℝ) := by simp [a]
+  have hidx : ((ix t).val : ℝ)+1 ≤ Fintype.card (AlpogeNativeDyadicH e) := by
+    exact_mod_cast Nat.succ_le_of_lt (ix t).isLt
+  have hlow : x*b ≤ (a t : ℝ) := by
+    rw [hcast]
+    exact (Nat.le_ceil (x*b)).trans (le_add_of_nonneg_right (Nat.cast_nonneg _))
+  have hhigh : (a t : ℝ) < x*b + x*b/(x*R*x^13) := by
+    linarith only [hcast, Nat.ceil_lt_add_one (mul_nonneg hx0.le hb.le), hidx, hroom]
+  have ha : 0 < (a t : ℝ) := (mul_pos hx0 hb).trans_le hlow
+  have hmax : (a t : ℝ) ≤ (x+1)*b := by linarith only [hhigh, hcap]
+  refine ⟨by exact_mod_cast ha, ⟨hlow, hhigh⟩, hmax, (Real.log_le_log ha hmax).trans_eq ?_⟩
+  rw [Real.log_mul (by positivity) hb.ne', show Real.log b = x^eps from Real.log_exp _]
+  ring
+
 end RHLean.Analysis.AlpogeThin
 
 namespace RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds

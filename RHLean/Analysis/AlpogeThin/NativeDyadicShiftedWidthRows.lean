@@ -553,11 +553,14 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
     change (alpogeNativeCconj _).2 + (g i.2.val).2 + i.1.val =
       (alpogeNativeCconj _).2 + (g j.2.val).2 + j.1.val at hk
     rw [hp] at hk
-    exact (Equiv.addLeft ((alpogeNativeCconj _).2 + (g j.2.val).2)).injective hk
+    have cancel {H : Type*} [AddCommGroup H] (z u v : H) (h : z+u = z+v) : u = v :=
+      add_left_cancel h
+    exact cancel (H := AlpogeNativeDyadicH e) ((alpogeNativeCconj _).2 + (g j.2.val).2)
+      i.1.val j.1.val hk
   let prime (y) (i : F y) := i.val.2.val
   have pinj (y) : Function.Injective (prime y) := fun i j hij => Subtype.ext
     (same i.val j.val (i.property.trans j.property.symm) (Subtype.ext hij))
-  letI (y : AlpogeNativeDyadicH e) : LinearOrder (F y) := LinearOrder.lift' (prime y) (pinj y)
+  let (y : AlpogeNativeDyadicH e) : LinearOrder (F y) := LinearOrder.lift' (prime y) (pinj y)
   let ord (y : AlpogeNativeDyadicH e) := Fintype.orderIsoFinOfCardEq (F y) rfl
   let idx := fun y => (ord y).symm.toEquiv
   let flip := fun y (i : F y) => (idx y).symm ((idx y i).rev)
@@ -718,6 +721,49 @@ theorem nativeDyadic_sameWidth_firstPrime_weighted_gain (e q d p r : ℕ) [Fact 
   change b*((x*((r:ℝ)-p)-p)*Real.log p-(x+1)*((r:ℝ)-p)) ≤ (p:ℝ)*r*(Real.log p*U-Real.log r*V)
   linarith only [hpen,
     mul_le_mul_of_nonneg_left h (by linarith only [hlog] : 0 ≤ Real.log (p:ℝ))]
+
+/-- For one fixed integral height profile, the paired first-prime read is
+a unit at every p-power depth unless p divides this top height. All such
+exceptional primes together have logarithmic weight at most log(a_t).
+The matching may supply a different second prime and top at every address. -/
+theorem nativeDyadic_firstPrime_paired_unit_price (e : ℕ) (t : AlpogeNativeDyadicH e)
+    (a : AlpogeNativeDyadicH e → ℕ) (ht : 0 < a t) (P : Finset ℕ)
+    (r : ℕ → ℕ) (s : ℕ → AlpogeNativeDyadicH e)
+    (hp : ∀ p ∈ P, Nat.Prime p ∧ Nat.Prime (r p) ∧ p ≠ r p) :
+    let D := fun p : ℕ => (r p : ℤ) * a t - (p : ℤ) * a (s p)
+    (∑ p ∈ P.filter (fun p => (p : ℤ) ∣ D p), Real.log (p : ℝ)) ≤ Real.log (a t : ℝ) ∧
+    ∀ p ∈ P, ¬ p ∣ a t → ∀ k : ℕ, IsUnit (D p : ZMod (p^k)) := by
+  classical
+  let D := fun p : ℕ => (r p : ℤ) * a t - (p : ℤ) * a (s p)
+  have hd (p : ℕ) (h : p ∈ P) : (p : ℤ) ∣ D p ↔ p ∣ a t := by
+    obtain ⟨hpp, hrr, hne⟩ := hp p h
+    have hpr : ¬ (p : ℤ) ∣ (r p : ℤ) := by
+      exact fun h => hne ((Nat.prime_dvd_prime_iff_eq hpp hrr).mp (Int.natCast_dvd_natCast.mp h))
+    change (p : ℤ) ∣ (r p : ℤ) * a t - (p : ℤ) * a (s p) ↔ _
+    rw [dvd_sub_left (dvd_mul_right _ _), (Nat.prime_iff_prime_int.mp hpp).dvd_mul,
+      or_iff_right hpr]
+    exact Int.natCast_dvd_natCast
+  let S := P.filter (fun p => (p : ℤ) ∣ D p)
+  have hsub : S ⊆ (a t).primeFactors := by
+    intro p h
+    obtain ⟨hP, hv⟩ := Finset.mem_filter.mp h
+    exact Nat.mem_primeFactors.mpr ⟨(hp p hP).1, (hd p hP).mp hv, ht.ne'⟩
+  refine ⟨?_, ?_⟩
+  · change (∑ p ∈ S, Real.log (p : ℝ)) ≤ _
+    calc
+      _ ≤ ∑ p ∈ (a t).primeFactors, Real.log (p : ℝ) := Finset.sum_le_sum_of_subset_of_nonneg hsub
+        (fun p h _ => Real.log_nonneg (by exact_mod_cast (Nat.prime_of_mem_primeFactors h).one_le))
+      _ = Real.log ((∏ p ∈ (a t).primeFactors, p : ℕ) : ℝ) := by
+        rw [Nat.cast_prod, Real.log_prod (fun p h => Nat.cast_ne_zero.mpr (Nat.pos_of_mem_primeFactors h).ne')]
+      _ ≤ _ := Real.log_le_log (by exact_mod_cast Finset.prod_pos fun p h => Nat.pos_of_mem_primeFactors h)
+        (by exact_mod_cast Nat.le_of_dvd ht (Nat.prod_primeFactors_dvd (a t)))
+  · intro p h hnd k
+    let : Fact p.Prime := ⟨(hp p h).1⟩
+    have hne : (D p : ZMod p) ≠ 0 :=
+      fun hz => hnd ((hd p h).mp ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp hz))
+    have hco := (ZMod.coe_int_isUnit_iff_isCoprime (D p) p).mp (isUnit_iff_ne_zero.mpr hne)
+    apply (ZMod.coe_int_isUnit_iff_isCoprime (D p) (p^k)).mpr
+    simpa only [Nat.cast_pow] using hco.pow_left (m := k)
 
 end AlpogeThin
 end RHLean.Analysis
