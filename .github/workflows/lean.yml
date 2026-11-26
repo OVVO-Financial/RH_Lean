@@ -146,8 +146,10 @@ jobs:
     # Warm builds finish in minutes. Since #1201 a cold build (no exact
     # RHLean cache) also compiles the CM geometry and runs past 45 minutes:
     # main's 5eeebbd build stopped at 45 minutes twice, before reaching the
-    # memory-heavy CM modules.
-    timeout-minutes: 90
+    # memory-heavy CM modules. On the first cold run of #1215, building
+    # those modules one at a time took 49 minutes before the full build
+    # started. Allow a cold build to finish once so its cache is saved.
+    timeout-minutes: 150
     permissions:
       contents: read
       actions: write                     # required to trim superseded caches
