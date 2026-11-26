@@ -432,6 +432,17 @@ section ActualLatticeIsogeny
 open NumberField PeriodPair IntermediateField
 open SchemeTheory SchemeTheory.WeierstrassCurve
 
+/-- A group morphism on these equations realizes the multiplier at every
+complex lattice point, using the two displayed equation identifications. -/
+def HasSchemeLatticeAction {F : IntermediateField ℚ ℂ}
+    (W V : _root_.WeierstrassCurve F) [W.IsElliptic] [V.IsElliptic]
+    (L L' : PeriodPair) (α : ℂ) : Prop :=
+  ∃ (hW : W.baseChange ℂ = latticeCurve L) (hV : V.baseChange ℂ = latticeCurve L')
+    (f : schemeOver W ⟶ schemeOver V),
+    IsMonHom f ∧ ∀ z : ℂ,
+      ofAffinePoint W ℂ ((pointCongr hW).symm (latticePoint L z)) ≫ f =
+        ofAffinePoint V ℂ ((pointCongr hV).symm (latticePoint L' (α * z)))
+
 /-- Apply the same two-patch proof to the literal lattice isogeny and the
 two given equations over a finite coefficient field. Only the original
 translation point is adjoined; no model or multiplier is changed. -/
@@ -455,12 +466,7 @@ theorem exists_scheme_latticeIsogeny
     ∃ (K : IntermediateField ℚ ℂ) (_ : NumberField K) (hFK : F ≤ K),
       let W' := W.map (IntermediateField.inclusion hFK).toRingHom
       let V' := V.map (IntermediateField.inclusion hFK).toRingHom
-      ∃ (hW' : W'.baseChange ℂ = latticeCurve L)
-        (hV' : V'.baseChange ℂ = latticeCurve L')
-        (f : schemeOver W' ⟶ schemeOver V'),
-        IsMonHom f ∧ ∀ z : ℂ,
-          ofAffinePoint W' ℂ ((pointCongr hW').symm (latticePoint L z)) ≫ f =
-            ofAffinePoint V' ℂ ((pointCongr hV').symm (latticePoint L' (α * z))) := by
+      HasSchemeLatticeAction W' V' L L' α := by
   classical
   obtain ⟨D₀, hD₀sub, _⟩ := exists_polynomial_over_subfield F.toSubfield D hDF
   have hD₀ : D₀.map (F.val : F →+* ℂ) = D := hD₀sub

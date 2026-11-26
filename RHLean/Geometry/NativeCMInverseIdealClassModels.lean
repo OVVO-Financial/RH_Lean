@@ -335,6 +335,17 @@ def HasShortModelIsogenyOverExtension {M : IntermediateField ℚ ℂ}
       ofAffinePoint Vs ℂ ((Weierstrass.pointCongr hs).symm (Weierstrass.latticePoint P z)) ≫ f =
         ofAffinePoint Vt ℂ ((Weierstrass.pointCongr ht).symm (Weierstrass.latticePoint Q (α * z)))
 
+private theorem shortModelIsogeny_of_models {M K : IntermediateField ℚ ℂ} [NumberField K]
+    (hMK : M ≤ K) (S T : _root_.WeierstrassCurve M)
+    (Vs Vt : _root_.WeierstrassCurve K) [Vs.IsElliptic] [Vt.IsElliptic]
+    (P Q : PeriodPair) (α : ℂ)
+    (hS : Vs = Weierstrass.shortModel (S.map (IntermediateField.inclusion hMK).toRingHom))
+    (hT : Vt = Weierstrass.shortModel (T.map (IntermediateField.inclusion hMK).toRingHom))
+    (hmap : Weierstrass.HasSchemeLatticeAction Vs Vt P Q α) :
+    HasShortModelIsogenyOverExtension S T P Q α := by
+  obtain ⟨hs, ht, f, haction⟩ := hmap
+  exact ⟨K, inferInstance, hMK, Vs, Vt, inferInstance, inferInstance, hs, ht, f, hS, hT, haction⟩
+
 set_option maxHeartbeats 1600000 in
 private theorem shortModelIsogeny_of_formula {M F : IntermediateField ℚ ℂ} [NumberField F]
     (hMF : M ≤ F) (S T : _root_.WeierstrassCurve M)
@@ -355,7 +366,7 @@ private theorem shortModelIsogeny_of_formula {M F : IntermediateField ℚ ℂ} [
   have short_coefficients (X : _root_.WeierstrassCurve M) (Y : _root_.WeierstrassCurve F)
       (h : Y = Weierstrass.shortModel (X.map (IntermediateField.inclusion hMF).toRingHom)) :
       Y.a₁ = 0 ∧ Y.a₂ = 0 ∧ Y.a₃ = 0 := h.symm ▸ ⟨rfl, rfl, rfl⟩
-  obtain ⟨K, hK, hFK, hKs, hKt, f, hf, hpoint⟩ :=
+  obtain ⟨K, hK, hFK, hmap⟩ :=
     Weierstrass.exists_scheme_latticeIsogeny F U V P Q hs ht
       (short_coefficients S U hU) (short_coefficients T V hV) α hα0 hα hαF A D hA hD hD0 hformula
   let _ : NumberField K := hK
@@ -366,8 +377,8 @@ private theorem shortModelIsogeny_of_formula {M F : IntermediateField ℚ ℂ} [
         Weierstrass.shortModel (X.map (IntermediateField.inclusion (hMF.trans hFK)).toRingHom) :=
     (congrArg (fun Z : _root_.WeierstrassCurve F => Z.map i.toRingHom) h).trans
       (shortModel_map_through X hMF hFK)
-  exact ⟨K, hK, hMF.trans hFK, U.map i.toRingHom, V.map i.toRingHom,
-    inferInstance, inferInstance, hKs, hKt, f, base_change S U hU, base_change T V hV, hf, hpoint⟩
+  exact shortModelIsogeny_of_models (hMF.trans hFK) S T (U.map i.toRingHom) (V.map i.toRingHom)
+    P Q α (base_change S U hU) (base_change T V hV) hmap
 
 set_option maxHeartbeats 1600000 in
 /-- The actual reverse ideal-class multiplier and the two original integral

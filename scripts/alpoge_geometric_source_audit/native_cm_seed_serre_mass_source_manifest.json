@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "5c52c978fa51365ec8ea13afa20521d136674bdc29c1c3066ee60d4b5073fe70",
-      "lines": 425
+      "sha256": "bb2b49d6088d2a329b91f8f2f768a9c905a63d2ac3be7ae717c6d65a46054bc2",
+      "lines": 436
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -1420,8 +1420,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalGlobal.lean",
-      "sha256": "d6db4343eea76a930327e1fecb2aa69b0da4fa5c79889153f68cda5d115f2a6e",
-      "lines": 572
+      "sha256": "6dbb675e48fd817046f4a72c6e434c6e39e1778d829cd3f897d9ccfad51e8ac1",
+      "lines": 578
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassRationalIdentity.lean",
