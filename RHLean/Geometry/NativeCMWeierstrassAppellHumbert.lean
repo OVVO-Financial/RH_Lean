@@ -140,6 +140,10 @@ theorem canonicalHolUnif_isAH :
         ((eq_div_iff (multiplier_ne_zero L w z)).mp e).symm
       _ = _ := mul_comm _ _
 
+private theorem recover_tangent_coefficient (u : ℂˣ) (d : ℂ) :
+    d = ((u : ℂ)⁻¹ * d) * (u : ℂ) := by
+  rw [_root_.mul_right_comm (u : ℂ)⁻¹ d (u : ℂ), inv_mul_cancel₀ u.ne_zero, _root_.one_mul]
+
 /-- The actual integral-coordinate epsilon generator has direction u;
 this is proved on every regular section, rather than on coordinates alone. -/
 theorem canonicalHolUnif_integral_tangent :
@@ -147,10 +151,7 @@ theorem canonicalHolUnif_integral_tangent :
   refine ⟨integralVector_isTangent W, ?_⟩
   intro U h s
   refine ⟨_, section_derivative L W C hC U h s, ?_⟩
-  change (evalPt (vec W 1) U h s).snd =
-    ((C.u : ℂ)⁻¹ * (evalPt (vec W 1) U h s).snd) * (C.u : ℂ)
-  rw [mul_assoc, mul_comm _ (C.u : ℂ), ← mul_assoc,
-    inv_mul_cancel₀ (Units.ne_zero C.u), one_mul]
+  exact recover_tangent_coefficient C.u ((evalPt (vec W 1) U h s).snd)
 
 /-- The exact positive Lie length comes from the actual bundle's proved
 Appell--Humbert form and the actual epsilon-vector differential. -/
