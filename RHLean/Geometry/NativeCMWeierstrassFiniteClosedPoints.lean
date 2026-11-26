@@ -20,12 +20,14 @@ hypothesis is assumed.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
-set_option maxHeartbeats 4000000
+set_option maxHeartbeats 500000
 
 noncomputable section
 
-open AlgebraicGeometry CategoryTheory Polynomial MonoidalCategory
+open AlgebraicGeometry CategoryTheory Polynomial MonoidalCategory MonObj
 open scoped Classical Polynomial.Bivariate CategoryTheory.MonObj
+
+attribute [local instance] Over.cartesianMonoidalCategory
 
 namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve
 
@@ -121,15 +123,32 @@ theorem finite_schemePoints_of_proper_closed [W.IsElliptic] (Z : Set (scheme W))
   obtain ⟨P, rfl⟩ := (ofAffinePoint_bijective W k).surjective p
   exact ⟨P, hp, rfl⟩
 
+private theorem selfSpec_hom : (specOver k k).hom = 𝟙 (Spec (.of k)) := Spec.map_id _
+
+private def unitToSelfSpec : 𝟙_ (Over (Spec (.of k))) ⟶ specOver k k :=
+  Over.homMk (𝟙 _) ((Category.id_comp _).trans selfSpec_hom)
+
+private def pointOnUnit {G : Over (Spec (.of k))} (P : specOver k k ⟶ G) :
+    𝟙_ (Over (Spec (.of k))) ⟶ G :=
+  Over.homMk P.left ((Over.w P).trans selfSpec_hom)
+
+private theorem pointOnUnit_eq_comp {G : Over (Spec (.of k))} (P : specOver k k ⟶ G) :
+    pointOnUnit P = unitToSelfSpec ≫ P :=
+  Over.OverMorphism.ext (Category.id_comp P.left).symm
+
+private def selfSpecMulEquiv (G : Over (Spec (.of k))) [MonObj G] :
+    (specOver k k ⟶ G) ≃* (𝟙_ (Over (Spec (.of k))) ⟶ G) where
+  toFun := pointOnUnit
+  invFun P := Over.homMk P.left ((Over.w P).trans selfSpec_hom.symm)
+  left_inv P := Over.OverMorphism.ext rfl
+  right_inv P := Over.OverMorphism.ext rfl
+  map_mul' P Q := by simp only [pointOnUnit_eq_comp, MonObj.comp_mul]
+
 /-- Changing the self-spectrum presentation to the actual tensor unit
 keeps the underlying scheme point unchanged. -/
 def selfSpecPointMulEquiv [W.IsElliptic] :
-    (specOver k k ⟶ schemeOver W) ≃* (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W) where
-  toFun P := Over.homMk P.left (by rw [Over.w]; exact Spec.map_id _)
-  invFun P := Over.homMk P.left (by rw [Over.w]; exact (Spec.map_id _).symm)
-  left_inv P := Over.OverMorphism.ext rfl
-  right_inv P := Over.OverMorphism.ext rfl
-  map_mul' P Q := Over.OverMorphism.ext rfl
+    (specOver k k ⟶ schemeOver W) ≃* (𝟙_ (Over (Spec (.of k))) ⟶ schemeOver W) :=
+  selfSpecMulEquiv (schemeOver W)
 
 /-- Finiteness for the unit-valued points used by the geometric kernel
 of a group-scheme morphism. -/

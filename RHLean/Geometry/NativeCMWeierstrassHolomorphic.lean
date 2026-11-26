@@ -17,7 +17,7 @@ set_option maxHeartbeats 4000000
 
 noncomputable section
 
-open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open Filter PeriodPair
 open scoped Topology
 
@@ -27,38 +27,43 @@ namespace RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet
 
 open SchemeTheory.WeierstrassCurve SectionPoints
 
-variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic]
+variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ)
   (C : _root_.WeierstrassCurve.VariableChange ℂ)
   (hC : C • W.baseChange ℂ = Weierstrass.latticeCurve L)
 
+private theorem complexSelfSpec_hom : (specOver ℂ ℂ).hom = 𝟙 (Sp ℂ) := Spec.map_id _
+
+private def unitToComplexSelfSpec : 𝟙_ (Over (Sp ℂ)) ⟶ specOver ℂ ℂ :=
+  Over.homMk (𝟙 _) ((Category.id_comp _).trans complexSelfSpec_hom)
+
 /-- The same exponential as a genuine point over the tensor unit. -/
 def expOver (z : ℂ) : 𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W :=
-  Over.homMk (expPoint L W C hC z) (by
-    change (ofAffinePoint W ℂ
-      (AllPlaceTangentPeriod.exponential L (W.baseChange ℂ) C hC z)).left ≫
-        toSpec W = 𝟙 (Sp ℂ)
-    rw [Over.w]
-    exact Spec.map_id _)
+  Over.homMk (expPoint L W C hC z)
+    ((Over.w (ofAffinePoint W ℂ (AllPlaceTangentPeriod.exponential L (W.baseChange ℂ) C hC z))).trans
+      complexSelfSpec_hom)
 
 @[simp] theorem expOver_left (z : ℂ) : (expOver L W C hC z).left = expPoint L W C hC z := rfl
 
+private theorem expOver_eq_comp (z : ℂ) :
+    expOver L W C hC z = unitToComplexSelfSpec ≫
+      ofAffinePoint W ℂ (AllPlaceTangentPeriod.exponential L (W.baseChange ℂ) C hC z) :=
+  Over.OverMorphism.ext (Category.id_comp (expPoint L W C hC z)).symm
+
+variable [W.IsElliptic]
+
 theorem expOver_add (z w : ℂ) :
     expOver L W C hC (z + w) = expOver L W C hC z * expOver L W C hC w := by
-  apply Over.OverMorphism.ext
-  change (ofAffinePoint W ℂ (AllPlaceTangentPeriod.exponential L (W.baseChange ℂ) C hC
-    (z + w))).left = _
-  rw [map_add]
-  exact congrArg Over.Hom.left (ofAffinePoint_add W ℂ _ _)
+  classical
+  simp only [expOver_eq_comp, map_add, ofAffinePoint_add, MonObj.comp_mul]
 
 @[simp] theorem expOver_zero : expOver L W C hC 0 = 1 := by
   rw [← MonObj.one_eq_one]
-  exact Over.OverMorphism.ext (expPoint_zero L W C hC)
+  exact Over.OverMorphism.ext ((expPoint_zero L W C hC).trans (one_left W).symm)
 
 theorem expOver_surjective : Function.Surjective (expOver L W C hC) := by
   intro p
-  have hw : p.left ≫ toSpec W = (specOver ℂ ℂ).hom := by
-    rw [Over.w]
-    exact (Spec.map_id _).symm
+  have hw : p.left ≫ toSpec W = (specOver ℂ ℂ).hom :=
+    (Over.w p).trans complexSelfSpec_hom.symm
   let p' : specOver ℂ ℂ ⟶ schemeOver W := Over.homMk p.left hw
   obtain ⟨q, hq⟩ := (ofAffinePoint_bijective W ℂ).surjective p'
   obtain ⟨z, hz⟩ := AllPlaceTangentPeriod.exponential_surjective L (W.baseChange ℂ) C hC q
@@ -107,9 +112,9 @@ theorem isOpen_exponential_domain (U : (scheme W).Opens) :
     rw [← Scheme.Hom.comp_preimage, expPoint_translate, zero_add]
     exact hz
   have hmem := eventually_mem_open L W C hC (f ⁻¹ᵁ U) h0
-  have ht : Tendsto (fun x : ℂ => x - z) (𝓝 z) (𝓝 0) :=
-    by simpa only [sub_self] using!
-      (continuousAt_id.sub (continuousAt_const : ContinuousAt (fun _ : ℂ => z) z)).tendsto
+  have ht : Tendsto (fun x : ℂ => x - z) (𝓝 z) (𝓝 (z - z)) :=
+    tendsto_id.sub tendsto_const_nhds
+  rw [sub_self] at ht
   filter_upwards [ht.eventually hmem] with x hx
   rw [← Scheme.Hom.comp_preimage, expPoint_translate, sub_add_cancel] at hx
   exact hx
@@ -128,13 +133,18 @@ theorem analyticAt_eval_section_at (U : (scheme W).Opens)
   simp only [zero_add] at ha
   apply ha.congr
   exact Filter.Eventually.of_forall fun x => by
-    rw [value_comp, expPoint_translate, sub_add_cancel]
+    calc
+      value (expPoint L W C hC (x - z)) (f ⁻¹ᵁ U) ((f.app U).hom s) =
+          value (expPoint L W C hC (x - z) ≫ f) U s := value_comp _ f U s
+      _ = value (expPoint L W C hC (x - z + z)) U s :=
+        congrArg (fun P => value P U s) (expPoint_translate L W C hC (x - z) z)
+      _ = value (expPoint L W C hC x) U s := by rw [sub_add_cancel]
 
 theorem holomorphic_regular_sections (U : (scheme W).Opens) (s : Γ(scheme W, U)) :
     IsOpen {z | ⊤ ≤ expPoint L W C hC z ⁻¹ᵁ U} ∧
       DifferentiableOn ℂ (fun z => value (expPoint L W C hC z) U s)
         {z | ⊤ ≤ expPoint L W C hC z ⁻¹ᵁ U} :=
   ⟨isOpen_exponential_domain L W C hC U,
-    fun z hz => (analyticAt_eval_section_at L W C hC U s hz).differentiableAt.differentiableWithinAt⟩
+    fun _ hz => (analyticAt_eval_section_at L W C hC U s hz).differentiableAt.differentiableWithinAt⟩
 
 end RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassSectionJet
