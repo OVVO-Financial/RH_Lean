@@ -1342,9 +1342,12 @@ theorem nativeDyadic_firstPrime_wheel_block_supplied (P : Finset ℕ) (c a m : �
       (fun _ _ h => cop (fun e => h (Fin.succ_injective m e)))
   · obtain ⟨w, hz, hw⟩ := nativeDyadic_firstPrime_wheel_short_completion 0 C hpos cop
     refine ⟨w, hz, fun i => (hw i).trans ?_⟩
-    simp only [Fintype.card_fin, Nat.cast_add, Nat.cast_one]
+    have hscale : (Fintype.card (Fin (m+1)):ℤ)+1 = (m:ℤ)+2 := by
+      rw [Fintype.card_fin, Nat.cast_add, Nat.cast_one]
+      ring
+    rw [hscale]
     have hs : (C i:ℤ) ≤ (n i:ℤ) := by exact_mod_cast size i
-    nlinarith only [hs, mul_le_mul_of_nonneg_left hs (by positivity : 0 ≤ (m:ℤ))]
+    exact mul_le_mul_of_nonneg_left hs (by positivity)
 
 end AlpogeThin
 end RHLean.Analysis

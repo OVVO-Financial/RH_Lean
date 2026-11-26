@@ -134,6 +134,14 @@ run_cmd do
     `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_ordered_periods,
     `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound]
   let pricedRoots : Array Name := #[
+    ``RHLean.Analysis.nativeProperPower_clippedMass_le,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_anyCutoff_le_thick_add_thin,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_cut,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually,
+    ``RHLean.Analysis.alpogeNativePartner_even_offset_iff,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_on_dyadicFrame,
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving,
     ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
@@ -188,6 +196,6 @@ run_cmd do
         throwError "ABSOLUTE PROHIBITION: {root} depends on {n}"
       if pricedRoots.contains root then
         if let some info := env.find? n then
-          if info.type.isConstOf `RiemannHypothesis then
+          if info.type.getForallBody.isConstOf `RiemannHypothesis then
             throwError "A native quantitative estimate depends on a terminal RH proof: {root} via {n}"
     logInfo m!"PASS strict principal source dependency gate: {root}; axioms={axs}; dependencies={names.toList.length}"
