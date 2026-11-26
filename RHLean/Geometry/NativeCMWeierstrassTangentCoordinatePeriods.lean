@@ -181,7 +181,7 @@ theorem tangentCoordinatePeriods_log_covolume (hΔ : W.Δ = 1) :
   exact h
 
 include hC in
-def tangentCoordinate_holomorphicComparison :
+theorem tangentCoordinate_holomorphicComparison :
     shortChange W • W.baseChange ℂ = latticeCurve (tangentCoordinatePeriods L C) := by
   change shortChange W • W.map (RingHom.id ℂ) = _
   rw [_root_.WeierstrassCurve.map_id]

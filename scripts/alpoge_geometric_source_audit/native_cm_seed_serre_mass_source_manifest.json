@@ -790,7 +790,7 @@
   "native_modules": [
     {
       "path": "RHLean/Geometry/NativeCMAllPlaceAppellHumbert.lean",
-      "sha256": "fd109206b64308e36c0a2c4fd6b47f6b8f2ca9c27f47d88e44714d6a73a30790",
+      "sha256": "9b23a82904d9de60ef3e666fff0709a5c35994e818ddb23275ab348f06b9121f",
       "lines": 92
     },
     {
@@ -1505,7 +1505,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTangentCoordinatePeriods.lean",
-      "sha256": "5e1fc7b14bdb88f9d6a05c348e38011d598fbc479fc68714775e20e68b734b7b",
+      "sha256": "ef2fa041775ce66af9d3cc04623cae2ffecda598272052c12ea6e8de483b55ce",
       "lines": 237
     },
     {
