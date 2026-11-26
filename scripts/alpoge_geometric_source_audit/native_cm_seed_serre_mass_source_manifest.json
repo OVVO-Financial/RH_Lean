@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "d64f174a12bcd4a902d59f76b2901f76c98184d134cbd1df368be588b20b9de3",
-      "lines": 393
+      "sha256": "5c52c978fa51365ec8ea13afa20521d136674bdc29c1c3066ee60d4b5073fe70",
+      "lines": 425
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",

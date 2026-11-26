@@ -320,6 +320,55 @@ private theorem shortModel_map_through {M F K : IntermediateField ℚ ℂ}
   Weierstrass.shortModel_map (W.map (IntermediateField.inclusion hMF).toRingHom)
     (IntermediateField.inclusion hFK).toRingHom
 
+/-- A finite common extension carries the two specified short models and a
+group morphism which acts by the specified multiplier on every complex lattice point. -/
+def HasShortModelIsogenyOverExtension {M : IntermediateField ℚ ℂ}
+    (S T : _root_.WeierstrassCurve M) (P Q : PeriodPair) (α : ℂ) : Prop :=
+  ∃ (K : IntermediateField ℚ ℂ) (_ : NumberField K) (hMK : M ≤ K)
+    (Vs Vt : _root_.WeierstrassCurve K) (_ : Vs.IsElliptic) (_ : Vt.IsElliptic)
+    (hs : Vs.baseChange ℂ = Weierstrass.latticeCurve P)
+    (ht : Vt.baseChange ℂ = Weierstrass.latticeCurve Q)
+    (f : schemeOver Vs ⟶ schemeOver Vt),
+    Vs = Weierstrass.shortModel (S.map (IntermediateField.inclusion hMK).toRingHom) ∧
+    Vt = Weierstrass.shortModel (T.map (IntermediateField.inclusion hMK).toRingHom) ∧
+    IsMonHom f ∧ ∀ z : ℂ,
+      ofAffinePoint Vs ℂ ((Weierstrass.pointCongr hs).symm (Weierstrass.latticePoint P z)) ≫ f =
+        ofAffinePoint Vt ℂ ((Weierstrass.pointCongr ht).symm (Weierstrass.latticePoint Q (α * z)))
+
+set_option maxHeartbeats 1600000 in
+private theorem shortModelIsogeny_of_formula {M F : IntermediateField ℚ ℂ} [NumberField F]
+    (hMF : M ≤ F) (S T : _root_.WeierstrassCurve M)
+    (U V : _root_.WeierstrassCurve F) [U.IsElliptic] [V.IsElliptic]
+    (hU : U = Weierstrass.shortModel (S.map (IntermediateField.inclusion hMF).toRingHom))
+    (hV : V = Weierstrass.shortModel (T.map (IntermediateField.inclusion hMF).toRingHom))
+    (P Q : PeriodPair) (hs : U.baseChange ℂ = Weierstrass.latticeCurve P)
+    (ht : V.baseChange ℂ = Weierstrass.latticeCurve Q)
+    (α : ℂ) (hα0 : α ≠ 0) (hα : ∀ l ∈ P.lattice, α * l ∈ Q.lattice) (hαF : α ∈ F)
+    (A D : ℂ[X]) (hA : ∀ i, A.coeff i ∈ F) (hD : ∀ i, D.coeff i ∈ F) (hD0 : D ≠ 0)
+    (hformula : ∀ (x y : ℂ) (h : (Weierstrass.latticeCurve P).toAffine.Nonsingular x y),
+      (D.eval x = 0 → Weierstrass.latticeIsogeny α hα (.some x y h) = 0) ∧
+      (D.eval x ≠ 0 → ∃ h', Weierstrass.latticeIsogeny α hα (.some x y h) =
+        .some (A.eval x / D.eval x)
+          (α⁻¹ * ((Polynomial.derivative A * D - A * Polynomial.derivative D).eval x /
+            D.eval x ^ 2) * y) h')) :
+    HasShortModelIsogenyOverExtension S T P Q α := by
+  have short_coefficients (X : _root_.WeierstrassCurve M) (Y : _root_.WeierstrassCurve F)
+      (h : Y = Weierstrass.shortModel (X.map (IntermediateField.inclusion hMF).toRingHom)) :
+      Y.a₁ = 0 ∧ Y.a₂ = 0 ∧ Y.a₃ = 0 := h.symm ▸ ⟨rfl, rfl, rfl⟩
+  obtain ⟨K, hK, hFK, hKs, hKt, f, hf, hpoint⟩ :=
+    Weierstrass.exists_scheme_latticeIsogeny F U V P Q hs ht
+      (short_coefficients S U hU) (short_coefficients T V hV) α hα0 hα hαF A D hA hD hD0 hformula
+  let _ : NumberField K := hK
+  let i := IntermediateField.inclusion hFK
+  have base_change (X : _root_.WeierstrassCurve M) (Y : _root_.WeierstrassCurve F)
+      (h : Y = Weierstrass.shortModel (X.map (IntermediateField.inclusion hMF).toRingHom)) :
+      Y.map i.toRingHom =
+        Weierstrass.shortModel (X.map (IntermediateField.inclusion (hMF.trans hFK)).toRingHom) :=
+    (congrArg (fun Z : _root_.WeierstrassCurve F => Z.map i.toRingHom) h).trans
+      (shortModel_map_through X hMF hFK)
+  exact ⟨K, hK, hMF.trans hFK, U.map i.toRingHom, V.map i.toRingHom,
+    inferInstance, inferInstance, hKs, hKt, f, base_change S U hU, base_change T V hV, hf, hpoint⟩
+
 set_option maxHeartbeats 1600000 in
 /-- The actual reverse ideal-class multiplier and the two original integral
 models supply a generic morphism by the existing rational-map proof. -/
@@ -336,16 +385,7 @@ theorem exists_inverseIdeal_reverse_scheme_isogeny
     let Ls := Weierstrass.tangentCoordinatePeriods L C
     let Lt := Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀
     let α := ((C₀.u : ℂ) / (C.u : ℂ))⁻¹ * quadraticEmbedding G τ (a : quadraticField G)
-    ∃ (K : IntermediateField ℚ ℂ) (_ : NumberField K) (hMK : M ≤ K)
-      (Vs Vt : _root_.WeierstrassCurve K) (_ : Vs.IsElliptic) (_ : Vt.IsElliptic)
-      (hs : Vs.baseChange ℂ = Weierstrass.latticeCurve Ls)
-      (ht : Vt.baseChange ℂ = Weierstrass.latticeCurve Lt)
-      (f : schemeOver Vs ⟶ schemeOver Vt),
-      Vs = Weierstrass.shortModel ((W.baseChange M).map (IntermediateField.inclusion hMK).toRingHom) ∧
-      Vt = Weierstrass.shortModel ((W₀.baseChange M).map (IntermediateField.inclusion hMK).toRingHom) ∧
-      IsMonHom f ∧ ∀ z : ℂ,
-        ofAffinePoint Vs ℂ ((Weierstrass.pointCongr hs).symm (Weierstrass.latticePoint Ls z)) ≫ f =
-          ofAffinePoint Vt ℂ ((Weierstrass.pointCongr ht).symm (Weierstrass.latticePoint Lt (α * z))) := by
+    HasShortModelIsogenyOverExtension (W.baseChange M) (W₀.baseChange M) Ls Lt α := by
   dsimp only
   let Ls := Weierstrass.tangentCoordinatePeriods L C
   let Lt := Weierstrass.tangentCoordinatePeriods (EllipticSeed.periodPair G τ) C₀
@@ -377,16 +417,8 @@ theorem exists_inverseIdeal_reverse_scheme_isogeny
     exact Weierstrass.shortModel_eq_tangentCoordinate_latticeCurve
       (EllipticSeed.periodPair G τ) C₀ (W₀.baseChange ℂ) hC₀
   have hα0 : α ≠ 0 := reverse_multiplier_ne_zero G τ C₀ C a ha0
-  obtain ⟨K, hK, hFK, hKs, hKt, f, hf, hpoint⟩ :=
-    Weierstrass.exists_scheme_latticeIsogeny F Ws Wt Ls Lt hs ht
-      ⟨rfl, rfl, rfl⟩ ⟨rfl, rfl, rfl⟩ α hα0 hα hαF A D hAF hDF hm.ne_zero hformula
-  let _ : NumberField K := hK
-  let i := IntermediateField.inclusion hFK
-  let Vs := Ws.map i.toRingHom
-  let Vt := Wt.map i.toRingHom
-  exact ⟨K, hK, hMF.trans hFK, Vs, Vt, inferInstance, inferInstance, hKs, hKt, f,
-    shortModel_map_through (W.baseChange M) hMF hFK,
-    shortModel_map_through (W₀.baseChange M) hMF hFK, hf, hpoint⟩
+  exact shortModelIsogeny_of_formula hMF (W.baseChange M) (W₀.baseChange M)
+    Ws Wt rfl rfl Ls Lt hs ht α hα0 hα hαF A D hAF hDF hm.ne_zero hformula
 
 end ReverseSchemeIsogeny
 
