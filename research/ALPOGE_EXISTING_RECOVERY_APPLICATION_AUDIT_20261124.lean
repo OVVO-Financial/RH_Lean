@@ -1,3 +1,4 @@
+import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Geometry.NativeThetaFactorialDigitReadout
 import RHLean.Geometry.NativeJointEvaluationRecovery
@@ -38,10 +39,38 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Analysis.AlpogeThin.nativeConstructedDyadicFrozenDiscrepancyLedger
 #check RHLean.Analysis.AlpogeThin.nativeFrozenWidthPrice_eventually
 
+#print axioms RHLean.Analysis.nativeProperPower_clippedMass_le
+#print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error
+#print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving
+#print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error
+#print axioms RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually
+
+#print axioms RHLean.Analysis.alpogeNativePartner_even_offset_iff
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow
+
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_on_dyadicFrame
+
 open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
-  let roots : Array Name := #[``RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests,
+  let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_on_dyadicFrame,
+    ``RHLean.Analysis.alpogeNativePartner_even_offset_iff,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow,
+    ``RHLean.Analysis.nativeProperPower_clippedMass_le,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error,
+    ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually,
+    ``RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests,
     ``RHLean.Geometry.NativeTheta.ExponentDigits.factorialDigitUnit_sum_readout_precision,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_congruent_primitive_tests,

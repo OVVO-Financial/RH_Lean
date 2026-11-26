@@ -169,7 +169,11 @@ def main (args : List String) : IO UInt32 := do
       | some info =>
         let (typeRefs, extType) :=
           refsJson info.type.getUsedConstants project cn
-        let (valueRefs, extValue) := match info.value? with
+        -- Lean treats theorem proofs and opaque definitions as opaque values.
+        let body := info.value? (allowOpaque := true)
+        if info.hasValue (allowOpaque := true) && body.isNone then
+          throw <| IO.userError s!"Missing kernel body for {cn}"
+        let (valueRefs, extValue) := match body with
           | some v => refsJson v.getUsedConstants project cn
           | none   => ("[]", 0)
         let line :=
