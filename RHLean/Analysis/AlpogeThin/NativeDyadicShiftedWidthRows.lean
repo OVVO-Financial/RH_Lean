@@ -206,7 +206,7 @@ theorem nativeDyadic_sharedWidth_laterReads_le (e q d p N i : ℕ)
     _ = _ := by
       dsimp only [r]
       have hden : 1 - (P ^ 2)⁻¹ ≠ 0 := (sub_pos.mpr hr1).ne'
-      field_simp [hPpos.ne', hden, show P ^ 2 - 1 ≠ 0 by linarith] <;> ring
+      field_simp [hPpos.ne', hden, show P ^ 2 - 1 ≠ 0 by linarith]
 
 end AlpogeThin
 end RHLean.Analysis
