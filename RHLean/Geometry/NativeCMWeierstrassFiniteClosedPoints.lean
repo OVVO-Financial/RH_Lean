@@ -97,8 +97,11 @@ theorem exists_nonzero_vanishing_of_proper_closed (Z : Set (scheme W))
   have hm : PrimeSpectrum.comap (affineEval W (RingHom.id k) x y h.left) q ∈ S := by
     change (Spec.map (CommRingCat.ofHom (affineEval W (RingHom.id k) x y h.left)) ≫
       chartZ W) q ∈ Z
-    rw [SpecMap_affineEval_chartZ]
-    exact hp ⟨q, rfl⟩
+    have hmap : Spec.map (CommRingCat.ofHom (affineEval W (RingHom.id k) x y h.left)) ≫
+        chartZ W = (ofAffinePoint W k (.some x y h)).left :=
+      SpecMap_affineEval_chartZ W (RingHom.id k) x y h.left
+    have hpoint : (ofAffinePoint W k (.some x y h)).left q ∈ Z := hp ⟨q, rfl⟩
+    exact (congrArg (fun φ : Spec (.of k) ⟶ scheme W => φ q ∈ Z) hmap).mpr hpoint
   rw [hI] at hm
   have he : affineEval W (RingHom.id k) x y h.left f ∈ q.asIdeal := hm hf
   rw [Ideal.eq_bot_of_prime q.asIdeal] at he

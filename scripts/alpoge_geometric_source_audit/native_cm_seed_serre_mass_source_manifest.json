@@ -1110,8 +1110,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSigmaMetric.lean",
-      "sha256": "c74491dcad71c088e1fb89e8d063e2c58780712ff44539b02d01b985ca9f2838",
-      "lines": 270
+      "sha256": "afc4a8d43c15ca6fea1d0699ef8b41bfc743033381499cd562a0b2094b01740f",
+      "lines": 268
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreTensor.lean",
@@ -1195,8 +1195,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassFiniteClosedPoints.lean",
-      "sha256": "711f93867d6e099e8cdb5d9aa2aeb0e33a14efa7a0d06efc38b98d070788ee66",
-      "lines": 147
+      "sha256": "8bea3534d4f9bd29ed53abf79ee86404fd5b98d65eb341eea9db951aea53874a",
+      "lines": 169
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassFiniteModel.lean",
@@ -1255,8 +1255,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassHolomorphic.lean",
-      "sha256": "35bf4d50b1c9fe4cd9384f7938a227ddcd1b2d7a6f2ad97d8ea6d61b803eaff7",
-      "lines": 140
+      "sha256": "53cc7a773db43f1fad62741844067b6da229b493bfc39cf06b9e8a7753efefa1",
+      "lines": 150
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralExtension.lean",
@@ -1545,8 +1545,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationGroup.lean",
-      "sha256": "d007e3b8b736361d8086cafc79f3df0e697484ef08ad2d9c5041f1544ef1d134",
-      "lines": 178
+      "sha256": "d9640cfa34f6ae4ebe1f5ccf8fd25571b144fb79d4251c727b11c00c80565cf5",
+      "lines": 186
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationScheme.lean",
@@ -1780,8 +1780,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchemeTorsion.lean",
-      "sha256": "919145f75f59a24c08460f7553d77230c91ae1659fb743c2b425c286c1ff19ae",
-      "lines": 407
+      "sha256": "3311efce7e770d85828d393ff55667fff17035ce032b2573c89d37bceb067475",
+      "lines": 413
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSchwartz.lean",
