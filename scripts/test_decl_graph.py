@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import decl_graph
+import proof_inventory
 import rhlean_kg as kg
 
 
@@ -90,10 +91,10 @@ end Scope
 """
     NAMES = ("Scope.inside", "Scope.after", "Export.result")
 
-    def ingest(self, names):
+    def ingest(self, names, *, kinds=None, source=None):
         # Synthetic extractor records exercise name matching, not kernel validity.
         records = [
-            {"name": name, "module": "RHLean.ScopeFixture", "kind": "theorem",
+            {"name": name, "module": "RHLean.ScopeFixture", "kind": (kinds or {}).get(name, "theorem"),
              "typeRefs": [], "valueRefs": []}
             for name in names
         ]
@@ -104,7 +105,7 @@ end Scope
                 encoding="utf-8",
             )
             with patch.object(kg, "load_sources", return_value=[
-                (Path("RHLean/ScopeFixture.lean"), self.SOURCE),
+                (Path("RHLean/ScopeFixture.lean"), self.SOURCE if source is None else source),
             ]), patch.object(kg, "load_facets", return_value={"facets": {}, "roles": {}}):
                 return decl_graph.build_graph_from_lean(jsonl)
 
@@ -117,6 +118,45 @@ end Scope
     def test_exact_graph_still_rejects_a_missing_source_declaration(self):
         with self.assertRaisesRegex(ValueError, "missing 1 source declarations: Export.result"):
             self.ingest(self.NAMES[:-1])
+
+    def test_inventory_accounts_for_each_source_proof_and_kernel_theorem(self):
+        source = """\
+namespace Scope
+private theorem witness : True := by trivial
+lemma _root_.Export.result : True := witness
+instance proofInst : Nonempty Unit := ⟨()⟩
+instance dataInst : Inhabited Unit := ⟨()⟩
+end Scope
+"""
+        kinds = {"_private.RHLean.ScopeFixture.0.Scope.witness": "theorem",
+                 "Export.result": "theorem", "Scope.proofInst": "theorem", "Scope.dataInst": "def"}
+        graph = self.ingest(kinds, kinds=kinds, source=source)
+        inventory = {
+            "proofs": [{"kind": kind, "name": name, "module": "RHLean.ScopeFixture",
+                        "path": "RHLean/ScopeFixture.lean", "line": line}
+                       for kind, name, line in [("theorem", "witness", 2),
+                                                ("lemma", "_root_.Export.result", 3)]],
+            "named_proofs": {"total_theorem_plus_lemma": 2},
+        }
+        check = proof_inventory.check_elaborated_proofs
+        self.assertEqual(check(inventory, graph), ["Scope.proofInst"])
+        self.assertEqual(graph["stats"]["named_proofs"], 3)
+
+        nodes = graph["declarations"]
+        with patch.dict(nodes["Scope.proofInst"], {"source_kind": "def"}):
+            with self.assertRaisesRegex(ValueError, "unaccounted def Scope.proofInst"):
+                check(inventory, graph)
+        # Swapping a lemma and a data instance preserves the total kernel count.
+        with patch.dict(nodes["Export.result"], {"kind": "def"}), \
+                patch.dict(nodes["Scope.dataInst"], {"kind": "theorem"}):
+            with self.assertRaisesRegex(ValueError, "expected lemma Export.result"):
+                check(inventory, graph)
+        with patch.dict(inventory["proofs"][1], {"name": "_root_.Export.wrong"}):
+            with self.assertRaisesRegex(ValueError, "expected lemma Export.wrong"):
+                check(inventory, graph)
+        del nodes["Export.result"]
+        with self.assertRaisesRegex(ValueError, "missing kernel declarations.*Export.result"):
+            check(inventory, graph)
 
 
 class PropositionClosureTests(unittest.TestCase):
