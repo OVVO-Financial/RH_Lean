@@ -330,14 +330,14 @@ theorem nativeDyadic_activeShift_joint_injective_heights
   have hstrip (t) : (a t : ℝ) ∈ Set.Ico (x*b + (ix t : ℝ)*M) (x*b + ((ix t : ℝ)+1)*M) := by
     have hc' : ((c t).val : ℝ) + 1 ≤ M := by exact_mod_cast Nat.succ_le_of_lt (hc t)
     have ha : (a t : ℝ) = (⌈x*b⌉ : ℝ) + (ix t : ℝ)*M + ((c t).val : ℝ) := by
-      simp only [a, lo, Int.cast_add, Int.cast_natCast, Nat.cast_mul]
+      simp only [a, lo, Int.cast_add, Int.cast_mul, Int.cast_natCast, Nat.cast_mul]
     rw [ha]
     constructor
-    · linarith only [Int.le_ceil (x*b), Nat.cast_nonneg (R := ℝ) (c t).val]
+    · linarith only [Int.le_ceil (x*b), Nat.cast_nonneg (α := ℝ) (c t).val]
     · linarith only [Int.ceil_lt_add_one (x*b), hc']
   have horder (s t) (h : ix s < ix t) : (a s : ℝ) < (a t : ℝ) :=
     (hstrip s).2.trans_le ((add_le_add le_rfl (mul_le_mul_of_nonneg_right
-      (by exact_mod_cast Nat.succ_le_of_lt h : (ix s : ℝ)+1 ≤ ix t) (Nat.cast_nonneg (R := ℝ) M))).trans (hstrip t).1)
+      (by exact_mod_cast Nat.succ_le_of_lt h : (ix s : ℝ)+1 ≤ ix t) (Nat.cast_nonneg (α := ℝ) M))).trans (hstrip t).1)
   refine ⟨a, ?_, ?_, fun p t => ?_⟩
   · intro s t he
     have he' : (a s : ℝ) = (a t : ℝ) := congrArg (fun z : ℤ => (z : ℝ)) he
