@@ -228,7 +228,7 @@ theorem nativeDyadic_activeShift_residues_in_window
             nativeDyadicLocalSourceAtom e q d p (a (shift t)) (shift t) w 1) =
           (a t : ℝ) - (p : ℝ)^2 * (a (shift t) : ℝ) := by
   classical
-  letI : NeZero (p ^ k) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  let : NeZero (p ^ k) := ⟨pow_ne_zero _ hp.ne_zero⟩
   let g := (alpogeNativeHostData e q d).frob p
   let shift := fun t : AlpogeNativeDyadicH e => t + (2 : ℕ) • g.2
   let c : ZMod (p ^ k) := (p : ZMod (p ^ k))^2

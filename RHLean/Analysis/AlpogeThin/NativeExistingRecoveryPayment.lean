@@ -580,7 +580,11 @@ theorem alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving
   apply Finset.sum_congr rfl
   intro n _
   by_cases hn : n.Prime ∧ z < n
-  · simp only [if_pos hn, ← Finset.sum_sub_distrib, ← mul_sub, sub_min, sub_self, alpogeASKPos, max_comm]
+  · have hcut (u v : ℝ) : alpogeASKPos u v = u - min u v := by
+      rcases le_total u v with h | h
+      · rw [alpogeASKPos, max_eq_right (sub_nonpos.mpr h), min_eq_left h, sub_self]
+      · rw [alpogeASKPos, max_eq_left (sub_nonneg.mpr h), min_eq_right h]
+    simp only [ite_eq_left hn, ← Finset.sum_sub_distrib, ← mul_sub, hcut]
   · simp [hn]
 
 /-- Uniform signed cost of removing the width dependence from all proper
@@ -608,7 +612,7 @@ theorem alpogeNativeFirstPrimeWidthASK_error :
   let I := Finset.Icc 1 N
   have hprice (n : ℕ) : 0 ≤ price n := by
     dsimp [price]
-    split_ifs <;> first | positivity | exact le_min (by positivity) zero_le_one
+    split_ifs <;> positivity
   have hd (n : ℕ) (g : AlpogeNativeE0 × H) (hg : g ∈ G) :
       diff n g ∈ Set.Icc 0 (B * price n) := by
     obtain ⟨hw0, hwB⟩ := hw g (Finset.mem_filter.mp hg).2
@@ -627,7 +631,7 @@ theorem alpogeNativeFirstPrimeWidthASK_error :
     by_cases hp : n.Prime
     · by_cases hn : n ≤ z
       · simpa [Set.mem_Icc, diff, price, hp, hn, not_lt.mpr hn] using And.intro hlo hup
-      · simp [Set.mem_Icc, diff, price, hp, hn, lt_of_not_ge hn]
+      · simp [diff, price, hp, hn, lt_of_not_ge hn]
     · simp only [diff, price, hp, false_and, ↓reduceIte, Set.mem_Icc]
       refine ⟨hlo, ?_⟩
       rcases le_total ((M : ℝ) / n) 1 with h | h
@@ -848,7 +852,7 @@ theorem nativeLedger_anyCutoff_le_thick_add_thin
     _ ≤ _ := by
       rw [← alpogeNativeProjectionFullSource_eq_nativeDe,
         alpogeNativeProjectionFull_eq_thick_add_thin _ T2 a u t w, Complex.add_re]
-      exact add_le_add_left (Complex.re_le_norm _) _
+      exact add_le_add le_rfl (Complex.re_le_norm _)
 
 /-- The entire centered thin channel, including arbitrarily large first
 primes, is paid on every original good pair. The bound is uniform in the
@@ -867,7 +871,7 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
           0 < w (alpogeNativePartner t g) ∧
             Real.exp (x ^ (eps / 3)) / 3 ≤ a / w (alpogeNativePartner t g)) →
         let D := alpogeNativeHostData e q d
-        let ell := alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)
+        let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
         let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob ell
         let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
         (alpogeNativeFullKernelASK D.inertia D.frob N a t v - alpogeNativeMAIN ell a v).re ≤
@@ -879,13 +883,13 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
   obtain ⟨x₀, hthin⟩ := QH.thin eps 2 1 c₀ he two_pos one_pos hc₀
   refine ⟨x₀, ?_⟩
   intro x hx Y Z q d e N hG
-  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
-  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  let : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let : Fact d.Prime := ⟨hG.pair.d_prime⟩
   dsimp only
   intro T2 u t a η w ha hη hlog hsites
   let D := alpogeNativeHostData e q d
   let r := alpogeNativeRecMap e q d
-  let ell := alpogeNativeCanonicalHostEll r
+  let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) r
   let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob ell
   let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
   have honto : Function.Surjective r := alpogeNativeRecMap_surjective e q d
@@ -894,8 +898,8 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
   have hF (ψ : AddChar (AlpogeNativeE0 × AlpogeNativeDyadicH e) ℂ) (y : ℝ)
       (hy : Real.exp (x ^ (eps / 3)) / 3 ≤ y) :
       ‖F ψ y‖ ≤ y * Real.exp (-(x ^ (eps / 8))) := by
-    let χ := alpogeNativeDirChar r ψ
-    letI : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero _⟩
+    let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) r ψ
+    let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero _⟩
     have hc : χ.conductor ∣ alpogeNativeHostN e q d := DirichletCharacter.conductor_dvd_level χ
     have hcpos : (0 : ℝ) < χ.conductor := by exact_mod_cast Nat.pos_of_ne_zero (DirichletCharacter.conductor_ne_zero χ)
     have hcN : (χ.conductor : ℝ) ≤ alpogeNativeHostN e q d := by exact_mod_cast Nat.le_of_dvd (NeZero.pos _) hc
@@ -904,9 +908,9 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
       ((Real.log_le_log hcpos hcN).trans hlog)
       (hnoExc eps Y Z q d hG (e+2) χ.conductor χ.primitiveCharacter hp hc) y hy
     rw [G0_eq_nativeResponse] at hbound
-    change ‖alpogeNativeFrobInertiaGPsi (alpogeNativeCftData _ q d r).inertia
-      (alpogeNativeCftData _ q d r).frob ell ψ y‖ ≤ _
-    rw [nativeCftGPsi_eq_nativeResponse q d r honto ψ y]
+    change ‖alpogeNativeFrobInertiaGPsi (alpogeNativeCftData (H := AlpogeNativeDyadicH e) (alpogeNativeHostN e q d) q d r).inertia
+      (alpogeNativeCftData (H := AlpogeNativeDyadicH e) (alpogeNativeHostN e q d) q d r).frob ell ψ y‖ ≤ _
+    rw [nativeCftGPsi_eq_nativeResponse (H := AlpogeNativeDyadicH e) q d r honto ψ y]
     simpa only [one_mul] using hbound
   have hpay := nativeThinReturn_norm_le F T2 a (Real.exp (-(x ^ (eps / 8)))) u t v
     (fun _ _ => Real.exp_pos _) (fun g hg ψ => by
@@ -917,7 +921,7 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
         ((Real.exp_le_exp.mpr hfloor).trans (Real.exp_log hw).le))
   rw [nativeThinColourCount] at hpay
   exact (nativeLedger_anyCutoff_le_thick_add_thin D.inertia D.frob ell N T2 u t a v ha
-    (fun _ _ => Real.exp_pos _)).trans (add_le_add_left hpay _)
+    (fun _ _ => Real.exp_pos _)).trans (add_le_add le_rfl hpay)
 
 /-- Return the rounded thick coordinates to their actual measured widths,
 leaving rounded thin coordinates fixed. The complete finite signed row costs
@@ -965,7 +969,7 @@ theorem nativeLedger_restoreMeasuredThick_le
         exact (by linarith only [(mul_le_mul (hthick ρ hs).1 h1 (by norm_num)
           (hb.trans_le (hthick ρ hs).1).le).trans (hgrid ρ hs).1] : b/2 ≤ v ρ)
       · exact Or.inl (by simp only [mixed, if_neg hs]))
-  refine hm.trans (add_le_add_left ?_ _)
+  refine hm.trans (add_le_add le_rfl ?_)
   calc
     _ ≤ 2 * (2*b*η) * (Real.log 4 + 2) * (a/(b/2)) :=
       alpogeNativeFreezing_cost_le a (b/2) (2*b*η) ha.le (half_pos hb) (by positivity)
@@ -1188,8 +1192,8 @@ theorem nativeLedger_ramifiedFirst_saving_le
     (∑ j ∈ J, ∑ t ∈ TT, Real.log d * min (a t / (d : ℝ))
       (w j (alpogeNativePartner t (nativeDyadicDInvolution e + (alpogeNativeHostData e q d).frob d)))) /
       alpogeNativeProjectionDivisor TT T2 J.card b ≤ 16 * x ^ (ε - 1) := by
-  letI : Fact q.Prime := ⟨hpair.q_prime⟩
-  letI : Fact d.Prime := ⟨hpair.d_prime⟩
+  let : Fact q.Prime := ⟨hpair.q_prime⟩
+  let : Fact d.Prime := ⟨hpair.d_prime⟩
   let row (t : AlpogeNativeDyadicH e) := nativeDyadicDPrimeASK e q d 1 (a t) t (fun _ => 0)
   have hrow (t : AlpogeNativeDyadicH e) (ht : t ∈ TT) :
       (row t).re = Real.log d * (a t / (d : ℝ)) := by
@@ -1260,7 +1264,7 @@ theorem nativeLedger_realHeight_mem_pairWindow {Y x v : ℝ} (hY : 4 ≤ Y)
   have hpower : 1 ≤ Y ^ ((3 : ℝ) / 2) := Real.one_le_rpow hY1 (by norm_num)
   refine ⟨hx.1.trans hv.1, ?_⟩
   calc
-    v ≤ Y ^ ((3 : ℝ) / 2) + 1 := hv.2.trans (add_le_add_right hx.2 _)
+    v ≤ Y ^ ((3 : ℝ) / 2) + 1 := hv.2.trans (add_le_add hx.2 le_rfl)
     _ ≤ Y ^ ((3 : ℝ) / 2) * 2 := by linarith
     _ ≤ Y ^ ((3 : ℝ) / 2) * Real.sqrt Y :=
       mul_le_mul_of_nonneg_left hroot (zero_le_one.trans hpower)
@@ -1322,7 +1326,7 @@ theorem nativeLedger_firstPrimeWidth_on_dyadicFrame :
             ¬ alpogeNativeInPhi g)) \ alpogeNativeProjectionThickColours T2 u t →
           Real.exp (x ^ (eps / 3)) / 3 ≤ a t / w u j (alpogeNativePartner t g)) →
         let D := alpogeNativeHostData e q d
-        let ell := alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)
+        let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
         let A0 : AddSubgroup (AlpogeNativeDyadicH e) := ⊤
         let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
         let centered := (1 / (Fintype.card A0 : ℝ)) * ∑ u : A0, ∑ t ∈ TT, ∑ j : Fin m,
@@ -1338,7 +1342,7 @@ theorem nativeLedger_firstPrimeWidth_on_dyadicFrame :
   intro e q d N m _ _ TT T2 b h η a w hTT hT2 hm hb hh hh' hη hδ ha hw hthick hthin
   let A0 : AddSubgroup (AlpogeNativeDyadicH e) := ⊤
   let D := alpogeNativeHostData e q d
-  let ell := alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)
+  let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
   let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
   have hb0 := (Real.exp_pos _).trans_le hb
   have hceil := Nat.le_ceil (x + 1)
