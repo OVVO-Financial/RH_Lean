@@ -553,7 +553,7 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
     change (alpogeNativeCconj _).2 + (g i.2.val).2 + i.1.val =
       (alpogeNativeCconj _).2 + (g j.2.val).2 + j.1.val at hk
     rw [hp] at hk
-    have cancel {H : Type*} [AddCommGroup H] (z u v : H) (h : z+u = z+v) : u = v :=
+    have cancel {H : Type} [AddCommGroup H] (z u v : H) (h : z+u = z+v) : u = v :=
       add_left_cancel h
     exact cancel (H := AlpogeNativeDyadicH e) ((alpogeNativeCconj _).2 + (g j.2.val).2)
       i.1.val j.1.val hk
@@ -722,6 +722,12 @@ theorem nativeDyadic_sameWidth_firstPrime_weighted_gain (e q d p r : ℕ) [Fact 
   linarith only [hpen,
     mul_le_mul_of_nonneg_left h (by linarith only [hlog] : 0 ≤ Real.log (p:ℝ))]
 
+private theorem native_firstPrime_divides_read_iff {p r : ℕ} (hp : Nat.Prime p) (hr : Nat.Prime r)
+    (hne : p ≠ r) (a c : ℤ) : (p:ℤ) ∣ (r:ℤ)*a - (p:ℤ)*c ↔ (p:ℤ) ∣ a := by
+  have hpr : ¬ (p:ℤ) ∣ (r:ℤ) := fun h =>
+    hne ((Nat.prime_dvd_prime_iff_eq hp hr).mp (Int.natCast_dvd_natCast.mp h))
+  rw [dvd_sub_left (dvd_mul_right _ _), (Nat.prime_iff_prime_int.mp hp).dvd_mul, or_iff_right hpr]
+
 /-- For one fixed integral height profile, the paired first-prime read is
 a unit at every p-power depth unless p divides this top height. All such
 exceptional primes together have logarithmic weight at most log(a_t).
@@ -731,19 +737,14 @@ theorem nativeDyadic_firstPrime_paired_unit_price (e : ℕ) (t : AlpogeNativeDya
     (r : ℕ → ℕ) (s : ℕ → AlpogeNativeDyadicH e)
     (hp : ∀ p ∈ P, Nat.Prime p ∧ Nat.Prime (r p) ∧ p ≠ r p) :
     let D := fun p : ℕ => (r p : ℤ) * a t - (p : ℤ) * a (s p)
-    (∑ p ∈ P.filter (fun p => (p : ℤ) ∣ D p), Real.log (p : ℝ)) ≤ Real.log (a t : ℝ) ∧
+    (∑ p ∈ P.filter (fun p : ℕ => (p : ℤ) ∣ D p), Real.log (p : ℝ)) ≤ Real.log (a t : ℝ) ∧
     ∀ p ∈ P, ¬ p ∣ a t → ∀ k : ℕ, IsUnit (D p : ZMod (p^k)) := by
   classical
   let D := fun p : ℕ => (r p : ℤ) * a t - (p : ℤ) * a (s p)
   have hd (p : ℕ) (h : p ∈ P) : (p : ℤ) ∣ D p ↔ p ∣ a t := by
-    obtain ⟨hpp, hrr, hne⟩ := hp p h
-    have hpr : ¬ (p : ℤ) ∣ (r p : ℤ) := by
-      exact fun h => hne ((Nat.prime_dvd_prime_iff_eq hpp hrr).mp (Int.natCast_dvd_natCast.mp h))
-    change (p : ℤ) ∣ (r p : ℤ) * a t - (p : ℤ) * a (s p) ↔ _
-    rw [dvd_sub_left (dvd_mul_right _ _), (Nat.prime_iff_prime_int.mp hpp).dvd_mul,
-      or_iff_right hpr]
-    exact Int.natCast_dvd_natCast
-  let S := P.filter (fun p => (p : ℤ) ∣ D p)
+    exact (native_firstPrime_divides_read_iff (hp p h).1 (hp p h).2.1 (hp p h).2.2 _ _).trans
+      Int.natCast_dvd_natCast
+  let S : Finset ℕ := P.filter (fun p : ℕ => (p : ℤ) ∣ D p)
   have hsub : S ⊆ (a t).primeFactors := by
     intro p h
     obtain ⟨hP, hv⟩ := Finset.mem_filter.mp h
@@ -755,8 +756,11 @@ theorem nativeDyadic_firstPrime_paired_unit_price (e : ℕ) (t : AlpogeNativeDya
         (fun p h _ => Real.log_nonneg (by exact_mod_cast (Nat.prime_of_mem_primeFactors h).one_le))
       _ = Real.log ((∏ p ∈ (a t).primeFactors, p : ℕ) : ℝ) := by
         rw [Nat.cast_prod, Real.log_prod (fun p h => Nat.cast_ne_zero.mpr (Nat.pos_of_mem_primeFactors h).ne')]
-      _ ≤ _ := Real.log_le_log (by exact_mod_cast Finset.prod_pos fun p h => Nat.pos_of_mem_primeFactors h)
-        (by exact_mod_cast Nat.le_of_dvd ht (Nat.prod_primeFactors_dvd (a t)))
+      _ ≤ Real.log ((a t : ℕ) : ℝ) := by
+        have hpos : 0 < (∏ p ∈ (a t).primeFactors, p : ℕ) :=
+          Finset.prod_pos fun p h => Nat.pos_of_mem_primeFactors h
+        apply Real.log_le_log (by exact_mod_cast hpos)
+        exact_mod_cast Nat.le_of_dvd ht (Nat.prod_primeFactors_dvd (a t))
   · intro p h hnd k
     let : Fact p.Prime := ⟨(hp p h).1⟩
     have hne : (D p : ZMod p) ≠ 0 :=
@@ -764,6 +768,87 @@ theorem nativeDyadic_firstPrime_paired_unit_price (e : ℕ) (t : AlpogeNativeDya
     have hco := (ZMod.coe_int_isUnit_iff_isCoprime (D p) p).mp (isUnit_iff_ne_zero.mpr hne)
     apply (ZMod.coe_int_isUnit_iff_isCoprime (D p) (p^k)).mpr
     simpa only [Nat.cast_pow] using hco.pow_left (m := k)
+
+/-- On the actual top coordinates the simultaneous vanishing lattice for
+the disjoint first-prime pair reads has exact index ∏_t ∏_{p served at t} p.
+The diagonal integral frame attains this value. -/
+theorem nativeDyadic_firstPrime_matching_kernel_det (e : ℕ) (TT : Finset (AlpogeNativeDyadicH e))
+    (P : ↥TT → Finset ℕ) (r : ↥TT → ℕ → ℕ) (s : ↥TT → ℕ → ↥TT)
+    (hp : ∀ t p, p ∈ P t → Nat.Prime p ∧ Nat.Prime (r t p) ∧ p ≠ r t p) :
+    let M := fun t => ∏ p ∈ P t, (p : ℤ)
+    let clears := fun U : Matrix (↥TT) (↥TT) ℤ => ∀ t p, p ∈ P t → ∀ j,
+      (p : ℤ) ∣ (r t p : ℤ)*U t j - (p : ℤ)*U (s t p) j
+    (∀ U, clears U → (∏ t, M t) ∣ U.det) ∧
+    ∃ U, clears U ∧ U.det = ∏ t, M t := by
+  classical
+  let M (t : ↥TT) := ∏ p ∈ P t, (p : ℤ)
+  let clears := fun U : Matrix (↥TT) (↥TT) ℤ => ∀ t p, p ∈ P t → ∀ j,
+    (p : ℤ) ∣ (r t p : ℤ)*U t j - (p : ℤ)*U (s t p) j
+  have rows (U : Matrix (↥TT) (↥TT) ℤ) : clears U ↔ ∀ t j, M t ∣ U t j := by
+    constructor
+    · intro h t j
+      apply Finset.prod_dvd_of_coprime
+      · intro p h1 l h2 hne
+        exact ((Nat.coprime_primes (hp t p h1).1 (hp t l h2).1).2 hne).isCoprime
+      · intro p h1
+        exact (native_firstPrime_divides_read_iff (hp t p h1).1 (hp t p h1).2.1
+          (hp t p h1).2.2 _ _).mp (h t p h1 j)
+    · intro h t p h1 j
+      apply (native_firstPrime_divides_read_iff (hp t p h1).1 (hp t p h1).2.1
+        (hp t p h1).2.2 _ _).mpr
+      exact (Finset.dvd_prod_of_mem (fun i : ℕ => (i : ℤ)) h1).trans (h t j)
+  constructor
+  · intro U h
+    choose V hv using (rows U).mp h
+    have heq : U = Matrix.diagonal M * Matrix.of V := by
+      ext i j
+      rw [Matrix.diagonal_mul]
+      exact hv i j
+    rw [heq, Matrix.det_mul, Matrix.det_diagonal]
+    exact dvd_mul_right _ _
+  · refine ⟨Matrix.diagonal M, (rows _).mpr ?_, Matrix.det_diagonal⟩
+    intro i j
+    by_cases h : i = j
+    · subst j
+      simp
+    · simp [Matrix.diagonal_apply, h]
+
+/-- Every vector of target residues for the actual two-top first-prime
+differences is simultaneously attained at any depth. The other top may
+repeat arbitrarily often. At a served row coprimality follows from the
+two distinct paired primes. -/
+theorem nativeDyadic_firstPrime_depth_surjective (e p k : ℕ) (TT : Finset (AlpogeNativeDyadicH e))
+    (r : ↥TT → ℕ) (s : ↥TT → ↥TT) (hr : ∀ t, (r t).Coprime p) :
+    Function.Surjective (fun u : ↥TT → ZMod (p^k) => fun t =>
+      (r t : ZMod (p^k))*u t - (p : ZMod (p^k))*u (s t)) := by
+  intro y
+  let R := ZMod (p^k)
+  let c : ↥TT → R := fun t => (r t : ZMod (p^k))
+  let z : R := (p : ZMod (p^k))
+  have unit (t) : IsUnit (c t) := (ZMod.isUnit_iff_coprime _ _).mpr ((hr t).pow_right k)
+  have inv (t) : c t * (c t)⁻¹ = 1 := ZMod.mul_inv_of_unit _ (unit t)
+  let F : ℕ → ↥TT → R := Nat.rec (fun _ => 0)
+    (fun _ v t => (c t)⁻¹ * (y t + z*v (s t)))
+  have residual (n : ℕ) : ∀ t, ∃ w : R,
+      c t * F n t - z * F n (s t) - y t = z^n * w := by
+    induction n with
+    | zero => intro t; exact ⟨-y t, by simp [F]⟩
+    | succ n ih =>
+      intro t
+      obtain ⟨w, hw⟩ := ih (s t)
+      refine ⟨(c (s t))⁻¹*w, ?_⟩
+      change c t * ((c t)⁻¹*(y t + z * F n (s t))) -
+        z*((c (s t))⁻¹*(y (s t)+z*F n (s (s t)))) - y t = _
+      rw [← mul_assoc (c t), inv, one_mul]
+      calc
+        _ = z*((c (s t))⁻¹*(c (s t)*F n (s t)-z*F n (s (s t))-y (s t))) := by
+          linear_combination -(z*F n (s t)) * inv (s t)
+        _ = _ := by rw [hw, pow_succ]; ring
+  have hz : z^k = 0 := by change (p : ZMod (p^k))^k = 0; rw [← Nat.cast_pow, ZMod.natCast_self]
+  refine ⟨F k, funext fun t => ?_⟩
+  obtain ⟨w, hw⟩ := residual k t
+  rw [hz, zero_mul] at hw
+  exact sub_eq_zero.mp hw
 
 end AlpogeThin
 end RHLean.Analysis
