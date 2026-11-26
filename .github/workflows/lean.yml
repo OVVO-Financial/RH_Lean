@@ -219,6 +219,26 @@ jobs:
       # alone and single-threaded. The order puts every module after the
       # heavy modules it imports. Same sources and fail-fast wrapper;
       # nothing is skipped, and the full build below covers everything else.
+      # Even alone and single-threaded, FiniteClosedPoints and AppellHumbert
+      # peak near 14.7 GB RSS and Holomorphic near 13.6 GB on this 16 GB
+      # runner. On #1215's first cold run, free memory fell to about 260 MB
+      # with swap almost full; the second run lost its runner in this step.
+      # Add swap so a cold build finishes, slowly if it must page.
+      - name: Add swap for the memory-heavy CM modules
+        if: steps.rhleancache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          free -m
+          swapfile=/mnt/rhlean-swap
+          if [[ ! -d /mnt ]] || (( $(df --output=avail -m /mnt | tail -1) < 24000 )); then
+            swapfile="$RUNNER_TEMP/rhlean-swap"
+          fi
+          sudo fallocate -l 16G "$swapfile"
+          sudo chmod 600 "$swapfile"
+          sudo mkswap "$swapfile"
+          sudo swapon "$swapfile"
+          free -m
+
       - name: Build memory-heavy CM modules one at a time
         if: steps.rhleancache.outputs.cache-hit != 'true'
         env:
