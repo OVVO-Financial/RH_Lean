@@ -180,7 +180,7 @@ theorem inverseIdealPeriod_normalized_maps
     have he : (C.u : ℂ) * ((C₀.u : ℂ) / (C.u : ℂ) *
         quadraticEmbedding G τ x * z) =
         quadraticEmbedding G τ x * ((C₀.u : ℂ) * z) := by
-      field_simp [C.u.ne_zero] <;> ring
+      field_simp [C.u.ne_zero]
     rwa [he]
   · intro a ha z hz
     apply (Weierstrass.tangentCoordinatePeriods_mem
@@ -191,7 +191,7 @@ theorem inverseIdealPeriod_normalized_maps
         quadraticEmbedding G τ (a : quadraticField G) * z) =
         quadraticEmbedding G τ (a : quadraticField G) * ((C.u : ℂ) * z) := by
       rw [inv_div]
-      field_simp [C₀.u.ne_zero] <;> ring
+      field_simp [C₀.u.ne_zero]
     rwa [he]
 
 /-- Instantiate the two normalized inclusions on the actual constructed
@@ -231,6 +231,13 @@ theorem exists_inverseIdealTangentClassModels_preserving_seed
     exists_inverseIdealClassModels_preserving_seed G τ b hb₁ M W₀ hΔ₀ C₀ hC₀
   exact ⟨L, F, hF, hMF, W, C, hL, hL₁, hΔ, hC, hW₁, hC₁,
     fun c => inverseIdealPeriod_normalized_maps G τ (b c) (L c) (hL c) C₀ (C c)⟩
+
+private theorem reverse_multiplier_ne_zero (C₀ C : _root_.WeierstrassCurve.VariableChange ℂ)
+    (a : 𝓞 (quadraticField G)) (ha : a ≠ 0) :
+    ((C₀.u : ℂ) / (C.u : ℂ))⁻¹ * quadraticEmbedding G τ (a : quadraticField G) ≠ 0 := by
+  have haK : (a : quadraticField G) ≠ 0 := by exact_mod_cast ha
+  exact mul_ne_zero (inv_ne_zero (div_ne_zero C₀.u.ne_zero C.u.ne_zero))
+    ((_root_.map_ne_zero (quadraticEmbedding G τ)).2 haK)
 
 
 /-- Apply the existing finite-field rational-isogeny supplier to the
@@ -274,9 +281,7 @@ theorem exists_inverseIdeal_reverse_rational_isogeny
   let α := ((C₀.u : ℂ) / (C.u : ℂ))⁻¹ * quadraticEmbedding G τ (a : quadraticField G)
   have hα : ∀ l ∈ Ls.lattice, α * l ∈ Lt.lattice :=
     (inverseIdealPeriod_normalized_maps G τ b L hL C₀ C).2.2 a ha
-  have haK : (a : quadraticField G) ≠ 0 := by exact_mod_cast ha0
-  have hα0 : α ≠ 0 := mul_ne_zero
-    (inv_ne_zero (div_ne_zero C₀.u.ne_zero C.u.ne_zero)) ((map_ne_zero _).2 haK)
+  have hα0 : α ≠ 0 := reverse_multiplier_ne_zero G τ C₀ C a ha0
   have h₂ (V : _root_.WeierstrassCurve (𝓞 M)) (P : PeriodPair)
       (B : _root_.WeierstrassCurve.VariableChange ℂ)
       (hB : B • V.baseChange ℂ = Weierstrass.latticeCurve P) :
@@ -307,6 +312,15 @@ open AlgebraicGeometry CategoryTheory MonoidalCategory CartesianMonoidalCategory
 open SchemeTheory SchemeTheory.WeierstrassCurve
 attribute [local instance] Over.cartesianMonoidalCategory
 
+private theorem shortModel_map_through {M F K : IntermediateField ℚ ℂ}
+    (W : _root_.WeierstrassCurve M) (hMF : M ≤ F) (hFK : F ≤ K) :
+    (Weierstrass.shortModel (W.map (IntermediateField.inclusion hMF).toRingHom)).map
+        (IntermediateField.inclusion hFK).toRingHom =
+      Weierstrass.shortModel (W.map (IntermediateField.inclusion (hMF.trans hFK)).toRingHom) :=
+  Weierstrass.shortModel_map (W.map (IntermediateField.inclusion hMF).toRingHom)
+    (IntermediateField.inclusion hFK).toRingHom
+
+set_option maxHeartbeats 1600000 in
 /-- The actual reverse ideal-class multiplier and the two original integral
 models supply a generic morphism by the existing rational-map proof. -/
 theorem exists_inverseIdeal_reverse_scheme_isogeny
@@ -341,11 +355,11 @@ theorem exists_inverseIdeal_reverse_scheme_isogeny
   let _ : NumberField F := hF
   let Ws := Weierstrass.shortModel ((W.baseChange M).map (IntermediateField.inclusion hMF).toRingHom)
   let Wt := Weierstrass.shortModel ((W₀.baseChange M).map (IntermediateField.inclusion hMF).toRingHom)
-  haveI : Ws.IsElliptic := by
+  have hWs : Ws.IsElliptic := by
     dsimp [Ws]
     rw [← Weierstrass.shortChange_spec]
     infer_instance
-  haveI : Wt.IsElliptic := by
+  have hWt : Wt.IsElliptic := by
     dsimp [Wt]
     rw [← Weierstrass.shortChange_spec]
     infer_instance
@@ -362,9 +376,7 @@ theorem exists_inverseIdeal_reverse_scheme_isogeny
     change Weierstrass.shortModel (W₀.baseChange ℂ) = _
     exact Weierstrass.shortModel_eq_tangentCoordinate_latticeCurve
       (EllipticSeed.periodPair G τ) C₀ (W₀.baseChange ℂ) hC₀
-  have haK : (a : quadraticField G) ≠ 0 := by exact_mod_cast ha0
-  have hα0 : α ≠ 0 := mul_ne_zero
-    (inv_ne_zero (div_ne_zero C₀.u.ne_zero C.u.ne_zero)) ((map_ne_zero _).2 haK)
+  have hα0 : α ≠ 0 := reverse_multiplier_ne_zero G τ C₀ C a ha0
   obtain ⟨K, hK, hFK, hKs, hKt, f, hf, hpoint⟩ :=
     Weierstrass.exists_scheme_latticeIsogeny F Ws Wt Ls Lt hs ht
       ⟨rfl, rfl, rfl⟩ ⟨rfl, rfl, rfl⟩ α hα0 hα hαF A D hAF hDF hm.ne_zero hformula
@@ -372,14 +384,9 @@ theorem exists_inverseIdeal_reverse_scheme_isogeny
   let i := IntermediateField.inclusion hFK
   let Vs := Ws.map i.toRingHom
   let Vt := Wt.map i.toRingHom
-  refine ⟨K, hK, hMF.trans hFK, Vs, Vt, inferInstance, inferInstance,
-    hKs, hKt, f, ?_, ?_, hf, hpoint⟩
-  · change Ws.map i.toRingHom = _
-    rw [Ws, Weierstrass.shortModel_map, _root_.WeierstrassCurve.map_map]
-    rfl
-  · change Wt.map i.toRingHom = _
-    rw [Wt, Weierstrass.shortModel_map, _root_.WeierstrassCurve.map_map]
-    rfl
+  exact ⟨K, hK, hMF.trans hFK, Vs, Vt, inferInstance, inferInstance, hKs, hKt, f,
+    shortModel_map_through (W.baseChange M) hMF hFK,
+    shortModel_map_through (W₀.baseChange M) hMF hFK, hf, hpoint⟩
 
 end ReverseSchemeIsogeny
 

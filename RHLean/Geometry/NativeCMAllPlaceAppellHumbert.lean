@@ -34,6 +34,7 @@ variable {F : Type} [Field F] (W : _root_.WeierstrassCurve (𝓞 F))
 local instance (v : InfinitePlace F) : (complexEquation W v).IsElliptic :=
   inferInstanceAs (W.map (placeMap v)).IsElliptic
 
+omit [W.IsElliptic] in
 theorem holomorphicComparison (v : InfinitePlace F) :
     coordinateChange W hΔ v • (complexEquation W v).baseChange ℂ =
       Weierstrass.latticeCurve (lattice W hΔ v) := by

@@ -790,8 +790,8 @@
   "native_modules": [
     {
       "path": "RHLean/Geometry/NativeCMAllPlaceAppellHumbert.lean",
-      "sha256": "9b23a82904d9de60ef3e666fff0709a5c35994e818ddb23275ab348f06b9121f",
-      "lines": 92
+      "sha256": "f54801597167d1aa4da842483acfbc4fecb8470a89c6891d5e4332fc73982a71",
+      "lines": 93
     },
     {
       "path": "RHLean/Geometry/NativeCMAllPlaceEigenlineDegree.lean",
@@ -855,8 +855,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
-      "sha256": "ea645093ce6d9d45e83375a82c472341b3b98adb2d1ca2516be702a61598e72a",
-      "lines": 386
+      "sha256": "d64f174a12bcd4a902d59f76b2901f76c98184d134cbd1df368be588b20b9de3",
+      "lines": 393
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
