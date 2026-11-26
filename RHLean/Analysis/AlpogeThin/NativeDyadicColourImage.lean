@@ -232,9 +232,12 @@ theorem nativeDyadicRestrictedColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Pr
     let H := alpogeNativeHostData e q d
     nativeDyadicRestrictedColourSum e q d p i U v =
       fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
-        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)) :=
-  restrictedIncidence_eq_fibreSum (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p) i U v
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)) := by
+  let D := alpogeNativeHostData e q d
+  let I : AddSubgroup (AlpogeNativeE0 × AlpogeNativeDyadicH e) := D.inertia p
+  let f : AlpogeNativeE0 × AlpogeNativeDyadicH e := D.frob p
+  have h := restrictedIncidence_eq_fibreSum (O := O) I f i U v
+  simpa only [nativeDyadicRestrictedColourSum, nativeDyadicPrimePowerIncidence, I, f, D] using h
 
 set_option maxHeartbeats 1000000 in
 /-- Exact simultaneous integral image on one actual prime's masked colour
@@ -273,10 +276,14 @@ theorem nativeDyadicPartnerColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime
     let H := alpogeNativeHostData e q d
     nativeDyadicPartnerColourSum e q d p i t U v =
       fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
-        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p))) :=
-  translatedIncidence_eq_fibreSum (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p)
-    i (alpogeNativeCconj (AlpogeNativeDyadicH e)) (alpogeNativeTopPl t) U v
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p))) := by
+  let D := alpogeNativeHostData e q d
+  let I : AddSubgroup (AlpogeNativeE0 × AlpogeNativeDyadicH e) := D.inertia p
+  let f : AlpogeNativeE0 × AlpogeNativeDyadicH e := D.frob p
+  have h := translatedIncidence_eq_fibreSum (O := O) I f i
+    (alpogeNativeCconj (AlpogeNativeDyadicH e)) (alpogeNativeTopPl t) U v
+  simpa only [nativeDyadicPartnerColourSum, nativeDyadicPrimePowerIncidence, alpogeNativePartner,
+    I, f, D] using h
 
 set_option maxHeartbeats 1000000 in
 /-- On one prime the original partner coordinate groups all top/exponent
