@@ -157,28 +157,17 @@ private theorem map_graph_section {C D : Type*} [Category C] [Category D] (Φ : 
   have h : Φ.map q = Φ.map p ≫ f := hq.trans (congrArg (fun g => g ≫ f) hp.symm)
   rw [Functor.map_comp, Functor.map_inv, h, IsIso.inv_hom_id_assoc]
 
-/-- The existing actual graph construction, geometric-kernel theorem
-and Mathlib's proper quasi-finite theorem supply the original elliptic
-homomorphism extension, with its exact generic map. -/
-theorem existsUnique_elliptic_hom_extension_dvr
+private theorem elliptic_graph_projection_isIso
     (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
     [Field K] [Algebra R K] [IsFractionRing R K]
-    (W V : _root_.WeierstrassCurve R) [W.IsElliptic] [V.IsElliptic]
-    (f : (Over.pullback (spMap (algebraMap R K))).obj (schemeOver W) ⟶
-      (Over.pullback (spMap (algebraMap R K))).obj (schemeOver V)) [IsMonHom f] :
-    ∃! F : schemeOver W ⟶ schemeOver V,
-      IsMonHom F ∧ (Over.pullback (spMap (algebraMap R K))).map F = f := by
-  let G := schemeOver W
+    (G Ga : Over (Sp R)) [GrpObj G] [GrpObj Ga] [IsCommMonObj G] [IsCommMonObj Ga]
+    [IsProper G.hom] [Smooth G.hom] [Flat Ga.hom]
+    (V : _root_.WeierstrassCurve R) [V.IsElliptic]
+    (io : Ga ⟶ G ⊗ schemeOver V) [IsClosedImmersion io.left] [IsMonHom io]
+    [IsIso ((Over.pullback (spMap (algebraMap R K))).map (io ≫ fst G (schemeOver V)))] :
+    IsIso (io ≫ fst G (schemeOver V)) := by
   let H := schemeOver V
-  let t := spMap (algebraMap R K)
-  let Φ := Over.pullback t
-  have hGp : IsProper G.hom := inferInstanceAs (IsProper (toSpec W))
   have hHp : IsProper H.hom := inferInstanceAs (IsProper (toSpec V))
-  have hGs : Smooth G.hom := inferInstanceAs (Smooth (toSpec W))
-  have hHs : Smooth H.hom := inferInstanceAs (Smooth (toSpec V))
-  obtain ⟨Ga, grp, io, e, hcomm, hclosed, hflat, hmon, _, hp, hsecond⟩ :=
-    exists_commutative_flat_graph R K G H f
-  let _ : GrpObj Ga := grp
   have hproj : IsProper (fst G H).left :=
     inferInstanceAs (IsProper (pullback.fst G.hom H.hom))
   have hprod : IsProper (G ⊗ H).hom :=
@@ -189,22 +178,62 @@ theorem existsUnique_elliptic_hom_extension_dvr
     dsimp only [p]
     rw [Over.comp_left]
     infer_instance
-  have hpK : IsIso (Φ.map p) := by
-    change IsIso (Φ.map (io ≫ fst G H))
-    rw [hp]
-    infer_instance
   have hqf : LocallyQuasiFinite p.left :=
     elliptic_graph_projection_locallyQuasiFinite R K G Ga V io
   have hfin : IsFinite p.left := IsFinite.of_isProper_of_locallyQuasiFinite p.left
-  have hpiso : IsIso p := finiteProjection_isIso R K Ga G p
-  let F : G ⟶ H := inv p ≫ (io ≫ snd G H)
-  have hF : Φ.map F = f := map_graph_section Φ p (io ≫ snd G H) f e hp hsecond
-  have hFmon : IsMonHom F := by
-    have ht : IsSchemeTheoreticallyDominant t := schemeTheoreticallyDominant_fractionField R K
-    have hFK : IsMonHom (Φ.map F) := by rw [hF]; infer_instance
-    exact isMonHom_of_pullback_of_flat t F
-  exact ⟨F, ⟨hFmon, hF⟩, fun F' hF' =>
-    fractionField_map_injective R K (hF'.2.trans hF.symm)⟩
+  exact finiteProjection_isIso R K Ga G p
+
+private theorem unique_extension_from_graph
+    (R K : Type) [CommRing R] [IsDomain R] [Field K] [Algebra R K] [IsFractionRing R K]
+    (G H Ga : Over (Sp R)) [MonObj G] [MonObj H] [Flat G.hom] [IsSeparated H.hom]
+    (p : Ga ⟶ G) [IsIso p] (q : Ga ⟶ H)
+    (f : (Over.pullback (spMap (algebraMap R K))).obj G ⟶
+      (Over.pullback (spMap (algebraMap R K))).obj H) [IsMonHom f]
+    (e : (Over.pullback (spMap (algebraMap R K))).obj Ga ≅
+      (Over.pullback (spMap (algebraMap R K))).obj G)
+    (hp : (Over.pullback (spMap (algebraMap R K))).map p = e.hom)
+    (hq : (Over.pullback (spMap (algebraMap R K))).map q = e.hom ≫ f) :
+    ∃! F : G ⟶ H, IsMonHom F ∧ (Over.pullback (spMap (algebraMap R K))).map F = f := by
+  let t := spMap (algebraMap R K)
+  let F := inv p ≫ q
+  have hF : (Over.pullback t).map F = f := map_graph_section (Over.pullback t) p q f e hp hq
+  have ht : IsSchemeTheoreticallyDominant t := schemeTheoreticallyDominant_fractionField R K
+  have hFK : IsMonHom ((Over.pullback t).map F) := hF.symm ▸ (inferInstance : IsMonHom f)
+  exact ⟨F, ⟨isMonHom_of_pullback_of_flat t F, hF⟩, fun F' hF' =>
+    fractionField_map_injective R K (Y := G) (X := H) (hF'.2.trans hF.symm)⟩
+
+private theorem existsUnique_hom_to_elliptic_extension_dvr
+    (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    (G : Over (Sp R)) [GrpObj G] [IsCommMonObj G] [IsProper G.hom] [Smooth G.hom]
+    (V : _root_.WeierstrassCurve R) [V.IsElliptic]
+    (f : (Over.pullback (spMap (algebraMap R K))).obj G ⟶
+      (Over.pullback (spMap (algebraMap R K))).obj (schemeOver V)) [IsMonHom f] :
+    ∃! F : G ⟶ schemeOver V,
+      IsMonHom F ∧ (Over.pullback (spMap (algebraMap R K))).map F = f := by
+  let H := schemeOver V
+  have hHp : IsProper H.hom := inferInstanceAs (IsProper (toSpec V))
+  obtain ⟨Ga, grp, io, e, hcomm, hclosed, hflat, hmon, _, hp, hq⟩ :=
+    exists_commutative_flat_graph R K G H f
+  let _ : GrpObj Ga := grp
+  have hpK : IsIso ((Over.pullback (spMap (algebraMap R K))).map (io ≫ fst G H)) :=
+    hp.symm ▸ e.isIso_hom
+  have hpiso : IsIso (io ≫ fst G H) := elliptic_graph_projection_isIso R K G Ga V io
+  exact unique_extension_from_graph R K G H Ga (io ≫ fst G H) (io ≫ snd G H) f e hp hq
+
+/-- The finite graph projection over the DVR gives the unique extension of the
+generic homomorphism between the two original elliptic equations. -/
+theorem existsUnique_elliptic_hom_extension_dvr
+    (R K : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    (W V : _root_.WeierstrassCurve R) [W.IsElliptic] [V.IsElliptic]
+    (f : (Over.pullback (spMap (algebraMap R K))).obj (schemeOver W) ⟶
+      (Over.pullback (spMap (algebraMap R K))).obj (schemeOver V)) [IsMonHom f] :
+    ∃! F : schemeOver W ⟶ schemeOver V,
+      IsMonHom F ∧ (Over.pullback (spMap (algebraMap R K))).map F = f := by
+  have hproper : IsProper (schemeOver W).hom := inferInstanceAs (IsProper (toSpec W))
+  have hsmooth : Smooth (schemeOver W).hom := inferInstanceAs (Smooth (toSpec W))
+  exact existsUnique_hom_to_elliptic_extension_dvr R K (schemeOver W) V f
 
 /-- The integral tangent coordinate of the extension is supplied by
 the actual dual-number vector of the target equation. This is the

@@ -34,83 +34,53 @@ namespace RHLean.Geometry.NativeCM.SchemeTheory
 
 open SectionPoints SchemeTheory.WeierstrassCurve WeierstrassLie
 
-/-- The domain condition for a complex point in an algebraic chart. -/
-def ellipticPointInOpen {W : _root_.WeierstrassCurve ℂ} (p : 𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W)
-    (U : (scheme W).Opens) : Prop :=
-  (⊤ : (Sp ℂ).Opens) ≤ p.left ⁻¹ᵁ U
+/-- A scalar uniformization on a fixed group scheme and fixed line-bundle atlas,
+with its exponential, period kernel, holomorphic sections and transition law. -/
+structure HolomorphicBundleAtlas (A : Over (Sp ℂ)) [GrpObj A] (B : LB A.left)
+    (L : PeriodPair) where
+  ex : ℂ → (𝟙_ (Over (Sp ℂ)) ⟶ A)
+  ex_add : ∀ z w : ℂ, ex (z + w) = ex z * ex w
+  ex_onto : Function.Surjective ex
+  ker : ∀ z : ℂ, ex z = 1 ↔ z ∈ L.lattice
+  hol : ∀ (U : A.left.Opens) (s : Γ(A.left, U)), IsOpen {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U} ∧
+    DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U}
+  fr : B.ι → ℂ → ℂ
+  fr_hol : ∀ i, DifferentiableOn ℂ (fr i) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ B.U i}
+  fr_ne : ∀ i z, ⊤ ≤ (ex z).left ⁻¹ᵁ B.U i → fr i z ≠ 0
+  fr_compat : ∀ i j z (h : ⊤ ≤ (ex z).left ⁻¹ᵁ (B.U i ⊓ B.U j)),
+    fr i z = evalPt (ex z).left (B.U i ⊓ B.U j) h (B.g i j : Γ(A.left, B.U i ⊓ B.U j)) * fr j z
 
-namespace EllipticAtlas
+/-- The native elliptic atlas specializes the group scheme and the bundle to
+the Weierstrass equation and its algebraic origin bundle. -/
+abbrev EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) :=
+  HolomorphicBundleAtlas (schemeOver W) (originLB W) L
 
-variable (W : _root_.WeierstrassCurve ℂ)
+namespace HolomorphicBundleAtlas
 
-abbrev Points := 𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W
-abbrev Frame := (originLB W).ι → ℂ → ℂ
-
-def RespectsAddition [W.IsElliptic] (ex : ℂ → Points W) : Prop :=
-  ∀ z w : ℂ, ex (z + w) = ex z * ex w
-
-def HasPeriodKernel [W.IsElliptic] (L : PeriodPair) (ex : ℂ → Points W) : Prop :=
-  ∀ z : ℂ, ex z = 1 ↔ z ∈ L.lattice
-
-def HolomorphicSections (ex : ℂ → Points W) : Prop :=
-  ∀ (U : (scheme W).Opens) (s : Γ(scheme W, U)),
-    IsOpen {z | ellipticPointInOpen (W := W) (ex z) U} ∧
-      DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ellipticPointInOpen (W := W) (ex z) U}
-
-def HolomorphicFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
-  ∀ i, DifferentiableOn ℂ (fr i) {z | ellipticPointInOpen (W := W) (ex z) ((originLB W).U i)}
-
-def NonvanishingFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
-  ∀ i z, ellipticPointInOpen (W := W) (ex z) ((originLB W).U i) → fr i z ≠ 0
-
-def CompatibleFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
-  ∀ (i j : (originLB W).ι) (z : ℂ)
-    (h : ellipticPointInOpen (W := W) (ex z) ((originLB W).U i ⊓ (originLB W).U j)),
-    fr i z = evalPt (ex z).left ((originLB W).U i ⊓ (originLB W).U j) h
-      ((originLB W).g i j : Γ(scheme W, (originLB W).U i ⊓ (originLB W).U j)) * fr j z
-
-end EllipticAtlas
-
-/-- The complete one-dimensional holomorphic atlas on an actual elliptic
-scheme and its actual origin line bundle, with the specified period lattice. -/
-def EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) :=
-  { p : (ℂ → EllipticAtlas.Points W) × EllipticAtlas.Frame W //
-    EllipticAtlas.RespectsAddition W p.1 ∧ Function.Surjective p.1 ∧
-    EllipticAtlas.HasPeriodKernel W L p.1 ∧ EllipticAtlas.HolomorphicSections W p.1 ∧
-    EllipticAtlas.HolomorphicFrame W p.1 p.2 ∧ EllipticAtlas.NonvanishingFrame W p.1 p.2 ∧
-    EllipticAtlas.CompatibleFrame W p.1 p.2 }
-
-namespace EllipticHolUnif
-
-variable {W : _root_.WeierstrassCurve ℂ} [W.IsElliptic] {L : PeriodPair}
-  (u : EllipticHolUnif W L)
-
-def ex : ℂ → EllipticAtlas.Points W := u.1.1
-def fr : EllipticAtlas.Frame W := u.1.2
-
-theorem ex_add : EllipticAtlas.RespectsAddition W u.ex := u.2.1
-theorem ex_onto : Function.Surjective u.ex := u.2.2.1
-theorem ker : EllipticAtlas.HasPeriodKernel W L u.ex := u.2.2.2.1
-theorem hol : EllipticAtlas.HolomorphicSections W u.ex := u.2.2.2.2.1
-theorem fr_hol : EllipticAtlas.HolomorphicFrame W u.ex u.fr := u.2.2.2.2.2.1
-theorem fr_ne : EllipticAtlas.NonvanishingFrame W u.ex u.fr := u.2.2.2.2.2.2.1
-theorem fr_compat : EllipticAtlas.CompatibleFrame W u.ex u.fr := u.2.2.2.2.2.2.2
+variable {A : Over (Sp ℂ)} [GrpObj A] {B : LB A.left} {L : PeriodPair}
+  (u : HolomorphicBundleAtlas A B L)
 
 /-- The actual scalar Hermitian form and character govern these same frames. -/
 def IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
   (∀ z w, conj (H z w) = H w z) ∧
   (∀ z : ℂ, z ≠ 0 → 0 < (H z z).re) ∧
   (∀ w ∈ L.lattice, ‖χ w‖ = 1) ∧
-  ∀ (w : ℂ), w ∈ L.lattice → ∀ i z,
-    ⊤ ≤ (u.ex z).left ⁻¹ᵁ (originLB W).U i →
-      u.fr i z = (χ w * exp (π * H z w + π / 2 * H w w)) * u.fr i (z + w)
+  ∀ (w : ℂ), w ∈ L.lattice → ∀ i z, ⊤ ≤ (u.ex z).left ⁻¹ᵁ B.U i →
+    u.fr i z = (χ w * exp (π * H z w + π / 2 * H w w)) * u.fr i (z + w)
 
-/-- The one-dimensional differential equality is required on every actual
-regular section, including its genuine domain around the epsilon point. -/
-def HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ schemeOver W) : Prop :=
-  IsTangent v ∧ ∀ (U : (scheme W).Opens) (h : ⊤ ≤ v.left ⁻¹ᵁ U) (s : Γ(scheme W, U)),
+/-- The one-dimensional differential equality on every actual regular
+section, including its domain around the epsilon point. -/
+def HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ A) : Prop :=
+  IsTangent v ∧ ∀ (U : A.left.Opens) (h : ⊤ ≤ v.left ⁻¹ᵁ U) (s : Γ(A.left, U)),
     ∃ d : ℂ, HasDerivAt (fun z : ℂ => value (u.ex z).left U s) d (0 : ℂ) ∧
       (evalPt v.left U h s).snd = d * w
+
+end HolomorphicBundleAtlas
+
+namespace EllipticHolUnif
+
+export HolomorphicBundleAtlas (ex ex_add ex_onto ker hol fr fr_hol fr_ne fr_compat IsAH
+  HasTangentDirection)
 
 end EllipticHolUnif
 
@@ -128,11 +98,16 @@ variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic]
 
 /-- Every field of the holomorphic uniformization is supplied by the
 actual equation, actual regular sections and the actual sigma frames. -/
-def canonicalHolUnif : EllipticHolUnif W L :=
-  ⟨⟨expOver L W C hC, atlasFrame W L C⟩, expOver_add L W C hC,
-    expOver_surjective L W C hC, expOver_kernel L W C hC,
-    holomorphic_regular_sections L W C hC, atlasFrame_differentiableOn W L C hC,
-    fun i z => atlasFrame_ne_zero W L C hC i (z := z), atlasFrame_compat W L C hC⟩
+def canonicalHolUnif : EllipticHolUnif W L where
+  ex := expOver L W C hC
+  ex_add := expOver_add L W C hC
+  ex_onto := expOver_surjective L W C hC
+  ker := expOver_kernel L W C hC
+  hol := holomorphic_regular_sections L W C hC
+  fr := atlasFrame W L C
+  fr_hol := atlasFrame_differentiableOn W L C hC
+  fr_ne i z := atlasFrame_ne_zero W L C hC i (z := z)
+  fr_compat := atlasFrame_compat W L C hC
 
 /-- The original canonical-sigma law is the Appell--Humbert law of the
 actual algebraic origin bundle under this constructed uniformization. -/

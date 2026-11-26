@@ -253,20 +253,24 @@ class ResearchCacheTests(unittest.TestCase):
         self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
         self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
 
-    def test_isolated_cm_jobs_pass_all_three_compiled_modules_to_the_full_check(self):
+    def test_isolated_cm_jobs_pass_all_compiled_modules_to_the_full_check(self):
         self.fake.stop()  # Run the archive shell steps with the stand-in below.
         workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
         matrix, check = workflow.split('  cm-modules:\n', 1)[1].split('  check:\n', 1)
         names = [line.strip()[2:] for line in matrix.splitlines()
                  if line.strip().startswith('- NativeCMWeierstrass')]
-        self.assertEqual(len(set(names)), 3)
+        self.assertCountEqual(names, [
+            'NativeCMWeierstrassFiniteClosedPoints', 'NativeCMWeierstrassTranslationGroup',
+            'NativeCMWeierstrassHolomorphic', 'NativeCMWeierstrassAppellHumbert',
+            'NativeCMWeierstrassIntegralExtension',
+        ])
         self.assertIn("LEAN_NUM_THREADS: '1'", matrix)
         self.assertIn('fail-fast: false', matrix)
         self.assertNotIn('continue-on-error:', matrix)
         self.assertIn('needs: cm-modules', check)
 
         build = matrix.split("        run: |\n", 1)[1].split("      - name:", 1)[0]
-        install = check.split("      - name: Install the three CM prerequisites", 1)[1]
+        install = check.split("      - name: Install the CM prerequisites", 1)[1]
         install = install.split("        run: |\n", 1)[1].split("      #", 1)[0]
         scripts = self.root / 'scripts'
         scripts.mkdir()

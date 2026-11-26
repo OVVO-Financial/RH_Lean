@@ -29,6 +29,8 @@ jobs:
           - NativeCMWeierstrassFiniteClosedPoints
           - NativeCMWeierstrassTranslationGroup
           - NativeCMWeierstrassHolomorphic
+          - NativeCMWeierstrassAppellHumbert
+          - NativeCMWeierstrassIntegralExtension
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -139,18 +141,25 @@ jobs:
             rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}-cm-
             rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-      - name: Fetch the three independently compiled CM modules for this run
+      - name: Fetch the independently compiled CM modules for this run
         if: needs.cm-modules.result == 'success'
         uses: actions/download-artifact@v4
         with:
           pattern: cm-prerequisite-*
           path: ${{ runner.temp }}/rhlean-cm-prerequisites
           merge-multiple: true
-      - name: Install the three CM prerequisites before Lake validates the complete closure
+      - name: Install the CM prerequisites before Lake validates the complete closure
         if: needs.cm-modules.result == 'success'
         run: |
           set -euo pipefail
-          for module in NativeCMWeierstrassFiniteClosedPoints NativeCMWeierstrassTranslationGroup NativeCMWeierstrassHolomorphic; do
+          modules=(
+            NativeCMWeierstrassFiniteClosedPoints
+            NativeCMWeierstrassTranslationGroup
+            NativeCMWeierstrassHolomorphic
+            NativeCMWeierstrassAppellHumbert
+            NativeCMWeierstrassIntegralExtension
+          )
+          for module in "${modules[@]}"; do
             tar -xzf "$RUNNER_TEMP/rhlean-cm-prerequisites/$module.tgz"
           done
       # The exact-head 03fa33a attempts built CMOrderAction and then lost
