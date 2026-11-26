@@ -165,6 +165,7 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
             "external_proof_refs": rec.get("externalValueRefs", 0),
         }
         decl, (signature, sig_constants) = meta[node_id]
+        entry["source_kind"] = decl.kind
         entry["path"] = decl.path
         entry["line"] = decl.line
         entry["namespace"] = decl.namespace
@@ -420,7 +421,9 @@ def print_summary(graph: dict[str, object]) -> None:
     print("===================================")
     print(f"Source:                              {graph['provenance']['source']}")
     print(f"Declarations:                        {stats['declarations']:,}")
-    print(f"Named proofs (theorem + lemma):      {stats['named_proofs']:,}")
+    proof_label = ("Kernel theorem constants:" if graph["provenance"]["source"] == "elaborated"
+                   else "Named proofs (theorem + lemma):")
+    print(f"{proof_label:37}{stats['named_proofs']:,}")
     print(f"Statement edges:                     {stats['statement_edges']:,}")
     print(f"Proof edges:                         {stats['proof_edges']:,}")
     print(f"Distinct declaration edges:          {stats['distinct_edges']:,}")

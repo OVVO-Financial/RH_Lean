@@ -18,14 +18,86 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: research-iteration-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 jobs:
-  check:
+  cm-modules:
+    name: CM prerequisite / ${{ matrix.module }}
+    if: contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - NativeCMWeierstrassFiniteClosedPoints
+          - NativeCMWeierstrassTranslationGroup
+          - NativeCMWeierstrassHolomorphic
+          - NativeCMWeierstrassAppellHumbert
+          - NativeCMWeierstrassIntegralExtension
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/research-prerequisites
+      - name: Restore this module's compiled files
+        id: leaf
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build/lib/lean/RHLean/Geometry/${{ matrix.module }}.*
+            .lake/build/ir/RHLean/Geometry/${{ matrix.module }}.*
+          key: rhlean-cm-leaf-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ matrix.module }}-${{ hashFiles(format('RHLean/Geometry/{0}.lean', matrix.module)) }}-${{ hashFiles('RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-cm-leaf-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ matrix.module }}-${{ hashFiles(format('RHLean/Geometry/{0}.lean', matrix.module)) }}-
+      - name: Compile the single CM prerequisite with warnings fatal
+        id: compile
+        env:
+          CM_MODULE: ${{ matrix.module }}
+          LEAN_NUM_THREADS: '1'
+          RHLEAN_BUILD_PROGRESS_SECONDS: '30'
+        run: |
+          set -euo pipefail
+          python3 scripts/lake_build_fail_fast.py "RHLean.Geometry.$CM_MODULE" 2>&1 | tee "$RUNNER_TEMP/rhlean-research-compile.log"
+          test -s ".lake/build/lib/lean/RHLean/Geometry/$CM_MODULE.olean"
+          shopt -s nullglob
+          outputs=(.lake/build/lib/lean/RHLean/Geometry/"$CM_MODULE".* .lake/build/ir/RHLean/Geometry/"$CM_MODULE".*)
+          tar -czf "$RUNNER_TEMP/$CM_MODULE.tgz" -- "${outputs[@]}"
+      - name: Preserve the failed module's complete diagnostics
+        if: failure() && steps.compile.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-compile-failure-cm-${{ matrix.module }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rhlean-research-compile.log
+          if-no-files-found: error
+          retention-days: 7
+      - name: Pass the compiled prerequisite to the full check
+        uses: actions/upload-artifact@v4
+        with:
+          name: cm-prerequisite-${{ matrix.module }}
+          path: ${{ runner.temp }}/${{ matrix.module }}.tgz
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 3
+      - name: Checkpoint this module for later proof repairs
+        if: success() && steps.leaf.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/build/lib/lean/RHLean/Geometry/${{ matrix.module }}.*
+            .lake/build/ir/RHLean/Geometry/${{ matrix.module }}.*
+          key: ${{ steps.leaf.outputs.cache-primary-key }}
+
+  check:
+    needs: cm-modules
+    if: ${{ !cancelled() && (needs.cm-modules.result == 'success' || needs.cm-modules.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    # Serialize mandatory compilation with lean.yml's full build through
+    # the partial-cache checkpoint. Diagnostics run outside this lock.
+    concurrency:
+      group: rhlean-native-compile-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: false
+    outputs:
+      compile-outcome: ${{ steps.compile.outcome }}
+      preflight-key: ${{ steps.preflightcache.outputs.cache-primary-key }}
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       # PR target selection happens in the cheap parent audit. This workflow
@@ -66,13 +138,100 @@ jobs:
           key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}-cm-
             rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Fetch the independently compiled CM modules for this run
+        if: needs.cm-modules.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: cm-prerequisite-*
+          path: ${{ runner.temp }}/rhlean-cm-prerequisites
+          merge-multiple: true
+      - name: Install the CM prerequisites before Lake validates the complete closure
+        if: needs.cm-modules.result == 'success'
+        run: |
+          set -euo pipefail
+          modules=(
+            NativeCMWeierstrassFiniteClosedPoints
+            NativeCMWeierstrassTranslationGroup
+            NativeCMWeierstrassHolomorphic
+            NativeCMWeierstrassAppellHumbert
+            NativeCMWeierstrassIntegralExtension
+          )
+          for module in "${modules[@]}"; do
+            tar -xzf "$RUNNER_TEMP/rhlean-cm-prerequisites/$module.tgz"
+          done
+      # The exact-head 03fa33a attempts built CMOrderAction and then lost
+      # the live runner before the combined closure returned. Checkpoint
+      # the actual compiled stages before entering the next dependency.
+      # These source-addressed archives remain PARTIAL native caches.
+      - name: Isolate CM quadratic-order action
+        id: cmorder
+        if: contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: '30'
+        run: python3 scripts/lake_build_fail_fast.py RHLean.Geometry.NativeCMWeierstrassCMOrderAction
+      - name: Checkpoint compiled CM order action
+        if: >-
+          steps.cmorder.outcome == 'success' &&
+          steps.preflightcache.outputs.cache-hit != 'true' &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-order', steps.preflightcache.outputs.cache-primary-key) &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-tangent', steps.preflightcache.outputs.cache-primary-key)
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}-cm-order
+      - name: Isolate CM order tangent law
+        id: cmtangent
+        if: steps.cmorder.outcome == 'success'
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: '30'
+        run: python3 scripts/lake_build_fail_fast.py RHLean.Geometry.NativeCMWeierstrassCMOrderTangent
+      - name: Checkpoint compiled CM tangent law
+        if: >-
+          steps.cmtangent.outcome == 'success' &&
+          steps.preflightcache.outputs.cache-hit != 'true' &&
+          steps.preflightcache.outputs.cache-matched-key != format('{0}-cm-tangent', steps.preflightcache.outputs.cache-primary-key)
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}-cm-tangent
       - name: Compile selected research closure with warnings fatal
         id: compile
         uses: ./.github/actions/research-compile
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: ${{ contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean') && '30' || '0' }}
         with:
           targets: ${{ steps.targets.outputs.targets }}
+          native-cache-ready: ${{ steps.cmtangent.outcome == 'success' && 'true' || 'false' }}
+      # A runner shutdown during the optional diagnostic build must not
+      # discard the native artifacts already completed by the mandatory step.
+      # This is the same partial-artifact cache, not a proof certificate.
+      - name: Save failed preflight prerequisites before diagnostics
+        id: failedpreflightsave
+        if: >-
+          failure() && !cancelled() &&
+          steps.preflightcache.outcome == 'success' &&
+          steps.compile.outcome == 'failure' &&
+          steps.preflightcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}
+      # Preserve completed native prerequisites for both the next stage and
+      # a repair iteration. The key is distinct from a complete root build.
+      - name: Save completed native prerequisites
+        if: >-
+          !cancelled() && steps.preflightcache.outcome == 'success' &&
+          steps.compile.outcome != 'skipped' &&
+          steps.failedpreflightsave.outcome != 'success' &&
+          steps.preflightcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}
+
       # A second compiler pass must reuse exactly this PR's selected targets.
       - name: Verify selected closure reuses compiled artifacts
         if: github.event_name == 'pull_request'
@@ -85,14 +244,97 @@ jobs:
           python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
           grep -q 'compiled=0 cached=' research-cache-smoke.log
 
-      # Preserve completed native prerequisites for both the next stage and
-      # a repair iteration. The key is distinct from a complete root build.
-      - name: Save completed native prerequisites
-        if: >-
-          !cancelled() && steps.preflightcache.outcome == 'success' &&
-          steps.compile.outcome != 'skipped' &&
-          steps.preflightcache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
+  native-ledger:
+    name: Native discrepancy and principal-source audits
+    if: >-
+      contains(inputs.targets, 'research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean') &&
+      contains(inputs.targets, 'research/ALPOGE_PRINCIPAL_EATH_STRICT_AUDIT_20261124.lean')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: rhlean-discrepancy-audits-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/research-prerequisites
+      - name: Verify the signed ledger and its terminal axioms
+        uses: ./.github/actions/research-compile
+        with:
+          native-cache-ready: 'true'
+          targets: research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean
+      - name: Verify the principal physical inputs and their strict dependency guard
+        uses: ./.github/actions/research-compile
+        with:
+          native-cache-ready: 'true'
+          targets: research/ALPOGE_PRINCIPAL_EATH_STRICT_AUDIT_20261124.lean
+
+  diagnostics:
+    name: Independent CM supplier diagnostics
+    needs: check
+    if: >-
+      failure() && !cancelled() && needs.check.outputs.compile-outcome == 'failure' &&
+      contains(inputs.targets, 'research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: rhlean-supplier-diagnostics-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Restore the failed revision's native checkpoint
+        uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: ${{ steps.preflightcache.outputs.cache-primary-key }}
+          key: ${{ needs.check.outputs.preflight-key }}
+          restore-keys: |
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Recreate the research target plan for this revision
+        env:
+          RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
+        run: python3 scripts/compile_research_import_closure.py --plan /tmp/rhlean-research-plan.json
+      - name: Collect independent CM supplier diagnostics after failure
+        timeout-minutes: 16
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import signal
+          import subprocess
+          from pathlib import Path
+
+          plan = json.loads(Path('/tmp/rhlean-research-plan.json').read_text())
+          targets = plan['library']
+          # The actual final-proof closure already plans 34 library targets.
+          # Allow a bounded, validated diagnostic plan; keep the 900s limit
+          # and the original mandatory warning-fatal preflight failure.
+          if (not isinstance(targets, list) or not targets or len(targets) > 64
+                  or any(not isinstance(t, str) or not t.startswith('RHLean.')
+                         or not all(part.isidentifier() for part in t.split('.'))
+                         for t in targets)
+                  or len(set(targets)) != len(targets)):
+              raise SystemExit('Unexpected CM diagnostic target set (expected 1..64 unique RHLean modules)')
+          print(f'DIAGNOSTIC ONLY; REQUIRED PREFLIGHT REMAINS FAILED; {len(targets)} targets', flush=True)
+          process = subprocess.Popen(['lake', 'build', *targets], start_new_session=True)
+          try:
+              process.wait(timeout=900)
+          except subprocess.TimeoutExpired:
+              os.killpg(process.pid, signal.SIGTERM)
+              try:
+                  process.wait(timeout=5)
+              except subprocess.TimeoutExpired:
+                  os.killpg(process.pid, signal.SIGKILL)
+                  process.wait()
+              print('CM diagnostic time limit reached', flush=True)
+          raise SystemExit(1)
+          PY

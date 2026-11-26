@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+import textwrap
 import unittest
 from unittest.mock import patch
 
@@ -229,6 +230,110 @@ class ResearchCacheTests(unittest.TestCase):
         for source in ['research/C.lean', 'docs/example.md', 'export_other/Lean.lean']:
             with self.subTest(source=source):
                 self.assertFalse(cc.affected(plan, [source]))
+
+    def test_cm_stages_checkpoint_before_full_required_closure(self):
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        markers = [
+            'name: Isolate CM quadratic-order action',
+            'name: Checkpoint compiled CM order action',
+            'name: Isolate CM order tangent law',
+            'name: Checkpoint compiled CM tangent law',
+            'name: Compile selected research closure with warnings fatal',
+            'name: Verify selected closure reuses compiled artifacts',
+        ]
+        positions = [workflow.index(marker) for marker in markers]
+        self.assertEqual(positions, sorted(positions))
+        stage = workflow[positions[0]:positions[4]]
+        self.assertIn('research/ALPOGE_CM_SEED_SERRE_MASS_AUDIT_20261123.lean', stage)
+        self.assertIn('if: steps.cmorder.outcome == \'success\'', stage)
+        self.assertIn('steps.cmtangent.outcome == \'success\'', stage)
+        self.assertIn('cache-primary-key }}-cm-order', stage)
+        self.assertIn('cache-primary-key }}-cm-tangent', stage)
+        self.assertNotIn('continue-on-error:', stage)
+        self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
+        self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
+
+    def test_isolated_cm_jobs_pass_all_compiled_modules_to_the_full_check(self):
+        self.fake.stop()  # Run the archive shell steps with the stand-in below.
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        matrix, check = workflow.split('  cm-modules:\n', 1)[1].split('  check:\n', 1)
+        names = [line.strip()[2:] for line in matrix.splitlines()
+                 if line.strip().startswith('- NativeCMWeierstrass')]
+        self.assertCountEqual(names, [
+            'NativeCMWeierstrassFiniteClosedPoints', 'NativeCMWeierstrassTranslationGroup',
+            'NativeCMWeierstrassHolomorphic', 'NativeCMWeierstrassAppellHumbert',
+            'NativeCMWeierstrassIntegralExtension',
+        ])
+        self.assertIn("LEAN_NUM_THREADS: '1'", matrix)
+        self.assertIn('fail-fast: false', matrix)
+        self.assertNotIn('continue-on-error:', matrix)
+        self.assertIn('needs: cm-modules', check)
+
+        build = matrix.split("        run: |\n", 1)[1].split("      - name:", 1)[0]
+        install = check.split("      - name: Install the CM prerequisites", 1)[1]
+        install = install.split("        run: |\n", 1)[1].split("      #", 1)[0]
+        scripts = self.root / 'scripts'
+        scripts.mkdir()
+        (scripts / 'lake_build_fail_fast.py').write_text(
+            "import os, sys\nassert sys.argv[1:] == ['RHLean.Geometry.' + os.environ['CM_MODULE']]\n")
+        archive_dir = self.root / 'tmp/rhlean-cm-prerequisites'
+        archive_dir.mkdir(parents=True)
+        expected = []
+        for module in names:
+            for folder, suffix in [('lib/lean', '.olean'), ('lib/lean', '.olean.private'),
+                                   ('lib/lean', '.trace'), ('ir', '.c')]:
+                artifact = self.root / '.lake/build' / folder / 'RHLean/Geometry' / (module + suffix)
+                artifact.parent.mkdir(parents=True, exist_ok=True)
+                artifact.write_text(module)
+                expected.append(artifact)
+            subprocess.run(['bash', '-c', textwrap.dedent(build)], check=True, cwd=self.root,
+                           env={**os.environ, 'CM_MODULE': module, 'RUNNER_TEMP': str(archive_dir)})
+        for artifact in expected:
+            artifact.unlink()
+        subprocess.run(['bash', '-c', textwrap.dedent(install)], check=True, cwd=self.root,
+                       env={**os.environ, 'RUNNER_TEMP': str(archive_dir.parent)})
+        for artifact in expected:
+            self.assertEqual(artifact.read_text(), artifact.name.split('.')[0])
+
+    def test_failed_diagnostics_release_the_native_compile_lock(self):
+        research = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        full = (cc.ROOT / '.github/workflows/lean.yml').read_text()
+        required, diagnostics = research.split('\n  diagnostics:\n', 1)
+        lock = 'group: rhlean-native-compile-${{ github.head_ref || github.ref_name }}'
+        for workflow in (research, full):
+            self.assertNotIn('\nconcurrency:', workflow)
+        for job in (required, full.split('\n  build:\n', 1)[1]):
+            self.assertIn(lock, job)
+            self.assertIn('cancel-in-progress: false', job)
+        self.assertIn('Save failed preflight prerequisites', required)
+        self.assertNotIn(lock, diagnostics)
+        self.assertIn('needs: check', diagnostics)
+        self.assertIn("needs.check.outputs.compile-outcome == 'failure'", diagnostics)
+        self.assertIn('needs.check.outputs.preflight-key', diagnostics)
+        self.assertIn('Collect independent CM supplier diagnostics after failure', diagnostics)
+
+    def test_cm_diagnostic_accepts_actual_34_target_plan_and_fails_closed(self):
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        diagnostic = workflow.split('      - name: Collect independent CM supplier diagnostics after failure', 1)[1]
+        source = diagnostic.split("          python3 - <<'PY'\n", 1)[1].split('\n          PY', 1)[0]
+        script = compile(textwrap.dedent(source), '<CM diagnostic workflow>', 'exec')
+        targets = [f'RHLean.Geometry.CMTarget{i}' for i in range(34)]
+        with patch.object(Path, 'read_text', return_value=json.dumps({'library': targets})), \
+                patch.object(subprocess, 'Popen') as popen, contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit) as failed:
+                exec(script, {})
+            self.assertEqual(failed.exception.code, 1)
+            popen.assert_called_once_with(['lake', 'build', *targets], start_new_session=True)
+            popen.return_value.wait.assert_called_once_with(timeout=900)
+        for bad in ([], targets + targets, ['-bad'],
+                    [f'RHLean.Geometry.CMTarget{i}' for i in range(65)]):
+            with self.subTest(targets=bad), \
+                    patch.object(Path, 'read_text', return_value=json.dumps({'library': bad})), \
+                    patch.object(subprocess, 'Popen') as popen:
+                with self.assertRaises(SystemExit) as failed:
+                    exec(script, {})
+                self.assertIn('Unexpected CM diagnostic target set', str(failed.exception))
+                popen.assert_not_called()
 
     def test_plan_keys_track_leaf_content_not_mtimes(self):
         _, initial = self.compile()

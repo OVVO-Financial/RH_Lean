@@ -15,10 +15,12 @@ https://github.com/leanprover/lean4/tree/v4.34.1/src/lake/Lake
 from __future__ import annotations
 
 import argparse
+import math
 import os
 from pathlib import Path
 import re
 import selectors
+import shutil
 import signal
 import subprocess
 import sys
@@ -80,6 +82,38 @@ def live_group_members(process: subprocess.Popen) -> list[int]:
     return members
 
 
+def write_build_progress(process: subprocess.Popen, elapsed: float, cwd: Path | None,
+                         stream: BinaryIO) -> None:
+    """Best-effort Linux diagnostics; never use snapshots as a proof result."""
+    lines = [f"[build-progress] elapsed={elapsed:.0f}s group={process.pid}"]
+    try:
+        mem = dict(line.split(":", 1) for line in Path("/proc/meminfo").read_text().splitlines())
+        lines.append(f"[build-progress] mem_available={mem.get('MemAvailable', '?').strip()} "
+                     f"swap_free={mem.get('SwapFree', '?').strip()} "
+                     f"disk_free={shutil.disk_usage(cwd or Path.cwd()).free // (1024 ** 2)} MiB")
+        ticks = os.sysconf("SC_CLK_TCK")
+        rows = []
+        for pid in live_group_members(process):
+            proc = Path("/proc") / str(pid)
+            try:
+                stat = (proc / "stat").read_text().rsplit(")", 1)[1].split()
+                args = (proc / "cmdline").read_bytes().decode(errors="replace").split("\0")
+                name = Path(args[0]).name
+                target = next((Path(arg).name for arg in args[1:] if arg.endswith(".lean")), "-")
+                rss = max(0, int(stat[21])) * os.sysconf("SC_PAGE_SIZE") // 1024
+                cpu = (int(stat[11]) + int(stat[12])) / ticks
+                rows.append((rss, f"[build-progress] pid={pid} state={stat[0]} "
+                                  f"cpu={cpu:.1f}s rss={rss}KiB exe={name} source={target}"))
+            except (OSError, ValueError, IndexError):
+                continue  # Process exited or changed while being sampled.
+        lines.extend(row for _, row in sorted(rows, reverse=True)[:16])
+        lines.append(f"[build-progress] active_processes={len(rows)} (up to 16 shown)")
+    except (OSError, ValueError, IndexError) as error:
+        lines.append(f"[build-progress] resource snapshot unavailable: {type(error).__name__}")
+    stream.write(("\n" + "\n".join(lines) + "\n").encode())
+    stream.flush()
+
+
 def wait_group_stopped(process: subprocess.Popen, timeout: float = 1.0) -> None:
     """Confirm actual descendant exit after KILL, rather than signal delivery.
 
@@ -111,7 +145,7 @@ def wait_group_stopped(process: subprocess.Popen, timeout: float = 1.0) -> None:
 
 def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
                   output: BinaryIO | None = None, diagnostic_grace: float = 0.2,
-                  terminate_grace: float = 2.0) -> None:
+                  terminate_grace: float = 2.0, progress_interval: float | None = None) -> None:
     """Run a command with Lake output; raise on failure and stop its process group.
 
     The command is passed directly to Popen, never through a shell. The caller
@@ -120,6 +154,10 @@ def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
     """
     if diagnostic_grace < 0 or terminate_grace < 0:
         raise ValueError("termination grace intervals must be nonnegative")
+    if progress_interval is None:
+        progress_interval = float(os.environ.get("RHLEAN_BUILD_PROGRESS_SECONDS", "0"))
+    if not math.isfinite(progress_interval) or progress_interval < 0:
+        raise ValueError("progress interval must be finite and nonnegative")
     stream = output if output is not None else sys.stdout.buffer
     process = subprocess.Popen(list(command), cwd=cwd, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, start_new_session=True)
@@ -129,9 +167,14 @@ def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
     os.set_blocking(process.stdout.fileno(), False)
     pending = b""
     failed_at = term_at = kill_at = None
+    started = time.monotonic()
+    next_progress = started + progress_interval if progress_interval else math.inf
     try:
         while True:
             now = time.monotonic()
+            if failed_at is None and now >= next_progress:
+                write_build_progress(process, now - started, cwd, stream)
+                next_progress = now + progress_interval
             if failed_at is not None and term_at is None and now >= failed_at + diagnostic_grace:
                 signal_group(process, signal.SIGTERM)
                 term_at = now

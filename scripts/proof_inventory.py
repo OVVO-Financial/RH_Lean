@@ -429,11 +429,53 @@ def write_dot(path: Path, graph: dict[str, list[str]]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def check_elaborated_proofs(inventory: dict, graph: dict) -> list[str]:
+    """Match every written theorem and lemma to its actual kernel declaration."""
+    if graph["provenance"]["source"] != "elaborated":
+        raise ValueError("proof inventory requires an elaborated declaration graph")
+    rows = {(p["path"], p["line"]): p for p in inventory["proofs"]}
+    expected = inventory["named_proofs"]["total_theorem_plus_lemma"]
+    if len(rows) != expected or len(rows) != len(inventory["proofs"]):
+        raise ValueError("written proof locations disagree with the source inventory count")
+
+    instances = []
+    for node_id, node in graph["declarations"].items():
+        loc = (node["path"], node["line"])
+        row = rows.pop(loc, None)
+        source_kind, kernel_kind = node["source_kind"], node["kind"]
+        if row is not None:
+            name = row["name"]
+            if name.startswith("_root_."):
+                name = name.removeprefix("_root_.")
+            elif node["namespace"]:
+                name = f"{node['namespace']}.{name}"
+            if (name, row["module"], row["kind"], "theorem") != (
+                node["name"], node["module"], source_kind, kernel_kind
+            ):
+                raise ValueError(
+                    f"{loc[0]}:{loc[1]} expected {row['kind']} {name} in {row['module']}, "
+                    f"found {source_kind} {node_id} in {node['module']} of kernel kind {kernel_kind}"
+                )
+        elif source_kind == "instance" and kernel_kind == "theorem":
+            # A proof-valued instance has a theorem constant in the environment.
+            instances.append(node_id)
+        elif source_kind in ("theorem", "lemma") or kernel_kind == "theorem":
+            raise ValueError(f"unaccounted {source_kind} {node_id} of kernel kind {kernel_kind}")
+
+    if rows:
+        raise ValueError(f"missing kernel declarations for source proofs: {list(rows.values())[:5]}")
+    if expected + len(instances) != graph["stats"]["named_proofs"]:
+        raise ValueError("accounted declarations disagree with the kernel theorem count")
+    return sorted(instances)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--json", type=Path, help="write full inventory JSON")
     parser.add_argument("--dot", type=Path, help="write internal module import graph as DOT")
     parser.add_argument("--no-summary", action="store_true", help="suppress human-readable stdout")
+    parser.add_argument("--check-elaborated", type=Path, metavar="GRAPH",
+                        help="verify every source proof against the compiled declaration graph")
     args = parser.parse_args()
 
     inv = build_inventory()
@@ -444,6 +486,13 @@ def main() -> int:
         args.json.write_text(json.dumps(inv, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     if args.dot:
         write_dot(args.dot, inv["module_import_graph"])
+    if args.check_elaborated:
+        graph = json.loads(args.check_elaborated.read_text(encoding="utf-8"))
+        instances = check_elaborated_proofs(inv, graph)
+        print(f"Verified {len(inv['proofs']):,} source theorems and lemmas against the kernel.")
+        print(f"Additional kernel theorem constants from instance declarations: {len(instances):,}")
+        for name in instances:
+            print(f"  {name}")
 
     missing = inv["imports"]["manifest_missing_modules"]
     extra = inv["imports"]["manifest_extra_modules"]

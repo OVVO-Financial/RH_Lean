@@ -28,7 +28,7 @@ open scoped BigOperators Classical Topology
 
 namespace RHLean.Analysis.AlpogeThin
 
-private theorem dyadic_rpow_le_exp_eventually (c δ : ℝ) (hδ : 0 < δ) :
+theorem dyadic_rpow_le_exp_eventually (c δ : ℝ) (hδ : 0 < δ) :
     ∀ᶠ x : ℝ in atTop, x ^ c ≤ Real.exp (x ^ δ) := by
   have hc : 0 < (|c| + 1)⁻¹ := by positivity
   have hb := (isLittleO_log_rpow_atTop hδ).bound hc

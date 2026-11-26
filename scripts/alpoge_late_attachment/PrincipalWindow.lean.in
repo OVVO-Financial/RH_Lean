@@ -1,0 +1,179 @@
+/-
+RH_Lean late-attachment replay root for the community edition of
+Levent Alpöge's proof with Claude, leanprover-community/riemann-hypothesis
+at 27b55787485ac2a5b5b3ed2dffc697e0ae6a2f59 (Lean 4.37.0-rc1).
+The module LevelGmLeOnFamilyScales contains the pointwise core_gm theorem.
+RHLeanCleanPrincipalCore must supply its two inputs on the same host
+throughout the selected windows, in this compiler environment.
+-/
+import RHLeanCleanPrincipalCore
+import Development.AutomorphicArithmetic.PrimitiveCosets.LevelGmLeOnFamilyScales
+import Lean.Util.CollectAxioms
+
+set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 200000
+set_option maxHeartbeats 4000000
+
+noncomputable section
+
+namespace RHLeanLateAttachment
+
+open Formalism.BasicNotions Formalism.HC UpperTheory.Comparison₂
+open scoped BigOperators
+
+/-- Isolate the principal cyclic level before any zero-free conclusion. -/
+theorem principalLevel_eq_Gz (x : ℝ) :
+    (Level.cyc PChar.one).Gm x = Formalism.Gz x := by
+  classical
+  let L := Level.cyc PChar.one
+  have h : L.KEPT = {PChar.one} := by
+    ext ψ
+    rw [Finset.mem_singleton]
+    constructor
+    · intro hψ
+      obtain ⟨χ, hχ, heq⟩ := (Level.mem_ofSub
+        (Subgroup.zpowers PChar.one.χ) ψ).mp hψ
+      obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hχ
+      have hOne : PChar.one.χ = 1 := rfl
+      rw [hOne, one_zpow] at hj
+      rw [← hj, PChar.of_one] at heq
+      exact heq.symm
+    · intro hψ
+      subst ψ
+      exact Level.mem_cyc _
+  change L.Gm x = _
+  rw [Level.Gm, Level.Nt, h]
+  simp only [Finset.erase_singleton, Finset.sum_empty, add_zero]
+
+/- The sole upstream-shaped supply obligation is the direct local core
+window, with the same host in EAtH and CoreAtH. No full FamP is required.
+Fixed eD/eL/eps1 precede eps, and K/cHH/eK/C precede the window.
+The clean supplier must actually prove this contract; the type alias
+is not a proof. A direct native signed-cost route can bypass even this
+upstream interface. -/
+
+def DirectPrincipalCoreWindows : Prop :=
+  ∃ eD eL eps1 : ℝ, 0 < eps1 ∧
+    ∀ eps : ℝ, 0 < eps → eps < eps1 →
+      ∃ K cHH eK C : ℝ, ∀ Y0 : ℝ, ∃ Y : ℝ, Y0 ≤ Y ∧
+        ∀ x ∈ Set.Icc Y (Y ^ ((3 : ℝ) / 2)),
+          ∃ (φ : Frame) (H : HostAx φ) (TT : Finset φ.A),
+            EAtH (Level.cyc PChar.one) H.toHostRaw TT x eps C ∧
+            CoreAtH H.toHostRaw TT eD eL K cHH eK eps x
+
+/-- Literal #1205 input, without importing its RH consumer or the
+upstream zero-free consumer. Constants precede every window request.
+All variables are bound in the statement; there are no supplier arguments.
+The coefficient 1 suffices. -/
+theorem principalQuantitativeWindowBound :
+    ∃ K eps1 : ℝ, 0 < eps1 ∧
+      ∀ eps : ℝ, 0 < eps → eps < eps1 → ∃ C : ℝ,
+        ∀ Y0 : ℝ, ∃ Y : ℝ, Y0 ≤ Y ∧
+          ∀ y ∈ Set.Icc Y (Y ^ ((3 : ℝ) / 2)),
+            ((∑ n ∈ Finset.Icc 1 ⌊y⌋₊,
+                ArithmeticFunction.vonMangoldt n * (y / (n : ℝ) - 1)) -
+              y * Real.log y + (1 + Real.eulerMascheroniConstant) * y)
+              ≤ C * y ^ (1 / 2 + K * eps) := by
+  have hCoreWindows : DirectPrincipalCoreWindows := suppliedPrincipalCoreWindows
+  obtain ⟨eD, eL, eps1, hpos, hCore⟩ := hCoreWindows
+  refine ⟨eD + eL + 7, eps1, hpos, ?_⟩
+  intro eps he he1
+  obtain ⟨K, cHH, eK, C, hWindows⟩ := hCore eps he he1
+  obtain ⟨x1, hBound⟩ :=
+    UpperTheory.Comparison₂.core_gm (Level.cyc PChar.one) eD eL K cHH eK C eps he
+  refine ⟨1, ?_⟩
+  intro Y0
+  obtain ⟨Y, hY, hWin⟩ := hWindows (max Y0 (max x1 1))
+  refine ⟨Y, (le_max_left _ _).trans hY, ?_⟩
+  intro y hy
+  have hy1 : x1 ≤ y := (le_max_left x1 1).trans
+    ((le_max_right Y0 (max x1 1)).trans (hY.trans hy.1))
+  obtain ⟨φ, H, TT, hE, hC⟩ := hWin y hy
+  change Formalism.Gz y ≤ 1 * y ^ (1 / 2 + (eD + eL + 7) * eps)
+  rw [one_mul, ← principalLevel_eq_Gz]
+  exact hBound y hy1 φ H TT hE hC
+
+
+end RHLeanLateAttachment
+
+#print axioms RHLeanLateAttachment.suppliedPrincipalCoreWindows
+#print axioms RHLeanLateAttachment.principalQuantitativeWindowBound
+
+/- Audit the proof term, not the names of its imports. Imported modules may
+contain unused zero-free declarations. Reject any actual dependency on
+the listed terminal consumers. Audit type and proof references together.
+GeoCl/geoCl/anyGeometry are absolute exclusions, not advisory hits.
+A separately reviewed proof must also exclude equivalent renamed or
+inlined vacuous constructions. setLam/setDiv remain review targets. -/
+open Lean Elab Command in
+private partial def lateClosure (env : Environment) (queue : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match queue with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then lateClosure env rest seen else
+      let deps := match env.find? n with
+        | none => []
+        | some info => info.type.getUsedConstants.toList ++
+            ((info.value? (allowOpaque := true)).map
+              (fun e => e.getUsedConstants.toList)).getD []
+      lateClosure env (deps ++ rest) (seen.insert n)
+
+namespace RHLeanLateAudit
+open Lean Elab Command
+
+/-- Absolute exclusion, including generated constructors, private names,
+case variants, and underscore spellings. Following both type and proof
+references makes hiding a declaration in an opaque wrapper insufficient.
+Semantic review still must detect inlined or renamed placeholder logic. -/
+def assertNoForbiddenGeometry (root : Name) : CommandElabM Unit := do
+  let env ← getEnv
+  unless env.contains root do
+    throwError "Missing proof root: {root}"
+  let names := lateClosure env [root]
+  for n in names.toList do
+    let s := n.toString.toLower.replace "_" ""
+    if (s.splitOn "geocl").length > 1 ||
+        (s.splitOn "anygeometry").length > 1 then
+      throwError "ABSOLUTE PROHIBITION: {root} depends on {n}"
+  logInfo m!"PASS forbidden-geometry dependency gate: {root}"
+
+end RHLeanLateAudit
+
+open Lean Elab Command in
+run_cmd do
+  RHLeanLateAudit.assertNoForbiddenGeometry
+    `UpperTheory.Comparison₂.core_gm
+  RHLeanLateAudit.assertNoForbiddenGeometry
+    `RHLeanLateAttachment.suppliedPrincipalCoreWindows
+  let root := `RHLeanLateAttachment.principalQuantitativeWindowBound
+  RHLeanLateAudit.assertNoForbiddenGeometry root
+  let allowed := #[`propext, `Classical.choice, `Quot.sound]
+  let axioms ← liftCoreM (Lean.collectAxioms root)
+  for a in axioms do
+    unless allowed.contains a do
+      throwError "Unapproved terminal axiom: {a}"
+  let env ← getEnv
+  let names := lateClosure env [root]
+  let forbidden := #[`RiemannHypothesis, `riemannHypothesis, `rhOfAll, `allChi,
+    `UpperTheory.EveryCharacter, `UpperTheory.FinalTheorems.everyCharacter,
+    `UpperTheory.FinalTheorems.everyCharacter_of_row,
+    `UpperTheory.FinalTheorems.riemannHypothesis,
+    `UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin,
+    `UpperTheory.Lit.every_character_of_theta_integrals_local_matching,
+    `UpperTheory.Top.every_character_of_green_v_win,
+    `UpperTheory.Top.zero_free_all_of_green_v_win,
+    `UpperTheory.Top.zeroFreeAll_of_topG, `Formalism.HC.level_of_tiedWin]
+  for n in forbidden do
+    if names.contains n then
+      throwError "Forbidden terminal dependency: {n}"
+  let required := #[`RHLeanLateAttachment.suppliedPrincipalCoreWindows,
+    `UpperTheory.Comparison₂.core_gm]
+  for n in required do
+    unless names.contains n do
+      throwError "Missing actual supplier dependency: {n}"
+  logInfo m!"Late quantitative root: {root}; axioms={axioms}; dependencies={names.toList.length}"
+  for n in names.toList do
+    let s := n.toString
+    if s.endsWith ".setDiv" || s.endsWith ".setLam" then
+      logInfo m!"SEMANTIC_REVIEW_REQUIRED {n}"

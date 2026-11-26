@@ -2,15 +2,538 @@
 
 **NATIVE_ECONOMICAL_RECOVERY_V1 — controlling research assignment after human-reviewed policy merge.** ALL SEVEN existing roles must read [the native economical recovery directive](docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md) before selecting work. Recover what Alpöge recovers, measure what Alpöge measures, pay what Alpöge pays through native prime-exponent coordinates and square-block ancestry. This supersedes conflicting task priorities in older main or #1201 instructions; preserve the existing final #1201 proof contract and its safeguards. Work on the actual latest #1201 head; #1201 is the only mathematical completion PR, and #1205 remains its existing principal-window handoff.
 
+**Revised #1201 directive (November 25).** Transport the inequalities used by Alpöge's proof. When exact geometric identification is difficult, first seek a one-sided comparison on the actual native inputs with a proved error after the original normalization. Apply the [quantitative comparison instructions](docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md#transport-of-inequalities-on-1201) to the local primitive tests, the separate finite and signed payments, and the window estimate. Exact identities already available remain valid inputs.
+
 **First binding task:** construct independently the actual selected/competing integral evaluation maps E,C on the physical source and dual lattices. Test the admissible image and exact invariant factors on a genuinely admissible instance; if not constructible, report the first missing typed constructor, not a synthetic result. Construct the divisor-closed prime-exponent Hasse decoder J[d,h]=product binom(v_p(h),v_p(d)), explicit integral inverse and subpower unweighted norm; pay truncated ancestor directions. Prove simultaneous EB congruent to p^D I modulo pi^(v_pi(p)*D+1) and CB divisible by pi^c on the same lifts; establish actual retained rank/depth, exceptional-layer generator decay and stopping inclusion. Use the same measured integral frame for finite index and original weighted Gram cost, both signed mean losses and complete original physical ASK/MAIN. Distinguish quotient-length supplier admG1 from signed gain Conclusion1. Keep original Q=T*m*b*Delta/2 and all ramified/prime-power/signed terms; do not replace it with wheel density or use CRT independence on truncated blocks. A unimodular decoder is not a positive index or a bound. Preserve DIRECT_CORE_CUT_V1, STRICT_NO_GEOCL_ANYGEOMETRY_V1 and all semantic audits; no imported terminal RH, circular cost, invented witnesses or new conditional endpoints.
 
 The existing role identifiers remain COORDINATOR (dependency/instance ledger), OWNER (same-frame signed payment), REFEREE (independent adversarial checks), CENSUS (exact physical diagnostic), ANALYTIC (weighted costs and uniform windows), WHEEL (prime-exponent decoder, physical attachment and exceptional rank), LEAN (hosted verification and coordinated #1201 implementation). Follow the detailed role-specific tasks in the directive; no seven unrelated proof paths. Record native_economical_recovery_ack=NATIVE_ECONOMICAL_RECOVERY_V1 and ECONOMICAL_RECOVERY_ROLE=<existing role ID> only after actual consumption. Retain lossless report continuity, existing six own-report-only roles, LEAN's authorized non-main RW, current cadence/model/toolchain, hosted-only Lean, no automated merge and human-only review. This repository policy change neither launches agents nor edits Studio configuration. RH OPEN.
 
 ---
 
+## #1201 — joint integral recovery and relative capacity (2026-11-25)
+
+Follow the [recovery, capacity and signed-gain cut](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#6-recommended-route-on-the-native-square-clock) and the [seven role assignments](docs/RHLEAN_FINAL_PR_1201_PROOF_CLOSURE_20261124.md#seven-distinct-role-assignments). Use [community revision 251c7b05](https://github.com/leanprover-community/riemann-hypothesis/tree/251c7b05dd869ceba1aa42c6001c00b4010f23f9) for the source statements. Work on #1201 using the native 4.34.1 toolchain.
+
+Start at the localized physical section and dual lattices for the selected host and its original Frobenius edges. Identify the two integral evaluation maps, the competing outgoing and incoming lattices, the decoded source dimension and the allowed depths. Use the native first-return mask, column tests and joint minor criterion to prove the rank quota on those actual lattices. In the community numerical consumer the discarded quotient length enters through `admG1`; the signed gain enters separately through `ParametersFill` and `Conclusion1`. Any use of an actual column valuation in the slope comparison requires the operator comparison for that column.
+
+Recover the full homogeneous exponent profile on each edge. Keep both residue and coarse indices, the remaining Weyl multiplicity, and the quota per edge. For the actual normalized rows prove a selected congruence on integral lifts and simultaneous divisibility in all incoming and outgoing competitors. Refer to the [digit, Hasse and edge comparison](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md#full-exponent-recovery-on-one-integral-edge).
+
+On the same measured global frame, prove residue vanishing, joint lifts, Gram bounds and the relative degree/count comparison. Preserve both signed losses and the original character divisor. Use one prime pair on each outer window and one independently selected profile per anchor for the complete source. The target is one constant for all anchors of arbitrarily late complete windows in the existing #1205 handoff.
+
+**DIRECT_CORE_CUT_V1 — controlling task selection under STRICT_NO_GEOCL_ANYGEOMETRY_V1.**
+Do not attempt to rebuild `FamP`, `ChainTied`, `HypsAlt`, or `TopG` as
+mandatory objects. The late quantitative estimate is already pointwise
+in `core_gm`: fixed eD,eL,K,cHH,eK,C,eps produce a threshold, then a
+single host and TT with EAtH and CoreAtH at each x suffice. Choose these
+on whole cofinal windows; the complete family class is unnecessary.
+The external replay is still fail-closed, now on a direct core window
+rather than the rejected tied-family package.
+
+**Concrete implementation:** `NativePrincipalEAtH.lean` constructs the
+principal kept set/index, exact shares for EVERY TT, the actual two-sign
+character classification and primitive induction on the constructed
+dyadic host. PairGood pays both bounded-character responses and their
+log derivatives. `nativePrincipalEAtH_windows` uses the existing
+QH.pairEx and PageN constructors and the actual derived HostAx.
+No geometry witness or critical estimate is a premise of this window
+existence theorem beyond the given admissible epsilon. This is newly
+submitted proof text, NOT hosted-verified yet. Its strict dependency
+audit is a separate research target. Keep the same actual selected pair
+and host when attaching the core data.
+
+**First unpaid mathematical input:** the same-host complete signed top
+excess / cost. Prefer the existing native
+`nativeConstructedDyadicGzPayment` and its signed-slope comparison
+instead of forcing an upstream `CoreAtH` record. In particular, its
+analytic contribution is already paid on the chosen dyadic host.
+The actual source value, the signed gain/cost, the physical widths,
+heights and density must be realized together; no copying a target
+into a field, selecting arbitrary measurements, assuming the critical
+inequality, or naming a placeholder witness. Review the full
+`CoreAtH` conjunction, `IdentU`, `SizeData₂`, `ErrWindows`,
+`BNBoundsU`, and `Deduction.ch_top` against the existing native
+physical source. Use Playground dependency reductions only if a
+specific proof leaf is needed; compression does not pay a hypothesis
+or certify a transitive exclusion. In particular Core 14 still takes
+HypsAlt and Core 15 and Core 20 retain their actual conditions.
+
+Coordinator and owner/payment: attack only the unpaid same-host signed
+cost and its minimal physical realization, not a new analytic family.
+Adversarial: audit `core_gm` itself, its actual dependencies and
+semantic integrity; the direct body has no literal prohibited names
+but transitive cleanliness is unverified. Prime census and Type II:
+preserve the now-targeted native EAtH/PairGood route, exact source and
+window quantifiers. Finite wheel: pursue a genuine native cost bound
+using proved square-clock and signed recovery results. Lean verification:
+run the new native research audit and fix real diagnostics, then verify
+any closed supplier and #1205 in one compatible environment.
+No schedule, tooling pin, merge policy or proof status change.
+No new PR. RH OPEN.
+
+---
+
+## #1201 — absolute exclusion of GeoCl / geoCl / anyGeometry (2026-11-24)
+
+**STRICT_NO_GEOCL_ANYGEOMETRY_V1 — controlling user directive, no exceptions.**
+No direct or transitive use of `GeoCl` (including constructors, recursors,
+and projections), `geoCl`, `anyGeometry`, their aliases, renamed/copied
+equivalents, or vacuous geometry/assigned-witness substitutes is permitted
+in the proof of the quantitative estimate, its family supplier, the native
+handoff, or the terminal RH declaration. This is a rejection criterion,
+not a review-only warning, even if the upstream proof has been independently
+kernel-certified. Do not weaken this rule by specializing to the principal
+character, hiding the dependency in an opaque theorem, inlining the
+placeholder, or importing a later conclusion. Do not count a clean
+three-axiom list as satisfying this separate semantic restriction.
+
+**Known rejected supplier.** At upstream pin 7cbf7a0c, in
+`SiegelEisensteinSecondTermHypotheses.lean`, the actual
+`UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound` calls
+`geoCl anyGeometry` three times (lines 60, 63, 67).
+`GlobalTheory.Mem.Top.Bl.parametersOfDependence` in `Prm1.lean`
+(lines 20–21) also uses it. `LinkNFam.lean` (80–85) uses it in
+the linked-family transport. `anyGeometry` is the constant True
+predicate (OverIx.lean:19). Thus the previous suppliedTopG extraction
+is rejected as a completion route, regardless of compile status.
+The previous version is retained in Git history, not in the active
+extraction body. Do not reactivate any of these suppliers without
+a proof that omits all forbidden dependencies; do not recreate their
+placeholder semantics under a new name.
+
+**Required task.** Keep the late principal quantitative attachment and
+the exact Gz identity/#1205 unchanged. Seek the shortest proved clean
+arithmetic supplier or clean quantitative dependency slice, bypassing
+the rejected chain. Do not automatically restart G1–G7, build the
+entire upstream proof, or invent a cancellation inequality. The
+existing estimate may be reused only if its actual retained proof
+dependency closure satisfies this absolute exclusion. If no such
+supplier has been established, state OPEN rather than assert a bound.
+All seven roles must obey this gate. Coordinator: stop the rejected
+route. Owner/payment and finite wheel: locate a clean supplier.
+Adversarial: independently review aliases, actual witnesses, and
+noncircularity. Prime census and analytic Type II: retain the exact
+arithmetic handoff and quantifiers. Lean verification: apply the
+hard rejection to the elaborated family, quantitative root and final
+RH root, following types AND proof bodies, including opaque values.
+
+The targeted workflow now fails closed before cache retrieval when a
+clean family implementation is absent. The remaining extraction body
+consumes a *closed* `suppliedPrincipalFamily` from that implementation;
+no new axiom, assumed-bound endpoint, or dummy witness is introduced.
+The closure audit rejects forbidden name components case-insensitively,
+including underscore spellings, and remains in force for the combined
+native root. Source/semantic review of erased or inlined aliases and
+vacuous replacements is also mandatory; a name scanner cannot prove
+their absence by itself. Preserve all other verification and
+human-only merge rules, keep #1201 draft, keep native RH OPEN, and do
+not change agent schedules or toolchain pins.
+
+---
+
+## #1201 — late quantitative attachment, principal character only (2026-11-24)
+
+**LATE_QUANTITATIVE_ATTACHMENT_V1 — controlling user-directed priority.**
+This supersedes any earlier instruction making a second native geometric
+family, G1–G7, the 43-row reconstruction, native PageN/PairGood recovery,
+or two-curve gluing a mandatory critical-path deliverable. Keep all
+existing work and verification safeguards; do not delete, weaken, or
+claim completion of the geometry. It is reserve work for an exact
+supplier gap, or later stone-bridge simplification. Work only on #1201;
+no parallel or stacked PR and no terminal upstream RH/GRH import.
+
+**Actual boundary.** At pinned upstream commit
+`7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`, read
+[LevelGmLeOnFamilyScales](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/PrimitiveCosets/LevelGmLeOnFamilyScales.lean),
+[TopWin](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean)
+and [ZeroFreeAllOfTopG](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean).
+Set `Lambda := Level.cyc PChar.one`, `la := 3/2`. Extract the
+principal instance of `ChebyshevInequalityAtWindowScale` from the
+actual upstream family-supplying proof BEFORE its zero-free conclusion.
+Its witnesses fix eD,eL,eps1>0 before eps; for each eps they give one
+FamP with EFamC, complete HasWindows, and tied-window constants.
+Apply `level_gm_le_on_family_scales Lambda` to the SAME family.
+Use S := Fm.Win and the returned x1; no stronger eventual-all-x claim
+or independent square-endpoint geometry is required. The result has
+exactly the hypothesis of
+`nativeSmallEpsilonWindowBound_of_principalCyclic`, plus eps1>0.
+
+**Source extraction, not another cancellation proof.** In
+`zeroFreeAll_of_topG`, the final callback already constructs that
+family package: specialize h (TopG) to GChi PChar.one and supplyChi
+at the principal character; use hypV_of_cls, eFamC_of_cls, c.1 and d.
+Trace the actual supplying proofs backward through
+`zero_free_all_of_green_v_win` (TopPlug),
+`every_character_of_theta_integrals_local_matching`,
+`every_character_of_literature_of_vWin` and `everyCharacter_of_row`
+(MainConclusion). Extract their inputs, not their zero-free outputs.
+Audit all retained leaves, including the actual Green, VWin, HypsAlt,
+literature and row suppliers. A proposition declaration, conditional
+theorem, name, or source inspection is not a verified unconditional
+supplier. Do not import a downstream zero-free/RH conclusion, use RH
+to prove the bound, or assume that the advertised upstream proof is valid.
+
+**Arithmetic interface.** The branch already contains
+`nativePrincipalCyclicGm_eq_statementOCGz`,
+`nativePrincipalCyclicGm_eq` and
+`nativeSmallEpsilonWindowBound_of_principalCyclic` in
+NativeExistingRecoveryPayment; merged #1205 provides
+`statementOCGz_eq_native` and
+`riemannHypothesis_of_smallEpsilonWindowBound`. Split out the
+minimal arithmetic bridge from heavy native geometry imports only if
+needed; preserve definitions and signed source. Verify the actual
+upstream-to-native definitional equality or exact transport across
+namespaces, Mathlib versions and toolchains; source resemblance alone
+does not establish it. Upstream v4.33.1 and native v4.34.1 are distinct:
+do not mix oleans, change toolchains silently, or treat a certificate
+from one environment as a theorem in the other. Use an approved,
+source-faithful and kernel-checked compatible dependency slice with
+explicit provenance, license clearance and semantic audit.
+
+**All seven roles: immediate task selection.** Coordinator: maintain
+one late-attachment dependency graph, mark G1–G7 reserve unless an
+actual retained leaf requires them. Owner/payment: extract principal
+family witnesses and exact window estimate. Adversarial: audit real
+definitions, anyGeometry/assigned height/lattice concerns, no circular
+dependencies and nonvacuous quantifiers; identify specific invalid or
+unpaid suppliers. Prime census: compare literal centered all-prime-power
+sources, endpoints and principal weights across versions. Analytic
+Type II: verify the fixed-exponent and cofinal-window transport and
+#1205 application. Finite wheel: look only for proved native
+substitutions for an identified supplier gap; no new cancellation.
+Lean verification: isolate the needed declaration dependency closure,
+check version/provenance and terminal axioms, enforce existing hosted
+checks, report the first failing actual supplier. Do not open new
+geometry modules absent a named retained dependency and a demonstrated
+reason the upstream supplier cannot be reused.
+
+**Acceptance:** First close the actual principal quantitative bound
+with no open hypotheses other than its universally quantified
+parameters. Then invoke the native #1205 handoff for a genuinely closed
+Mathlib `RiemannHypothesis` theorem. Verify both roots and the full
+transitive dependency/semantic audit; only the three standard axioms
+are permitted. Keep draft, human-only merge, and open-phase guard
+until this is achieved. Existing conditional theorems and a green
+geometry build alone do not establish RH. This policy change is not a
+mathematical proof, does not certify the upstream chain, and changes no
+agent runtime or schedule.
+
+---
+
 ## 2026-11-24 — mandatory semantic proof-integrity review
 
 For any RH-strength claim, read [the full semantic-risk audit](research/RHLEAN_FULL_SEMANTIC_RISK_AUDIT_20261124.md). Preserve the current proof-supplier and native-bound priority: no extra reconstruction merely for its own sake. Run the source census on all tracked Lean files and inspect the actual kernel theorem type, complete Pi telescope, original arithmetic source definitions, and independently earned geometry/rank/mass/height constructors. Treat scanner hits as candidates, not defects; no theorem may be counted as an unconditional supplier merely because its proof compiles or has permitted axioms. Do not use the raw window witness or assumed degree/slope fields as if they were independently proved. A literal exact root RiemannHypothesis candidate requires independent terminal-axiom, full supplier, same-data, and quantifier review before changing the open-phase guard. A closed type is necessary, not sufficient for modelling the intended arithmetic. No human-only merge or role permissions change.
+
+## #1201 — normalization-first representation boundary (2026-11-24)
+
+Reuse the actual tangentCoordinatePeriods, shortModelSchemeIso, pointCongr and pointConjugate transports. Derive all scale ratios independently of the desired estimate, retain the original source/target models, actual kernel/degree, tangent multiplier and all embedding/integral obligations. Prove the normalized point and coefficient identities before the scheme-level application; do not expand independently constructed projective models simply to compare types. The exact-head 3e9d842 preflight already built RationalGlobal; preserve that proof and cache, and apply the same boundary to the reached downstream CMGlobal errors rather than reconstructing gluing or opening a second PR. Verify the actual public theorem and full dependency/semantic audits before claiming a supplier discharged. No added premises or relaxed proof gates. See [the exact-head report](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#22-normalization-first-continuation-after-the-two-curve-build).
+
+## #1201 — one PR, one proof frontier, one verification cycle (latest user directive)
+
+**SINGLE_PR_SINGLE_FRONTIER_V1 (2026-11-24):** All native RH completion
+work lands directly on #1201's branch. Do not open stacked, parallel or
+"dedicated supplier" PRs for any part of the same dependency chain:
+#1208 was closed as superseded after its useful repairs were consolidated
+here; its G1–G7 gate map is retained in
+[the consolidated supplier gates](research/ALPOGE_ACTUAL_GEOMETRIC_SUPPLIERS_20261124.md).
+Order of work: (1) the string across the chasm — establish the complete
+unconditional supplier chain on #1201 by applying Alpöge's existing
+mathematics, terminating in the hypothesis `h` of
+`nativeSmallEpsilonWindowBound_of_principalCyclic` and #1205's
+`riemannHypothesis_of_smallEpsilonWindowBound`; (2) verify #1201 —
+green hosted checks, independently earned geometric witnesses, exact
+arithmetic correspondence, complete dependency and semantic audit;
+(3) only then the stone bridge (native simplification). One
+verification cycle per exact head: read the complete diagnostic pass of
+the previous head, batch every known repair, and never introduce a
+second competing proof body for a declaration from another branch.
+#1201 is the intended final proof PR, not another conditional reduction;
+its unconditional closure is OPEN until a closed `RiemannHypothesis`
+theorem passes the full hosted and semantic gate. Hosted-only Lean,
+human-only merge, source integrity and report continuity are unchanged.
+This edit launches no agents and changes no schedules.
+
+---
+
+## #1201 — VerifyTask exact-supplier integration (2026-11-24)
+
+**NATIVE_VERIFYTASK_EXACT_SUPPLIERS_V1:** Follow the pinned
+[VerifyTask integration map](research/ALPOGE_VERIFYTASK_NATIVE_INTEGRATION_20261124.md).
+Core 6's literal CM j-integrality first conjunct is already supplied by
+the native lattice normalization and modular integrality; use the
+existing actual ideal-class model proof, not a fresh CM reconstruction.
+The independent Mathlib-only challenge and native audit verify the
+literal j formula and the original centered all-prime-power window
+type; do not redefine the target or count conditional RH as closure.
+Core 8 local density, Core 9 multiplicity one, Core 10 trace formula,
+and Core 12 power-series rigidity are priority references only where
+their exact hypotheses match a surviving native recovery/cusp/measure
+obligation. Core 7/11 are reserve tools; the native graph normalization
+and explicit tangent proofs take precedence. Do not infer a global
+Petersson/rank/height estimate from a local theorem or a compression
+score. No external contestant code without license/permission clearance;
+no toolchain change, external terminal RH, duplicate arithmetic endpoint,
+or upstream proof rebuild. Use #1209's semantic audit and the independent
+Mathlib challenge/Comparator methodology on the final closed native
+theorem; cached builds and conditional type checks alone are not proof
+of unconditional RH. All seven roles must report the exact pinned
+statement, native object and remaining prerequisites, not scores.
+No agent runtime or schedule changes. String first.
+
+---
+
+## #1201 — inherit the proved quantitative bound (latest user directive)
+
+**NATIVE_PROVED_BOUND_APPLICATION_V1 (2026-11-24):** The quantitative
+estimate is not a new research target. Alpoge's existing proof supplies
+the growth inequality, its geometric/signed recovery cost mechanism,
+and its eventual application. The task in #1201 is to apply that
+existing mathematics to the actual RH_Lean objects, using the shortest
+proved identification and hypothesis-discharge route. This is the
+string-first mandate; no new cancellation, contraction, asymptotic
+estimate or independent proof of the growth inequality is requested.
+
+The pinned upstream
+[`proposition_at_point`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LipschitzWeightAndMinimum.lean)
+proves `GrowthBoundAtPoint`: for `GrowthInequalityDataExists C eps x`,
+`Gz x <= x ^ (1/2 + (C+3)*eps)`. The theorem has actual data hypotheses;
+follow its existing supplying chain, not merely its conclusion. The
+existing `chain_at_alt` in
+[PChain](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean)
+and `chain_analytic_at_point` in
+[AnalyticFirstToLatticeDiscriminant](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean)
+are supplier-trace starting points. A definition of a proposition is
+not proof of its premise, and a conditional theorem is not a completed
+native bound.
+
+**Required dependency order for all seven roles:**
+1. Identify the exact pinned upstream proof of each remaining premise,
+   including the source of its actual family, local recovery and measured
+   costs; apply those proofs, retaining their real hypotheses.
+2. Use existing RH_Lean identifications and the lossless Phi transport
+   wherever they give the same object, norm, index, determinant, or
+   signed arithmetic expression. Prove only necessary missing transport,
+   instantiation and dependency closure. Keep the actual integral and
+   measured data; no vacuous or assigned witnesses.
+3. Apply `nativeConstructedDyadicSignedSlopePayment_of_meanLoss` or
+   the shortest already proved equivalent supplier, not a new bound.
+   Its surviving HidaSetting/DIV/measurement/slope/local-loss/window
+   premises must be discharged on ONE compatible original family.
+4. Use `statementOCGz_eq_native` and the existing exact arithmetic
+   source bridge; keep all prime powers, centering, sign, and
+   uniformity. Inherit the required eventual real or square-clock
+   estimate, with fixed constants and arbitrarily small exponent loss.
+5. Invoke the existing #1205 bound handoff (or #1206 if the genuine
+   stronger input is supplied) to produce the closed Mathlib
+   `RiemannHypothesis` theorem. Do not import upstream terminal RH.
+
+**Status language is mandatory:** upstream quantitative mechanism and
+growth theorem = EXISTING PROOF; native supplier identifications and
+actual hypotheses = OPEN until discharged and hosted-verified; native
+unconditional estimate and terminal RH = OPEN until the application
+closes. Do not call the existing growth theorem an undiscovered
+quantitative objective. Do not mark the native estimate proved solely
+because the upstream theorem exists. Every report must name the first
+unclosed native hypothesis, the existing supplier proof, its exact
+application, and verification status. No further new conditional
+endpoint, unrelated construction, or proof-compression diversion
+before this string is secured. The original 43 conditions are coverage
+rather than a literal task count. Stone-bridge simplification follows
+verified completion. Preserve all source integrity, semantic
+noncircularity, hosted-only verification and human-only merge rules.
+This instruction changes no agent schedules or runtime configuration.
+
+---
+
+## #1201 — integrate the existing Phi coordinates (latest user directive)
+
+**NATIVE_PHI_STRING_FIRST_V1 (2026-11-24):** Use the actual existing
+`complexRealPair` map, its inverse and exact product/Gram/energy/area
+transport throughout the relevant surviving suppliers. Apply the
+[Phi supplier integration](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#11-integrate-the-existing-phi-map-in-the-string-first-suppliers).
+The original ideal-isogeny covolume, actual reverse class degree,
+Serre eigenline Gram, measured mass and mean-energy determinant
+consumers now have submitted exact Phi applications. Use those
+rather than rebuilding the same linear algebra; do not create
+another proof mechanism or new research branch. Preserve the original
+integral lattice and quotient index, every embedding, all measured
+weights and the original signed source. Phi is lossless in real
+pairs, not a scalar projection or an additional cancellation estimate.
+Use the existing literal ASK-MAIN to NNS source identity. Apply the
+already existing rational-to-scheme, extension and derivative results
+at the actual family for the arithmetic inputs that Phi does not
+supply; do not replace them by a real matrix alone. The measure,
+rank, nondegeneracy, integral derivative, local recovery and uniform
+window requirements remain real obligations. The string-first
+acceptance gate and hosted-only verification remain unchanged.
+This repository update does not launch agents or alter schedules.
+
+---
+
+## #1201 — synthesis first: the string, then the stone bridge (latest user directive)
+
+**NATIVE_EXISTING_PROOF_SYNTHESIS_V1 (2026-11-24):** All seven roles on
+the #1201 completion branch must treat the remaining work as faithful
+application, formalization and identification of existing mathematics,
+not a mandate to invent another proof mechanism. Use the pinned Alpoge
+argument as the roadmap, Mathlib and RH_Lean as the native infrastructure,
+and the original 43 conditions as a semantic coverage audit, not a
+literal construction list. This supersedes conflicting task-selection
+instructions, including demands for novel mathematics as a condition
+of completion, full upstream geometric reconstruction, reduced-rank
+experiments or fresh cancellation mechanisms.
+
+**Mandatory supplier-first procedure.** Before starting any new proof
+or geometry module, record (1) the exact surviving native consumer and
+premise, including its type and quantifiers; (2) the pinned upstream
+supplying declaration, source path, proof and actual prerequisites;
+(3) the existing Mathlib/RH_Lean declaration that supplies it or a
+sufficient weaker condition; (4) the exact object/parameter identification
+and proof needed to apply it; and (5) the remaining unpaid prerequisites
+after substitution. Follow the dependency chain backward to actual
+constructed witnesses, then apply it forward. Prefer direct reuse,
+then a proved native weakening/transport, then formalization of only
+the necessary existing upstream supplying argument. Do not merely
+rename the missing estimate as a premise, build a new conditional
+endpoint, or count an uninstantiated interface as a payment.
+No new mathematical mechanism is authorized as a default response to
+an unresolved identification. If reuse fails, exhibit the exact typed
+mismatch or unproved premise and try the less compressed original
+source argument before proposing a different mechanism. Do not assume
+the validity of the pinned proof or of a native substitution: inspect
+the actual supplying proof and verify its dependency closure.
+
+**Single active completion route.** Use the already selected PageN /
+PairGood host and original square-clock parameters x=R^2-1, m=R,
+k=x*R. Retain the complete signed physical source, actual Frobenius and
+inertia, every prime power, original partner maps and Q=T*m*b*Delta/2.
+Use the [43-condition coverage audit](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md)
+and its R24/R25 sections. Close these four coupled supplier groups on
+ONE compatible constructed family, using existing results rather than
+redesigning their mathematics:
+
+- Family: follow the original admissibility/InWin construction and the
+  existing native square host realization; prove actual heights, widths,
+  top/thick sets, rank parameters and cardinality/size budgets. Do not
+  impose another height or variance problem.
+- Local recovery: apply the original gain_bound_all_of_star and
+  AuxBlock8.Pf.stmtF supplier chain at its actual admissibility inputs;
+  trace linkG_fam_noKer, link_of_local_closed, Loc, stabilizers,
+  Joints.StdSubAt, Adm2F and NPDescF. Apply the existing theta-kernel
+  expansion, exceptional counts, operator transfer, stopping inclusion,
+  NativeServedPrimeApplication and the existing native mean-loss
+  comparison at the actual restriction lattice. Pay every retained
+  low-central, ramified and other loss; no zero-chain valuation or
+  replacement gain. Do not reprove the recovery mechanism.
+- Measured costs: trace the actual suppliers for HidaSetting, DIV,
+  EComp5, HComp, Count5, Slopes, QuotientSlopeBoundsWith, Losses,
+  SlopeIneq, HHBound, FParams, ErrWindows and the B0/Nc budgets in
+  NativeExistingRecoveryPayment. Reuse the R25 integral extension
+  application (subject to hosted verification), existing one-sided
+  period/DIV, determinant descent, rank and measured-degree theorems.
+  Follow the original class-model, cusp/span, rank/mass and slope
+  supplying proofs only to the extent a surviving premise needs them;
+  an actual Petersson mass is not a finite Haar norm.
+- Uniformity: preserve the original quantifier order, fixed cost
+  constants, arbitrarily small exponent loss and complete late windows.
+  No favorable isolated R or independently chosen incompatible
+  witnesses. Apply the existing native signed-slope/scalar payment
+  and merged #1205 or #1206 handoff; do not reconstruct Landau.
+
+**Progress and acceptance.** For every one of the 43 rows, preserve its
+function by recording a verified native discharge, an explicitly
+proved replacement, or an actual source application with all retained
+prerequisites. Group related rows; do not equate count of rows with
+proof completion. Each report names the first unclosed leaf of the
+supplier chain and the exact existing proof being applied, identifies
+what was proved vs proposed vs assumed, and records its real verification
+status. The coordinator maintains this single dependency route; all
+roles retain their existing ownership and reporting rules. Lean checks
+the actual source, hypotheses, imports, terminal theorem and transitive
+axioms in hosted CI. No tautological geometry/height assignment,
+circular premise, imported terminal RH theorem, or merely green
+intermediate build is acceptable.
+
+**String first, stone bridge second.** The string is the minimal
+source-faithful connection to the existing unconditional native RH
+consumer: finish #1201 as a draft until a closed `RiemannHypothesis`
+theorem, the independently supplied complete critical estimate, and
+the full semantic and hosted dependency audit are established. Only
+after this is verified, isolate the smallest necessary upstream
+dependencies and replace them with proved, reusable native RH_Lean
+arithmetic/geometry wherever possible, preserving the working proof.
+Tractability and native mathematical contribution are goals of that
+subsequent simplification, not reasons to delay closure by inventing
+new mathematics now.
+
+Record `native_synthesis_ack=NATIVE_EXISTING_PROOF_SYNTHESIS_V1` only
+after a real source read and owned report. Preserve all existing
+source-integrity rules, hosted-only Lean verification, human-only
+merge, role permissions and report continuity. This branch instruction
+does not launch agents, modify their saved prompts or schedules, or
+assert proof success.
+
+---
+
+## Final completion branch #1201 (latest user priority)
+
+**NATIVE_RH_FINAL_PR_V1:** #1201 is the intended final proof PR. Do not
+split outstanding mathematical suppliers into a chain of new conditional
+endpoint PRs. Reuse the original signed recovery and admissible
+parameters and close the actual family. Follow the native source
+normalization and the concrete existing proof applications in the
+[completion report](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#8-final-pr-objective-close-the-suppliers-using-the-original-proof).
+An intermediate green build is not the acceptance criterion. Before
+final merge the branch must have an unconditional theorem of type
+RiemannHypothesis with its full source-faithful dependency and
+hypothesis audit. Preserve existing source-integrity, hosted-only
+Lean verification and human-only merge. This repository instruction
+does not launch agents or alter their configured schedules.
+
+---
+
+## 2026-11-24 — application of the existing recovery proof
+
+**NATIVE_RECOVERY_REUSE_V2 (user priority):** Do not design another
+signed-recovery mechanism, lower-rank recovery or variance hypothesis
+when the original recovery theorem already applies. Retain the original
+admissible m=R, k=(R^2-1)*R regime and existing native square-clock
+constructor. The 43 conditions are a coverage map, not literal tasks.
+Follow [the direct recovery application](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#7-user-correction-apply-the-existing-signed-recovery-do-not-redesign-it).
+Use the original proved gain_bound_all_of_star, stmtF, theta-kernel
+expansion and lattice-service theorem at their actual hypotheses;
+attach their required data to the native selected family. Reuse the
+existing native mean-loss, period, length and scalar consumers.
+The original no-kernel route may omit auxiliary Ch only where the
+retained consumers are proved independent of it; never identify its
+zero-chain valuations with actual physical maps or replace Ga/IO.
+The first open proof task is supplying the same-family exceptional
+sets and lattice comparison/descent, with the complete measured
+rank/degree/slope inputs and uniformity. No claim of RH until the
+actual unconditional bound closes the existing consumer.
+This supersedes conflicting experimental reduced-rank and new
+recovery task-selection mandates. Existing hosted-only checking,
+human-only merges, permissions and reporting continuity are unchanged.
+Repository changes do not launch agents or alter schedules.
+
+---
+
+## 2026-11-24 — preserve the breadth, not the literal 43 conditions
+
+**NATIVE_SCALAR_FUNCTION_CUT_V1:** The four upstream bundles are a coverage
+map, not a reconstruction checklist. Apply the source-bound semantic gate
+below. Use [the scalar-function audit and reductions](research/ALPOGE_SCALAR_CONDITION_AUDIT_20261124.md#5-replace-whole-functions-of-the-43-conditions-not-their-literal-forms).
+All seven roles prioritize an independently earned quantitative estimate
+on the actual complete native source, compatible normalization, and
+uniform windows. Whole groups of upstream conditions may be eliminated
+by stronger/sufficient native theorems. Use joint cost ratios and signed
+mean/variance height recovery when their actual premises are supplied;
+attack the remaining same-source local gain and measured global costs,
+not a literal geometric reconstruction. Do not claim the finite scalar
+reductions construct a gain or establish RH. Existing permissions,
+hosted-only checking, report continuity, and human-only merge stand.
+Repository instruction edits do not launch agents or alter schedules.
+
+---
 
 ## 2026-11-24 — final #1201 seven-agent proof closure
 

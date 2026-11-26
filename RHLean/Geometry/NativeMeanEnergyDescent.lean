@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeNumberFieldIntegralDescent
+import RHLean.Analysis.DistinguishedPrimeTransitionSupport
 
 /-!
 # Integral volume descent from mean map energy
@@ -25,6 +26,57 @@ namespace RHLean.Geometry.NumberFieldDescent
 section MeanEnergy
 
 variable {I J Q : Type*} [Fintype I] [Fintype J] [Fintype Q]
+
+
+/-- Exact normalized energy of the existing Phi pairs, without a factor-two
+loss from counting real coordinates as additional complex ranks. -/
+def phiColumnEnergy {T : Type*} [Fintype T]
+    (p : T → RHLean.Analysis.ComplexRealPair) : ℝ :=
+  ∑ i, RHLean.Analysis.complexRealPairNormSq (p i)
+
+theorem phiColumnEnergy_eq {T : Type*} [Fintype T] (z : T → ℂ) :
+    phiColumnEnergy (fun i => RHLean.Analysis.complexRealPair (z i)) =
+      columnEnergy z := by
+  simp only [phiColumnEnergy, columnEnergy,
+    RHLean.Analysis.complexRealPairNormSq_complexRealPair]
+
+/-- The literal matrix-vector map of the existing metric frame, in Phi
+coordinates. Complex conjugation and multiplication are not discarded. -/
+def phiMatrixMulVec (M : Matrix J I ℂ)
+    (p : I → RHLean.Analysis.ComplexRealPair) :
+    J → RHLean.Analysis.ComplexRealPair :=
+  fun j => ∑ i, RHLean.Analysis.complexRealPairMulHom (M j i) (p i)
+
+omit [Fintype J] in
+theorem phiMatrixMulVec_eq (M : Matrix J I ℂ) (z : I → ℂ) :
+    phiMatrixMulVec M (fun i => RHLean.Analysis.complexRealPair (z i)) =
+      fun j => RHLean.Analysis.complexRealPair ((M *ᵥ z) j) := by
+  funext j
+  change (∑ i, RHLean.Analysis.complexRealPairMulHom (M j i)
+    (RHLean.Analysis.complexRealPair (z i))) =
+      RHLean.Analysis.complexRealPairAddEquiv.toAddMonoidHom (∑ i, M j i * z i)
+  rw [map_sum]
+  exact Finset.sum_congr rfl fun i _ =>
+    RHLean.Analysis.complexRealPairMulHom_complexRealPair (M j i) (z i)
+
+theorem phiOperatorEnergy_iff (M : Matrix J I ℂ) (H : ℝ) :
+    (∀ p : I → RHLean.Analysis.ComplexRealPair,
+      phiColumnEnergy (phiMatrixMulVec M p) ≤ H * phiColumnEnergy p) ↔
+      (∀ z : I → ℂ, columnEnergy (M *ᵥ z) ≤ H * columnEnergy z) := by
+  constructor
+  · intro h z
+    simpa only [phiMatrixMulVec_eq, phiColumnEnergy_eq] using
+      h (fun i => RHLean.Analysis.complexRealPair (z i))
+  · intro h p
+    let z : I → ℂ := fun i => RHLean.Analysis.complexOfRealPair (p i)
+    have hp : (fun i => RHLean.Analysis.complexRealPair (z i)) = p := by
+      funext i
+      exact RHLean.Analysis.complexRealPair_complexOfRealPair (p i)
+    have he : phiColumnEnergy (phiMatrixMulVec M
+        (fun i => RHLean.Analysis.complexRealPair (z i))) ≤
+          H * phiColumnEnergy (fun i => RHLean.Analysis.complexRealPair (z i)) := by
+      simpa only [phiMatrixMulVec_eq, phiColumnEnergy_eq] using h z
+    simpa only [hp] using he
 
 /-- A total energy bound pays a product of energies by AM--GM. -/
 theorem product_le_power_of_sum_le (e : I → ℝ) (H : ℝ)
@@ -146,6 +198,22 @@ theorem jointMapMatrix_gram_det_le_of_rank_saturation [DecidableEq I]
     _ = ((Fintype.card Q : ℝ) * Fintype.card J) * H := by simp [mul_assoc]
     _ ≤ ((1 + ε) * Fintype.card I) * H := mul_le_mul_of_nonneg_right hrank hH
     _ = (Fintype.card I : ℝ) * ((1 + ε) * H) := by ring
+
+
+/-- Apply the existing rank-saturation determinant estimate directly to the
+same family of Phi actions. The original complex rank and exponent are
+retained; realification is not a new rank-saturation or norm hypothesis. -/
+theorem jointMapMatrix_gram_det_le_of_rank_saturation_phi [DecidableEq I]
+    (φ : Q → Matrix J I ℂ) (H ε : ℝ) (hI : 0 < Fintype.card I)
+    (hH : 0 ≤ H)
+    (hφ : ∀ h (p : I → RHLean.Analysis.ComplexRealPair),
+      phiColumnEnergy (phiMatrixMulVec (φ h) p) ≤ H * phiColumnEnergy p)
+    (hrank : (Fintype.card Q : ℝ) * Fintype.card J ≤
+      (1 + ε) * Fintype.card I) :
+    ‖((jointMapMatrix φ)ᴴ * jointMapMatrix φ).det‖ ≤
+      ((1 + ε) * H) ^ Fintype.card I :=
+  jointMapMatrix_gram_det_le_of_rank_saturation φ H ε hI hH
+    (fun h => (phiOperatorEnergy_iff (φ h) H).mp (hφ h)) hrank
 
 end MeanEnergy
 
