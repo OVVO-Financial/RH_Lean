@@ -429,10 +429,11 @@ theorem nativeDyadic_normalizedHeightShift_chain_norm (e q d : ℕ) [Fact q.Prim
     | zero => norm_num [Finset.Icc_eq_empty_of_lt (by decide : 1 < 2)]
     | succ n ih =>
       rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ (n+1)+1), ih]
-      simp only [lo, r, Nat.cast_add, Nat.cast_succ, Nat.cast_one]
+      simp only [lo, r, Nat.cast_succ]
       have h1 : (n:ℝ)+1 ≠ 0 := by positivity
       have h2 : (n:ℝ)+1+1 ≠ 0 := by positivity
-      field_simp [h1, h2] <;> ring
+      field_simp [h1, h2]
+      ring
   let N := primes.toFinset.sup id
   have hsub : primes.toFinset ⊆ Finset.Icc 2 (N+1) := by
     intro i hi
@@ -505,7 +506,7 @@ theorem nativeDyadic_normalizedHeightShift_chain_denominator (e q d Z : ℕ)
       change (p : ℂ)^2 * (M l : ℂ) *
         (((((p : ℝ)^2)⁻¹ : ℝ) : ℂ) * l.foldr op v t - l.foldr op v (sh t)) = _
       push_cast
-      field_simp [p0] <;> ring
+      field_simp [p0]
   refine ⟨clear primes hn hp, ?_⟩
   change Real.log ((M primes : ℕ) : ℝ) ≤ _
   have hsub : primes.toFinset ⊆ Nat.primesLE Z := fun i hi => hp i (List.mem_toFinset.mp hi)
