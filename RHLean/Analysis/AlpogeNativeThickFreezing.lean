@@ -242,6 +242,28 @@ theorem alpogeNativeSignedWidthSource_upper_width_le
     Complex.ofReal_im, zero_mul, sub_zero, Finset.sum_sub_distrib]
   linarith only [hAsk]
 
+/-- Compl3-style cancellation on the actual complete signed row: every
+height and character term common to the two profiles disappears. The
+ASK difference is retained with its sign, not bounded by its absolute
+value. No geometric comparison is needed for this identity. -/
+theorem alpogeNativeSignedWidthSource_sub_eq
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N : ℕ) (a : ℝ) (t : H) (w v : AlpogeNativeE0 × H → ℝ) :
+    alpogeNativeSignedWidthSource inertia frob ell N a t w -
+        alpogeNativeSignedWidthSource inertia frob ell N a t v =
+      (alpogeNativeFullKernelASK inertia frob N a t w).re -
+        (alpogeNativeFullKernelASK inertia frob N a t v).re +
+      a * ((1 / ((alpogeNativePhiSet H).card : ℝ)) *
+        ∑ ρ ∈ alpogeNativePhiSet H, (Real.log (w ρ) - Real.log (v ρ))) := by
+  classical
+  unfold alpogeNativeSignedWidthSource alpogeNativeMAIN
+  simp only [Complex.sub_re, Complex.mul_re, Complex.add_re,
+    Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+  rw [Finset.sum_sub_distrib]
+  ring
+
 /-- Upper width enclosures on the original top excess. A bound on the mean
 log-width distortion on each row suffices. The subgroup mean, top count and
 row count cancel against the original divisor, leaving its density visible. -/
@@ -471,6 +493,110 @@ def alpogeNativeThickPositiveSites (T2 : Finset H) (u : H) :
 def alpogeNativeFreezeThick (T2 : Finset H) (u : H) (b : ℝ)
     (w : AlpogeNativeE0 × H → ℝ) : AlpogeNativeE0 × H → ℝ :=
   fun ρ => if ρ ∈ alpogeNativeThickPositiveSites T2 u then b else w ρ
+
+omit [Fintype H] in
+/-- Exactly the actual thick sites, not all positive host coordinates,
+can change under freezing. Translation is injective. -/
+theorem alpogeNativeThickPositiveSites_card (T2 : Finset H) (u : H) :
+    (alpogeNativeThickPositiveSites T2 u).card = T2.card := by
+  unfold alpogeNativeThickPositiveSites
+  exact Finset.card_image_of_injective _ (fun _ _ heq =>
+    add_right_cancel (congrArg Prod.snd heq))
+
+/-- The native supported-coordinate estimate: unchanged thin coordinates
+contribute zero, and each actual thick coordinate costs at most h/b in
+log width. The Phi normalization pays the exact fraction Delta/2. -/
+theorem alpogeNativeFreezeThick_logMean_le
+    (T2 : Finset H) (u : H) (b h : ℝ) (hb : 0 < b)
+    (w : AlpogeNativeE0 × H → ℝ)
+    (hthick : ∀ ρ ∈ alpogeNativeThickPositiveSites T2 u,
+      b ≤ w ρ ∧ w ρ ≤ b + h) :
+    (1 / ((alpogeNativePhiSet H).card : ℝ)) *
+      ∑ ρ ∈ alpogeNativePhiSet H,
+        (Real.log (w ρ) - Real.log (alpogeNativeFreezeThick T2 u b w ρ)) ≤
+      (alpogeNativeProjectionDensity T2 / 2) * (h / b) := by
+  classical
+  have hsub : alpogeNativeThickPositiveSites T2 u ⊆ alpogeNativePhiSet H := by
+    intro ρ hρ
+    obtain ⟨s, _hs, rfl⟩ := Finset.mem_image.mp hρ
+    simp [alpogeNativePhiSet, alpogeNativeInPhi]
+  have hset : (alpogeNativePhiSet H).filter
+      (fun ρ => ρ ∈ alpogeNativeThickPositiveSites T2 u) =
+      alpogeNativeThickPositiveSites T2 u := by
+    ext ρ
+    simp only [Finset.mem_filter]
+    exact ⟨fun hρ => hρ.2, fun hρ => ⟨hsub hρ, hρ⟩⟩
+  have hsum : (∑ ρ ∈ alpogeNativePhiSet H,
+      (Real.log (w ρ) - Real.log (alpogeNativeFreezeThick T2 u b w ρ))) ≤
+      (T2.card : ℝ) * (h / b) := by
+    calc
+      _ ≤ ∑ ρ ∈ alpogeNativePhiSet H,
+          (if ρ ∈ alpogeNativeThickPositiveSites T2 u then h / b else 0) := by
+        apply Finset.sum_le_sum
+        intro ρ _hρ
+        by_cases hs : ρ ∈ alpogeNativeThickPositiveSites T2 u
+        · have hw := hthick ρ hs
+          have hp := hb.trans_le hw.1
+          have hlog := Real.log_le_sub_one_of_pos (div_pos hp hb)
+          rw [Real.log_div hp.ne' hb.ne'] at hlog
+          have hratio := div_le_div_of_nonneg_right hw.2 hb.le
+          rw [add_div, div_self hb.ne'] at hratio
+          simp only [alpogeNativeFreezeThick, if_pos hs]
+          linarith
+        · simp [alpogeNativeFreezeThick, hs]
+      _ = _ := by
+        rw [← Finset.sum_filter, hset, Finset.sum_const, nsmul_eq_mul,
+          alpogeNativeThickPositiveSites_card]
+  have hH : (Fintype.card H : ℝ) ≠ 0 := by exact_mod_cast Fintype.card_ne_zero
+  calc
+    _ ≤ (1 / ((alpogeNativePhiSet H).card : ℝ)) *
+        ((T2.card : ℝ) * (h / b)) := mul_le_mul_of_nonneg_left hsum (by positivity)
+    _ = _ := by
+      rw [alpogeNativeProjectionPhi_card, Nat.cast_mul]
+      unfold alpogeNativeProjectionDensity
+      push_cast
+      field_simp [hH, hb.ne'] <;> ring
+
+/-- Apply the supported-coordinate budget to the existing signed consumer.
+The favorable ASK change is not charged. The thick density cancels against
+the actual Q, and no thin width is modified. -/
+theorem alpogeNativePhysicalSubgroupTopExcess_freezeThick_upper_le
+    (A0 : AddSubgroup H) (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N m : ℕ) (TT T2 : Finset H) (a : H → ℝ) (A b h : ℝ)
+    (w : H → Fin m → AlpogeNativeE0 × H → ℝ)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) (hb : 0 < b)
+    (hh : 0 ≤ h) (ha : ∀ t ∈ TT, 0 ≤ a t ∧ a t ≤ A)
+    (hthick : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T2 u →
+      b ≤ w u j ρ ∧ w u j ρ ≤ b + h) :
+    alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w /
+        alpogeNativeProjectionDivisor TT T2 m b ≤
+      alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a
+        (fun u j => alpogeNativeFreezeThick T2 u b (w u j)) /
+        alpogeNativeProjectionDivisor TT T2 m b + (A / b) * (h / b) := by
+  classical
+  have hδ : 0 < alpogeNativeProjectionDensity T2 := by
+    unfold alpogeNativeProjectionDensity
+    exact div_pos (by exact_mod_cast hT2.card_pos) (by exact_mod_cast Fintype.card_pos)
+  have hη : 0 ≤ (alpogeNativeProjectionDensity T2 / 2) * (h / b) := by positivity
+  have horder : ∀ (u : A0) (j : Fin m) ρ, alpogeNativeInPhi ρ →
+      alpogeNativeFreezeThick T2 u b (w u j) ρ ≤ w u j ρ := by
+    intro u j ρ _hρ
+    unfold alpogeNativeFreezeThick
+    split_ifs with hs
+    · exact (hthick u j ρ hs).1
+    · exact le_rfl
+  have hcmp := alpogeNativePhysicalSubgroupTopExcess_upper_width_le
+    A0 inertia frob ell N m TT T2 a A b
+    ((alpogeNativeProjectionDensity T2 / 2) * (h / b))
+    (fun u j => alpogeNativeFreezeThick T2 u b (w u j)) w
+    hTT hT2 hm hb hη ha horder
+    (fun u j => alpogeNativeFreezeThick_logMean_le T2 u b h hb (w u j) (hthick u j))
+  have hprice : 2 * A * ((alpogeNativeProjectionDensity T2 / 2) * (h / b)) /
+      (b * alpogeNativeProjectionDensity T2) = (A / b) * (h / b) := by
+    field_simp [hb.ne', hδ.ne'] <;> ring
+  rwa [hprice] at hcmp
 
 omit [Fintype H] in
 theorem alpogeNativeFreezing_partner_mem_iff

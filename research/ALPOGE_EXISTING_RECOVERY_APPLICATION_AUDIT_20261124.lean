@@ -31,6 +31,13 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #check RHLean.Analysis.AlpogeThin.nativeSquareClock_ceilHeight_eventually
 #check RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.nativeDIV_of_period_lower
 
+#check RHLean.Analysis.alpogeNativeSignedWidthSource_sub_eq
+#check RHLean.Analysis.alpogeNativeThickPositiveSites_card
+#check RHLean.Analysis.alpogeNativeFreezeThick_logMean_le
+#check RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_freezeThick_upper_le
+#check RHLean.Analysis.AlpogeThin.nativeConstructedDyadicFrozenDiscrepancyLedger
+#check RHLean.Analysis.AlpogeThin.nativeFrozenWidthPrice_eventually
+
 open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
@@ -41,6 +48,12 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativeSignedWidthSource_upper_width_le,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_upper_width_le,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_logGrid_le,
+    ``RHLean.Analysis.alpogeNativeSignedWidthSource_sub_eq,
+    ``RHLean.Analysis.alpogeNativeThickPositiveSites_card,
+    ``RHLean.Analysis.alpogeNativeFreezeThick_logMean_le,
+    ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_freezeThick_upper_le,
+    ``RHLean.Analysis.AlpogeThin.nativeConstructedDyadicFrozenDiscrepancyLedger,
+    ``RHLean.Analysis.AlpogeThin.nativeFrozenWidthPrice_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeDiscrepancyPrice_le,
     ``RHLean.Analysis.AlpogeThin.nativeConstructedDyadicDiscrepancyLedger,
     ``RHLean.Analysis.alpogeNativePhysicalSubgroupTopExcess_mass_bound,
