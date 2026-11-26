@@ -163,6 +163,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_block_gram,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_short_completion,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_dual_gram,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_block_supplied,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_high_wheel_normalized_price,
     ``RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,

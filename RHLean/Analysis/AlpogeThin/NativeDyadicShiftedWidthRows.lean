@@ -1303,5 +1303,48 @@ theorem nativeDyadic_firstPrime_wheel_dual_gram (m : ℕ)
         (Matrix.adjugate_fin_succ_eq_det_submatrix G 0 0).symm
     _ = _ := by rw [adj]; simp only [Matrix.mul_apply, Matrix.transpose_apply, pow_two]
 
+/-- Every consecutive block of the actual admitted-prime wheel supplies
+the simultaneous integral dual and a bounded completing column. All
+coprimality and coefficient-size premises are discharged on that block. -/
+theorem nativeDyadic_firstPrime_wheel_block_supplied (P : Finset ℕ) (c a m : ℕ)
+    (ha : 0 < a) (hm : m ≤ c) (hp : ∀ p ∈ P, p.Prime ∧ c < p) :
+    let n := fun i : Fin (m+1) => a + i.val
+    let C := fun i => ∏ p ∈ P.filter (fun p => p ∣ n i ∧ c*p < n i), p
+    (∀ y : Fin m → ℤ, ∃ (v : ℤ) (u : Fin m → ℤ), ∀ i,
+      (C i.succ:ℤ)*u i - (C 0:ℤ)*v = y i) ∧
+    ∃ w : Fin (m+1) → ℤ, (∑ i, (↑(∏ j ∈ Finset.univ.erase i, C j) : ℤ)*w i) = 1 ∧
+      ∀ i, |w i| ≤ ((m:ℤ)+2)*(n i:ℤ) := by
+  classical
+  let n := fun i : Fin (m+1) => a+i.val
+  let S := fun i => P.filter (fun p => p ∣ n i ∧ c*p < n i)
+  let C := fun i => ∏ p ∈ S i, p
+  have hpos i : 0 < C i := Finset.prod_pos fun p hin => (hp p (Finset.mem_filter.mp hin).1).1.pos
+  have size i : C i ≤ n i := by
+    have hn : 0 < n i := Nat.add_pos_left ha _
+    have subset : S i ⊆ (n i).primeFactors := by
+      intro p h
+      obtain ⟨hpP, hd, _⟩ := Finset.mem_filter.mp h
+      exact Nat.mem_primeFactors.mpr ⟨(hp p hpP).1, hd, hn.ne'⟩
+    exact Nat.le_of_dvd hn ((Finset.prod_dvd_prod_of_subset _ _ (fun p => p) subset).trans
+      (Nat.prod_primeFactors_dvd _))
+  have ordered (i j : Fin (m+1)) (hij : i < j) : (C i).Coprime (C j) := by
+    have h : i.val < j.val := hij
+    exact nativeDyadic_firstPrime_wheel_block_coprime P c (n i) (n j) hp
+      (by change a+i.val < a+j.val; omega) (by change a+j.val-(a+i.val) ≤ c; omega)
+  have cop : Pairwise (fun i j => (C i).Coprime (C j)) := by
+    intro i j h
+    rcases lt_or_gt_of_ne h with h | h
+    · exact ordered i j h
+    · exact (ordered j i h).symm
+  constructor
+  · exact nativeDyadic_firstPrime_wheel_block_dual (fun i : Fin m => C i.succ) (C 0)
+      (fun i => (hpos _).ne') (fun i => cop (Fin.succ_ne_zero i).symm)
+      (fun _ _ h => cop (fun e => h (Fin.succ_injective m e)))
+  · obtain ⟨w, hz, hw⟩ := nativeDyadic_firstPrime_wheel_short_completion 0 C hpos cop
+    refine ⟨w, hz, fun i => (hw i).trans ?_⟩
+    simp only [Fintype.card_fin, Nat.cast_add, Nat.cast_one]
+    have hs : (C i:ℤ) ≤ (n i:ℤ) := by exact_mod_cast size i
+    nlinarith only [hs, mul_le_mul_of_nonneg_left hs (by positivity : 0 ≤ (m:ℤ))]
+
 end AlpogeThin
 end RHLean.Analysis

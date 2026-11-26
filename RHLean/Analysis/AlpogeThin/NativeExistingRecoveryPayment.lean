@@ -1,5 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicRamifiedWindow
+import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
 import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Analysis.AlpogeNativeProperPowerCentering
 import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
@@ -1714,9 +1715,10 @@ theorem nativeLedger_high_wheel_normalized_price (e q d c m : ℕ) [Fact q.Prime
   have side (p) (hpP : p ∈ P) t (ht : t ∈ TT) j :
       |∑ u ∈ U p t, F p t j u| ≤ (T2.card:ℝ)*E p := by
     have hcU : (U p t).card = T2.card := by
-      dsimp only [U]
-      conv_lhs => pattern (alpogeNativeHostData e q d).frob p; rw [(hp p hpP).2.2]
-      exact alpogeNativeThickColour_translate_count T2 t _
+      let count := fun g : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+        (Finset.univ.filter (fun u : AlpogeNativeDyadicH e =>
+          g ∈ alpogeNativeProjectionThickColours T2 u t)).card
+      exact (congrArg count (hp p hpP).2.2).trans (alpogeNativeThickColour_translate_count T2 t _)
     simpa only [hcU] using sumBound (U p t) (F p t j) (E p) (pt p hpP t ht j)
   have per (p) (hpP : p ∈ P) :
       |∑ t ∈ TT, ∑ j : Fin m, ∑ u ∈ U p t, F p t j u| ≤ K * E p := by
@@ -1731,7 +1733,7 @@ theorem nativeLedger_high_wheel_normalized_price (e q d c m : ℕ) [Fact q.Prime
     refine Finset.sum_le_sum fun p hpP => ?_
     rw [abs_mul, abs_of_nonneg (Real.log_nonneg (by exact_mod_cast (hp p hpP).1.one_le))]
     exact (mul_le_mul_of_nonneg_left (per p hpP)
-      (Real.log_nonneg (by exact_mod_cast (hp p hpP).1.one_le))).trans (by ring_nf)
+      (Real.log_nonneg (by exact_mod_cast (hp p hpP).1.one_le))).trans (by ring_nf; exact le_rfl)
   change |(4/K)*total| ≤ 4*∑ p ∈ P, Real.log (p:ℝ)*E p
   rw [abs_mul, abs_of_nonneg (by positivity : 0 ≤ 4/K)]
   calc
