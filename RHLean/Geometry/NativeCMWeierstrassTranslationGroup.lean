@@ -88,17 +88,6 @@ theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
       funext i
       fin_cases i <;> simp [translationTriple, translationChange]
 
-private theorem mul_of_additive_coordinates {A B M N : Type*}
-    [Add A] [Add B] [Mul M] [Mul N] (source : A → M) (target : B → N)
-    (u : A → B) (f : M → N) (hsurj : Function.Surjective source)
-    (hs : ∀ x y, source (x + y) = source x * source y)
-    (ht : ∀ x y, target (x + y) = target x * target y)
-    (hadd : ∀ x y, u (x + y) = u x + u y)
-    (hu : ∀ x, f (source x) = target (u x)) (p q : M) : f (p * q) = f p * f q := by
-  obtain ⟨x, rfl⟩ := hsurj p
-  obtain ⟨y, rfl⟩ := hsurj q
-  rw [← hs, hu, hadd, ht, hu, hu]
-
 private theorem mul_hom_of_field_points {G H : Over (Spec (.of R))} [GrpObj G] [GrpObj H]
     [IsReduced (G ⊗ G).left] [IsSeparated H.hom] (f : G ⟶ H)
     (hf : ∀ (k : Type) [Field k] [Algebra R k] (p q : specOver R k ⟶ G),
@@ -113,19 +102,26 @@ section Reduced
 
 variable [_root_.IsReduced R] [W.IsElliptic] [V.IsElliptic]
 
+private theorem translate_affine_mul (k : Type) [Field k] [Algebra R k]
+    (P Q : (V.baseChange k).toAffine.Point) :
+    translateFieldPoint W V r s t hC k (ofAffinePoint V k P * ofAffinePoint V k Q) =
+      translateFieldPoint W V r s t hC k (ofAffinePoint V k P) *
+        translateFieldPoint W V r s t hC k (ofAffinePoint V k Q) := by
+  rw [← ofAffinePoint_add V k P Q]
+  rw [ofAffinePoint_translation W V r s t hC k (P + Q)]
+  rw [map_add (translationAffinePointHom W V r s t hC k), ofAffinePoint_add W k]
+  rw [ofAffinePoint_translation W V r s t hC k P, ofAffinePoint_translation W V r s t hC k Q]
+
 theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
     (p q : specOver R k ⟶ schemeOver V) :
     (p * q) ≫ (translationOverIso W V r s t hC).hom =
       (p ≫ (translationOverIso W V r s t hC).hom) *
         (q ≫ (translationOverIso W V r s t hC).hom) := by
-  refine mul_of_additive_coordinates (A := (V.baseChange k).toAffine.Point)
-    (B := (W.baseChange k).toAffine.Point) (M := specOver R k ⟶ schemeOver V)
-    (N := specOver R k ⟶ schemeOver W) (ofAffinePoint V k) (ofAffinePoint W k)
-    (fun P => translationAffinePointHom W V r s t hC k P) (translateFieldPoint W V r s t hC k)
-    (ofAffinePoint_bijective V k).surjective (ofAffinePoint_add V k) (ofAffinePoint_add W k)
-    (map_add (translationAffinePointHom W V r s t hC k)) ?_ p q
-  with_reducible
-    exact ofAffinePoint_translation (W := W) (V := V) (r := r) (s := s) (t := t) (hC := hC) (k := k)
+  obtain ⟨P, hP⟩ := (ofAffinePoint_bijective V k).surjective p
+  obtain ⟨Q, hQ⟩ := (ofAffinePoint_bijective V k).surjective q
+  have h := translate_affine_mul W V r s t hC k P Q
+  rw [hP, hQ] at h
+  simpa only [translateFieldPoint] using h
 
 /-- The actual triangular scheme isomorphism preserves the group law. -/
 instance translationOverIso_isMonHom :
