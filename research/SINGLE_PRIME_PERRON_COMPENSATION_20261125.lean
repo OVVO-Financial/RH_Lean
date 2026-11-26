@@ -154,7 +154,11 @@ theorem oldCount_eq_faceFloor (r x : ℕ) :
           (primeFaceProduct_pos_of_mem_powerset ht)]
         simp [mul_comm]
   unfold oldCount
-  exact_mod_cast h
+  -- Cast the integer identity to ℝ explicitly. norm_cast left the mixed
+  -- ℤ/ℕ casts uncombined, so push Int.cast through the sum and product.
+  have hR := congrArg (Int.cast : ℤ → ℝ) h
+  simp only [Int.cast_natCast, Int.cast_sum, Int.cast_mul] at hR
+  exact hR
 
 /-- Each face's centered finite-difference defect is a bounded remainder,
 including endpoints at exact multiples. -/
@@ -250,7 +254,9 @@ theorem finitePrefix_difference (F : ℕ → ℝ) (b n : ℕ) :
   | zero => simp [finitePrefix]
   | succ n ih =>
     rw [finitePrefix_succ, ih]
-    ring
+    -- F (b + n + 1) and F (b + (n + 1)) differ inside the atom; ring_nf
+    -- normalizes the argument (plain ring fell back to it with an info).
+    ring_nf
 
 /-- Finite signed Abel identity, before any magnitude is taken. -/
 theorem finiteAbel (f g : ℕ → ℝ) (n : ℕ) :
