@@ -1261,5 +1261,47 @@ theorem nativeDyadic_firstPrime_wheel_short_completion {I : Type*} [Fintype I] [
         positivity
     exact (abs_sub _ _).trans (by rw [abs_of_nonneg hn]; nlinarith only [hu, hcost])
 
+/-- In the integral unimodular completion of a wheel block, the whole
+integral dual Gram costs only the squared length of the single completing
+column, placed at index zero. Individual Bezout coefficients are not summed. -/
+theorem nativeDyadic_firstPrime_wheel_dual_gram (m : ℕ)
+    (U : Matrix (Fin (m+1)) (Fin (m+1)) ℤ) (hu : U.det = 1 ∨ U.det = -1) :
+    let Y := U⁻¹.transpose.submatrix id Fin.succ
+    (Y.transpose*Y).det = ∑ i, (U i 0)^2 := by
+  classical
+  let Y := U⁻¹.transpose.submatrix id Fin.succ
+  let G := U⁻¹*U⁻¹.transpose
+  have hinv : IsUnit U.det := by rcases hu with h | h <;> simp [h]
+  have detInv := U.det_nonsing_inv_mul_det hinv
+  have detG : G.det = 1 := by
+    change (U⁻¹*U⁻¹.transpose).det = 1
+    rw [Matrix.det_mul, Matrix.det_transpose]
+    rcases hu with h | h
+    · rw [h, mul_one] at detInv
+      rw [detInv, one_mul]
+    · rw [h, mul_neg, mul_one] at detInv
+      have h' : U⁻¹.det = -1 := by linarith
+      rw [h']
+      norm_num
+  have inverse : G*(U.transpose*U) = 1 := by
+    calc
+      _ = U⁻¹*((U*U⁻¹).transpose*U) := by
+        simp only [G, Matrix.transpose_mul, Matrix.mul_assoc]
+      _ = 1 := by
+        rw [U.mul_nonsing_inv hinv, Matrix.transpose_one, Matrix.one_mul, U.nonsing_inv_mul hinv]
+  have adj : G.adjugate = U.transpose*U := by
+    calc
+      G.adjugate = G.adjugate*(G*(U.transpose*U)) := by rw [inverse, Matrix.mul_one]
+      _ = (G.adjugate*G)*(U.transpose*U) := (mul_assoc _ _ _).symm
+      _ = _ := by rw [Matrix.adjugate_mul, detG, one_smul, Matrix.one_mul]
+  have hsub : Y.transpose*Y = G.submatrix Fin.succ Fin.succ := rfl
+  change (Y.transpose*Y).det = _
+  rw [hsub]
+  calc
+    _ = G.adjugate 0 0 := by
+      simpa only [Fin.val_zero, zero_add, pow_zero, one_mul, Fin.succAbove_zero] using
+        (Matrix.adjugate_fin_succ_eq_det_submatrix G 0 0).symm
+    _ = _ := by rw [adj]; simp only [Matrix.mul_apply, Matrix.transpose_apply, pow_two]
+
 end AlpogeThin
 end RHLean.Analysis

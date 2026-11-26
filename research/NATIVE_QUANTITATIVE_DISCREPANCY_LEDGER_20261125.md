@@ -103,7 +103,7 @@ When a prime $p$ is admitted, every multiple of $p$ in the prefix contributes it
 
 Let $k_p=\lfloor N_w/p\rfloor-c$. The identity $\lfloor N_w/p\rfloor=\lfloor cx/p\rfloor$, $x\le a_t/b\le x+1$, and the Lipschitz constant one of the positive part give on every original thick read
 $$\left|\frac{(a_t/p-v)_+}{b}-\frac{k_p}c\right|\le\frac1p+|v/b-1|+\frac1c.$$
-This is `nativeDyadic_firstPrime_wheel_depth`. The auxiliary $c$ counts integer multiples. All measured contributions still use the original $b,Q$. The translate count and $\vartheta(x)\le(\log4)x$ give the uniform paper bound
+This is `nativeDyadic_firstPrime_wheel_depth`. The auxiliary $c$ counts integer multiples. All measured contributions still use the original $b,Q$. The declaration `nativeLedger_high_wheel_normalized_price` sums the rounded discrepancies over the actual thick mask, all original tops and rows with the exact normalized multiplier. The Chebyshev estimate $\vartheta(x)\le(\log4)x$ gives the following bound
 $$\left|S_{P,\mathrm{thick}}/Q-(4/c)\log D_w\right|
 \le 4(\log4)\left(\sqrt{x}+x(\eta+h/b+1/c)\right).$$
 For $x\ge4$, $c\ge\sqrt{x}/2$. The frozen spacing and collars give $\eta\le1/(2\sqrt{x})$ and $h/b\le1/x$ eventually. The error is then at most $4(\log4)((7/2)\sqrt{x}+1)$. In particular the whole high thick first-prime price is $O(\sqrt{x})$ and the common arithmetic prefix has length at most $x^{3/2}$, independently of the exponential height scale. At this point the signed problem is to bound $(4/c)\log D_w+(S(v)-S_{P,\mathrm{thick}})/Q$ by $K_\varepsilon x^{1/2+C\varepsilon}$ through an independent upper norm and lower determinant comparison. The positive quotient supplies the first term. Its construction alone gives no sign for the second.
@@ -125,7 +125,7 @@ The determinant after adjoining $w$ has absolute value one by cofactor expansion
 
 There is also an aggregate bound for the **integral duals** on these same blocks. Let $U=[B_j\;w]$ and write its integral inverse transpose as $U^{-\mathsf T}=[Y\;z]$. Then $B_j^{\mathsf T}Y=I$ and $w^{\mathsf T}Y=0$. The maximal minor of $Y$ omitting row $i$ is $\pm w_i$, by the complementary-minor identity and $|\det U|=1$. Cauchy–Binet gives
 $$\det(Y^{\mathsf T}Y)=\sum_i w_i^2\le\ell(\ell+1)^2 N_w^2.$$
-Thus the total *ordinary* dual log Gram divided by $c$ is $O(\sqrt{x}\log x)$ for an integral dual simultaneously realizing every retained column. This paper consequence prices joint covolume even when an individual dual vector is long. Moving that bound to the native signed height metric, or paying its distortion against the common MAIN, remains necessary.
+Thus the total *ordinary* dual log Gram divided by $c$ is $O(\sqrt{x}\log x)$ for an integral dual simultaneously realizing every retained column. The submitted exact integral Gram declaration is `nativeDyadic_firstPrime_wheel_dual_gram`. Its normalized paper consequence prices joint covolume even when an individual dual vector is long. Moving that bound to the native signed height metric, or paying its distortion against the common MAIN, remains necessary.
 
 ## The two sources
 

@@ -1654,4 +1654,88 @@ theorem nativeLedger_firstPrimeWidth_on_dyadicFrame :
     ⌊Real.sqrt x⌋₊ m TT T2 a b (2 * b) v hTT hT2 hm hb0 (by positivity) hM hheight hwidth
   exact ⟨hpaid.1, hpaid.2.trans (nativeLedger_firstPrimeWidth_price_le hx hb0 hδ hK)⟩
 
+/-- Aggregate the wheel discrepancy with the original translated thick
+mask. The factor four divided by |TT| m |T2| is the exact result of
+the host average, kernel weight two and the original divisor Q. -/
+theorem nativeLedger_high_wheel_normalized_price (e q d c m : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (TT T2 : Finset (AlpogeNativeDyadicH e)) (P : Finset ℕ) (a : AlpogeNativeDyadicH e → ℝ)
+    (b x η h : ℝ) (w : AlpogeNativeDyadicH e → Fin m → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) (hc : 0 < c)
+    (hb : 0 < b) (hη : 0 < η) (hh : 0 ≤ h)
+    (ha : ∀ t ∈ TT, x ≤ a t/b ∧ a t/b ≤ x+1)
+    (hp : ∀ p ∈ P, p.Prime ∧ (p:ℝ) ≤ x ∧ (alpogeNativeHostData e q d).frob p =
+      alpogeNativeProjectionE1 ((alpogeNativeHostData e q d).frob p).2)
+    (hw : ∀ t ∈ TT, ∀ p ∈ P, ∀ u j, (alpogeNativeHostData e q d).frob p ∈
+        alpogeNativeProjectionThickColours T2 u t →
+      w u j (alpogeNativePartner t ((alpogeNativeHostData e q d).frob p)) ∈ Set.Icc b (b+h)) :
+    let U := fun p t => Finset.univ.filter (fun u : AlpogeNativeDyadicH e =>
+      (alpogeNativeHostData e q d).frob p ∈ alpogeNativeProjectionThickColours T2 u t)
+    let K := (TT.card:ℝ)*m*T2.card
+    let k := fun p => ⌊(c:ℝ)*x⌋₊/p-c
+    let F := fun (p : ℕ) t j u => nativeDyadicLocalSourceAtom e q d p (a t) t
+      (fun g => alpogeNativeLowerLogWidth η (w u j g)) 1 / b - (k p:ℝ)/c
+    |(4/K)*∑ p ∈ P, Real.log (p:ℝ)*(∑ t ∈ TT, ∑ j : Fin m, ∑ u ∈ U p t, F p t j u)| ≤
+      4*∑ p ∈ P, Real.log (p:ℝ)*(1/(p:ℝ)+(η+h/b)+1/(c:ℝ)) := by
+  classical
+  let U := fun p t => Finset.univ.filter (fun u : AlpogeNativeDyadicH e =>
+    (alpogeNativeHostData e q d).frob p ∈ alpogeNativeProjectionThickColours T2 u t)
+  let K := (TT.card:ℝ)*m*T2.card
+  let k := fun p => ⌊(c:ℝ)*x⌋₊/p-c
+  let F := fun (p : ℕ) t j u => nativeDyadicLocalSourceAtom e q d p (a t) t
+    (fun g => alpogeNativeLowerLogWidth η (w u j g)) 1 / b - (k p:ℝ)/c
+  let E := fun p : ℕ => 1/(p:ℝ)+(η+h/b)+1/(c:ℝ)
+  have hK : 0 < K := mul_pos (mul_pos (by exact_mod_cast hTT.card_pos) (by exact_mod_cast hm))
+    (by exact_mod_cast hT2.card_pos)
+  have width {z : ℝ} (hz : z ∈ Set.Icc b (b+h)) : |alpogeNativeLowerLogWidth η z/b-1| ≤ η+h/b := by
+    have hz' := hb.trans_le hz.1
+    have low := (div_lt_iff₀ hη).mp (Int.lt_floor_add_one (Real.log z/η))
+    have high := (le_div_iff₀ hη).mp (Int.floor_le (Real.log z/η))
+    have hu : alpogeNativeLowerLogWidth η z ≤ z :=
+      (Real.exp_le_exp.mpr high).trans (Real.exp_log hz').le
+    have hl : b*(1-η) ≤ alpogeNativeLowerLogWidth η z := calc
+      _ ≤ b*Real.exp (-η) := mul_le_mul_of_nonneg_left (by linarith only [Real.add_one_le_exp (-η)]) hb.le
+      _ ≤ z*Real.exp (-η) := mul_le_mul_of_nonneg_right hz.1 (Real.exp_pos _).le
+      _ = Real.exp (Real.log z-η) := by rw [sub_eq_add_neg, Real.exp_add, Real.exp_log hz']
+      _ ≤ _ := Real.exp_le_exp.mpr (by linarith only [low])
+    have hzlo : 1-η ≤ alpogeNativeLowerLogWidth η z/b := (le_div_iff₀ hb).mpr (by linarith only [hl])
+    have hzhi : alpogeNativeLowerLogWidth η z/b ≤ 1+h/b :=
+      (div_le_div_of_nonneg_right (hu.trans hz.2) hb.le).trans (by rw [add_div, div_self hb.ne'])
+    exact abs_le.mpr ⟨by linarith only [hzlo, div_nonneg hh hb.le], by linarith only [hzhi, hη]⟩
+  have pt (p) (hpP : p ∈ P) t (ht : t ∈ TT) j u (hu : u ∈ U p t) : |F p t j u| ≤ E p := by
+    have hz := hw t ht p hpP u j (Finset.mem_filter.mp hu).2
+    exact (nativeDyadic_firstPrime_wheel_depth e q d p c (hp p hpP).1 hc t (a t) b x hb
+      (hp p hpP).2.1 (ha t ht) (fun g => alpogeNativeLowerLogWidth η (w u j g))).trans
+        (add_le_add (add_le_add le_rfl (width hz)) le_rfl)
+  have sumBound {I : Type} (s : Finset I) (f : I → ℝ) (B : ℝ) (hf : ∀ i ∈ s, |f i| ≤ B) :
+      |∑ i ∈ s, f i| ≤ (s.card:ℝ)*B := calc
+    _ ≤ ∑ i ∈ s, |f i| := Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _ ∈ s, B := Finset.sum_le_sum hf
+    _ = _ := by rw [Finset.sum_const, nsmul_eq_mul]
+  have side (p) (hpP : p ∈ P) t (ht : t ∈ TT) j :
+      |∑ u ∈ U p t, F p t j u| ≤ (T2.card:ℝ)*E p := by
+    have hcU : (U p t).card = T2.card := by
+      dsimp only [U]
+      conv_lhs => pattern (alpogeNativeHostData e q d).frob p; rw [(hp p hpP).2.2]
+      exact alpogeNativeThickColour_translate_count T2 t _
+    simpa only [hcU] using sumBound (U p t) (F p t j) (E p) (pt p hpP t ht j)
+  have per (p) (hpP : p ∈ P) :
+      |∑ t ∈ TT, ∑ j : Fin m, ∑ u ∈ U p t, F p t j u| ≤ K * E p := by
+    have inner t (ht : t ∈ TT) := sumBound Finset.univ (fun j : Fin m => ∑ u ∈ U p t, F p t j u)
+      ((T2.card:ℝ)*E p) (fun j _ => side p hpP t ht j)
+    have outer := sumBound TT _ _ inner
+    simpa only [K, Finset.card_univ, Fintype.card_fin, mul_assoc] using outer
+  let total := ∑ p ∈ P, Real.log (p:ℝ)*(∑ t ∈ TT, ∑ j : Fin m, ∑ u ∈ U p t, F p t j u)
+  have htotal : |total| ≤ K*(∑ p ∈ P, Real.log (p:ℝ)*E p) := by
+    refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_le_sum fun p hpP => ?_
+    rw [abs_mul, abs_of_nonneg (Real.log_nonneg (by exact_mod_cast (hp p hpP).1.one_le))]
+    exact (mul_le_mul_of_nonneg_left (per p hpP)
+      (Real.log_nonneg (by exact_mod_cast (hp p hpP).1.one_le))).trans (by ring_nf)
+  change |(4/K)*total| ≤ 4*∑ p ∈ P, Real.log (p:ℝ)*E p
+  rw [abs_mul, abs_of_nonneg (by positivity : 0 ≤ 4/K)]
+  calc
+    _ ≤ (4/K)*(K*∑ p ∈ P, Real.log (p:ℝ)*E p) := mul_le_mul_of_nonneg_left htotal (by positivity)
+    _ = _ := by field_simp [hK.ne']
+
 end RHLean.Analysis.AlpogeThin
