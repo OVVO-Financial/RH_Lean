@@ -117,7 +117,7 @@ theorem equation_comparison_tangent_length (W : _root_.WeierstrassCurve ℂ)
   change Real.pi * ‖(C'.u : ℂ)‖ ^ 2 / PeriodMean.latticeArea L' =
     Real.pi * ‖(C.u : ℂ)‖ ^ 2 / PeriodMean.latticeArea L
   rw [ha, hn]
-  field_simp [pow_ne_zero 2 (norm_ne_zero_iff.mpr hc), (PeriodMean.latticeArea_pos L).ne'] <;> ring
+  field_simp [pow_ne_zero 2 (norm_ne_zero_iff.mpr hc), (PeriodMean.latticeArea_pos L).ne']
 
 /-- The exact logarithmic period also belongs to the equation itself,
 independently of its chosen analytic comparison. -/

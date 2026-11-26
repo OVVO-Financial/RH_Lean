@@ -58,6 +58,11 @@ def integerFieldInclusion {M F : IntermediateField ℚ ℂ} (h : M ≤ F) : 𝓞
     (h : M ≤ F) (x : 𝓞 M) :
     (((integerFieldInclusion h x : 𝓞 F) : F) : ℂ) = ((x : M) : ℂ) := rfl
 
+private theorem eq_j_of_eq {P Q : _root_.WeierstrassCurve ℂ} [P.IsElliptic] [Q.IsElliptic]
+    (h : P = Q) : P.j = Q.j := by
+  subst Q
+  rfl
+
 /-- All class equations live in one actual finite extension. The original
 seed equation and comparison are preserved at the specified principal index. -/
 theorem exists_common_integral_models_preserving_seed
@@ -87,14 +92,18 @@ theorem exists_common_integral_models_preserving_seed
       have hd : (W₀.baseChange ℂ).Δ = 1 := by
         rw [_root_.WeierstrassCurve.baseChange, _root_.WeierstrassCurve.map_Δ, hΔ₀, map_one]
       refine ⟨W₀.baseChange ℂ, hint _, hint _, hint _, hint _, hint _, hd, ?_, fun _ => rfl⟩
-      have he := congrArg _root_.WeierstrassCurve.j hC₀
+      have he := eq_j_of_eq hC₀
       rw [_root_.WeierstrassCurve.variableChange_j] at he
       rw [← j_mul_Δ, hd, mul_one, he]
     · obtain ⟨V, h1, h2, h3, h4, h6, hd, hc⟩ := exists_complex_integral_curve (hj i)
       exact ⟨V, h1, h2, h3, h4, h6, hd, hc, fun h => (hi h).elim⟩
   choose V h1 h2 h3 h4 h6 hd hc hV₀ using hV
   let T : Set ℂ := ⋃ i : I, { (V i).a₁, (V i).a₂, (V i).a₃, (V i).a₄, (V i).a₆ }
-  have hT : T.Finite := by simp [T]
+  have hT : T.Finite := by
+    dsimp only [T]
+    apply Set.finite_iUnion
+    intro i
+    simp
   have : Finite T := hT.to_subtype
   have hTint : ∀ z ∈ T, IsIntegral ℤ z := by
     intro z hz

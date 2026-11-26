@@ -835,8 +835,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMIdealClassModels.lean",
-      "sha256": "f60b273c5449185dd298f42c2859aaf55448bfec53efed01658d431179871dfe",
-      "lines": 229
+      "sha256": "fd4f60f9ffd88583fc762ebbdbc752f65d3bf826a297b6563a558a5ad5e88414",
+      "lines": 238
     },
     {
       "path": "RHLean/Geometry/NativeCMIdealClassPeriods.lean",
@@ -1370,7 +1370,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPeriodUniqueness.lean",
-      "sha256": "eec62d55a98d32ac9b2fd381a056c1107073723168788924bfe4a0d0c14e5b70",
+      "sha256": "982512ebbea96e3d3d0f881e30ea7273599676f712d209b43ae224a122d4af6e",
       "lines": 158
     },
     {
@@ -1505,7 +1505,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTangentCoordinatePeriods.lean",
-      "sha256": "ef2fa041775ce66af9d3cc04623cae2ffecda598272052c12ea6e8de483b55ce",
+      "sha256": "832f0b8942ba36ae92cfb1fbd9254ecf5d5248d1755a4d010fa35158ce255f39",
       "lines": 237
     },
     {

@@ -176,7 +176,7 @@ theorem tangentCoordinatePeriods_log_covolume (hΔ : W.Δ = 1) :
   rw [PeriodArithmetic.latticeLogPeriod,
     tangentCoordinatePeriods_discriminant L C W hC, hΔ, norm_one,
     Real.log_one, zero_div, add_zero,
-    Real.log_div (PeriodMean.latticeArea_pos (tangentCoordinatePeriods L C)).ne'
+    Real.log_div (ZLattice.covolume_ne_zero (tangentCoordinatePeriods L C).lattice MeasureTheory.volume)
       Real.pi_ne_zero] at h
   exact h
 
