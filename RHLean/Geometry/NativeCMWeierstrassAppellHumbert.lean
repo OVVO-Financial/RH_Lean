@@ -79,8 +79,23 @@ end HolomorphicBundleAtlas
 
 namespace EllipticHolUnif
 
-export HolomorphicBundleAtlas (ex ex_add ex_onto ker hol fr fr_hol fr_ne fr_compat IsAH
-  HasTangentDirection)
+variable {W : _root_.WeierstrassCurve ℂ} [W.IsElliptic] {L : PeriodPair} (u : EllipticHolUnif W L)
+
+abbrev ex := HolomorphicBundleAtlas.ex u
+abbrev ex_add := HolomorphicBundleAtlas.ex_add u
+abbrev ex_onto := HolomorphicBundleAtlas.ex_onto u
+abbrev ker := HolomorphicBundleAtlas.ker u
+abbrev hol := HolomorphicBundleAtlas.hol u
+abbrev fr := HolomorphicBundleAtlas.fr u
+abbrev fr_hol := HolomorphicBundleAtlas.fr_hol u
+abbrev fr_ne := HolomorphicBundleAtlas.fr_ne u
+abbrev fr_compat := HolomorphicBundleAtlas.fr_compat u
+
+abbrev IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
+  HolomorphicBundleAtlas.IsAH (A := schemeOver W) (B := originLB W) (L := L) u H χ
+
+abbrev HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ schemeOver W) : Prop :=
+  HolomorphicBundleAtlas.HasTangentDirection (A := schemeOver W) (B := originLB W) (L := L) u w v
 
 end EllipticHolUnif
 
