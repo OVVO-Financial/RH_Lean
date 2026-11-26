@@ -143,8 +143,11 @@ jobs:
       (needs.research.result == 'success' || needs.research.result == 'skipped')
     runs-on: ubuntu-latest
     # A wedged proof search used to hold a runner for the six hour default.
-    # The slowest healthy build on record is under twenty minutes.
-    timeout-minutes: 45
+    # Warm builds finish in minutes. Since #1201 a cold build (no exact
+    # RHLean cache) also compiles the CM geometry and runs past 45 minutes:
+    # main's 5eeebbd build stopped at 45 minutes twice, before reaching the
+    # memory-heavy CM modules.
+    timeout-minutes: 90
     permissions:
       contents: read
       actions: write                     # required to trim superseded caches
@@ -206,6 +209,35 @@ jobs:
             rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+
+      # Compiled together, these CM modules can exhaust a hosted runner's
+      # memory (#1201's diagnostic runners were lost this way), and #1201's CI
+      # built the first five on separate runners. On a cache miss, build them
+      # here one at a time: first each module's own imports, then the module
+      # alone and single-threaded. The order puts every module after the
+      # heavy modules it imports. Same sources and fail-fast wrapper;
+      # nothing is skipped, and the full build below covers everything else.
+      - name: Build memory-heavy CM modules one at a time
+        if: steps.rhleancache.outputs.cache-hit != 'true'
+        env:
+          RHLEAN_BUILD_PROGRESS_SECONDS: '60'
+        run: |
+          set -euo pipefail
+          for module in \
+              NativeCMWeierstrassFiniteClosedPoints \
+              NativeCMWeierstrassIntegralExtension \
+              NativeCMWeierstrassHolomorphic \
+              NativeCMWeierstrassAppellHumbert \
+              NativeCMWeierstrassTranslationGroup \
+              NativeCMWeierstrassRationalGlobal \
+              NativeCMWeierstrassCMOrderAction \
+              NativeCMWeierstrassCMOrderTangent; do
+            mapfile -t prereqs < <(awk '$1 == "import" && $2 ~ /^RHLean\./ {print $2}' "RHLean/Geometry/$module.lean")
+            if (( ${#prereqs[@]} )); then
+              python3 scripts/lake_build_fail_fast.py "${prereqs[@]}"
+            fi
+            LEAN_NUM_THREADS=1 python3 scripts/lake_build_fail_fast.py "RHLean.Geometry.$module"
+          done
 
       - name: Build Lean project
         id: directbuild
