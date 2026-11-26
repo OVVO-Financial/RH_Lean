@@ -153,6 +153,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_paired_unit_price,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_matching_kernel_det,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_depth_surjective,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_matchedRead_joint_index,
     ``RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickFirst_saving_census,

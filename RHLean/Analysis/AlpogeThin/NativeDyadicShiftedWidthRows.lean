@@ -811,7 +811,7 @@ theorem nativeDyadic_firstPrime_matching_kernel_det (e : ℕ) (TT : Finset (Alpo
     by_cases h : i = j
     · subst j
       simp
-    · simp [Matrix.diagonal_apply, h]
+    · simp [h]
 
 /-- Every vector of target residues for the actual two-top first-prime
 differences is simultaneously attained at any depth. The other top may
@@ -849,6 +849,66 @@ theorem nativeDyadic_firstPrime_depth_surjective (e p k : ℕ) (TT : Finset (Alp
   obtain ⟨w, hw⟩ := residual k t
   rw [hz, zero_mul] at hw
   exact sub_eq_zero.mp hw
+
+/-- Reduction of the integral height variations at the two top coordinates
+read by each measured first-prime pair, at its prescribed depth. -/
+noncomputable def nativeDyadicMatchedReadReduction (e : ℕ) (TT : Finset (AlpogeNativeDyadicH e))
+    (P : Finset ℕ) (k r : ↥P → ↥TT → ℕ) (s : ↥P → ↥TT → ↥TT) :
+    (↥TT → ℤ) →+ ((p : ↥P) → (t : ↥TT) → ZMod (p.val ^ k p t)) where
+  toFun a p t := (r p t : ZMod (p.val ^ k p t)) * (a t : ZMod (p.val ^ k p t)) -
+    (p.val : ZMod (p.val ^ k p t)) * (a (s p t) : ZMod (p.val ^ k p t))
+  map_zero' := by funext p t; simp
+  map_add' a b := by funext p t; simp only [Pi.add_apply, Int.cast_add]; ring
+
+/-- At unequal measured depths, repeated secondary tops cost no extra
+multiplicity. The quotient of the single integral height lattice has exactly
+the product of the measured prime powers as its cardinality. -/
+theorem nativeDyadic_matchedRead_joint_index (e : ℕ) (TT : Finset (AlpogeNativeDyadicH e))
+    (P : Finset ℕ) (k r : ↥P → ↥TT → ℕ) (s : ↥P → ↥TT → ↥TT)
+    (hp : ∀ p ∈ P, Nat.Prime p) (hr : ∀ p t, (r p t).Coprime p.val) :
+    (nativeDyadicMatchedReadReduction e TT P k r s).ker.index =
+      ∏ p : ↥P, ∏ t : ↥TT, p.val ^ k p t := by
+  classical
+  let F := nativeDyadicMatchedReadReduction e TT P k r s
+  let K (p : ↥P) := Finset.univ.sup (k p)
+  let M (p : ↥P) := p.val ^ K p
+  have hM (p : ↥P) : M p ≠ 0 := pow_ne_zero _ (hp p p.property).ne_zero
+  let (p : ↥P) : NeZero (M p) := ⟨hM p⟩
+  let (p : ↥P) (t : ↥TT) : NeZero (p.val ^ k p t) := ⟨pow_ne_zero _ (hp p p.property).ne_zero⟩
+  have hc : (↑(Finset.univ : Finset (↥P)) : Set (↥P)).Pairwise (fun p l => (M p).Coprime (M l)) := by
+    intro p _ l _ h
+    exact (((Nat.coprime_primes (hp p p.property) (hp l l.property)).2
+      (fun hpl => h (Subtype.ext hpl))).pow_left _).pow_right _
+  have hdiv (p : ↥P) (t : ↥TT) : p.val ^ k p t ∣ M p :=
+    pow_dvd_pow _ (Finset.le_sup (s := Finset.univ) (f := k p) (Finset.mem_univ t))
+  let red (p : ↥P) (t : ↥TT) := ZMod.castHom (hdiv p t) (ZMod (p.val ^ k p t))
+  have onto : Function.Surjective F := by
+    intro y
+    have lifts (p : ↥P) (t : ↥TT) : ∃ b : ZMod (M p), red p t b = y p t :=
+      ZMod.castHom_surjective (hdiv p t) (y p t)
+    choose b hb using lifts
+    have inverse (p : ↥P) : ∃ u : ↥TT → ZMod (M p), ∀ t,
+        (r p t : ZMod (M p))*u t - (p.val : ZMod (M p))*u (s p t) = b p t := by
+      obtain ⟨u, h⟩ := nativeDyadic_firstPrime_depth_surjective e p (K p) TT (r p) (s p) (hr p) (b p)
+      exact ⟨u, congrFun h⟩
+    choose u hu using inverse
+    let a (t : ↥TT) := Nat.chineseRemainderOfFinset (fun p : ↥P => (u p t).val) M
+      Finset.univ (fun p _ => hM p) hc
+    have ha (p : ↥P) (t : ↥TT) : ((a t).val : ZMod (M p)) = u p t := by
+      have h := (ZMod.natCast_eq_natCast_iff _ _ _).2 ((a t).property p (Finset.mem_univ p))
+      simpa only [ZMod.natCast_zmod_val] using h
+    refine ⟨fun t => ((a t).val : ℤ), funext fun p => funext fun t => ?_⟩
+    have hred (v : ↥TT) : red p t (u p v) = ((a v).val : ZMod (p.val ^ k p t)) := by
+      rw [← ha p v]
+      exact map_natCast (red p t) _
+    have h := congrArg (red p t) (hu p t)
+    rw [map_sub, map_mul, map_mul, map_natCast, map_natCast, hred, hred, hb] at h
+    change (r p t : ZMod (p.val ^ k p t)) * (((a t).val : ℤ) : ZMod (p.val ^ k p t)) -
+      (p.val : ZMod (p.val ^ k p t)) * (((a (s p t)).val : ℤ) : ZMod (p.val ^ k p t)) = y p t
+    simpa only [Int.cast_natCast] using h
+  change F.ker.index = _
+  rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
+  simp only [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card]
 
 end AlpogeThin
 end RHLean.Analysis
