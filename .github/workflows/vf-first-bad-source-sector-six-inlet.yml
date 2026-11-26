@@ -41,7 +41,9 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # A cold research-closure rebuild (after a shared action or RHLean
+    # change) ran past the old 30-minute cap and was cancelled.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:

@@ -118,6 +118,30 @@ class LakeFailFastTests(unittest.TestCase):
     def test_closed_output_child_is_stopped_before_wrapper_returns(self):
         self.check_term_ignoring_child(close_output=True)
 
+    @unittest.skipUnless(os.name == "posix" and Path("/proc/meminfo").is_file(), "Linux diagnostics")
+    def test_periodic_progress_reports_silent_process_and_resources(self):
+        output = io.BytesIO()
+        ff.run_fail_fast([sys.executable, "-u", "-c",
+                          'import time; print("started", flush=True); time.sleep(0.4); print("finished")',
+                          "Example.lean"],
+                         output=output, progress_interval=0.04)
+        log = output.getvalue()
+        self.assertIn(b"[build-progress]", log)
+        self.assertIn(b"source=Example.lean", log)
+        self.assertIn(b"mem_available=", log)
+        self.assertIn(b"disk_free=", log)
+        self.assertIn(b"finished\n", log)
+
+    def test_periodic_progress_preserves_fail_fast(self):
+        output = io.BytesIO()
+        with self.assertRaises(subprocess.CalledProcessError):
+            ff.run_fail_fast([sys.executable, "-u", "-c",
+                              'import time; time.sleep(.15); print("error: Broken.lean:1:1: failure", flush=True); time.sleep(10)'],
+                             output=output, progress_interval=0.04,
+                             diagnostic_grace=0.05, terminate_grace=0.15)
+        self.assertIn(b"[build-progress]", output.getvalue())
+        self.assertIn(b"error: Broken.lean", output.getvalue())
+
     def test_build_targets_are_arguments_without_shell_interpolation(self):
         with patch.object(ff, "run_fail_fast") as run:
             ff.run_lake_build(["RHLean.One", "RHLean.Two"], cwd=Path("/tmp/project"))

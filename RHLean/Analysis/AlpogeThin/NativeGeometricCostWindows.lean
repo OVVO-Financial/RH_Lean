@@ -270,16 +270,17 @@ theorem sourceErrorBracket_eq_native
   rw [Real.rpow_neg hx]
   simp only [div_eq_mul_inv]
 
-/-- The complete three geometric costs and the already-paid analytic
-remainder fit the original `(C + 3) * epsilon` exponent. The normalization
-uses the same finite TT and T2 and their actual native character divisor. -/
-theorem normalizedCosts_add_analytic_le
+/-- The original scalar theorem has room for a complete extra remainder
+up to four times the analytic critical-scale allowance. This recovers
+unused headroom for height transport without changing the exponent,
+geometric bracket, or character divisor. -/
+theorem normalizedCosts_add_remainder_le
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
-    (C ε x : ℝ) (TT T2 : Finset H) (m : ℕ) (b k aE : ℝ)
-    (hW : GeometricSizeWindows C ε x (Fintype.card H) TT.card T2.card m b k aE) :
+    (C ε x : ℝ) (TT T2 : Finset H) (m : ℕ) (b k aE r : ℝ)
+    (hW : GeometricSizeWindows C ε x (Fintype.card H) TT.card T2.card m b k aE)
+    (hr : r ≤ 4 * x ^ ((1 : ℝ) / 2 + ε)) :
     x ^ (C * ε) * alpogeNativeNormalizedGeometricCosts TT.card
-        (alpogeNativeProjectionDensity T2) (Fintype.card H) m b k aE (x ^ ε) +
-        x ^ ((1 : ℝ) / 2 + ε) ≤
+        (alpogeNativeProjectionDensity T2) (Fintype.card H) m b k aE (x ^ ε) + r ≤
       x ^ ((1 : ℝ) / 2 + (C + 3) * ε) := by
   have hsource := hW.sizeWindows
   obtain ⟨hx3, _hε, _hC, hn, hb, _haE0, _haE, hnT, hd, _hnT2,
@@ -314,15 +315,28 @@ theorem normalizedCosts_add_analytic_le
   have hQeq : (TT.card : ℝ) * m * b * (((T2.card : ℝ) / Fintype.card H) / 2) = Q := by
     dsimp [Q, alpogeNativeProjectionDivisor, alpogeNativeProjectionDensity]
     ring
-  have hX0 : 0 ≤ x ^ ((1 : ℝ) / 2 + ε) := Real.rpow_nonneg hx0.le _
   have htransport : 0 ≤ 2 * (TT.card : ℝ) * m * b / x := by positivity
   have hT : (TT.card : ℝ) * m * b * (((T2.card : ℝ) / Fintype.card H) / 2) *
-      (V + x ^ ((1 : ℝ) / 2 + ε) - 4 * x ^ ((1 : ℝ) / 2 + ε)) ≤
+      (V + r - 4 * x ^ ((1 : ℝ) / 2 + ε)) ≤
         E + 2 * (TT.card : ℝ) * m * b / x := by
     rw [hQeq]
-    nlinarith [mul_nonneg hQ.le hX0]
+    nlinarith only [hpaid, htransport, mul_nonneg hQ.le (sub_nonneg.mpr hr)]
   exact proposition_size_bound C ε x (Fintype.card H) TT.card T2.card m b k aE
-    E (V + x ^ ((1 : ℝ) / 2 + ε)) hsource hT
+    E (V + r) hsource hT
+
+/-- The complete three geometric costs and the already-paid analytic
+remainder fit the original `(C + 3) * epsilon` exponent. The normalization
+uses the same finite TT and T2 and their actual native character divisor. -/
+theorem normalizedCosts_add_analytic_le
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (C ε x : ℝ) (TT T2 : Finset H) (m : ℕ) (b k aE : ℝ)
+    (hW : GeometricSizeWindows C ε x (Fintype.card H) TT.card T2.card m b k aE) :
+    x ^ (C * ε) * alpogeNativeNormalizedGeometricCosts TT.card
+        (alpogeNativeProjectionDensity T2) (Fintype.card H) m b k aE (x ^ ε) +
+        x ^ ((1 : ℝ) / 2 + ε) ≤
+      x ^ ((1 : ℝ) / 2 + (C + 3) * ε) := by
+  exact normalizedCosts_add_remainder_le C ε x TT T2 m b k aE _ hW
+    (by nlinarith [Real.rpow_nonneg (show 0 ≤ x by linarith [hW.1]) ((1 : ℝ) / 2 + ε)])
 
 end RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 

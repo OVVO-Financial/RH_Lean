@@ -1,0 +1,167 @@
+import RHLean.Geometry.NativeCMWeierstrassHolomorphic
+
+/-!
+# A constructed elliptic Appell--Humbert uniformization and exact Lie norm
+
+This is the scalar, dimension-one form of the source HolUnif contract:
+actual scheme exponential, exact original lattice kernel, all regular
+sections holomorphic, and analytic nonzero frames with the actual bundle
+transitions. Its Appell--Humbert law is proved from the constructed sigma
+product. The actual epsilon tangent has direction u by the regular-section
+localization theorem, so its squared length is exactly pi*|u|²/covol(L).
+
+The definition follows the dimension-one content of
+`src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/IsLieBasis.lean`
+in Levent Alpöge (with Claude),
+`CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.
+The source archive states no license; attribution is retained without assigning one.
+No global theta-uniformization theorem or prescribed arithmetic mean is assumed.
+-/
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxHeartbeats 1000000
+
+noncomputable section
+
+open AlgebraicGeometry CategoryTheory MonoidalCategory MonObj PeriodPair
+open Complex Filter
+open scoped Topology ComplexConjugate Real
+
+attribute [local instance] Over.cartesianMonoidalCategory
+
+namespace RHLean.Geometry.NativeCM.SchemeTheory
+
+open SectionPoints SchemeTheory.WeierstrassCurve WeierstrassLie
+
+/-- A scalar uniformization on a fixed group scheme and fixed line-bundle atlas,
+with its exponential, period kernel, holomorphic sections and transition law. -/
+structure HolomorphicBundleAtlas (A : Over (Sp ℂ)) [GrpObj A] (B : LB A.left)
+    (L : PeriodPair) where
+  ex : ℂ → (𝟙_ (Over (Sp ℂ)) ⟶ A)
+  ex_add : ∀ z w : ℂ, ex (z + w) = ex z * ex w
+  ex_onto : Function.Surjective ex
+  ker : ∀ z : ℂ, ex z = 1 ↔ z ∈ L.lattice
+  hol : ∀ (U : A.left.Opens) (s : Γ(A.left, U)), IsOpen {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U} ∧
+    DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U}
+  fr : B.ι → ℂ → ℂ
+  fr_hol : ∀ i, DifferentiableOn ℂ (fr i) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ B.U i}
+  fr_ne : ∀ i z, ⊤ ≤ (ex z).left ⁻¹ᵁ B.U i → fr i z ≠ 0
+  fr_compat : ∀ i j z (h : ⊤ ≤ (ex z).left ⁻¹ᵁ (B.U i ⊓ B.U j)),
+    fr i z = evalPt (ex z).left (B.U i ⊓ B.U j) h (B.g i j : Γ(A.left, B.U i ⊓ B.U j)) * fr j z
+
+/-- The native elliptic atlas specializes the group scheme and the bundle to
+the Weierstrass equation and its algebraic origin bundle. -/
+abbrev EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) :=
+  HolomorphicBundleAtlas (schemeOver W) (originLB W) L
+
+namespace HolomorphicBundleAtlas
+
+variable {A : Over (Sp ℂ)} [GrpObj A] {B : LB A.left} {L : PeriodPair}
+  (u : HolomorphicBundleAtlas A B L)
+
+/-- The actual scalar Hermitian form and character govern these same frames. -/
+def IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
+  (∀ z w, conj (H z w) = H w z) ∧
+  (∀ z : ℂ, z ≠ 0 → 0 < (H z z).re) ∧
+  (∀ w ∈ L.lattice, ‖χ w‖ = 1) ∧
+  ∀ (w : ℂ), w ∈ L.lattice → ∀ i z, ⊤ ≤ (u.ex z).left ⁻¹ᵁ B.U i →
+    u.fr i z = (χ w * exp (π * H z w + π / 2 * H w w)) * u.fr i (z + w)
+
+/-- The one-dimensional differential equality on every actual regular
+section, including its domain around the epsilon point. -/
+def HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ A) : Prop :=
+  IsTangent v ∧ ∀ (U : A.left.Opens) (h : ⊤ ≤ v.left ⁻¹ᵁ U) (s : Γ(A.left, U)),
+    ∃ d : ℂ, HasDerivAt (fun z : ℂ => value (u.ex z).left U s) d (0 : ℂ) ∧
+      (evalPt v.left U h s).snd = d * w
+
+end HolomorphicBundleAtlas
+
+namespace EllipticHolUnif
+
+variable {W : _root_.WeierstrassCurve ℂ} [W.IsElliptic] {L : PeriodPair} (u : EllipticHolUnif W L)
+
+abbrev ex := HolomorphicBundleAtlas.ex u
+abbrev ex_add := HolomorphicBundleAtlas.ex_add u
+abbrev ex_onto := HolomorphicBundleAtlas.ex_onto u
+abbrev ker := HolomorphicBundleAtlas.ker u
+abbrev hol := HolomorphicBundleAtlas.hol u
+abbrev fr := HolomorphicBundleAtlas.fr u
+abbrev fr_hol := HolomorphicBundleAtlas.fr_hol u
+abbrev fr_ne := HolomorphicBundleAtlas.fr_ne u
+abbrev fr_compat := HolomorphicBundleAtlas.fr_compat u
+
+abbrev IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
+  HolomorphicBundleAtlas.IsAH (A := schemeOver W) (B := originLB W) (L := L) u H χ
+
+abbrev HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ schemeOver W) : Prop :=
+  HolomorphicBundleAtlas.HasTangentDirection (A := schemeOver W) (B := originLB W) (L := L) u w v
+
+end EllipticHolUnif
+
+end RHLean.Geometry.NativeCM.SchemeTheory
+
+namespace RHLean.Geometry.NativeCM.WeierstrassTheta
+
+open SchemeTheory SchemeTheory.SectionPoints SchemeTheory.WeierstrassCurve
+open SchemeTheory.WeierstrassLie SchemeTheory.WeierstrassSectionJet
+open Weierstrass PeriodMean
+
+variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic]
+  (C : _root_.WeierstrassCurve.VariableChange ℂ)
+  (hC : C • W.baseChange ℂ = latticeCurve L)
+
+/-- Every field of the holomorphic uniformization is supplied by the
+actual equation, actual regular sections and the actual sigma frames. -/
+def canonicalHolUnif : EllipticHolUnif W L where
+  ex := expOver L W C hC
+  ex_add := expOver_add L W C hC
+  ex_onto := expOver_surjective L W C hC
+  ker := expOver_kernel L W C hC
+  hol := holomorphic_regular_sections L W C hC
+  fr := atlasFrame W L C
+  fr_hol := atlasFrame_differentiableOn W L C hC
+  fr_ne i z := atlasFrame_ne_zero W L C hC i (z := z)
+  fr_compat := atlasFrame_compat W L C hC
+
+/-- The original canonical-sigma law is the Appell--Humbert law of the
+actual algebraic origin bundle under this constructed uniformization. -/
+theorem canonicalHolUnif_isAH :
+    (canonicalHolUnif L W C hC).IsAH (latticeForm L) (sigmaSign L) := by
+  refine ⟨conj_latticeForm L, ?_, fun w _ => norm_sigmaSign L w, ?_⟩
+  · intro z hz
+    rw [latticeForm_self, Complex.ofReal_re]
+    exact div_pos (sq_pos_of_ne_zero (norm_ne_zero_iff.mpr hz)) (latticeArea_pos L)
+  · intro w hw i z _
+    change atlasFrame W L C i z = multiplier L w z * atlasFrame W L C i (z + w)
+    have e := atlasFrame_period W L C i hw z
+    calc
+      _ = atlasFrame W L C i (z + w) * multiplier L w z :=
+        ((eq_div_iff (multiplier_ne_zero L w z)).mp e).symm
+      _ = _ := mul_comm _ _
+
+private theorem recover_tangent_coefficient (u : ℂˣ) (d : ℂ) :
+    d = ((u : ℂ)⁻¹ * d) * (u : ℂ) := by
+  rw [_root_.mul_right_comm (u : ℂ)⁻¹ d (u : ℂ), inv_mul_cancel₀ u.ne_zero, _root_.one_mul]
+
+/-- The actual integral-coordinate epsilon generator has direction u;
+this is proved on every regular section, rather than on coordinates alone. -/
+theorem canonicalHolUnif_integral_tangent :
+    (canonicalHolUnif L W C hC).HasTangentDirection (C.u : ℂ) (integralVector W) := by
+  refine ⟨integralVector_isTangent W, ?_⟩
+  intro U h s
+  refine ⟨_, section_derivative L W C hC U h s, ?_⟩
+  exact recover_tangent_coefficient C.u ((evalPt (vec W 1) U h s).snd)
+
+/-- The exact positive Lie length comes from the actual bundle's proved
+Appell--Humbert form and the actual epsilon-vector differential. -/
+theorem canonicalHolUnif_exact_tangent_norm :
+    (canonicalHolUnif L W C hC).IsAH (latticeForm L) (sigmaSign L) ∧
+    (canonicalHolUnif L W C hC).HasTangentDirection (C.u : ℂ) (integralVector W) ∧
+    0 < π * (latticeForm L (C.u : ℂ) (C.u : ℂ)).re ∧
+    π * (latticeForm L (C.u : ℂ) (C.u : ℂ)).re =
+      π * ‖(C.u : ℂ)‖ ^ 2 / ZLattice.covolume L.lattice :=
+  ⟨canonicalHolUnif_isAH L W C hC, canonicalHolUnif_integral_tangent L W C hC,
+    integral_direction_length_pos L C, integral_direction_length L C⟩
+
+end RHLean.Geometry.NativeCM.WeierstrassTheta

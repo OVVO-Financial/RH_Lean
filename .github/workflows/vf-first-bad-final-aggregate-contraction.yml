@@ -37,12 +37,17 @@ permissions:
 
 concurrency:
   group: research-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
+  # Let an active expensive build reach its cache checkpoint. GitHub still
+  # coalesces superseded pending revisions; actual failed prerequisites
+  # retain the separate exact-revision fail-fast gate.
+  cancel-in-progress: false
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    # A cold research-closure rebuild (after a shared action or RHLean
+    # change) took 32-35 minutes and was cancelled at the old 35-minute cap.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,24 +71,48 @@ jobs:
       - name: Prebuild PNT+ StrongPNT dependency
         if: steps.affected.outputs.affected == 'true'
         run: lake build PrimeNumberTheoremAnd.StrongPNT
+      # Reuse the independently completed upstream dependency on repair runs.
+      - name: Checkpoint compiled PNT+ dependency
+        if: steps.affected.outputs.affected == 'true' && steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore RHLean build cache
         if: steps.affected.outputs.affected == 'true'
+        id: rhleancache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          # This key is a partial checkpoint, never a complete RHLean build.
+          key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}-vf-aggregate
           restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build RHLean modules imported by these research checks
+        id: vfprerequisites
         if: steps.affected.outputs.affected == 'true'
         run: >-
           python3 scripts/compile_research_import_closure.py --library-only
           research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+      # Retain the successful native import closure before starting the
+      # long research pass. The compiler still validates each source/artifact.
+      - name: Checkpoint compiled native VF prerequisites
+        if: >-
+          steps.vfprerequisites.outcome == 'success' &&
+          steps.rhleancache.outputs.cache-hit != 'true' &&
+          steps.rhleancache.outputs.cache-matched-key != format('rhlean-build-{0}-{1}-{2}-{3}', runner.os, runner.arch, hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json'), hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean'))
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.rhleancache.outputs.cache-primary-key }}
       - name: Compile cached research import closure
         if: steps.affected.outputs.affected == 'true'
         uses: ./.github/actions/research-compile
         with:
+          native-cache-ready: 'true'
           targets: |
             research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
       - name: Compile and audit final aggregate contraction

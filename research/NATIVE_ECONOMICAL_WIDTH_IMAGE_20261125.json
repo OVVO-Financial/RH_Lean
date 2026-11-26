@@ -1,0 +1,499 @@
+{
+  "eps_WinPair_and_PageN": [
+    "1/64",
+    "9/560"
+  ],
+  "eps_sharpened_PageN_band": "9/560",
+  "integer_heights_at_original_exp_scale": {
+    "1/64": {
+      "original_X_prime_strict_upper_bound": 4,
+      "root_denominator": 1000000000000000000000000,
+      "strict_root_numerators": [
+        1654817099943181164380442,
+        1654817099943181164380443
+      ],
+      "exp_taylor_terms": 48,
+      "floor_of_a": 523212287908719,
+      "strict_bounds_on_a_minus_floor_in_millionths": [
+        787157,
+        787158
+      ],
+      "strict_upper_bound_on_window_end_minus_floor_in_millionths": 787160,
+      "integer_top_heights_in_original_window": 0,
+      "rank_scope": "all positive integer k at this N and epsilon"
+    },
+    "9/560": {
+      "original_X_prime_strict_upper_bound": 4,
+      "root_denominator": 1000000000000000000000000,
+      "strict_root_numerators": [
+        1678804018122560044164161,
+        1678804018122560044164162
+      ],
+      "exp_taylor_terms": 48,
+      "floor_of_a": 535914269926097,
+      "strict_bounds_on_a_minus_floor_in_millionths": [
+        731729,
+        731730
+      ],
+      "strict_upper_bound_on_window_end_minus_floor_in_millionths": 731732,
+      "integer_top_heights_in_original_window": 0,
+      "rank_scope": "all positive integer k at this N and epsilon"
+    }
+  },
+  "geometric_size_windows": "fails top-density and 26 threshold",
+  "R=m": 10000000,
+  "N=x=Y": 99999999999999,
+  "e": 99,
+  "q": 3,
+  "d_expression": "3814*5^400+1",
+  "d_bit_length": 941,
+  "TT_dyadic_unit_representatives": [
+    1,
+    17,
+    47,
+    1849
+  ],
+  "T2": "all H",
+  "Delta": 1,
+  "b=beta=w": 16,
+  "h": 1,
+  "a=Amax": 1599999999999984,
+  "projection_divisor": 320000000,
+  "lattice_rank_over_ring_of_integers": 999999999999999999999,
+  "ramified_inertia_sizes": {
+    "2": 633825300114114700748351602688,
+    "3": 2,
+    "d": 2
+  },
+  "ramified_frobenius": {
+    "2": [
+      0,
+      1,
+      1
+    ],
+    "3": [
+      0,
+      0,
+      3
+    ],
+    "14770065563235299892527968835354145946632815998474088360970327858287603951644574269986270041532533672607331467123812739195160370025756824103402121045191878776497291152941804481644379794355288512102346928203579150314291364400076187181757219951325210693937606265535578131675720214843751": [
+      0,
+      1,
+      941985975830983057391119700327
+    ]
+  },
+  "all_excluded_by_top_base_exponent": [
+    [
+      1,
+      17,
+      1
+    ],
+    [
+      1,
+      47,
+      1
+    ]
+  ],
+  "excluded_normalized_terms_log_multipliers": {
+    "17": "99999999999982/17",
+    "47": "99999999999952/47"
+  },
+  "first_three_powers_at_top_1": {
+    "2": [
+      "ramified, non-Phi read zero",
+      "ramified, non-Phi read zero",
+      "ramified, non-Phi read zero"
+    ],
+    "3": [
+      "ramified, non-Phi read zero",
+      "ramified, non-Phi read zero",
+      "ramified, non-Phi read zero"
+    ],
+    "5": [
+      "non-Phi read zero",
+      "non-Phi read zero",
+      "non-Phi read zero"
+    ],
+    "7": [
+      "non-Phi read zero",
+      "non-Phi read zero",
+      "non-Phi read zero"
+    ],
+    "11": [
+      "retained",
+      "non-Phi read zero",
+      "retained"
+    ],
+    "13": [
+      "retained",
+      "non-Phi read zero",
+      "retained"
+    ],
+    "17": [
+      "first-excluded",
+      "non-Phi read zero",
+      "retained"
+    ],
+    "37": [
+      "non-Phi read zero",
+      "non-Phi read zero",
+      "non-Phi read zero"
+    ],
+    "41": [
+      "non-Phi read zero",
+      "non-Phi read zero",
+      "non-Phi read zero"
+    ],
+    "43": [
+      "retained",
+      "non-Phi read zero",
+      "retained"
+    ],
+    "47": [
+      "first-excluded",
+      "non-Phi read zero",
+      "retained"
+    ]
+  },
+  "partitions_per_base": {
+    "16": {
+      "2": "low",
+      "3": "low",
+      "5": "low",
+      "7": "low",
+      "11": "low",
+      "13": "low",
+      "17": "high",
+      "37": "high",
+      "41": "high",
+      "43": "high",
+      "47": "high"
+    },
+    "32": {
+      "2": "low",
+      "3": "low",
+      "5": "low",
+      "7": "low",
+      "11": "low",
+      "13": "low",
+      "17": "low",
+      "37": "high",
+      "41": "high",
+      "43": "high",
+      "47": "high"
+    }
+  },
+  "c": 2,
+  "actual_active_width_readouts": {
+    "13": {
+      "rows": [
+        {
+          "i": 1,
+          "n": 13,
+          "site": [
+            0,
+            1,
+            13
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 3,
+          "n": 2197,
+          "site": [
+            0,
+            1,
+            2197
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 5,
+          "n": 371293,
+          "site": [
+            0,
+            1,
+            371293
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 7,
+          "n": 62748517,
+          "site": [
+            0,
+            1,
+            62748517
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 9,
+          "n": 10604499373,
+          "site": [
+            0,
+            1,
+            10604499373
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 11,
+          "n": 1792160394037,
+          "site": [
+            0,
+            1,
+            1792160394037
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        }
+      ],
+      "rank": 6,
+      "smith_exponents": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "Z_local_smith_values": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "quotient_length": 0,
+      "layer_counts": [
+        0,
+        0,
+        0
+      ],
+      "direct_smith_in_original_and_changed_bases": {
+        "original": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "16": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "32": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "64": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "43": {
+      "rows": [
+        {
+          "i": 1,
+          "n": 43,
+          "site": [
+            0,
+            1,
+            43
+          ],
+          "other_reads_at_site": [],
+          "depth": 0,
+          "normalized_signed_width_change": {
+            "log_p": "-1/16",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 3,
+          "n": 79507,
+          "site": [
+            0,
+            1,
+            79507
+          ],
+          "other_reads_at_site": [
+            [
+              1849,
+              43,
+              1,
+              "retained"
+            ]
+          ],
+          "depth": 2,
+          "normalized_signed_width_change": {
+            "log_p": "-1/8",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 5,
+          "n": 147008443,
+          "site": [
+            0,
+            1,
+            147008443
+          ],
+          "other_reads_at_site": [
+            [
+              1849,
+              43,
+              3,
+              "retained"
+            ]
+          ],
+          "depth": 2,
+          "normalized_signed_width_change": {
+            "log_p": "-1/8",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        },
+        {
+          "i": 7,
+          "n": 271818611107,
+          "site": [
+            0,
+            1,
+            271818611107
+          ],
+          "other_reads_at_site": [
+            [
+              1849,
+              43,
+              5,
+              "retained"
+            ]
+          ],
+          "depth": 2,
+          "normalized_signed_width_change": {
+            "log_p": "-1/8",
+            "log_17_over_16": "99999999999999/633825300114114700748351602688"
+          }
+        }
+      ],
+      "rank": 4,
+      "smith_exponents": [
+        0,
+        2,
+        2,
+        2
+      ],
+      "Z_local_smith_values": [
+        1,
+        1849,
+        1849,
+        1849
+      ],
+      "quotient_length": 6,
+      "layer_counts": [
+        3,
+        3,
+        0
+      ],
+      "direct_smith_in_original_and_changed_bases": {
+        "original": [
+          1,
+          1849,
+          1849,
+          1849
+        ],
+        "16": [
+          1,
+          1849,
+          1849,
+          1849
+        ],
+        "32": [
+          1,
+          1849,
+          1849,
+          1849
+        ],
+        "64": [
+          1,
+          1849,
+          1849,
+          1849
+        ]
+      },
+      "free_top_heights_on_listed_active_reads": {
+        "height_increment_p_exponents_by_top": {
+          "1": 7,
+          "1849": 5
+        },
+        "smith_factors": [
+          1,
+          1,
+          1849,
+          1849
+        ],
+        "quotient_length": 4,
+        "unit_factors": 2,
+        "competing_modulus": 1849
+      },
+      "fixed_diagnostic_b_with_integer_height_window": {
+        "unique_height_at_every_top": 1599999999999984,
+        "height_increment_at_every_top": 0,
+        "smith_factors_on_the_listed_width_reads": [
+          1,
+          1849,
+          1849,
+          1849
+        ],
+        "quotient_length_on_the_listed_width_reads": 6
+      },
+      "class_from_raw_host_characters": "signal"
+    }
+  },
+  "physical_section_and_dual_E_C": "unconstructed",
+  "PairGood_bounds": "unverified"
+}

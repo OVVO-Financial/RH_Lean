@@ -1,0 +1,18 @@
+name: Restore native research prerequisites
+description: Restore the pinned PNT+ and native preflight artifacts before Lake validates the source.
+runs:
+  using: composite
+  steps:
+    - name: Restore PNT+ build cache
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+        key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+    - name: Restore native prerequisites
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/build
+        key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+        restore-keys: |
+          rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+          rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-

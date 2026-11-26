@@ -702,6 +702,86 @@ def complexRealPairMul (p q : ComplexRealPair) : ComplexRealPair :=
       complexRealPairMul (complexRealPair z) (complexRealPair w) := by
   ext <;> simp [complexRealPair, complexRealPairMul] <;> ring
 
+
+/-! ## Lossless Phi transport for the existing lattice and metric consumers -/
+
+/-- The existing Phi coordinate is an additive equivalence, so it transports
+actual lattices and finite quotients, not just pointwise magnitudes. -/
+def complexRealPairAddEquiv : ℂ ≃+ ComplexRealPair where
+  toFun := complexRealPair
+  invFun := complexOfRealPair
+  left_inv := complexOfRealPair_complexRealPair
+  right_inv := complexRealPair_complexOfRealPair
+  map_add' := complexRealPair_add
+
+/-- The same complex multiplication, conjugated by the existing Phi. -/
+def complexRealPairMulHom (a : ℂ) : ComplexRealPair →+ ComplexRealPair :=
+  complexRealPairAddEquiv.toAddMonoidHom.comp
+    ((AddMonoidHom.mulLeft a).comp complexRealPairAddEquiv.symm.toAddMonoidHom)
+
+@[simp] theorem complexRealPairMulHom_complexRealPair (a z : ℂ) :
+    complexRealPairMulHom a (complexRealPair z) = complexRealPair (a * z) := by
+  change complexRealPair (a * complexOfRealPair (complexRealPair z)) = _
+  rw [complexOfRealPair_complexRealPair]
+
+/-- In the original factor coordinates the transported action is the
+ordinary two-dimensional real multiplication matrix. -/
+theorem complexRealPairMulHom_matrix (a : ℂ) (p : ComplexRealPair) :
+    complexRealPairMulHom a p =
+      (a.re * p.1 - a.im * p.2, a.im * p.1 + a.re * p.2) := by
+  change complexRealPair (a * complexOfRealPair p) = _
+  ext <;> simp [complexRealPair, complexOfRealPair, Complex.mul_re, Complex.mul_im] <;> ring
+
+/-- The normalized Euclidean quadratic form and the two components of
+the Hermitian pairing. The area uses the orientation of z * conj w.
+The factor 1/2 is essential: the determinant of Phi itself is two. -/
+def complexRealPairNormSq (p : ComplexRealPair) : ℝ :=
+  complexRealPairEnergy p / 2
+
+def complexRealPairGram (p q : ComplexRealPair) : ℝ :=
+  (p.1 * q.1 + p.2 * q.2) / 2
+
+def complexRealPairOrientedArea (p q : ComplexRealPair) : ℝ :=
+  (p.2 * q.1 - p.1 * q.2) / 2
+
+theorem complexRealPairNormSq_complexRealPair (z : ℂ) :
+    complexRealPairNormSq (complexRealPair z) = ‖z‖ ^ 2 := by
+  rw [complexRealPairNormSq, complexRealPairEnergy_complexRealPair]
+  ring
+
+theorem complexRealPairGram_complexRealPair (z w : ℂ) :
+    complexRealPairGram (complexRealPair z) (complexRealPair w) =
+      (z * conj w).re := by
+  simp [complexRealPairGram, complexRealPair, Complex.mul_re]
+  ring
+
+theorem complexRealPairOrientedArea_complexRealPair (z w : ℂ) :
+    complexRealPairOrientedArea (complexRealPair z) (complexRealPair w) =
+      (z * conj w).im := by
+  simp [complexRealPairOrientedArea, complexRealPair, Complex.mul_im]
+  ring
+
+/-- The determinant price is exactly |a|^2, on all real pairs. -/
+theorem complexRealPairOrientedArea_mulHom (a : ℂ) (p q : ComplexRealPair) :
+    complexRealPairOrientedArea (complexRealPairMulHom a p) (complexRealPairMulHom a q) =
+      ‖a‖ ^ 2 * complexRealPairOrientedArea p q := by
+  simp only [complexRealPairMulHom_matrix, complexRealPairOrientedArea,
+    Complex.sq_norm, Complex.normSq_apply]
+  ring
+
+theorem complexRealPairNormSq_mulHom (a : ℂ) (p : ComplexRealPair) :
+    complexRealPairNormSq (complexRealPairMulHom a p) =
+      ‖a‖ ^ 2 * complexRealPairNormSq p := by
+  simp only [complexRealPairMulHom_matrix, complexRealPairNormSq,
+    complexRealPairEnergy, Complex.sq_norm, Complex.normSq_apply]
+  ring
+
+/-- The signed real projection is the diagonal mean, not an absolute value. -/
+theorem complexRealPair_diagonalMean (z : ℂ) :
+    ((complexRealPair z).1 + (complexRealPair z).2) / 2 = z.re := by
+  unfold complexRealPair
+  ring
+
 /-- The two-complex-scalar input energy after the rank-one active reduction. -/
 def restrictedPrimeTwoScalarInputEnergy
     (r : ℝ) (u v : ℂ) : ℝ :=

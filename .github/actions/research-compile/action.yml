@@ -7,16 +7,21 @@ inputs:
   build-library:
     description: Build imported RHLean targets before compiling research modules
     default: 'true'
+  native-cache-ready:
+    description: Native prerequisites already restored and staged by the caller
+    default: 'false'
 runs:
   using: composite
   steps:
     - name: Probe existing complete native RHLean library
       id: native_probe
       shell: bash
+      env:
+        NATIVE_CACHE_READY: ${{ inputs.native-cache-ready }}
       run: |
-        if [[ -s .lake/build/lib/lean/RHLean.olean ]]; then
+        if [[ "$NATIVE_CACHE_READY" == true || -s .lake/build/lib/lean/RHLean.olean ]]; then
           echo 'present=true' >> "$GITHUB_OUTPUT"
-          echo "Native RHLean compiled root already present; skipping fallback download"
+          echo "Native RHLean artifacts already restored or staged; skipping fallback download"
         else
           echo 'present=false' >> "$GITHUB_OUTPUT"
         fi
@@ -54,9 +59,18 @@ runs:
         RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
         BUILD_LIBRARY: ${{ inputs.build-library }}
       run: |
+        set -o pipefail
         args=()
         if [[ "$BUILD_LIBRARY" == true ]]; then args+=(--build-library); fi
-        python3 scripts/compile_research_import_closure.py "${args[@]}"
+        python3 scripts/compile_research_import_closure.py "${args[@]}" 2>&1 | tee "$RUNNER_TEMP/rhlean-research-compile.log"
+    - name: Preserve failed Lean compiler output
+      if: failure() && steps.compile.outcome == 'failure'
+      uses: actions/upload-artifact@v4
+      with:
+        name: research-compile-failure-${{ github.job }}-${{ steps.plan.outputs.target-key }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/rhlean-research-compile.log
+        if-no-files-found: error
+        retention-days: 7
     # Completed ancestors remain useful when a new leaf proof fails. Only
     # matching records + artifact digests can be reused on the next attempt.
     - name: Save completed research prerequisites
