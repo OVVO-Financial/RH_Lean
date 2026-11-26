@@ -541,7 +541,7 @@ theorem alpogeNativeFreezeThick_logMean_le
           rw [Real.log_div hp.ne' hb.ne'] at hlog
           have hratio := div_le_div_of_nonneg_right hw.2 hb.le
           rw [add_div, div_self hb.ne'] at hratio
-          simp only [alpogeNativeFreezeThick, if_pos hs]
+          simp only [alpogeNativeFreezeThick, ite_eq_left hs]
           linarith
         · simp [alpogeNativeFreezeThick, hs]
       _ = _ := by
