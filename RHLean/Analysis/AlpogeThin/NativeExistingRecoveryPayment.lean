@@ -968,7 +968,7 @@ theorem nativeLedger_restoreMeasuredThick_le
         have h1 : (1:ℝ)/2 ≤ 1-η := by linarith
         exact (by linarith only [(mul_le_mul (hthick ρ hs).1 h1 (by norm_num)
           (hb.trans_le (hthick ρ hs).1).le).trans (hgrid ρ hs).1] : b/2 ≤ v ρ)
-      · exact Or.inl (by simp only [mixed, if_neg hs]))
+      · exact Or.inl (by simp only [mixed, ite_eq_right hs]))
   refine hm.trans (add_le_add le_rfl ?_)
   calc
     _ ≤ 2 * (2*b*η) * (Real.log 4 + 2) * (a/(b/2)) :=

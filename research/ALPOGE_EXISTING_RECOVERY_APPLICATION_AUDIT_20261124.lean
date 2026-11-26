@@ -57,6 +57,7 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.alpogeNativePartner_even_offset_iff
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow
 
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le
@@ -71,6 +72,7 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativePartner_even_offset_iff,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow,
     ``RHLean.Analysis.nativeProperPower_clippedMass_le,
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error,

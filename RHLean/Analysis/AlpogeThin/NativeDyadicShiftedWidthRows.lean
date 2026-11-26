@@ -1,3 +1,4 @@
+import Mathlib.Data.Nat.ChineseRemainder
 import RHLean.Analysis.AlpogeNativeLocalGainSource
 
 /-! Shifted tops can give the same positive width site in the original
@@ -280,6 +281,82 @@ theorem nativeDyadic_activeShift_residues_in_window
       (hw'.trans ((le_div_iff₀ (pow_pos hp0 1)).2 (hone (shift t))))
     rw [hcut]
     field [hp0.ne']
+
+/-- An injective assignment of integral native top heights can realize every
+specified active Frobenius difference at all selected primes simultaneously.
+The interval cost is the number of tops times one common CRT period. -/
+theorem nativeDyadic_activeShift_joint_injective_heights
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ) (k : ℕ → ℕ)
+    (hP : ∀ p ∈ P, Nat.Prime p) (x b W : ℝ) (hb : 0 < b)
+    (hactive : ∀ p ∈ P, 2 * (p : ℝ)^3 ≤ x)
+    (hroom : ((Fintype.card (AlpogeNativeDyadicH e) * ∏ p : P, (p : ℕ)^k p : ℕ) : ℝ) ≤ W)
+    (y : (p : P) → AlpogeNativeDyadicH e → ZMod ((p : ℕ)^k p)) :
+    ∃ a : AlpogeNativeDyadicH e → ℤ, Function.Injective a ∧
+      (∀ t, (a t : ℝ) ∈ Set.Ico (x*b) (x*b+W)) ∧
+      ∀ (p : P) t,
+        let s := t + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2
+        (a t : ZMod ((p : ℕ)^k p)) - ((p : ℕ) : ZMod ((p : ℕ)^k p))^2 *
+          (a s : ZMod ((p : ℕ)^k p)) = y p t := by
+  classical
+  let m := fun p : P => (p : ℕ)^k p
+  let M := ∏ p : P, m p
+  have hne (p : P) : m p ≠ 0 := pow_ne_zero _ (hP p p.property).ne_zero
+  have pair : Set.Pairwise (↑(Finset.univ : Finset P) : Set P) (fun p r => (m p).Coprime (m r)) := by
+    intro p _ r _ h
+    exact (((Nat.coprime_primes (hP p p.property) (hP r r.property)).2
+      (fun he => h (Subtype.ext he))).pow_left _).pow_right _
+  let shift := fun (p : P) (t : AlpogeNativeDyadicH e) => t + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2
+  have one (p : P) : ∃ u : AlpogeNativeDyadicH e → ℤ, ∀ t,
+      (u t : ZMod (m p)) - ((p : ℕ) : ZMod (m p))^2 * (u (shift p t) : ZMod (m p)) = y p t := by
+    obtain ⟨u, _, h, _⟩ := nativeDyadic_activeShift_residues_in_window e q d p (k p) (hP p p.property)
+      x b (m p) hb le_rfl (hactive p p.property) (y p)
+    exact ⟨u, h⟩
+  choose u hu using one
+  let ix := fun t => ((Fintype.equivFin (AlpogeNativeDyadicH e)) t).val
+  let lo := fun t => ⌈x*b⌉ + ((ix t * M : ℕ) : ℤ)
+  let offset := fun t (p : P) => ((u p t : ZMod (m p)) - (lo t : ZMod (m p))).val
+  let c := fun t => Nat.chineseRemainderOfFinset (offset t) m Finset.univ (fun p _ => hne p) pair
+  let a := fun t => lo t + ((c t).val : ℤ)
+  have hc (t) : (c t).val < M :=
+    Nat.chineseRemainderOfFinset_lt_prod (offset t) m (fun p _ => hne p) pair
+  have hres (p : P) (t) : (a t : ZMod (m p)) = (u p t : ZMod (m p)) := by
+    let : NeZero (m p) := ⟨hne p⟩
+    have hr := (ZMod.natCast_eq_natCast_iff _ _ _).2 ((c t).property p (Finset.mem_univ p))
+    change (((c t).val : ℕ) : ZMod (m p)) = (((offset t p : ℕ)) : ZMod (m p)) at hr
+    simp only [offset, ZMod.natCast_zmod_val] at hr
+    change ((lo t + ((c t).val : ℤ) : ℤ) : ZMod (m p)) = _
+    rw [Int.cast_add, Int.cast_natCast, hr]
+    ring
+  have hstrip (t) : (a t : ℝ) ∈ Set.Ico (x*b + (ix t : ℝ)*M) (x*b + ((ix t : ℝ)+1)*M) := by
+    have hc' : ((c t).val : ℝ) + 1 ≤ M := by exact_mod_cast Nat.succ_le_of_lt (hc t)
+    have ha : (a t : ℝ) = (⌈x*b⌉ : ℝ) + (ix t : ℝ)*M + ((c t).val : ℝ) := by
+      simp only [a, lo, Int.cast_add, Int.cast_natCast, Nat.cast_mul]
+    rw [ha]
+    constructor
+    · linarith only [Int.le_ceil (x*b), Nat.cast_nonneg (R := ℝ) (c t).val]
+    · linarith only [Int.ceil_lt_add_one (x*b), hc']
+  have horder (s t) (h : ix s < ix t) : (a s : ℝ) < (a t : ℝ) :=
+    (hstrip s).2.trans_le ((add_le_add le_rfl (mul_le_mul_of_nonneg_right
+      (by exact_mod_cast Nat.succ_le_of_lt h : (ix s : ℝ)+1 ≤ ix t) (Nat.cast_nonneg (R := ℝ) M))).trans (hstrip t).1)
+  refine ⟨a, ?_, ?_, fun p t => ?_⟩
+  · intro s t he
+    have he' : (a s : ℝ) = (a t : ℝ) := congrArg (fun z : ℤ => (z : ℝ)) he
+    apply (Fintype.equivFin (AlpogeNativeDyadicH e)).injective
+    apply Fin.ext
+    rcases lt_trichotomy (ix s) (ix t) with h | h | h
+    · exact ((ne_of_lt (horder s t h)) he').elim
+    · exact h
+    · exact ((ne_of_lt (horder t s h)) he'.symm).elim
+  · intro t
+    have hindex : (ix t : ℝ) + 1 ≤ Fintype.card (AlpogeNativeDyadicH e) := by
+      exact_mod_cast Nat.succ_le_of_lt (((Fintype.equivFin (AlpogeNativeDyadicH e)) t).isLt)
+    have hbudget : (Fintype.card (AlpogeNativeDyadicH e) : ℝ) * M ≤ W := by
+      simpa only [Nat.cast_mul] using hroom
+    exact ⟨(le_add_of_nonneg_right (mul_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _))).trans (hstrip t).1,
+      (hstrip t).2.trans_le (add_le_add le_rfl ((mul_le_mul_of_nonneg_right hindex (Nat.cast_nonneg _)).trans hbudget))⟩
+  · change (a t : ZMod (m p)) - ((p : ℕ) : ZMod (m p))^2 * (a (shift p t) : ZMod (m p)) = _
+    rw [hres, hres]
+    exact hu p t
 
 end AlpogeThin
 end RHLean.Analysis

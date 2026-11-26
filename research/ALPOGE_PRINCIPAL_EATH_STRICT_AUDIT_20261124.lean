@@ -140,6 +140,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_roundedASK_le_thick,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_restoreMeasuredThick_le,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickFirst_saving_census,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,
