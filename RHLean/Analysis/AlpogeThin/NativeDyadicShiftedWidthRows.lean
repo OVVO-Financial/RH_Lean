@@ -1179,8 +1179,87 @@ theorem nativeDyadic_firstPrime_wheel_block_gram {I : Type*} [Fintype I] [Decida
       simp only [Matrix.mul_assoc]
     _ = _ := by
       rw [Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, normal,
-        show A.det = _ from Matrix.det_diagonal _]
+        show A.det = (∏ i, (D i : ℝ)) from Matrix.det_diagonal]
       ring
+
+/-- One short integral column completes the whole primitive wheel block.
+Its scalar product with the primitive normal is one, even though the
+coefficients of that normal can be exponentially large. -/
+theorem nativeDyadic_firstPrime_wheel_short_completion {I : Type*} [Fintype I] [DecidableEq I]
+    (a : I) (C : I → ℕ) (hp : ∀ i, 0 < C i)
+    (hc : Pairwise (fun i j => (C i).Coprime (C j))) :
+    let Z := fun i => ∏ j ∈ Finset.univ.erase i, C j
+    ∃ w : I → ℤ, (∑ i, (Z i:ℤ)*w i) = 1 ∧
+      ∀ i, |w i| ≤ ((Fintype.card I:ℤ)+1)*(C i:ℤ) := by
+  classical
+  let M := ∏ i, C i
+  let Z := fun i => ∏ j ∈ Finset.univ.erase i, C j
+  have prod (i : I) : C i * Z i = M := Finset.mul_prod_erase _ _ (Finset.mem_univ i)
+  have cop (i : I) : (Z i).Coprime (C i) := Nat.coprime_prod_left_iff.mpr
+    fun j hj => hc (Finset.mem_erase.mp hj).1
+  let (i : I) : NeZero (C i) := ⟨(hp i).ne'⟩
+  let u (i : I) := ((Z i : ZMod (C i))⁻¹).val
+  let T := ∑ i, Z i*u i
+  have modone (i : I) : (T : ZMod (C i)) = 1 := by
+    simp only [T, Nat.cast_sum, Nat.cast_mul]
+    rw [Finset.sum_eq_single i]
+    · change (Z i : ZMod (C i))*(((Z i : ZMod (C i))⁻¹).val : ZMod (C i)) = 1
+      rw [ZMod.natCast_zmod_val]
+      exact ZMod.mul_inv_of_unit _ ((ZMod.isUnit_iff_coprime _ _).mpr (cop i))
+    · intro j _ hji
+      have hdiv : C i ∣ Z j := Finset.dvd_prod_of_mem C (Finset.mem_erase.mpr ⟨hji.symm, Finset.mem_univ i⟩)
+      rw [(ZMod.natCast_eq_zero_iff _ _).mpr hdiv, zero_mul]
+    · simp
+  have divides : (M:ℤ) ∣ (T:ℤ)-1 := by
+    change ((∏ i, C i : ℕ):ℤ) ∣ _
+    rw [Nat.cast_prod]
+    apply Finset.prod_dvd_of_coprime
+    · intro i _ j _ hij
+      exact (hc hij).isCoprime
+    · intro i _
+      apply (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp
+      rw [Int.cast_sub, Int.cast_natCast, Int.cast_one, modone, sub_self]
+  obtain ⟨r, hr⟩ := divides
+  have hM : 0 < M := Finset.prod_pos (fun i _ => hp i)
+  have hM' : 0 < (M:ℤ) := by exact_mod_cast hM
+  have hT : (T:ℤ) ≤ (Fintype.card I:ℤ)*(M:ℤ) := by
+    exact_mod_cast (calc T ≤ ∑ _i : I, M := Finset.sum_le_sum fun i _ => by
+                           rw [← prod i, mul_comm (C i)]
+                           exact Nat.mul_le_mul_left _ (ZMod.val_lt _).le
+                        _ = (Fintype.card I)*M := by simp)
+  have hrlo : -1 ≤ r := by
+    apply le_of_mul_le_mul_left (a := (M:ℤ)) _ hM'
+    nlinarith only [hr, hM', (by positivity : 0 ≤ (T:ℤ))]
+  have hrhi : r ≤ (Fintype.card I:ℤ) := by
+    apply le_of_mul_le_mul_left (a := (M:ℤ)) _ hM'
+    nlinarith only [hr, hT]
+  have hcard : 0 < Fintype.card I := Fintype.card_pos_iff.mpr ⟨a⟩
+  have hbound : |r| ≤ (Fintype.card I:ℤ) := abs_le.mpr ⟨by omega, hrhi⟩
+  let w := fun i => (u i : ℤ) - if i = a then r*(C i:ℤ) else 0
+  refine ⟨w, ?_, ?_⟩
+  · have adjust : ∑ i, (Z i:ℤ)*(if i=a then r*(C i:ℤ) else 0) = r*(M:ℤ) := by
+      rw [Finset.sum_eq_single a]
+      · rw [ite_eq_left rfl, ← prod a, Nat.cast_mul]
+        ring
+      · intro j _ hja
+        rw [ite_eq_right hja, mul_zero]
+      · simp
+    change (∑ i, (Z i:ℤ)*w i) = 1
+    simp only [w, mul_sub, Finset.sum_sub_distrib, adjust]
+    have ht : (∑ i, (Z i:ℤ)*(u i:ℤ)) = (T:ℤ) := by simp only [T, Nat.cast_sum, Nat.cast_mul]
+    rw [ht]
+    linarith only [hr, mul_comm r (M:ℤ)]
+  · intro i
+    have hu : (u i:ℤ) ≤ (C i:ℤ) := by exact_mod_cast (ZMod.val_lt ((Z i : ZMod (C i))⁻¹)).le
+    have hn : 0 ≤ (u i:ℤ) := by positivity
+    have hnC : 0 ≤ (C i:ℤ) := by positivity
+    have hcost : |if i = a then r*(C i:ℤ) else 0| ≤ (Fintype.card I:ℤ)*(C i:ℤ) := by
+      split_ifs
+      · rw [abs_mul, abs_of_nonneg hnC]
+        exact mul_le_mul_of_nonneg_right hbound hnC
+      · rw [abs_zero]
+        positivity
+    exact (abs_sub _ _).trans (by rw [abs_of_nonneg hn]; nlinarith only [hu, hcost])
 
 end AlpogeThin
 end RHLean.Analysis
