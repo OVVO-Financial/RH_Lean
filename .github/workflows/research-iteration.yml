@@ -155,6 +155,46 @@ jobs:
           python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
           grep -q 'compiled=0 cached=' research-cache-smoke.log
 
+  native-ledger:
+    name: Native discrepancy and principal-source audits
+    if: >-
+      contains(inputs.targets, 'research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean') &&
+      contains(inputs.targets, 'research/ALPOGE_PRINCIPAL_EATH_STRICT_AUDIT_20261124.lean')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: rhlean-discrepancy-audits-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Restore native prerequisites for the two selected audits
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Verify the signed ledger and its terminal axioms
+        uses: ./.github/actions/research-compile
+        with:
+          native-cache-ready: 'true'
+          targets: research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean
+      - name: Verify the principal physical inputs and their strict dependency guard
+        uses: ./.github/actions/research-compile
+        with:
+          native-cache-ready: 'true'
+          targets: research/ALPOGE_PRINCIPAL_EATH_STRICT_AUDIT_20261124.lean
+
   diagnostics:
     name: Independent CM supplier diagnostics
     needs: check
