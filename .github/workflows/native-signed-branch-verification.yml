@@ -1,0 +1,16 @@
+name: Native signed branch verification
+on:
+  push:
+    branches:
+      - research/native-signed-compensation-closure
+    paths:
+      - RHLean/**/*.lean
+      - research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean
+      - .github/workflows/native-signed-branch-verification.yml
+permissions:
+  contents: read
+jobs:
+  proofs:
+    uses: ./.github/workflows/research-iteration.yml
+    with:
+      targets: research/ALPOGE_EXISTING_RECOVERY_APPLICATION_AUDIT_20261124.lean
