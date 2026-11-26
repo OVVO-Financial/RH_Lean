@@ -91,7 +91,10 @@ theorem finite_geometric_elliptic_kernel_of_no_small_torsion
       have e := congrArg Over.Hom.left hx
       change x.left ≫ io.left = (ρ y).left ≫ s.left at e
       rw [hρ, Category.assoc] at e
-      exact ⟨x.left p, by rw [← Scheme.Hom.comp_apply, e, Scheme.Hom.comp_apply]⟩
+      refine ⟨x.left p, ?_⟩
+      exact (Scheme.Hom.comp_apply x.left io.left p).symm.trans
+        ((congrArg (fun f : Sp k ⟶ (G ⊗ H).left => f p) e).trans
+          (Scheme.Hom.comp_apply y.left (mapHom W (algebraMap R k) rfl ≫ s.left) p))
     · intro hy
       have : IsReduced T.left := inferInstanceAs (IsReduced (Sp k))
       obtain ⟨b, hb⟩ := exists_lift_of_isReduced_of_range_subset io.left (ρ y ≫ s).left (by
@@ -237,6 +240,8 @@ theorem elliptic_graph_projection_locallyQuasiFinite
     (io : Ga ⟶ G ⊗ schemeOver W) [IsMonHom io] [IsClosedImmersion io.left]
     [IsIso ((Over.pullback (spMap (algebraMap R K))).map (io ≫ fst G (schemeOver W)))] :
     LocallyQuasiFinite (io ≫ fst G (schemeOver W)).left := by
+  have : LocallyOfFiniteType (schemeOver W).hom :=
+    inferInstanceAs (LocallyOfFiniteType (toSpec W))
   have hp : LocallyOfFiniteType (fst G (schemeOver W)).left :=
     inferInstanceAs (LocallyOfFiniteType (pullback.fst G.hom (schemeOver W).hom))
   have hp' : LocallyOfFiniteType (io ≫ fst G (schemeOver W)).left := by

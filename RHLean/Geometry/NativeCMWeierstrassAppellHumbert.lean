@@ -23,7 +23,7 @@ set_option relaxedAutoImplicit false
 
 noncomputable section
 
-open AlgebraicGeometry CategoryTheory MonoidalCategory PeriodPair
+open AlgebraicGeometry CategoryTheory MonoidalCategory MonObj PeriodPair
 open Complex Filter
 open scoped Topology ComplexConjugate Real
 
@@ -68,7 +68,7 @@ def IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
 regular section, including its genuine domain around the epsilon point. -/
 def HasTangentDirection (w : ℂ) (v : epsR ℂ ⟶ schemeOver W) : Prop :=
   IsTangent v ∧ ∀ (U : (scheme W).Opens) (h : ⊤ ≤ v.left ⁻¹ᵁ U) (s : Γ(scheme W, U)),
-    ∃ d : ℂ, HasDerivAt (fun z => value (u.ex z).left U s) d 0 ∧
+    ∃ d : ℂ, HasDerivAt (fun z : ℂ => value (u.ex z).left U s) d (0 : ℂ) ∧
       (evalPt v.left U h s).snd = d * w
 
 end EllipticHolUnif
@@ -95,7 +95,7 @@ def canonicalHolUnif : EllipticHolUnif W L where
   hol := holomorphic_regular_sections L W C hC
   fr := atlasFrame W L C
   fr_hol := atlasFrame_differentiableOn W L C hC
-  fr_ne i z := atlasFrame_ne_zero W L C hC i
+  fr_ne i z := atlasFrame_ne_zero W L C hC i (z := z)
   fr_compat := atlasFrame_compat W L C hC
 
 /-- The original canonical-sigma law is the Appell--Humbert law of the

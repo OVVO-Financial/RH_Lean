@@ -44,11 +44,16 @@ def OAct.transport (a : OAct O A) (e : A ≅ B) [IsMonHom e.hom] : OAct O B wher
   one := by simp only [a.one, Category.id_comp, e.inv_hom_id]
   mul c d := by simp only [a.mul, Category.assoc, Iso.hom_inv_id_assoc]
   add c d := by
-    simp only [a.add, MonObj.comp_mul, MonObj.mul_comp, Category.assoc]
+    simp only [a.add, MonObj.comp_mul, MonObj.mul_comp]
 
 theorem OAct.transport_intertwine (a : OAct O A) (e : A ≅ B) [IsMonHom e.hom]
     (c : O) : e.hom ≫ (a.transport e).act c = a.act c ≫ e.hom := by
   simp only [OAct.transport, Iso.hom_inv_id_assoc]
+
+theorem OAct.transport_point {T : Over S} (a : OAct O A) (e : A ≅ B) [IsMonHom e.hom]
+    (c : O) {p q : T ⟶ A} (h : p ≫ a.act c = q) :
+    (p ≫ e.hom) ≫ (a.transport e).act c = q ≫ e.hom := by
+  rw [Category.assoc, OAct.transport_intertwine, ← Category.assoc, h]
 
 end RHLean.Geometry.NativeCM.SerreScheme
 
@@ -71,8 +76,9 @@ theorem originalOrderAction_vector (κ : O →+* F)
     (integralVector W).left ≫ ((originalOrderAction W a).act b).left = vec W (κ b) := by
   change vec W 1 ≫ (shortModelSchemeIso W).inv.left ≫
     (a.act b).left ≫ (shortModelSchemeIso W).hom.left = vec W (κ b)
+  have hv : vec (shortModel W) 1 ≫ (a.act b).left = vec (shortModel W) (κ b) := ha b
   rw [← Category.assoc, vec_shortModelSchemeIso_inv,
-    ← Category.assoc, ha, vec_shortModelSchemeIso]
+    ← Category.assoc, hv, vec_shortModelSchemeIso]
 
 theorem originalOrderAction_lieComb (κ : O →+* F)
     (ha : ∀ b, (integralVector (shortModel W)).left ≫ (a.act b).left =
@@ -114,13 +120,14 @@ include ha in
 theorem originalOrderAction_period (b : OK G) (z : ℂ) :
     originalPeriodPoint G τ C W hVC z ≫ (originalOrderAction W a).act b =
       originalPeriodPoint G τ C W hVC (embed G τ b * z) := by
-  change (_ ≫ (shortModelSchemeIso W).hom) ≫
-    (a.transport (shortModelSchemeIso W)).act b = _
-  rw [Category.assoc, OAct.transport_intertwine, ← Category.assoc, ha]
+  let P (v : ℂ) : specOver F ℂ ⟶ schemeOver (shortModel W) :=
+    ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm (latticePoint (rescaledPeriods G τ C) v))
   have hz : embed G τ b * ((C.u : ℂ)⁻¹ * z) =
       (C.u : ℂ)⁻¹ * (embed G τ b * z) := by ring
-  rw [hz]
-  rfl
+  have hp : P ((C.u : ℂ)⁻¹ * z) ≫ a.act b = P ((C.u : ℂ)⁻¹ * (embed G τ b * z)) :=
+    (ha b ((C.u : ℂ)⁻¹ * z)).trans (congrArg P hz)
+  unfold originalPeriodPoint originalOrderAction
+  exact OAct.transport_point a (shortModelSchemeIso W) b hp
 
 end Periods
 
