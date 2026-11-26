@@ -1050,7 +1050,7 @@ private theorem pairGood_sharp_induced {q d N : ℕ} [NeZero N]
   have bound (t : ℝ) (h1 : Y ≤ t) (h2 : t ≤ Z) :
       ‖alpogeNativeGchiArithmetic χ ell t‖ ≤ t^((1 : ℝ)/2+eps/2) := by
     have ht := (hG.bounds (1 : DirichletCharacter ℂ 1) i j hij N χ hI t h1 h2).1
-    rw [hostResponse_eq_nativeResponse, nativeResponse, if_neg hne] at ht
+    rw [hostResponse_eq_nativeResponse, nativeResponse, ite_eq_right hne] at ht
     exact ht
   have hle : x ≤ x+h := le_add_of_nonneg_right hh.le
   have h0 := bound x hY (hle.trans hZ)
@@ -1068,7 +1068,7 @@ theorem nativeLedger_pairGood_sharp_twist (e q d : ℕ) [Fact q.Prime] [Fact d.P
     (hY : Y ≤ x) (hZ : x+h ≤ Z) :
     let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
       (nativeDyadicTwoBitCharacter e i j)
-    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * χ.primitiveCharacter n‖ ≤
+    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * (Formalism.HC.PChar.of χ).val n‖ ≤
       (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
         x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
   let r := alpogeNativeRecMap e q d
