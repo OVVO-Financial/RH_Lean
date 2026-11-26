@@ -97,6 +97,17 @@ $$\left|\frac{S_{P,\mathrm{thick}}}{Q}-\frac4b\log D_P\right|\le
 \frac{8(x+1)\log x}{\sqrt{x}}+4(\log4)\left(\sqrt{x}+x(\eta+h/b+2/b)\right).$$
 Indeed $A/b\le x+1$, $\sum_{p\in P}\log(p)/(p(p-1))\le\log(x)/\lfloor\sqrt{x}\rfloor$, $\sum_{p\in P}\log(p)/p\le\vartheta(x)/\sqrt{x}$ and $\vartheta(x)\le (\log4)x$. At the square clock $b=\exp(x^\varepsilon)$ and on the frozen spacing $\eta\le1/(2\sqrt{x})$, $h/b\le1/x$ eventually, so the price is $O(\sqrt{x}\log x)$ uniformly in the measured family. This aggregate estimate is a paper consequence. The pointwise result supplies the arithmetic depth for each prime; the unresolved signed estimate must pay $4\log D_P/b$ together with the remaining ASK terms against the common MAIN on the same family.
 
+The squarefree wheel removes the higher prime powers in that approximation and permits a polynomial cutoff. For the **same** $P$ and physical widths take $c=\lfloor\sqrt{x}\rfloor$, $N_w=\lfloor cx\rfloor$ and $W_P=\prod_{p\in P}p$. Form the integer
+$$D_w=\frac{\prod_{n=1}^{N_w}\gcd(n,W_P)}{W_P^c}.$$
+When a prime $p$ is admitted, every multiple of $p$ in the prefix contributes its single new factor $p$. This counts all downstream occurrences, including integers shared with another admitted prime. Since $p<x$, there are at least $c$ multiples. Thus $D_w=\prod_{p\in P}p^{\lfloor N_w/p\rfloor-c}$ exactly. Moreover $N_w\le x^{3/2}$, so no integer in this prefix has three distinct prime divisors greater than $\sqrt{x}$. Unlike two-cuts-at-one-prime, this accounts for the entire first-prime band. The product identity is `nativeDyadic_firstPrime_wheel_product`.
+
+Let $k_p=\lfloor N_w/p\rfloor-c$. The identity $\lfloor N_w/p\rfloor=\lfloor cx/p\rfloor$, $x\le a_t/b\le x+1$, and the Lipschitz constant one of the positive part give on every original thick read
+$$\left|\frac{(a_t/p-v)_+}{b}-\frac{k_p}c\right|\le\frac1p+|v/b-1|+\frac1c.$$
+This is `nativeDyadic_firstPrime_wheel_depth`. The auxiliary $c$ counts integer multiples. All measured contributions still use the original $b,Q$. The translate count and $\vartheta(x)\le(\log4)x$ give the uniform paper bound
+$$\left|S_{P,\mathrm{thick}}/Q-(4/c)\log D_w\right|
+\le 4(\log4)\left(\sqrt{x}+x(\eta+h/b+1/c)\right).$$
+For $x\ge4$, $c\ge\sqrt{x}/2$. The frozen spacing and collars give $\eta\le1/(2\sqrt{x})$ and $h/b\le1/x$ eventually. The error is then at most $4(\log4)((7/2)\sqrt{x}+1)$. In particular the whole high thick first-prime price is $O(\sqrt{x})$ and the common arithmetic prefix has length at most $x^{3/2}$, independently of the exponential height scale. At this point the signed problem is to bound $(4/c)\log D_w+(S(v)-S_{P,\mathrm{thick}})/Q$ by $K_\varepsilon x^{1/2+C\varepsilon}$ through an independent upper norm and lower determinant comparison. The positive quotient supplies the first term. Its construction alone gives no sign for the second.
+
 ## The two sources
 
 Fix $0<\varepsilon<1/52$ and a window exponent $A\ge1$. Take $e(x)$ and the pair $(q,d)$ for the window $[Y,Y^A]$ from `nativeConstructedDyadicGzPayment`. The pair stays fixed throughout that window. On its actual reciprocity host $H$, use a nonempty physical top set $TT$, nonempty thick set $T_2$, $m>0$, positive $b$, heights $a_t$, positive widths $w_{uj\rho}$, and the density, cutoff and width conditions of that theorem. Write
@@ -399,7 +410,7 @@ flowchart TD
     K["Height rank and denominator prices"] --> B["Physical retained rank and denominator budget (open)"]
     T["Integral heights and unit scalar duals"] --> P["Disjoint high first-prime cuts and weighted margin"]
     P --> A
-    J["One factorial divisor for the high thick ASK"] --> A
+    J["High thick ASK from one squarefree wheel product"] --> A
     B --> A
     B --> C["Lower determinant with the same main amount (open)"]
     A --> S["Upper and lower bounds on the same columns"]

@@ -73,6 +73,8 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_matchedRead_joint_index
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_measured_logIndex_price
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_factorial_depth
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_product
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_depth
 #print axioms RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow
 
@@ -101,6 +103,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_matchedRead_joint_index,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_measured_logIndex_price,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_factorial_depth,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_product,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_depth,
     ``RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow,
     ``RHLean.Analysis.nativeProperPower_clippedMass_le,

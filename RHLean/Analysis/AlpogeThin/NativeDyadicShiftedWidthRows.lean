@@ -1020,5 +1020,87 @@ theorem nativeDyadic_firstPrime_factorial_depth (e q d p A : ℕ) [Fact q.Prime]
   apply abs_le.mpr
   constructor <;> linarith only [hF, hu, htail, hfloor, hfloor', hn, hab.1, hab.2, hw.1, hw.2]
 
+/-- In the original prime wheel, admitting a prime counts each of its
+downstream multiples once. After clearing the first c multiples at each
+prime, the entire remaining payment is one integer product on the wheel. -/
+theorem nativeDyadic_firstPrime_wheel_product (P : Finset ℕ) (N c : ℕ)
+    (hP : ∀ p ∈ P, p.Prime) (hc : ∀ p ∈ P, c ≤ N/p) :
+    (∏ n ∈ Finset.range N, Nat.gcd (n+1) (∏ p ∈ P, p)) =
+      (∏ p ∈ P, p)^c * ∏ p ∈ P, p^(N/p-c) := by
+  classical
+  have factor (n : ℕ) (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) :
+      Nat.gcd n (∏ p ∈ S, p) = ∏ p ∈ S, if p ∣ n then p else 1 := by
+    induction S using Finset.induction_on with
+    | empty => simp
+    | @insert p S hps ih =>
+      have hs := fun r (hr : r ∈ S) => hS r (Finset.mem_insert_of_mem hr)
+      have hp := hS p (Finset.mem_insert_self p S)
+      have cop : p.Coprime (∏ r ∈ S, r) := Nat.coprime_prod_right_iff.mpr fun r hr =>
+        (Nat.coprime_primes hp (hs r hr)).2 (fun h => hps (by simpa only [h] using hr))
+      simp only [Finset.prod_insert hps, Nat.Coprime.gcd_mul n cop, ih hs]
+      by_cases hd : p ∣ n
+      · rw [ite_eq_left hd, Nat.gcd_eq_right hd]
+      · rw [ite_eq_right hd, (hp.coprime_iff_not_dvd.mpr hd).symm.gcd_eq_one]
+  calc
+    _ = ∏ n ∈ Finset.range N, ∏ p ∈ P, if p ∣ n+1 then p else 1 :=
+      Finset.prod_congr rfl (fun n _ => factor (n+1) P hP)
+    _ = ∏ p ∈ P, ∏ n ∈ Finset.range N, if p ∣ n+1 then p else 1 := Finset.prod_comm
+    _ = ∏ p ∈ P, p^(N/p) := by
+      refine Finset.prod_congr rfl fun p _ => ?_
+      rw [← Finset.prod_filter, Finset.prod_const, Nat.card_multiples]
+    _ = _ := by
+      rw [← Finset.prod_pow, ← Finset.prod_mul_distrib]
+      refine Finset.prod_congr rfl fun p hp => ?_
+      rw [← pow_add]
+      have he : c + (N/p-c) = N/p := by have := hc p hp; omega
+      rw [he]
+
+/-- A wheel through floor(c*x) prices the original normalized thick read.
+The scale c is free and is independent of the measured height scale b. -/
+theorem nativeDyadic_firstPrime_wheel_depth (e q d p c : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hp : Nat.Prime p) (hc : 0 < c) (t : AlpogeNativeDyadicH e)
+    (a b x : ℝ) (hb : 0 < b) (hpx : (p:ℝ) ≤ x) (ha : x ≤ a/b ∧ a/b ≤ x+1)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) :
+    let v := w (alpogeNativePartner t ((alpogeNativeHostData e q d).frob p))
+    let k := ⌊(c:ℝ)*x⌋₊ / p - c
+    |nativeDyadicLocalSourceAtom e q d p a t w 1 / b - (k:ℝ)/c| ≤
+      1/(p:ℝ) + |v/b-1| + 1/(c:ℝ) := by
+  let K := ⌊(c:ℝ)*x⌋₊ / p
+  let v := w (alpogeNativePartner t ((alpogeNativeHostData e q d).frob p))
+  have pc : 0 < (p:ℝ) := by exact_mod_cast hp.pos
+  have cc : 0 < (c:ℝ) := by exact_mod_cast hc
+  have hx : 0 ≤ x := pc.le.trans hpx
+  have xp : 1 ≤ x/p := (one_le_div pc).2 hpx
+  have hK : K = ⌊(c:ℝ)*x/p⌋₊ := (Nat.floor_div_natCast _ _).symm
+  have hmin : c ≤ K := by
+    rw [hK]
+    apply Nat.le_floor
+    rw [mul_div_assoc]
+    simpa only [mul_one] using mul_le_mul_of_nonneg_left xp cc.le
+  have lo : (K:ℝ)/c ≤ x/p := by
+    apply (div_le_iff₀ cc).2
+    rw [hK, mul_comm (x/(p:ℝ)) (c:ℝ), ← mul_div_assoc]
+    exact Nat.floor_le (by positivity)
+  have hi : x/p ≤ (K:ℝ)/c + 1/c := by
+    rw [← add_div, le_div_iff₀ cc, mul_comm (x/(p:ℝ)) (c:ℝ), ← mul_div_assoc, hK]
+    exact (Nat.lt_floor_add_one _).le
+  have base : 0 ≤ (K:ℝ)/c-1 :=
+    sub_nonneg.mpr ((one_le_div cc).2 (by exact_mod_cast hmin))
+  have hlo := div_le_div_of_nonneg_right ha.1 pc.le
+  have hhi := div_le_div_of_nonneg_right ha.2 pc.le
+  rw [add_div] at hhi
+  have hw := abs_le.mp (le_rfl : |v/b-1| ≤ |v/b-1|)
+  dsimp only
+  simp only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re, one_nsmul, pow_one]
+  change |max (a/p-v) 0 / b - ((K-c:ℕ):ℝ)/c| ≤ _
+  rw [← max_div_div_right hb.le, zero_div, sub_div, div_right_comm a (p:ℝ) b,
+    Nat.cast_sub hmin, sub_div, div_self cc.ne']
+  rw [← max_eq_left base]
+  apply (abs_max_sub_max_le_abs _ _ _).trans
+  change |a/b/p-v/b - ((K:ℝ)/c-1)| ≤ 1/(p:ℝ) + |v/b-1| + 1/(c:ℝ)
+  apply abs_le.mpr
+  constructor <;> linarith only [lo, hi, hlo, hhi, hw.1, hw.2,
+    (by positivity : 0 ≤ 1/(p:ℝ)), (by positivity : 0 ≤ 1/(c:ℝ))]
+
 end AlpogeThin
 end RHLean.Analysis
