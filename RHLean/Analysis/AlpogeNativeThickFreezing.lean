@@ -519,9 +519,9 @@ theorem alpogeNativeLowerLogWidth_thick_translate_cuts_le
       intro u _
       have hw0 := hbeta.trans_le (hw u)
       by_cases hu : selected u
-      · rw [if_pos hu, sub_sub_cancel]
+      · rw [ite_eq_left hu, sub_sub_cancel]
         exact alpogeNativeLowerLogWidth_cut_le η z b (w u) hη hw0 (hthick u hu)
-      · rw [if_neg hu, sub_zero]
+      · rw [ite_eq_right hu, sub_zero]
         exact alpogeNativeLowerLogWidth_cut_le η z beta (w u) hη hw0 (hw u)
     _ = _ := by
       rw [Finset.sum_sub_distrib, hpay, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
