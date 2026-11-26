@@ -44,6 +44,10 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving
 #print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error
 #print axioms RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_anyCutoff_le_thick_add_thin
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_roundedASK_le_thick
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_cut
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_winPair_discriminant_growth
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually
@@ -69,6 +73,10 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving,
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error,
     ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_anyCutoff_le_thick_add_thin,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_roundedASK_le_thick,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_cut,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_winPair_discriminant_growth,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually,

@@ -1,5 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Geometry.NativeSquareCapacityPeriod
 import RHLean.Geometry.NativeSummandCovolume
@@ -132,8 +133,18 @@ run_cmd do
     `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_coupled_period,
     `RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_errorTerm_of_ordered_periods,
     `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound]
+  let pricedRoots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_on_dyadicFrame,
+    ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving,
+    ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_roundedASK_le_thick,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_winPair_discriminant_growth,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow]
   let allowed := #[`propext, `Classical.choice, `Quot.sound]
-  for root in roots do
+  for root in roots ++ pricedRoots do
     unless env.contains root do
       throwError "Missing actual principal source root: {root}"
     let axs ← liftCoreM (Lean.collectAxioms root)
@@ -146,4 +157,8 @@ run_cmd do
       if (s.splitOn "geocl").length > 1 ||
           (s.splitOn "anygeometry").length > 1 then
         throwError "ABSOLUTE PROHIBITION: {root} depends on {n}"
+      if pricedRoots.contains root then
+        if let some info := env.find? n then
+          if info.type.isConstOf `RiemannHypothesis then
+            throwError "A native quantitative estimate depends on a terminal RH proof: {root} via {n}"
     logInfo m!"PASS strict principal source dependency gate: {root}; axioms={axs}; dependencies={names.toList.length}"

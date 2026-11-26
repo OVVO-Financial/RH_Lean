@@ -814,6 +814,249 @@ namespace RHLean.Analysis.AlpogeThin
 open Filter
 open scoped BigOperators Classical
 
+/-- Complete the finite ASK only on the majorizing side. Rounding may put a
+width below the original beta. The original cutoff still admits this upper
+bound because every extra real cut has nonnegative Fourier-inverted weight. -/
+theorem nativeLedger_anyCutoff_le_thick_add_thin
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ) (N : ℕ) (T2 : Finset H)
+    (u t : H) (a : ℝ) (w : AlpogeNativeE0 × H → ℝ)
+    (ha : 0 < a) (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ) :
+    let F := alpogeNativeFrobInertiaGPsi inertia frob ell
+    (alpogeNativeFullKernelASK inertia frob N a t w - alpogeNativeMAIN ell a w).re ≤
+      (alpogeNativeProjectionActualThick F T2 a u t w).re +
+        ‖alpogeNativeProjectionThinReturn F T2 a u t w‖ := by
+  classical
+  let L := max N (Finset.univ.sup fun ρ : AlpogeNativeE0 × H => ⌈a / w ρ⌉₊)
+  have hcover (ρ : AlpogeNativeE0 × H) (_hρ : alpogeNativeInPhi ρ) : a / w ρ ≤ (L : ℝ) := by
+    apply (Nat.le_ceil _).trans
+    exact_mod_cast (Finset.le_sup (f := fun σ : AlpogeNativeE0 × H => ⌈a / w σ⌉₊)
+      (Finset.mem_univ ρ)).trans (le_max_right N _)
+  have hmono : (alpogeNativeFullKernelASK inertia frob N a t w).re ≤
+      (alpogeNativeFullKernelASK inertia frob L a t w).re := by
+    rw [alpogeNativeFullKernelASK_re_eq_weighted, alpogeNativeFullKernelASK_re_eq_weighted]
+    exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.Icc_subset_Icc le_rfl (le_max_left N _))
+      fun n _ _ => Finset.sum_nonneg fun g _ => mul_nonneg
+        (alpogeNativeASKRealWeight_nonneg inertia frob n g) (le_max_right _ _)
+  dsimp only
+  calc
+    _ ≤ (alpogeNativeFullKernelASK inertia frob L a t w - alpogeNativeMAIN ell a w).re := by
+      simp only [Complex.sub_re]
+      exact sub_le_sub_right hmono _
+    _ = _ := congrArg Complex.re (alpogeNativeFullASK_sub_MAIN_eq_De inertia frob ell L a t w ha hw hcover)
+    _ ≤ _ := by
+      rw [← alpogeNativeProjectionFullSource_eq_nativeDe,
+        alpogeNativeProjectionFull_eq_thick_add_thin _ T2 a u t w, Complex.add_re]
+      exact add_le_add_left (Complex.re_le_norm _) _
+
+/-- The entire centered thin channel, including arbitrarily large first
+primes, is paid on every original good pair. The bound is uniform in the
+original finite cutoff and the positive grid spacing. -/
+theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
+    ∃ x₀ : ℝ, ∀ x : ℝ, x₀ ≤ x → ∀ (Y Z : ℝ) (q d e N : ℕ)
+      (hG : UpperTheory.Top.PairGood 1 eps Y Z q d),
+      letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+      letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+      ∀ (T2 : Finset (AlpogeNativeDyadicH e)) (u t : AlpogeNativeDyadicH e)
+        (a η : ℝ) (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+        0 < a → 0 < η →
+        Real.log (alpogeNativeHostN e q d) ≤ 2 * x ^ (eps / 5) * Real.log x ^ 2 →
+        (∀ g ∈ (Finset.univ.filter (fun g : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+          ¬ alpogeNativeInPhi g)) \ alpogeNativeProjectionThickColours T2 u t,
+          0 < w (alpogeNativePartner t g) ∧
+            Real.exp (x ^ (eps / 3)) / 3 ≤ a / w (alpogeNativePartner t g)) →
+        let D := alpogeNativeHostData e q d
+        let ell := alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)
+        let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob ell
+        let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
+        (alpogeNativeFullKernelASK D.inertia D.frob N a t v - alpogeNativeMAIN ell a v).re ≤
+          (alpogeNativeProjectionActualThick F T2 a u t v).re +
+            ((2 * (Fintype.card (AlpogeNativeDyadicH e) : ℝ) - T2.card) /
+              (alpogeNativePhiSet (AlpogeNativeDyadicH e)).card) *
+              (4 * (Fintype.card (AlpogeNativeDyadicH e) : ℝ) * a * Real.exp (-(x ^ (eps / 8)))) := by
+  obtain ⟨c₀, hc₀, hnoExc⟩ := principalPair_uniform_noExc
+  obtain ⟨x₀, hthin⟩ := QH.thin eps 2 1 c₀ he two_pos one_pos hc₀
+  refine ⟨x₀, ?_⟩
+  intro x hx Y Z q d e N hG
+  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  dsimp only
+  intro T2 u t a η w ha hη hlog hsites
+  let D := alpogeNativeHostData e q d
+  let r := alpogeNativeRecMap e q d
+  let ell := alpogeNativeCanonicalHostEll r
+  let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob ell
+  let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
+  have honto : Function.Surjective r := alpogeNativeRecMap_surjective e q d
+    (by have := hG.pair.q_mod; omega) (by have := hG.pair.d_mod; omega)
+    (by have := hG.pair.q_mod; have := hG.pair.d_mod; omega)
+  have hF (ψ : AddChar (AlpogeNativeE0 × AlpogeNativeDyadicH e) ℂ) (y : ℝ)
+      (hy : Real.exp (x ^ (eps / 3)) / 3 ≤ y) :
+      ‖F ψ y‖ ≤ y * Real.exp (-(x ^ (eps / 8))) := by
+    let χ := alpogeNativeDirChar r ψ
+    letI : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero _⟩
+    have hc : χ.conductor ∣ alpogeNativeHostN e q d := DirichletCharacter.conductor_dvd_level χ
+    have hcpos : (0 : ℝ) < χ.conductor := by exact_mod_cast Nat.pos_of_ne_zero (DirichletCharacter.conductor_ne_zero χ)
+    have hcN : (χ.conductor : ℝ) ≤ alpogeNativeHostN e q d := by exact_mod_cast Nat.le_of_dvd (NeZero.pos _) hc
+    have hp := DirichletCharacter.primitiveCharacter_isPrimitive χ
+    have hbound := hthin x hx χ.conductor χ.primitiveCharacter hp
+      ((Real.log_le_log hcpos hcN).trans hlog)
+      (hnoExc eps Y Z q d hG (e+2) χ.conductor χ.primitiveCharacter hp hc) y hy
+    rw [G0_eq_nativeResponse] at hbound
+    change ‖alpogeNativeFrobInertiaGPsi (alpogeNativeCftData _ q d r).inertia
+      (alpogeNativeCftData _ q d r).frob ell ψ y‖ ≤ _
+    rw [nativeCftGPsi_eq_nativeResponse q d r honto ψ y]
+    simpa only [one_mul] using hbound
+  have hpay := nativeThinReturn_norm_le F T2 a (Real.exp (-(x ^ (eps / 8)))) u t v
+    (fun _ _ => Real.exp_pos _) (fun g hg ψ => by
+      obtain ⟨hw, hy⟩ := hsites g hg
+      apply hF ψ _ (hy.trans ?_)
+      have hfloor := (le_div_iff₀ hη).mp (Int.floor_le (Real.log (w (alpogeNativePartner t g)) / η))
+      exact div_le_div_of_nonneg_left ha.le (Real.exp_pos _)
+        ((Real.exp_le_exp.mpr hfloor).trans (Real.exp_log hw).le))
+  rw [nativeThinColourCount] at hpay
+  exact (nativeLedger_anyCutoff_le_thick_add_thin D.inertia D.frob ell N T2 u t a v ha
+    (fun _ _ => Real.exp_pos _)).trans (add_le_add_left hpay _)
+
+/-- At the original grid spacing, every thick read with index at least x
+lies in a shell of length at most 1+2√x, with height at most 3b/(2√x).
+This applies to the measured width and all prime powers at once. -/
+theorem nativeLedger_thickTail_cut {x b δ A a w n : ℝ}
+    (hx : 1 ≤ x) (hb : 0 < b) (hδ : 0 < δ) (hδ1 : δ ≤ 1)
+    (hA : x * b ≤ A) (ha : a ≤ (x + 1) * b) (hw : b ≤ w) (hn : x ≤ n) :
+    let η := b * δ * Real.sqrt x / (2 * A)
+    alpogeASKPos (a / n) (alpogeNativeLowerLogWidth η w) ≤
+      if n < x + 1 + 2 * Real.sqrt x then 3 * b / (2 * Real.sqrt x) else 0 := by
+  let R := Real.sqrt x
+  let η := b * δ * R / (2 * A)
+  have hx0 := zero_lt_one.trans_le hx
+  have hR : 0 < R := Real.sqrt_pos.2 hx0
+  have hR1 : 1 ≤ R := (Real.le_sqrt zero_le_one hx0.le).2 (by simpa using hx)
+  have hRsq : R ^ 2 = x := Real.sq_sqrt hx0.le
+  have hRx : R ≤ x := by nlinarith only [hRsq, mul_nonneg (sub_nonneg.mpr hR1) hR.le]
+  have hA0 := (mul_pos hx0 hb).trans_le hA
+  have hη0 : 0 < η := by dsimp only [η]; positivity
+  have hstep : η ≤ 1 / (2 * R) := by
+    apply (div_le_div_iff₀ (by positivity : 0 < 2 * A) (by positivity : 0 < 2 * R)).2
+    calc
+      (b * δ * R) * (2 * R) = 2 * ((x * b) * δ) := by rw [← hRsq]; ring
+      _ ≤ 1 * (2 * A) := by
+        linarith only [(mul_le_of_le_one_right (mul_nonneg hx0.le hb.le) hδ1).trans hA]
+  have hn0 := hx0.trans_le hn
+  have hcap : a / n ≤ b * (1 + 1 / x) := by
+    apply (div_le_iff₀ hn0).2
+    calc
+      a ≤ (x + 1) * b := ha
+      _ = (b * (1 + 1 / x)) * x := by field_simp [hx0.ne'] <;> ring
+      _ ≤ _ := mul_le_mul_of_nonneg_left hn (by positivity)
+  change alpogeASKPos (a / n) (alpogeNativeLowerLogWidth η w) ≤
+    if n < x + 1 + 2 * R then 3 * b / (2 * R) else 0
+  refine (alpogeNativeLowerLogWidth_cut_le η (a/n) b w hη0 (hb.trans_le hw) hw).trans ?_
+  unfold alpogeASKPos
+  split_ifs with h
+  · apply max_le _ (by positivity)
+    calc
+      a / n - b * Real.exp (-η) ≤ b * (1 / x + η) := by
+        linarith only [hcap, mul_le_mul_of_nonneg_left (Real.one_sub_le_exp_neg η) hb.le]
+      _ ≤ b * (1 / R + 1 / (2 * R)) := mul_le_mul_of_nonneg_left
+        (add_le_add (one_div_le_one_div_of_le hR hRx) hstep) hb.le
+      _ = _ := by ring
+  · apply max_le _ le_rfl
+    have hf0 : 0 ≤ 1 - 1 / (2 * R) :=
+      sub_nonneg.mpr ((div_le_one (by positivity : 0 < 2 * R)).2 (by linarith))
+    have hf := (sub_le_sub_left hstep 1).trans (Real.one_sub_le_exp_neg η)
+    have hend : x + 1 ≤ (x + 1 + 2 * R) * (1 - 1 / (2 * R)) := by
+      apply le_of_mul_le_mul_right (a := 2 * R) _ (by positivity)
+      have hdiff : ((x + 1 + 2 * R) * (1 - 1 / (2 * R)) - (x + 1)) * (2 * R) =
+          (3 * R + 1) * (R - 1) := by
+        rw [← hRsq]
+        field_simp [hR.ne'] <;> ring
+      linarith only [hdiff, mul_nonneg (show 0 ≤ 3 * R + 1 by positivity) (sub_nonneg.mpr hR1)]
+    have hlarge := hend.trans (mul_le_mul (le_of_not_gt h) hf hf0 hn0.le)
+    apply sub_nonpos.mpr ((div_le_iff₀ hn0).2 (ha.trans ?_))
+    simpa only [mul_assoc, mul_left_comm, mul_comm] using mul_le_mul_of_nonneg_right hlarge hb.le
+
+/-- Total retained thick ASK above the real anchor on one measured row.
+The bound includes every prime power and is independent of the cutoff. -/
+theorem nativeLedger_thickTail_mass {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (T2 : Finset H) (u t : H) (w : AlpogeNativeE0 × H → ℝ)
+    {x b δ A a : ℝ} (hx : 1 ≤ x) (hb : 0 < b) (hδ : 0 < δ) (hδ1 : δ ≤ 1)
+    (hA : x * b ≤ A) (ha : a ≤ (x + 1) * b)
+    (hw : ∀ g ∈ alpogeNativeProjectionThickColours T2 u t, b ≤ w (alpogeNativePartner t g)) :
+    let η := b * δ * Real.sqrt x / (2 * A)
+    let thick := (Finset.univ.filter (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)).filter
+      (fun g => g ∈ alpogeNativeProjectionThickColours T2 u t)
+    (∑ n ∈ (Finset.Icc 1 N).filter (fun n : ℕ => x ≤ (n : ℝ)), ∑ g ∈ thick,
+      alpogeNativeASKRealWeight inertia frob n g *
+        alpogeASKPos (a / n) (alpogeNativeLowerLogWidth η (w (alpogeNativePartner t g)))) ≤
+      12 * b * Real.log (4 * x) := by
+  classical
+  let R := Real.sqrt x
+  let Z := x + 1 + 2 * R
+  let η := b * δ * R / (2 * A)
+  let G := Finset.univ.filter (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)
+  let thick := G.filter (fun g => g ∈ alpogeNativeProjectionThickColours T2 u t)
+  let I := (Finset.Icc 1 N).filter (fun n : ℕ => x ≤ (n : ℝ))
+  let E := I.filter (fun n : ℕ => (n : ℝ) < Z)
+  let C := 3 * b / (2 * R)
+  let B := 2 * Real.log (4 * x) * C
+  have hx0 := zero_lt_one.trans_le hx
+  have hR : 0 < R := Real.sqrt_pos.2 hx0
+  have hR1 : 1 ≤ R := (Real.le_sqrt zero_le_one hx0.le).2 (by simpa using hx)
+  have hRx : R ≤ x := by
+    nlinarith only [show R ^ 2 = x from Real.sq_sqrt hx0.le, mul_nonneg (sub_nonneg.mpr hR1) hR.le]
+  have hZ : Z ≤ 4 * x := by dsimp only [Z]; linarith
+  have hZ0 : 0 ≤ Z := by dsimp only [Z]; positivity
+  have hC : 0 ≤ C := by dsimp only [C]; positivity
+  have hlog : 0 ≤ Real.log (4 * x) := Real.log_nonneg (by linarith)
+  have hB : 0 ≤ B := by dsimp only [B]; positivity
+  have hsub : E ⊆ Finset.Icc ⌈x⌉₊ ⌊Z⌋₊ := by
+    intro n hn
+    obtain ⟨hi, hz⟩ := Finset.mem_filter.mp hn
+    exact Finset.mem_Icc.mpr ⟨Nat.ceil_le.mpr (Finset.mem_filter.mp hi).2, Nat.le_floor hz.le⟩
+  have hceil := Nat.ceil_lt_add_one hx0.le
+  have hleft : ⌈x⌉₊ ≤ ⌊Z⌋₊ := Nat.le_floor (by dsimp only [Z]; linarith only [hceil, hR1])
+  have hcard : (E.card : ℝ) ≤ 4 * R := by
+    calc
+      _ ≤ ((Finset.Icc ⌈x⌉₊ ⌊Z⌋₊).card : ℝ) := by exact_mod_cast Finset.card_le_card hsub
+      _ ≤ _ := by
+        rw [Nat.card_Icc, Nat.cast_sub (by omega : ⌈x⌉₊ ≤ ⌊Z⌋₊ + 1), Nat.cast_add, Nat.cast_one]
+        have hfloor := Nat.floor_le hZ0
+        dsimp only [Z] at hfloor
+        linarith only [hfloor, Nat.le_ceil x, hR1]
+  have hpoint (n : ℕ) (hn : n ∈ I) :
+      (∑ g ∈ thick, alpogeNativeASKRealWeight inertia frob n g *
+        alpogeASKPos (a / n) (alpogeNativeLowerLogWidth η (w (alpogeNativePartner t g)))) ≤
+        if (n : ℝ) < Z then B else 0 := by
+    let c : ℝ := if (n : ℝ) < Z then C else 0
+    have hc : 0 ≤ c := by dsimp only [c]; split_ifs <;> positivity
+    have hn' := (Finset.mem_filter.mp hn).2
+    have hm := (Finset.sum_le_sum_of_subset_of_nonneg (show thick ⊆ G from Finset.filter_subset ..)
+      (fun g _ _ => alpogeNativeASKRealWeight_nonneg inertia frob n g)).trans
+        (alpogeNativeASKRealWeight_sum_le_two_lambda inertia frob n)
+    calc
+      _ ≤ ∑ g ∈ thick, alpogeNativeASKRealWeight inertia frob n g * c :=
+        Finset.sum_le_sum fun g hg => mul_le_mul_of_nonneg_left
+          (nativeLedger_thickTail_cut hx hb hδ hδ1 hA ha (hw g (Finset.mem_filter.mp hg).2) hn')
+          (alpogeNativeASKRealWeight_nonneg inertia frob n g)
+      _ = (∑ g ∈ thick, alpogeNativeASKRealWeight inertia frob n g) * c := (Finset.sum_mul ..).symm
+      _ ≤ _ * c := mul_le_mul_of_nonneg_right hm hc
+      _ ≤ _ := by
+        dsimp only [c]
+        split_ifs with hz
+        · apply mul_le_mul_of_nonneg_right _ hC
+          exact mul_le_mul_of_nonneg_left
+            (ArithmeticFunction.vonMangoldt_le_log.trans (Real.log_le_log (hx0.trans_le hn') (hz.le.trans hZ)))
+            (by norm_num)
+        · simp
+  calc
+    _ ≤ ∑ n ∈ I, if (n : ℝ) < Z then B else 0 := Finset.sum_le_sum hpoint
+    _ = (E.card : ℝ) * B := by rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul]
+    _ ≤ (4 * R) * B := mul_le_mul_of_nonneg_right hcard hB
+    _ = _ := by dsimp only [B, C]; field_simp [hR.ne'] <;> ring
+
 /-- The discriminant of the actual outer-window pair exceeds every fixed
 polynomial scale. In particular a compact frame requiring 10^14*d ≤ log X
 cannot use this discriminant at any polynomially related anchor X. -/
