@@ -112,16 +112,30 @@ private theorem translate_affine_mul (k : Type) [Field k] [Algebra R k]
   rw [map_add (translationAffinePointHom W V r s t hC k), ofAffinePoint_add W k]
   rw [ofAffinePoint_translation W V r s t hC k P, ofAffinePoint_translation W V r s t hC k Q]
 
+private theorem translateFieldPoint_mul (k : Type) [Field k] [Algebra R k]
+    (p q : specOver R k ⟶ schemeOver V) :
+    translateFieldPoint W V r s t hC k (p * q) =
+      translateFieldPoint W V r s t hC k p * translateFieldPoint W V r s t hC k q := by
+  obtain ⟨P, rfl⟩ := (ofAffinePoint_bijective V k).surjective p
+  obtain ⟨Q, rfl⟩ := (ofAffinePoint_bijective V k).surjective q
+  exact translate_affine_mul W V r s t hC k P Q
+
+private theorem mul_of_pointwise_eq {M N : Type*} [Mul M] [Mul N]
+    (f g : M → N) (he : ∀ x, f x = g x)
+    (hf : ∀ x y, f (x * y) = f x * f y) (x y : M) : g (x * y) = g x * g y :=
+  (he (x * y)).symm.trans ((hf x y).trans (congrArg₂ (· * ·) (he x) (he y)))
+
 theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
     (p q : specOver R k ⟶ schemeOver V) :
     (p * q) ≫ (translationOverIso W V r s t hC).hom =
-      (p ≫ (translationOverIso W V r s t hC).hom) *
-        (q ≫ (translationOverIso W V r s t hC).hom) := by
-  obtain ⟨P, hP⟩ := (ofAffinePoint_bijective V k).surjective p
-  obtain ⟨Q, hQ⟩ := (ofAffinePoint_bijective V k).surjective q
-  have h := translate_affine_mul W V r s t hC k P Q
-  rw [hP, hQ] at h
-  simpa only [translateFieldPoint] using h
+      (p ≫ (translationOverIso W V r s t hC).hom : specOver R k ⟶ schemeOver W) *
+        (q ≫ (translationOverIso W V r s t hC).hom : specOver R k ⟶ schemeOver W) := by
+  refine mul_of_pointwise_eq (M := specOver R k ⟶ schemeOver V)
+    (N := specOver R k ⟶ schemeOver W) (translateFieldPoint W V r s t hC k)
+    (fun z : specOver R k ⟶ schemeOver V => z ≫ (translationOverIso W V r s t hC).hom)
+    ?_ (translateFieldPoint_mul W V r s t hC k) p q
+  intro z
+  rfl
 
 /-- The actual triangular scheme isomorphism preserves the group law. -/
 instance translationOverIso_isMonHom :
