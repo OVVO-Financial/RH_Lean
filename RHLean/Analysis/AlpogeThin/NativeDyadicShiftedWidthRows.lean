@@ -910,5 +910,115 @@ theorem nativeDyadic_matchedRead_joint_index (e : ℕ) (TT : Finset (AlpogeNativ
   rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
   simp only [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card]
 
+/-- On one original measured row, twice the log index of its matched height
+readings recovers twice the high first-prime ASK up to one log(p) per served
+address (before the common factor two). The error retains the thick mask. -/
+theorem nativeDyadic_firstPrime_measured_logIndex_price (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (TT : Finset (AlpogeNativeDyadicH e)) (P : Finset ℕ) (served : ↥P → Finset (↥TT))
+    (r : ↥P → ↥TT → ℕ) (s : ↥P → ↥TT → ↥TT) (hp : ∀ p ∈ P, Nat.Prime p)
+    (hr : ∀ p t, (r p t).Coprime p.val) (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) :
+    let U := fun (p : ↥P) (t : ↥TT) => if t ∈ served p then
+      nativeDyadicLocalSourceAtom e q d p.val (a t.val) t.val w 1 else 0
+    let k := fun p t => ⌊U p t⌋₊
+    let lattice := (nativeDyadicMatchedReadReduction e TT P k r s).ker
+    let excess := (∑ p : ↥P, ∑ t : ↥TT, U p t * Real.log (p.val : ℝ)) - Real.log (lattice.index : ℝ)
+    0 ≤ excess ∧ excess ≤ ∑ p : ↥P, ∑ t : ↥TT, if t ∈ served p then Real.log (p.val : ℝ) else 0 := by
+  classical
+  let U := fun (p : ↥P) (t : ↥TT) => if t ∈ served p then
+    nativeDyadicLocalSourceAtom e q d p.val (a t.val) t.val w 1 else 0
+  let k := fun p t => ⌊U p t⌋₊
+  let L := (nativeDyadicMatchedReadReduction e TT P k r s).ker
+  have hu (p t) : 0 ≤ U p t := by
+    dsimp only [U]
+    split_ifs
+    · exact le_max_right _ _
+    · exact le_rfl
+  have hlog (p : ↥P) : 0 ≤ Real.log (p.val : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (hp p p.property).one_le)
+  have hn (p : ↥P) : (p.val : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (hp p p.property).ne_zero
+  have logIndex : Real.log (L.index : ℝ) = ∑ p : ↥P, ∑ t : ↥TT, (k p t : ℝ)*Real.log (p.val : ℝ) := by
+    rw [show L.index = _ from nativeDyadic_matchedRead_joint_index e TT P k r s hp hr]
+    simp only [Nat.cast_prod, Nat.cast_pow]
+    rw [Real.log_prod (fun p _ => Finset.prod_ne_zero_iff.mpr (fun t _ => pow_ne_zero (k p t) (hn p)))]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    rw [Real.log_prod (fun t _ => pow_ne_zero (k p t) (hn p))]
+    simp only [Real.log_pow]
+  let E := fun (p : ↥P) (t : ↥TT) => (U p t - (k p t : ℝ)) * Real.log (p.val : ℝ)
+  have hnneg (p t) : 0 ≤ E p t := mul_nonneg (sub_nonneg.mpr (Nat.floor_le (hu p t))) (hlog p)
+  have hpoint (p t) : E p t ≤ if t ∈ served p then Real.log (p.val : ℝ) else 0 := by
+    split_ifs with h
+    · exact mul_le_of_le_one_left (hlog p) (by
+        have hf := Nat.lt_floor_add_one (U p t)
+        change U p t - (⌊U p t⌋₊ : ℝ) ≤ 1
+        linarith)
+    · simp [E, k, U, h]
+  change 0 ≤ (∑ p : ↥P, ∑ t : ↥TT, U p t*Real.log (p.val : ℝ)) - Real.log (L.index : ℝ) ∧ _
+  rw [logIndex]
+  have split : (∑ p : ↥P, ∑ t : ↥TT, U p t*Real.log (p.val : ℝ)) -
+      (∑ p : ↥P, ∑ t : ↥TT, (k p t : ℝ)*Real.log (p.val : ℝ)) =
+      ∑ p : ↥P, ∑ t : ↥TT, E p t := by simp only [E, sub_mul, Finset.sum_sub_distrib]
+  rw [split]
+  exact ⟨Finset.sum_nonneg (fun p _ => Finset.sum_nonneg (fun t _ => hnneg p t)),
+    Finset.sum_le_sum (fun p _ => Finset.sum_le_sum (fun t _ => hpoint p t))⟩
+
+/-- A single explicit integer factorial supplies a first-prime valuation
+depth for every measured top. The three losses are the higher powers in
+Legendre's formula, the change of height, and the change of thick width. -/
+theorem nativeDyadic_firstPrime_factorial_depth (e q d p A : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hp : Nat.Prime p) (t : AlpogeNativeDyadicH e) (a b : ℝ) (hb : 0 ≤ b)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) :
+    let v := w (alpogeNativePartner t ((alpogeNativeHostData e q d).frob p))
+    let k := padicValNat p A.factorial - ⌊b⌋₊
+    |(k : ℝ) - nativeDyadicLocalSourceAtom e q d p a t w 1| ≤
+      (A : ℝ)/((p:ℝ)*((p:ℝ)-1)) + |(A:ℝ)-a|/p + |v-b| + 2 := by
+  let : Fact p.Prime := ⟨hp⟩
+  let V := padicValNat p A.factorial
+  let B := ⌊b⌋₊
+  let v := w (alpogeNativePartner t ((alpogeNativeHostData e q d).frob p))
+  have hp0 : 0 < (p:ℝ) := by exact_mod_cast hp.pos
+  have hp1 : 1 < (p:ℝ) := by exact_mod_cast hp.one_lt
+  have upperN : (p-1)*V ≤ A := by
+    change (p-1)*padicValNat p A.factorial ≤ A
+    rw [sub_one_mul_padicValNat_factorial]
+    exact Nat.sub_le _ _
+  have hu : (V:ℝ) ≤ (A:ℝ)/((p:ℝ)-1) := by
+    apply (le_div_iff₀ (sub_pos.mpr hp1)).2
+    have z : ((((p-1)*V : ℕ)) : ℝ) ≤ (A:ℝ) := by exact_mod_cast upperN
+    rw [Nat.cast_mul, Nat.cast_sub hp.one_le, Nat.cast_one, mul_comm] at z
+    exact z
+  have htail : (A:ℝ)/((p:ℝ)-1) = (A:ℝ)/p + (A:ℝ)/((p:ℝ)*((p:ℝ)-1)) := by
+    field [hp0.ne', (sub_pos.mpr hp1).ne']
+  have hdiv : A / p ≤ V := by
+    have hv := (padicValNat_mul_div_factorial (p := p) A).symm.trans (padicValNat_factorial_mul (A / p))
+    change A/p ≤ padicValNat p A.factorial
+    rw [hv]
+    omega
+  have hF : (A:ℝ)/p - 1 ≤ V := by
+    have h : A < (A/p+1)*p := (Nat.div_lt_iff_lt_mul hp.pos).mp (Nat.lt_succ_self _)
+    have hr : (A:ℝ) < (((A/p:ℕ):ℝ)+1)*p := by exact_mod_cast h
+    have hV : ((A/p:ℕ):ℝ) ≤ (V:ℝ) := by exact_mod_cast hdiv
+    linarith only [(div_lt_iff₀ hp0).2 hr, hV]
+  have hfloor : (B:ℝ) ≤ b := Nat.floor_le hb
+  have hfloor' : b < (B:ℝ)+1 := Nat.lt_floor_add_one b
+  have hcut : ((V-B : ℕ):ℝ) = max ((V:ℝ)-B) 0 := by
+    by_cases h : B ≤ V
+    · rw [Nat.cast_sub h, max_eq_left (sub_nonneg.mpr (by exact_mod_cast h))]
+    · have h' : V ≤ B := by omega
+      rw [Nat.sub_eq_zero_of_le h', Nat.cast_zero, max_eq_right (sub_nonpos.mpr (by exact_mod_cast h'))]
+  dsimp only
+  simp only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re, one_nsmul, pow_one]
+  change |((V-B : ℕ):ℝ) - max (a/p-v) 0| ≤ _
+  rw [hcut]
+  apply (abs_max_sub_max_le_abs _ _ _).trans
+  have hmove : |(A:ℝ)/p - a/p| ≤ |(A:ℝ)-a|/p := by
+    rw [← sub_div, abs_div, abs_of_pos hp0]
+  have hn : 0 ≤ (A:ℝ)/((p:ℝ)*((p:ℝ)-1)) := by positivity
+  have hab := abs_le.mp hmove
+  have hw := abs_le.mp (le_rfl : |v-b| ≤ |v-b|)
+  change |((V:ℝ)-B) - (a/p-v)| ≤ (A:ℝ)/((p:ℝ)*((p:ℝ)-1)) + |(A:ℝ)-a|/p + |v-b|+2
+  apply abs_le.mpr
+  constructor <;> linarith only [hF, hu, htail, hfloor, hfloor', hn, hab.1, hab.2, hw.1, hw.2]
+
 end AlpogeThin
 end RHLean.Analysis

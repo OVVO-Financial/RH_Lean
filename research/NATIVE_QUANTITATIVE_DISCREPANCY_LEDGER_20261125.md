@@ -86,7 +86,16 @@ For arbitrary required depths the row map still has full simultaneous image. Fix
 
 A finite-index consequence attaches the measured thick cuts directly to a native height lattice. Fix a single measured translate and row. At each served thick address prescribe $k_{p,t}=\lfloor (a_t/p-v)_+\rfloor$ and prescribe zero at the other addresses. Reduce the surjective map at $K_p=\max_t k_{p,t}$ to the separate depths. Integral coordinatewise CRT now gives a surjection from $\mathbb Z^{TT}$ onto $\prod_{p,t}\mathbb Z/p^{k_{p,t}}$. The kernel $L_{u,j}$ is the intersection of these actual two-top congruences. As a result
 $$\log[\mathbb Z^{TT}:L_{u,j}]=\sum_{p,t} k_{p,t}\log p.$$
-Averaging $2\log[\mathbb Z^{TT}:L_{u,j}]$ over the same $u$ and summing the rows approximates the served high thick ASK with an independently bounded nonnegative normalized error at most $4\vartheta(x)/b\le4(\log4)x/b$. Each address loses less than a single $\log p$ before weighting by 2, and occurs on exactly $\lvert T_2\rvert$ translates. The submitted declaration `nativeDyadic_matchedRead_joint_index` computes this joint kernel index for arbitrary separate depths on the actual top coordinates. The normalized rounding bound is a paper consequence of that formula and the translate count. The admissible base heights above stay fixed. The computation bounds the rounding discrepancy; the signed difference between the measured log indices and the common archimedean MAIN still needs an independent estimate on the chosen sections.
+Averaging $2\log[\mathbb Z^{TT}:L_{u,j}]$ over the same $u$ and summing the rows approximates the served high thick ASK with an independently bounded nonnegative normalized error at most $4\vartheta(x)/b\le4(\log4)x/b$. Each address loses less than a single $\log p$ before weighting by 2, and occurs on exactly $\lvert T_2\rvert$ translates. The submitted declaration `nativeDyadic_matchedRead_joint_index` computes this joint kernel index for arbitrary separate depths on the actual top coordinates. The declaration `nativeDyadic_firstPrime_measured_logIndex_price` bounds the row-level rounding error by one log weight per served address on exactly that mask. The normalized bound follows by the stated translate count. The admissible base heights above stay fixed. The computation bounds the rounding discrepancy; the signed difference between the measured log indices and the common archimedean MAIN still needs an independent estimate on the chosen sections.
+
+An explicit integer supplies the high first-prime depths without reading the individual widths. For $x\ge4$, $b\ge1$, put $A=\lceil xb\rceil$, $B=\lfloor b\rfloor$. Let $P$ be the unramified thick-colour first primes $\sqrt{x}<p<x$ in the native cutoff. Define
+$$J_p=(v_p(A!)-B)_+,\qquad D_P=\prod_{p\in P}p^{J_p}\mid A!.$$
+This one integer is independent of the top, row, translate and measured widths. On every actual thick read at width $v$ the Legendre bounds $A/p-1\le v_p(A!)\le A/(p-1)$ and the Lipschitz constant one of the positive part give
+$$\left|J_p-(a_t/p-v)_+\right|\le\frac{A}{p(p-1)}+\frac{|A-a_t|}{p}+|v-b|+2.$$
+The pointwise declaration is `nativeDyadic_firstPrime_factorial_depth`. In the frozen ledger $|A-a_t|\le b$ and $|v-b|\le b\eta+h$. For these first primes the real kernel weight is $2\log p$ and the thick row occurs on exactly $|T_2|$ translates. For the sum $S_{P,\mathrm{thick}}$ of their ASK contributions, dividing by the original $Q$ gives
+$$\left|\frac{S_{P,\mathrm{thick}}}{Q}-\frac4b\log D_P\right|\le
+\frac{8(x+1)\log x}{\sqrt{x}}+4(\log4)\left(\sqrt{x}+x(\eta+h/b+2/b)\right).$$
+Indeed $A/b\le x+1$, $\sum_{p\in P}\log(p)/(p(p-1))\le\log(x)/\lfloor\sqrt{x}\rfloor$, $\sum_{p\in P}\log(p)/p\le\vartheta(x)/\sqrt{x}$ and $\vartheta(x)\le (\log4)x$. At the square clock $b=\exp(x^\varepsilon)$ and on the frozen spacing $\eta\le1/(2\sqrt{x})$, $h/b\le1/x$ eventually, so the price is $O(\sqrt{x}\log x)$ uniformly in the measured family. This aggregate estimate is a paper consequence. The pointwise result supplies the arithmetic depth for each prime; the unresolved signed estimate must pay $4\log D_P/b$ together with the remaining ASK terms against the common MAIN on the same family.
 
 ## The two sources
 
@@ -390,6 +399,7 @@ flowchart TD
     K["Height rank and denominator prices"] --> B["Physical retained rank and denominator budget (open)"]
     T["Integral heights and unit scalar duals"] --> P["Disjoint high first-prime cuts and weighted margin"]
     P --> A
+    J["One factorial divisor for the high thick ASK"] --> A
     B --> A
     B --> C["Lower determinant with the same main amount (open)"]
     A --> S["Upper and lower bounds on the same columns"]
