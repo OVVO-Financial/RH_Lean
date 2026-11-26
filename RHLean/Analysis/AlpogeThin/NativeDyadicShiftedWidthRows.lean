@@ -525,7 +525,7 @@ theorem nativeDyadic_normalizedHeightShift_chain_denominator (e q d Z : ℕ)
     exact_mod_cast pow_ne_zero 2 (Nat.mem_primesLE.mp (hsub hi)).2.ne_zero
 
 /-- On the actual top/prime addresses of one binary Frobenius colour,
-reverse the order in each fibre of the physical width site. The resulting
+reverse increasing prime order in each fibre of the physical width site. The resulting
 disjoint two-cycles each join distinct first primes. At most one address
 per host site is left, with its actual logarithmic prime weight. -/
 theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -537,6 +537,7 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
     ∃ mate : Equiv.Perm (↥TT × ↥P), (∀ i, mate (mate i) = i) ∧
       (∀ i, site (mate i) = site i) ∧
       (∀ i, mate i ≠ i → (mate i).2 ≠ i.2) ∧
+      (∀ i j, site i = site j → i.2.val ≤ j.2.val → (mate j).2.val ≤ (mate i).2.val) ∧
       ((Finset.univ.filter (fun i => mate i = i)).card ≤ Fintype.card (AlpogeNativeDyadicH e)) ∧
       (∑ i ∈ Finset.univ.filter (fun i => mate i = i), Real.log (i.2.val : ℝ)) ≤
         (Fintype.card (AlpogeNativeDyadicH e) : ℝ) * Real.log x := by
@@ -546,7 +547,19 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
   let site := fun i : I => alpogeNativePartner i.1.val (g i.2.val)
   let key := fun i : I => (site i).2
   let F := fun y : AlpogeNativeDyadicH e => {i : I // key i = y}
-  let idx := fun y => Fintype.equivFin (F y)
+  have same (i j : I) (hk : key i = key j) (hp : i.2 = j.2) : i = j := by
+    apply Prod.ext _ hp
+    apply Subtype.ext
+    change (alpogeNativeCconj _).2 + (g i.2.val).2 + i.1.val =
+      (alpogeNativeCconj _).2 + (g j.2.val).2 + j.1.val at hk
+    rw [hp] at hk
+    exact (Equiv.addLeft ((alpogeNativeCconj _).2 + (g j.2.val).2)).injective hk
+  let prime (y) (i : F y) := i.val.2.val
+  have pinj (y) : Function.Injective (prime y) := fun i j hij => Subtype.ext
+    (same i.val j.val (i.property.trans j.property.symm) (Subtype.ext hij))
+  letI (y : AlpogeNativeDyadicH e) : LinearOrder (F y) := LinearOrder.lift' (prime y) (pinj y)
+  let ord (y : AlpogeNativeDyadicH e) := Fintype.orderIsoFinOfCardEq (F y) rfl
+  let idx := fun y => (ord y).symm.toEquiv
   let flip := fun y (i : F y) => (idx y).symm ((idx y i).rev)
   have twice (y) (i : F y) : flip y (flip y i) = i := by simp [flip]
   have uniqueFixed (y) (i j : F y) (hi : flip y i = i) (hj : flip y j = j) : i = j := by
@@ -574,15 +587,20 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
     change (alpogeNativeCconj _).1 + (g (m i).2.val).1 + 0 =
       (alpogeNativeCconj _).1 + (g i.2.val).1 + 0
     rw [hc _ (m i).2.property, hc _ i.2.property]
-  have hsep (i : I) (h : m i ≠ i) (hp : (m i).2 = i.2) : False := by
-    apply h
-    apply Prod.ext _ hp
-    apply Subtype.ext
-    have ht := hkey i
-    change (alpogeNativeCconj _).2 + (g (m i).2.val).2 + (m i).1.val =
-      (alpogeNativeCconj _).2 + (g i.2.val).2 + i.1.val at ht
-    rw [hp] at ht
-    exact add_left_cancel ht
+  have hsep (i : I) (h : m i ≠ i) (hp : (m i).2 = i.2) : False :=
+    h (same (m i) i (hkey i) hp)
+  have reverse (y) (i j : F y) (h : i ≤ j) : flip y j ≤ flip y i := by
+    change ord y ((ord y).symm j).rev ≤ ord y ((ord y).symm i).rev
+    exact (ord y).monotone (Fin.rev_le_rev.mpr ((ord y).symm.monotone h))
+  have horder (i j : I) (hs : site i = site j) (hp : i.2.val ≤ j.2.val) :
+      (m j).2.val ≤ (m i).2.val := by
+    let u : F (key i) := ⟨i, rfl⟩
+    let v : F (key i) := ⟨j, congrArg Prod.snd hs.symm⟩
+    have h := reverse (key i) u v hp
+    change (flip (key i) v).val.2.val ≤ (flip (key i) u).val.2.val at h
+    rw [show m j = (flip (key i) v).val from fibre _ v,
+      show m i = (flip (key i) u).val from fibre _ u]
+    exact h
   let Z := Finset.univ.filter (fun i : I => m i = i)
   have hinj : Set.InjOn key (↑Z : Set I) := by
     intro i hi j hj hij
@@ -593,7 +611,7 @@ theorem nativeDyadic_firstPrime_sameWidth_matching (e q d : ℕ) [Fact q.Prime] 
     exact congrArg Subtype.val (uniqueFixed _ u v hu hv)
   have hcard : Z.card ≤ Fintype.card (AlpogeNativeDyadicH e) := by
     simpa using Finset.card_le_card_of_injOn (t := Finset.univ) key (fun _ _ => Finset.mem_univ _) hinj
-  refine ⟨mate, invol, hsite, hsep, hcard, ?_⟩
+  refine ⟨mate, invol, hsite, hsep, horder, hcard, ?_⟩
   change (∑ i ∈ Z, Real.log (i.2.val : ℝ)) ≤ _
   calc
     _ ≤ ∑ _i ∈ Z, Real.log x := Finset.sum_le_sum fun i _ =>
@@ -632,6 +650,7 @@ theorem nativeDyadic_sameWidth_firstPrime_signed (e q d p r : ℕ) [Fact q.Prime
     _ ≤ x*b := sub_le_self _ (div_nonneg hb.le hx.le)
   have hwa := (le_div_iff₀ hp').2 (hcapP.trans ha.1)
   have hwc := (le_div_iff₀ hr').2 (hcap.trans hc.1)
+  dsimp only [W] at hwa hwc
   dsimp only
   simp only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re, pow_one,
     one_nsmul, hs, max_eq_left (sub_nonneg.mpr hwa), max_eq_left (sub_nonneg.mpr hwc),
@@ -657,7 +676,8 @@ theorem nativeDyadic_sameWidth_firstPrime_weighted_gain (e q d p r : ℕ) [Fact 
       alpogeNativePartner s ((alpogeNativeHostData e q d).frob r))
     (hw : w (alpogeNativePartner s ((alpogeNativeHostData e q d).frob r)) ∈
       Set.Icc 0 (b*(1+1/x))) :
-    b*(x-2) ≤ (p:ℝ)*r*
+    let margin := b*((x*((r:ℝ)-p)-p)*Real.log p-(x+1)*((r:ℝ)-p))
+    b*(x-2) ≤ margin ∧ margin ≤ (p:ℝ)*r*
       (Real.log p * nativeDyadicLocalSourceAtom e q d p a t w 1 -
         Real.log r * nativeDyadicLocalSourceAtom e q d r c s w 1) := by
   let U := nativeDyadicLocalSourceAtom e q d p a t w 1
@@ -694,8 +714,9 @@ theorem nativeDyadic_sameWidth_firstPrime_weighted_gain (e q d p r : ℕ) [Fact 
     linarith only [mul_le_mul_of_nonneg_right hlog hg0, hr, hgap',
       mul_le_mul_of_nonneg_left (by linarith only [hgap'] : 2 ≤ (r:ℝ)-p)
         (by linarith only [hx] : 0 ≤ 2*x-1)]
-  change b*(x-2) ≤ (p:ℝ)*r*(Real.log p*U-Real.log r*V)
-  linarith only [mul_le_mul_of_nonneg_left hbase hb.le, hpen,
+  refine ⟨mul_le_mul_of_nonneg_left hbase hb.le, ?_⟩
+  change b*((x*((r:ℝ)-p)-p)*Real.log p-(x+1)*((r:ℝ)-p)) ≤ (p:ℝ)*r*(Real.log p*U-Real.log r*V)
+  linarith only [hpen,
     mul_le_mul_of_nonneg_left h (by linarith only [hlog] : 0 ≤ Real.log (p:ℝ))]
 
 end AlpogeThin

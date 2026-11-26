@@ -38,7 +38,7 @@ For any list $P$ of distinct primes up to $Z$, the single scalar $M=\prod_{p\in 
 
 Take the actual unramified primes $\sqrt x<p\le x-1$ of the thick binary Frobenius colour. The finite set of addresses is $(t,p)\in TT\times P$. Assign an address to $y=t+\operatorname{Frob}_{p,H}$. Addresses at one $y$ have exactly the same full positive partner. For a fixed translate $u$ they are all thick precisely when $y\in u+T_2$. This alignment uses the original measured width at that $u$ and row $j$.
 
-Reverse any enumeration of the addresses with each $y$. This defines one involution on all addresses. Its two-cycles have disjoint endpoints. A fibre has at most one fixed point, since a reversed index $i$ is fixed exactly when $2i+1$ is the fibre size. Two different addresses in a fibre necessarily have different primes. Consequently the unmatched addresses $J$ satisfy
+Reverse increasing prime order among the addresses with each $y$. This defines one involution on all addresses. Its two-cycles have disjoint endpoints. A fibre has at most one fixed point, since a reversed index $i$ is fixed exactly when $2i+1$ is the fibre size. Two different addresses in a fibre necessarily have different primes. Consequently the unmatched addresses $J$ satisfy
 $$\lvert J\rvert\le\lvert H\rvert,\qquad \sum_{(t,p)\in J}\log p\le\lvert H\rvert\log x.$$
 The proof constructs the matching without a prime-distribution hypothesis or an extra supply of tops. Its declaration is `nativeDyadic_firstPrime_sameWidth_matching`.
 
@@ -51,6 +51,17 @@ $$pr(\log p\,U_p-\log r\,U_r)\ge b(x-2).$$
 Indeed $\log(r/p)\le(r-p)/p$, $U_r\le(x+1)b/r$ and the preceding bound gives a lower numerator of $b[(x(r-p)-p)\log p-(x+1)(r-p)]$. This is at least $b(x-2)$. The two declarations are `nativeDyadic_sameWidth_firstPrime_signed` and `nativeDyadic_sameWidth_firstPrime_weighted_gain`.
 
 The measured ASK sums both endpoints with positive kernel weights. Using the certified difference as a payment for the signed MAIN requires an independent bound for the sum of the remaining endpoints or an integral short-form realization giving them the subtractive sign. The arithmetic matching and its positive margin alone do not assert that connection. On these same-prime-power sites the completed estimates now price the unmatched part and remove endpoint multiplicity from the paired difference. In Sernau the corresponding link has two steps: `mainAmount_sub_add_two_mul_sum_gain` evaluates the unnormalized archimedean exponent with $+2\sum_p g_p\log p$, then `log_invGainFactor_le` and integrality of the very same forms justify subtracting that amount. A scalar chosen to cancel the gain may increase the finite denominator in C. [Archimedean gain identity](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/New/UpperBound/Size/ArchimedeanSize.lean#L139-L184) · [Normalization of the same forms](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/New/Reduction/ShortAndEnough.lean#L265-L286).
+
+Ordering each fibre by its prime before reversal gives a stronger aggregate estimate. This is possible because the prime determines the top within its fibre. Let $m_y$ denote the number of addresses over $y$, and let $\mathcal G$ be the sum over matched thick endpoints of the original smaller-prime weighted cut minus the larger-prime weighted cut, including the kernel factor 2, the $m$ rows and the full-host translate average. If $\log p\ge8$, $r\le x-1$, and $g=r-p\ge2$, the explicit lower numerator above is at least $bxg\log(p)/4$. Indeed $xg-p\ge xg/2$ and $1+1/x\le\log(p)/4$. Hence each pair contributes at least $bg\log(x)/(8x)$ before the common kernel factor. Its site is thick on exactly $\lvert T_2\rvert$ translates.
+
+The increasing list of primes over $y$ has spacings of at least two. Pairing its $i$th prime with its $(m_y-1-i)$th prime gives
+$\sum_{\mathrm{pairs}\text{ over }y}(r-p)\ge2\lfloor m_y^2/4\rfloor\ge(m_y^2-1)/2$. Cauchy–Schwarz and $\sum_y m_y=\lvert TT\rvert\lvert P\rvert$ now give the following paper consequence of the ordered matching and weighted margin:
+$$
+\boxed{\frac{\mathcal G}{Q}\ \ge\ \frac{\log x}{4x}
+\left(\frac{\lvert TT\rvert}{\lvert H\rvert}\lvert P\rvert^2-
+\frac{\lvert H\rvert}{\lvert TT\rvert}\right).}
+$$
+The signed difference enters the actual thick sum with a negative coefficient if the two endpoint contributions are written as twice the smaller-prime contribution minus their difference. Both sides of that identity use the same observed endpoints. In the selected-pair window, the sharp estimate for the three twists and the unconditional prime number theorem give $\sum_{p\in P}\log p=(1/4+o(1))x$, hence $\lvert P\rvert\gg x/\log x$. The displayed lower bound and the original top density therefore give $\mathcal G/Q\gg_\varepsilon x^{1-\varepsilon/8}/\log x$ for large anchors. The term twice the smaller-prime sum and the exact signed MAIN still have to be compared. In particular a power saving in their leading mismatch would be needed to turn this lower allowance alone into a square-root remainder.
 
 ## The two sources
 
