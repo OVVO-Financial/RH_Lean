@@ -54,6 +54,11 @@ def translationAffinePointHom (k : Type) [Field k] [Algebra R k] :
     (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
     (translationChange_baseChange W V r s t hC k)
 
+/-- Postcomposition on the represented field points of the original two models. -/
+def translateFieldPoint (k : Type) [Field k] [Algebra R k]
+    (p : specOver R k ⟶ schemeOver V) : specOver R k ⟶ schemeOver W :=
+  p ≫ (translationOverIso W V r s t hC).hom
+
 private theorem ptOver_translation {k : Type} [Field k] [Algebra R k]
     {P Q : Fin 3 → k} {hP : IsUnimodularSol (V.baseChange k) P}
     {hQ : IsUnimodularSol (W.baseChange k) Q}
@@ -67,8 +72,9 @@ private theorem ptOver_translation {k : Type} [Field k] [Algebra R k]
 change that already preserves elliptic addition. -/
 theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
     (P : (V.baseChange k).toAffine.Point) :
-    ofAffinePoint V k P ≫ (translationOverIso W V r s t hC).hom =
+    translateFieldPoint W V r s t hC k (ofAffinePoint V k P) =
       ofAffinePoint W k (translationAffinePointHom W V r s t hC k P) := by
+  unfold translateFieldPoint
   cases P with
   | zero =>
       simp only [← _root_.WeierstrassCurve.Affine.Point.zero_def, map_zero, ofAffinePoint_zero,
@@ -83,14 +89,15 @@ theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
       fin_cases i <;> simp [translationTriple, translationChange]
 
 private theorem mul_of_additive_coordinates {A B M N : Type*}
-    [AddMonoid A] [AddMonoid B] [Mul M] [Mul N] (source : A → M) (target : B → N)
-    (u : A →+ B) (f : M → N) (hsurj : Function.Surjective source)
+    [Add A] [Add B] [Mul M] [Mul N] (source : A → M) (target : B → N)
+    (u : A → B) (f : M → N) (hsurj : Function.Surjective source)
     (hs : ∀ x y, source (x + y) = source x * source y)
     (ht : ∀ x y, target (x + y) = target x * target y)
+    (hadd : ∀ x y, u (x + y) = u x + u y)
     (hu : ∀ x, f (source x) = target (u x)) (p q : M) : f (p * q) = f p * f q := by
   obtain ⟨x, rfl⟩ := hsurj p
   obtain ⟨y, rfl⟩ := hsurj q
-  rw [← hs, hu, map_add, ht, hu, hu]
+  rw [← hs, hu, hadd, ht, hu, hu]
 
 private theorem mul_hom_of_field_points {G H : Over (Spec (.of R))} [GrpObj G] [GrpObj H]
     [IsReduced (G ⊗ G).left] [IsSeparated H.hom] (f : G ⟶ H)
@@ -111,18 +118,14 @@ theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
     (p * q) ≫ (translationOverIso W V r s t hC).hom =
       (p ≫ (translationOverIso W V r s t hC).hom) *
         (q ≫ (translationOverIso W V r s t hC).hom) := by
-  let f (x : specOver R k ⟶ schemeOver V) : specOver R k ⟶ schemeOver W :=
-    x ≫ (translationOverIso W V r s t hC).hom
   refine mul_of_additive_coordinates (A := (V.baseChange k).toAffine.Point)
     (B := (W.baseChange k).toAffine.Point) (M := specOver R k ⟶ schemeOver V)
     (N := specOver R k ⟶ schemeOver W) (ofAffinePoint V k) (ofAffinePoint W k)
-    (translationAffinePointHom W V r s t hC k) f ?_ ?_ ?_ ?_ p q
-  · exact (ofAffinePoint_bijective V k).surjective
-  · exact ofAffinePoint_add V k
-  · exact ofAffinePoint_add W k
-  · intro P
-    dsimp only [f]
-    exact ofAffinePoint_translation W V r s t hC k P
+    (fun P => translationAffinePointHom W V r s t hC k P) (translateFieldPoint W V r s t hC k)
+    (ofAffinePoint_bijective V k).surjective (ofAffinePoint_add V k) (ofAffinePoint_add W k)
+    (map_add (translationAffinePointHom W V r s t hC k)) ?_ p q
+  with_reducible
+    exact ofAffinePoint_translation (W := W) (V := V) (r := r) (s := s) (t := t) (hC := hC) (k := k)
 
 /-- The actual triangular scheme isomorphism preserves the group law. -/
 instance translationOverIso_isMonHom :
