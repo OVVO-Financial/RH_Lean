@@ -108,6 +108,17 @@ $$\left|S_{P,\mathrm{thick}}/Q-(4/c)\log D_w\right|
 \le 4(\log4)\left(\sqrt{x}+x(\eta+h/b+1/c)\right).$$
 For $x\ge4$, $c\ge\sqrt{x}/2$. The frozen spacing and collars give $\eta\le1/(2\sqrt{x})$ and $h/b\le1/x$ eventually. The error is then at most $4(\log4)((7/2)\sqrt{x}+1)$. In particular the whole high thick first-prime price is $O(\sqrt{x})$ and the common arithmetic prefix has length at most $x^{3/2}$, independently of the exponential height scale. At this point the signed problem is to bound $(4/c)\log D_w+(S(v)-S_{P,\mathrm{thick}})/Q$ by $K_\varepsilon x^{1/2+C\varepsilon}$ through an independent upper norm and lower determinant comparison. The positive quotient supplies the first term. Its construction alone gives no sign for the second.
 
+The same wheel yields primitive integral columns and their real Gram determinant together. At each downstream integer $1\le n\le N_w$ take
+$$C_n=\prod_{p\in P:\;p\mid n,\;cp<n}p.$$
+Their product is $D_w$ and $1\le C_n\le n$. Partition the actual prefix into consecutive blocks of length $c$, allowing a shorter last block. The $C_n$ in each block are pairwise coprime because a shared prime would divide a positive difference smaller than $p$. This arithmetic supplier is `nativeDyadic_firstPrime_wheel_block_coprime`. Choose the first integer $n_0$ of each block as pivot. For each other integer $n_i$ take the column $C_{n_i}e_i-C_{n_0}e_0$. Its two entries lie in the measured wheel's integral coordinate lattice. Prescribing arbitrary integral pairings $y_i$ with these columns is possible simultaneously: choose $v$ with $C_{n_0}v\equiv-y_i\pmod{C_{n_i}}$ by CRT, then take $u_i=(y_i+C_{n_0}v)/C_{n_i}$. This is `nativeDyadic_firstPrime_wheel_block_dual`. In particular the columns are independent and primitive. The direct sum loses exactly $J=\lceil N_w/c\rceil\le x+1$ dimensions across the full prefix, including blocks of length one. Each prime can affect many blocks while the rank loss is charged only once per block.
+
+Let $B_j$ be these very columns in the ordinary real coordinate metric on block $j$. The rank-one determinant formula gives
+$$\det(B_j^{\mathsf T}B_j)=\left(\prod_{n\in j} C_n\right)^2\sum_{n\in j}C_n^{-2}.$$
+The factored Gram declaration is `nativeDyadic_firstPrime_wheel_block_gram`. The final sum lies between $N_w^{-2}$ and $c$. Thus, with $V_w=\sum_j\log\det(B_j^{\mathsf T}B_j)$,
+$$\left|\frac{2V_w}c-\frac4c\log D_w\right|\le\frac{4J}{c}\log N_w
+=O(\sqrt{x}\log x).$$
+Together with the measured wheel price, this attaches the **positive high thick ASK** to the Gram volume of one explicit primitive family at a permitted loss. Dual existence uses the same columns. The simultaneous integer duals can have large archimedean entries. This calculation supplies no shortness estimate for those duals in the physical metric of #1201. The unpaid one-sided comparison on the original data is $2V_w/c+(S(v)-S_{P,\mathrm{thick}})/Q\le K_\varepsilon x^{1/2+C\varepsilon}$. It requires an independent relation with the signed MAIN and the other terms. The finite sum and normalization in this paragraph are paper consequences of the three submitted block theorems.
+
 ## The two sources
 
 Fix $0<\varepsilon<1/52$ and a window exponent $A\ge1$. Take $e(x)$ and the pair $(q,d)$ for the window $[Y,Y^A]$ from `nativeConstructedDyadicGzPayment`. The pair stays fixed throughout that window. On its actual reciprocity host $H$, use a nonempty physical top set $TT$, nonempty thick set $T_2$, $m>0$, positive $b$, heights $a_t$, positive widths $w_{uj\rho}$, and the density, cutoff and width conditions of that theorem. Write
@@ -410,7 +421,8 @@ flowchart TD
     K["Height rank and denominator prices"] --> B["Physical retained rank and denominator budget (open)"]
     T["Integral heights and unit scalar duals"] --> P["Disjoint high first-prime cuts and weighted margin"]
     P --> A
-    J["High thick ASK from one squarefree wheel product"] --> A
+    J["Integral dual and Gram for the high thick ASK"] --> A
+    J --> B
     B --> A
     B --> C["Lower determinant with the same main amount (open)"]
     A --> S["Upper and lower bounds on the same columns"]

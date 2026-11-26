@@ -1,6 +1,7 @@
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Data.Nat.ChineseRemainder
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.LinearAlgebra.Matrix.SchurComplement
 import RHLean.Analysis.AlpogeNativeLocalGainSource
 
 /-! Shifted tops can give the same positive width site in the original
@@ -1101,6 +1102,85 @@ theorem nativeDyadic_firstPrime_wheel_depth (e q d p c : ℕ) [Fact q.Prime] [Fa
   apply abs_le.mpr
   constructor <;> linarith only [lo, hi, hlo, hhi, hw.1, hw.2,
     (by positivity : 0 ≤ 1/(p:ℝ)), (by positivity : 0 ≤ 1/(c:ℝ))]
+
+/-- Two sites in one consecutive square-root block have coprime active
+wheel factors: a common high prime would divide their smaller difference. -/
+theorem nativeDyadic_firstPrime_wheel_block_coprime (P : Finset ℕ) (c a b : ℕ)
+    (hp : ∀ p ∈ P, p.Prime ∧ c < p) (hab : a < b) (hg : b-a ≤ c) :
+    let active := fun n => P.filter (fun p => p ∣ n ∧ c*p < n)
+    (∏ p ∈ active a, p).Coprime (∏ p ∈ active b, p) := by
+  dsimp only
+  apply Nat.coprime_prod_left_iff.mpr
+  intro p ha
+  apply Nat.coprime_prod_right_iff.mpr
+  intro r hb
+  obtain ⟨hpP, hpa, _⟩ := Finset.mem_filter.mp ha
+  obtain ⟨hrP, hrb, _⟩ := Finset.mem_filter.mp hb
+  apply (Nat.coprime_primes (hp p hpP).1 (hp r hrP).1).mpr
+  rintro rfl
+  have hdiv : p ∣ b-a := Nat.dvd_sub hrb hpa
+  exact (not_lt_of_ge ((Nat.le_of_dvd (Nat.sub_pos_of_lt hab) hdiv).trans hg)) (hp p hpP).2
+
+/-- A single integral functional prescribes every star-column pairing at
+once on a coprime block. The preceding arithmetic supplies the coprimality
+for the actual squarefree wheel factors, including every shared multiple. -/
+theorem nativeDyadic_firstPrime_wheel_block_dual {I : Type*} [Fintype I] [DecidableEq I]
+    (D : I → ℕ) (d : ℕ) (hne : ∀ i, D i ≠ 0) (hd : ∀ i, d.Coprime (D i))
+    (hc : Pairwise (fun i j => (D i).Coprime (D j))) (y : I → ℤ) :
+    ∃ (v : ℤ) (u : I → ℤ), ∀ i, (D i : ℤ)*u i - (d : ℤ)*v = y i := by
+  classical
+  let (i : I) : NeZero (D i) := ⟨hne i⟩
+  let z (i : I) : ZMod (D i) := -(y i : ZMod (D i)) * (d : ZMod (D i))⁻¹
+  let a := Nat.chineseRemainderOfFinset (fun i => (z i).val) D Finset.univ
+    (fun i _ => hne i) (fun _ _ _ _ h => hc h)
+  have hv (i : I) : (a.val : ZMod (D i)) = z i := by
+    have h := (ZMod.natCast_eq_natCast_iff _ _ _).2 (a.property i (Finset.mem_univ i))
+    simpa only [ZMod.natCast_zmod_val] using h
+  have hdvd (i : I) : (D i : ℤ) ∣ y i + (d : ℤ)*a.val := by
+    apply (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp
+    rw [Int.cast_add, Int.cast_mul, Int.cast_natCast, Int.cast_natCast, hv]
+    have hi := ZMod.mul_inv_of_unit (d : ZMod (D i)) ((ZMod.isUnit_iff_coprime _ _).mpr (hd i))
+    change (y i : ZMod (D i)) + d * (-(y i : ZMod (D i))*(d : ZMod (D i))⁻¹) = 0
+    linear_combination -(y i : ZMod (D i)) * hi
+  choose u hu using hdvd
+  exact ⟨a.val, u, fun i => by linarith only [hu i]⟩
+
+/-- The actual diagonal wheel factors and their common pivot give the
+Gram determinant of the very columns on which the integral dual acts. -/
+theorem nativeDyadic_firstPrime_wheel_block_gram {I : Type*} [Fintype I] [DecidableEq I]
+    (D : I → ℕ) (d : ℕ) (hne : ∀ i, D i ≠ 0) :
+    let B := Matrix.fromRows (Matrix.diagonal (fun i => (D i : ℝ)))
+      (Matrix.replicateRow Unit (fun _ : I => -(d:ℝ)))
+    (B.transpose * B).det =
+      (∏ i, (D i : ℝ))^2 * (1 + ∑ i, ((d:ℝ)/(D i:ℝ))^2) := by
+  classical
+  let A := Matrix.diagonal (fun i => (D i : ℝ))
+  let z := fun i => -((d:ℝ)/(D i:ℝ))
+  let G := Matrix.fromRows (1 : Matrix I I ℝ) (Matrix.replicateRow Unit z)
+  let B := Matrix.fromRows A (Matrix.replicateRow Unit (fun _ : I => -(d:ℝ)))
+  have factor : B = G * A := by
+    change Matrix.fromRows A _ = Matrix.fromRows (1 : Matrix I I ℝ) (Matrix.replicateRow Unit z) * A
+    rw [Matrix.fromRows_mul, Matrix.one_mul]
+    apply congrArg (Matrix.fromRows A)
+    ext i j
+    change -(d:ℝ) = (Matrix.replicateRow Unit z * Matrix.diagonal (fun i => (D i : ℝ))) i j
+    rw [Matrix.mul_diagonal, Matrix.replicateRow_apply]
+    change -(d:ℝ) = -((d:ℝ)/(D j:ℝ))*(D j:ℝ)
+    rw [neg_mul, div_mul_cancel₀ _ (Nat.cast_ne_zero.mpr (hne j))]
+  have normal : (G.transpose * G).det = 1 + ∑ i, ((d:ℝ)/(D i:ℝ))^2 := by
+    dsimp only [G]
+    rw [Matrix.transpose_fromRows, Matrix.fromCols_mul_fromRows, Matrix.transpose_one,
+      Matrix.one_mul, Matrix.transpose_replicateRow, Matrix.det_one_add_replicateCol_mul_replicateRow]
+    simp only [dotProduct, z, neg_mul_neg, pow_two]
+  change (B.transpose * B).det = _
+  calc
+    _ = (A.transpose * ((G.transpose * G) * A)).det := by
+      rw [factor, Matrix.transpose_mul]
+      simp only [Matrix.mul_assoc]
+    _ = _ := by
+      rw [Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, normal,
+        show A.det = _ from Matrix.det_diagonal _]
+      ring
 
 end AlpogeThin
 end RHLean.Analysis

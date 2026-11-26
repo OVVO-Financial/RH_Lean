@@ -1059,7 +1059,6 @@ private theorem pairGood_sharp_induced {q d N : ℕ} [NeZero N]
     (add_le_add (add_le_add (mul_le_mul_of_nonneg_left (add_le_add h1 h0)
       (div_nonneg (zero_le_one.trans hx) hh.le)) h0) le_rfl)
 
-set_option diagnostics true in
 private theorem sharp_on_native_character {H : Type*} [AddCommGroup H] [Fintype H]
     [DecidableEq H] {M q d : ℕ} [NeZero M] {eps Y Z x h : ℝ}
     (r : (ZMod M)ˣ →* Multiplicative (AlpogeNativeE0 × H)) (hr : Function.Surjective r)
@@ -1068,36 +1067,52 @@ private theorem sharp_on_native_character {H : Type*} [AddCommGroup H] [Fintype 
     (hI : Formalism.HC.An.Induces (alpogeNativeDirChar (N := M) (H := H) r ψ).primitiveCharacter
       (UpperTheory.Top.tw (fun a => (1 : DirichletCharacter ℂ 1) (a : ZMod 1)) q d i j) (2*1*q*d))
     (hx : 1 ≤ x) (hh : 0 < h) (hY : Y ≤ x) (hZ : x+h ≤ Z) :
-    let c := Formalism.HC.PChar.of (alpogeNativeDirChar (N := M) (H := H) r ψ)
-    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
-      (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
-        x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
+    ∃ c : Formalism.HC.PChar, c.N ∣ M ∧ Formalism.HC.An.Induces c.χ (UpperTheory.Top.tw
+      (fun a => (1 : DirichletCharacter ℂ 1) (a : ZMod 1)) q d i j) (2*1*q*d) ∧ c.χ ≠ 1 ∧
+      ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
+        (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
+          x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
   let χ : DirichletCharacter ℂ M := alpogeNativeDirChar (N := M) (H := H) r ψ
   let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
   have hn : χ.primitiveCharacter ≠ 1 := fun hn =>
     hψ ((nativePrimitive_eq_one_iff (N := M) (H := H) r hr ψ).mp hn)
+  refine ⟨Formalism.HC.PChar.of χ, DirichletCharacter.conductor_dvd_level χ, hI, hn, ?_⟩
   exact pairGood_sharp_induced (N := χ.conductor) hG i j hij χ.primitiveCharacter hn hI hx hh hY hZ
 
-set_option diagnostics true in
-/-- A sharp, conductor-uniform prime-power estimate on each of the three
-actual nonprincipal twists of the existing selected pair. Both points
-are in its original window. -/
+private theorem native_nonzero_twoBit (e : ℕ) (i j : Fin 2) (hij : i ≠ 0 ∨ j ≠ 0) :
+    nativeDyadicTwoBitCharacter e i j ≠ 0 := by
+  unfold nativeDyadicTwoBitCharacter
+  exact nonzero_twoBit (AlpogeNativeDyadicH e) i j hij
+
+section
+attribute [local irreducible] nativeDyadicTwoBitCharacter alpogeNativeDirChar alpogeNativeRecMap
+
+/-- A sharp prime-power estimate on the unique primitive representative
+of each of the three actual twists of the selected pair. Its conductor
+divides the modulus of the given dyadic host and both points are in the
+original pair window. -/
 theorem nativeLedger_pairGood_sharp_twist (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     {eps Y Z x h : ℝ} (hG : UpperTheory.Top.PairGood 1 eps Y Z q d)
     (i j : Fin 2) (hij : i ≠ 0 ∨ j ≠ 0) (hx : 1 ≤ x) (hh : 0 < h)
     (hY : Y ≤ x) (hZ : x+h ≤ Z) :
-    let c := Formalism.HC.PChar.of (alpogeNativeDirChar (N := alpogeNativeHostN e q d)
-      (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d) (nativeDyadicTwoBitCharacter e i j))
-    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
-      (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
-        x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
+    ∃! c : Formalism.HC.PChar, c.N ∣ alpogeNativeHostN e q d ∧ Formalism.HC.An.Induces c.χ (UpperTheory.Top.tw
+      (fun a => (1 : DirichletCharacter ℂ 1) (a : ZMod 1)) q d i j) (2*1*q*d) ∧ c.χ ≠ 1 ∧
+      ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
+        (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
+          x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
   have hq2 : q ≠ 2 := by have := hG.pair.q_mod; omega
   have hd2 : d ≠ 2 := by have := hG.pair.d_mod; omega
   have hqd : q ≠ d := by have := hG.pair.q_mod; have := hG.pair.d_mod; omega
-  exact sharp_on_native_character (M := alpogeNativeHostN e q d) (H := AlpogeNativeDyadicH e)
-    (alpogeNativeRecMap e q d) (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd)
-    (nativeDyadicTwoBitCharacter e i j) (nonzero_twoBit (AlpogeNativeDyadicH e) i j hij)
-    hG i j hij (nativeDyadicTwoBitCharacter_induces e q d i j) hx hh hY hZ
+  obtain ⟨z, hz⟩ := sharp_on_native_character (M := alpogeNativeHostN e q d)
+    (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+    (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd) (nativeDyadicTwoBitCharacter e i j)
+    (native_nonzero_twoBit e i j hij) hG i j hij (nativeDyadicTwoBitCharacter_induces e q d i j)
+    hx hh hY hZ
+  refine ⟨z, hz, fun v hv => ?_⟩
+  exact Formalism.HC.An.Induces.unique (ψ := v) (ψ' := z)
+    (mul_ne_zero (mul_ne_zero (by decide) (Fact.out : Nat.Prime q).ne_zero)
+      (Fact.out : Nat.Prime d).ne_zero) hv.2.1 hz.2.1
+end
 
 /-- The entire centered thin channel, including arbitrarily large first
 primes, is paid on every original good pair. The bound is uniform in the
