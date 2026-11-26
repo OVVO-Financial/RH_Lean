@@ -59,9 +59,18 @@ runs:
         RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
         BUILD_LIBRARY: ${{ inputs.build-library }}
       run: |
+        set -o pipefail
         args=()
         if [[ "$BUILD_LIBRARY" == true ]]; then args+=(--build-library); fi
-        python3 scripts/compile_research_import_closure.py "${args[@]}"
+        python3 scripts/compile_research_import_closure.py "${args[@]}" 2>&1 | tee "$RUNNER_TEMP/rhlean-research-compile.log"
+    - name: Preserve failed Lean compiler output
+      if: failure() && steps.compile.outcome == 'failure'
+      uses: actions/upload-artifact@v4
+      with:
+        name: research-compile-failure-${{ github.job }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/rhlean-research-compile.log
+        if-no-files-found: error
+        retention-days: 7
     # Completed ancestors remain useful when a new leaf proof fails. Only
     # matching records + artifact digests can be reused on the next attempt.
     - name: Save completed research prerequisites
