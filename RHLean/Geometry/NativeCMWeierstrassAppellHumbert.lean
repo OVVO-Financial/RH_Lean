@@ -73,21 +73,28 @@ end EllipticAtlas
 
 /-- The complete one-dimensional holomorphic atlas on an actual elliptic
 scheme and its actual origin line bundle, with the specified period lattice. -/
-structure EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) where
-  ex : ℂ → EllipticAtlas.Points W
-  ex_add : EllipticAtlas.RespectsAddition W ex
-  ex_onto : Function.Surjective ex
-  ker : EllipticAtlas.HasPeriodKernel W L ex
-  hol : EllipticAtlas.HolomorphicSections W ex
-  fr : EllipticAtlas.Frame W
-  fr_hol : EllipticAtlas.HolomorphicFrame W ex fr
-  fr_ne : EllipticAtlas.NonvanishingFrame W ex fr
-  fr_compat : EllipticAtlas.CompatibleFrame W ex fr
+def EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) :=
+  { p : (ℂ → EllipticAtlas.Points W) × EllipticAtlas.Frame W //
+    EllipticAtlas.RespectsAddition W p.1 ∧ Function.Surjective p.1 ∧
+    EllipticAtlas.HasPeriodKernel W L p.1 ∧ EllipticAtlas.HolomorphicSections W p.1 ∧
+    EllipticAtlas.HolomorphicFrame W p.1 p.2 ∧ EllipticAtlas.NonvanishingFrame W p.1 p.2 ∧
+    EllipticAtlas.CompatibleFrame W p.1 p.2 }
 
 namespace EllipticHolUnif
 
 variable {W : _root_.WeierstrassCurve ℂ} [W.IsElliptic] {L : PeriodPair}
   (u : EllipticHolUnif W L)
+
+def ex : ℂ → EllipticAtlas.Points W := u.1.1
+def fr : EllipticAtlas.Frame W := u.1.2
+
+theorem ex_add : EllipticAtlas.RespectsAddition W u.ex := u.2.1
+theorem ex_onto : Function.Surjective u.ex := u.2.2.1
+theorem ker : EllipticAtlas.HasPeriodKernel W L u.ex := u.2.2.2.1
+theorem hol : EllipticAtlas.HolomorphicSections W u.ex := u.2.2.2.2.1
+theorem fr_hol : EllipticAtlas.HolomorphicFrame W u.ex u.fr := u.2.2.2.2.2.1
+theorem fr_ne : EllipticAtlas.NonvanishingFrame W u.ex u.fr := u.2.2.2.2.2.2.1
+theorem fr_compat : EllipticAtlas.CompatibleFrame W u.ex u.fr := u.2.2.2.2.2.2.2
 
 /-- The actual scalar Hermitian form and character govern these same frames. -/
 def IsAH (H : ℂ → ℂ → ℂ) (χ : ℂ → ℂ) : Prop :=
@@ -121,16 +128,11 @@ variable (L : PeriodPair) (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic]
 
 /-- Every field of the holomorphic uniformization is supplied by the
 actual equation, actual regular sections and the actual sigma frames. -/
-def canonicalHolUnif : EllipticHolUnif W L where
-  ex := expOver L W C hC
-  ex_add := expOver_add L W C hC
-  ex_onto := expOver_surjective L W C hC
-  ker := expOver_kernel L W C hC
-  hol := holomorphic_regular_sections L W C hC
-  fr := atlasFrame W L C
-  fr_hol := atlasFrame_differentiableOn W L C hC
-  fr_ne i z := atlasFrame_ne_zero W L C hC i (z := z)
-  fr_compat := atlasFrame_compat W L C hC
+def canonicalHolUnif : EllipticHolUnif W L :=
+  ⟨⟨expOver L W C hC, atlasFrame W L C⟩, expOver_add L W C hC,
+    expOver_surjective L W C hC, expOver_kernel L W C hC,
+    holomorphic_regular_sections L W C hC, atlasFrame_differentiableOn W L C hC,
+    fun i z => atlasFrame_ne_zero W L C hC i (z := z), atlasFrame_compat W L C hC⟩
 
 /-- The original canonical-sigma law is the Appell--Humbert law of the
 actual algebraic origin bundle under this constructed uniformization. -/
