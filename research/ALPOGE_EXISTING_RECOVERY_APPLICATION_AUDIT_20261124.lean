@@ -50,6 +50,7 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_sharp_twist
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_restoreMeasuredThick_le
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_cut
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_highPrime_thick_thirdCut_zero
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_thickFirst_saving_census
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le
@@ -60,6 +61,9 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_norm
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_clearing_minor
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_denominator
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow
 
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le
@@ -75,6 +79,9 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_sharedWidth_laterReads_le,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_norm,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_clearing_minor,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_denominator,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow,
     ``RHLean.Analysis.nativeProperPower_clippedMass_le,
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error,
@@ -87,6 +94,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_sharp_twist,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_restoreMeasuredThick_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_cut,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_highPrime_thick_thirdCut_zero,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickFirst_saving_census,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,

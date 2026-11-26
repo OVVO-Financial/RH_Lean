@@ -998,7 +998,13 @@ theorem nativeLedger_pairGood_sharp_twist (e q d : ℕ) [Fact q.Prime] [Fact d.P
     simp only [ψ, nativeDyadicTwoBitCharacter, AddChar.add_apply, AddChar.nsmul_apply,
       alpogeNativeChC_projectionE1, alpogeNativePsC_projectionE1, hA, hB, AddChar.zero_apply,
       one_pow, one_mul, mul_one] at h1 h2
-    fin_cases i <;> fin_cases j <;> norm_num at hij h1 h2
+    have zero_bit (k : Fin 2) (H : (-1 : ℂ) ^ (k : ℕ) = 1) : k = 0 := by
+      by_contra h
+      have hne : (k : ℕ) ≠ 0 := fun he => h (Fin.ext he)
+      have hk : (k : ℕ) = 1 := by omega
+      rw [hk, pow_one] at H
+      norm_num at H
+    exact hij.elim (fun hi => hi (zero_bit i h2)) (fun hj => hj (zero_bit j h1))
   have hprim : χ.primitiveCharacter ≠ 1 := fun h =>
     hpsi ((nativePrimitive_eq_one_iff (H := AlpogeNativeDyadicH e) r honto ψ).mp h)
   have hbound (t : ℝ) (h1 : Y ≤ t) (h2 : t ≤ Z) :
@@ -1230,6 +1236,34 @@ theorem nativeLedger_thickTail_cut {x b δ A a w n : ℝ}
     have hlarge := hend.trans (mul_le_mul (le_of_not_gt h) hf hf0 hn0.le)
     apply sub_nonpos.mpr ((div_le_iff₀ hn0).2 (ha.trans ?_))
     simpa only [mul_assoc, mul_left_comm, mul_comm] using mul_le_mul_of_nonneg_right hlarge hb.le
+
+/-- On the outstanding thick first-prime range, the third-power read of
+the same shifted-width pair is already clipped to zero on the rounded frame. -/
+theorem nativeLedger_highPrime_thick_thirdCut_zero (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (t : AlpogeNativeDyadicH e) (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    {x b δ A a : ℝ} (hx : 4 ≤ x) (hb : 0 < b) (hδ : 0 < δ) (hδ1 : δ ≤ 1)
+    (hA : x*b ≤ A) (ha : a ≤ (x+1)*b) (hp : Real.sqrt x < p)
+    (hw : b ≤ w (alpogeNativePartner t ((3 : ℕ) • (alpogeNativeHostData e q d).frob p))) :
+    nativeDyadicLocalSourceAtom e q d p a t
+      (fun i => alpogeNativeLowerLogWidth (b*δ*Real.sqrt x/(2*A)) (w i)) 3 = 0 := by
+  have hx0 : 0 ≤ x := by linarith
+  have hR : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0).2 (by linarith)
+  have h2p : 2 < p := by exact_mod_cast hR.trans_lt hp
+  have hp3 : (3 : ℝ) ≤ p := by exact_mod_cast Nat.succ_le_of_lt h2p
+  have hsq : x ≤ (p : ℝ)^2 := (Real.sq_sqrt hx0).symm.le.trans
+    (pow_le_pow_left₀ (Real.sqrt_nonneg _) hp.le 2)
+  have h3x : 3*x ≤ (p : ℝ)^3 := calc
+    _ ≤ (p : ℝ) * (p : ℝ)^2 := mul_le_mul hp3 hsq hx0 (Nat.cast_nonneg p)
+    _ = _ := by ring
+  have hRx : 2 * Real.sqrt x ≤ x := by
+    nlinarith only [Real.sq_sqrt hx0,
+      mul_nonneg (Real.sqrt_nonneg x) (sub_nonneg.mpr hR)]
+  have hcut : x+1+2*Real.sqrt x ≤ (p : ℝ)^3 := by linarith only [h3x, hx, hRx]
+  have h := nativeLedger_thickTail_cut (n := (p : ℝ)^3) (by linarith only [hx])
+    hb hδ hδ1 hA ha hw (by linarith only [h3x, hx])
+  rw [if_neg (not_lt.mpr hcut)] at h
+  simpa only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re,
+    Nat.cast_pow, alpogeASKPos] using le_antisymm h (le_max_right _ _)
 
 /-- Total retained thick ASK above the real anchor on one measured row.
 The bound includes every prime power and is independent of the cutoff. -/

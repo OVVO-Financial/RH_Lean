@@ -1,4 +1,6 @@
+import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Data.Nat.ChineseRemainder
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import RHLean.Analysis.AlpogeNativeLocalGainSource
 
 /-! Shifted tops can give the same positive width site in the original
@@ -357,6 +359,169 @@ theorem nativeDyadic_activeShift_joint_injective_heights
   · change (a t : ZMod (m p)) - ((p : ℕ) : ZMod (m p))^2 * (a (shift p t) : ZMod (m p)) = _
     rw [hres, hres]
     exact hu p t
+
+/-- The scaled first/third-power difference on the full host, with the real
+factor p² divided out. Its translate acts on the original height coordinates. -/
+noncomputable def nativeDyadicNormalizedHeightShift (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (p : ℕ) (v : EuclideanSpace ℂ (AlpogeNativeDyadicH e)) :
+    EuclideanSpace ℂ (AlpogeNativeDyadicH e) :=
+  ((p : ℝ)^2)⁻¹ • v - WithLp.toLp 2
+    (fun t => v (t + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2))
+
+/-- All distinct prime admissions together distort Euclidean lengths in the
+height coordinates by at most two, uniformly in the host, order and rank. -/
+theorem nativeDyadic_normalizedHeightShift_chain_norm (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (primes : List ℕ) (hn : primes.Nodup) (hp : ∀ p ∈ primes, Nat.Prime p)
+    (v : EuclideanSpace ℂ (AlpogeNativeDyadicH e)) :
+    ‖v‖ / 2 ≤ ‖primes.foldr (nativeDyadicNormalizedHeightShift e q d) v‖ ∧
+    ‖primes.foldr (nativeDyadicNormalizedHeightShift e q d) v‖ ≤ 2 * ‖v‖ := by
+  classical
+  let r := fun p : ℕ => ((p : ℝ)^2)⁻¹
+  let lo := fun p : ℕ => 1 - r p
+  have hr (p : ℕ) (h : 2 ≤ p) : 0 ≤ r p ∧ r p ≤ 1 := by
+    have hreal : 2 ≤ (p : ℝ) := by exact_mod_cast h
+    have hs : 1 ≤ (p : ℝ)^2 := by nlinarith [sq_nonneg ((p : ℝ)-2)]
+    exact ⟨inv_nonneg.mpr (sq_nonneg _), (inv_le_one₀ (zero_lt_one.trans_le hs)).2 hs⟩
+  let op := nativeDyadicNormalizedHeightShift e q d
+  have step (p : ℕ) (h : 2 ≤ p) (u : EuclideanSpace ℂ (AlpogeNativeDyadicH e)) :
+      lo p * ‖u‖ ≤ ‖op p u‖ ∧ lo p * ‖op p u‖ ≤ ‖u‖ := by
+    let σ := Equiv.addRight ((2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2)
+    let T := LinearIsometryEquiv.piLpCongrLeft 2 ℂ ℂ σ.symm
+    have hT : ‖T u‖ = ‖u‖ := T.norm_map u
+    have hscalar : ‖r p • u‖ = r p * ‖u‖ := by
+      rw [norm_smul, Real.norm_eq_abs, abs_of_nonneg (hr p h).1]
+    change lo p * ‖u‖ ≤ ‖r p • u - T u‖ ∧ lo p * ‖r p • u - T u‖ ≤ ‖u‖
+    have lower := norm_sub_norm_le (T u) (r p • u)
+    rw [norm_sub_rev (T u), hT, hscalar] at lower
+    have upper := norm_sub_le (r p • u) (T u)
+    rw [hscalar, hT] at upper
+    have nonneg : 0 ≤ lo p := sub_nonneg.mpr (hr p h).2
+    refine ⟨by simpa only [lo, sub_mul, one_mul] using lower, ?_⟩
+    calc
+      _ ≤ lo p * (r p * ‖u‖ + ‖u‖) := mul_le_mul_of_nonneg_left upper nonneg
+      _ = ‖u‖ - (r p)^2 * ‖u‖ := by dsimp only [lo]; ring
+      _ ≤ ‖u‖ := sub_le_self _ (mul_nonneg (sq_nonneg _) (norm_nonneg _))
+  have chain (l : List ℕ) (nd : l.Nodup) (pr : ∀ p ∈ l, Nat.Prime p) :
+      (∏ p ∈ l.toFinset, lo p) * ‖v‖ ≤ ‖l.foldr op v‖ ∧
+      (∏ p ∈ l.toFinset, lo p) * ‖l.foldr op v‖ ≤ ‖v‖ := by
+    induction l with
+    | nil => simp
+    | cons p l ih =>
+      obtain ⟨hnot, hn'⟩ := List.nodup_cons.mp nd
+      have h2 := (pr p List.mem_cons_self).two_le
+      have hpos : 0 ≤ lo p := sub_nonneg.mpr (hr p h2).2
+      have rest (i : ℕ) (hi : i ∈ l) : Nat.Prime i := pr i (List.mem_cons_of_mem _ hi)
+      have hprod : 0 ≤ ∏ i ∈ l.toFinset, lo i := Finset.prod_nonneg fun i hi =>
+        sub_nonneg.mpr (hr i (rest i (List.mem_toFinset.mp hi)).two_le).2
+      obtain ⟨ha, hb⟩ := ih hn' rest
+      obtain ⟨hs, ht⟩ := step p h2 (l.foldr op v)
+      simp only [List.toFinset_cons, Finset.prod_insert (by simpa using hnot : p ∉ l.toFinset),
+        List.foldr_cons]
+      constructor
+      · rw [mul_assoc]
+        exact (mul_le_mul_of_nonneg_left ha hpos).trans hs
+      · calc
+          _ = (∏ i ∈ l.toFinset, lo i) * (lo p * ‖op p (l.foldr op v)‖) := by ring
+          _ ≤ _ := (mul_le_mul_of_nonneg_left ht hprod).trans hb
+  have telescope (n : ℕ) :
+      (∏ i ∈ Finset.Icc 2 (n+1), lo i) = ((n:ℝ)+2)/(2*((n:ℝ)+1)) := by
+    induction n with
+    | zero => norm_num [Finset.Icc_eq_empty_of_lt (by decide : 1 < 2)]
+    | succ n ih =>
+      rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ (n+1)+1), ih]
+      simp only [lo, r, Nat.cast_add, Nat.cast_succ, Nat.cast_one]
+      have h1 : (n:ℝ)+1 ≠ 0 := by positivity
+      have h2 : (n:ℝ)+1+1 ≠ 0 := by positivity
+      field_simp [h1, h2] <;> ring
+  let N := primes.toFinset.sup id
+  have hsub : primes.toFinset ⊆ Finset.Icc 2 (N+1) := by
+    intro i hi
+    exact Finset.mem_Icc.mpr ⟨(hp i (List.mem_toFinset.mp hi)).two_le,
+      (Finset.le_sup (f := id) hi).trans (Nat.le_succ N)⟩
+  have hh : 1 / 2 ≤ ∏ i ∈ primes.toFinset, lo i := calc
+    _ ≤ ((N:ℝ)+2)/(2*((N:ℝ)+1)) := (le_div_iff₀ (by positivity)).2 (by linarith)
+    _ = _ := (telescope N).symm
+    _ ≤ _ := Finset.prod_le_prod_of_subset_of_le_one₀ hsub
+      (fun i hi => sub_nonneg.mpr (hr i (Finset.mem_Icc.mp hi).1).2)
+      (fun i hi _ => sub_le_self 1 (hr i (Finset.mem_Icc.mp hi).1).1)
+  obtain ⟨h1, h2⟩ := chain primes hn hp
+  have h1' := (mul_le_mul_of_nonneg_right hh (norm_nonneg v)).trans h1
+  have h2' := (mul_le_mul_of_nonneg_right hh (norm_nonneg (primes.foldr op v))).trans h2
+  change ‖v‖ / 2 ≤ ‖primes.foldr op v‖ ∧ ‖primes.foldr op v‖ ≤ 2 * ‖v‖
+  constructor <;> linarith only [h1', h2']
+
+/-- Clearing the denominator of the normalized shift forces p² in every
+height coordinate. Every retained n-row minor incurs p^(2n), regardless of
+the overlap between translated rows. -/
+theorem nativeDyadic_normalizedHeightShift_clearing_minor (e q d p n : ℕ)
+    [Fact q.Prime] [Fact d.Prime] (U : Matrix (AlpogeNativeDyadicH e) (Fin n) ℤ)
+    (rows : Fin n → AlpogeNativeDyadicH e)
+    (hc : ∀ t j, (p : ℤ)^2 ∣ U t j -
+      (p : ℤ)^2 * U (t + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2) j) :
+    ((p : ℤ)^2)^n ∣ (U.submatrix rows id).det := by
+  classical
+  have hd (i j : Fin n) : (p : ℤ)^2 ∣ U (rows i) j := by
+    obtain ⟨c, heq⟩ := hc (rows i) j
+    refine ⟨c + U (rows i + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2) j, ?_⟩
+    linear_combination heq
+  choose V hV using hd
+  have hmat : U.submatrix rows id = (p:ℤ)^2 • Matrix.of V := by
+    ext i j
+    exact hV i j
+  rw [hmat, Matrix.det_smul, Fintype.card_fin]
+  exact dvd_mul_right _ _
+
+/-- The square of the product of the admitted primes clears every complex
+height column at once. Its logarithmic price per column is at most 2 Z log 4
+for prime indices at most Z, independently of the number of host coordinates. -/
+theorem nativeDyadic_normalizedHeightShift_chain_denominator (e q d Z : ℕ)
+    [Fact q.Prime] [Fact d.Prime] (primes : List ℕ) (hn : primes.Nodup)
+    (hp : ∀ p ∈ primes, p ∈ Nat.primesLE Z) (a : AlpogeNativeDyadicH e → ℤ) :
+    let M := ∏ p ∈ primes.toFinset, p^2
+    (∃ u : AlpogeNativeDyadicH e → ℤ, ∀ t,
+      (M : ℂ) * (primes.foldr (nativeDyadicNormalizedHeightShift e q d)
+        (WithLp.toLp 2 (fun s => (a s : ℂ))) t) = (u t : ℂ)) ∧
+    Real.log (M : ℝ) ≤ 2 * Real.log 4 * Z := by
+  classical
+  let M (l : List ℕ) := ∏ p ∈ l.toFinset, p^2
+  let v : EuclideanSpace ℂ (AlpogeNativeDyadicH e) := WithLp.toLp 2 (fun t => (a t : ℂ))
+  let op := nativeDyadicNormalizedHeightShift e q d
+  have clear (l : List ℕ) (nd : l.Nodup) (pr : ∀ p ∈ l, p ∈ Nat.primesLE Z) :
+      ∃ u : AlpogeNativeDyadicH e → ℤ, ∀ t,
+        (M l : ℂ) * (l.foldr op v t) = (u t : ℂ) := by
+    induction l with
+    | nil =>
+      exact ⟨a, fun t => by simp [M, v]⟩
+    | cons p l ih =>
+      obtain ⟨hnp, ht⟩ := List.nodup_cons.mp nd
+      obtain ⟨u, hu⟩ := ih ht (fun i hi => pr i (List.mem_cons_of_mem _ hi))
+      have hnpr := (Nat.mem_primesLE.mp (pr p List.mem_cons_self)).2.ne_zero
+      have p0 : (p : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hnpr
+      let sh := fun t => t + (2 : ℕ) • ((alpogeNativeHostData e q d).frob p).2
+      refine ⟨fun t => u t - (p : ℤ)^2 * u (sh t), fun t => ?_⟩
+      have hm : M (p :: l) = p^2 * M l := by simp [M, hnp]
+      rw [hm, Nat.cast_mul, Nat.cast_pow, Int.cast_sub, Int.cast_mul, Int.cast_pow,
+        Int.cast_natCast, ← hu t, ← hu (sh t)]
+      change (p : ℂ)^2 * (M l : ℂ) *
+        (((((p : ℝ)^2)⁻¹ : ℝ) : ℂ) * l.foldr op v t - l.foldr op v (sh t)) = _
+      push_cast
+      field_simp [p0] <;> ring
+  refine ⟨clear primes hn hp, ?_⟩
+  change Real.log ((M primes : ℕ) : ℝ) ≤ _
+  have hsub : primes.toFinset ⊆ Nat.primesLE Z := fun i hi => hp i (List.mem_toFinset.mp hi)
+  have htheta : Chebyshev.theta (Z : ℝ) = ∑ p ∈ Nat.primesLE Z, Real.log (p : ℝ) := by
+    rw [Chebyshev.theta, Nat.floor_natCast, Nat.primesLE_eq_filter_Ioc_zero]
+  have hsum : ∑ i ∈ primes.toFinset, Real.log (i : ℝ) ≤ Real.log 4 * Z := calc
+    _ ≤ ∑ i ∈ Nat.primesLE Z, Real.log (i : ℝ) := Finset.sum_le_sum_of_subset_of_nonneg
+      hsub (fun i hi _ => Real.log_nonneg (by exact_mod_cast (Nat.mem_primesLE.mp hi).2.one_le))
+    _ = _ := htheta.symm
+    _ ≤ _ := Chebyshev.theta_le_log4_mul_x (Nat.cast_nonneg Z)
+  dsimp only [M]
+  rw [Nat.cast_prod, Real.log_prod]
+  · simp only [Nat.cast_pow, Real.log_pow, Nat.cast_ofNat, ← Finset.mul_sum]
+    linarith only [hsum]
+  · intro i hi
+    exact_mod_cast pow_ne_zero 2 (Nat.mem_primesLE.mp (hsub hi)).2.ne_zero
 
 end AlpogeThin
 end RHLean.Analysis
