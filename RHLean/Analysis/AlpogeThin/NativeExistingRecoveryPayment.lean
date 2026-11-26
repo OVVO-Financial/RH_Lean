@@ -811,6 +811,116 @@ theorem alpogeNativeThinFirstPrime_saving_le
       field [hb.ne', hδ.ne', hX.ne', hx'.ne']
     _ ≤ _ := mul_le_of_le_one_right (by positivity) ((div_le_one hX).mpr hT)
 
+/-- A forward difference of the centered triangular twist controls the sharp
+prime-power sum. Its linear logarithmic derivative cancels exactly. The price
+of the boundary interval is independent of the character and conductor. -/
+theorem alpogeNativeTwistedSharp_le_forward {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) (ell : ℂ) {x h : ℝ} (hx : 1 ≤ x) (hh : 0 < h) :
+    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((Λ n : ℝ) : ℂ) * χ n‖ ≤
+      (x/h) * (‖alpogeNativeGchiArithmetic χ ell (x+h)‖ +
+        ‖alpogeNativeGchiArithmetic χ ell x‖) +
+        ‖alpogeNativeGchiArithmetic χ ell x‖ + (h+1)*Real.log (x+h) := by
+  classical
+  let I := Finset.Icc 1 ⌊x⌋₊
+  let J := Finset.Icc 1 ⌊x+h⌋₊
+  let c := fun n : ℕ => ((Λ n : ℝ) : ℂ) * χ n
+  let w := fun (y : ℝ) (n : ℕ) => y / (n : ℝ) - 1
+  let f := alpogeNativeGchiArithmetic χ ell
+  let E := ∑ n ∈ J \ I, (((x/h)*w (x+h) n : ℝ) : ℂ) * c n
+  have hx0 := zero_lt_one.trans_le hx
+  have hk : ⌊x⌋₊ ≤ ⌊x+h⌋₊ := Nat.floor_mono (le_add_of_nonneg_right hh.le)
+  have hIJ : I ⊆ J := Finset.Icc_subset_Icc le_rfl hk
+  have hsum (y : ℝ) : f y =
+      (∑ n ∈ Finset.Icc 1 ⌊y⌋₊, (w y n : ℂ) * c n) + (y : ℂ) * ell := by
+    unfold f alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
+    congr 1
+    apply Finset.sum_congr rfl
+    intro n _
+    dsimp only [w,c,alpogeNativePrimePowerWeight]
+    rw [Complex.ofReal_mul]
+    ring
+  have hpoint (n : ℕ) (hn : n ∈ I) :
+      (x/h) * (w (x+h) n - w x n) - w x n = 1 := by
+    have hn0 : (n : ℝ) ≠ 0 := by exact_mod_cast (show n ≠ 0 from Nat.ne_of_gt (Finset.mem_Icc.mp hn).1)
+    dsimp only [w]
+    field [hh.ne', hn0]
+  have hid : ((x/h : ℝ) : ℂ) * (f (x+h) - f x) - f x = (∑ n ∈ I, c n) + E := by
+    have hxsum := hsum x
+    have hysum := hsum (x+h)
+    change f (x+h) = (∑ n ∈ J, (w (x+h) n : ℂ) * c n) + _ at hysum
+    rw [← Finset.sum_sdiff hIJ] at hysum
+    change f x = (∑ n ∈ I, (w x n : ℂ) * c n) + _ at hxsum
+    have hlinear : ((x/h : ℝ) : ℂ) * (((x+h : ℝ) : ℂ)*ell - (x : ℂ)*ell) -
+        (x : ℂ)*ell = 0 := by
+      push_cast
+      field [Complex.ofReal_ne_zero.mpr hh.ne']
+    have hlow : ((x/h : ℝ) : ℂ) *
+          ((∑ n ∈ I, (w (x+h) n : ℂ)*c n) - (∑ n ∈ I, (w x n : ℂ)*c n)) -
+          (∑ n ∈ I, (w x n : ℂ)*c n) = ∑ n ∈ I, c n := by
+      rw [← Finset.sum_sub_distrib, Finset.mul_sum, ← Finset.sum_sub_distrib]
+      apply Finset.sum_congr rfl
+      intro n hn
+      have hc : ((x/h : ℝ) : ℂ) * ((w (x+h) n : ℂ) - (w x n : ℂ)) - (w x n : ℂ) = 1 := by
+        exact_mod_cast hpoint n hn
+      linear_combination c n * hc
+    have htail : ((x/h : ℝ) : ℂ) * (∑ n ∈ J \ I, (w (x+h) n : ℂ)*c n) = E := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro n _
+      rw [Complex.ofReal_mul, mul_assoc]
+    rw [hysum, hxsum]
+    linear_combination hlow + htail + hlinear
+  have htail (n : ℕ) (hn : n ∈ J \ I) : x < (n : ℝ) ∧ (n : ℝ) ≤ x+h := by
+    obtain ⟨hj, hi⟩ := Finset.mem_sdiff.mp hn
+    obtain ⟨hn1, hn2⟩ := Finset.mem_Icc.mp hj
+    have hf : ⌊x⌋₊ < n := lt_of_not_ge fun hn' => hi (Finset.mem_Icc.mpr ⟨hn1, hn'⟩)
+    exact ⟨(Nat.lt_floor_add_one x).trans_le (by exact_mod_cast Nat.succ_le_of_lt hf),
+      (by exact_mod_cast hn2 : (n : ℝ) ≤ (⌊x+h⌋₊ : ℕ)).trans (Nat.floor_le (by positivity))⟩
+  have hlog : 0 ≤ Real.log (x+h) := Real.log_nonneg (by linarith)
+  have hcard : ((J \ I).card : ℝ) ≤ h+1 := by
+    have sub : J \ I ⊆ Finset.Ioc ⌊x⌋₊ ⌊x+h⌋₊ := by
+      intro n hn
+      have h := htail n hn
+      exact Finset.mem_Ioc.mpr ⟨(Nat.floor_lt hx0.le).2 h.1, Nat.le_floor h.2⟩
+    have h1 : ((J \ I).card : ℝ) ≤ ((Finset.Ioc ⌊x⌋₊ ⌊x+h⌋₊).card : ℝ) := by
+      exact_mod_cast Finset.card_le_card sub
+    rw [Nat.card_Ioc, Nat.cast_sub hk] at h1
+    linarith only [h1, Nat.floor_le (show 0 ≤ x+h by positivity), Nat.lt_floor_add_one x]
+  have hE : ‖E‖ ≤ (h+1)*Real.log (x+h) := by
+    refine (norm_sum_le _ _).trans ?_
+    calc
+      _ ≤ ∑ _n ∈ J \ I, Real.log (x+h) := by
+        apply Finset.sum_le_sum
+        intro n hn
+        obtain ⟨hnl, hnu⟩ := htail n hn
+        have hn0 := hx0.trans hnl
+        have hw0 : 0 ≤ w (x+h) n := sub_nonneg.mpr ((one_le_div hn0).2 hnu)
+        have hw1 : x/h * w (x+h) n ≤ 1 := by
+          dsimp only [w]
+          rw [div_mul_eq_mul_div, div_le_one hh]
+          rw [mul_sub, ← mul_div_assoc, sub_le_iff_le_add]
+          apply (div_le_iff₀ hn0).2
+          nlinarith only [mul_le_mul_of_nonneg_right hnl.le (show 0 ≤ x+h by positivity)]
+        have hc : ‖c n‖ ≤ Real.log (x+h) := by
+          dsimp only [c]
+          rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
+          exact (mul_le_of_le_one_right ArithmeticFunction.vonMangoldt_nonneg (χ.norm_le_one _)).trans
+            (ArithmeticFunction.vonMangoldt_le_log.trans (Real.log_le_log hn0 hnu))
+        rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (mul_nonneg (div_nonneg hx0.le hh.le) hw0)]
+        exact (mul_le_mul_of_nonneg_right hw1 (norm_nonneg _)).trans (by simpa only [one_mul] using hc)
+      _ ≤ _ := by
+        rw [Finset.sum_const, nsmul_eq_mul]
+        exact mul_le_mul_of_nonneg_right hcard hlog
+  have hk0 : 0 ≤ x/h := div_nonneg hx0.le hh.le
+  calc
+    _ = ‖(((x/h : ℝ) : ℂ) * (f (x+h) - f x) - f x) - E‖ := by rw [hid, add_sub_cancel_right]
+    _ ≤ ‖((x/h : ℝ) : ℂ) * (f (x+h) - f x) - f x‖ + ‖E‖ := norm_sub_le _ _
+    _ ≤ _ := by
+      apply add_le_add _ hE
+      refine (norm_sub_le _ _).trans (add_le_add ?_ le_rfl)
+      rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg hk0]
+      exact mul_le_mul_of_nonneg_left (norm_sub_le _ _) hk0
+
 end RHLean.Analysis
 
 namespace RHLean.Analysis.AlpogeThin
@@ -853,6 +963,56 @@ theorem nativeLedger_anyCutoff_le_thick_add_thin
       rw [← alpogeNativeProjectionFullSource_eq_nativeDe,
         alpogeNativeProjectionFull_eq_thick_add_thin _ T2 a u t w, Complex.add_re]
       exact add_le_add le_rfl (Complex.re_le_norm _)
+
+/-- A sharp, conductor-uniform prime-power estimate on each of the three
+actual nonprincipal twists of the *existing* selected pair. Both points
+are in its original window. -/
+theorem nativeLedger_pairGood_sharp_twist (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    {eps Y Z x h : ℝ} (hG : UpperTheory.Top.PairGood 1 eps Y Z q d)
+    (i j : Fin 2) (hij : i ≠ 0 ∨ j ≠ 0) (hx : 1 ≤ x) (hh : 0 < h)
+    (hY : Y ≤ x) (hZ : x+h ≤ Z) :
+    let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+      (nativeDyadicTwoBitCharacter e i j)
+    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * χ.primitiveCharacter n‖ ≤
+      (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
+        x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
+  let r := alpogeNativeRecMap e q d
+  let ψ := nativeDyadicTwoBitCharacter e i j
+  let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) r ψ
+  let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
+  let ell := deriv (DirichletCharacter.LFunction χ.primitiveCharacter) 1 /
+    DirichletCharacter.LFunction χ.primitiveCharacter 1
+  have honto : Function.Surjective r := alpogeNativeRecMap_surjective e q d
+    (by have := hG.pair.q_mod; omega) (by have := hG.pair.d_mod; omega)
+    (by have := hG.pair.q_mod; have := hG.pair.d_mod; omega)
+  have hpsi : ψ ≠ 0 := by
+    intro hz
+    let t : AlpogeNativeDyadicH e := 0
+    let v := (((0, 1) : AlpogeNativeE0), t)
+    have hB : alpogeNativePsC (AlpogeNativeDyadicH e) v = -1 := by
+      change (if (1 : ZMod 2) = 0 then (1 : ℂ) else -1) = -1
+      exact ite_eq_right (by decide)
+    have hA : alpogeNativeChC (AlpogeNativeDyadicH e) v = 1 := rfl
+    have h1 := DFunLike.congr_fun hz (alpogeNativeProjectionE1 t)
+    have h2 := DFunLike.congr_fun hz v
+    simp only [ψ, nativeDyadicTwoBitCharacter, AddChar.add_apply, AddChar.nsmul_apply,
+      alpogeNativeChC_projectionE1, alpogeNativePsC_projectionE1, hA, hB, AddChar.zero_apply,
+      one_pow, one_mul, mul_one] at h1 h2
+    fin_cases i <;> fin_cases j <;> norm_num at hij h1 h2
+  have hprim : χ.primitiveCharacter ≠ 1 := fun h =>
+    hpsi ((nativePrimitive_eq_one_iff (H := AlpogeNativeDyadicH e) r honto ψ).mp h)
+  have hbound (t : ℝ) (h1 : Y ≤ t) (h2 : t ≤ Z) :
+      ‖alpogeNativeGchiArithmetic χ.primitiveCharacter ell t‖ ≤ t^((1 : ℝ)/2+eps/2) := by
+    have ht := (hG.bounds (1 : DirichletCharacter ℂ 1) i j hij χ.conductor χ.primitiveCharacter
+      (nativeDyadicTwoBitCharacter_induces e q d i j) t h1 h2).1
+    rw [hostResponse_eq_nativeResponse, nativeResponse, ite_eq_right hprim] at ht
+    exact ht
+  have hle := le_add_of_nonneg_right (a := x) hh.le
+  have h0 := hbound x hY (hle.trans hZ)
+  have h1 := hbound (x+h) (hY.trans hle) hZ
+  exact (alpogeNativeTwistedSharp_le_forward χ.primitiveCharacter ell hx hh).trans
+    (add_le_add (add_le_add (mul_le_mul_of_nonneg_left (add_le_add h1 h0)
+      (div_nonneg (zero_le_one.trans hx) hh.le)) h0) le_rfl)
 
 /-- The entire centered thin channel, including arbitrarily large first
 primes, is paid on every original good pair. The bound is uniform in the

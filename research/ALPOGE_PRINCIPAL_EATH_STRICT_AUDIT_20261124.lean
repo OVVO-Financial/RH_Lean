@@ -138,6 +138,8 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_eq_linear_sub_saving,
     ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_roundedASK_le_thick,
+    ``RHLean.Analysis.alpogeNativeTwistedSharp_le_forward,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_pairGood_sharp_twist,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_restoreMeasuredThick_le,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_residues_in_window,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_activeShift_joint_injective_heights,
