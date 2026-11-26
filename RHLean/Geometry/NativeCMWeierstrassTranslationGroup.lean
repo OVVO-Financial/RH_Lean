@@ -47,33 +47,38 @@ theorem translationChange_baseChange (k : Type) [Field k] [Algebra R k] :
   change translationChange _ _ _ • W.map (algebraMap R k) = V.map (algebraMap R k)
   rw [← translationChange_map, _root_.WeierstrassCurve.map_variableChange, hC]
 
+/-- The additive change of affine coordinates over the given field. -/
+def translationAffinePointHom (k : Type) [Field k] [Algebra R k] :
+    (V.baseChange k).toAffine.Point →+ (W.baseChange k).toAffine.Point :=
+  Weierstrass.variableChangePoint (W := W.baseChange k) (W' := V.baseChange k)
+    (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
+    (translationChange_baseChange W V r s t hC k)
+
+private theorem ptOver_translation {k : Type} [Field k] [Algebra R k]
+    {P Q : Fin 3 → k} {hP : IsUnimodularSol (V.baseChange k) P}
+    {hQ : IsUnimodularSol (W.baseChange k) Q}
+    (he : translationTriple (algebraMap R k r) (algebraMap R k s) (algebraMap R k t) P = Q) :
+    ptOver V P hP ≫ (translationOverIso W V r s t hC).hom = ptOver W Q hQ := by
+  apply Over.OverMorphism.ext
+  exact (ptHom_translationHom W V r s t hC (algebraMap R k) P hP).trans
+    (ptHom_congr W _ _ _ rfl he hQ)
+
 /-- The actual projective scheme morphism gives the same affine point
 change that already preserves elliptic addition. -/
 theorem ofAffinePoint_translation (k : Type) [Field k] [Algebra R k]
     (P : (V.baseChange k).toAffine.Point) :
     ofAffinePoint V k P ≫ (translationOverIso W V r s t hC).hom =
-      ofAffinePoint W k
-        (Weierstrass.variableChangePoint
-          (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
-          (translationChange_baseChange W V r s t hC k) P) := by
+      ofAffinePoint W k (translationAffinePointHom W V r s t hC k P) := by
   cases P with
   | zero =>
       simp only [← _root_.WeierstrassCurve.Affine.Point.zero_def, map_zero, ofAffinePoint_zero,
         zeroOver_eq_ptOver]
-      apply Over.OverMorphism.ext
-      change ptHom V (algebraMap R k) ![0, 1, 0] _ ≫
-        translationHom W V r s t hC = ptHom W (algebraMap R k) ![0, 1, 0] _
-      rw [ptHom_translationHom]
-      apply ptHom_congr W _ _ _ rfl
+      apply ptOver_translation W V r s t hC
       funext i
       fin_cases i <;> simp [translationTriple]
   | some x y hP =>
-      rw [Weierstrass.variableChangePoint_some, ofAffinePoint_some, ofAffinePoint_some]
-      apply Over.OverMorphism.ext
-      change ptHom V (algebraMap R k) ![x, y, 1] _ ≫
-        translationHom W V r s t hC = ptHom W (algebraMap R k) _ _
-      rw [ptHom_translationHom]
-      apply ptHom_congr W _ _ _ rfl
+      simp only [translationAffinePointHom, Weierstrass.variableChangePoint_some, ofAffinePoint_some]
+      apply ptOver_translation W V r s t hC
       funext i
       fin_cases i <;> simp [translationTriple, translationChange]
 
@@ -106,19 +111,18 @@ theorem translation_mul_points (k : Type) [Field k] [Algebra R k]
     (p * q) ≫ (translationOverIso W V r s t hC).hom =
       (p ≫ (translationOverIso W V r s t hC).hom) *
         (q ≫ (translationOverIso W V r s t hC).hom) := by
-  let u : (V.baseChange k).toAffine.Point →+ (W.baseChange k).toAffine.Point :=
-    Weierstrass.variableChangePoint (W := W.baseChange k) (W' := V.baseChange k)
-      (translationChange (algebraMap R k r) (algebraMap R k s) (algebraMap R k t))
-      (translationChange_baseChange W V r s t hC k)
   let f (x : specOver R k ⟶ schemeOver V) : specOver R k ⟶ schemeOver W :=
     x ≫ (translationOverIso W V r s t hC).hom
   refine mul_of_additive_coordinates (A := (V.baseChange k).toAffine.Point)
     (B := (W.baseChange k).toAffine.Point) (M := specOver R k ⟶ schemeOver V)
-    (N := specOver R k ⟶ schemeOver W) (ofAffinePoint V k) (ofAffinePoint W k) u f ?_ ?_ ?_ ?_ p q
+    (N := specOver R k ⟶ schemeOver W) (ofAffinePoint V k) (ofAffinePoint W k)
+    (translationAffinePointHom W V r s t hC k) f ?_ ?_ ?_ ?_ p q
   · exact (ofAffinePoint_bijective V k).surjective
   · exact ofAffinePoint_add V k
   · exact ofAffinePoint_add W k
-  · exact ofAffinePoint_translation W V r s t hC k
+  · intro P
+    dsimp only [f]
+    exact ofAffinePoint_translation W V r s t hC k P
 
 /-- The actual triangular scheme isomorphism preserves the group law. -/
 instance translationOverIso_isMonHom :

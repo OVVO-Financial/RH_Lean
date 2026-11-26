@@ -1545,8 +1545,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationGroup.lean",
-      "sha256": "d9640cfa34f6ae4ebe1f5ccf8fd25571b144fb79d4251c727b11c00c80565cf5",
-      "lines": 186
+      "sha256": "c8996dd661695b2ec6b7b03ff965e77ae45c0cdc7d7f4103efbcea942f4e5231",
+      "lines": 190
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassTranslationScheme.lean",
