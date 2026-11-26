@@ -90,10 +90,14 @@ theorem fractionField_fromNormalization_isIso
   have hι : IsIso (CommRingCat.ofHom (algebraMap Γ(Sp R, ⊤) A)) :=
     (ConcreteCategory.isIso_iff_bijective _).2 hbij
   have happ : IsIso j.fromNormalization.appTop := by
+    change IsIso (j.fromNormalization.app ⊤)
     rw [Scheme.Hom.fromNormalization_app j (isAffineOpen_top _)]
     infer_instance
-  exact (HasAffineProperty.iff_of_isAffine (P := .isomorphisms _)).mpr
-    ⟨isAffine_of_isAffineHom j.fromNormalization, happ⟩
+  have : IsAffine j.normalization := isAffine_of_isAffineHom j.fromNormalization
+  have : IsIso (j.fromNormalization ≫ (Sp R).isoSpec.hom) := by
+    rw [← Scheme.isoSpec_hom_naturality j.fromNormalization]
+    infer_instance
+  exact IsIso.of_isIso_comp_right j.fromNormalization (Sp R).isoSpec.hom
 
 /-- A finite projection with the genuine generic-fibre isomorphism is
 an isomorphism over the DVR when its target is smooth and its source
@@ -136,10 +140,14 @@ theorem finiteProjection_isIso
   have hleft : p ≫ F = 𝟙 Ga := by
     apply fractionField_map_injective R K
     change Φ.map (p ≫ F) = Φ.map (𝟙 Ga)
-    have hright' := congrArg (fun g => Φ.map g) hright
-    simp only [Functor.map_comp, Functor.map_id] at hright' ⊢
-    apply (cancel_mono (Φ.map p)).1
-    rw [Category.assoc, hright', Category.comp_id, Category.id_comp]
+    have hright' : Φ.map F ≫ Φ.map p = 𝟙 (Φ.obj G) :=
+      (Φ.map_comp F p).symm.trans ((congrArg (fun g => Φ.map g) hright).trans (Φ.map_id G))
+    calc
+      Φ.map (p ≫ F) = Φ.map p ≫ Φ.map F := Φ.map_comp p F
+      _ = 𝟙 (Φ.obj Ga) := by
+        apply (cancel_mono (Φ.map p)).1
+        rw [Category.assoc, hright', Category.comp_id, Category.id_comp]
+      _ = Φ.map (𝟙 Ga) := (Φ.map_id Ga).symm
   exact ⟨⟨F, hleft, hright⟩⟩
 
 /-- The existing actual graph construction, geometric-kernel theorem
@@ -184,8 +192,12 @@ theorem existsUnique_elliptic_hom_extension_dvr
   have hpiso : IsIso p := finiteProjection_isIso R K Ga G p
   let F : G ⟶ H := inv p ≫ (io ≫ snd G H)
   have hF : Φ.map F = f := by
-    dsimp only [F, p]
-    rw [Functor.map_comp, Functor.map_inv, hp, hsecond, IsIso.inv_hom_id_assoc]
+    apply (cancel_epi (Φ.map p)).1
+    calc
+      Φ.map p ≫ Φ.map F = Φ.map (p ≫ F) := (Φ.map_comp p F).symm
+      _ = Φ.map (io ≫ snd G H) :=
+        congrArg (fun g => Φ.map g) (IsIso.hom_inv_id_assoc p (io ≫ snd G H))
+      _ = Φ.map p ≫ f := hsecond.trans (congrArg (fun g => g ≫ f) hp.symm)
   have hFmon : IsMonHom F := by
     have ht : IsSchemeTheoreticallyDominant t := schemeTheoreticallyDominant_fractionField R K
     have hFK : IsMonHom (Φ.map F) := by rw [hF]; infer_instance

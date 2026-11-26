@@ -55,6 +55,11 @@ theorem OAct.transport_point {T : Over S} (a : OAct O A) (e : A ≅ B) [IsMonHom
     (p ≫ e.hom) ≫ (a.transport e).act c = q ≫ e.hom := by
   rw [Category.assoc, OAct.transport_intertwine, ← Category.assoc, h]
 
+private theorem transport_rescaled_period {T : Over S} (a : OAct O A) (e : A ≅ B) [IsMonHom e.hom]
+    (c : O) (P : ℂ → (T ⟶ A)) (u v z : ℂ) (h : ∀ y, P y ≫ a.act c = P (v * y)) :
+    (P (u * z) ≫ e.hom) ≫ (a.transport e).act c = P (u * (v * z)) ≫ e.hom :=
+  OAct.transport_point a e c ((h (u * z)).trans (congrArg P (by ring)))
+
 end RHLean.Geometry.NativeCM.SerreScheme
 
 namespace RHLean.Geometry.NativeCM.Weierstrass
@@ -101,33 +106,27 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (W : _root_.WeierstrassCurve F)
     (hVC : (shortModel W).baseChange ℂ = latticeCurve (rescaledPeriods G τ C))
 
+/-- The represented short-model point at its own period parameter. -/
+def shortModelPeriodPoint (z : ℂ) : specOver F ℂ ⟶ schemeOver (shortModel W) :=
+  ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm
+    (latticePoint (rescaledPeriods G τ C) z))
+
 /-- This is an actual point of the original W_F. Its parameter is the
 original z; the normalized lattice point has parameter u^-1 z. -/
 def originalPeriodPoint (z : ℂ) : specOver F ℂ ⟶ schemeOver W :=
-  ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm
-    (latticePoint (rescaledPeriods G τ C) ((C.u : ℂ)⁻¹ * z))) ≫
-      (shortModelSchemeIso W).hom
+  shortModelPeriodPoint G τ C W hVC ((C.u : ℂ)⁻¹ * z) ≫ (shortModelSchemeIso W).hom
 
 variable [W.IsElliptic] (a : OAct (OK G) (schemeOver (shortModel W)))
-    (ha : ∀ b : OK G, ∀ z : ℂ,
-      ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm
-          (latticePoint (rescaledPeriods G τ C) z)) ≫ a.act b =
-        ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm
-          (latticePoint (rescaledPeriods G τ C) (embed G τ b * z))))
+    (ha : ∀ b : OK G, ∀ z : ℂ, shortModelPeriodPoint G τ C W hVC z ≫ a.act b =
+        shortModelPeriodPoint G τ C W hVC (embed G τ b * z))
 
 include ha in
 /-- The original period parameter has the exact original scalar action. -/
 theorem originalOrderAction_period (b : OK G) (z : ℂ) :
     originalPeriodPoint G τ C W hVC z ≫ (originalOrderAction W a).act b =
-      originalPeriodPoint G τ C W hVC (embed G τ b * z) := by
-  let P (v : ℂ) : specOver F ℂ ⟶ schemeOver (shortModel W) :=
-    ofAffinePoint (shortModel W) ℂ ((pointCongr hVC).symm (latticePoint (rescaledPeriods G τ C) v))
-  have hz : embed G τ b * ((C.u : ℂ)⁻¹ * z) =
-      (C.u : ℂ)⁻¹ * (embed G τ b * z) := by ring
-  have hp : P ((C.u : ℂ)⁻¹ * z) ≫ a.act b = P ((C.u : ℂ)⁻¹ * (embed G τ b * z)) :=
-    (ha b ((C.u : ℂ)⁻¹ * z)).trans (congrArg P hz)
-  unfold originalPeriodPoint originalOrderAction
-  exact OAct.transport_point a (shortModelSchemeIso W) b hp
+    originalPeriodPoint G τ C W hVC (embed G τ b * z) :=
+  transport_rescaled_period a (shortModelSchemeIso W) b (shortModelPeriodPoint G τ C W hVC)
+    (C.u : ℂ)⁻¹ (embed G τ b) z (ha b)
 
 end Periods
 

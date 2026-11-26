@@ -1145,8 +1145,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassAppellHumbert.lean",
-      "sha256": "3771e516f6078986f172b93c9cff5028074abcdf12cc11bcbec8048a99418b0a",
-      "lines": 140
+      "sha256": "f923a98b9a30231e231344726811d8757e10ef55a1286ba852d4cab101a2fdd4",
+      "lines": 147
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassCMAction.lean",
@@ -1260,8 +1260,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralExtension.lean",
-      "sha256": "4b635ad096b9f561edf63d3ddaf7f39b4cad54694c9c443ef5bf284d5371ccbe",
-      "lines": 218
+      "sha256": "2eef4f1228f88246b6cbac4128500e04dc641c81b66bfc5d5e0d6349b0f6183b",
+      "lines": 230
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralModel.lean",
@@ -1355,8 +1355,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOriginalAction.lean",
-      "sha256": "63dc0e43fb1fdb34606e242496565033e3f5981b41f229e59e3c8ff668d4c08c",
-      "lines": 167
+      "sha256": "b592b8c3c8bb9adeda43f2d7f2fc710c6ed6ccaa49555fef0128e543aceec1f1",
+      "lines": 166
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPAddition.lean",

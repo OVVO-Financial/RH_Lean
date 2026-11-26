@@ -33,20 +33,27 @@ namespace RHLean.Geometry.NativeCM.SchemeTheory
 
 open SectionPoints SchemeTheory.WeierstrassCurve WeierstrassLie
 
+/-- The domain condition for a complex point in an algebraic chart. -/
+def ellipticPointInOpen {W : _root_.WeierstrassCurve ℂ} (p : 𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W)
+    (U : (scheme W).Opens) : Prop :=
+  (⊤ : (Sp ℂ).Opens) ≤ p.left ⁻¹ᵁ U
+
+set_option maxHeartbeats 3000000 in
 /-- The complete one-dimensional holomorphic atlas on an actual elliptic
 scheme and its actual origin line bundle, with the specified period lattice. -/
 structure EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) where
   ex : ℂ → (𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W)
-  ex_add : ∀ z w, ex (z + w) = ex z * ex w
+  ex_add : ∀ z w : ℂ, ex (z + w) = ex z * ex w
   ex_onto : Function.Surjective ex
   ker : ∀ z, ex z = 1 ↔ z ∈ L.lattice
   hol : ∀ (U : (scheme W).Opens) (s : Γ(scheme W, U)),
-    IsOpen {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U} ∧
-      DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ U}
+    IsOpen {z | ellipticPointInOpen (W := W) (ex z) U} ∧
+      DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ellipticPointInOpen (W := W) (ex z) U}
   fr : (originLB W).ι → ℂ → ℂ
-  fr_hol : ∀ i, DifferentiableOn ℂ (fr i) {z | ⊤ ≤ (ex z).left ⁻¹ᵁ (originLB W).U i}
-  fr_ne : ∀ i z, ⊤ ≤ (ex z).left ⁻¹ᵁ (originLB W).U i → fr i z ≠ 0
-  fr_compat : ∀ i j z (h : ⊤ ≤ (ex z).left ⁻¹ᵁ ((originLB W).U i ⊓ (originLB W).U j)),
+  fr_hol : ∀ i, DifferentiableOn ℂ (fr i) {z | ellipticPointInOpen (W := W) (ex z) ((originLB W).U i)}
+  fr_ne : ∀ i z, ellipticPointInOpen (W := W) (ex z) ((originLB W).U i) → fr i z ≠ 0
+  fr_compat : ∀ (i j : (originLB W).ι) (z : ℂ)
+    (h : ellipticPointInOpen (W := W) (ex z) ((originLB W).U i ⊓ (originLB W).U j)),
     fr i z = evalPt (ex z).left ((originLB W).U i ⊓ (originLB W).U j) h
       ((originLB W).g i j : Γ(scheme W, (originLB W).U i ⊓ (originLB W).U j)) * fr j z
 
