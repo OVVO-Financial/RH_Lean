@@ -163,33 +163,45 @@ private theorem natCast_isUnit_of_dvd_two_pow {O : Type*} [CommRing O] (h2 : IsU
   refine isUnit_of_dvd_unit (y := (2 : O) ^ k) ⟨(j : O), ?_⟩ (h2.pow _)
   simpa only [Nat.cast_pow, Nat.cast_ofNat, Nat.cast_mul] using congrArg (Nat.cast : ℕ → O) hj
 
-set_option maxHeartbeats 1000000 in
+section HostPeriod
 
+variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+
+/-- Period of the host Frobenius in its actual inertia quotient. -/
+def AlpogeNativeArithData.frobeniusPeriod (D : AlpogeNativeArithData H) (p : ℕ) : ℕ :=
+  frobeniusCosetOrder (G := AlpogeNativeE0 × H) (D.inertia p) (D.frob p)
+
+private theorem host_frobPeriod_isUnit {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
+    (D : AlpogeNativeArithData H) (p k : ℕ) (hcard : Nat.card (AlpogeNativeE0 × H) = 2 ^ k) :
+    IsUnit (D.frobeniusPeriod p : O) :=
+  natCast_isUnit_of_dvd_two_pow h2
+    ((frobeniusCosetOrder_dvd_natCard (G := AlpogeNativeE0 × H)
+      (D.inertia p) (D.frob p)).trans (dvd_of_eq hcard))
+
+end HostPeriod
+
+private theorem nativeDyadic_host_natCard (e : ℕ) :
+    Nat.card (AlpogeNativeE0 × AlpogeNativeDyadicH e) = 2 ^ (e + 2) := by
+  rw [Nat.card_eq_fintype_card, Fintype.card_prod, alpogeNativeDyadicH_card, pow_add]
+  have h4 : Fintype.card AlpogeNativeE0 = 4 := by decide
+  rw [h4]
+  ring
+
+set_option maxHeartbeats 1000000 in
+attribute [local irreducible] AlpogeNativeArithData.frobeniusPeriod in
 /-- The order of the actual Frobenius modulo inertia is a unit whenever
 two is a unit. It divides the order of the native dyadic host. -/
 theorem nativeDyadic_frobPeriod_isUnit {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
     (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
-    let H := alpogeNativeHostData e q d
-    IsUnit (frobeniusCosetOrder (H.inertia p) (H.frob p) : O) := by
-  let H := alpogeNativeHostData e q d
-  let o := frobeniusCosetOrder (H.inertia p) (H.frob p)
-  change IsUnit (o : O)
-  have hsize : Nat.card (AlpogeNativeE0 × AlpogeNativeDyadicH e) = 2 ^ (e + 2) := by
-    rw [Nat.card_eq_fintype_card, Fintype.card_prod, alpogeNativeDyadicH_card, pow_add]
-    have h4 : Fintype.card AlpogeNativeE0 = 4 := by decide
-    rw [h4]
-    ring
-  have hd : o ∣ 2 ^ (e + 2) :=
-    (frobeniusCosetOrder_dvd_natCard (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-      (H.inertia p) (H.frob p)).trans (dvd_of_eq hsize)
-  exact natCast_isUnit_of_dvd_two_pow (n := o) h2 hd
+    IsUnit ((alpogeNativeHostData e q d).frobeniusPeriod p : O) :=
+  host_frobPeriod_isUnit (H := AlpogeNativeDyadicH e) h2 (alpogeNativeHostData e q d)
+    p (e + 2) (nativeDyadic_host_natCard e)
 
 /-- The original character relation forces all nilpotent Hasse deformation
 parameters to vanish at the native Frobenius, at every odd local place. -/
 theorem nativeDyadic_frobPeriod_rigid {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
     (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] (u : O) (hu : IsNilpotent u) :
-    let H := alpogeNativeHostData e q d
-    (1 + u) ^ frobeniusCosetOrder (H.inertia p) (H.frob p) = 1 ↔ u = 0 :=
+    (1 + u) ^ (alpogeNativeHostData e q d).frobeniusPeriod p = 1 ↔ u = 0 :=
   cyclic_period_rigid _ (nativeDyadic_frobPeriod_isUnit h2 e q d p) u hu
 
 /-- Two unit-valued characters on the inertia quotient agree at the specified
@@ -223,16 +235,31 @@ private theorem frobeniusCharactersRigid_of_unit {O G : Type*} [CommRing O] [Add
   have hratio : ratio = 1 := Units.ext (sub_eq_zero.mp hzero)
   exact div_eq_one.mp hratio
 
+section HostCharacters
+
+variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+
+/-- Character rigidity for the Frobenius and inertia of a single host. -/
+def AlpogeNativeArithData.rigidFrobeniusCharacters (D : AlpogeNativeArithData H)
+    (O : Type*) [CommRing O] (p : ℕ) : Prop :=
+  FrobeniusCharactersRigid O (G := AlpogeNativeE0 × H) (D.inertia p) (D.frob p)
+
+private theorem host_frobCharacters_rigid {O : Type*} [CommRing O]
+    (D : AlpogeNativeArithData H) (p : ℕ) (hu : IsUnit (D.frobeniusPeriod p : O)) :
+    D.rigidFrobeniusCharacters O p :=
+  frobeniusCharactersRigid_of_unit (G := AlpogeNativeE0 × H) (D.inertia p) (D.frob p) hu
+
+end HostCharacters
+
 set_option maxHeartbeats 1000000 in
-attribute [local irreducible] FrobeniusCharactersRigid in
+attribute [local irreducible] AlpogeNativeArithData.rigidFrobeniusCharacters
+  AlpogeNativeArithData.frobeniusPeriod in
 /-- Rigidity at the actual dyadic Frobenius, proved from the period relation
 of the two characters on the native inertia quotient. -/
 theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing O]
     (h2 : IsUnit (2 : O)) (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime] :
-    let H := alpogeNativeHostData e q d
-    FrobeniusCharactersRigid O (H.inertia p) (H.frob p) :=
-  frobeniusCharactersRigid_of_unit (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p)
+    (alpogeNativeHostData e q d).rigidFrobeniusCharacters O p :=
+  host_frobCharacters_rigid (H := AlpogeNativeDyadicH e) (alpogeNativeHostData e q d) p
     (nativeDyadic_frobPeriod_isUnit h2 e q d p)
 
 private theorem returning_sub_mem {G : Type*} [AddCommGroup G] (I : AddSubgroup G)
