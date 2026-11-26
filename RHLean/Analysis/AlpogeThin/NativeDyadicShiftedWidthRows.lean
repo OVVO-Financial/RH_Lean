@@ -208,5 +208,78 @@ theorem nativeDyadic_sharedWidth_laterReads_le (e q d p N i : ℕ)
       have hden : 1 - (P ^ 2)⁻¹ ≠ 0 := (sub_pos.mpr hr1).ne'
       field_simp [hPpos.ne', hden, show P ^ 2 - 1 ≠ 0 by linarith]
 
+/-- Simultaneous recovery of integral height readings at one prime. Each
+admissible collar contains a full period modulo p^k. The same heights realize
+every mixed first/third-power read, including on cyclically returning tops.
+On an unramified inert prime these are precisely the two nonzero census rows
+(up to their common prime weight). -/
+theorem nativeDyadic_activeShift_residues_in_window
+    (e q d p k : ℕ) [Fact q.Prime] [Fact d.Prime] (hp : p.Prime)
+    (x b W : ℝ) (hb : 0 < b) (hroom : ((p ^ k : ℕ) : ℝ) ≤ W)
+    (hactive : 2 * (p : ℝ)^3 ≤ x) (y : AlpogeNativeDyadicH e → ZMod (p ^ k)) :
+    let g := (alpogeNativeHostData e q d).frob p
+    let shift := fun t : AlpogeNativeDyadicH e => t + (2 : ℕ) • g.2
+    ∃ a : AlpogeNativeDyadicH e → ℤ,
+      (∀ t, (a t : ℝ) ∈ Set.Ico (x * b) (x * b + W)) ∧
+      (∀ t, (a t : ZMod (p ^ k)) - (p : ZMod (p ^ k))^2 * (a (shift t) : ZMod (p ^ k)) = y t) ∧
+      ∀ (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) t,
+        w (alpogeNativePartner (shift t) g) ≤ 2 * b →
+        (p : ℝ)^3 * (nativeDyadicLocalSourceAtom e q d p (a t) t w 3 -
+            nativeDyadicLocalSourceAtom e q d p (a (shift t)) (shift t) w 1) =
+          (a t : ℝ) - (p : ℝ)^2 * (a (shift t) : ℝ) := by
+  classical
+  letI : NeZero (p ^ k) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  let g := (alpogeNativeHostData e q d).frob p
+  let shift := fun t : AlpogeNativeDyadicH e => t + (2 : ℕ) • g.2
+  let c : ZMod (p ^ k) := (p : ZMod (p ^ k))^2
+  let F : ℕ → AlpogeNativeDyadicH e → ZMod (p ^ k) :=
+    Nat.rec (fun _ => 0) (fun _ prev t => y t + c * prev (shift t))
+  have hdiff (n : ℕ) : ∀ t, F n t - c * F n (shift t) = y t - c^n * y (shift^[n] t) := by
+    induction n with
+    | zero => intro t; simp [F]
+    | succ n ih =>
+      intro t
+      change (y t + c * F n (shift t)) - c * (y (shift t) + c * F n (shift (shift t))) = _
+      rw [Function.iterate_succ_apply, pow_succ]
+      linear_combination c * ih (shift t)
+  have hzero : c^k = 0 := by
+    have hm : (p : ZMod (p ^ k))^k = 0 := by
+      rw [← Nat.cast_pow, ZMod.natCast_self]
+    dsimp only [c]
+    rw [← pow_mul, Nat.mul_comm 2 k, pow_mul, hm]
+    norm_num
+  let lo : ℤ := ⌈x * b⌉
+  let a := fun t => lo + (((F k t - (lo : ZMod (p ^ k))).val : ℕ) : ℤ)
+  have hres (t) : (a t : ZMod (p ^ k)) = F k t := by
+    simp only [a, Int.cast_add, Int.cast_natCast, ZMod.natCast_zmod_val]
+    ring
+  have hwindow (t) : (a t : ℝ) ∈ Set.Ico (x*b) (x*b+W) := by
+    let m := (F k t - (lo : ZMod (p ^ k))).val
+    have hm := Nat.succ_le_of_lt (ZMod.val_lt (F k t - (lo : ZMod (p ^ k))))
+    have hm' : (m : ℝ) + 1 ≤ ((p ^ k : ℕ) : ℝ) := by exact_mod_cast hm
+    have heq : (a t : ℝ) = (lo : ℝ) + (m : ℝ) := by simp only [a, m, Int.cast_add, Int.cast_natCast]
+    rw [heq]
+    exact ⟨(Int.le_ceil (x*b)).trans (le_add_of_nonneg_right (Nat.cast_nonneg m)),
+      by linarith only [show (lo : ℝ) < x*b+1 from Int.ceil_lt_add_one _, hm', hroom]⟩
+  refine ⟨a, hwindow, fun t => ?_, fun w t hw => ?_⟩
+  · rw [hres, hres]
+    simpa only [hzero, zero_mul, sub_zero] using hdiff k t
+  · have hp0 : (0 : ℝ) < p := by exact_mod_cast hp.pos
+    have hp1 : (1 : ℝ) ≤ p := by exact_mod_cast hp.one_le
+    have hthree (s) : (2*b) * (p : ℝ)^3 ≤ (a s : ℝ) := by
+      calc
+        _ = (2*(p : ℝ)^3)*b := by ring
+        _ ≤ x*b := mul_le_mul_of_nonneg_right hactive hb.le
+        _ ≤ _ := (hwindow s).1
+    have hone (s) : (2*b) * (p : ℝ)^1 ≤ (a s : ℝ) :=
+      (mul_le_mul_of_nonneg_left (pow_le_pow_right₀ hp1 (by decide : 1 ≤ 3))
+        (by positivity : 0 ≤ 2*b)).trans (hthree s)
+    have hw' : w (alpogeNativePartner (shift t) ((1 : ℕ) • g)) ≤ 2*b := by simpa only [one_nsmul] using hw
+    have hcut := nativeDyadicLocalSourceAtom_sub_of_top_add_two e q d p 1 t (a t) (a (shift t)) w
+      (hw'.trans ((le_div_iff₀ (pow_pos hp0 3)).2 (hthree t)))
+      (hw'.trans ((le_div_iff₀ (pow_pos hp0 1)).2 (hone (shift t))))
+    rw [hcut]
+    field [hp0.ne']
+
 end AlpogeThin
 end RHLean.Analysis

@@ -734,7 +734,7 @@ theorem alpogeNativeFirstPrimeWidth_normalized_error :
       (mul_le_mul_of_nonneg_left hup (one_div_nonneg.mpr hu.le)) hQ.le).trans_eq ?_
     simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
     dsimp only [alpogeNativeProjectionDivisor, C]
-    field_simp [hu.ne', ht.ne', hm'.ne', hb.ne', hDelta.ne'] <;> ring
+    field [hu.ne', ht.ne', hm'.ne', hb.ne', hDelta.ne']
 
 /-- Below X'/(x+1)^2 the thin sites contribute negligible first-prime
 savings, even when their widths depend on the lift and on the row. The
@@ -804,7 +804,7 @@ theorem alpogeNativeThinFirstPrime_saving_le
       exact mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hsum (by positivity)) hfactor
     _ = (12 * C / ((x + 1) * δ)) * (((T : ℝ) * (x + 1)^2) / X') := by
       dsimp only [B]
-      field_simp [hb.ne', hδ.ne', hX.ne', hx'.ne'] <;> ring
+      field [hb.ne', hδ.ne', hX.ne', hx'.ne']
     _ ≤ _ := mul_le_of_le_one_right (by positivity) ((div_le_one hX).mpr hT)
 
 end RHLean.Analysis
@@ -919,6 +919,96 @@ theorem nativeLedger_pairGood_roundedASK_le_thick (eps : ℝ) (he : 0 < eps) :
   exact (nativeLedger_anyCutoff_le_thick_add_thin D.inertia D.frob ell N T2 u t a v ha
     (fun _ _ => Real.exp_pos _)).trans (add_le_add_left hpay _)
 
+/-- Return the rounded thick coordinates to their actual measured widths,
+leaving rounded thin coordinates fixed. The complete finite signed row costs
+at most 8(log 4 + 2) a η, uniformly in its original cutoff. -/
+theorem nativeLedger_restoreMeasuredThick_le
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ) (N : ℕ) (T2 : Finset H)
+    (u t : H) (a b η : ℝ) (w : AlpogeNativeE0 × H → ℝ)
+    (ha : 0 < a) (hb : 0 < b) (hη : 0 < η) (hη2 : η ≤ 1 / 2)
+    (hthick : ∀ ρ ∈ alpogeNativeThickPositiveSites T2 u, b ≤ w ρ ∧ w ρ ≤ 2 * b) :
+    let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
+    let mixed := fun ρ => if ρ ∈ alpogeNativeThickPositiveSites T2 u then w ρ else v ρ
+    alpogeNativeSignedWidthSource inertia frob ell N a t v ≤
+      alpogeNativeSignedWidthSource inertia frob ell N a t mixed + 8 * (Real.log 4 + 2) * a * η := by
+  classical
+  let v := fun ρ => alpogeNativeLowerLogWidth η (w ρ)
+  let mixed := fun ρ => if ρ ∈ alpogeNativeThickPositiveSites T2 u then w ρ else v ρ
+  have hgrid (ρ) (hs : ρ ∈ alpogeNativeThickPositiveSites T2 u) :
+      (w ρ) * (1 - η) ≤ v ρ ∧ v ρ ≤ w ρ := by
+    have hp := hb.trans_le (hthick ρ hs).1
+    have hlo := (le_div_iff₀ hη).mp (Int.floor_le (Real.log (w ρ) / η))
+    have hhi := (div_lt_iff₀ hη).mp (Int.lt_floor_add_one (Real.log (w ρ) / η))
+    refine ⟨?_, (Real.exp_le_exp.mpr hlo).trans (Real.exp_log hp).le⟩
+    calc
+      _ ≤ w ρ * Real.exp (-η) := mul_le_mul_of_nonneg_left (Real.one_sub_le_exp_neg η) hp.le
+      _ = Real.exp (Real.log (w ρ) - η) := by rw [sub_eq_add_neg, Real.exp_add, Real.exp_log hp]
+      _ ≤ _ := Real.exp_le_exp.mpr (by linarith only [hhi])
+  have hm := alpogeNativeSignedWidthSource_lower_width_le inertia frob ell N a (b/2) (2*b*η) t
+    v mixed ha (half_pos hb) (by positivity) (fun _ _ => Real.exp_pos _)
+    (fun ρ _ => by
+      dsimp only [mixed]
+      split_ifs with hs
+      · exact (hgrid ρ hs).2
+      · exact le_rfl)
+    (fun ρ _ => by
+      dsimp only [mixed]
+      split_ifs with hs
+      · linarith only [(hgrid ρ hs).1, mul_le_mul_of_nonneg_right (hthick ρ hs).2 hη.le]
+      · rw [sub_self]; positivity)
+    (fun ρ _ => by
+      by_cases hs : ρ ∈ alpogeNativeThickPositiveSites T2 u
+      · right
+        have h1 : (1:ℝ)/2 ≤ 1-η := by linarith
+        exact (by linarith only [(mul_le_mul (hthick ρ hs).1 h1 (by norm_num)
+          (hb.trans_le (hthick ρ hs).1).le).trans (hgrid ρ hs).1] : b/2 ≤ v ρ)
+      · exact Or.inl (by simp only [mixed, if_neg hs]))
+  refine hm.trans (add_le_add_left ?_ _)
+  calc
+    _ ≤ 2 * (2*b*η) * (Real.log 4 + 2) * (a/(b/2)) :=
+      alpogeNativeFreezing_cost_le a (b/2) (2*b*η) ha.le (half_pos hb) (by positivity)
+    _ = _ := by field [hb.ne']
+
+/-- On every thick first-prime site below the anchor, its saving is the
+base width up to the physical collar and one grid step. The exact count
+over translates removes the thick density from the normalized error. -/
+theorem nativeLedger_thickFirst_saving_census
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (T2 : Finset H) (t v : H) (z b h η : ℝ) (hb : 0 < b) (hη : 0 < η) (hz : b ≤ z)
+    (w : H → AlpogeNativeE0 × H → ℝ)
+    (hw : ∀ u, alpogeNativeProjectionE1 v ∈ alpogeNativeProjectionThickColours T2 u t →
+      w u (alpogeNativePartner t (alpogeNativeProjectionE1 v)) ∈ Set.Icc b (b+h)) :
+    let U := Finset.univ.filter (fun u : H =>
+      alpogeNativeProjectionE1 v ∈ alpogeNativeProjectionThickColours T2 u t)
+    (∑ u ∈ U, min z (alpogeNativeLowerLogWidth η (w u (alpogeNativePartner t (alpogeNativeProjectionE1 v))))) ∈
+      Set.Icc ((T2.card : ℝ) * (b * Real.exp (-η))) ((T2.card : ℝ) * (b+h)) := by
+  classical
+  let U := Finset.univ.filter (fun u : H =>
+    alpogeNativeProjectionE1 v ∈ alpogeNativeProjectionThickColours T2 u t)
+  let W := fun u => w u (alpogeNativePartner t (alpogeNativeProjectionE1 v))
+  have hbase : b * Real.exp (-η) ≤ z :=
+    (mul_le_of_le_one_right hb.le (Real.exp_le_one_iff.mpr (neg_nonpos.mpr hη.le))).trans hz
+  have hpoint (u : H) (hu : u ∈ U) :
+      min z (alpogeNativeLowerLogWidth η (W u)) ∈ Set.Icc (b * Real.exp (-η)) (b+h) := by
+    obtain ⟨hlo, hhi⟩ := hw u (Finset.mem_filter.mp hu).2
+    have hpos : 0 < W u := hb.trans_le hlo
+    have hc := alpogeNativeLowerLogWidth_cut_le η z b (W u) hη hpos hlo
+    change max (z - alpogeNativeLowerLogWidth η (W u)) 0 ≤ max (z - b * Real.exp (-η)) 0 at hc
+    rw [max_eq_left (sub_nonneg.mpr hbase)] at hc
+    have hgrid := (le_div_iff₀ hη).mp (Int.floor_le (Real.log (W u)/η))
+    exact ⟨le_min hbase (by linarith only [(le_max_left _ _).trans hc]),
+      (min_le_right _ _).trans (((Real.exp_le_exp.mpr hgrid).trans (Real.exp_log hpos).le).trans hhi)⟩
+  have hcard : U.card = T2.card := alpogeNativeThickColour_translate_count T2 t v
+  constructor
+  · calc
+      _ = ∑ _u ∈ U, b * Real.exp (-η) := by rw [Finset.sum_const, nsmul_eq_mul, hcard]
+      _ ≤ _ := Finset.sum_le_sum fun u hu => (hpoint u hu).1
+  · calc
+      _ ≤ ∑ _u ∈ U, (b+h) := Finset.sum_le_sum fun u hu => (hpoint u hu).2
+      _ = _ := by rw [Finset.sum_const, nsmul_eq_mul, hcard]
+
 /-- At the original grid spacing, every thick read with index at least x
 lies in a shell of length at most 1+2√x, with height at most 3b/(2√x).
 This applies to the measured width and all prime powers at once. -/
@@ -948,7 +1038,7 @@ theorem nativeLedger_thickTail_cut {x b δ A a w n : ℝ}
     apply (div_le_iff₀ hn0).2
     calc
       a ≤ (x + 1) * b := ha
-      _ = (b * (1 + 1 / x)) * x := by field_simp [hx0.ne'] <;> ring
+      _ = (b * (1 + 1 / x)) * x := by field [hx0.ne']
       _ ≤ _ := mul_le_mul_of_nonneg_left hn (by positivity)
   change alpogeASKPos (a / n) (alpogeNativeLowerLogWidth η w) ≤
     if n < x + 1 + 2 * R then 3 * b / (2 * R) else 0
@@ -961,7 +1051,7 @@ theorem nativeLedger_thickTail_cut {x b δ A a w n : ℝ}
         linarith only [hcap, mul_le_mul_of_nonneg_left (Real.one_sub_le_exp_neg η) hb.le]
       _ ≤ b * (1 / R + 1 / (2 * R)) := mul_le_mul_of_nonneg_left
         (add_le_add (one_div_le_one_div_of_le hR hRx) hstep) hb.le
-      _ = _ := by ring
+      _ = _ := by field [hR.ne']
   · apply max_le _ le_rfl
     have hf0 : 0 ≤ 1 - 1 / (2 * R) :=
       sub_nonneg.mpr ((div_le_one (by positivity : 0 < 2 * R)).2 (by linarith))
@@ -971,7 +1061,7 @@ theorem nativeLedger_thickTail_cut {x b δ A a w n : ℝ}
       have hdiff : ((x + 1 + 2 * R) * (1 - 1 / (2 * R)) - (x + 1)) * (2 * R) =
           (3 * R + 1) * (R - 1) := by
         rw [← hRsq]
-        field_simp [hR.ne'] <;> ring
+        field [hR.ne']
       linarith only [hdiff, mul_nonneg (show 0 ≤ 3 * R + 1 by positivity) (sub_nonneg.mpr hR1)]
     have hlarge := hend.trans (mul_le_mul (le_of_not_gt h) hf hf0 hn0.le)
     apply sub_nonpos.mpr ((div_le_iff₀ hn0).2 (ha.trans ?_))
@@ -1055,7 +1145,7 @@ theorem nativeLedger_thickTail_mass {H : Type*} [AddCommGroup H] [Fintype H] [De
     _ ≤ ∑ n ∈ I, if (n : ℝ) < Z then B else 0 := Finset.sum_le_sum hpoint
     _ = (E.card : ℝ) * B := by rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul]
     _ ≤ (4 * R) * B := mul_le_mul_of_nonneg_right hcard hB
-    _ = _ := by dsimp only [B, C]; field_simp [hR.ne'] <;> ring
+    _ = _ := by dsimp only [B, C]; field [hR.ne']
 
 /-- The discriminant of the actual outer-window pair exceeds every fixed
 polynomial scale. In particular a compact frame requiring 10^14*d ≤ log X
@@ -1203,7 +1293,7 @@ theorem nativeLedger_firstPrimeWidth_price_le {x eps b δ K : ℝ}
     rw [Real.rpow_neg hx0.le, ← one_div] at hδ
     apply (div_le_iff₀ hδ0).mpr
     simpa only [mul_comm] using (div_le_iff₀ (Real.rpow_pos_of_pos hx0 eps)).mp hδ
-  have hfac : 4 * (2 * b) / (b * δ) = 8 * (1 / δ) := by field_simp [hb.ne', hδ0.ne'] <;> ring
+  have hfac : 4 * (2 * b) / (b * δ) = 8 * (1 / δ) := by field [hb.ne', hδ0.ne']
   rw [hfac]
   calc
     _ ≤ (8 * x ^ eps) * ((2 * K + (Real.log 4 + 2)) * Real.sqrt x) := by
