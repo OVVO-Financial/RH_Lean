@@ -46,7 +46,8 @@ theorem cmJ_native : cmJStatement := by
     have hmul := (div_eq_iff (by norm_num : (2 : ℂ) ≠ 0)).mp hm
     have him := congrArg Complex.im hmul
     have hs : 0 < Real.sqrt (d : ℝ) := Real.sqrt_pos.2 (by exact_mod_cast hd)
-    norm_num [Complex.add_im, Complex.mul_im] at him <;> linarith
+    norm_num [Complex.add_im, Complex.mul_im] at him
+    linarith
   obtain ⟨a, τ, ha, hp⟩ := exists_lattice_eq_mul_tau L
   have hm (z : ℂ) : a * z ∈ L.lattice ↔
       z ∈ Submodule.span ℤ {(τ : ℂ), 1} := by
