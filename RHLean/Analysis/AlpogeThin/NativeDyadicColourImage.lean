@@ -183,6 +183,42 @@ variable {O : Type*} [CommRing O]
 
 attribute [local irreducible] alpogeNativeHostData
 
+private theorem translated_class_eq_iff {G : Type*} [AddCommGroup G] (I : AddSubgroup G)
+    (x a v b : G) : nativeInertiaClass I x = nativeInertiaClass I (a + v + b) ↔
+      x - a - b - v ∈ I := by
+  rw [nativeInertiaClass_eq_iff, show x - (a + v + b) = x - a - b - v by abel]
+
+private theorem maskedIncidence_eq_fibreSum {G : Type*} [AddCommGroup G]
+    (I : AddSubgroup G) (f : G) (i : ℕ) (U : Finset G) (pre : G → G) (target : G)
+    (v : U → O) (hclass : ∀ y, nativeInertiaClass I y = nativeInertiaClass I target ↔
+      pre y - i • f ∈ I) :
+    (∑ y : U, (frobeniusCosetIncidence I f i (pre y.val) : O) * v y) =
+      fibreSum (fun y : U => nativeInertiaClass I y.val) v (nativeInertiaClass I target) := by
+  classical
+  unfold fibreSum
+  refine Finset.sum_congr rfl fun y _ => ?_
+  by_cases h : nativeInertiaClass I y.val = nativeInertiaClass I target
+  · have hrow : frobeniusCosetIncidence I f i (pre y.val) = 1 :=
+      ite_eq_left ((hclass y.val).mp h)
+    rw [hrow, Int.cast_one, one_mul, ite_eq_left h]
+  · have hrow : frobeniusCosetIncidence I f i (pre y.val) = 0 :=
+      ite_eq_right (mt (hclass y.val).mpr h)
+    rw [hrow, Int.cast_zero, zero_mul, ite_eq_right h]
+
+private theorem restrictedIncidence_eq_fibreSum {G : Type*} [AddCommGroup G]
+    (I : AddSubgroup G) (f : G) (i : ℕ) (U : Finset G) (v : U → O) :
+    (∑ y : U, (frobeniusCosetIncidence I f i y.val : O) * v y) =
+      fibreSum (fun y : U => nativeInertiaClass I y.val) v (nativeInertiaClass I (i • f)) :=
+  maskedIncidence_eq_fibreSum I f i U id (i • f) v (fun y => nativeInertiaClass_eq_iff I y _)
+
+private theorem translatedIncidence_eq_fibreSum {G : Type*} [AddCommGroup G]
+    (I : AddSubgroup G) (f : G) (i : ℕ) (a b : G) (U : Finset G) (v : U → O) :
+    (∑ y : U, (frobeniusCosetIncidence I f i (y.val - a - b) : O) * v y) =
+      fibreSum (fun y : U => nativeInertiaClass I y.val) v
+        (nativeInertiaClass I (a + i • f + b)) :=
+  maskedIncidence_eq_fibreSum I f i U (fun y => y - a - b) (a + i • f + b) v
+    (fun y => translated_class_eq_iff I y a (i • f) b)
+
 /-- The actual integer Frobenius indicator acts on the coefficients of the
 colours in the supplied mask, with their original multiplicity. -/
 def nativeDyadicRestrictedColourSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -190,25 +226,15 @@ def nativeDyadicRestrictedColourSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Pri
   ∑ g : U, (nativeDyadicPrimePowerIncidence e q d p i g.val : O) * v g
 
 set_option maxHeartbeats 1000000 in
+attribute [local irreducible] nativeInertiaClass fibreSum frobeniusCosetIncidence in
 theorem nativeDyadicRestrictedColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
     (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) (v : U → O) :
     let H := alpogeNativeHostData e q d
     nativeDyadicRestrictedColourSum e q d p i U v =
       fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
-        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)) := by
-  classical
-  let H := alpogeNativeHostData e q d
-  unfold nativeDyadicRestrictedColourSum fibreSum
-  refine Finset.sum_congr rfl fun g _ => ?_
-  by_cases h : g.val - i • H.frob p ∈ H.inertia p
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g.val = 1 := ite_eq_left h
-    have hc := (nativeInertiaClass_eq_iff (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-      (H.inertia p) g.val (i • H.frob p)).mpr h
-    simp only [hrow, Int.cast_one, one_mul, ite_eq_left hc]
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i g.val = 0 := ite_eq_right h
-    have hc := mt (nativeInertiaClass_eq_iff (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-      (H.inertia p) g.val (i • H.frob p)).mp h
-    simp only [hrow, Int.cast_zero, zero_mul, ite_eq_right hc]
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)) :=
+  restrictedIncidence_eq_fibreSum (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p) i U v
 
 set_option maxHeartbeats 1000000 in
 /-- Exact simultaneous integral image on one actual prime's masked colour
@@ -230,11 +256,6 @@ theorem nativeDyadic_restrictedColourImage (e q d p : ℕ) [Fact q.Prime] [Fact 
   simpa only [nativeDyadicRestrictedColourSum_eq_fibreSum] using
     (labelled_image site orbit S T modulus b)
 
-private theorem translated_class_eq_iff {G : Type*} [AddCommGroup G] (I : AddSubgroup G)
-    (x a v b : G) : nativeInertiaClass I x = nativeInertiaClass I (a + v + b) ↔
-      x - a - b - v ∈ I := by
-  rw [nativeInertiaClass_eq_iff, show x - (a + v + b) = x - a - b - v by abel]
-
 /-- Read the original prime-power indicator in partner coordinates. The
 argument of the integer row is the inverse of the native partner
 translation at this top. The mask U is in the partner coordinate. -/
@@ -245,29 +266,17 @@ def nativeDyadicPartnerColourSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
       (g.val - alpogeNativeCconj (AlpogeNativeDyadicH e) - alpogeNativeTopPl t) : O) * v g
 
 set_option maxHeartbeats 1000000 in
+attribute [local irreducible] nativeInertiaClass fibreSum frobeniusCosetIncidence in
 theorem nativeDyadicPartnerColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
     (t : AlpogeNativeDyadicH e) (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e))
     (v : U → O) :
     let H := alpogeNativeHostData e q d
     nativeDyadicPartnerColourSum e q d p i t U v =
       fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
-        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p))) := by
-  classical
-  let H := alpogeNativeHostData e q d
-  let a := alpogeNativeCconj (AlpogeNativeDyadicH e)
-  let b := alpogeNativeTopPl t
-  unfold nativeDyadicPartnerColourSum fibreSum
-  refine Finset.sum_congr rfl fun g _ => ?_
-  have hc : nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val =
-      nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p)) ↔
-      g.val - a - b - i • H.frob p ∈ H.inertia p :=
-    translated_class_eq_iff (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
-      (H.inertia p) g.val a (i • H.frob p) b
-  by_cases h : g.val - a - b - i • H.frob p ∈ H.inertia p
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i (g.val - a - b) = 1 := ite_eq_left h
-    simp only [hrow, Int.cast_one, one_mul, ite_eq_left (hc.mpr h)]
-  · have hrow : nativeDyadicPrimePowerIncidence e q d p i (g.val - a - b) = 0 := ite_eq_right h
-    simp only [hrow, Int.cast_zero, zero_mul, ite_eq_right (mt hc.mp h)]
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p))) :=
+  translatedIncidence_eq_fibreSum (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
+    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p)
+    i (alpogeNativeCconj (AlpogeNativeDyadicH e)) (alpogeNativeTopPl t) U v
 
 set_option maxHeartbeats 1000000 in
 /-- On one prime the original partner coordinate groups all top/exponent
