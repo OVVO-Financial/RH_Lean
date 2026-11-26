@@ -67,7 +67,7 @@ runs:
       if: failure() && steps.compile.outcome == 'failure'
       uses: actions/upload-artifact@v4
       with:
-        name: research-compile-failure-${{ github.job }}-${{ github.run_attempt }}
+        name: research-compile-failure-${{ github.job }}-${{ steps.plan.outputs.target-key }}-${{ github.run_attempt }}
         path: ${{ runner.temp }}/rhlean-research-compile.log
         if-no-files-found: error
         retention-days: 7
