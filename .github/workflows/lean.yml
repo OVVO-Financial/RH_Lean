@@ -54,13 +54,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: lean-audit-${{ github.workflow }}-${{ github.ref }}
-  # Let an active expensive build reach its cache checkpoint. GitHub still
-  # coalesces superseded pending revisions; actual failed prerequisites
-  # retain the separate exact-revision fail-fast gate.
-  cancel-in-progress: false
-
 jobs:
   # Reject inexpensive source/configuration failures before starting Lean.
   audit:
@@ -141,6 +134,9 @@ jobs:
 
   build:
     name: Hosted Lean build
+    concurrency:
+      group: rhlean-native-compile-${{ github.head_ref || github.ref_name }}
+      cancel-in-progress: false
     needs: [audit, research]
     if: >-
       !cancelled() && needs.audit.result == 'success' &&

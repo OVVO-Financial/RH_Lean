@@ -555,7 +555,7 @@ theorem alpogeNativeFreezeThick_logMean_le
       rw [alpogeNativeProjectionPhi_card, Nat.cast_mul]
       unfold alpogeNativeProjectionDensity
       push_cast
-      field_simp [hH, hb.ne'] <;> ring
+      field_simp [hH, hb.ne']
 
 /-- Apply the supported-coordinate budget to the existing signed consumer.
 The favorable ASK change is not charged. The thick density cancels against
@@ -595,7 +595,7 @@ theorem alpogeNativePhysicalSubgroupTopExcess_freezeThick_upper_le
     (fun u j => alpogeNativeFreezeThick_logMean_le T2 u b h hb (w u j) (hthick u j))
   have hprice : 2 * A * ((alpogeNativeProjectionDensity T2 / 2) * (h / b)) /
       (b * alpogeNativeProjectionDensity T2) = (A / b) * (h / b) := by
-    field_simp [hb.ne', hδ.ne'] <;> ring
+    field_simp [hb.ne', hδ.ne']
   rwa [hprice] at hcmp
 
 omit [Fintype H] in

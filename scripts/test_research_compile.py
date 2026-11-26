@@ -253,6 +253,23 @@ class ResearchCacheTests(unittest.TestCase):
         self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
         self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
 
+    def test_failed_diagnostics_release_the_native_compile_lock(self):
+        research = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        full = (cc.ROOT / '.github/workflows/lean.yml').read_text()
+        required, diagnostics = research.split('\n  diagnostics:\n', 1)
+        lock = 'group: rhlean-native-compile-${{ github.head_ref || github.ref_name }}'
+        for workflow in (research, full):
+            self.assertNotIn('\nconcurrency:', workflow)
+        for job in (required, full.split('\n  build:\n', 1)[1]):
+            self.assertIn(lock, job)
+            self.assertIn('cancel-in-progress: false', job)
+        self.assertIn('Save failed preflight prerequisites', required)
+        self.assertNotIn(lock, diagnostics)
+        self.assertIn('needs: check', diagnostics)
+        self.assertIn("needs.check.outputs.compile-outcome == 'failure'", diagnostics)
+        self.assertIn('needs.check.outputs.preflight-key', diagnostics)
+        self.assertIn('Collect independent CM supplier diagnostics after failure', diagnostics)
+
     def test_cm_diagnostic_accepts_actual_34_target_plan_and_fails_closed(self):
         workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
         diagnostic = workflow.split('      - name: Collect independent CM supplier diagnostics after failure', 1)[1]

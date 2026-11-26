@@ -309,7 +309,7 @@ theorem nativeConstructedDyadicDiscrepancyLedger
     (fun u j ρ hρ => hbeta.trans_le (hwBeta u j ρ hρ))
   have hPrice : 2 * Amax * η / (b * alpogeNativeProjectionDensity T2) = Real.sqrt x := by
     dsimp [η]
-    field_simp [hb.ne', hδ.ne', hAmax.ne'] <;> ring
+    field_simp [hb.ne', hδ.ne', hAmax.ne']
   rw [hPrice] at hGrid
   have hPoint := alpogeNativeGzArithmetic_le_mean_add_move TT ⟨t₀, ht₀⟩ x
     (fun t => a t / b) hx1 (fun t ht => hx1.trans (hLower t ht))
