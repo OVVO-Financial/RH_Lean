@@ -224,6 +224,13 @@ theorem nativeOriginalHeightWindow (x b k sigma h : ℝ)
     nlinarith only [hhi, hsmall]
   exact ⟨hlo', hhi', by rw [abs_of_nonneg (sub_nonneg.mpr hlo')]; linarith⟩
 
+private theorem pointwise_le_signedComparison
+    {point mean physical comparison move moveCost analytic width : ℝ}
+    (hPoint : point ≤ mean + move) (hMean : mean ≤ physical + analytic)
+    (hPhysical : physical ≤ comparison + width) (hMove : move ≤ moveCost) :
+    point ≤ comparison + (moveCost + analytic + width) := by
+  linarith
+
 set_option maxHeartbeats 1800000 in
 /-- The pointwise discrepancy ledger on the selected arithmetic host. All eligible
 profiles use their original cutoff and divisor. The comparison widths are computed
@@ -283,8 +290,8 @@ theorem nativeConstructedDyadicDiscrepancyLedger
   intro Y hY
   obtain ⟨q, d, hG, hPaid⟩ := hPair Y hY
   refine ⟨q, d, hG, ?_⟩
-  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
-  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  let : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let : Fact d.Prime := ⟨hG.pair.d_prime⟩
   intro x hx hYx
   dsimp only
   intro m TT T2 hTT hT2 hm a b h Amax beta w hbeta hbetab hh hbexp hupper ha
@@ -326,8 +333,8 @@ theorem nativeConstructedDyadicDiscrepancyLedger
     exact (div_le_iff₀ hCard).2 (by simpa using hSum)
   have hMove := mul_le_mul_of_nonneg_left hMeanMove alpogeNativeMoveConstant_nonneg
   dsimp only [η] at hGrid
-  dsimp only at hAnalytic hPoint ⊢
-  linarith only [hPoint, hAnalytic, hGrid, hMove]
+  exact pointwise_le_signedComparison hPoint hAnalytic hGrid
+    (by simpa only [mul_one] using hMove)
 
 /-- Compl3-style sparse comparison on the SAME selected pair, heights,
 Frobenius/inertia, cutoff, and physical width profile. Freeze precisely
@@ -388,8 +395,8 @@ theorem nativeConstructedDyadicFrozenDiscrepancyLedger
   intro Y hY
   obtain ⟨q, d, hG, hPaid⟩ := hPair Y hY
   refine ⟨q, d, hG, ?_⟩
-  letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
-  letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  let : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let : Fact d.Prime := ⟨hG.pair.d_prime⟩
   intro x hx hYx
   dsimp only
   intro m TT T2 hTT hT2 hm a b h Amax beta w hbeta hbetab hh hbexp hupper ha
@@ -419,8 +426,8 @@ theorem nativeConstructedDyadicFrozenDiscrepancyLedger
     rw [one_div, ← div_eq_inv_mul]
     exact (div_le_iff₀ hCard).2 (by simpa using hSum)
   have hMove := mul_le_mul_of_nonneg_left hMeanMove alpogeNativeMoveConstant_nonneg
-  dsimp only at hAnalytic hPoint ⊢
-  linarith only [hPoint, hAnalytic, hFreeze, hMove]
+  exact pointwise_le_signedComparison hPoint hAnalytic hFreeze
+    (by simpa only [mul_one] using hMove)
 
 open Filter in
 /-- The sparse thick-width comparison charge is at most 1/x eventually,

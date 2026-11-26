@@ -140,7 +140,8 @@ theorem distinct_image (q : G → Q) (S T : Set Q) (d : O) (b : Q → O) :
         rw [hb]
         exact dvd_zero _
     · intro y hy hq
-      exact (by simpa [diagonalFactor, hq] using h y hy : b y = 0)
+      change y ∉ Set.range q at hq
+      simpa only [diagonalFactor, ite_eq_right hq, zero_dvd_iff] using h y hy
 
 open Classical in
 /-- When every fibre is served, the diagonal factors are the imposed
@@ -180,18 +181,21 @@ private theorem nativeInertiaClass_eq_iff {G : Type*} [AddCommGroup G] (I : AddS
 
 variable {O : Type*} [CommRing O]
 
+attribute [local irreducible] alpogeNativeHostData
+
 /-- The actual integer Frobenius indicator acts on the coefficients of the
 colours in the supplied mask, with their original multiplicity. -/
 def nativeDyadicRestrictedColourSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
     (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) (v : U → O) : O :=
   ∑ g : U, (nativeDyadicPrimePowerIncidence e q d p i g.val : O) * v g
 
+set_option maxHeartbeats 1000000 in
 theorem nativeDyadicRestrictedColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
     (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) (v : U → O) :
     let H := alpogeNativeHostData e q d
     nativeDyadicRestrictedColourSum e q d p i U v =
-      fibreSum (fun g : U => nativeInertiaClass (H.inertia p) g.val) v
-        (nativeInertiaClass (H.inertia p) (i • H.frob p)) := by
+      fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)) := by
   classical
   let H := alpogeNativeHostData e q d
   unfold nativeDyadicRestrictedColourSum fibreSum
@@ -206,22 +210,23 @@ theorem nativeDyadicRestrictedColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Pr
       (H.inertia p) g.val (i • H.frob p)).mp h
     simp only [hrow, Int.cast_zero, zero_mul, ite_eq_right hc]
 
+set_option maxHeartbeats 1000000 in
 /-- Exact simultaneous integral image on one actual prime's masked colour
 coefficients. S and T still contain the original exponent labels. -/
 theorem nativeDyadic_restrictedColourImage (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime]
     (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) (S T : Set ℕ)
     (modulus : O) (b : ℕ → O) :
     let H := alpogeNativeHostData e q d
-    let site := fun g : U => nativeInertiaClass (H.inertia p) g.val
-    let orbit := fun i : ℕ => nativeInertiaClass (H.inertia p) (i • H.frob p)
+    let site := fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val
+    let orbit := fun i : ℕ => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)
     (∃ v : U → O, (∀ i ∈ S, nativeDyadicRestrictedColourSum e q d p i U v = b i) ∧
       (∀ j ∈ T, modulus ∣ nativeDyadicRestrictedColourSum e q d p j U v)) ↔
     (∀ i ∈ S, ∀ j ∈ S, orbit i = orbit j → b i = b j) ∧
     (∀ i ∈ S, ∀ j ∈ T, orbit i = orbit j → modulus ∣ b i) ∧
     (∀ i ∈ S, orbit i ∉ Set.range site → b i = 0) := by
   let H := alpogeNativeHostData e q d
-  let site := fun g : U => nativeInertiaClass (H.inertia p) g.val
-  let orbit := fun i : ℕ => nativeInertiaClass (H.inertia p) (i • H.frob p)
+  let site := fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val
+  let orbit := fun i : ℕ => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (i • H.frob p)
   simpa only [nativeDyadicRestrictedColourSum_eq_fibreSum] using
     (labelled_image site orbit S T modulus b)
 
@@ -239,21 +244,22 @@ def nativeDyadicPartnerColourSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
   ∑ g : U, (nativeDyadicPrimePowerIncidence e q d p i
       (g.val - alpogeNativeCconj (AlpogeNativeDyadicH e) - alpogeNativeTopPl t) : O) * v g
 
+set_option maxHeartbeats 1000000 in
 theorem nativeDyadicPartnerColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime] [Fact d.Prime]
     (t : AlpogeNativeDyadicH e) (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e))
     (v : U → O) :
     let H := alpogeNativeHostData e q d
     nativeDyadicPartnerColourSum e q d p i t U v =
-      fibreSum (fun g : U => nativeInertiaClass (H.inertia p) g.val) v
-        (nativeInertiaClass (H.inertia p) (alpogeNativePartner t (i • H.frob p))) := by
+      fibreSum (fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val) v
+        (nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p))) := by
   classical
   let H := alpogeNativeHostData e q d
   let a := alpogeNativeCconj (AlpogeNativeDyadicH e)
   let b := alpogeNativeTopPl t
   unfold nativeDyadicPartnerColourSum fibreSum
   refine Finset.sum_congr rfl fun g _ => ?_
-  have hc : nativeInertiaClass (H.inertia p) g.val =
-      nativeInertiaClass (H.inertia p) (alpogeNativePartner t (i • H.frob p)) ↔
+  have hc : nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val =
+      nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) (alpogeNativePartner t (i • H.frob p)) ↔
       g.val - a - b - i • H.frob p ∈ H.inertia p :=
     translated_class_eq_iff (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
       (H.inertia p) g.val a (i • H.frob p) b
@@ -263,6 +269,7 @@ theorem nativeDyadicPartnerColourSum_eq_fibreSum (e q d p i : ℕ) [Fact q.Prime
   · have hrow : nativeDyadicPrimePowerIncidence e q d p i (g.val - a - b) = 0 := ite_eq_right h
     simp only [hrow, Int.cast_zero, zero_mul, ite_eq_right (mt hc.mp h)]
 
+set_option maxHeartbeats 1000000 in
 /-- On one prime the original partner coordinate groups all top/exponent
 labels that represent the same inertia coset. This includes collisions
 between different tops as well as returns at one top. -/
@@ -271,8 +278,8 @@ theorem nativeDyadic_partnerColourImage {A : Type*} (e q d p : ℕ) [Fact q.Prim
     (U : Finset (AlpogeNativeE0 × AlpogeNativeDyadicH e)) (S T : Set A)
     (modulus : O) (b : A → O) :
     let H := alpogeNativeHostData e q d
-    let site := fun g : U => nativeInertiaClass (H.inertia p) g.val
-    let orbit := fun i : A => nativeInertiaClass (H.inertia p)
+    let site := fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val
+    let orbit := fun i : A => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p)
       (alpogeNativePartner (top i) (exponent i • H.frob p))
     (∃ v : U → O, (∀ i ∈ S, nativeDyadicPartnerColourSum e q d p (exponent i) (top i) U v = b i) ∧
       (∀ j ∈ T, modulus ∣ nativeDyadicPartnerColourSum e q d p (exponent j) (top j) U v)) ↔
@@ -280,8 +287,8 @@ theorem nativeDyadic_partnerColourImage {A : Type*} (e q d p : ℕ) [Fact q.Prim
     (∀ i ∈ S, ∀ j ∈ T, orbit i = orbit j → modulus ∣ b i) ∧
     (∀ i ∈ S, orbit i ∉ Set.range site → b i = 0) := by
   let H := alpogeNativeHostData e q d
-  let site := fun g : U => nativeInertiaClass (H.inertia p) g.val
-  let orbit := fun i : A => nativeInertiaClass (H.inertia p)
+  let site := fun g : U => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p) g.val
+  let orbit := fun i : A => nativeInertiaClass (G := AlpogeNativeE0 × AlpogeNativeDyadicH e) (H.inertia p)
     (alpogeNativePartner (top i) (exponent i • H.frob p))
   simpa only [nativeDyadicPartnerColourSum_eq_fibreSum] using
     (labelled_image site orbit S T modulus b)

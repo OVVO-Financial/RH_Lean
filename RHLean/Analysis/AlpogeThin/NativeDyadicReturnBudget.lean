@@ -38,7 +38,7 @@ theorem nativeDyadic_modulus_dvd_of_return (e q d p k : ℕ)
     · rw [he.neg_one_zpow, one_pow]
     · rw [ho.neg_one_zpow]
       apply Units.ext
-      simp only [Units.val_pow_eq_pow_val, Units.val_neg, Units.val_one, neg_one_sq]
+      simp only [Units.val_one, neg_one_sq]
   have hres : ((p ^ (2 * k) : ℕ) : ZMod (2 ^ (e + 2))) = 1 := by
     simpa only [Nat.cast_pow, mul_comm 2 k, pow_mul, Units.val_pow_eq_pow_val,
       Units.val_one, hup] using congrArg Units.val hsq

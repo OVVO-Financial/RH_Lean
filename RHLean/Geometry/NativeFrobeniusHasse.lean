@@ -98,6 +98,7 @@ theorem det_progressionMatrix (a o m : ℕ) :
   have hP : P.IsUpperTriangular := by
     intro r j hjr
     change (j.val.choose r.val : ℤ) = 0
+    change j.val < r.val at hjr
     rw [Nat.choose_eq_zero_of_lt hjr, Nat.cast_zero]
   have hPdet : P.det = 1 := by
     rw [Matrix.det_of_isUpperTriangular hP]
@@ -111,7 +112,7 @@ theorem det_progressionMatrix (a o m : ℕ) :
     have h := congrArg (fun t : ℤ[X] => t.coeff 1) hq
     change (((X + 1 : ℤ[X]) ^ o - 1).coeff 1) = (X * q).coeff (0 + 1) at h
     rw [Polynomial.coeff_sub, Polynomial.coeff_X_add_one_pow, Polynomial.coeff_X_mul] at h
-    simpa using h.symm
+    simpa [Polynomial.coeff_one] using h.symm
   have hentry (r j : Fin m) : D r j =
       if j.val ≤ r.val then (((X + 1 : ℤ[X]) ^ a) * q ^ j.val).coeff (r.val - j.val) else 0 := by
     change ((X + 1 : ℤ[X]) ^ a * z ^ j.val).coeff r.val = _
@@ -145,6 +146,7 @@ theorem det_ordinary_progression (a o m : ℕ) :
     rw [Matrix.of_apply, Matrix.diagonal_mul, Polynomial.iterate_derivative_X_pow_eq_natCast_mul,
       Polynomial.eval_mul, Polynomial.eval_natCast, Polynomial.eval_pow, Polynomial.eval_X, one_pow,
       mul_one, Nat.descFactorial_eq_factorial_mul_choose, Nat.cast_mul]
+    rfl
   rw [he, Matrix.det_mul, Matrix.det_diagonal, det_progressionMatrix]
 
 end RHLean.Geometry.NativeFrobeniusHasse
@@ -152,6 +154,16 @@ end RHLean.Geometry.NativeFrobeniusHasse
 namespace RHLean.Analysis
 
 open RHLean.Geometry.NativeFrobeniusHasse
+
+attribute [local irreducible] alpogeNativeHostData
+
+private theorem natCast_isUnit_of_dvd_two_pow {O : Type*} [CommRing O] (h2 : IsUnit (2 : O))
+    {n k : ℕ} (h : n ∣ 2 ^ k) : IsUnit (n : O) := by
+  obtain ⟨j, hj⟩ := h
+  refine isUnit_of_dvd_unit (y := (2 : O) ^ k) ⟨(j : O), ?_⟩ (h2.pow _)
+  simpa only [Nat.cast_pow, Nat.cast_ofNat, Nat.cast_mul] using congrArg (Nat.cast : ℕ → O) hj
+
+set_option maxHeartbeats 1000000 in
 
 /-- The order of the actual Frobenius modulo inertia is a unit whenever
 two is a unit. It divides the order of the native dyadic host. -/
@@ -170,9 +182,7 @@ theorem nativeDyadic_frobPeriod_isUnit {O : Type*} [CommRing O] (h2 : IsUnit (2 
   have hd : o ∣ 2 ^ (e + 2) :=
     (frobeniusCosetOrder_dvd_natCard (G := AlpogeNativeE0 × AlpogeNativeDyadicH e)
       (H.inertia p) (H.frob p)).trans (dvd_of_eq hsize)
-  obtain ⟨k, hk⟩ := hd
-  refine isUnit_of_dvd_unit (y := (2 : O) ^ (e + 2)) ⟨(k : O), ?_⟩ (h2.pow _)
-  simpa only [Nat.cast_pow, Nat.cast_ofNat, Nat.cast_mul] using congrArg (Nat.cast : ℕ → O) hk
+  exact natCast_isUnit_of_dvd_two_pow (n := o) h2 hd
 
 /-- The original character relation forces all nilpotent Hasse deformation
 parameters to vanish at the native Frobenius, at every odd local place. -/
@@ -213,6 +223,8 @@ private theorem frobeniusCharactersRigid_of_unit {O G : Type*} [CommRing O] [Add
   have hratio : ratio = 1 := Units.ext (sub_eq_zero.mp hzero)
   exact div_eq_one.mp hratio
 
+set_option maxHeartbeats 1000000 in
+attribute [local irreducible] FrobeniusCharactersRigid in
 /-- Rigidity at the actual dyadic Frobenius, proved from the period relation
 of the two characters on the native inertia quotient. -/
 theorem nativeDyadic_frob_characters_eq_of_nilpotent_ratio {O : Type*} [CommRing O]
@@ -252,6 +264,7 @@ theorem nativeDyadic_returning_hasse_minor (e q d p a m : ℕ) [Fact q.Prime] [F
     ext r j
     change nativeDyadicPrimePowerIncidence e q d p (n j) (a • H.frob p) * _ = _
     rw [hrow, one_mul]
+    rfl
   exact (congrArg Matrix.det he).trans (det_progressionMatrix a o m)
 
 /-- A divided Hasse determinant on the pre-quotient exponent labels is a
