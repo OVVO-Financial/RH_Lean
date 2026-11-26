@@ -253,6 +253,44 @@ class ResearchCacheTests(unittest.TestCase):
         self.assertIn('RHLEAN_BUILD_PROGRESS_SECONDS', stage)
         self.assertIn('native-cache-ready:', workflow[positions[4]:positions[5]])
 
+    def test_isolated_cm_jobs_pass_all_three_compiled_modules_to_the_full_check(self):
+        self.fake.stop()  # Run the archive shell steps with the stand-in below.
+        workflow = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
+        matrix, check = workflow.split('  cm-modules:\n', 1)[1].split('  check:\n', 1)
+        names = [line.strip()[2:] for line in matrix.splitlines()
+                 if line.strip().startswith('- NativeCMWeierstrass')]
+        self.assertEqual(len(set(names)), 3)
+        self.assertIn("LEAN_NUM_THREADS: '1'", matrix)
+        self.assertIn('fail-fast: false', matrix)
+        self.assertNotIn('continue-on-error:', matrix)
+        self.assertIn('needs: cm-modules', check)
+
+        build = matrix.split("        run: |\n", 1)[1].split("      - name:", 1)[0]
+        install = check.split("      - name: Install the three CM prerequisites", 1)[1]
+        install = install.split("        run: |\n", 1)[1].split("      #", 1)[0]
+        scripts = self.root / 'scripts'
+        scripts.mkdir()
+        (scripts / 'lake_build_fail_fast.py').write_text(
+            "import os, sys\nassert sys.argv[1:] == ['RHLean.Geometry.' + os.environ['CM_MODULE']]\n")
+        archive_dir = self.root / 'tmp/rhlean-cm-prerequisites'
+        archive_dir.mkdir(parents=True)
+        expected = []
+        for module in names:
+            for folder, suffix in [('lib/lean', '.olean'), ('lib/lean', '.olean.private'),
+                                   ('lib/lean', '.trace'), ('ir', '.c')]:
+                artifact = self.root / '.lake/build' / folder / 'RHLean/Geometry' / (module + suffix)
+                artifact.parent.mkdir(parents=True, exist_ok=True)
+                artifact.write_text(module)
+                expected.append(artifact)
+            subprocess.run(['bash', '-c', textwrap.dedent(build)], check=True, cwd=self.root,
+                           env={**os.environ, 'CM_MODULE': module, 'RUNNER_TEMP': str(archive_dir)})
+        for artifact in expected:
+            artifact.unlink()
+        subprocess.run(['bash', '-c', textwrap.dedent(install)], check=True, cwd=self.root,
+                       env={**os.environ, 'RUNNER_TEMP': str(archive_dir.parent)})
+        for artifact in expected:
+            self.assertEqual(artifact.read_text(), artifact.name.split('.')[0])
+
     def test_failed_diagnostics_release_the_native_compile_lock(self):
         research = (cc.ROOT / '.github/workflows/research-iteration.yml').read_text()
         full = (cc.ROOT / '.github/workflows/lean.yml').read_text()
