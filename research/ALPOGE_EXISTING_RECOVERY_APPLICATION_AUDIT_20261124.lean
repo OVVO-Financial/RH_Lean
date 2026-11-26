@@ -64,6 +64,9 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_norm
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_clearing_minor
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_denominator
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_sameWidth_matching
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_sameWidth_firstPrime_signed
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadic_sameWidth_firstPrime_weighted_gain
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow
 
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le
@@ -82,6 +85,9 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_norm,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_clearing_minor,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_normalizedHeightShift_chain_denominator,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_sameWidth_matching,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_sameWidth_firstPrime_signed,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadic_sameWidth_firstPrime_weighted_gain,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_realHeight_mem_pairWindow,
     ``RHLean.Analysis.nativeProperPower_clippedMass_le,
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidthASK_error,

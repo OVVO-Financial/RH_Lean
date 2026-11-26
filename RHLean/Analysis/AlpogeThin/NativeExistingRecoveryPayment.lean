@@ -964,6 +964,7 @@ theorem nativeLedger_anyCutoff_le_thick_add_thin
         alpogeNativeProjectionFull_eq_thick_add_thin _ T2 a u t w, Complex.add_re]
       exact add_le_add le_rfl (Complex.re_le_norm _)
 
+set_option maxHeartbeats 2000000 in
 /-- A sharp, conductor-uniform prime-power estimate on each of the three
 actual nonprincipal twists of the *existing* selected pair. Both points
 are in its original window. -/
@@ -1261,7 +1262,7 @@ theorem nativeLedger_highPrime_thick_thirdCut_zero (e q d p : ℕ) [Fact q.Prime
   have hcut : x+1+2*Real.sqrt x ≤ (p : ℝ)^3 := by linarith only [h3x, hx, hRx]
   have h := nativeLedger_thickTail_cut (n := (p : ℝ)^3) (by linarith only [hx])
     hb hδ hδ1 hA ha hw (by linarith only [h3x, hx])
-  rw [if_neg (not_lt.mpr hcut)] at h
+  rw [ite_eq_right (not_lt.mpr hcut)] at h
   simpa only [nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re,
     Nat.cast_pow, alpogeASKPos] using le_antisymm h (le_max_right _ _)
 

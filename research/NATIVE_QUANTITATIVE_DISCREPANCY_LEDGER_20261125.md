@@ -33,6 +33,25 @@ For any list $P$ of distinct primes up to $Z$, the single scalar $M=\prod_{p\in 
 
 **The direct same-prime payment fails on the outstanding thick first primes.** For $x\ge4$ and an integer $p>\sqrt{x}$, one has $p\ge3$ and $p^3\ge3x\ge x+1+2\sqrt x$. The frozen rounded-width cut vanishes beyond this last threshold. Thus at every thick site in the outstanding first-prime range the third cut is exactly zero. The two-active-read identity cannot recover that first cut there. The declaration is `nativeLedger_highPrime_thick_thirdCut_zero`. A cross-prime transport would need a signed inequality attaching the accessible small-prime gain to these different large-prime cuts and the exact MAIN on the same frame. A Euclidean rank certificate alone contributes no such signed term. [Native height operator and prices](../RHLean/Analysis/AlpogeThin/NativeDyadicShiftedWidthRows.lean) · [Original rounded thick cuts](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean).
 
+
+### Two different first primes at one measured thick site
+
+Take the actual unramified primes $\sqrt x<p\le x-1$ of the thick binary Frobenius colour. The finite set of addresses is $(t,p)\in TT\times P$. Assign an address to $y=t+\operatorname{Frob}_{p,H}$. Addresses at one $y$ have exactly the same full positive partner. For a fixed translate $u$ they are all thick precisely when $y\in u+T_2$. This alignment uses the original measured width at that $u$ and row $j$.
+
+Reverse any enumeration of the addresses with each $y$. This defines one involution on all addresses. Its two-cycles have disjoint endpoints. A fibre has at most one fixed point, since a reversed index $i$ is fixed exactly when $2i+1$ is the fibre size. Two different addresses in a fibre necessarily have different primes. Consequently the unmatched addresses $J$ satisfy
+$$\lvert J\rvert\le\lvert H\rvert,\qquad \sum_{(t,p)\in J}\log p\le\lvert H\rvert\log x.$$
+The proof constructs the matching without a prime-distribution hypothesis or an extra supply of tops. Its declaration is `nativeDyadic_firstPrime_sameWidth_matching`.
+
+For every unpaired address the sum of the **thick saving** over translates has exactly $\lvert T_2\rvert$ terms per measured row. The original kernel weight is $2\log p$ and $\min(a_t/p,v)\le2b$. After summing the $m$ rows, averaging on $H$ and dividing by $Q$, the exceptional saving is at most $8(\lvert H\rvert/\lvert TT\rvert)\log x$. For the whole thick ASK cut the corresponding allowance is $8(\lvert H\rvert/\lvert TT\rvert)\sqrt{x}\log x$, since $a_t/p\le(x+1)b/\sqrt{x}\le2b\sqrt{x}$. The physical top-density hypothesis gives $\lvert H\rvert/\lvert TT\rvert\le2x^{\varepsilon/8}$. Both prices therefore fit $O_\varepsilon(x^{1/2+9\varepsilon/8})$. The omitted endpoint band $x-1<p<x$ contains at most one integer per top and has normalized saving $\le8\log x$. These allowances follow by finite summation of the matching bound and `alpogeNativeThickColour_translate_count`.
+
+On a two-cycle order the primes $p<r$ and write $U_p=(a_t/p-v)_+$ and $U_r=(a_s/r-v)_+$. The original bound $v\le b+h\le b(1+1/x)$ eventually ensures that both first cuts are active for $r\le x-1$. Thus
+$$pr(U_p-U_r)=r a_t-p a_s\ge b\{x(r-p)-p\}>0.$$
+For integral heights its reductions modulo $p$ and $r$ read $r a_t$ and $-p a_s$, respectively, each with an invertible coefficient. The two reductions belong to the same measured pair. Even the actual logarithmic weights preserve a uniform signed margin. For $r-p\ge2$ and $\log p\ge3$,
+$$pr(\log p\,U_p-\log r\,U_r)\ge b(x-2).$$
+Indeed $\log(r/p)\le(r-p)/p$, $U_r\le(x+1)b/r$ and the preceding bound gives a lower numerator of $b[(x(r-p)-p)\log p-(x+1)(r-p)]$. This is at least $b(x-2)$. The two declarations are `nativeDyadic_sameWidth_firstPrime_signed` and `nativeDyadic_sameWidth_firstPrime_weighted_gain`.
+
+The measured ASK sums both endpoints with positive kernel weights. Using the certified difference as a payment for the signed MAIN requires an independent bound for the sum of the remaining endpoints or an integral short-form realization giving them the subtractive sign. The arithmetic matching and its positive margin alone do not assert that connection. On these same-prime-power sites the completed estimates now price the unmatched part and remove endpoint multiplicity from the paired difference. In Sernau the corresponding link has two steps: `mainAmount_sub_add_two_mul_sum_gain` evaluates the unnormalized archimedean exponent with $+2\sum_p g_p\log p$, then `log_invGainFactor_le` and integrality of the very same forms justify subtracting that amount. A scalar chosen to cancel the gain may increase the finite denominator in C. [Archimedean gain identity](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/New/UpperBound/Size/ArchimedeanSize.lean#L139-L184) · [Normalization of the same forms](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/src/New/Reduction/ShortAndEnough.lean#L265-L286).
+
 ## The two sources
 
 Fix $0<\varepsilon<1/52$ and a window exponent $A\ge1$. Take $e(x)$ and the pair $(q,d)$ for the window $[Y,Y^A]$ from `nativeConstructedDyadicGzPayment`. The pair stays fixed throughout that window. On its actual reciprocity host $H$, use a nonempty physical top set $TT$, nonempty thick set $T_2$, $m>0$, positive $b$, heights $a_t$, positive widths $w_{uj\rho}$, and the density, cutoff and width conditions of that theorem. Write
@@ -333,6 +352,7 @@ The community main advanced to `61d870d` during this audit. Its elementary-divis
 flowchart TD
     R["Simultaneous native height residues"] --> A["Short columns carrying the signed source (open)"]
     K["Height rank and denominator prices"] --> B["Physical retained rank and denominator budget (open)"]
+    P["Disjoint high first-prime cuts and weighted margin"] --> A
     B --> A
     B --> C["Lower determinant with the same main amount (open)"]
     A --> S["Upper and lower bounds on the same columns"]
