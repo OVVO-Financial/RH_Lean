@@ -329,15 +329,32 @@ theorem nativeDyadic_colourIncidence_minor {I J : Type*} [DecidableEq I]
     change (if selected j • H.frob p - competing s • H.frob p ∈ H.inertia p then (1 : ℤ) else 0) = 0
     exact ite_eq_right (hdisj s j)
 
+section HostMinor
+
+variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+
+/-- The consecutive identity minor for the inertia and Frobenius of one host. -/
+def AlpogeNativeArithData.consecutiveColourMinor (D : AlpogeNativeArithData H)
+    (p K : ℕ) : Prop :=
+  ConsecutiveFrobeniusMinor (G := AlpogeNativeE0 × H) (D.inertia p) (D.frob p) K
+
+private theorem host_consecutive_colourIncidence_minor (D : AlpogeNativeArithData H)
+    (p K : ℕ) : D.consecutiveColourMinor p K :=
+  frobeniusCoset_consecutive_matrix (G := AlpogeNativeE0 × H) (D.inertia p) (D.frob p) K
+
+end HostMinor
+
+set_option maxHeartbeats 1000000 in
+attribute [local irreducible] AlpogeNativeArithData.consecutiveColourMinor alpogeNativeHostData in
 /-- Consecutive positive powers have an explicit identity minor up to the
-order of the actual Frobenius class modulo inertia. Its entries are the same
-coset reads as `nativeDyadicPrimePowerIncidence` at the original sites. -/
+order of the actual Frobenius class modulo inertia. The host-level application
+keeps the concrete quotient out of definitional equality during elaboration. -/
 theorem nativeDyadic_consecutive_colourIncidence_minor (e q d p K : ℕ)
     [Fact q.Prime] [Fact d.Prime] :
-    let H := alpogeNativeHostData e q d
-    ConsecutiveFrobeniusMinor (H.inertia p) (H.frob p) K :=
-  frobeniusCoset_consecutive_matrix
-    ((alpogeNativeHostData e q d).inertia p) ((alpogeNativeHostData e q d).frob p) K
+    AlpogeNativeArithData.consecutiveColourMinor (H := AlpogeNativeDyadicH e)
+      (alpogeNativeHostData e q d) p K :=
+  host_consecutive_colourIncidence_minor (H := AlpogeNativeDyadicH e)
+    (alpogeNativeHostData e q d) p K
 
 open Classical in
 /-- Both numerator and denominator in the ramified colour normalization are
