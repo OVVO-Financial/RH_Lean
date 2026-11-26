@@ -92,7 +92,7 @@ theorem fractionField_fromNormalization_isIso
   have happ : IsIso j.fromNormalization.appTop := by
     change IsIso (j.fromNormalization.app ⊤)
     rw [Scheme.Hom.fromNormalization_app j (isAffineOpen_top _)]
-    infer_instance
+    exact IsIso.comp_isIso' hι (j.normalizationObjIso (isAffineOpen_top (Sp R))).isIso_inv
   have : IsAffine j.normalization := isAffine_of_isAffineHom j.fromNormalization
   have : IsIso (j.fromNormalization ≫ (Sp R).isoSpec.hom) := by
     rw [← Scheme.isoSpec_hom_naturality j.fromNormalization]
@@ -150,6 +150,13 @@ theorem finiteProjection_isIso
       _ = Φ.map (𝟙 Ga) := (Φ.map_id Ga).symm
   exact ⟨⟨F, hleft, hright⟩⟩
 
+private theorem map_graph_section {C D : Type*} [Category C] [Category D] (Φ : C ⥤ D)
+    {X A B : C} (p : X ⟶ A) [IsIso p] (q : X ⟶ B) (f : Φ.obj A ⟶ Φ.obj B)
+    (e : Φ.obj X ≅ Φ.obj A) (hp : Φ.map p = e.hom) (hq : Φ.map q = e.hom ≫ f) :
+    Φ.map (inv p ≫ q) = f := by
+  have h : Φ.map q = Φ.map p ≫ f := hq.trans (congrArg (fun g => g ≫ f) hp.symm)
+  rw [Functor.map_comp, Functor.map_inv, h, IsIso.inv_hom_id_assoc]
+
 /-- The existing actual graph construction, geometric-kernel theorem
 and Mathlib's proper quasi-finite theorem supply the original elliptic
 homomorphism extension, with its exact generic map. -/
@@ -191,13 +198,7 @@ theorem existsUnique_elliptic_hom_extension_dvr
   have hfin : IsFinite p.left := IsFinite.of_isProper_of_locallyQuasiFinite p.left
   have hpiso : IsIso p := finiteProjection_isIso R K Ga G p
   let F : G ⟶ H := inv p ≫ (io ≫ snd G H)
-  have hF : Φ.map F = f := by
-    apply (cancel_epi (Φ.map p)).1
-    calc
-      Φ.map p ≫ Φ.map F = Φ.map (p ≫ F) := (Φ.map_comp p F).symm
-      _ = Φ.map (io ≫ snd G H) :=
-        congrArg (fun g => Φ.map g) (IsIso.hom_inv_id_assoc p (io ≫ snd G H))
-      _ = Φ.map p ≫ f := hsecond.trans (congrArg (fun g => g ≫ f) hp.symm)
+  have hF : Φ.map F = f := map_graph_section Φ p (io ≫ snd G H) f e hp hsecond
   have hFmon : IsMonHom F := by
     have ht : IsSchemeTheoreticallyDominant t := schemeTheoreticallyDominant_fractionField R K
     have hFK : IsMonHom (Φ.map F) := by rw [hF]; infer_instance

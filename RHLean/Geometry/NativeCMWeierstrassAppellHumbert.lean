@@ -20,6 +20,7 @@ No global theta-uniformization theorem or prescribed arithmetic mean is assumed.
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option maxHeartbeats 1000000
 
 noncomputable section
 
@@ -38,24 +39,50 @@ def ellipticPointInOpen {W : _root_.WeierstrassCurve ℂ} (p : 𝟙_ (Over (Sp �
     (U : (scheme W).Opens) : Prop :=
   (⊤ : (Sp ℂ).Opens) ≤ p.left ⁻¹ᵁ U
 
-set_option maxHeartbeats 3000000 in
-/-- The complete one-dimensional holomorphic atlas on an actual elliptic
-scheme and its actual origin line bundle, with the specified period lattice. -/
-structure EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) where
-  ex : ℂ → (𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W)
-  ex_add : ∀ z w : ℂ, ex (z + w) = ex z * ex w
-  ex_onto : Function.Surjective ex
-  ker : ∀ z, ex z = 1 ↔ z ∈ L.lattice
-  hol : ∀ (U : (scheme W).Opens) (s : Γ(scheme W, U)),
+namespace EllipticAtlas
+
+variable (W : _root_.WeierstrassCurve ℂ)
+
+abbrev Points := 𝟙_ (Over (Sp ℂ)) ⟶ schemeOver W
+abbrev Frame := (originLB W).ι → ℂ → ℂ
+
+def RespectsAddition [W.IsElliptic] (ex : ℂ → Points W) : Prop :=
+  ∀ z w : ℂ, ex (z + w) = ex z * ex w
+
+def HasPeriodKernel [W.IsElliptic] (L : PeriodPair) (ex : ℂ → Points W) : Prop :=
+  ∀ z : ℂ, ex z = 1 ↔ z ∈ L.lattice
+
+def HolomorphicSections (ex : ℂ → Points W) : Prop :=
+  ∀ (U : (scheme W).Opens) (s : Γ(scheme W, U)),
     IsOpen {z | ellipticPointInOpen (W := W) (ex z) U} ∧
       DifferentiableOn ℂ (fun z => value (ex z).left U s) {z | ellipticPointInOpen (W := W) (ex z) U}
-  fr : (originLB W).ι → ℂ → ℂ
-  fr_hol : ∀ i, DifferentiableOn ℂ (fr i) {z | ellipticPointInOpen (W := W) (ex z) ((originLB W).U i)}
-  fr_ne : ∀ i z, ellipticPointInOpen (W := W) (ex z) ((originLB W).U i) → fr i z ≠ 0
-  fr_compat : ∀ (i j : (originLB W).ι) (z : ℂ)
+
+def HolomorphicFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
+  ∀ i, DifferentiableOn ℂ (fr i) {z | ellipticPointInOpen (W := W) (ex z) ((originLB W).U i)}
+
+def NonvanishingFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
+  ∀ i z, ellipticPointInOpen (W := W) (ex z) ((originLB W).U i) → fr i z ≠ 0
+
+def CompatibleFrame (ex : ℂ → Points W) (fr : Frame W) : Prop :=
+  ∀ (i j : (originLB W).ι) (z : ℂ)
     (h : ellipticPointInOpen (W := W) (ex z) ((originLB W).U i ⊓ (originLB W).U j)),
     fr i z = evalPt (ex z).left ((originLB W).U i ⊓ (originLB W).U j) h
       ((originLB W).g i j : Γ(scheme W, (originLB W).U i ⊓ (originLB W).U j)) * fr j z
+
+end EllipticAtlas
+
+/-- The complete one-dimensional holomorphic atlas on an actual elliptic
+scheme and its actual origin line bundle, with the specified period lattice. -/
+structure EllipticHolUnif (W : _root_.WeierstrassCurve ℂ) [W.IsElliptic] (L : PeriodPair) where
+  ex : ℂ → EllipticAtlas.Points W
+  ex_add : EllipticAtlas.RespectsAddition W ex
+  ex_onto : Function.Surjective ex
+  ker : EllipticAtlas.HasPeriodKernel W L ex
+  hol : EllipticAtlas.HolomorphicSections W ex
+  fr : EllipticAtlas.Frame W
+  fr_hol : EllipticAtlas.HolomorphicFrame W ex fr
+  fr_ne : EllipticAtlas.NonvanishingFrame W ex fr
+  fr_compat : EllipticAtlas.CompatibleFrame W ex fr
 
 namespace EllipticHolUnif
 
