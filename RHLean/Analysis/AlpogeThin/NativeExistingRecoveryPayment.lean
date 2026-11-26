@@ -1059,30 +1059,45 @@ private theorem pairGood_sharp_induced {q d N : ℕ} [NeZero N]
     (add_le_add (add_le_add (mul_le_mul_of_nonneg_left (add_le_add h1 h0)
       (div_nonneg (zero_le_one.trans hx) hh.le)) h0) le_rfl)
 
+set_option diagnostics true in
+private theorem sharp_on_native_character {H : Type*} [AddCommGroup H] [Fintype H]
+    [DecidableEq H] {M q d : ℕ} [NeZero M] {eps Y Z x h : ℝ}
+    (r : (ZMod M)ˣ →* Multiplicative (AlpogeNativeE0 × H)) (hr : Function.Surjective r)
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (hψ : ψ ≠ 0)
+    (hG : UpperTheory.Top.PairGood 1 eps Y Z q d) (i j : Fin 2) (hij : i ≠ 0 ∨ j ≠ 0)
+    (hI : Formalism.HC.An.Induces (alpogeNativeDirChar (N := M) (H := H) r ψ).primitiveCharacter
+      (UpperTheory.Top.tw (fun a => (1 : DirichletCharacter ℂ 1) (a : ZMod 1)) q d i j) (2*1*q*d))
+    (hx : 1 ≤ x) (hh : 0 < h) (hY : Y ≤ x) (hZ : x+h ≤ Z) :
+    let c := Formalism.HC.PChar.of (alpogeNativeDirChar (N := M) (H := H) r ψ)
+    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
+      (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
+        x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
+  let χ : DirichletCharacter ℂ M := alpogeNativeDirChar (N := M) (H := H) r ψ
+  let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
+  have hn : χ.primitiveCharacter ≠ 1 := fun hn =>
+    hψ ((nativePrimitive_eq_one_iff (N := M) (H := H) r hr ψ).mp hn)
+  exact pairGood_sharp_induced (N := χ.conductor) hG i j hij χ.primitiveCharacter hn hI hx hh hY hZ
+
+set_option diagnostics true in
 /-- A sharp, conductor-uniform prime-power estimate on each of the three
-actual nonprincipal twists of the *existing* selected pair. Both points
+actual nonprincipal twists of the existing selected pair. Both points
 are in its original window. -/
 theorem nativeLedger_pairGood_sharp_twist (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     {eps Y Z x h : ℝ} (hG : UpperTheory.Top.PairGood 1 eps Y Z q d)
     (i j : Fin 2) (hij : i ≠ 0 ∨ j ≠ 0) (hx : 1 ≤ x) (hh : 0 < h)
     (hY : Y ≤ x) (hZ : x+h ≤ Z) :
-    let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
-      (nativeDyadicTwoBitCharacter e i j)
-    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * (Formalism.HC.PChar.of χ).val n‖ ≤
+    let c := Formalism.HC.PChar.of (alpogeNativeDirChar (N := alpogeNativeHostN e q d)
+      (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d) (nativeDyadicTwoBitCharacter e i j))
+    ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ((ArithmeticFunction.vonMangoldt n : ℝ) : ℂ) * c.val n‖ ≤
       (x/h) * ((x+h)^((1 : ℝ)/2+eps/2) + x^((1 : ℝ)/2+eps/2)) +
         x^((1 : ℝ)/2+eps/2) + (h+1)*Real.log (x+h) := by
-  let r := alpogeNativeRecMap e q d
-  let ψ := nativeDyadicTwoBitCharacter e i j
-  let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) r ψ
-  let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
-  have honto : Function.Surjective r := alpogeNativeRecMap_surjective e q d
-    (by have := hG.pair.q_mod; omega) (by have := hG.pair.d_mod; omega)
-    (by have := hG.pair.q_mod; have := hG.pair.d_mod; omega)
-  have hpsi : ψ ≠ 0 := nonzero_twoBit (AlpogeNativeDyadicH e) i j hij
-  have hp : χ.primitiveCharacter ≠ 1 := fun h =>
-    hpsi ((nativePrimitive_eq_one_iff (H := AlpogeNativeDyadicH e) r honto ψ).mp h)
-  exact pairGood_sharp_induced hG i j hij χ.primitiveCharacter hp
-    (nativeDyadicTwoBitCharacter_induces e q d i j) hx hh hY hZ
+  have hq2 : q ≠ 2 := by have := hG.pair.q_mod; omega
+  have hd2 : d ≠ 2 := by have := hG.pair.d_mod; omega
+  have hqd : q ≠ d := by have := hG.pair.q_mod; have := hG.pair.d_mod; omega
+  exact sharp_on_native_character (M := alpogeNativeHostN e q d) (H := AlpogeNativeDyadicH e)
+    (alpogeNativeRecMap e q d) (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd)
+    (nativeDyadicTwoBitCharacter e i j) (nonzero_twoBit (AlpogeNativeDyadicH e) i j hij)
+    hG i j hij (nativeDyadicTwoBitCharacter_induces e q d i j) hx hh hY hZ
 
 /-- The entire centered thin channel, including arbitrarily large first
 primes, is paid on every original good pair. The bound is uniform in the
