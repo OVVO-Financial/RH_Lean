@@ -218,6 +218,8 @@ new positive-moment hypothesis. Conversely, a new proof of the moment
 hypothesis can be consumed without first recovering a pointwise window
 bound.
 
+For ordinary zeta, Crossley obtains the window for this centred prime-power sum from Alpöge’s geometry via Sanftenberg’s conductor-one specialisation. Taking $U=\log Y$ gives $B=1$ and $\delta=1/2$ in the moment bound’s window hypothesis for every $1/2<\theta<1$. [Crossley, Theorem 1.2](https://doi.org/10.5281/zenodo.24466908).
+
 ## Actual unconditional supplier and the quantitative gap
 
 Set `B = log 4 + 3 + |gamma|`. Native Mertens-first arithmetic and
