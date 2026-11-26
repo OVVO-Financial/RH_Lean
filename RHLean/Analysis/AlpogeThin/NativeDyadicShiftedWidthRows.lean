@@ -144,7 +144,9 @@ theorem nativeDyadic_sharedWidth_laterReads_le (e q d p N i : ℕ)
   let r := (P ^ 2)⁻¹
   let A := nativeDyadicLocalSourceAtom e q d p (a s) s w i
   change (∑ k ∈ J, _) ≤ 2 * A / (P ^ 2 - 1)
-  have hP : (2 : ℝ) ≤ P := by exact_mod_cast hp.two_le
+  have hP : (2 : ℝ) ≤ P := by
+    change (2 : ℝ) ≤ (p : ℝ)
+    exact_mod_cast hp.two_le
   have hPpos : 0 < P := by linarith
   have hP2 : 2 ≤ P ^ 2 := by nlinarith [sq_nonneg (P - 2)]
   have hr0 : 0 ≤ r := inv_nonneg.mpr (sq_nonneg _)
@@ -180,9 +182,11 @@ theorem nativeDyadic_sharedWidth_laterReads_le (e q d p N i : ℕ)
     let W := w (alpogeNativePartner s (i • g))
     have hW : 0 ≤ W := hw
     have hcut : a s / P ^ i - W ≤ A := by
-      dsimp only [A, nativeDyadicLocalSourceAtom, alpogeNativeSiteCut, Complex.ofReal_re, Nat.cast_pow]
+      change a s / (p : ℝ) ^ i - W ≤ max (a s / ((p ^ i : ℕ) : ℝ) - W) 0
+      rw [Nat.cast_pow]
       exact le_max_left _ _
-    have hweight := mul_le_mul_of_nonneg_left hcut (mul_nonneg (by norm_num) (pow_nonneg hr0 k))
+    have hweight := mul_le_mul_of_nonneg_left hcut
+      (show 0 ≤ (2 : ℝ) * r ^ k from mul_nonneg (by norm_num) (pow_nonneg hr0 k))
     have hW' := mul_le_mul_of_nonneg_right hfactor hW
     change max (a (top k) / P ^ (i + 2 * k) - W) 0 ≤ _
     exact max_le (by linarith only [hscale, hweight, hW']) (mul_nonneg (by positivity) (pow_nonneg hr0 k))

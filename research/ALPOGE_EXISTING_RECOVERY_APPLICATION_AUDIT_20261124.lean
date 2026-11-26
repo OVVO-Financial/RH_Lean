@@ -45,6 +45,7 @@ ties, global degree and the remaining quantitative hypotheses. -/
 #print axioms RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error
 #print axioms RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le
+#print axioms RHLean.Analysis.AlpogeThin.nativeLedger_winPair_discriminant_growth
 #print axioms RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually
 
 #print axioms RHLean.Analysis.alpogeNativePartner_even_offset_iff
@@ -69,6 +70,7 @@ run_cmd do
     ``RHLean.Analysis.alpogeNativeFirstPrimeWidth_normalized_error,
     ``RHLean.Analysis.alpogeNativeThinFirstPrime_saving_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_ramifiedFirst_saving_le,
+    ``RHLean.Analysis.AlpogeThin.nativeLedger_winPair_discriminant_growth,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_roundedWidth_cap_eventually,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.smith_mem_of_primitive_tests,
     ``RHLean.Geometry.NativeJointEvaluationRecovery.recovery_of_primitive_tests,

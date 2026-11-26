@@ -814,6 +814,29 @@ namespace RHLean.Analysis.AlpogeThin
 open Filter
 open scoped BigOperators Classical
 
+/-- The discriminant of the actual outer-window pair exceeds every fixed
+polynomial scale. In particular a compact frame requiring 10^14*d ≤ log X
+cannot use this discriminant at any polynomially related anchor X. -/
+theorem nativeLedger_winPair_discriminant_growth {eps Y x A : ℝ} {q d : ℕ}
+    (hpair : UpperTheory.Top.WinPair eps Y q d) (he : 0 < eps) (hA : 0 ≤ A)
+    (hY : Real.exp (max 1 (4 * A)) ≤ Y) (hx : 0 < x) (hhi : x ≤ Y ^ (2 : ℕ)) :
+    A * Real.log x < Real.log (d : ℝ) := by
+  have hY0 := (Real.exp_pos _).trans_le hY
+  have hlarge : max 1 (4 * A) ≤ Real.log Y := by
+    simpa only [Real.log_exp] using Real.log_le_log (Real.exp_pos _) hY
+  have hlog : 0 ≤ Real.log Y := (by norm_num : (0 : ℝ) ≤ 1).trans ((le_max_left _ _).trans hlarge)
+  have hY1 : 1 ≤ Y := (Real.one_le_exp (zero_le_one.trans (le_max_left _ _))).trans hY
+  have hscale : Real.log x ≤ 2 * Real.log Y := by
+    simpa only [Real.log_pow, Nat.cast_ofNat] using Real.log_le_log hx hhi
+  have hpoly : 2 * A * Real.log Y ≤ Real.log Y ^ 2 / 2 := by
+    nlinarith only [mul_le_mul_of_nonneg_right ((le_max_right 1 (4 * A)).trans hlarge) hlog]
+  have hq := mul_le_mul_of_nonneg_right
+    (Real.one_le_rpow hY1 (by positivity : 0 ≤ eps / 5)) (sq_nonneg (Real.log Y))
+  calc
+    _ ≤ A * (2 * Real.log Y) := mul_le_mul_of_nonneg_left hscale hA
+    _ ≤ Real.log Y ^ 2 / 2 := by linarith only [hpoly]
+    _ < _ := by linarith only [hpair.d_lo, hq]
+
 /-- The saving at the discriminant prime is bounded by its one-power
 zero-width mass on the same selected pair. This pays the term even if
 rounding changes which of its physical cuts is active. -/
