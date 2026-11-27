@@ -1,0 +1,13 @@
+{"exact": true, "R": 2, "N": 3, "tuple_checks": 9, "full_family_divides_C": true, "grid_family_divides_C": true}
+{"exact": true, "R": 3, "N": 8, "tuple_checks": 512, "full_family_divides_C": true, "grid_family_divides_C": true}
+{"exact": true, "R": 4, "N": 15, "tuple_checks": 50625, "full_family_divides_C": true, "grid_family_divides_C": true}
+{"R": 4, "beta_grid_logdet_normalized": 0.43718716142981745, "best_pooled_vandermonde_log_inverse_normalized": 0.49889599596316025, "best_a": 0, "best_k": 1}
+{"R": 8, "beta_grid_logdet_normalized": 0.46569961053201714, "best_pooled_vandermonde_log_inverse_normalized": 0.33244866648690974, "best_a": 0, "best_k": 2}
+{"R": 16, "beta_grid_logdet_normalized": 0.483337215163397, "best_pooled_vandermonde_log_inverse_normalized": 0.23290067553235066, "best_a": 0, "best_k": 2}
+{"R": 32, "beta_grid_logdet_normalized": 0.4919631539236748, "best_pooled_vandermonde_log_inverse_normalized": 0.15524136993025922, "best_a": 0, "best_k": 3}
+{"R": 64, "beta_grid_logdet_normalized": 0.49606486199204247, "best_pooled_vandermonde_log_inverse_normalized": 0.10184496225724887, "best_a": 0, "best_k": 4}
+{"R": 128, "beta_grid_logdet_normalized": 0.49804942824962384, "best_pooled_vandermonde_log_inverse_normalized": 0.06586207650479828, "best_a": 0, "best_k": 5}
+{"R": 317, "beta_grid_logdet_normalized": 0.49921428683160046, "best_pooled_vandermonde_log_inverse_normalized": 0.036976879957758536, "best_a": 0, "best_k": 8}
+{"R": 1027, "beta_grid_logdet_normalized": 0.4997571969354755, "best_pooled_vandermonde_log_inverse_normalized": 0.017176743467776655, "best_a": 0, "best_k": 12}
+{"R": 2048, "beta_grid_logdet_normalized": 0.49987813984263163, "best_pooled_vandermonde_log_inverse_normalized": 0.010899950154605067, "best_a": 0, "best_k": 15}
+{"R": 4096, "beta_grid_logdet_normalized": 0.49993903091780284, "best_pooled_vandermonde_log_inverse_normalized": 0.006887864935381663, "best_a": 0, "best_k": 19}
