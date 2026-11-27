@@ -308,6 +308,47 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
     · rw [Finset.Ico_eq_empty_of_le (le_of_not_ge kr),Finset.sum_empty]
       exact mul_nonneg (by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]) tp.le
 
+/-- Price forced by demanding a single multiplier for the continuum of
+shifts. In the first broad cell, each right prime with its predecessor
+in the middle band has a shift for which its full depth divides the
+multiplier. This statement uses only primes actually adjacent at this site. -/
+theorem uniform_shift_requires_depth {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMono p)
+    (d : Fin r → ℕ) (M m : ℕ) (j : Fin r) (ha : 0 < PrincipalCofactor.evenEndpoint M)
+    (hsmall : M.sqrt < p j.castSucc) (hlarge : p j.succ ≤ M)
+    (hleft : PrincipalCofactor.evenEndpoint M/4 ≤ (p j.castSucc:ℝ))
+    (hright : (p j.succ:ℝ) ≤ PrincipalCofactor.evenEndpoint M/3)
+    (all : ∀ s ∈ Set.Icc (0:ℝ) 1, ∃ A, anchoredRecovery (fun j => (d j:ℤ)) A =
+      fun i => (m:ℤ)*intervalTest p (lowerCut M (PrincipalCofactor.evenEndpoint M) (3+s))
+        (upperCut M (PrincipalCofactor.evenEndpoint M) (3+s)) i) : d j ∣ m := by
+  let a := PrincipalCofactor.evenEndpoint M
+  let q : ℝ := p j.castSucc
+  let P : ℝ := p j.succ
+  have order : q < P := by exact_mod_cast hp (show j.castSucc < j.succ from Fin.castSucc_lt_succ)
+  have positive : 0 < P := (Nat.cast_nonneg (α := ℝ) _).trans_lt order
+  have lower : 3 ≤ a/P := (le_div_iff₀ positive).2 (by linarith only [hright])
+  have upper : a/P ≤ 4 := (div_le_iff₀ positive).2 (by linarith only [hleft,order])
+  let s := a/P-3
+  have range : s ∈ Set.Icc (0:ℝ) 1 := ⟨sub_nonneg.mpr lower,by dsimp [s]; linarith only [upper]⟩
+  have v : 3+s=a/P := by dsimp [s]; ring
+  have top : a/(3+s)=P := by rw [v]; field [ha.ne',positive.ne']
+  have lo : a/((3+s)+1) ≤ q := (div_le_div_of_nonneg_left ha.le (by norm_num : (0:ℝ)<4)
+    (by linarith only [range.1] : (4:ℝ) ≤ 3+s+1)).trans hleft
+  have qlo : (M.sqrt:ℝ)+1 ≤ q := by exact_mod_cast hsmall
+  have qhi : q < (M:ℝ)+1 := by
+    have h : P ≤ (M:ℝ) := by exact_mod_cast hlarge
+    linarith
+  have left : lowerCut M a (3+s) ≤ q ∧ q < upperCut M a (3+s) :=
+    ⟨max_le qlo lo,lt_min qhi (order.trans_eq top.symm)⟩
+  have right : ¬(lowerCut M a (3+s) ≤ P ∧ P < upperCut M a (3+s)) := by
+    rintro ⟨_,hit⟩
+    exact (lt_irrefl P) ((hit.trans_le (min_le_right _ _)).trans_eq top)
+  apply ((interval_clearing_iff p _ _ d m).1 (all s range)) j
+  apply Finset.mem_filter.mpr
+  refine ⟨Finset.mem_univ _, ?_⟩
+  change (if lowerCut M a (3+s) ≤ P ∧ P < upperCut M a (3+s) then (1:ℤ) else 0) ≠
+    (if lowerCut M a (3+s) ≤ q ∧ q < upperCut M a (3+s) then 1 else 0)
+  simp [left,right]
+
 /-- Multiply the actual denominators along the same halving chain as the signed
 principal history. The prime powers and the frame scale stay fixed. -/
 def historyClearing {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (x s : ℝ) (N : ℕ) : ℕ :=

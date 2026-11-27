@@ -313,6 +313,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.sparse_projection_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.changes_card,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_clearing_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.uniform_shift_requires_depth,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_recovered,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.weighted_interval_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_energy,

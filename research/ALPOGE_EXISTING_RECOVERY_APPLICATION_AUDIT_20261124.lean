@@ -310,6 +310,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.sparse_projection_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.changes_card
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_clearing_iff
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.uniform_shift_requires_depth
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_recovered
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.weighted_interval_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_energy

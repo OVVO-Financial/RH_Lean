@@ -483,8 +483,7 @@ theorem signed_normal_balance {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D p : Fi
   change _ = (finiteTotalWeight _ w*finiteTargetSecondMoment _ w X 0 false true -
     finiteTargetFirstMoment _ w X 0 false*finiteTargetFirstMoment _ w X 0 true)/E+_-length
   rw [energy,left,right,pair]
-  field_simp [positive.ne']
-  <;> ring
+  field_simp [positive.ne']; ring
 
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
