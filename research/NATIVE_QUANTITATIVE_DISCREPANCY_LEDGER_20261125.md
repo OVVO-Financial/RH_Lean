@@ -176,6 +176,10 @@ At each ancestor let $P_M$ be the first primes $\sqrt M<p\le M$. For each $i\le 
 
 There is an independent count of the binary crossings. At the even endpoint $2q$ the total $\log p$ over $p>\sqrt{2q}$ with odd $\lfloor2q/p\rfloor$ is below $\log\binom{2q}{q}$ by at most $K\sqrt{2q}$. This follows from the parity of the factorial valuation and includes the outermost quotient cell. The retained history also weights the position within each cell. For every prime $p\ge5$, the even endpoint $2q=3p+1$ gives a full odd-cell hit at $p>\sqrt{2q}$, while its original triangular crossing weight is only $1/(3p)$. A uniform positive payment per hit fails even within this one retained cell. The unresolved comparison is a one-sided upper bound for the complete weighted first-prime history. [Binary mass and boundary calculation](NativePrincipalFirstPrimeHistory.lean)
 
+The first retained interval also furnishes a positive lower bound on the true weighted gains. For $h=\lfloor M/80\rfloor$, the band $21h<p\le22h$ lies inside $(2q/4,2q/3]$ for all sufficiently large $M$. These primes are above $\sqrt M$ and have $(2q/3)/p-1\ge1/6$. The native PNT applied at $21h$ and $22h$ gives $\vartheta(22h)-\vartheta(21h)\ge h/2$ eventually. Since $M\le81h$, this single cell contributes at least $M/1000$. Every new crossing at every other retained interval and ancestor has the same sign. If $H_{\rm aff}$ sums the already-active reciprocal slopes and original MAIN with their history signs, the measured one-sided comparison is therefore
+$$H(v)/Q-h_{\rm high}\le C_\perp+H_{\rm aff}(\lfloor x\rfloor)-\lfloor x\rfloor/1000+K_\varepsilon x^{1/2+9\varepsilon/8}.$$
+The full weighted crossings must still be compared with the whole affine term. [Interior crossing and signed history gain](NativePrincipalFirstPrimeHistory.lean) · [Comparison at the original divisor](NativeCenteredThickCompensation.lean)
+
 ### Perron readings of integer slots
 
 For an integer slot $k\ge2$, use the log interval $J_k=(\log(k-1),\log k]$. The critical-line reading of its weighted indicator $g_k(u)=e^{u/2}\mathbf1_{J_k}(u)$ is

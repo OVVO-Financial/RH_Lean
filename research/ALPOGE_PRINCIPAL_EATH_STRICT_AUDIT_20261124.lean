@@ -283,6 +283,8 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.real_firstPrime_history_price,
     ``RHLean.Analysis.PrincipalCofactor.binomial_high_odd_mass,
     ``RHLean.Analysis.PrincipalCofactor.high_hit_boundary,
+    ``RHLean.Analysis.PrincipalCofactor.interior_crossing_gain,
+    ``RHLean.Analysis.PrincipalCofactor.firstPrime_history_signed_gain,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm,

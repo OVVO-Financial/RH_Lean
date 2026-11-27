@@ -280,6 +280,8 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.real_firstPrime_history_price
 #print axioms RHLean.Analysis.PrincipalCofactor.binomial_high_odd_mass
 #print axioms RHLean.Analysis.PrincipalCofactor.high_hit_boundary
+#print axioms RHLean.Analysis.PrincipalCofactor.interior_crossing_gain
+#print axioms RHLean.Analysis.PrincipalCofactor.firstPrime_history_signed_gain
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
