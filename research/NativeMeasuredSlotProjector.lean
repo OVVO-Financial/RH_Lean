@@ -1,5 +1,5 @@
 import «research.NativeMeasuredCutGram»
-import «research.NativeRankOneEulerRepayment»
+import «research.NativeWheelFitProjector»
 
 /-! Integral sections on the quotient slots of one high first-prime thick fibre.
 The scalar product counts actual integer slots. The finite test and the real
@@ -120,7 +120,7 @@ theorem firstPrime_slots (e q d m : ℕ) [Fact q.Prime] [Fact d.Prime]
       And.intro sub (And.intro hr.1 (And.intro (gap j) hr.2))
 
 /-- An integral section takes one constant value on each actual layer. -/
-def section {m : ℕ} (D : Fin (m+1) → ℕ) (j : Fin m) (i : Fin (m+1)) (_k : ℕ) : ℤ :=
+def starColumn {m : ℕ} (D : Fin (m+1) → ℕ) (j : Fin m) (i : Fin (m+1)) (_k : ℕ) : ℤ :=
   (if i = j.succ then (D j.succ:ℤ) else 0) - (if i = 0 then (D 0:ℤ) else 0)
 
 /-- Pair a slot function with each section, by summing only over its support. -/
@@ -144,19 +144,19 @@ theorem integral_dual {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) �
   refine ⟨fun i l => if k i = l then c i else 0, ?_, ?_⟩
   · intro j
     simpa [read, hk, c] using hu j
-  · exact fun i => ⟨k i, hk i, fun l hl => if_neg (Ne.symm hl)⟩
+  · exact fun i => ⟨k i, hk i, fun l hl => by simp [Ne.symm hl]⟩
 
 /-- Real Gram from integer pairings on the same slots and the same sections. -/
 theorem measured_gram {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
-    (fun i j : Fin m => (read S D (section D j) i : ℝ)) =
+    (fun i j : Fin m => (read S D (starColumn D j) i : ℝ)) =
       MeasuredCut.gram (fun i => ((S i).card:ℝ)*(D i:ℝ)^2) := by
   classical
   ext i j
   by_cases hij : i = j
   · subst j
-    simp [read, section, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, pow_two]
+    simp [read, starColumn, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, pow_two]
     <;> ring
-  · simp [read, section, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, hij, pow_two]
+  · simp [read, starColumn, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, hij, pow_two]
     <;> ring
 
 /-- The top determinant of the orthogonal projector has a single Gram
@@ -178,6 +178,7 @@ theorem projector_det {m : ℕ} {J : Type*} [Fintype J] (B : Matrix J (Fin m) �
   have mapGram : f (B.transpose*B).det = G.det := mapProd B.transpose
   have hG' : IsUnit G.det := isUnit_iff_ne_zero.mpr (by
     rw [← mapGram]
+    change (((B.transpose*B).det:ℤ):ℚ) ≠ 0
     exact_mod_cast hG)
   change f (B.transpose*B).det * (U.map f*(A*G⁻¹*A.transpose)*(V.map f).transpose).det =
     f ((U*B).det*(V*B).det)
@@ -185,5 +186,182 @@ theorem projector_det {m : ℕ} {J : Type*} [Fintype J] (B : Matrix J (Fin m) �
       (U.map f*A)*G⁻¹*(V.map f*A).transpose := by simp only [Matrix.transpose_mul, Matrix.mul_assoc]
   rw [grouping, map_mul, mapGram, mapProd U, mapProd V, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose]
   linear_combination (U.map f*A).det*(V.map f*A).det * G.det_nonsing_inv_mul_det hG'
+
+/-- A quotient address records the prime direction and the actual integer
+in its band. No volume or local height is supplied to this definition. -/
+abbrev Address {m : ℕ} (S : Fin (m+1) → Finset ℕ) := (i : Fin (m+1)) × {k // k ∈ S i}
+
+def columns {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
+    Matrix (Address S) (Fin m) ℤ := fun a j => starColumn D j a.1 a.2.val
+
+private theorem dot_read {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (z : Fin (m+1) → ℕ → ℤ) (j : Fin m) :
+    ∑ x : Address S, z x.1 x.2.val * columns S D x j = read S D z j := by
+  classical
+  rw [Fintype.sum_sigma]
+  calc
+    _ = ∑ i, (∑ k ∈ S i, z i k) * starColumn D j i 0 := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      change (∑ k : ↥(S i), z i k.val * starColumn D j i 0) = _
+      rw [← Finset.sum_mul, Finset.sum_coe_sort (S i) (z i)]
+    _ = _ := by simp [starColumn, read, mul_sub, mul_ite, Finset.sum_sub_distrib, mul_comm]
+
+/-- The CRT functionals are a simultaneous integral left inverse to the
+actual matrix. In particular its columns span a saturated sublattice. -/
+theorem left_inverse {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (hc : Pairwise (fun i j => (D i).Coprime (D j))) :
+    ∃ Y : Matrix (Fin m) (Address S) ℤ, Y * columns S D = 1 := by
+  classical
+  choose z hz using fun i : Fin m => integral_dual S D hS hD hc ((1 : Matrix (Fin m) (Fin m) ℤ) i)
+  refine ⟨fun i x => z i x.1 x.2.val, ?_⟩
+  ext i j
+  exact (dot_read S D (z i) j).trans ((hz i).1 j)
+
+/-- Integer squared covolume as a sum of the products omitting one layer.
+This expression applies to any number of layers, including one. -/
+def mass {m : ℕ} (s : Fin (m+1) → ℕ) : ℕ :=
+  ∑ i, ∏ j ∈ Finset.univ.erase i, s j
+
+theorem mass_det {m : ℕ} (s : Fin (m+1) → ℕ) (hs : ∀ i, 0 < s i) :
+    (mass s:ℝ) = (MeasuredCut.gram fun i => (s i:ℝ)).det := by
+  classical
+  rw [MeasuredCut.gram_det _ (fun i => by exact_mod_cast hs i), Finset.mul_sum]
+  unfold mass
+  push_cast
+  apply Finset.sum_congr rfl
+  intro i _
+  rw [← Finset.prod_erase_mul _ (fun j => (s j:ℝ)) (Finset.mem_univ i), mul_assoc,
+    mul_inv_cancel₀ (show (s i:ℝ) ≠ 0 by exact_mod_cast (hs i).ne'), mul_one]
+
+theorem columns_det {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) :
+    ((columns S D).transpose * columns S D).det =
+      (mass fun i => (S i).card * D i ^ 2 : ℕ) := by
+  classical
+  let s := fun i => (S i).card * D i ^ 2
+  have hs i : 0 < s i := Nat.mul_pos (Finset.card_pos.mpr (hS i)) (pow_pos (hD i) _)
+  let f := Int.castRingHom ℝ
+  have hg : f.mapMatrix ((columns S D).transpose * columns S D) =
+      MeasuredCut.gram (fun i => (s i:ℝ)) := by
+    ext i j
+    have hj := congrFun (congrFun (measured_gram S D) i) j
+    change (((∑ x : Address S, columns S D x i * columns S D x j):ℤ):ℝ) = _
+    rw [show (∑ x : Address S, columns S D x i * columns S D x j) = read S D (starColumn D j) i by
+      simpa only [columns, mul_comm] using dot_read S D (starColumn D j) i]
+    simpa [s] using hj
+  apply Int.cast_injective (α := ℝ)
+  change f _ = _
+  rw [RingHom.map_det, hg, ← mass_det s hs]
+  simp [f]
+
+/-- The common denominator is attained by integral tests on the same slot
+columns. Thus the determinant clearing factor is exact on their lattice. -/
+theorem attained_price {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (hc : Pairwise (fun i j => (D i).Coprime (D j))) :
+    let g := mass fun i => (S i).card * D i^2
+    let B := (columns S D).map (Int.castRingHom ℚ)
+    let P := B * (B.transpose*B)⁻¹ * B.transpose
+    ∃ Y : Matrix (Fin m) (Address S) ℤ,
+      let T := Y.map (Int.castRingHom ℚ)
+      Y * columns S D = 1 ∧ (T*P*T.transpose).det = (g:ℚ)⁻¹ := by
+  classical
+  let s := fun i => (S i).card * D i^2
+  have hs i : 0 < s i := Nat.mul_pos (Finset.card_pos.mpr (hS i)) (pow_pos (hD i) _)
+  have hp : 0 < mass s := Finset.sum_pos (fun i _ => Finset.prod_pos (fun j _ => hs j)) Finset.univ_nonempty
+  obtain ⟨Y, hY⟩ := left_inverse S D hS hD hc
+  have hg := columns_det S D hS hD
+  have hne : ((columns S D).transpose*columns S D).det ≠ 0 := by
+    rw [hg]
+    exact_mod_cast hp.ne'
+  have test := projector_det (columns S D) Y Y hne
+  dsimp only at test ⊢
+  refine ⟨Y, hY, ?_⟩
+  rw [hY, Matrix.det_one, mul_one, Int.cast_one, hg, Int.cast_natCast] at test
+  exact (eq_inv_of_mul_eq_one_left (by simpa only [mul_comm] using test))
+
+/-- Bounding each measured layer bounds the actual clearing determinant.
+The exponent is the number of nonpivot columns. -/
+theorem mass_le {m : ℕ} (s : Fin (m+1) → ℕ) (L : ℝ) (h : ∀ i, (s i:ℝ) ≤ L) :
+    (mass s:ℝ) ≤ (m+1:ℕ)*L^m := by
+  classical
+  unfold mass
+  push_cast
+  calc
+    _ ≤ ∑ i : Fin (m+1), L ^ m := by
+      apply Finset.sum_le_sum
+      intro i _
+      calc
+        _ ≤ ∏ _j ∈ (Finset.univ : Finset (Fin (m+1))).erase i, L :=
+          Finset.prod_le_prod₀ (fun j _ => Nat.cast_nonneg (s j)) (fun j _ => h j)
+        _ = _ := by simp
+    _ = _ := by simp
+
+/-- An integer clearing both the full determinant and the rank-one tests
+raised to the row exponent. -/
+def allowance {m : ℕ} (s : Fin (m+1) → ℕ) (E : ℕ) : ℕ :=
+  mass s * (∏ j : Fin m, (s 0+s j.succ))^E
+
+theorem allowance_dvd {m : ℕ} (s : Fin (m+1) → ℕ) (E : ℕ) :
+    mass s ∣ allowance s E ∧ ∀ i : Fin m, (s 0+s i.succ)^E ∣ allowance s E := by
+  classical
+  exact ⟨dvd_mul_right _ _, fun i => (pow_dvd_pow_of_dvd
+    (Finset.dvd_prod_of_mem (fun j : Fin m => s 0+s j.succ) (Finset.mem_univ i)) E).trans
+      (dvd_mul_left _ _)⟩
+
+/-- Total normalized price of a common allowance at every finite place,
+including primes outside the admitted wheel. The rank exponent occurs
+only in the full-row share after normalization. -/
+theorem allowance_price {m : ℕ} (s : Fin (m+1) → ℕ) (hs : ∀ i, 0 < s i)
+    (L : ℝ) (h : ∀ i, (s i:ℝ) ≤ L) (E : ℕ) (hE : 0 < E) (T : Finset ℕ) :
+    (∑ p ∈ T, ((allowance s E).factorization p:ℝ)*Real.log p)/(E:ℝ) ≤
+      (Real.log (m+1:ℕ) + (m:ℝ)*Real.log L)/(E:ℝ) + (m:ℝ)*Real.log (2*L) := by
+  classical
+  have hL : 0 < L := (show 0 < (s 0:ℝ) by exact_mod_cast hs 0).trans_le (h 0)
+  have hg : 0 < mass s := Finset.sum_pos (fun i _ => Finset.prod_pos (fun j _ => hs j)) Finset.univ_nonempty
+  let d := fun j : Fin m => s 0+s j.succ
+  have hd j : 0 < d j := Nat.add_pos_left (hs 0) _
+  have hprod : 0 < ∏ j, d j := Finset.prod_pos fun j _ => hd j
+  have hpR : (0:ℝ) < ∏ j, (d j:ℝ) := by exact_mod_cast hprod
+  have hE' : (0:ℝ) < E := by exact_mod_cast hE
+  have hlog := Real.log_le_log (show (0:ℝ) < mass s by exact_mod_cast hg) (mass_le s L h)
+  rw [Real.log_mul (by positivity) (pow_ne_zero _ hL.ne'), Real.log_pow] at hlog
+  have hrow : (∑ j, Real.log (d j:ℝ)) ≤ (m:ℝ)*Real.log (2*L) := calc
+    _ ≤ ∑ _j : Fin m, Real.log (2*L) := Finset.sum_le_sum fun j _ =>
+      Real.log_le_log (by exact_mod_cast hd j) (by dsimp [d]; push_cast; linarith only [h 0,h j.succ])
+    _ = _ := by simp
+  have cost := WheelFit.finite_row_budget (allowance s E) T
+  change _ ≤ Real.log ((mass s * (∏ j, d j)^E : ℕ):ℝ) at cost
+  rw [Nat.cast_mul, Nat.cast_pow, Nat.cast_prod,
+    Real.log_mul (Nat.cast_ne_zero.mpr hg.ne') (pow_ne_zero _ hpR.ne'),
+    Real.log_pow, Real.log_prod (fun j _ => Nat.cast_ne_zero.mpr (hd j).ne')] at cost
+  apply (div_le_iff₀ hE').2
+  rw [add_mul, div_mul_cancel₀ _ hE'.ne']
+  linarith only [cost, hlog, mul_le_mul_of_nonneg_left hrow hE'.le, mul_comm (E:ℝ) ((m:ℝ)*Real.log (2*L))]
+
+/-- On the original fibre the counted cardinality and the admitted prime
+power bound the same column norm used by the Gram clearing factor. -/
+theorem firstPrime_norm_cap (m c : ℕ) (p : Fin (m+1) → ℕ) (a : Fin (m+1) → ℝ)
+    (v x b : ℝ) (hx : 1 ≤ x) (hb : 0 ≤ b) (ha : ∀ i, a i ≤ (x+1)*b)
+    (hp : ∀ i, (p i).Prime) (hhigh : ∀ i, Real.sqrt x ≤ p i) (hband : ∀ i, (p i:ℝ) ≤ x) :
+    let S := bands (fun i => a i/(p i:ℝ)) v
+    let D := fun i => p i ^ (⌊(c:ℝ)*x⌋₊ / p i - c)
+    ∀ i, ((S i).card:ℝ)*(D i:ℝ)^2 ≤ (x+1)*b*Real.exp ((c:ℝ)*Real.sqrt x*Real.log x)^2 := by
+  let h := fun i => a i/(p i:ℝ)
+  have hxb : 0 ≤ (x+1)*b := mul_nonneg (by linarith) hb
+  have bound (i) : (⌊h i⌋₊:ℝ) ≤ (x+1)*b := by
+    by_cases hi : 0 ≤ h i
+    · apply (Nat.floor_le hi).trans
+      apply (div_le_iff₀ (show (0:ℝ) < p i by exact_mod_cast (hp i).pos)).2
+      exact (ha i).trans (le_mul_of_one_le_right hxb (by exact_mod_cast (hp i).one_le))
+    · simpa only [Nat.floor_of_nonpos (le_of_not_ge hi), Nat.cast_zero] using hxb
+  have card (i) : ((bands h v i).card:ℝ) ≤ (x+1)*b := by
+    have hi : (bands h v i).card ≤ ⌊h i⌋₊ := by
+      refine Fin.lastCases ?_ (fun j => ?_) i <;> simp [bands, Nat.sub_le]
+    exact (show ((bands h v i).card:ℝ) ≤ (⌊h i⌋₊:ℝ) by exact_mod_cast hi).trans (bound i)
+  dsimp only
+  exact fun i => mul_le_mul (card i) (pow_le_pow_left₀ (Nat.cast_nonneg _)
+    (MeasuredCut.wheel_factor_le (p i) c x (hp i) hx (hhigh i) (hband i)) 2) (sq_nonneg _) hxb
 
 end RHLean.Analysis.AlpogeThin.SlotProjector

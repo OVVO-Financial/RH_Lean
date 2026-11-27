@@ -231,3 +231,11 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.integral_dual
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.measured_gram
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.projector_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.left_inverse
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.mass_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.columns_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.attained_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.mass_le
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.allowance_dvd
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.allowance_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_norm_cap
