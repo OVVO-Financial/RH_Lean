@@ -178,6 +178,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.WidthSweep.firstPrime_endpoint_phase,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.signed_row_eq,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq,
+    ``RHLean.Analysis.AlpogeThin.WidthSweep.frozen_top_excess_eq,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.frozen_colour_mass,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.frozen_log_sum,
