@@ -275,6 +275,9 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.trace_dilation
 #print axioms RHLean.Analysis.PrincipalCofactor.paired_tail
 #print axioms RHLean.Analysis.PrincipalCofactor.real_principal_children
+#print axioms RHLean.Analysis.PrincipalCofactor.intervalReading_eq
+#print axioms RHLean.Analysis.PrincipalCofactor.real_history_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image

@@ -188,7 +188,7 @@ theorem paired_tail (N R : ℕ) (hR : R ≤ N)
     have len : u k-v k = 2*(N:ℝ)/((2*k+1)*(2*k+2)) := by
       dsimp only [u,v]
       field_simp [dk.ne', ek.ne']
-      <;> ring
+      ring
     have prod := mul_le_mul (show 2*(R:ℝ)+1 ≤ 2*k+1 by linarith)
       (show 2*(R:ℝ)+2 ≤ 2*k+2 by linarith) (by positivity) dk.le
     have unit : u k-v k ≤ 1 := by
@@ -270,5 +270,127 @@ theorem real_principal_children (x : ℝ) (hx : 16 ≤ x) :
   dsimp only [t] at mv
   linarith only [p,mv,ell,en, mul_le_mul_of_nonneg_left width alpogeNativeMoveConstant_nonneg,
     mul_le_mul_of_nonneg_left (show x-2*(N:ℝ) ≤ 2 by linarith) alpogeNativeMoveConstant_nonneg]
+
+/-- A quotient interval measured from its original reciprocal prefix and
+every von Mangoldt crossing between its two endpoints. -/
+def intervalReading (y z : ℝ) : ℝ :=
+  (y-z)*(nativeLambdaRecip ⌊z⌋₊+1+Real.eulerMascheroniConstant) +
+    (∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊y⌋₊, (Λ n : ℝ)*(y/n-1)) - (y*Real.log y-z*Real.log z)
+
+theorem intervalReading_eq (y z : ℝ) (hzy : z ≤ y) :
+    intervalReading y z = alpogeNativeGzArithmetic y-alpogeNativeGzArithmetic z := by
+  have sub : Finset.Icc 1 ⌊z⌋₊ ⊆ Finset.Icc 1 ⌊y⌋₊ :=
+    Finset.Icc_subset_Icc le_rfl (Nat.floor_le_floor hzy)
+  have cells : Finset.Icc 1 ⌊y⌋₊ \ Finset.Icc 1 ⌊z⌋₊ = Finset.Ioc ⌊z⌋₊ ⌊y⌋₊ := by
+    ext n; simp only [Finset.mem_sdiff, Finset.mem_Icc, Finset.mem_Ioc]; omega
+  have add := Finset.sum_sdiff sub (f := fun n : ℕ => (Λ n : ℝ)*(y/n-1))
+  rw [cells] at add
+  have prefix : (y-z)*nativeLambdaRecip ⌊z⌋₊ =
+      (∑ n ∈ Finset.Icc 1 ⌊z⌋₊, (Λ n:ℝ)*(y/n-1)) - ∑ n ∈ Finset.Icc 1 ⌊z⌋₊, (Λ n:ℝ)*(z/n-1) := by
+    rw [nativeLambdaRecip, Finset.mul_sum, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl fun n _ => by ring
+  rw [alpogeNativeGzArithmetic_eq_principal y, alpogeNativeGzArithmetic_eq_principal z]
+  unfold intervalReading alpogeNativePrincipalPrimeSum alpogeNativePrimePowerWeight
+  linarith only [add,prefix]
+
+/-- Starting from the original integer, descend through its actual dyadic
+quotients. Each interval contributes its measured arithmetic reading once
+at that scale, with the sign forced by the odd/even trace. -/
+def sumHistory (reading : ℕ → ℝ → ℝ → ℝ) (n : ℕ) : ℝ :=
+  if h : n < 16 then 0 else
+    sumHistory reading (n/2) -
+      ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt n⌉₊,
+        reading n (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+1)) (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+2))
+termination_by n
+decreasing_by omega
+
+/-- Complete signed dyadic history of the original prime-power intervals. -/
+abbrev quotientHistory := sumHistory (fun _ => intervalReading)
+
+private theorem base_price (n : ℕ) (hn : 1 ≤ n) :
+    |alpogeNativeGzArithmetic n| ≤ (2*Real.log 4+6)*n := by
+  have id : alpogeNativeGzArithmetic n = (n:ℝ)*(nativeLambdaRecip n-Real.log n)-nativePsi n+
+      (1+Real.eulerMascheroniConstant)*n := by simp only [alpogeNativeGzArithmetic,Nat.floor_natCast]; ring
+  rw [id, abs_le]
+  have p := abs_le.mp (nativeLambdaRecip_sub_log_abs_le n hn)
+  have hz := nativePsi_nonneg n
+  have hu := nativePsi_le_const_mul n
+  have t := mul_le_mul_of_nonneg_right (show 1+Real.eulerMascheroniConstant ≤ 2 by
+    linarith only [Real.eulerMascheroniConstant_lt_two_thirds]) (Nat.cast_nonneg (α := ℝ) n)
+  have b := mul_nonneg (show 0 ≤ 1+Real.eulerMascheroniConstant by
+    linarith only [Real.one_half_lt_eulerMascheroniConstant]) (Nat.cast_nonneg (α := ℝ) n)
+  have logpos := mul_nonneg (Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)) (Nat.cast_nonneg (α := ℝ) n)
+  constructor <;> linarith only [hz,hu,t,b,logpos,Nat.cast_nonneg (α := ℝ) n,
+    mul_le_mul_of_nonneg_left p.1 (Nat.cast_nonneg n), mul_le_mul_of_nonneg_left p.2 (Nat.cast_nonneg n)]
+
+private theorem log_le_two_sqrt (x : ℝ) (hx : 0 < x) : Real.log x ≤ 2*Real.sqrt x := by
+  have h := Real.log_le_sub_one_of_pos (Real.sqrt_pos.mpr hx)
+  rw [Real.log_sqrt hx.le] at h
+  linarith
+
+/-- The dyadic prices sum geometrically. The signed remainder is an explicit
+finite sum of reciprocal prefixes and crossing atoms and contains no terminal
+principal value at a smaller scale. -/
+theorem integer_history_price (n : ℕ) (hn : 1 ≤ n) :
+    |alpogeNativeGzArithmetic n-quotientHistory n| ≤
+      4*(29+3*alpogeNativeMoveConstant)*Real.sqrt n := by
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    have hr : 1 ≤ Real.sqrt (n:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg n)).2 (by exact_mod_cast hn)
+    have hlog : 0 ≤ Real.log (4:ℝ) := Real.log_nonneg (by norm_num)
+    have hK : 0 ≤ 29+3*alpogeNativeMoveConstant := by linarith only [alpogeNativeMoveConstant_nonneg]
+    by_cases small : n < 16
+    · rw [sumHistory, dif_pos small, sub_zero]
+      have hn16 : (n:ℝ) ≤ 16 := by exact_mod_cast small.le
+      have hr4 : Real.sqrt (n:ℝ) ≤ 4 := (Real.sqrt_le_iff).2 ⟨by norm_num, by linarith⟩
+      have ns : (n:ℝ) ≤ 4 * Real.sqrt n := by
+        nlinarith only [Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) n),
+          mul_le_mul_of_nonneg_right hr4 (Real.sqrt_nonneg (n:ℝ))]
+      have coeff : 2*Real.log 4+6 ≤ 29+3*alpogeNativeMoveConstant := by
+        dsimp only [alpogeNativeMoveConstant]; linarith
+      exact (base_price n hn).trans ((mul_le_mul coeff ns (Nat.cast_nonneg n) hK).trans_eq (by ring))
+    · have hn16 : 16 ≤ n := by omega
+      have hq1 : 1 ≤ n/2 := by omega
+      have castHalf : ⌊(n:ℝ)/2⌋₊ = n/2 := by simpa only [Nat.cast_ofNat] using Nat.floor_div_eq_div (K := ℝ) n 2
+      have single := real_principal_children (n:ℝ) (by exact_mod_cast hn16)
+      dsimp only at single
+      rw [castHalf] at single
+      let q := n/2
+      let S := ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt n⌉₊, pairTerm q k
+      change |alpogeNativeGzArithmetic n-(alpogeNativeGzArithmetic q-S)| ≤ _ at single
+      have hist : quotientHistory n = quotientHistory q-S := by
+        rw [sumHistory, dif_neg small]
+        congr 1
+        apply Finset.sum_congr rfl
+        intro k _
+        exact intervalReading_eq _ _ (div_le_div_of_nonneg_left (by positivity) (by positivity) (by linarith only))
+      have hq : ((q:ℕ):ℝ)*2 ≤ n := by exact_mod_cast (show q*2 ≤ n by dsimp [q]; omega)
+      have root : Real.sqrt (q:ℝ) ≤ (3/4)*Real.sqrt n := (Real.sqrt_le_iff).2
+        ⟨by positivity, by nlinarith only [hq,Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) n),Nat.cast_nonneg (α := ℝ) n]⟩
+      have previous := ih q (by dsimp [q]; omega) hq1
+      have bill : 9+10*Real.log (n:ℝ)+alpogeNativeMoveConstant*(2+Real.sqrt n) ≤
+          (29+3*alpogeNativeMoveConstant)*Real.sqrt n := by
+        linarith only [hr, log_le_two_sqrt n (by exact_mod_cast hn),
+          mul_le_mul_of_nonneg_left hr alpogeNativeMoveConstant_nonneg]
+      rw [hist, show alpogeNativeGzArithmetic n-(quotientHistory q-S) =
+        (alpogeNativeGzArithmetic n-(alpogeNativeGzArithmetic q-S))+
+        (alpogeNativeGzArithmetic q-quotientHistory q) by ring]
+      apply (abs_add_le ..).trans
+      linarith only [single.trans bill,previous,mul_le_mul_of_nonneg_left root hK]
+
+/-- Uniform passage from the dyadic prime-power readings to the real anchor
+of the measured centered thick frame. -/
+theorem real_history_price (x : ℝ) (hx : 1 ≤ x) :
+    |alpogeNativeGzArithmetic x-quotientHistory ⌊x⌋₊| ≤
+      alpogeNativeMoveConstant + 4*(29+3*alpogeNativeMoveConstant)*Real.sqrt x := by
+  have hn : 1 ≤ ⌊x⌋₊ := (Nat.le_floor (by simpa using hx))
+  have hlo := Nat.floor_le (zero_le_one.trans hx)
+  have hhi := Nat.lt_floor_add_one x
+  have mv := alpogeNativeGzArithmetic_sub_abs_le_of_le x ⌊x⌋₊ (by exact_mod_cast hn) hlo hhi.le
+  have m : alpogeNativeMoveConstant*(x-(⌊x⌋₊:ℝ)) ≤ alpogeNativeMoveConstant := by
+    simpa only [mul_one] using mul_le_mul_of_nonneg_left (show x-(⌊x⌋₊:ℝ) ≤ 1 by linarith) alpogeNativeMoveConstant_nonneg
+  refine (abs_sub_le _ (alpogeNativeGzArithmetic ⌊x⌋₊) _).trans (add_le_add (mv.trans m) ?_)
+  exact (integer_history_price _ hn).trans (mul_le_mul_of_nonneg_left (Real.sqrt_le_sqrt hlo)
+    (by have := alpogeNativeMoveConstant_nonneg; positivity))
 
 end RHLean.Analysis.PrincipalCofactor
