@@ -342,9 +342,9 @@ theorem joint_budget_iff (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p
 /-- Coordinates of a row of character tests relative to each direction's
 common trivial-character test. Coefficients can vary with row, direction
 and character. -/
-def characterCoordinates {C : Type*} [AddCommGroup C] [Fintype C] {n : ℕ}
-    (z : Fin n → AddChar C ℂ → ℂ) (u : Fin n → Fin n → AddChar C ℂ → ℂ) :
-    Matrix (Fin n) (Fin n) ℂ := Matrix.of fun a i => ∑ χ, u a i χ * (z i χ / z i 0)
+def characterCoordinates {X : Type*} {n : ℕ} (x₀ : X)
+    (z : Fin n → X → ℂ) (u : Fin n → Fin n → X →₀ ℂ) : Matrix (Fin n) (Fin n) ℂ :=
+  Matrix.of fun a i => ∑ χ ∈ (u a i).support, u a i χ * (z i χ / z i x₀)
 
 /-- Every combination with integral coefficients at this embedding lies
 in the local span of the common test, and the normalized coordinate
@@ -352,11 +352,11 @@ recovers the original, unnormalized row entry exactly. -/
 theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
     (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
     {n : ℕ} (w : Fin n → G e → ℝ)
-    (u : Fin n → Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ → ℂ)
+    (u : Fin n → Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ →₀ ℂ)
     (hu : ∀ a i χ, ‖ι (u a i χ)‖ ≤ 1) :
     let z := fun i => readAt e q d N P (w i) p
-    ∀ a i, ‖ι (characterCoordinates z u a i)‖ ≤ 1 ∧
-      characterCoordinates z u a i * z i 0 = ∑ χ, u a i χ * z i χ := by
+    ∀ a i, ‖ι (characterCoordinates 0 z u a i)‖ ≤ 1 ∧
+      characterCoordinates 0 z u a i * z i 0 = ∑ χ ∈ (u a i).support, u a i χ * z i χ := by
   classical
   let z := fun i => readAt e q d N P (w i) p
   intro a i
@@ -367,13 +367,13 @@ theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [F
     · simp [hz]
     · rw [map_div₀, norm_div]
       exact (div_le_one (norm_pos_iff.mpr (fun he => hz (ι.injective (he.trans ι.map_zero.symm))))).2 (best χ)
-  change ‖ι (∑ χ, u a i χ * (z i χ / z i 0))‖ ≤ 1 ∧ _
+  change ‖ι (∑ χ ∈ (u a i).support, u a i χ * (z i χ / z i 0))‖ ≤ 1 ∧ _
   constructor
   · rw [map_sum]
     refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun χ _ => ?_
     rw [map_mul, norm_mul]
-    exact mul_le_one₀ (hu a i χ) (norm_nonneg _) (ratio χ)
-  · change (∑ χ, u a i χ * (z i χ / z i 0)) * z i 0 = _
+    exact (mul_le_of_le_one_left (norm_nonneg _) (hu a i χ)).trans (ratio χ)
+  · change (∑ χ ∈ (u a i).support, u a i χ * (z i χ / z i 0)) * z i 0 = _
     rw [Finset.sum_mul]
     refine Finset.sum_congr rfl fun χ _ => ?_
     rw [mul_assoc]
@@ -388,7 +388,8 @@ private theorem integral_det (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl
   rw [Matrix.det_apply', map_sum]
   refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun σ _ => ?_
   rw [map_mul, map_intCast, map_prod, norm_mul, norm_prod]
-  exact mul_le_one₀ (IsUltrametricDist.norm_intCast_le_one _ _) (Finset.prod_nonneg fun _ _ => norm_nonneg _)
+  exact (mul_le_of_le_one_left (Finset.prod_nonneg fun _ _ => norm_nonneg _)
+    (IsUltrametricDist.norm_intCast_le_one _ _)).trans
     (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _) fun i _ => hu _ i)
 
 /-- The Gram of two independent row tables in the measured basis.
@@ -474,6 +475,145 @@ theorem rowLCM_local {n : ℕ} (Q : Fin n → ℚ) (i : Fin n) (p : ℕ) [Fact p
   have hq := (div_le_one (pow_pos hp0 _)).1 hb
   rw [Real.exp_nat_mul, Real.exp_log (show 0 < (p:ℝ) by exact_mod_cast hp0)]
   exact_mod_cast hq
+
+private theorem pole_iff (p : ℕ) [Fact p.Prime] (Q : ℚ) (b : ℝ) (hb : 0 ≤ b) :
+    (padicNorm p Q:ℝ) ≤ Real.exp b ↔ (Q.den.factorization p:ℝ)*Real.log p ≤ b := by
+  by_cases hd : Q.den.factorization p = 0
+  · have hin : (padicNorm p Q:ℝ) ≤ 1 := by
+      simpa [rowLCM, hd] using rowLCM_local (n := 1) (fun _ => Q) 0 p
+    rw [hd, Nat.cast_zero, zero_mul]
+    exact iff_of_true (hin.trans (Real.one_le_exp hb)) hb
+  · have hp := (Fact.out : p.Prime)
+    have hv : padicValNat p Q.den ≠ 0 := by rwa [← Nat.factorization_def Q.den hp]
+    have hQ : Q ≠ 0 := by rintro rfl; simp at hd
+    have hn := (Q.num_or_den_zero_padicVal hp).resolve_right hv
+    have hnrm : padicNorm p Q = (p:ℚ)^Q.den.factorization p := by
+      rw [padicNorm.eq_zpow_of_nonzero hQ, padicValRat_def, hn, Nat.cast_zero, zero_sub,
+        neg_neg, zpow_natCast, Nat.factorization_def _ hp]
+    rw [hnrm, Rat.cast_pow, Rat.cast_natCast]
+    calc
+      _ ↔ Real.exp ((Q.den.factorization p:ℝ)*Real.log p) ≤ Real.exp b := by
+        rw [Real.exp_nat_mul, Real.exp_log (by exact_mod_cast hp.pos)]
+      _ ↔ _ := Real.exp_le_exp
+
+private theorem row_pole_iff {m : ℕ} (S : Fin (m+1) → ℚ) (p : ℕ) [Fact p.Prime] (b : ℝ) (hb : 0 ≤ b) :
+    (∀ i, (padicNorm p (S i):ℝ) ≤ Real.exp b) ↔ ((rowLCM S).factorization p:ℝ)*Real.log p ≤ b := by
+  rw [rowLCM, Finset.factorization_lcm (fun i _ => (S i).den_ne_zero)]
+  let f := fun i => (S i).den.factorization p
+  constructor
+  · intro h
+    obtain ⟨i, _, attained⟩ := Finset.exists_mem_eq_sup Finset.univ Finset.univ_nonempty f
+    rw [attained]
+    exact (pole_iff p (S i) b hb).1 (h i)
+  · intro h i
+    apply (pole_iff p (S i) b hb).2
+    exact (mul_le_mul_of_nonneg_right (by exact_mod_cast Finset.le_sup (f := f) (Finset.mem_univ i))
+      (Real.log_natCast_nonneg _)).trans h
+
+/-- A single integer for the exact joint budget. E is row dimension
+times auxiliary rank. Powers of the class-scaled line entries and the
+unscaled determinant are reduced as rational numbers before taking LCM. -/
+def jointDen {n : ℕ} (L Q : Fin n → ℚ) (E : ℕ) : ℕ :=
+  rowLCM (Fin.cases (∏ i, Q i) fun i => L i ^ E)
+
+theorem sharp_joint_place {n : ℕ} (L Q : Fin n → ℚ) (E p : ℕ) (hE : 0 < E) [Fact p.Prime]
+    (b : ℝ) (hb : 0 ≤ b) :
+    ((∀ i, (padicNorm p (L i):ℝ) ≤ Real.exp b) ∧
+      (∏ i, (padicNorm p (Q i):ℝ)) ≤ Real.exp ((E:ℝ)*b)) ↔
+    ((jointDen L Q E).factorization p:ℝ)*Real.log p ≤ (E:ℝ)*b := by
+  let S : Fin (n+1) → ℚ := Fin.cases (∏ i, Q i) fun i => L i ^ E
+  have lp i : (padicNorm p (L i ^ E):ℝ) ≤ Real.exp ((E:ℝ)*b) ↔ (padicNorm p (L i):ℝ) ≤ Real.exp b := by
+    have hp : padicNorm p (L i ^ E) = (padicNorm p (L i))^E :=
+      map_pow (IsAbsoluteValue.abvHom (padicNorm p)) _ _
+    rw [hp, Rat.cast_pow, Real.exp_nat_mul, pow_le_pow_iff_left₀
+      (by exact_mod_cast padicNorm.nonneg (p := p) (L i)) (Real.exp_pos _).le hE.ne']
+  have vp : (padicNorm p (∏ i, Q i):ℝ) = ∏ i, (padicNorm p (Q i):ℝ) := by
+    have h : padicNorm p (∏ i, Q i) = ∏ i, padicNorm p (Q i) :=
+      map_prod (IsAbsoluteValue.abvHom (padicNorm p)) _ _
+    rw [h, Rat.cast_prod]
+  change _ ↔ ((rowLCM S).factorization p:ℝ)*Real.log p ≤ _
+  rw [← row_pole_iff S p _ (mul_nonneg (Nat.cast_nonneg _) hb)]
+  constructor
+  · rintro ⟨hl, hv⟩ k
+    refine Fin.cases ?_ (fun i => ?_) k
+    · exact vp.le.trans hv
+    · exact (lp i).2 (hl i)
+  · intro h
+    exact ⟨fun i => (lp i).1 (h i.succ), vp.symm.le.trans (h 0)⟩
+
+/-- There exists one nonnegative allowance for all primes with the
+original finite-sum quantifier exactly when this measured integer fits
+the proposed total. Its minimizing local allocation is v_p(M) log p / E. -/
+theorem sharp_joint_total {n : ℕ} (L Q : Fin n → ℚ) (E : ℕ) (hE : 0 < E) (B : ℝ) :
+    (∃ γ : ℕ → ℝ, (∀ p, 0 ≤ γ p) ∧
+      (∀ T : Finset ℕ, (∀ p ∈ T, p.Prime) → ∑ p ∈ T, γ p ≤ B) ∧
+      ∀ p : ℕ, ∀ [Fact p.Prime], (∀ i, (padicNorm p (L i):ℝ) ≤ Real.exp (γ p)) ∧
+        (∏ i, (padicNorm p (Q i):ℝ)) ≤ Real.exp ((E:ℝ)*γ p)) ↔
+      Real.log (jointDen L Q E) ≤ (E:ℝ)*B := by
+  let M := jointDen L Q E
+  let f := fun p => (M.factorization p:ℝ)*Real.log p
+  have he : 0 < (E:ℝ) := by exact_mod_cast hE
+  constructor
+  · rintro ⟨γ, hg, ht, hl⟩
+    let T := M.factorization.support
+    have hp (p) (h : p ∈ T) : p.Prime := Nat.prime_of_mem_primeFactors h
+    calc
+      _ = ∑ p ∈ T, f p := Real.log_nat_eq_sum_factorization M
+      _ ≤ ∑ p ∈ T, (E:ℝ)*γ p := by
+        refine Finset.sum_le_sum fun p h => ?_
+        haveI : Fact p.Prime := ⟨hp p h⟩
+        exact (sharp_joint_place L Q E p hE _ (hg p)).1 (hl p)
+      _ = (E:ℝ)*∑ p ∈ T, γ p := (Finset.mul_sum ..).symm
+      _ ≤ _ := mul_le_mul_of_nonneg_left (ht T hp) he.le
+  · intro h
+    have hf p : 0 ≤ f p := mul_nonneg (Nat.cast_nonneg _) (Real.log_natCast_nonneg _)
+    refine ⟨fun p => f p / E, fun p => div_nonneg (hf p) he.le, ?_, ?_⟩
+    · intro T _
+      rw [← Finset.sum_div]
+      exact (div_le_iff₀ he).2 ((finite_row_budget M T).trans (h.trans_eq (mul_comm _ _)))
+    · intro p _
+      apply (sharp_joint_place L Q E p hE _ (div_nonneg (hf p) he.le)).2
+      change f p ≤ (E:ℝ)*(f p/E)
+      rw [mul_div_cancel₀ _ he.ne']
+
+/-- Construct the sharp common budget on the actual wheel family.
+Its sum on any finite set is bounded by log(M)/E, and at each place
+a nonnegative proposed allowance works for all tests exactly when it
+covers this prime's share. E is row dimension times auxiliary rank. -/
+theorem native_fit_budget (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (P : Finset ℕ)
+    {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ) (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (hr : ∀ i, 0 < r i) (h : Fin n → ℕ) (auxRank : ℕ) (hE : 0 < n*auxRank) :
+    let E := n*auxRank
+    let A := fun i => wheel e q d N P (w i)
+    let M := jointDen (fun i => payment (α i) (r i) (h i) (A i))
+      (fun i => payment (α i) (r i) 1 (A i)) E
+    let γ := fun p => (M.factorization p:ℝ)*Real.log p / E
+    (∀ T : Finset ℕ, ∑ p ∈ T, γ p ≤ Real.log M / E) ∧
+      ∀ p : ℕ, ∀ [Fact p.Prime], ∀ (ι : ℂ →+* PadicAlgCl p) (b : ℝ), 0 ≤ b →
+        let z := fun i => readAt e q d N P (w i) p
+        (((∀ i χ ψ, ‖ι (tested (α i) (r i) (h i) (z i χ) (z i ψ))‖ ≤ Real.exp b) ∧
+          ∀ U V : Matrix (Fin n) (Fin n) ℂ, (∀ a i, ‖ι (U a i)‖ ≤ 1) →
+            (∀ a i, ‖(ι.comp (starRingEnd ℂ)) (V a i)‖ ≤ 1) →
+            ‖ι (latticeGram α r (fun i => z i 0) U V).det‖ ≤ Real.exp ((n:ℝ)*(auxRank*b))) ↔
+          γ p ≤ b) := by
+  let E := n*auxRank
+  let A := fun i => wheel e q d N P (w i)
+  let L := fun i => payment (α i) (r i) (h i) (A i)
+  let Q := fun i => payment (α i) (r i) 1 (A i)
+  let M := jointDen L Q E
+  have he : 0 < (E:ℝ) := by exact_mod_cast hE
+  constructor
+  · intro T
+    change (∑ p ∈ T, (M.factorization p:ℝ)*Real.log p/E) ≤ _
+    rw [← Finset.sum_div]
+    exact div_le_div_of_nonneg_right (finite_row_budget M T) he.le
+  · intro p _ ι b hb
+    refine (lattice_budget_iff e q d N p hH ι P w α hi r hr h auxRank b).trans ?_
+    have eprod : (n:ℝ)*((auxRank:ℝ)*b) = (E:ℝ)*b := by simp [E, mul_assoc]
+    rw [eprod]
+    refine (sharp_joint_place L Q E p hE b hb).trans ?_
+    rw [div_le_iff₀ he, mul_comm b]
 
 /-- Construct a single summable allowance for the two native tested
 spaces at every prime and embedding. Its independently measured total

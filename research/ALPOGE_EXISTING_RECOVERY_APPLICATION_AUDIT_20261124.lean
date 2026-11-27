@@ -213,6 +213,9 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.lattice_budget_iff
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.finite_row_budget
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.rowLCM_local
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.sharp_joint_place
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.sharp_joint_total
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.native_fit_budget
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_native_allowance
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.singletonOrders_injective
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_read
