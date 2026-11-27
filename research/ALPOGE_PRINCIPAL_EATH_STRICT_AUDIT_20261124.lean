@@ -327,6 +327,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.history_common_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_price_exponent,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.signed_normal_balance,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.marginal_volume,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_volume,
     ``RHLean.Analysis.PrincipalCofactor.odd_quotient_variation,
     ``RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints,
     ``RHLean.Analysis.PrincipalCofactor.quarter_step_price,

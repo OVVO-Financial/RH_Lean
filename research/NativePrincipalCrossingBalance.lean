@@ -483,7 +483,7 @@ def movingExcess (M : ℕ) (a v : ℝ) : ℝ :=
   (∑ p ∈ (retainedFirstPrimes M).filter (fun p : ℕ => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v), Real.log p)-
     (a/v-a/(v+1))
 
-private theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
+theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
     cofactorDiscrepancy M a v-cofactorDiscrepancy M a (v+1) = movingExcess M a v := by
   have lo : a/(v+1) ≤ a/v := div_le_div_of_nonneg_left ha hv (by linarith)
   let P := retainedFirstPrimes M
@@ -597,7 +597,7 @@ private theorem active_at (M : ℕ) {a v : ℝ} (hv : 0 < v) (ht : 0 < a/v) (hm 
   change _+nativeTheta (min M.sqrt j)=nativeTheta j at mass
   linarith only [eq,mass]
 
-private theorem discrepancy_envelope {δ : ℝ} (hδ : 0 < δ) :
+theorem discrepancy_envelope {δ : ℝ} (hδ : 0 < δ) :
     ∃ B : ℝ, 0 ≤ B ∧ ∀ (M : ℕ) (v : ℝ), 2 ≤ M → 1 ≤ v →
       |cofactorDiscrepancy M (evenEndpoint M) v| ≤ δ*M+B+Real.log 4*Real.sqrt M := by
   obtain ⟨C,hC,theta⟩ := theta_envelope hδ

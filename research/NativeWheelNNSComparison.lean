@@ -509,5 +509,81 @@ theorem signed_normal_balance {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D p : Fi
   rw [energy,left,right,pair]
   field_simp [positive.ne']; ring
 
+/-- Marginal volume of a real Euler admission on a block which already has its
+original depths D. In the independently measured layer metric, replacing the
+cardinality of layer i by its product with D_i squared counts exactly the
+old Gram. This comparison works even for a singleton block. -/
+theorem marginal_volume {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D F : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) (hF : ∀ i, 0 < F i)
+    (x : ℝ) (hx : 0 < x) (cap : ∀ i, (F i:ℝ) ≤ x) :
+    (∑ i, Real.log (F i:ℝ)) -
+      (logVolume S (fun i => D i*F i)-logVolume S D) ∈ Set.Icc 0 (Real.log x) := by
+  let s := fun i => (S i).card * D i^2
+  let b := fun i => s i*(F i)^2
+  have positive i : 0 < s i := Nat.mul_pos (hS i).card_pos (pow_pos (hD i) _)
+  have bp i : 0 < b i := Nat.mul_pos (positive i) (pow_pos (hF i) _)
+  have omit (g : Fin (r+1) → ℕ) (hg : ∀ i, 0 < g i) (j : Fin (r+1)) :
+      0 < ∏ i ∈ Finset.univ.erase j, g i := Finset.prod_pos fun i _ => hg i
+  have mp (g : Fin (r+1) → ℕ) (hg : ∀ i, 0 < g i) : 0 < (mass g:ℝ) := by
+    exact_mod_cast (Finset.sum_pos (fun i _ => omit g hg i) Finset.univ_nonempty)
+  let P := ∏ i, (F i:ℝ)
+  have pp : 0 < P := Finset.prod_pos fun i _ => by exact_mod_cast hF i
+  have bounds (j : Fin (r+1)) :
+      (∏ i ∈ Finset.univ.erase j, (b i:ℝ)) ≤ P^2*(∏ i ∈ Finset.univ.erase j, (s i:ℝ)) ∧
+      P^2*(∏ i ∈ Finset.univ.erase j, (s i:ℝ)) ≤ x^2*(∏ i ∈ Finset.univ.erase j, (b i:ℝ)) := by
+    let z := ∏ i ∈ Finset.univ.erase j, (b i:ℝ)
+    have id : P^2*(∏ i ∈ Finset.univ.erase j, (s i:ℝ)) = z*(F j:ℝ)^2 := by
+      dsimp only [P,z,b]
+      simp only [Nat.cast_mul,Nat.cast_pow,Finset.prod_mul_distrib,Finset.prod_pow]
+      rw [← Finset.prod_erase_mul Finset.univ (fun i => (F i:ℝ)) (Finset.mem_univ j)]
+      ring
+    have zp : 0 ≤ z := Finset.prod_nonneg fun i _ => Nat.cast_nonneg _
+    have one : (1:ℝ) ≤ F j := by exact_mod_cast hF j
+    have sq : (1:ℝ) ≤ (F j:ℝ)^2 := by nlinarith only [one,sq_nonneg ((F j:ℝ)-1)]
+    rw [id]
+    exact ⟨le_mul_of_one_le_right zp sq,(mul_le_mul_of_nonneg_left
+      (pow_le_pow_left₀ (Nat.cast_nonneg _) (cap j) 2) zp).trans_eq (mul_comm _ _)⟩
+  have lo : (mass b:ℝ) ≤ P^2*(mass s:ℝ) := by
+    simp only [mass,Nat.cast_sum,Nat.cast_prod,Finset.mul_sum]
+    exact Finset.sum_le_sum fun j _ => (bounds j).1
+  have hi : P^2*(mass s:ℝ) ≤ x^2*(mass b:ℝ) := by
+    simp only [mass,Nat.cast_sum,Nat.cast_prod,Finset.mul_sum]
+    exact Finset.sum_le_sum fun j _ => (bounds j).2
+  have l := Real.log_le_log (mp b bp) lo
+  have u := Real.log_le_log (mul_pos (sq_pos_of_pos pp) (mp s positive)) hi
+  rw [Real.log_mul (sq_pos_of_pos pp).ne' (mp s positive).ne',Real.log_pow] at l u
+  rw [Real.log_mul (sq_pos_of_pos hx).ne' (mp b bp).ne',Real.log_pow] at u
+  have sum : Real.log P = ∑ i, Real.log (F i:ℝ) := Real.log_prod (fun i _ => by exact_mod_cast (hF i).ne')
+  rw [sum] at l u
+  norm_num1 at l u
+  have id : (fun i => (S i).card*(D i*F i)^2)=b := by funext i; dsimp [b,s]; ring
+  dsimp only [logVolume]
+  rw [columns_det S (fun i => D i*F i) hS (fun i => Nat.mul_pos (hD i) (hF i)),
+    columns_det S D hS hD,id]
+  simp only [Int.cast_natCast]
+  change _ - ((Real.log (mass b:ℝ)-_)/2-(Real.log (mass s:ℝ)-_)/2) ∈ _
+  exact ⟨by linarith only [l],by linarith only [u]⟩
+
+/-- One extra prime power precisely on the original recovered interval
+test. The principal log-boundary read lies above this marginal volume;
+its possible excess is at most the log of the largest allowed prime. -/
+theorem interval_volume {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
+    (hp : ∀ i, (p i).Prime) (ha : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
+    (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
+    (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (L U x : ℝ) (hx : 1 ≤ x) (hpx : ∀ i, (p i:ℝ) ≤ x) :
+    let h := fun i => num i/(p i:ℝ)
+    let S := bands h width
+    let F := fun i => if L ≤ (p i:ℝ) ∧ (p i:ℝ) < U then p i else 1
+    (∑ z : Address S, boundaryObs num h width (fun l => Real.log l) z*(intervalTest p L U z.1:ℝ)) -
+      (logVolume S (fun i => D i*F i)-logVolume S D) ∈ Set.Icc 0 (Real.log x) := by
+  intro h S F
+  rw [boundary_against_layers num p (fun i => (hp i).pos) ha width hS (fun l => Real.log l)
+    (fun i => (intervalTest p L U i:ℝ))]
+  have id i : Real.log (p i)*(intervalTest p L U i:ℝ)=Real.log (F i:ℝ) := by
+    by_cases hit : L ≤ (p i:ℝ) ∧ (p i:ℝ) < U <;> simp [intervalTest,F,hit]
+  simp_rw [id]
+  exact marginal_volume S D F hS hD (fun i => by dsimp [F]; split <;> first | exact (hp i).pos | decide)
+    x (zero_lt_one.trans_le hx) (fun i => by dsimp [F]; split <;> first | exact hpx i | exact hx)
+
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
