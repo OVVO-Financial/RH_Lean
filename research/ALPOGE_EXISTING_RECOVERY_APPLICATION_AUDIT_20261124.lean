@@ -301,6 +301,9 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.decode_boundary
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.observed_star
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.boundary_pair
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.admission_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_reads
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.moving_balance
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
 #print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price

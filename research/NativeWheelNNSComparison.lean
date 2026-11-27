@@ -122,8 +122,7 @@ theorem decode_boundary (a : ℝ) (p : ℕ) (hp : 0 < p) (ha : (p:ℝ)*((p:ℝ)+
     nlinarith only [ha]
   have right : a/((p:ℝ)+1) < k := by linarith
   have kpos : (0:ℝ) < k := lt_of_le_of_lt (div_nonneg a0 one.le) right
-  apply Nat.floor_eq_iff (div_nonneg a0 kpos.le) |>.2
-  constructor
+  refine (Nat.floor_eq_iff (div_nonneg a0 kpos.le)).2 ⟨?_, ?_⟩
   · exact (le_div_iff₀ kpos).2 (by simpa [mul_comm] using (le_div_iff₀ pos).1 lo)
   · exact (div_lt_iff₀ kpos).2 (by simpa [mul_comm] using (div_lt_iff₀ one).1 right)
 
@@ -168,6 +167,138 @@ theorem boundary_pair {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) → ℕ)
     have ne : z.val ≠ ⌊h i⌋₊ := fun eq => hz (Subtype.ext eq)
     simp [boundaryObs, ne]
   · simp
+
+
+/-- All original lifts and translates on the actual high-thick prime family.
+The same constructed slot population works for every signed prime test. -/
+theorem highThick_reads (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (x b : ℝ)
+    (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (hx : 1 ≤ x) (hb : 4*x^2 ≤ b)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let P := highThickPrimes e q d x
+    let g := fun p => ((alpogeNativeHostData e q d).frob p).2
+    let V := occupied tops P g
+    let p := primeAt tops P g
+    let num := fun (s : ↥V) i => a (s.val-g (p s i))
+    let cut := fun (s : ↥V) i => num s i/(p s i:ℝ)
+    let c := ⌊Real.sqrt x⌋₊
+    let D := fun (s : ↥V) i => (p s i)^(⌊(c:ℝ)*x⌋₊/(p s i)-c)
+    let width := fun (s : ↥V) (j : ↥(siteRows T n s.val)) => w j.val.1 j.val.2 ((0,1),s.val)
+    ∃ hS : ∀ s j i, (bands (cut s) (width s j) i).Nonempty, ∀ f : ℕ → ℝ,
+      (∑ s : ↥V, ∑ j : ↥(siteRows T n s.val),
+        coDiv (observed (num s) (cut s) (width s j) (hS s j) (D s) f) (.inr false) (.inr true)) =
+        ((T.card*n:ℕ):ℝ)*(tops.card*(∑ l ∈ P, Real.log l*f l)) := by
+  classical
+  intro P g V p num cut c D width
+  have info := highThick_primeAt e q d x tops
+  have height s i := ha _ (info s i).2.2.2.2
+  have hbpos : 0 ≤ b := le_trans (by positivity) hb
+  have bx : x ≤ b := by nlinarith only [hb, hx, sq_nonneg (x-1)]
+  have hS (s : ↥V) (j : ↥(siteRows T n s.val)) (i) : (bands (cut s) (width s j) i).Nonempty := by
+    have wid := hw j.val.1 j.val.2 _ ((siteRows_mem_iff T n s.val j.val).1 j.property)
+    exact (firstPrime_slots e q d _ (p s) (fun i => s.val-g (p s i)) a (w j.val.1 j.val.2)
+      x b hx hb (fun i => (info s i).1) (p s).strictMono (fun i => (info s i).2.2.1)
+      (height s) _ (fun i => (info s i).2.2.2.1) (hbpos.trans wid.1) wid.2 i).2.1
+  refine ⟨hS, fun f => ?_⟩
+  have big (s : ↥V) (i) : (p s i:ℝ)*((p s i:ℝ)+1) ≤ num s i := by
+    have bound : (p s i:ℝ)+1 ≤ x := (info s i).2.2.1
+    exact (mul_le_mul (by linarith : (p s i:ℝ) ≤ x) (bound.trans bx) (by positivity)
+      (zero_le_one.trans hx)).trans (height s i).1
+  have row (s : ↥V) (j : ↥(siteRows T n s.val)) := boundary_pair (num s) (p s)
+    (fun i => (info s i).1.pos) (big s) (width s j) (hS s j) (D s) f
+  simp_rw [show ∀ s j, coDiv (observed (num s) (cut s) (width s j) (hS s j) (D s) f)
+    (.inr false) (.inr true) = ∑ i, Real.log (p s i)*f (p s i) from row]
+  simp only [Finset.sum_const, Finset.card_univ, Fintype.card_coe, siteRows_card, nsmul_eq_mul,
+    ← Finset.mul_sum]
+  exact congrArg (fun z : ℝ => ((T.card*n:ℕ):ℝ)*z) (primeAt_sum tops P g (fun l => Real.log l*f l))
+
+/-- Use the same physical test at every translate to recover the part of a
+moving interval served by the wheel. The remaining prime log mass and the
+full interval length are explicit, including both endpoint conventions. -/
+theorem moving_balance (P : Finset ℕ) (M : ℕ) (a v : ℝ) :
+    let R := PrincipalCofactor.retainedFirstPrimes M
+    let hit := fun p : ℕ => p ∈ R ∧ a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v
+    PrincipalCofactor.movingExcess M a v =
+      (∑ p ∈ P, Real.log p * (if hit p then 1 else 0)) +
+      (∑ p ∈ (R.filter (fun p : ℕ => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v)) \ P, Real.log p) -
+      (a/v-a/(v+1)) := by
+  classical
+  intro R hit
+  let U := R.filter (fun p : ℕ => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v)
+  have eq : (∑ p ∈ P, Real.log p*(if hit p then 1 else 0)) = ∑ p ∈ U ∩ P, Real.log p := by
+    rw [Finset.inter_comm, ← Finset.filter_mem_eq_inter]
+    simp only [Finset.sum_filter]
+    apply Finset.sum_congr rfl
+    intro p _
+    by_cases h : hit p
+    · have mem : p ∈ U := Finset.mem_filter.mpr h
+      simp [h,mem]
+    · have mem : p ∉ U := fun hp => h (Finset.mem_filter.mp hp)
+      simp [h,mem]
+  have rest : U \ (U ∩ P) = U \ P := by ext p; simp only [Finset.mem_sdiff, Finset.mem_inter]; tauto
+  have all := Finset.sum_sdiff (f := fun p : ℕ => Real.log p) (show U ∩ P ⊆ U from Finset.inter_subset_left)
+  rw [rest] at all
+  change (∑ p ∈ U, Real.log p)-(a/v-a/(v+1)) = _
+  rw [eq, add_comm, all]
+
+/-- Partition the original parent interval at the upper slot of an admitted
+prime. Both children retain their actual quotient coordinates. -/
+abbrev SplitSlots (l c u : ℕ) := (↥(Finset.Ioc l c)) ⊕ (↥(Finset.Ioc c u))
+
+def splitAddress (l c u : ℕ) (hl : l ≤ c) (hu : c ≤ u) : SplitSlots l c u ≃ ↥(Finset.Ioc l u) where
+  toFun z := match z with
+    | .inl k => ⟨k.val, Finset.mem_Ioc.mpr ⟨(Finset.mem_Ioc.mp k.property).1,
+      (Finset.mem_Ioc.mp k.property).2.trans hu⟩⟩
+    | .inr k => ⟨k.val, Finset.mem_Ioc.mpr ⟨hl.trans_lt (Finset.mem_Ioc.mp k.property).1,
+      (Finset.mem_Ioc.mp k.property).2⟩⟩
+  invFun k := if h : k.val ≤ c then .inl ⟨k.val, Finset.mem_Ioc.mpr ⟨(Finset.mem_Ioc.mp k.property).1,h⟩⟩
+    else .inr ⟨k.val, Finset.mem_Ioc.mpr ⟨lt_of_not_ge h,(Finset.mem_Ioc.mp k.property).2⟩⟩
+  left_inv z := by
+    cases z with
+    | inl k => simp [(Finset.mem_Ioc.mp k.property).2]
+    | inr k => simp [not_le.mpr (Finset.mem_Ioc.mp k.property).1]
+  right_inv k := by split <;> rfl
+
+/-- The anchor is constant on the parent. The recovered jump is multiplied by
+the original Euler power on the upper child. -/
+def splitColumns (l c u d : ℕ) : Matrix (SplitSlots l c u) Bool ℝ :=
+  fun z b => if b then z.elim (fun _ => 0) (fun _ => (d:ℝ)) else 1
+
+private theorem split_entries (l c u d : ℕ) :
+    let G := coDiv (splitColumns l c u d)
+    let L : ℝ := (c-l:ℕ)
+    let R : ℝ := (u-c:ℕ)
+    G false false = L+R ∧ G false true = R*d ∧ G true true = R*(d:ℝ)^2 := by
+  intro G L R
+  simp [G, L, R, coDiv_eq, Matrix.mul_apply, splitColumns, Fintype.sum_sum_type, pow_two, mul_assoc]
+
+/-- Complete one-admission price on a changing mask. The determinant is in the
+parent counting metric. The Schur pivot removes the retained anchor only over
+the reals. The integral index is computed before any such orthogonalization. -/
+theorem admission_price (a : ℝ) (p e l u : ℕ) (hp : p.Prime)
+    (hl : l < ⌊a/(p:ℝ)⌋₊) (hu : ⌊a/(p:ℝ)⌋₊ < u) :
+    let c := ⌊a/(p:ℝ)⌋₊
+    let d := p^e
+    let L : ℝ := (c-l:ℕ)
+    let R : ℝ := (u-c:ℕ)
+    let G := coDiv (slotInclusion (splitAddress l c u hl.le hu.le).toEmbedding * splitColumns l c u d)
+    G false true = R*d ∧
+    G true true - G false true^2/G false false = (d:ℝ)^2*L*R/(L+R) ∧
+    G false false*G true true - G false true^2 = (d:ℝ)^2*L*R ∧
+    (anchoredRecovery (fun _ : Fin 1 => (d:ℤ))).toAddMonoidHom.range.index = d := by
+  intro c d L R G
+  have pos : 0 < L+R := add_pos (by exact_mod_cast Nat.sub_pos_of_lt hl) (by exact_mod_cast Nat.sub_pos_of_lt hu)
+  have ident : G = coDiv (splitColumns l c u d) := insert_gram _ _
+  obtain ⟨h0,h1,h2⟩ := split_entries l c u d
+  change (coDiv (splitColumns l c u d)) false false = L+R at h0
+  change (coDiv (splitColumns l c u d)) false true = R*d at h1
+  change (coDiv (splitColumns l c u d)) true true = R*(d:ℝ)^2 at h2
+  rw [ident, h0, h1, h2]
+  refine ⟨rfl, ?_, by ring, ?_⟩
+  · field_simp [pos.ne'] <;> ring
+  · simpa using (anchoredRecovery_index (fun _ : Fin 1 => d) (fun _ => pow_pos hp.pos e)).2
 
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
