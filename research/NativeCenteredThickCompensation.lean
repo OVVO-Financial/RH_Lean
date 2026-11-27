@@ -459,6 +459,41 @@ theorem centered_thick_history (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
     C+PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/500+(53*Real.log 4+106+8/ε+B+A)*x^β
   constructor <;> linarith only [measuredHistory,(abs_le.mp measuredHistory).2,interior ⌊x⌋₊,base,hA]
 
+/-- The measured signed deficit with all fine crossing cells paid together
+and both of their physical endpoints retained. -/
+theorem centered_thick_quarter (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
+    ∃ K : ℝ, 0 < K ∧ ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+      {Y Z : ℝ} (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (TT T : Finset (AlpogeNativeDyadicH e))
+      (a : AlpogeNativeDyadicH e → ℝ) (η : ℝ)
+      (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+      let b := Real.exp (x^ε)
+      let D := alpogeNativeHostData e q d
+      let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+      let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
+      let Hc := centeredThick F TT T a v/alpogeNativeProjectionDivisor TT T n b
+      let high := roundedHighASK e q d n TT T a b x η w
+      let C := highComplement e q d n TT T a x w
+      TT.Nonempty → T.Nonempty → 0 < n → 0 < η → η ≤ 1/Real.sqrt x →
+      x^(-(ε/8))*(Fintype.card (AlpogeNativeDyadicH e):ℝ)/2 ≤ TT.card →
+      (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) → (∀ t ∈ TT, a t/b ∈ Set.Icc Y Z) →
+      (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
+      |Hc-high-C-PrincipalCofactor.quarterHistory ⌊x⌋₊| ≤ K*x^((1:ℝ)/2+9*ε/8) := by
+  obtain ⟨A,hA,data⟩ := centered_thick_history ε he he1
+  obtain ⟨B,hB,cost⟩ := PrincipalCofactor.quarter_history_price
+  refine ⟨A+B,by positivity,?_⟩
+  filter_upwards [data,eventually_ge_atTop (1:ℝ)] with x frame hx
+  intro e q d n _ _ Y Z pair TT T a η w b D F v Hc high C htt ht hn hη grid density ha win hw
+  let β := (1:ℝ)/2+9*ε/8
+  have prev := (frame e q d n pair TT T a η w htt ht hn hη grid density ha win hw).1
+  change |Hc-high-C-PrincipalCofactor.firstPrimeHistory ⌊x⌋₊| ≤ A*x^β at prev
+  have root : Real.sqrt (⌊x⌋₊:ℝ) ≤ x^β := by
+    refine (Real.sqrt_le_sqrt (Nat.floor_le (zero_le_one.trans hx))).trans ?_
+    rw [Real.sqrt_eq_rpow]
+    exact Real.rpow_le_rpow_of_exponent_le hx (by dsimp only [β]; linarith)
+  exact (abs_sub_le _ (PrincipalCofactor.firstPrimeHistory ⌊x⌋₊) _).trans (by
+    change _ ≤ (A+B)*x^β
+    linarith only [prev,cost ⌊x⌋₊,mul_le_mul_of_nonneg_left root hB])
+
 /-- At the original finite cutoff the centered thin term has its own MAIN.
 The bound is simultaneous in every cutoff. Host size and conductor are
 supplied at this anchor by the original PageN and the selected pair. -/

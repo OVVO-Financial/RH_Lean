@@ -287,7 +287,14 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.cofactor_second_difference
 #print axioms RHLean.Analysis.PrincipalCofactor.weighted_cell_eq
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_crossing_price
+#print axioms RHLean.Analysis.PrincipalCofactor.all_cells_eq
+#print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
+#print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
+#print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price
+#print axioms RHLean.Analysis.PrincipalCofactor.quarter_history_price
+#print axioms RHLean.Analysis.PrincipalCofactor.real_quarter_history_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_quarter
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image

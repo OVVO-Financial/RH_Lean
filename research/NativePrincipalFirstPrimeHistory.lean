@@ -67,17 +67,17 @@ theorem scaled_firstPrimeValue (M : ℕ) {a d : ℝ} (ha : 0 < a) (hd : 0 < d) :
   have atom (p : ℕ) : d*(Real.log p * max (a/d/p-1) 0) = Real.log p * max (a/p-d) 0 := by
     have da : d*(a/d) = a := by field_simp
     rw [mul_left_comm, mul_max_of_nonneg _ _ hd.le, mul_zero, mul_sub, ← mul_div_assoc, da, mul_one]
-  unfold firstPrimeValue
   let P := (Finset.Icc 1 M).filter (kept M)
+  let s := ∑ i ∈ Finset.Icc 1 M, removed M i/i
   have sum := Finset.sum_congr (s₁ := P) rfl (fun p _ => atom p)
   rw [← Finset.mul_sum] at sum
+  change d*((∑ p ∈ P, Real.log p*max (a/d/p-1) 0)+(a/d)*s-
+    (a/d)*Real.log (a/d)+(1+Real.eulerMascheroniConstant)*(a/d)) =
+    (∑ p ∈ P, Real.log p*max (a/p-d) 0)+a*Real.log d+
+    a*(s+1+Real.eulerMascheroniConstant-Real.log a)
   rw [Real.log_div ha.ne' hd.ne']
-  dsimp only [P, kept] at sum
-  dsimp only [removed, kept]
   have da : d*(a/d) = a := by field_simp
-  linear_combination sum + ((∑ i ∈ Finset.Icc 1 M,
-    (if i.Prime ∧ M.sqrt < i then 0 else (Λ i : ℝ))/i) -
-    (Real.log a-Real.log d)+(1+Real.eulerMascheroniConstant))*da
+  linear_combination sum + (s-(Real.log a-Real.log d)+(1+Real.eulerMascheroniConstant))*da
 
 private def clip (M : ℕ) (t : ℝ) : ℝ :=
   ∑ i ∈ Finset.Icc 1 M, removed M i*min (t/i) 1
@@ -473,5 +473,70 @@ theorem firstPrime_history_signed_gain :
       have floorBill : (M:ℝ) ≤ 2*((M/2:ℕ):ℝ)+1 := by exact_mod_cast (show M ≤ 2*(M/2)+1 by omega)
       have size : (80:ℝ) ≤ M := by exact_mod_cast large
       linarith only [hL M ((le_max_left L 80).trans hA),ih (M/2) (by omega),floorBill,size]
+
+private theorem principal_move {z y : ℝ} (hz : 1 ≤ z) (hzy : z ≤ y) :
+    |alpogeNativeGzArithmetic y-alpogeNativeGzArithmetic z| ≤ alpogeNativeMoveConstant*(y-z) := by
+  have walk (j : ℕ) : ∀ z y : ℝ, 1 ≤ z → z ≤ y → y ≤ z+j →
+      |alpogeNativeGzArithmetic y-alpogeNativeGzArithmetic z| ≤ alpogeNativeMoveConstant*(y-z) := by
+    induction j with
+    | zero =>
+      intro z y _ lo hi
+      have e : y=z := le_antisymm (by simpa using hi) lo
+      simp [e]
+    | succ j ih =>
+      intro z y one lo hi
+      by_cases h : y ≤ z+1
+      · exact alpogeNativeGzArithmetic_sub_abs_le_of_le y z one lo h
+      · push_cast at hi
+        have left := alpogeNativeGzArithmetic_sub_abs_le_of_le (z+1) z one (by linarith) le_rfl
+        have right := ih (z+1) y (by linarith) (by linarith) (by linarith)
+        exact (abs_sub_le _ (alpogeNativeGzArithmetic (z+1)) _).trans (by linarith only [left,right])
+  exact walk ⌈y-z⌉₊ z y hz hzy (by linarith only [Nat.le_ceil (y-z)])
+
+/-- Variation along consecutive odd quotients. The signed principal response
+costs at most its total physical length. All clipped prime powers together
+have monotone variation bounded once at the original scale. -/
+theorem odd_quotient_variation :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ (M K R : ℕ) (a : ℝ), 1 ≤ M → 0 ≤ a → a ≤ M → K ≤ R →
+      1 ≤ a/(2*(R:ℝ)+1) →
+      let v (k : ℕ) := firstPrimeValue M (a/(2*(k:ℝ)+1))
+      ∑ k ∈ Finset.Ico K R, |v k-v (k+1)| ≤ alpogeNativeMoveConstant*(a/(2*(K:ℝ)+1))+B*Real.sqrt M := by
+  obtain ⟨B,hB,cap⟩ := removed_mass
+  refine ⟨B,hB,?_⟩
+  intro M K R a hM ha top kr one v
+  let t (k : ℕ) := a/(2*(k:ℝ)+1)
+  have ord : Antitone t := by
+    intro i j h
+    have hh : (i:ℝ) ≤ j := by exact_mod_cast h
+    exact div_le_div_of_nonneg_left ha (by positivity) (by linarith)
+  have below (k : ℕ) : t k ≤ M :=
+    (div_le_self ha (by linarith only [Nat.cast_nonneg (α := ℝ) k] : (1:ℝ) ≤ 2*k+1)).trans top
+  let s (k : ℕ) := alpogeNativeMoveConstant*t k+clip M (t k)
+  have bound (k : ℕ) (hk : k < R) : |v k-v (k+1)| ≤ s k-s (k+1) := by
+    have o := ord (Nat.le_succ k)
+    have l : 1 ≤ t (k+1) := one.trans (ord hk)
+    change |firstPrimeValue M (t k)-firstPrimeValue M (t (k+1))| ≤ _
+    rw [physical M _ (by dsimp [t]; positivity) (below k),
+      physical M _ (by dsimp [t]; positivity) (below (k+1)),
+      show alpogeNativeGzArithmetic (t k)+clip M (t k)-
+        (alpogeNativeGzArithmetic (t (k+1))+clip M (t (k+1))) =
+        (alpogeNativeGzArithmetic (t k)-alpogeNativeGzArithmetic (t (k+1)))+
+        (clip M (t k)-clip M (t (k+1))) by ring]
+    have add := abs_add_le (alpogeNativeGzArithmetic (t k)-alpogeNativeGzArithmetic (t (k+1)))
+      (clip M (t k)-clip M (t (k+1)))
+    rw [abs_of_nonneg (sub_nonneg.mpr (clip_mono M o))] at add
+    dsimp only [s]
+    linarith only [add,principal_move l o]
+  have tel (r : ℕ) (hr : K ≤ r) : ∑ k ∈ Finset.Ico K r, (s k-s (k+1)) = s K-s r := by
+    induction r, hr using Nat.le_induction with
+    | base => simp
+    | succ r hr ih => rw [Finset.sum_Ico_succ_top hr, ih]; ring
+  refine (Finset.sum_le_sum fun k hk => bound k (Finset.mem_Ico.mp hk).2).trans ?_
+  rw [tel R kr]
+  have nonneg (k : ℕ) : 0 ≤ t k := div_nonneg ha (by positivity)
+  have b := ((clip_bounds M (nonneg K)).2).trans (cap M hM)
+  dsimp only [s]
+  linarith only [b,(clip_bounds M (nonneg R)).1,
+    mul_nonneg alpogeNativeMoveConstant_nonneg (nonneg R)]
 
 end RHLean.Analysis.PrincipalCofactor
