@@ -276,6 +276,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_measured,
     ``RHLean.Analysis.PrincipalCofactor.trace_eq,
     ``RHLean.Analysis.PrincipalCofactor.trace_dilation,
+    ``RHLean.Analysis.PrincipalCofactor.paired_tail,
+    ``RHLean.Analysis.PrincipalCofactor.real_principal_children,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image,

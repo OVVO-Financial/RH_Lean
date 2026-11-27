@@ -75,7 +75,9 @@ private theorem log_drift {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) :
     | base => simp
     | succ b hb ih => linarith only [ih, nativeLogRecipDefect_succ_sub_ge b (hA.trans hb)]
   rw [abs_of_nonpos (sub_nonpos.mpr (nativeLogRecipDefect_antitone_three hA hAB))]
-  linarith only [low, div_nonneg (Real.log_nonneg (by exact_mod_cast (show 1 ≤ B by omega))) (Nat.cast_nonneg B)]
+  have pos : 0 ≤ Real.log (B:ℝ)/B :=
+    div_nonneg (Real.log_nonneg (by exact_mod_cast (show 1 ≤ B by omega))) (Nat.cast_nonneg B)
+  linarith only [low,pos]
 
 private theorem trace_center (N : ℕ) (hN : 1 ≤ N) :
     |trace N-(N:ℝ)*(1+Real.eulerMascheroniConstant+Real.eulerMascheroniConstant^2+2*nativeLogRecipDefect N)| ≤
@@ -128,9 +130,145 @@ theorem trace_dilation (m N : ℕ) (hm : 1 ≤ m) (hN : 3 ≤ N) :
   calc
     _ ≤ (|trace (m*N)-((m*N:ℕ):ℝ)*c (m*N)| + |(m:ℝ)*(trace N-(N:ℝ)*c N)|) +
         |(2*(m:ℝ)*N)*(nativeLogRecipDefect (m*N)-nativeLogRecipDefect N)| :=
-      (abs_add_le ..).trans (add_le_add_right (abs_sub _ _) _)
+      (abs_add_le ..).trans (add_le_add (abs_sub _ _) le_rfl)
     _ ≤ _ := by
-      rw [abs_mul,abs_mul,abs_of_nonneg (Nat.cast_nonneg m),abs_of_nonneg (by positivity : 0 ≤ 2*(m:ℝ)*N)]
+      simp only [abs_mul, abs_of_nonneg (Nat.cast_nonneg (α := ℝ) m),
+        abs_of_nonneg (Nat.cast_nonneg (α := ℝ) N), abs_of_nonneg (by norm_num : (0:ℝ) ≤ 2)]
       linarith only [hhigh,mul_le_mul_of_nonneg_left hlow (Nat.cast_nonneg m),drift]
+
+/-- Difference on the adjacent odd and even cofactor at the same endpoint. -/
+def pairTerm (N k : ℕ) : ℝ :=
+  alpogeNativeGzArithmetic (2*(N:ℝ)/(2*(k:ℝ)+1)) -
+    alpogeNativeGzArithmetic (2*(N:ℝ)/(2*(k:ℝ)+2))
+
+private theorem dyadic_pairs (N : ℕ) :
+    trace (2*N)-2*trace N = ∑ k ∈ Finset.range N, pairTerm N k := by
+  have twice (f : ℕ → ℝ) (b : ℕ) :
+      ∑ d ∈ Finset.Icc 1 (2*b), f d = ∑ k ∈ Finset.range b, (f (2*k+1)+f (2*k+2)) := by
+    induction b with
+    | zero => simp
+    | succ b ih =>
+      rw [show 2*(b+1)=2*b+1+1 by omega, Finset.sum_Icc_succ_top (by omega),
+        Finset.sum_Icc_succ_top (by omega), ih, Finset.sum_range_succ]
+      ring
+  have shift (f : ℕ → ℝ) (b : ℕ) : ∑ d ∈ Finset.Icc 1 b, f d = ∑ k ∈ Finset.range b, f (k+1) := by
+    induction b with
+    | zero => simp
+    | succ b ih => rw [Finset.sum_Icc_succ_top (by omega), ih, Finset.sum_range_succ]
+  unfold trace
+  rw [twice, shift, Finset.mul_sum, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro k _
+  dsimp only [pairTerm]
+  push_cast
+  have evenRatio : 2*(N:ℝ)/(2*(k:ℝ)+2) = (N:ℝ)/(k+1) := by
+    rw [show 2*(k:ℝ)+2 = 2*(k+1) by ring, mul_div_mul_left _ _ (by norm_num : (2:ℝ) ≠ 0)]
+  rw [evenRatio]
+  ring
+
+/-- The complete tail of adjacent cofactor pairs costs at most the length of
+their disjoint quotient intervals times the native movement constant. -/
+theorem paired_tail (N R : ℕ) (hR : R ≤ N)
+    (room : 2*(N:ℝ) ≤ (2*(R:ℝ)+1)*(2*(R:ℝ)+2)) :
+    |∑ k ∈ Finset.Ico R N, pairTerm N k| ≤ alpogeNativeMoveConstant * (2*(N:ℝ)/(2*R+1)) := by
+  let u (k : ℕ) := 2*(N:ℝ)/(2*(k:ℝ)+1)
+  let v (k : ℕ) := 2*(N:ℝ)/(2*(k:ℝ)+2)
+  have point (k : ℕ) (hk : k ∈ Finset.Ico R N) :
+      |pairTerm N k| ≤ alpogeNativeMoveConstant * (u k-u (k+1)) := by
+    obtain ⟨hrk,hkn⟩ := Finset.mem_Ico.mp hk
+    have hr : (R:ℝ) ≤ k := by exact_mod_cast hrk
+    have hkn' : (k:ℝ)+1 ≤ N := by exact_mod_cast hkn
+    have dk : (0:ℝ) < 2*k+1 := by positivity
+    have ek : (0:ℝ) < 2*k+2 := by positivity
+    have vu : v k ≤ u k := div_le_div_of_nonneg_left (by positivity) dk (by linarith only)
+    have next : u (k+1) ≤ v k := by
+      dsimp only [u,v]
+      push_cast
+      exact div_le_div_of_nonneg_left (by positivity) ek (by linarith only)
+    have len : u k-v k = 2*(N:ℝ)/((2*k+1)*(2*k+2)) := by
+      dsimp only [u,v]
+      field_simp [dk.ne', ek.ne']
+      <;> ring
+    have prod := mul_le_mul (show 2*(R:ℝ)+1 ≤ 2*k+1 by linarith)
+      (show 2*(R:ℝ)+2 ≤ 2*k+2 by linarith) (by positivity) dk.le
+    have unit : u k-v k ≤ 1 := by
+      rw [len]
+      exact (div_le_one (mul_pos dk ek)).2 (room.trans prod)
+    have one : 1 ≤ v k := (one_le_div ek).2 (by linarith)
+    exact (alpogeNativeGzArithmetic_sub_abs_le_of_le (u k) (v k) one vu (by linarith)).trans
+      (mul_le_mul_of_nonneg_left (by linarith only [next]) alpogeNativeMoveConstant_nonneg)
+  have tel (b : ℕ) (hb : R ≤ b) : ∑ k ∈ Finset.Ico R b, (u k-u (k+1)) = u R-u b := by
+    induction b, hb using Nat.le_induction with
+    | base => simp
+    | succ b hb ih => rw [Finset.sum_Ico_succ_top hb, ih]; ring
+  calc
+    _ ≤ ∑ k ∈ Finset.Ico R N, |pairTerm N k| := Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ k ∈ Finset.Ico R N, alpogeNativeMoveConstant*(u k-u (k+1)) := Finset.sum_le_sum point
+    _ = alpogeNativeMoveConstant*(u R-u N) := by rw [← Finset.mul_sum, tel N hR]
+    _ ≤ _ := mul_le_mul_of_nonneg_left (sub_le_self _ (by dsimp [u]; positivity)) alpogeNativeMoveConstant_nonneg
+
+/-- The signed children other than the parent cofactor. -/
+def signedChildren (N R : ℕ) : ℝ :=
+  alpogeNativeGzArithmetic N - ∑ k ∈ Finset.Ico 1 R, pairTerm N k
+
+private theorem parent (N R : ℕ) (hN : 3 ≤ N) (h₁ : 1 ≤ R) (hR : R ≤ N)
+    (room : 2*(N:ℝ) ≤ (2*(R:ℝ)+1)*(2*(R:ℝ)+2)) :
+    |alpogeNativeGzArithmetic (2*(N:ℝ))-signedChildren N R| ≤
+      (3+2*Real.log (2*N:ℕ)+2*(3+4*Real.log N)) + alpogeNativeMoveConstant*(2*(N:ℝ)/(2*R+1)) := by
+  have full := dyadic_pairs N
+  have split : (∑ k ∈ Finset.range N, pairTerm N k) =
+      pairTerm N 0 + (∑ k ∈ Finset.Ico 1 R, pairTerm N k) + ∑ k ∈ Finset.Ico R N, pairTerm N k := by
+    rw [← Finset.sum_range_add_sum_Ico _ hR, ← Finset.sum_range_add_sum_Ico _ h₁]
+    simp
+  have zero : pairTerm N 0 = alpogeNativeGzArithmetic (2*(N:ℝ))-alpogeNativeGzArithmetic N := by
+    simp [pairTerm]
+  rw [split, zero] at full
+  have id : alpogeNativeGzArithmetic (2*(N:ℝ))-signedChildren N R =
+      (trace (2*N)-2*trace N)-(∑ k ∈ Finset.Ico R N, pairTerm N k) := by
+    dsimp only [signedChildren]
+    linarith only [full]
+  rw [id]
+  exact (abs_sub _ _).trans (add_le_add (by exact_mod_cast trace_dilation 2 N (by decide) hN) (paired_tail N R hR room))
+
+/-- On every real anchor the independently evaluated trace and all pairs
+past the square-root cutoff have an explicit total price, with no assumption
+on principal responses at the retained quotient arguments. -/
+theorem real_principal_children (x : ℝ) (hx : 16 ≤ x) :
+    let N := ⌊x/2⌋₊
+    let R := ⌈Real.sqrt x⌉₊
+    |alpogeNativeGzArithmetic x-signedChildren N R| ≤
+      9+10*Real.log x+alpogeNativeMoveConstant*(2+Real.sqrt x) := by
+  intro N R
+  have hx0 : 0 < x := by linarith
+  have hnlo : (N:ℝ) ≤ x/2 := Nat.floor_le (by linarith)
+  have hnhi : x/2 < (N:ℝ)+1 := Nat.lt_floor_add_one _
+  have hn3 : (3:ℝ) ≤ N := by linarith
+  have hN : 3 ≤ N := by exact_mod_cast hn3
+  have hr0 : 0 ≤ Real.sqrt x := Real.sqrt_nonneg _
+  have hr4 : 4 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+  have hrN : Real.sqrt x ≤ N := by
+    nlinarith only [Real.sq_sqrt hx0.le, mul_nonneg hr0 (sub_nonneg.mpr hr4), hnhi, hx]
+  have hR : R ≤ N := Nat.ceil_le.mpr hrN
+  have hr : Real.sqrt x ≤ (R:ℝ) := Nat.le_ceil _
+  have h₁ : 1 ≤ R := by exact_mod_cast (show (1:ℝ) ≤ R by linarith)
+  have room : 2*(N:ℝ) ≤ (2*(R:ℝ)+1)*(2*(R:ℝ)+2) := by
+    nlinarith only [hnlo, Real.sq_sqrt hx0.le, pow_le_pow_left₀ hr0 hr 2,
+      Nat.cast_nonneg (α := ℝ) R, sq_nonneg (R:ℝ)]
+  have width : 2*(N:ℝ)/(2*R+1) ≤ Real.sqrt x := (div_le_iff₀ (by positivity)).2 (by
+    nlinarith only [hnlo,Real.sq_sqrt hx0.le, mul_le_mul_of_nonneg_left hr hr0,hr0])
+  have ell : Real.log (2*N:ℕ) ≤ Real.log x := Real.log_le_log (by positivity)
+    (by push_cast; linarith)
+  have en : Real.log (N:ℝ) ≤ Real.log x := Real.log_le_log (by linarith) (by linarith)
+  let t := (x+2*(N:ℝ))/2
+  have l := alpogeNativeGzArithmetic_sub_abs_le_of_le t (2*N) (by linarith)
+    (by dsimp [t]; linarith) (by dsimp [t]; linarith)
+  have u := alpogeNativeGzArithmetic_sub_abs_le_of_le x t (by dsimp [t]; linarith)
+    (by dsimp [t]; linarith) (by dsimp [t]; linarith)
+  have mv := (abs_sub_le (alpogeNativeGzArithmetic x) (alpogeNativeGzArithmetic t) (alpogeNativeGzArithmetic (2*N))).trans (add_le_add u l)
+  have p := parent N R hN h₁ hR room
+  refine (abs_sub_le _ (alpogeNativeGzArithmetic (2*(N:ℝ))) _).trans ?_
+  dsimp only [t] at mv
+  linarith only [p,mv,ell,en, mul_le_mul_of_nonneg_left width alpogeNativeMoveConstant_nonneg,
+    mul_le_mul_of_nonneg_left (show x-2*(N:ℝ) ≤ 2 by linarith) alpogeNativeMoveConstant_nonneg]
 
 end RHLean.Analysis.PrincipalCofactor
