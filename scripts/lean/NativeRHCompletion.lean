@@ -24,13 +24,53 @@ private def WindowClaim : Prop := ∃ K ε₁ : ℝ, 0 < ε₁ ∧ SmallEpsilonW
 private def PositiveWindowClaim : Prop :=
   ∃ K ε₁ : ℝ, 0 < K ∧ 0 < ε₁ ∧ SmallEpsilonWindowBound K ε₁
 
-private theorem fromWindow (h : WindowClaim) : RiemannHypothesis := by
-  obtain ⟨_, _, he, bound⟩ := h
-  exact riemannHypothesis_of_smallEpsilonWindowBound he bound
+private theorem positiveWindow (h : WindowClaim) : PositiveWindowClaim := by
+  obtain ⟨K, ε₁, he, bound⟩ := h
+  refine ⟨max K 1, ε₁, zero_lt_one.trans_le (le_max_right _ _), he, ?_⟩
+  intro ε hε he₁
+  obtain ⟨C, hc⟩ := bound ε hε he₁
+  refine ⟨|C|, fun Y₀ => ?_⟩
+  obtain ⟨Y, hY, hw⟩ := hc (max Y₀ 1)
+  refine ⟨Y, (le_max_left _ _).trans hY, ?_⟩
+  intro y hy
+  have hy₁ : 1 ≤ y := (le_max_right _ _).trans (hY.trans hy.1)
+  exact (hw y hy).trans (mul_le_mul (le_abs_self C)
+    (Real.rpow_le_rpow_of_exponent_le hy₁ (add_le_add le_rfl
+      (mul_le_mul_of_nonneg_right (le_max_left _ _) hε.le)))
+    (Real.rpow_nonneg (zero_le_one.trans hy₁) _) (abs_nonneg C))
 
 private theorem fromPositiveWindow (h : PositiveWindowClaim) : RiemannHypothesis := by
   obtain ⟨_, _, _, he, bound⟩ := h
   exact riemannHypothesis_of_smallEpsilonWindowBound he bound
+
+private theorem fromWindow (h : WindowClaim) : RiemannHypothesis :=
+  fromPositiveWindow (positiveWindow h)
+
+-- Predicate signatures from the pinned compact Statements.lean. Comparing
+-- the types also catches an imported terminal proof with a different name.
+private def Nonvanishing : Prop :=
+  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),
+    1 / 2 < s.re → (χ ≠ 1 ∨ s ≠ 1) → DirichletCharacter.LFunction χ s ≠ 0
+
+private def ZerosOnLine : Prop :=
+  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (s : ℂ),
+    0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2
+
+private def PrimitiveZerosOnLine : Prop :=
+  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsPrimitive →
+    ∀ s : ℂ, 0 < s.re → s.re < 1 → DirichletCharacter.LFunction χ s = 0 → s.re = 1 / 2
+
+private def endpointType (t : Expr) : MetaM Bool := do
+  if !(← isProp t) then return false
+  for target in #[`RiemannHypothesis, ``Nonvanishing, ``ZerosOnLine, ``PrimitiveZerosOnLine] do
+    if ← withNewMCtxDepth <| isDefEq t (mkConst target) then return true
+  return false
+
+private partial def expandedEndpoint (t : Expr) : MetaM Bool := do
+  if ← endpointType t then return true
+  if let .forallE n dom body bi := t then
+    return ← withLocalDecl n bi dom fun x => expandedEndpoint (body.instantiate1 x)
+  return false
 
 private def moduleOf (env : Environment) (n : Name) : Option Name := do
   let i ← env.getModuleIdxFor? n
@@ -66,10 +106,12 @@ private def returnsEndpoint (env : Environment) (c : ConstantInfo) : MetaM Bool 
   let body := c.type.getForallBody
   if let some n := body.getAppFn.constName? then
     if terminalPredicate n then return true
-    -- Catch reducible endpoint aliases, including aliases with unrelated names.
+  let refs := c.type.getUsedConstants
+  if refs.contains `riemannZeta || refs.contains `DirichletCharacter.LFunction then
+    return ← expandedEndpoint c.type
+  if let some n := body.getAppFn.constName? then
     if let some (.defnInfo _) := env.find? n then
-      if !body.hasLooseBVars then
-        return ← withNewMCtxDepth <| isDefEq body (mkConst `RiemannHypothesis)
+      return ← forallTelescope c.type fun _ residual => endpointType residual
   return false
 
 private def audit (env : Environment) : CommandElabM Unit := do
@@ -77,8 +119,18 @@ private def audit (env : Environment) : CommandElabM Unit := do
   let handoff := `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound
   unless moduleOf env `RiemannHypothesis == some `Mathlib.NumberTheory.LSeries.RiemannZeta do
     throwError "unexpected provenance for Mathlib RiemannHypothesis"
-  let some (.thmInfo thm) := env.checked.get.find? root |
+  let some consumer := env.checked.get.find? handoff | throwError "missing production #1205 handoff"
+  unless consumer.type.isForall && (← liftTermElabM <| returnsEndpoint env consumer) do
+    throwError "unexpected #1205 handoff type"
+  let handoffCone ← match kernelClosure env [handoff] with
+    | .ok ns => pure ns
+    | .error err => throwError "incomplete #1205 kernel closure: {err}"
+  unless handoffCone.contains `riemannZeta && handoffCone.contains ``statementOCGz do
+    throwError "incomplete #1205 arithmetic and zeta provenance"
+  logInfo m!"#1205 conditional handoff audit traversed {handoffCone.size} kernel declarations"
+  let some candidate := env.checked.get.find? root |
     throwError "NATIVE_RH_MISSING: production theorem native_riemannHypothesis is absent"
+  let .thmInfo thm := candidate | throwError "NATIVE_RH_TYPE: expected a theorem declaration"
   unless thm.type == mkConst `RiemannHypothesis && thm.levelParams.isEmpty do
     throwError "NATIVE_RH_TYPE: expected exactly the closed, literal Mathlib RiemannHypothesis"
   let some rootModule := moduleOf env root | throwError "terminal theorem has no imported module"
@@ -132,11 +184,17 @@ private def audit (env : Environment) : CommandElabM Unit := do
   let some wc := env.checked.get.find? w | throwError "window theorem disappeared"
   let plain ← liftTermElabM <| withNewMCtxDepth <| isDefEq wc.type (mkConst ``WindowClaim)
   let replay := mkApp (mkConst (if plain then ``fromWindow else ``fromPositiveWindow)) (mkConst w)
-  liftCoreM <| addDecl (.thmDecl { name := `NativeRHCompletionAudit.replayedHandoff,
-    levelParams := [], type := mkConst `RiemannHypothesis, value := replay })
+  let checkedProof : TheoremVal := {
+    name := `NativeRHCompletionAudit.replayedHandoff
+    levelParams := []
+    type := mkConst `RiemannHypothesis
+    value := replay
+  }
+  liftCoreM (addDecl (.thmDecl checkedProof))
   IO.FS.writeFile "native-rh-module.txt" (rootModule.toString ++ "\n")
   logInfo m!"NATIVE_RH_KERNEL_PASS root={root} module={rootModule} window={windows} axioms={axs} declarations={names.size}"
 
+set_option maxHeartbeats 0 in
 run_cmd audit (← getEnv)
 
 end NativeRHCompletionAudit
