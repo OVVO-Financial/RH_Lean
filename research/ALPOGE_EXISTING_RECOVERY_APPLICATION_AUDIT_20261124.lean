@@ -317,6 +317,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.physical_metric
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.clipped_hit
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.broad_physical_read
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.history_physical_read
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.balanced_crossing_recovery
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_common_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.ancestor_dvd_history

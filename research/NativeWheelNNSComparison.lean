@@ -418,18 +418,17 @@ a pairing against an actual integral image section on the same quotient slots. -
 theorem broad_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
     (hp : ∀ i, (p i).Prime) (hn : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
     (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
-    (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
+    (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) (m : ℕ) (hm : broadClearing p d M K s ∣ m) :
     let h := fun i => num i/(p i:ℝ)
     let a := PrincipalCofactor.evenEndpoint M
     let v := fun k => PrincipalCofactor.oddCofactor k+s
-    let m := broadClearing p d M K s
     ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
       (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
         ((onSlots (bands h width) (anchoredRecovery (fun j => (d j:ℤ)) (A k)) z:ℤ):ℝ)) =
         (m:ℝ)*(∑ i, Real.log (p i) * (if p i ∈ PrincipalCofactor.retainedFirstPrimes M ∧
           a/(v k+1) ≤ (p i:ℝ) ∧ (p i:ℝ) < a/v k then 1 else 0)) := by
-  intro h a v m
-  obtain ⟨A,recov⟩ := broad_recovered p d M K s
+  intro h a v
+  obtain ⟨A,recov⟩ := broad_recovered p d M K s m hm
   refine ⟨A, fun k hk => ?_⟩
   change (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
     (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) z.1:ℤ):ℝ)) = _
@@ -439,6 +438,31 @@ theorem broad_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) �
   change Real.log (p i) * (((m:ℤ)*intervalTest p (lowerCut M a (v k)) (upperCut M a (v k)) i:ℤ):ℝ) = _
   simp only [Int.cast_mul,Int.cast_natCast,intervalTest,clipped_hit M (p i) (hp i)]
   split_ifs <;> push_cast <;> ring
+
+/-- One collection of integral preimages and one denominator realize the
+physical log-prime reads of every broad cell at every ancestor on the
+original wheel. The underlying prime powers do not change with the ancestor. -/
+theorem history_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
+    (hp : ∀ i, (p i).Prime) (hn : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
+    (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
+    (d : Fin r → ℕ) (N : ℕ) (x s : ℝ) :
+    let h := fun i => num i/(p i:ℝ)
+    let M := fun j : ℕ => N/2^j
+    let a := fun j => PrincipalCofactor.evenEndpoint (M j)
+    let K := fun j => ⌈Real.sqrt (a j/Real.sqrt x)⌉₊
+    let v := fun k => PrincipalCofactor.oddCofactor k+s
+    let m := historyClearing p d x s N
+    ∃ A : ℕ → ℕ → Fin (r+1) → ℤ, ∀ j, 16 ≤ M j → ∀ k ∈ Finset.Ico 1 (K j),
+      (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
+        ((onSlots (bands h width) (anchoredRecovery (fun i => (d i:ℤ)) (A j k)) z:ℤ):ℝ)) =
+        (m:ℝ)*(∑ i, Real.log (p i)*(if p i ∈ PrincipalCofactor.retainedFirstPrimes (M j) ∧
+          a j/(v k+1) ≤ (p i:ℝ) ∧ (p i:ℝ) < a j/v k then 1 else 0)) := by
+  classical
+  intro h M a K v m
+  have read (j : ℕ) (hj : 16 ≤ M j) := broad_physical_read p num hp hn width hS d (M j) (K j) s m
+    (ancestor_dvd_history p d x s j N hj)
+  exact ⟨fun j => if hj : 16 ≤ M j then (read j hj).choose else 0,
+    fun j hj => by simpa only [dite_eq_left hj] using (read j hj).choose_spec⟩
 
 /-- Use the Riesz vector of the measured wheel normal as principal mode.
 The logarithm is sampled once on a layer, and the signed contrast is constant

@@ -320,6 +320,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.physical_metric,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.clipped_hit,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.broad_physical_read,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.history_physical_read,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.balanced_crossing_recovery,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_common_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.ancestor_dvd_history,

@@ -177,20 +177,21 @@ def broadClearing {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : �
 /-- Same integral operator, same multiplier, all cofactor tests and all the
 original layer amplitudes. Changing the width at this site does not enter
 the multiplier. -/
-theorem broad_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
+theorem broad_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ)
+    (m : ℕ) (hm : broadClearing p d M K s ∣ m) :
     ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
       anchoredRecovery (fun j => (d j:ℤ)) (A k) = fun i =>
-        (broadClearing p d M K s:ℤ)*intervalTest p
+        (m:ℤ)*intervalTest p
           (lowerCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
           (upperCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s)) i := by
   classical
   let A := fun k => intervalTest p (lowerCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
     (upperCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
   have ex (k : ℕ) (hk : k ∈ Finset.Ico 1 K) : ∃ B, anchoredRecovery (fun j => (d j:ℤ)) B =
-      fun i => (broadClearing p d M K s:ℤ)*A k i := by
+      fun i => (m:ℤ)*A k i := by
     apply (interval_clearing_iff ..).2
     intro j hj
-    exact (Finset.dvd_prod_of_mem d hj).trans (Finset.dvd_prod_of_mem _ hk)
+    exact (Finset.dvd_prod_of_mem d hj).trans ((Finset.dvd_prod_of_mem _ hk).trans hm)
   exact ⟨fun k => if hk : k ∈ Finset.Ico 1 K then (ex k hk).choose else 0,
     fun k hk => by simpa only [dite_eq_left hk] using (ex k hk).choose_spec⟩
 
@@ -323,7 +324,7 @@ theorem uniform_shift_requires_depth {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Str
   let a := PrincipalCofactor.evenEndpoint M
   let q : ℝ := p j.castSucc
   let P : ℝ := p j.succ
-  have order : q < P := by exact_mod_cast hp (show j.castSucc < j.succ from Fin.castSucc_lt_succ)
+  have order : q < P := by dsimp only [q,P]; exact_mod_cast hp (show j.castSucc < j.succ from Fin.castSucc_lt_succ)
   have positive : 0 < P := (Nat.cast_nonneg (α := ℝ) _).trans_lt order
   have lower : 3 ≤ a/P := (le_div_iff₀ positive).2 (by linarith only [hright])
   have upper : a/P ≤ 4 := (div_le_iff₀ positive).2 (by linarith only [hleft,order])
@@ -333,9 +334,9 @@ theorem uniform_shift_requires_depth {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Str
   have top : a/(3+s)=P := by rw [v]; field [ha.ne',positive.ne']
   have lo : a/((3+s)+1) ≤ q := (div_le_div_of_nonneg_left ha.le (by norm_num : (0:ℝ)<4)
     (by linarith only [range.1] : (4:ℝ) ≤ 3+s+1)).trans hleft
-  have qlo : (M.sqrt:ℝ)+1 ≤ q := by exact_mod_cast hsmall
+  have qlo : (M.sqrt:ℝ)+1 ≤ q := by dsimp only [q]; exact_mod_cast (Nat.succ_le_of_lt hsmall)
   have qhi : q < (M:ℝ)+1 := by
-    have h : P ≤ (M:ℝ) := by exact_mod_cast hlarge
+    have h : P ≤ (M:ℝ) := by dsimp only [P]; exact_mod_cast hlarge
     linarith
   have left : lowerCut M a (3+s) ≤ q ∧ q < upperCut M a (3+s) :=
     ⟨max_le qlo lo,lt_min qhi (order.trans_eq top.symm)⟩
