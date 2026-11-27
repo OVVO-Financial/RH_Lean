@@ -205,6 +205,8 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.dyadic_all_channels
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.zero_depth_le
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_signed_witness
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.outside_wheel_price
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.wheel_depths
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.row_det
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.exact_row_price

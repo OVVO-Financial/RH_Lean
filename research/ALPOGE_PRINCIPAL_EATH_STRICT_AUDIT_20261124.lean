@@ -202,6 +202,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read,
     ``RHLean.Analysis.AlpogeThin.WheelFit.dyadic_all_channels,
     ``RHLean.Analysis.AlpogeThin.WheelFit.zero_depth_le,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.nominal_signed_witness,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.outside_wheel_price,
     ``RHLean.Analysis.AlpogeThin.WheelFit.wheel_depths,
     ``RHLean.Analysis.AlpogeThin.WheelFit.row_det,
     ``RHLean.Analysis.AlpogeThin.WheelFit.exact_row_price,

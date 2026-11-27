@@ -214,6 +214,92 @@ def tested {S : Type*} (α : S →₀ ℕ) (r : ℚ) (h : ℕ) (z z' : ℂ) : �
 def payment {S : Type*} (α : S →₀ ℕ) (r : ℚ) (h A : ℕ) : ℚ :=
   ((h:ℚ)*r/(multiFactorial α:ℚ))*(A:ℚ)^2
 
+/-- The rational entry of the *same* projector is a measured height
+witness for its inverse: its finite product with that inverse is one,
+and its archimedean log has the factorial and full nominal ASK with
+opposite signs. The section twist/untwisted ratio requires a separate
+identification with this measured quantity. -/
+theorem nominal_signed_witness (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (w : G e → ℝ)
+    (hw : ∀ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e), 0 ≤ w σ)
+    (hpos : ∀ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e), ∀ ρ, alpogeNativeInPhi ρ → 0 < w (σ+ρ))
+    (hN : ∀ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e), ∀ ρ, alpogeNativeInPhi ρ → w σ/w (σ+ρ) ≤ N)
+    {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 < r) :
+    let D := alpogeNativeHostData e q d
+    let P := (Finset.range (N+1)).filter Nat.Prime
+    let Q := payment α r 1 (wheel e q d N P w)
+    0 < Q ∧
+      (∀ j : ℂ ≃+* ℂ, Real.log ‖j (Q:ℂ)‖ ≤ -Real.log (multiFactorial α) + Real.log (r:ℝ) +
+        ∑ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e),
+          (alpogeNativeFullKernelASK D.inertia D.frob N (w σ) 0 (fun ρ => w (σ+ρ))).re) ∧
+      ∀ p : ℕ, ∀ [Fact p.Prime], ∀ ι : ℂ →+* PadicAlgCl p, ι (Q:ℂ)*ι ((Q:ℂ)⁻¹) = 1 := by
+  classical
+  let D := alpogeNativeHostData e q d
+  let P := (Finset.range (N+1)).filter Nat.Prime
+  let k := fun p => chartDepth w D.frob N p 0
+  let A := wheel e q d N P w
+  have hp (p) (h : p ∈ P) : p.Prime := (Finset.mem_filter.mp h).2
+  have wh : A = ∏ p ∈ P, p^k p := by simp [A, wheel, chartRead_eq, k, D]
+  have hA : 0 < A := wh ▸ Finset.prod_pos (fun p h => pow_pos (hp p h).pos _)
+  have hAr : 0 < (A:ℝ) := by exact_mod_cast hA
+  have logA : Real.log (A:ℝ) = ∑ p ∈ P, (k p:ℝ)*Real.log p := by
+    rw [wh, Nat.cast_prod, Real.log_prod (fun p h => Nat.cast_ne_zero.mpr (pow_pos (hp p h).pos _).ne')]
+    simp only [Nat.cast_pow, Real.log_pow]
+  let Q := payment α r 1 A
+  have hf := multiFactorial_pos α
+  have hQ : 0 < Q := by
+    change 0 < ((1:ℚ)*r/(multiFactorial α:ℚ))*(A:ℚ)^2
+    positivity
+  refine ⟨hQ, ?_, ?_⟩
+  · intro j
+    have hj : ‖j (Q:ℂ)‖ = (Q:ℝ) := by
+      rw [map_ratCast, ← Complex.ofReal_ratCast, Complex.norm_real, Real.norm_eq_abs,
+        abs_of_pos (by exact_mod_cast hQ)]
+    rw [hj, ← forced_sum_eq_nominal_ask D.inertia D.frob w N hpos hN]
+    have val : (Q:ℝ) = ((r:ℝ)/(multiFactorial α:ℝ))*(A:ℝ)^2 := by simp [Q, payment]
+    rw [val, Real.log_mul (div_pos (by exact_mod_cast hr) (by exact_mod_cast hf)).ne' (pow_pos hAr _).ne',
+      Real.log_div (by exact_mod_cast hr.ne') (by exact_mod_cast hf.ne'), Real.log_pow, logA, Finset.mul_sum]
+    have bound : ∑ p ∈ P, 2*((k p:ℝ)*Real.log p) ≤ ∑ p ∈ P, 2*forced D.inertia D.frob w N p*Real.log p := by
+      refine Finset.sum_le_sum fun p h => ?_
+      have : Fact p.Prime := ⟨hp p h⟩
+      rw [← mul_assoc]
+      exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left (zero_depth_le e q d N p hH w hw) zero_le_two)
+        (Real.log_natCast_nonneg _)
+    linarith only [bound]
+  · intro p _ ι
+    have hc : (Q:ℂ) ≠ 0 := by exact_mod_cast hQ.ne'
+    rw [← map_mul, mul_inv_cancel₀ hc, map_one]
+
+/-- At odd primes outside the selected wheel, a dyadic metric leaves
+the entire factorial pole in the unscaled row. The class multiplier
+can remove at most its own valuation on a line. -/
+theorem outside_wheel_price (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime) (w : G e → ℝ) (p : ℕ) [Fact p.Prime]
+    (hout : p ∉ P) (hodd : p ≠ 2) {S : Type*} (α : S →₀ ℕ) (k : ℤ) (h : ℕ) :
+    padicNorm p (payment α ((2:ℚ)^k) h (wheel e q d N P w)) =
+      padicNorm p (h:ℚ)*(p:ℚ)^(multiFactorial α).factorization p := by
+  let A := wheel e q d N P w
+  have pos : 0 < A := by
+    unfold A wheel
+    simp_rw [chartRead_eq]
+    exact Finset.prod_pos (fun l hl => pow_pos (hP l hl).pos _)
+  have cop : p.Coprime A := by
+    apply Nat.Coprime.prod_right
+    intro l hl
+    rw [chartRead_eq]
+    exact Nat.Coprime.pow_right _ ((Nat.coprime_primes Fact.out (hP l hl)).2 (by rintro rfl; exact hout hl))
+  have unit : padicNorm p (A:ℚ) = 1 := by
+    rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr pos.ne'), padicValRat.of_nat,
+      padicValNat.eq_zero_of_not_dvd ((Fact.out : p.Prime).coprime_iff_not_dvd.mp cop)]
+    simp
+  have hu : padicNorm p ((A:ℚ)^2) = 1 := (map_pow (IsAbsoluteValue.abvHom (padicNorm p)) (A:ℚ) 2).trans
+    (by change (padicNorm p (A:ℚ))^2 = 1; rw [unit, one_pow])
+  have hf : padicNorm p (multiFactorial α:ℚ) = ((p:ℚ)^(multiFactorial α).factorization p)⁻¹ := by
+    rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'), padicValRat.of_nat,
+      Nat.factorization_def _ (Fact.out : p.Prime), zpow_neg, zpow_natCast]
+  rw [payment, padicNorm.mul, padicNorm.div, padicNorm.mul, dyadic_metric_padic, if_neg hodd, mul_one,
+    hu, mul_one, hf, div_inv_eq_mul]
+
 private theorem tested_eq {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 ≤ r) (h : ℕ) (z z' : ℂ) :
     tested α r h z z' = ((((h:ℚ)*r/(multiFactorial α:ℚ)):ℚ):ℂ)*z*starRingEnd ℂ z' := by
   have sq : ((Real.sqrt (r:ℝ):ℂ))^2 = (r:ℂ) := by
@@ -359,6 +445,7 @@ theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [F
       characterCoordinates 0 z u a i * z i 0 = ∑ χ ∈ (u a i).support, u a i χ * z i χ := by
   classical
   let z := fun i => readAt e q d N P (w i) p
+  dsimp only
   intro a i
   obtain ⟨all, attained⟩ := common_read e q d N p hH ι P (w i)
   have best (χ) : ‖ι (z i χ)‖ ≤ ‖ι (z i 0)‖ := (all χ).trans_eq attained.symm
@@ -561,7 +648,7 @@ theorem sharp_joint_total {n : ℕ} (L Q : Fin n → ℚ) (E : ℕ) (hE : 0 < E)
       _ = ∑ p ∈ T, f p := Real.log_nat_eq_sum_factorization M
       _ ≤ ∑ p ∈ T, (E:ℝ)*γ p := by
         refine Finset.sum_le_sum fun p h => ?_
-        haveI : Fact p.Prime := ⟨hp p h⟩
+        have : Fact p.Prime := ⟨hp p h⟩
         exact (sharp_joint_place L Q E p hE _ (hg p)).1 (hl p)
       _ = (E:ℝ)*∑ p ∈ T, γ p := (Finset.mul_sum ..).symm
       _ ≤ _ := mul_le_mul_of_nonneg_left (ht T hp) he.le

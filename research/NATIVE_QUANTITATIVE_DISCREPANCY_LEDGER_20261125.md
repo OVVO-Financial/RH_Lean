@@ -43,6 +43,19 @@ $$
 $$
 The least nonnegative common allowance is $\gamma_p=v_p(M)\log p/E$. Its total is exactly $\log M/E$, attained on the finite set of prime divisors of $M$. Thus the economic test on this lattice at one anchor is precisely $\log M\le E B_{\rm dir}$. There is no choice of local tests left to optimize. The determinant uses net valuations across the directions, and the two wheel readings remain in the numerator when each rational is reduced. For the single row with $q=11$, $d=7$, orders $180,30$, the measured dyadic scale below and $h=r_O=1$, the reduced denominator has 264 digits and log price $607.6606266878$. Of that price $7\log 29$ is forced by a split prime. The example specifies the local parameters required by the comparison. A cofinal bound uses the scale and budget of each admissible anchor. [Local and total price](NativeWheelFitProjector.lean)
 
+The same rational $Q_i$ has an archimedean bound at every embedding. With the original full nominal cutoff,
+$$
+ \log Q_i\le -\log(\alpha_i!)+\log r_i+
+ \sum_\sigma\Re\operatorname{ASK}_N(v_{i,\sigma},0,\rho\mapsto v_{i,\sigma+\rho}).
+$$
+Indeed $2\log A_i=2\sum_p v_p(A_i)\log p\le2\sum_p F_i(p)\log p$. The last sum equals the nominal ASK. This gives an inverse-height witness $Q_i$ for $Q_i^{-1}$ on the wheel, with finite product one. It keeps the independently measured $\log r_i$ in full. Identifying the inverse of the section's twist ratio with this reading, or pricing their difference, is the remaining normalization step. [Measured signed witness](NativeWheelFitProjector.lean)
+
+At primes where all $h_i$ are units, the rank-one inequalities imply the full determinant inequality for $r_O\ge1$ and nonnegative allowance. At class primes the determinant can impose an additional cost. For example, $Q_1=1/9$, $Q_2=3$, $h_1=9$, $h_2=1$ makes the two class-scaled lines integral at $3$, while the determinant requires $(\log 3)/2$ at $n=2,r_O=1$. For a dyadic squared metric there is also an unavoidable cost outside the wheel. At each odd $p\notin P$, $|Q_i|_p=p^{v_p(\alpha_i!)}$ and $|L_i|_p=|h_i|_p p^{v_p(\alpha_i!)}$. Thus a class multiplier $h_i>0$ and a total per-direction allowance $B$ must satisfy
+$$
+ \sum_{p>N}v_p(\alpha_i!)\log p\le B+\log h_i\qquad(N\ge2,\ P\subseteq[2,N]).
+$$
+This tests the factorial tail even with a positive prime gain inside the cutoff. [Outside-wheel comparison](NativeWheelFitProjector.lean)
+
 **Physical obligation.** On the retained section family one must identify the integral tested columns, their adjoint and the class normalization, or bound the cost of carrying those columns and their duals to the measured wheel lattice. A change of lattice or metric also changes the denominator and the archimedean comparison. That transport, its rank and index, and a uniform bound on its combined price with $\log M/E$ remain open. A direct measured construction meeting these inequalities would replace the upstream Selmer rows and auxiliary primes. It would supply the projection estimate used by the opposite test in the inverse ratio and by the determinant of comparison forms. The existing frozen ledger and principal-character handoff require the resulting signed inequality on the original family and normalization.
 
 ### What supplies one inverse ratio
