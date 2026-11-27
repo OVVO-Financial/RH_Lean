@@ -657,7 +657,8 @@ theorem metric_sandwich (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : 
     simp only [loss,Finset.sum_sub_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_coe,
       siteRows_card,nsmul_eq_mul,← Finset.mul_sum]
     simp_rw [fs]
-    exact congrArg (fun z : ℝ => k*z-raw) (primeAt_sum tops P g (fun l => Real.log l*(if l ∈ I then 1 else 0)))
+    simpa only [raw,translatedMarginal,Finset.sum_sub_distrib] using
+      congrArg (fun z : ℝ => k*z-raw) (primeAt_sum tops P g (fun l => Real.log l*(if l ∈ I then 1 else 0)))
   have lower : 0 ≤ k*(tops.card*source)-raw := by
     rw [← total]; exact Finset.sum_nonneg fun y _ => Finset.sum_nonneg fun j _ => (band y j).1
   have upper : k*(tops.card*source)-raw ≤ (V.card:ℝ)*(k*Real.log x) := by
@@ -725,7 +726,7 @@ theorem measured_history_step (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (top
     exact (all M v hm one).1.1
   refine ⟨s,hs,?_⟩
   have bound := Finset.sum_le_sum (s := Finset.Ico K R) (fun (k : ℕ) _ =>
-    add_le_add_left (mul_le_mul_of_nonneg_left (per k)
+    add_le_add_right (mul_le_mul_of_nonneg_left (per k)
       (by dsimp [PrincipalCofactor.cellWeight,PrincipalCofactor.oddCofactor]; positivity :
         0 ≤ PrincipalCofactor.cellWeight k)) (PrincipalCofactor.chord M k))
   linarith only [bound,shift]
@@ -754,9 +755,9 @@ theorem fine_metric_lower (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T 
     let outside := fun v : ℝ => ∑ l ∈ I v \ P, Real.log l
     let base := fun v : ℝ => A/v-A/(v+1)
     let count := ((occupied tops P g).card:ℝ)/tops.card
-    -(∑ k ∈ Finset.Ico K R, PrincipalCofactor.cellWeight k*
+    (-(∑ k ∈ Finset.Ico K R, PrincipalCofactor.cellWeight k*
       (measured (PrincipalCofactor.oddCofactor k+s)+outside (PrincipalCofactor.oddCofactor k+s)-
-        base (PrincipalCofactor.oddCofactor k+s))) ≤
+        base (PrincipalCofactor.oddCofactor k+s)))) ≤
       A/(PrincipalCofactor.oddCofactor K)^2+(count*Real.log x)*(1+Real.log R) := by
   intro P g c power width scale A I measured outside base count
   let S := Finset.Ico K R
@@ -876,7 +877,7 @@ theorem principal_metric_upper (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (to
             PrincipalCofactor.firstPrimeHistory (N/2) -
             ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt N⌉₊, PrincipalCofactor.primePairReading N k := by
           rw [PrincipalCofactor.firstPrimeHistory,PrincipalCofactor.sumHistory_step _ N tiny]
-          simp only [PrincipalCofactor.firstPrimeHistory,PrincipalCofactor.primePairReading,
+          simp only [PrincipalCofactor.primePairReading,
             PrincipalCofactor.oddPrimeReading,PrincipalCofactor.evenEndpoint,PrincipalCofactor.oddCofactor,
             show ∀ k : ℕ, 2*(k:ℝ)+1+1=2*k+2 by intro k; ring]
         rw [recursion,signedMetricHistory,dite_eq_right tiny,eq]
