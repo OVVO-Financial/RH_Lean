@@ -73,6 +73,28 @@ $$
 $$
 For $m\asymp c\asymp\sqrt x$ this is too large on the selected-pair high-prime scale $|P|\gg x/\log x$, with $\varepsilon$ sufficiently small. Each block on its own gives only $O(m\log((x+1)b))$ per direction; the complete sum explains the extra cost. Any use of interpolation here must price only the required local valuations or independently compensate that ordinary index. The remaining three terms of the complete Stepanov balance still require a common signed construction. The determinant and normalization calculation in this paragraph is on paper. [Original slot spacing](NativeMeasuredSlotProjector.lean) · [Pinned Vandermonde determinant](https://github.com/leanprover-community/mathlib4/blob/d13f23b723b8a846827a245b89c10fc7d3f11612/Mathlib/LinearAlgebra/Vandermonde.lean)
 
+### Local interpolation with one common translation of the actual heights
+
+Choose distinct integral starting heights $\lceil xb\rceil+\operatorname{index}(t)$ in the first half of the original height collar. Translate every one by the same $h\in\{0,\ldots,N-1\}$, leaving the pair, rows, masks and incidence sets fixed. The collar length $W=b/(R x^{13})$, with $R\le x$ and $|H|\le x^3$ eventually, permits $N=\lfloor W/2\rfloor$ for all sufficiently large $x$. All these profiles are injective and meet the original scalar height window. Additional geometric conditions on a profile still have to be proved.
+
+For distinct admitted primes $p,q$ served on a common physical block, write their actual integer endpoints as $z_p(h)=\lfloor(a+h)/p\rfloor$, $z_q(h)=\lfloor(a'+h)/q\rfloor$. The starting heights may coincide. Their difference $d(h)=z_p(h)-z_q(h)$ satisfies
+$$
+d(h+pqj)=d(h)+(q-p)j .
+$$
+Since $q-p$ is a unit at $p$, each residue line modulo $pq$ hits every value modulo $p^t$ exactly once per period. Over any interval of $N$ translates, the number with $p^t\mid d(h)$ is at most $\lfloor N/p^t\rfloor+pq$. For $1\le |d(h)|\le A$, sum over the valuation levels and divide by $N$ to obtain
+$$
+\frac1N\sum_h v_p(|d(h)|)\log p
+\le \frac{\log p}{p-1}+\frac{pq}{N}\log A.
+$$
+The original separation gives $d(h)\ne0$ on each of the selected high blocks. The estimate charges collisions through all powers of the owner prime. [Quotient endpoints under simultaneous translation](NativeSharedHeightRecovery.lean)
+
+For the integral polynomial selector of an owner $p$ in its block, take $\prod_{q\ne p}(X-z_q(h))$ on the integer endpoints. It vanishes on every competing endpoint there and evaluates to $\prod_{q\ne p}(z_p(h)-z_q(h))$ at its owner. Summing the preceding price over the at most $m-1$ factors per owner and over all sites and active rows, there is one translate $h$ for which the total owner-prime log valuation on the $4/(c k |TT|)$ scale is at most
+$$
+\frac{4(m-1)}c\left(\sum_{p\in P}\frac{\log p}{p-1}
+       +\frac{|P|\,x^2\log A}{N}\right).
+$$
+Linearity of the finite average uses a single height profile for every term. Each prime occurs at exactly $|TT|$ sites, including when different incidences share their starting height. The first sum is at most $2\log(x)(1+\log x)$, and the second term in parentheses tends to zero for fixed $\varepsilon>0$ at the original collar. Thus $m\asymp c$ is affordable for these owner-prime valuations. The finite averaging and total normalized price are paper consequences of the count. The selector acts on endpoint readings. Recovering the original integral sections at all required places, and comparing their real volumes with signed MAIN, remain separate costs.
+
 ### Perron readings of integer slots
 
 For an integer slot $k\ge2$, use the log interval $J_k=(\log(k-1),\log k]$. The critical-line reading of its weighted indicator $g_k(u)=e^{u/2}\mathbf1_{J_k}(u)$ is

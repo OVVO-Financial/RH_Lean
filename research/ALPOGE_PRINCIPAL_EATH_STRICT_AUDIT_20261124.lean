@@ -1,5 +1,6 @@
 import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
+import «research.NativeSharedHeightRecovery»
 import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
@@ -265,6 +266,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.starJump_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.familyJump_index,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_period,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_count,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame,

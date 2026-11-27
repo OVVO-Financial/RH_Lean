@@ -323,6 +323,6 @@ theorem familyJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (pri
     obtain ⟨z, _, hz⟩ := small y
     exact ⟨_, hz⟩
   rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
-  simp [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card]
+  simp [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card, M]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
