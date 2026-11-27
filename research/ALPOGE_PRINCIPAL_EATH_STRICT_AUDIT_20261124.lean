@@ -1,4 +1,3 @@
-import «research.NativePrincipalCofactorTrace»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -280,6 +279,10 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.real_principal_children,
     ``RHLean.Analysis.PrincipalCofactor.intervalReading_eq,
     ``RHLean.Analysis.PrincipalCofactor.real_history_price,
+    ``RHLean.Analysis.PrincipalCofactor.history_clipping_price,
+    ``RHLean.Analysis.PrincipalCofactor.real_firstPrime_history_price,
+    ``RHLean.Analysis.PrincipalCofactor.binomial_high_odd_mass,
+    ``RHLean.Analysis.PrincipalCofactor.high_hit_boundary,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm,

@@ -1,6 +1,6 @@
 import «research.NativeSignedWidthSweep»
 import «research.NativeAnchoredSlotMetric»
-import «research.NativePrincipalCofactorTrace»
+import «research.NativePrincipalFirstPrimeHistory»
 import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.LogDerivRegion
 
 /-! The centered thick response on the actual translated widths and its own MAIN.
@@ -419,7 +419,7 @@ theorem centered_thick_measured (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
 /-- The same measured thick deficit on every admissible real anchor, expressed
 using only reciprocal prefixes and prime-power crossings in its dyadic history. -/
 theorem centered_thick_history (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
-    ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+    ∃ K : ℝ, 0 < K ∧ ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
       {Y Z : ℝ} (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (TT T : Finset (AlpogeNativeDyadicH e))
       (a : AlpogeNativeDyadicH e → ℝ) (η : ℝ)
       (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
@@ -434,25 +434,22 @@ theorem centered_thick_history (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       x^(-(ε/8))*(Fintype.card (AlpogeNativeDyadicH e):ℝ)/2 ≤ TT.card →
       (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) → (∀ t ∈ TT, a t/b ∈ Set.Icc Y Z) →
       (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
-      |Hc-high-C-PrincipalCofactor.quotientHistory ⌊x⌋₊| ≤
-        (66*Real.log 4+274+8/ε)*x^((1:ℝ)/2+9*ε/8) := by
+      |Hc-high-C-PrincipalCofactor.firstPrimeHistory ⌊x⌋₊| ≤ K*x^((1:ℝ)/2+9*ε/8) := by
   obtain ⟨_,_,_,_,measured⟩ := centered_thick_measured ε he he1
+  obtain ⟨B,hB,bound⟩ := PrincipalCofactor.real_firstPrime_history_price
+  refine ⟨53*Real.log 4+106+8/ε+B,by positivity,?_⟩
   filter_upwards [measured,eventually_ge_atTop (1:ℝ)] with x frame hx
   intro e q d n _ _ Y Z pair TT T a η w b D F v Hc high C htt ht hn hη grid density ha win hw
   let β := (1:ℝ)/2+9*ε/8
   have gap := ((frame e q d n pair TT T a η w htt ht hn hη grid density ha win hw).1).trans
     (centered_root_price x ε hx he.le he1)
   change |Hc-high-C-alpogeNativeGzArithmetic x| ≤ (53*Real.log 4+106+8/ε)*x^β at gap
-  have hist := PrincipalCofactor.real_history_price x hx
+  have hist := bound x hx
   have hβ : (1:ℝ)/2 ≤ β := by dsimp only [β]; linarith
   have root : Real.sqrt x ≤ x^β := by rw [Real.sqrt_eq_rpow]; exact Real.rpow_le_rpow_of_exponent_le hx hβ
-  have unit := Real.one_le_rpow hx (by linarith only [hβ] : 0 ≤ β)
-  have cost := mul_le_mul_of_nonneg_left root (by have := alpogeNativeMoveConstant_nonneg; positivity : 0 ≤ 4*(29+3*alpogeNativeMoveConstant))
-  have base := mul_le_mul_of_nonneg_left unit alpogeNativeMoveConstant_nonneg
   refine (abs_sub_le _ (alpogeNativeGzArithmetic x) _).trans ?_
-  change _ ≤ (66*Real.log 4+274+8/ε)*x^β
-  dsimp only [alpogeNativeMoveConstant] at hist cost base
-  linarith only [gap,hist,cost,base]
+  change _ ≤ (53*Real.log 4+106+8/ε+B)*x^β
+  linarith only [gap,hist,mul_le_mul_of_nonneg_left root hB.le]
 
 /-- At the original finite cutoff the centered thin term has its own MAIN.
 The bound is simultaneous in every cutoff. Host size and conductor are

@@ -285,24 +285,33 @@ theorem intervalReading_eq (y z : ℝ) (hzy : z ≤ y) :
     ext n; simp only [Finset.mem_sdiff, Finset.mem_Icc, Finset.mem_Ioc]; omega
   have add := Finset.sum_sdiff sub (f := fun n : ℕ => (Λ n : ℝ)*(y/n-1))
   rw [cells] at add
-  have prefix : (y-z)*nativeLambdaRecip ⌊z⌋₊ =
+  have oldSites : (y-z)*nativeLambdaRecip ⌊z⌋₊ =
       (∑ n ∈ Finset.Icc 1 ⌊z⌋₊, (Λ n:ℝ)*(y/n-1)) - ∑ n ∈ Finset.Icc 1 ⌊z⌋₊, (Λ n:ℝ)*(z/n-1) := by
     rw [nativeLambdaRecip, Finset.mul_sum, ← Finset.sum_sub_distrib]
     exact Finset.sum_congr rfl fun n _ => by ring
   rw [alpogeNativeGzArithmetic_eq_principal y, alpogeNativeGzArithmetic_eq_principal z]
   unfold intervalReading alpogeNativePrincipalPrimeSum alpogeNativePrimePowerWeight
-  linarith only [add,prefix]
+  linarith only [add,oldSites]
 
 /-- Starting from the original integer, descend through its actual dyadic
 quotients. Each interval contributes its measured arithmetic reading once
 at that scale, with the sign forced by the odd/even trace. -/
 def sumHistory (reading : ℕ → ℝ → ℝ → ℝ) (n : ℕ) : ℝ :=
-  if h : n < 16 then 0 else
+  if _h : n < 16 then 0 else
     sumHistory reading (n/2) -
       ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt n⌉₊,
         reading n (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+1)) (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+2))
 termination_by n
 decreasing_by omega
+
+theorem sumHistory_small (reading : ℕ → ℝ → ℝ → ℝ) (n : ℕ) (h : n < 16) :
+    sumHistory reading n = 0 := by rw [sumHistory]; simp [h]
+
+theorem sumHistory_step (reading : ℕ → ℝ → ℝ → ℝ) (n : ℕ) (h : ¬ n < 16) :
+    sumHistory reading n = sumHistory reading (n/2) -
+      ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt n⌉₊,
+        reading n (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+1)) (2*((n/2:ℕ):ℝ)/(2*(k:ℝ)+2)) := by
+  rw [sumHistory]; simp [h]
 
 /-- Complete signed dyadic history of the original prime-power intervals. -/
 abbrev quotientHistory := sumHistory (fun _ => intervalReading)
@@ -340,7 +349,7 @@ theorem integer_history_price (n : ℕ) (hn : 1 ≤ n) :
     have hlog : 0 ≤ Real.log (4:ℝ) := Real.log_nonneg (by norm_num)
     have hK : 0 ≤ 29+3*alpogeNativeMoveConstant := by linarith only [alpogeNativeMoveConstant_nonneg]
     by_cases small : n < 16
-    · rw [sumHistory, dif_pos small, sub_zero]
+    · rw [show quotientHistory n=0 from sumHistory_small _ n small, sub_zero]
       have hn16 : (n:ℝ) ≤ 16 := by exact_mod_cast small.le
       have hr4 : Real.sqrt (n:ℝ) ≤ 4 := (Real.sqrt_le_iff).2 ⟨by norm_num, by linarith⟩
       have ns : (n:ℝ) ≤ 4 * Real.sqrt n := by
@@ -359,7 +368,8 @@ theorem integer_history_price (n : ℕ) (hn : 1 ≤ n) :
       let S := ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt n⌉₊, pairTerm q k
       change |alpogeNativeGzArithmetic n-(alpogeNativeGzArithmetic q-S)| ≤ _ at single
       have hist : quotientHistory n = quotientHistory q-S := by
-        rw [sumHistory, dif_neg small]
+        change sumHistory (fun _ => intervalReading) n = _
+        rw [sumHistory_step _ n small]
         congr 1
         apply Finset.sum_congr rfl
         intro k _
