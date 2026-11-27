@@ -237,6 +237,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_slots,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.integral_dual,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.bounded_dual,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.original_addresses,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.measured_gram,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.projector_det,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.left_inverse,

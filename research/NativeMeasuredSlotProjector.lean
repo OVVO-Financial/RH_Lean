@@ -297,6 +297,67 @@ theorem place_bound {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.Prime]
 in its band. No volume or local height is supplied to this definition. -/
 abbrev Address {m : ℕ} (S : Fin (m+1) → Finset ℕ) := (i : Fin (m+1)) × {k // k ∈ S i}
 
+/-- Forgetting the band label is an integral coordinate permutation onto
+the original outer quotient interval. The counting metric therefore needs
+no extra multiplicity or change-of-lattice payment at this step. -/
+theorem original_addresses {m : ℕ} (h : Fin (m+1) → ℝ) (v : ℝ)
+    (hne : ∀ i, (bands h v i).Nonempty) :
+    ∃ e : Address (bands h v) ≃ ↥(Finset.Ioc ⌈v⌉₊ ⌊h 0⌋₊), ∀ a, (e a).val = a.2.val := by
+  classical
+  let H := fun i => ⌊h i⌋₊
+  have anti : StrictAnti H := Fin.strictAnti_iff_succ_lt.2 fun i => by
+    obtain ⟨k,hk⟩ := hne i.castSucc
+    have hki : k ∈ Finset.Ioc (H i.succ) (H i.castSucc) := by simpa [H,bands] using hk
+    exact (Finset.mem_Ioc.mp hki).1.trans_le (Finset.mem_Ioc.mp hki).2
+  have edge : ⌈v⌉₊ ≤ H (Fin.last m) := by
+    obtain ⟨k,hk⟩ := hne (Fin.last m)
+    have hk' : k ∈ Finset.Ioc ⌈v⌉₊ (H (Fin.last m)) := by simpa [H,bands] using hk
+    exact (Finset.mem_Ioc.mp hk').1.le.trans (Finset.mem_Ioc.mp hk').2
+  have ends (i : Fin (m+1)) : ∀ k ∈ bands h v i, ⌈v⌉₊ < k ∧ k ≤ H i := by
+    refine Fin.lastCases ?_ (fun a => ?_) i
+    · intro k hk
+      exact Finset.mem_Ioc.mp (by simpa [H,bands] using hk : k ∈ Finset.Ioc ⌈v⌉₊ (H (Fin.last m)))
+    · intro k hk
+      have hki : k ∈ Finset.Ioc (H a.succ) (H a.castSucc) := by simpa [H,bands] using hk
+      have hlow := edge.trans (anti.antitone (Fin.le_last a.succ))
+      exact ⟨hlow.trans_lt (Finset.mem_Ioc.mp hki).1,(Finset.mem_Ioc.mp hki).2⟩
+  let F (a : Address (bands h v)) : ↥(Finset.Ioc ⌈v⌉₊ ⌊h 0⌋₊) :=
+    ⟨a.2.val, Finset.mem_Ioc.mpr ⟨(ends _ _ a.2.property).1,
+      (ends _ _ a.2.property).2.trans (anti.antitone (Fin.zero_le _))⟩⟩
+  have apart {i j : Fin (m+1)} (hij : i < j) {k : ℕ} (hi : k ∈ bands h v i) (hj : k ∈ bands h v j) : False := by
+    obtain ⟨a,rfl⟩ := Fin.eq_castSucc_of_ne_last (fun e => (Fin.le_last j).not_lt (e ▸ hij))
+    have hak : k ∈ Finset.Ioc (H a.succ) (H a.castSucc) := by simpa [H,bands] using hi
+    have hle : a.succ ≤ j := by omega
+    exact (Finset.mem_Ioc.mp hak).1.not_ge ((ends _ _ hj).2.trans (anti.antitone hle))
+  have inj : Function.Injective F := by
+    rintro ⟨i,k⟩ ⟨j,l⟩ he
+    have hk : k.val = l.val := congrArg Subtype.val he
+    have eqi : i=j := le_antisymm (le_of_not_gt fun h => apart h l.property (hk ▸ k.property))
+      (le_of_not_gt fun h => apart h k.property (hk.symm ▸ l.property))
+    subst j
+    exact congrArg (Sigma.mk i) (Subtype.ext hk)
+  have sur : Function.Surjective F := by
+    intro k
+    let T := Finset.univ.filter (fun i => k.val ≤ H i)
+    have h0 : (0 : Fin (m+1)) ∈ T := Finset.mem_filter.mpr ⟨Finset.mem_univ _,(Finset.mem_Ioc.mp k.property).2⟩
+    let i := T.max' ⟨0,h0⟩
+    have himem : i ∈ T := Finset.max'_mem _ _
+    have htop := (Finset.mem_filter.mp himem).2
+    have mem : k.val ∈ bands h v i := by
+      by_cases he : i = Fin.last m
+      · rw [he] at htop ⊢
+        simpa [H,bands] using Finset.mem_Ioc.mpr ⟨(Finset.mem_Ioc.mp k.property).1,htop⟩
+      · obtain ⟨j,hj⟩ := Fin.eq_castSucc_of_ne_last he
+        have low : H j.succ < k.val := by
+          by_contra! bad
+          have hmem : j.succ ∈ T := Finset.mem_filter.mpr ⟨Finset.mem_univ _,bad⟩
+          have hle : j.succ ≤ i := Finset.le_max' T _ hmem
+          exact (show j.castSucc < j.succ from Fin.castSucc_lt_succ).not_ge (hj.symm ▸ hle)
+        rw [← hj] at htop ⊢
+        simpa [H,bands] using Finset.mem_Ioc.mpr ⟨low,htop⟩
+    exact ⟨⟨i,⟨k.val,mem⟩⟩,Subtype.ext rfl⟩
+  exact ⟨Equiv.ofBijective F ⟨inj,sur⟩,fun _ => rfl⟩
+
 def columns {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
     Matrix (Address S) (Fin m) ℤ := fun a j => starColumn D j a.1 a.2.val
 
@@ -733,7 +794,7 @@ theorem transport_integral {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.P
   dsimp only at H
   rw [bar, Matrix.transpose_smul, Matrix.smul_mul, Matrix.mul_smul, Matrix.smul_mul,
     smul_smul, Matrix.det_smul, Fintype.card_fin] at H
-  simpa only [mul_comm (b:ℂ) (a:ℂ), mul_assoc] using H
+  simpa only [testedDet, mul_comm (b:ℂ) (a:ℂ), mul_assoc] using H
 
 /-- One explicit local allowance works simultaneously for the full
 projector and every class-scaled line in it at every embedding. Its

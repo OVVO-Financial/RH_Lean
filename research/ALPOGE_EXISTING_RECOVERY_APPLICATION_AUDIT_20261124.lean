@@ -256,3 +256,4 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.common_place
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.place_rat
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.transport_integral
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_addresses
