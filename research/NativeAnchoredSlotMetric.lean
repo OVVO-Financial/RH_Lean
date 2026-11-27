@@ -233,7 +233,7 @@ theorem constant_extension_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 
     constructor
     · rintro ⟨a,ha⟩
       obtain ⟨z,hz⟩ := (wheel_star_kernel D hD cop (fun i => A i-a)).1 (by rw [shift, ha, sub_self])
-      exact ⟨a,z,fun i => by have h := hz i; dsimp only at h; omega⟩
+      exact ⟨a,z,fun i => by have h := hz i; omega⟩
     · rintro ⟨a,z,hz⟩
       have h := (wheel_star_kernel D hD cop (fun i => A i-a)).2 ⟨z,fun i => by rw [hz i]; abel⟩
       exact ⟨a,sub_eq_zero.mp ((shift a).symm.trans h)⟩

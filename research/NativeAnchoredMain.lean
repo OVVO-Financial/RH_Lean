@@ -24,6 +24,25 @@ private theorem canonical_class_bound (e q d : ℕ) [Fact q.Prime] [Fact d.Prime
   change ‖alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d) (nativeDyadicTwoBitCharacter e 0 1)‖ ≤ _ at h
   simpa [nativeDyadicTwoBitCharacter] using h
 
+private theorem thin_sites_of_partner {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (T : Finset H) (u t : H) (a L : ℝ) (w : AlpogeNativeE0 × H → ℝ)
+    (h : ∀ g ∈ (Finset.univ.filter fun g : AlpogeNativeE0 × H => ¬alpogeNativeInPhi g) \ alpogeNativeProjectionThickColours T u t,
+      L ≤ a/w (alpogeNativePartner t g)) :
+    ∀ ρ ∈ alpogeNativePhiSet H \ alpogeNativeThickPositiveSites T u, L ≤ a/w ρ := by
+  classical
+  intro ρ hρ
+  let g := ρ - alpogeNativeTopPl t - alpogeNativeCconj H
+  have read : alpogeNativePartner t g = ρ := by dsimp [alpogeNativePartner, g]; abel
+  have hp := (Finset.mem_filter.mp (Finset.mem_sdiff.mp hρ).1).2
+  change ρ.1.1 = 0 at hp
+  have hg : ¬alpogeNativeInPhi g := by
+    change ¬ ρ.1.1 - 0 - (1:ZMod 2) = 0
+    rw [hp]
+    decide
+  have off : g ∉ alpogeNativeProjectionThickColours T u t := fun ht =>
+    (Finset.mem_sdiff.mp hρ).2 (read ▸ (alpogeNativeFreezing_partner_mem_iff T u t g).2 ht)
+  simpa only [read] using h g (Finset.mem_sdiff.mpr ⟨Finset.mem_filter.mpr ⟨Finset.mem_univ _,hg⟩,off⟩)
+
 private theorem half_thin_log {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
     (T : Finset H) (u : H) (a L : ℝ) (ha : 0 < a) (hL : 0 ≤ L)
     (w : AlpogeNativeE0 × H → ℝ)
@@ -244,8 +263,9 @@ theorem complementary_bounds_signedMain (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1
       (∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b)) →
       (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
       (∀ u j ρ, ρ ∈ alpogeNativePhiSet _ → 0 < w u j ρ) →
-      (∀ u j t, t ∈ tops → ∀ ρ ∈ alpogeNativePhiSet _ \ alpogeNativeThickPositiveSites T u,
-        Real.exp (x^(ε/3))/3 ≤ a t/w u j ρ) →
+      (∀ u j t, t ∈ tops → ∀ g ∈ (Finset.univ.filter fun g : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+          ¬alpogeNativeInPhi g) \ alpogeNativeProjectionThickColours T u t,
+        Real.exp (x^(ε/3))/3 ≤ a t/w u j (alpogeNativePartner t g)) →
       let C := 4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (D s))/((c:ℝ)*k*tops.card)
       normalizedNegMain tops T a b ell v ≤ C ∧
       ∀ M : ℕ, (M:ℝ) ≤ Real.exp (x^(ε/3)/16) →
@@ -268,7 +288,8 @@ theorem complementary_bounds_signedMain (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1
       have hxinv : 1/x ≤ 1 := (div_le_iff₀ hx0).2 (by linarith)
       have hscale := mul_le_mul_of_nonneg_left (by linarith only [hx,hxinv] : 1+1/x ≤ x) hb.le
       exact (hw u j ρ hρ).2.trans (hscale.trans (by simpa only [mul_comm b x] using (ha t ht').1))
-    have hmain := row e q d pair hY hZ T u (a t) (w u j) hta (hpos u j) hthick (hthin u j t ht')
+    have hmain := row e q d pair hY hZ T u (a t) (w u j) hta (hpos u j) hthick
+      (thin_sites_of_partner T u t (a t) _ (w u j) (hthin u j t ht'))
     have monotone : (alpogeNativeMAIN ell (a t) (w u j)).re ≤ (alpogeNativeMAIN ell (a t) (v u j)).re := by
       apply alpogeNativeMAIN_re_antitone_width ell _ hta.le _ _
       · intro ρ _; exact Real.exp_pos _

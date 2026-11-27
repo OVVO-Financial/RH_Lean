@@ -244,19 +244,10 @@ private theorem trace_square_pos {J : Type*} [Fintype J] (F : Matrix J J ℝ)
     (s := Finset.univ) (f := fun k => ∑ j, (F k j)^2)
     (fun k _ => Finset.sum_nonneg fun j _ => sq_nonneg _) (Finset.mem_univ i))
 
-/-- Frame bound on the measured high first-prime subspaces. All translates
-and lifts at a given site enter the same matrix on the same integers.
-The normalizing weights are one in the induced slot metric. The effective
-rank counts the retained directions once per physical site. -/
-theorem translated_frame {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
-    (sites T : Finset H) (n : ℕ) (r : ↥sites → ℕ)
-    (h : (s : ↥sites) → Fin (r s+1) → ℝ)
-    (width : H × Fin n → ↥sites → ℝ) (D : (s : ↥sites) → Fin (r s+1) → ℕ)
-    (hD : ∀ s i, 0 < D s i)
-    (hne : ∀ s : ↥sites, ∀ a : ↥(siteRows T n s.val),
-      ∀ i, (bands (h s) (width a.val s) i).Nonempty) :
-    let B := fun (s : ↥sites) (a : ↥(siteRows T n s.val)) =>
-      physicalColumns (h s) (width a.val s) (hne s a) (D s)
+private theorem translated_columns {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (sites T : Finset H) (n : ℕ) (r : ↥sites → ℕ) (J : ↥sites → Type*) [∀ s, Fintype (J s)]
+    (B : (s : ↥sites) → ↥(siteRows T n s.val) → Matrix (J s) (Fin (r s)) ℝ)
+    (hg : ∀ s a, IsUnit ((B s a).transpose * B s a).det) :
     let F := Matrix.blockDiagonal' fun s : ↥sites =>
       ∑ a : ↥(siteRows T n s.val), B s a * slotAdjoint (B s a)
     let k := ((T.card*n:ℕ):ℝ)
@@ -266,11 +257,10 @@ theorem translated_frame {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H
       F.trace = k*d ∧ (F*F).trace ≤ k^2*d ∧
       (0 < k → 0 < d → d ≤ F.trace^2 / (F*F).trace) := by
   classical
-  intro B F k d
+  intro F k d
   let P := fun (s : ↥sites) (a : ↥(siteRows T n s.val)) => B s a * slotAdjoint (B s a)
   let block := fun s : ↥sites => ∑ a, P s a
-  have facts (s : ↥sites) (a : ↥(siteRows T n s.val)) :=
-    gramProjection (B s a) (physical_gram (h s) (width a.val s) (hne s a) (D s) (hD s))
+  have facts (s : ↥sites) (a : ↥(siteRows T n s.val)) := gramProjection (B s a) (hg s a)
   have bound (s : ↥sites) : (block s).transpose = block s ∧ (block s).trace = k*r s ∧
       (block s*block s).trace ≤ k^2*r s := by
     simpa only [block, k, Finset.card_univ, Fintype.card_coe, siteRows_card] using
@@ -294,6 +284,31 @@ theorem translated_frame {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H
   calc
     _ ≤ d * (k^2*d) := mul_le_mul_of_nonneg_left tr2 hd.le
     _ = _ := by rw [tr]; ring
+
+/-- Frame bound on the measured high first-prime subspaces. All translates
+and lifts at a given site enter the same matrix on the same integers.
+The normalizing weights are one in the induced slot metric. The effective
+rank counts the retained directions once per physical site. -/
+theorem translated_frame {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (sites T : Finset H) (n : ℕ) (r : ↥sites → ℕ)
+    (h : (s : ↥sites) → Fin (r s+1) → ℝ)
+    (width : H × Fin n → ↥sites → ℝ) (D : (s : ↥sites) → Fin (r s+1) → ℕ)
+    (hD : ∀ s i, 0 < D s i)
+    (hne : ∀ s : ↥sites, ∀ a : ↥(siteRows T n s.val),
+      ∀ i, (bands (h s) (width a.val s) i).Nonempty) :
+    let B := fun (s : ↥sites) (a : ↥(siteRows T n s.val)) =>
+      physicalColumns (h s) (width a.val s) (hne s a) (D s)
+    let F := Matrix.blockDiagonal' fun s : ↥sites =>
+      ∑ a : ↥(siteRows T n s.val), B s a * slotAdjoint (B s a)
+    let k := ((T.card*n:ℕ):ℝ)
+    let d := ∑ s : ↥sites, (r s:ℝ)
+    (∀ s a, (B s a).transpose * B s a * slotAdjoint (B s a) = (B s a).transpose ∧
+        slotAdjoint (B s a) * B s a = 1) ∧
+      F.trace = k*d ∧ (F*F).trace ≤ k^2*d ∧
+      (0 < k → 0 < d → d ≤ F.trace^2 / (F*F).trace) := by
+  exact translated_columns sites T n r (fun s => ↥(Finset.Iic ⌊h s 0⌋₊))
+    (fun s a => physicalColumns (h s) (width a.val s) (hne s a) (D s))
+    (fun s a => physical_gram (h s) (width a.val s) (hne s a) (D s) (hD s))
 
 /-- The occupied first-prime sites in the dyadic host. -/
 def occupied {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
@@ -339,6 +354,56 @@ theorem primeAt_sum {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
       rw [Finset.sum_comm, Finset.mul_sum]
       refine Finset.sum_congr rfl fun p _ => ?_
       rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul, translate_card]
+
+/-- The occupied-layer basis of the augmented lattice on the original integer
+slot numbers. All translated rows at a given site share the same ambient interval. -/
+def physicalLayers {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ) (hne : ∀ i, (bands h v i).Nonempty) :
+    Matrix (↥(Finset.Iic ⌊h 0⌋₊)) (Fin (r+1)) ℝ :=
+  slotInclusion (physicalAddress h v hne) *
+    (fun (a : Address (bands h v)) (i : Fin (r+1)) => if a.1 = i then 1 else 0)
+
+private theorem layers_gram {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ) (hne : ∀ i, (bands h v i).Nonempty) :
+    let B := physicalLayers h v hne
+    IsUnit (B.transpose*B).det := by
+  classical
+  let S := bands h v
+  let E := slotInclusion (physicalAddress h v hne)
+  let U : Matrix (Address S) (Fin (r+1)) ℝ := fun a i => if a.1 = i then 1 else 0
+  have inner (i j l : Fin (r+1)) : (∑ k : ↥(S l), U ⟨l,k⟩ i*U ⟨l,k⟩ j) =
+      if l=i then (if l=j then ((S l).card:ℝ) else 0) else 0 := by
+    by_cases hi : l=i <;> by_cases hj : l=j <;> simp [U,hi,hj]
+  have gram : U.transpose*U = Matrix.diagonal (fun i => ((S i).card:ℝ)) := by
+    ext i j
+    change (∑ a : Address S, U a i*U a j) = _
+    rw [Fintype.sum_sigma]
+    simp_rw [inner]
+    simp [Matrix.diagonal_apply]
+  change IsUnit (((E*U).transpose*(E*U)).det)
+  rw [Matrix.transpose_mul, Matrix.mul_assoc, ← Matrix.mul_assoc E.transpose E U,
+    inclusion_gram, Matrix.one_mul, gram, Matrix.det_diagonal]
+  exact isUnit_iff_ne_zero.mpr (Finset.prod_ne_zero_iff.mpr fun i _ => by exact_mod_cast (hne i).card_pos.ne')
+
+/-- Adding the physical pivot restores the last direction at each occupied partner.
+Repeated, overlapping translates enter the trace-square estimate at their real addresses. -/
+theorem translated_augmented_frame {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (tops T : Finset H) (primes : Finset ℕ) (g : ℕ → H) (n : ℕ) :
+    let V := occupied tops primes g
+    let r := fun s : ↥V => (partnerPrimes tops primes g s.val).card-1
+    ∀ (h : (s : ↥V) → Fin (r s+1) → ℝ) (w : H × Fin n → ↥V → ℝ)
+      (hne : ∀ s : ↥V, ∀ a : ↥(siteRows T n s.val), ∀ i, (bands (h s) (w a.val s) i).Nonempty),
+    let B := fun (s : ↥V) (a : ↥(siteRows T n s.val)) => physicalLayers (h s) (w a.val s) (hne s a)
+    let F := Matrix.blockDiagonal' fun s : ↥V => ∑ a : ↥(siteRows T n s.val), B s a * slotAdjoint (B s a)
+    let k := ((T.card*n:ℕ):ℝ)
+    let d := (tops.card:ℝ)*primes.card
+    (∀ s a, (B s a).transpose * B s a * slotAdjoint (B s a) = (B s a).transpose ∧ slotAdjoint (B s a)*B s a = 1) ∧
+      F.trace = k*d ∧ (F*F).trace ≤ k^2*d ∧ (0 < k → 0 < d → d ≤ F.trace^2/(F*F).trace) := by
+  classical
+  intro V r h w hne B F k d
+  have ht : (∑ s : ↥V, ((r s+1:ℕ):ℝ)) = d := by
+    simpa only [V, r, d, Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul, mul_one]
+      using primeAt_sum tops primes g (fun _ => (1:ℝ))
+  have result := translated_columns V T n (fun s => r s+1) _ B (fun s a => layers_gram (h s) (w a.val s) (hne s a))
+  simpa only [ht] using result
 
 /-- Logarithmic increase in covolume measured on the same slots before
 and after the actual wheel powers are applied. -/

@@ -289,6 +289,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_augmented_frame
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.highThick_frame
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.common_place
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.place_rat
