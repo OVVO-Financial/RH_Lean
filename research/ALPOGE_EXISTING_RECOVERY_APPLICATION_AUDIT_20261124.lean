@@ -185,6 +185,11 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.exists_chart
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.jet_read_norm
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.common_jet
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.forced_sum_eq_nominal_ask
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.interval_jet_norm_ge_one
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.primitive_line_denominator
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_ceil_norm_ge_half
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_jet
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_frozen_top_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq

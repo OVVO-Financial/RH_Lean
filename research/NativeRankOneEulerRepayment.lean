@@ -88,7 +88,6 @@ theorem chartDepth_le (w : G H → ℝ) (F : ℕ → G H) (N p : ℕ) (u : G H)
   unfold chartDepth chartMass
   push_cast
   refine Finset.sum_le_sum fun σ hσ => Finset.sum_le_sum fun e _ => ?_
-  dsimp only
   split_ifs <;> simp only [Nat.cast_zero, le_refl]
   exact slots_le _ _ _ (hw σ hσ)
 
@@ -118,7 +117,7 @@ theorem jet_read_norm {S : Type*} (α : S →₀ ℕ) (c scale : ℝ) :
   classical
   have h : (multiFactorial α:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
   constructor
-  · simp [dividedJet, field, h]
+  · simp [dividedJet, field]
   · rw [dividedJet, MvPolynomial.smul_monomial, fockNormSq_monomial]
     simp only [smul_eq_mul, Real.norm_eq_abs, sq_abs]
     field [h]
@@ -159,7 +158,8 @@ theorem common_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
     (Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'), Real.log_pow, Real.log_mul hs.ne' ha'.ne']
   have logA : Real.log (A:ℝ) = ∑ p ∈ P, (d p:ℝ)*Real.log p := by
     simp only [A, Nat.cast_prod, Nat.cast_pow]
-    rw [Real.log_prod (fun i hi => (pow_pos (show 0 < (i:ℝ) by exact_mod_cast (hP i hi).pos) _).ne')]
+    rw [Real.log_prod (s := P) (f := fun i : ℕ => (i:ℝ)^(d i))
+      (fun i hi => (pow_pos (show 0 < (i:ℝ) by exact_mod_cast (hP i hi).pos) _).ne')]
     simp only [Real.log_pow]
   rw [logA]
   have cost : 2*(∑ p ∈ P, (d p:ℝ)*Real.log p) ≤ ∑ p ∈ P, 2*forced I F w N p*Real.log p := by
@@ -168,6 +168,160 @@ theorem common_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
       rw [← mul_assoc]
       exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left (hdepth p) (by norm_num))
         (Real.log_natCast_nonneg p)
+  norm_num only [Nat.cast_ofNat]
   linarith only [cost]
+
+/-- Changing an inertia representative is exactly translation in the unaltered
+colour kernel. The coefficient 2 is the original two-bit character factor. -/
+private theorem coset_sum (I : AddSubgroup (G H)) (a : G H) (f : G H → ℝ) :
+    (∑ g : G H, if g-a ∈ I then f g else 0) = ∑ u ∈ places I, f (a+u) := by
+  classical
+  let E := Equiv.addLeft a
+  have h := E.sum_comp (fun g : G H => if g-a ∈ I then f g else 0)
+  simpa [E, places, Finset.sum_filter, add_sub_cancel_left] using h.symm
+
+private theorem site_census (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H → ℝ)
+    (N : ℕ) (σ : G H)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w (σ+ρ))
+    (hN : ∀ ρ, alpogeNativeInPhi ρ → w σ / w (σ+ρ) ≤ N) :
+    (alpogeNativeFullKernelASK I F N (w σ) 0 (fun ρ => w (σ+ρ))).re =
+      ∑ p ∈ (Finset.range (N+1)).filter Nat.Prime, ∑ j ∈ Finset.Icc 1 N,
+        Real.log p * (2/((places (I p)).card:ℝ)) *
+          ∑ u ∈ places (I p), if alpogeNativeInPhi (j • F p+u) then 0 else
+            alpogeASKPos (w σ/((p^j:ℕ):ℝ)) (w (target σ (j • F p+u))) := by
+  classical
+  rw [alpogeNativeFullKernelASK_eq_primePowerCensus I F N (w σ) 0 _ hw hN]
+  unfold alpogeNativePrimePowerCensusASK
+  simp only [Complex.re_sum]
+  refine Finset.sum_congr rfl fun p _ => Finset.sum_congr rfl fun j _ => ?_
+  let c : ℝ := 2/((places (I p)).card:ℝ)
+  let f := fun g : G H => alpogeASKPos (w σ/((p^j:ℕ):ℝ)) (w (target σ g))
+  have term (g : G H) :
+      (if g-j • F p ∈ I p then (2:ℂ)/((places (I p)).card:ℂ) else 0) *
+          alpogeNativeSiteCut (w σ) (fun ρ => w (σ+ρ)) 0 (p^j) g =
+        ((if g-j • F p ∈ I p then c*f g else 0 : ℝ):ℂ) := by
+    split_ifs <;> simp [c, f, alpogeNativeSiteCut, alpogeASKPos, target]
+  change ((Real.log p:ℂ) * ∑ g ∈ Finset.univ.filter (fun g : G H => ¬alpogeNativeInPhi g),
+    (if g-j • F p ∈ I p then (2:ℂ)/((places (I p)).card:ℂ) else 0) * _).re = _
+  simp_rw [term]
+  rw [← Complex.ofReal_sum, ← Complex.ofReal_mul, Complex.ofReal_re]
+  rw [mul_assoc]
+  apply congrArg (Real.log p * ·)
+  change _ = c*∑ u ∈ places (I p), if alpogeNativeInPhi (j • F p+u) then 0 else f (j • F p+u)
+  rw [← coset_sum (I p) (j • F p) (fun g => if alpogeNativeInPhi g then 0 else f g),
+    Finset.mul_sum, Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro g _
+  by_cases hg : alpogeNativeInPhi g <;> by_cases hI : g-j • F p ∈ I p <;> simp [hg, hI]
+
+/-- The rank-one positive term is the original full ASK summed at nominal
+site widths. The cutoff, every proper power and each ramified inertia
+multiplicity agree before taking a single inequality. -/
+theorem forced_sum_eq_nominal_ask (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H)
+    (w : G H → ℝ) (N : ℕ)
+    (hw : ∀ σ ∈ alpogeNativePhiSet H, ∀ ρ, alpogeNativeInPhi ρ → 0 < w (σ+ρ))
+    (hN : ∀ σ ∈ alpogeNativePhiSet H, ∀ ρ, alpogeNativeInPhi ρ → w σ / w (σ+ρ) ≤ N) :
+    (∑ p ∈ (Finset.range (N+1)).filter Nat.Prime, 2*forced I F w N p * Real.log p) =
+      ∑ σ ∈ alpogeNativePhiSet H, (alpogeNativeFullKernelASK I F N (w σ) 0 (fun ρ => w (σ+ρ))).re := by
+  classical
+  symm
+  rw [Finset.sum_congr rfl (fun σ hσ => site_census I F w N σ (hw σ hσ) (hN σ hσ)), Finset.sum_comm]
+  refine Finset.sum_congr rfl fun p _ => ?_
+  let Z := fun (σ : G H) (e : ℕ) (u : G H) => if alpogeNativeInPhi (e • F p+u) then 0 else
+    alpogeASKPos (w σ/((p^e:ℕ):ℝ)) (w (target σ (e • F p+u)))
+  let S := places (I p)
+  have reorder : (∑ σ ∈ alpogeNativePhiSet H, ∑ e ∈ Finset.Icc 1 N, ∑ u ∈ S, Z σ e u) =
+      ∑ u ∈ S, ∑ σ ∈ alpogeNativePhiSet H, ∑ e ∈ Finset.Icc 1 N, Z σ e u := by
+    calc
+      _ = ∑ σ ∈ alpogeNativePhiSet H, ∑ u ∈ S, ∑ e ∈ Finset.Icc 1 N, Z σ e u :=
+        Finset.sum_congr rfl fun _ _ => Finset.sum_comm
+      _ = _ := Finset.sum_comm
+  simp_rw [← Finset.mul_sum]
+  change (Real.log p*(2/(S.card:ℝ)))*(∑ σ ∈ alpogeNativePhiSet H, ∑ e ∈ Finset.Icc 1 N, ∑ u ∈ S, Z σ e u) =
+    2*((∑ u ∈ S, ∑ σ ∈ alpogeNativePhiSet H, ∑ e ∈ Finset.Icc 1 N, Z σ e u)/(S.card:ℝ))*Real.log p
+  rw [reorder]
+  ring
+
+/-- In the ordinary interval metric a coordinate indicator has squared norm
+w. At a nominal integral order m ≤ w, the dilation of the untwisted jet has
+squared norm at least one: this metric cannot supply the negative jet term
+of Separation without independently justified metric transport. -/
+theorem interval_jet_norm_ge_one (w : ℝ) (m : ℕ) (hw : (m:ℝ) ≤ w) :
+    1 ≤ fockNormSq ((Real.sqrt w ^ m) • dividedJet (Finsupp.single () m) 1) := by
+  rw [(jet_read_norm (Finsupp.single () m) 1 (Real.sqrt w ^ m)).2, multiFactorial_single, mul_one,
+    ← pow_mul, Nat.mul_comm m 2, pow_mul, Real.sq_sqrt ((Nat.cast_nonneg m).trans hw)]
+  apply (one_le_div (by exact_mod_cast m.factorial_pos)).2
+  exact (show (m.factorial:ℝ) ≤ (m:ℝ)^m by exact_mod_cast Nat.factorial_le_pow m).trans
+    (pow_le_pow_left₀ (Nat.cast_nonneg m) hw _)
+
+/-- Scaling by the nonzero common Euler reading preserves this line. A
+primitive test on it is fixed by its rank-one projector in any compatible
+inner product. On the unit Fock metric its squared norm forces the exact
+finite denominator when multiplied by a class factor h and a clearing d. -/
+theorem primitive_line_denominator {S : Type*} (α : S →₀ ℕ) (A : ℕ) (hA : 0 < A) (h d : ℕ) :
+    Submodule.span ℝ {dividedJet α A} = Submodule.span ℝ {dividedJet α 1} ∧
+    ((∃ z : ℕ, ((d*h:ℕ):ℝ) * fockNormSq (dividedJet α 1) = z) ↔ multiFactorial α ∣ d*h) := by
+  classical
+  have hz : (multiFactorial α:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
+  have scaled : dividedJet α A = (A:ℝ) • dividedJet α 1 := by
+    simp [dividedJet, MvPolynomial.smul_monomial, div_eq_mul_inv]
+  refine ⟨scaled ▸ Submodule.span_singleton_smul_eq (isUnit_iff_ne_zero.mpr
+    (show (A:ℝ) ≠ 0 from Nat.cast_ne_zero.mpr hA.ne')) _, ?_⟩
+  have norm : fockNormSq (dividedJet α 1) = 1/(multiFactorial α:ℝ) := by
+    simpa using (jet_read_norm α 1 1).2
+  rw [norm, mul_one_div]
+  constructor
+  · rintro ⟨z, h⟩
+    refine ⟨z, ?_⟩
+    have heq := (div_eq_iff hz).1 h
+    rw [mul_comm] at heq
+    exact_mod_cast heq
+  · rintro ⟨z, h⟩
+    refine ⟨z, (div_eq_iff hz).2 ?_⟩
+    exact_mod_cast h.trans (Nat.mul_comm _ _)
+
+/-- At the first admissible integer order ceil(w), the raw interval metric
+has squared norm at least one half, even though its unit-coordinate jet
+has squared norm 1/(ceil(w))!. -/
+theorem nominal_ceil_norm_ge_half (w : ℝ) (hw : 1 ≤ w) :
+    1/2 ≤ fockNormSq ((Real.sqrt w ^ ⌈w⌉₊) • dividedJet (Finsupp.single () ⌈w⌉₊) 1) := by
+  have hw0 : 0 ≤ w := zero_le_one.trans hw
+  have hceil := Nat.ceil_lt_add_one hw0
+  rw [(jet_read_norm _ 1 _).2, multiFactorial_single, mul_one, ← pow_mul, Nat.mul_comm _ 2,
+    pow_mul, Real.sq_sqrt hw0]
+  cases hm : ⌈w⌉₊ with
+  | zero => norm_num
+  | succ k =>
+    rw [hm, Nat.cast_succ] at hceil
+    have hk : (k:ℝ) ≤ w := by linarith
+    have hf : (k.factorial:ℝ) ≤ w^k := (show (k.factorial:ℝ) ≤ (k:ℝ)^k by
+      exact_mod_cast Nat.factorial_le_pow k).trans (pow_le_pow_left₀ (Nat.cast_nonneg k) hk _)
+    apply (le_div_iff₀ (by exact_mod_cast (k+1).factorial_pos : 0 < ((k+1).factorial:ℝ))).2
+    rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add_one, pow_succ]
+    nlinarith only [mul_le_mul (show (k:ℝ)+1 ≤ 2*w by linarith) hf (Nat.cast_nonneg _)
+      (by linarith : 0 ≤ 2*w)]
+
+/-- Attach the common test to the full native nominal ASK. The metric
+dilation here uses the L2 length of each nominal interval indicator. -/
+theorem nominal_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H → ℝ) (N : ℕ)
+    (α : G H →₀ ℕ) (hα : α.support ⊆ alpogeNativePhiSet H)
+    (hpos : ∀ σ ∈ alpogeNativePhiSet H, 0 < w σ)
+    (hw : ∀ σ ∈ alpogeNativePhiSet H, ∀ ρ, alpogeNativeInPhi ρ → 0 < w (σ+ρ))
+    (hN : ∀ σ ∈ alpogeNativePhiSet H, ∀ ρ, alpogeNativeInPhi ρ → w σ / w (σ+ρ) ≤ N) :
+    let P := (Finset.range (N+1)).filter Nat.Prime
+    let scale := α.prod (fun σ m => Real.sqrt (w σ) ^ m)
+    ∃ u : ℕ → G H, (∀ p, u p ∈ I p) ∧
+      let A := ∏ p ∈ P, chartRead w F N p (u p)
+      0 < A ∧ (∀ p ∈ P, (A.factorization p:ℝ) ≤ forced I F w N p) ∧
+      (multiFactorial α:ℝ) * (dividedJet α A).coeff α = A ∧
+      Real.log (fockNormSq (scale • dividedJet α A)) ≤
+        -Real.log (multiFactorial α) + 2*Real.log scale +
+          ∑ σ ∈ alpogeNativePhiSet H, (alpogeNativeFullKernelASK I F N (w σ) 0 (fun ρ => w (σ+ρ))).re := by
+  classical
+  dsimp only
+  rw [← forced_sum_eq_nominal_ask I F w N hw hN]
+  exact common_jet I F w N _ (fun _ hp => (Finset.mem_filter.mp hp).2)
+    (fun σ hσ => (hpos σ hσ).le) α _ (Finset.prod_pos fun σ hσ =>
+      pow_pos (Real.sqrt_pos.2 (hpos σ (hα hσ))) _)
 
 end RHLean.Analysis.AlpogeThin.RankOne
