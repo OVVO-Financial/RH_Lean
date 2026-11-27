@@ -1,3 +1,4 @@
+import «research.NativeMeasuredSlotProjector»
 import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeSignedWidthSweep»
@@ -226,3 +227,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_frozen_top_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_slots
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.integral_dual
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.measured_gram
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.projector_det

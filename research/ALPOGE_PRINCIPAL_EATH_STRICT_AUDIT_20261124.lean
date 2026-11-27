@@ -1,3 +1,4 @@
+import «research.NativeMeasuredSlotProjector»
 import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
@@ -233,6 +234,10 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.MeasuredCut.admission_bounds,
     ``RHLean.Analysis.AlpogeThin.MeasuredCut.wheel_factor_le,
     ``RHLean.Analysis.AlpogeThin.MeasuredCut.firstPrime_fibre,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_slots,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.integral_dual,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.measured_gram,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.projector_det,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_high_wheel_normalized_price,
     ``RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
