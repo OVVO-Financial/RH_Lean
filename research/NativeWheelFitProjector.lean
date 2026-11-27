@@ -61,17 +61,20 @@ private theorem two_norm {C : Type*} [AddCommGroup C] [Fintype C] (p : ℕ) [Fac
         exact pow_lt_one₀ (norm_nonneg _) hp0 (Nat.succ_ne_zero k)
       rw [IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm hlt.ne', max_eq_left hlt.le, norm_one]
 
-private theorem phi_read (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] (w : G e → ℝ)
+private theorem phi_depth (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] (w : G e → ℝ)
     (u : G e) (hu : alpogeNativeInPhi u) (hF : alpogeNativeInPhi ((alpogeNativeHostData e q d).frob p)) :
-    chartRead w (alpogeNativeHostData e q d).frob N p u = 1 := by
-  rw [chartRead_eq]
-  suffices h : chartDepth w (alpogeNativeHostData e q d).frob N p u = 0 by rw [h, pow_zero]
+    chartDepth w (alpogeNativeHostData e q d).frob N p u = 0 := by
   unfold chartDepth
   refine Finset.sum_eq_zero fun _ _ => Finset.sum_eq_zero fun i _ => ?_
   apply ite_eq_left
   change i • ((alpogeNativeHostData e q d).frob p).1.1 + u.1.1 = 0
   rw [show ((alpogeNativeHostData e q d).frob p).1.1 = 0 from hF, show u.1.1 = 0 from hu,
     nsmul_zero, add_zero]
+
+private theorem phi_read (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] (w : G e → ℝ)
+    (u : G e) (hu : alpogeNativeInPhi u) (hF : alpogeNativeInPhi ((alpogeNativeHostData e q d).frob p)) :
+    chartRead w (alpogeNativeHostData e q d).frob N p u = 1 := by
+  rw [chartRead_eq, phi_depth e q d N p w u hu hF, pow_zero]
 
 /-- The single trivial inertia character achieves the largest local test
 norm for every width profile and every power of that character. -/
@@ -134,5 +137,182 @@ theorem dyadic_all_channels (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime] [Fac
       have hv := v.property
       change v.val ∈ (alpogeNativeHostData e q d).inertia p at hv
       rwa [nativeDyadicHostData_inertia_unramified e q d p Fact.out hbad, AddSubgroup.mem_bot] at hv))
+
+/-- The integral reading at the common zero representative, prior to
+selection of the prime, place, direction or power. -/
+def wheel (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ) (w : G e → ℝ) : ℕ :=
+  ∏ l ∈ P, chartRead w (alpogeNativeHostData e q d).frob N l 0
+
+/-- Zero realizes the depth allowance simultaneously at every actual
+prime. Conductor primes have zero depth at this representative, and
+unramified inertia has only this representative. -/
+theorem zero_depth_le (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (w : G e → ℝ)
+    (hw : ∀ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e), 0 ≤ w σ) :
+    let D := alpogeNativeHostData e q d
+    (chartDepth w D.frob N p 0:ℝ) ≤ forced D.inertia D.frob w N p := by
+  let D := alpogeNativeHostData e q d
+  obtain ⟨v,hv,hcost⟩ := exists_chart D.inertia D.frob w N p hw
+  by_cases hb : p ∣ alpogeNativeHostN e q d
+  · have hf : alpogeNativeInPhi (D.frob p) := by
+      by_cases h : p = d
+      · subst p; exact nativeDyadicHostData_frob_d_inPhi e q d hH
+      · exact (nativeDyadicHostData_typeI e q d p hH Fact.out
+          (((Fact.out : p.Prime).dvd_mul.mp hb).resolve_right
+            (fun k => h ((Nat.prime_dvd_prime_iff_eq Fact.out hH.2.1).1 k)))).2
+    change (chartDepth w D.frob N p 0:ℝ) ≤ _
+    rw [phi_depth e q d N p w 0 rfl hf, Nat.cast_zero]
+    exact (Nat.cast_nonneg _).trans hcost
+  · have hz : v = 0 := by
+      change v ∈ (alpogeNativeHostData e q d).inertia p at hv
+      rwa [nativeDyadicHostData_inertia_unramified e q d p Fact.out hb, AddSubgroup.mem_bot] at hv
+    simpa only [hz] using hcost
+
+/-- The same physical wheel integer has the exact prime depths used
+by the common class character, before the all-nominal ASK sum. -/
+theorem wheel_depths (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ)
+    (hp : ∀ p ∈ P, p.Prime) (w : G e → ℝ) (p : ℕ) (h : p ∈ P) :
+    (wheel e q d N P w).factorization p = chartDepth w (alpogeNativeHostData e q d).frob N p 0 := by
+  let D := alpogeNativeHostData e q d
+  unfold wheel
+  simp_rw [chartRead_eq]
+  rw [Nat.factorization_prod_apply (fun l hl => (pow_pos (hp l hl).pos _).ne')]
+  rw [Finset.sum_eq_single_of_mem p h]
+  · exact Nat.factorization_pow_self (hp p h)
+  · intro l hl hne
+    simp [Nat.factorization_pow, Nat.Prime.factorization (hp l hl), Finsupp.single_eq_of_ne hne.symm]
+
+/-- Vary only the admitted factor at the place p. Outside the cutoff its
+class test is the transform of a constant. -/
+def readAt (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ) (w : G e → ℝ)
+    (p : ℕ) (χ : AddChar ((alpogeNativeHostData e q d).inertia p) ℂ) : ℂ :=
+  (wheel e q d N (P.erase p) w:ℂ) * channel (fun u =>
+    if p ∈ P then chartRead w (alpogeNativeHostData e q d).frob N p u else 1) χ
+
+theorem common_read (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ) (w : G e → ℝ) :
+    (∀ χ, ‖ι (readAt e q d N P w p χ)‖ ≤ ‖ι (wheel e q d N P w:ℂ)‖) ∧
+      ‖ι (readAt e q d N P w p 0)‖ = ‖ι (wheel e q d N P w:ℂ)‖ := by
+  classical
+  by_cases hp : p ∈ P
+  · have fac : wheel e q d N P w = wheel e q d N (P.erase p) w *
+        chartRead w (alpogeNativeHostData e q d).frob N p 0 := (Finset.prod_erase_mul P _ hp).symm
+    obtain ⟨all,best⟩ := dyadic_all_channels e q d p N hH ι w
+    simp only [readAt, ite_eq_left hp, fac, Nat.cast_mul, map_mul, norm_mul]
+    exact ⟨fun χ => mul_le_mul_of_nonneg_left (all χ) (norm_nonneg _), congrArg (_ * ·) (by simpa using best 0)⟩
+  · simp only [readAt, Finset.erase_eq_of_notMem hp, ite_eq_right hp, channel_const, Nat.cast_one]
+    constructor
+    · intro χ
+      split_ifs <;> simp
+    · simp
+
+/-- The literal tested rank-one pairing. h is a separate class multiplier. -/
+def tested {S : Type*} (α : S →₀ ℕ) (r : ℚ) (h : ℕ) (z z' : ℂ) : ℂ :=
+  (h:ℂ) * fockInner (measuredTest α (Real.sqrt (r:ℝ)) z)
+    (derivativeProjection α (measuredTest α (Real.sqrt (r:ℝ)) z'))
+
+def payment {S : Type*} (α : S →₀ ℕ) (r : ℚ) (h A : ℕ) : ℚ :=
+  ((h:ℚ)*r/(multiFactorial α:ℚ))*(A:ℚ)^2
+
+private theorem tested_eq {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 ≤ r) (h : ℕ) (z z' : ℂ) :
+    tested α r h z z' = ((((h:ℚ)*r/(multiFactorial α:ℚ)):ℚ):ℂ)*z*starRingEnd ℂ z' := by
+  have sq : ((Real.sqrt (r:ℝ):ℂ))^2 = (r:ℂ) := by
+    rw [← Complex.ofReal_pow, Real.sq_sqrt (by exact_mod_cast hr)]
+    norm_cast
+  rw [tested, projected_test_pair, sq]
+  push_cast
+  ring
+
+/-- Every paired test is controlled by a rational number read from the
+same wheel and metric. Trivial characters attain the bound at every
+place, simultaneously for all directions. The second test is measured
+through the conjugate embedding, as in the compact rank-one proof. -/
+theorem exact_projector_price (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ) (w : G e → ℝ)
+    {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 < r) (h : ℕ) :
+    let z := readAt e q d N P w p
+    let Q := payment α r h (wheel e q d N P w)
+    (∀ χ ψ, ‖ι (tested α r h (z χ) (z ψ))‖ ≤ (padicNorm p Q:ℝ)) ∧
+      ‖ι (tested α r h (z 0) (z 0))‖ = (padicNorm p Q:ℝ) := by
+  let z := readAt e q d N P w p
+  let A := wheel e q d N P w
+  let c := (h:ℚ)*r/(multiFactorial α:ℚ)
+  let κ := ι.comp (starRingEnd ℂ)
+  have hc : ‖κ (A:ℂ)‖ = ‖ι (A:ℂ)‖ := by simp [κ]
+  obtain ⟨first, f0⟩ := common_read e q d N p hH ι P w
+  obtain ⟨second, s0⟩ := common_read e q d N p hH κ P w
+  have entry χ ψ : ‖ι (tested α r h (z χ) (z ψ))‖ =
+      ‖ι (c:ℂ)‖ * ‖ι (z χ)‖ * ‖κ (z ψ)‖ := by
+    rw [tested_eq α r hr.le, map_mul, map_mul, norm_mul, norm_mul]
+    rfl
+  have price : (padicNorm p (payment α r h A):ℝ) = ‖ι (c:ℂ)‖ * ‖ι (A:ℂ)‖ * ‖ι (A:ℂ)‖ := by
+    rw [← place_rat p ι]
+    change ‖ι (((c*(A:ℚ)^2:ℚ):ℂ))‖ = _
+    push_cast
+    rw [map_mul, map_pow, norm_mul, norm_pow]
+    ring
+  change (∀ χ ψ, ‖ι (tested α r h (z χ) (z ψ))‖ ≤ _) ∧ ‖ι (tested α r h (z 0) (z 0))‖ = _
+  rw [price]
+  constructor
+  · intro χ ψ
+    rw [entry]
+    exact mul_le_mul (mul_le_mul_of_nonneg_left (first χ) (norm_nonneg _))
+      ((second ψ).trans_eq hc) (norm_nonneg _) (mul_nonneg (norm_nonneg _) (norm_nonneg _))
+  · rw [entry]
+    change _ * ‖ι (readAt e q d N P w p 0)‖ * ‖κ (readAt e q d N P w p 0)‖ = _
+    rw [f0, s0, hc]
+
+/-- Mixed tests in integral coordinates on a single family of distinct
+measured Fock monomials. The full row space has class multiplier one. -/
+def rowMatrix {S : Type*} {n : ℕ} (α : Fin n → S →₀ ℕ) (r : Fin n → ℚ)
+    (z z' : Fin n → ℂ) (U V : Matrix (Fin n) (Fin n) ℤ) : Matrix (Fin n) (Fin n) ℂ :=
+  U.map (Int.castRingHom ℂ) *
+    Matrix.of (fun i j => fockInner (measuredTest (α i) (Real.sqrt (r i:ℝ)) (z i))
+      (derivativeProjection (α j) (measuredTest (α j) (Real.sqrt (r j:ℝ)) (z' j)))) *
+    (V.map (Int.castRingHom ℂ)).transpose
+
+theorem row_det {S : Type*} {n : ℕ} (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (z z' : Fin n → ℂ) (U V : Matrix (Fin n) (Fin n) ℤ) :
+    (rowMatrix α r z z' U V).det =
+      (U.det:ℂ)*(∏ i, tested (α i) (r i) 1 (z i) (z' i))*(V.det:ℂ) := by
+  classical
+  have diag : Matrix.of (fun i j => fockInner (measuredTest (α i) (Real.sqrt (r i:ℝ)) (z i))
+      (derivativeProjection (α j) (measuredTest (α j) (Real.sqrt (r j:ℝ)) (z' j)))) =
+      Matrix.diagonal (fun i => tested (α i) (r i) 1 (z i) (z' i)) := by
+    ext i j
+    by_cases h : i = j
+    · subst j; simp [tested]
+    · simp [derivativeProjection, measuredTest, fockInner_monomial_right,
+        hi.ne h, hi.ne (Ne.symm h), Matrix.diagonal, h]
+  rw [rowMatrix, diag, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, Matrix.det_diagonal,
+    ← RingHom.map_det, ← RingHom.map_det]
+  rfl
+
+/-- The full row determinant and every rank-one test share the same
+attaining character. Integral changes of the two test tables are included,
+and the determinant receives every direction's squared wheel reading. -/
+theorem exact_row_price (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
+    {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ) (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (hr : ∀ i, 0 < r i) :
+    let z := fun (χ : Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ) i =>
+      readAt e q d N P (w i) p (χ i)
+    let Q := fun i => payment (α i) (r i) 1 (wheel e q d N P (w i))
+    (∀ χ ψ U V, ‖ι ((rowMatrix α r (z χ) (z ψ) U V).det)‖ ≤ ∏ i, (padicNorm p (Q i):ℝ)) ∧
+      ‖ι ((rowMatrix α r (z 0) (z 0) 1 1).det)‖ = ∏ i, (padicNorm p (Q i):ℝ) := by
+  classical
+  let b i := exact_projector_price e q d N p hH ι P (w i) (α i) (r i) (hr i) 1
+  dsimp only
+  constructor
+  · intro χ ψ U V
+    rw [row_det α hi, map_mul, map_mul, map_intCast, map_intCast, norm_mul, norm_mul,
+      map_prod, norm_prod]
+    have hu := IsUltrametricDist.norm_intCast_le_one (PadicAlgCl p) U.det
+    have hv := IsUltrametricDist.norm_intCast_le_one (PadicAlgCl p) V.det
+    exact (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (Finset.prod_nonneg fun _ _ => norm_nonneg _)) hv).trans
+      ((mul_le_of_le_one_left (Finset.prod_nonneg fun _ _ => norm_nonneg _) hu).trans
+      (Finset.prod_le_prod (fun _ _ => norm_nonneg _) fun i _ => (b i).1 (χ i) (ψ i)))
+  · rw [row_det α hi, Matrix.det_one, Int.cast_one, one_mul, mul_one, map_prod, norm_prod]
+    exact Finset.prod_congr rfl fun i _ => (b i).2
 
 end RHLean.Analysis.AlpogeThin.WheelFit
