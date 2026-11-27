@@ -286,7 +286,7 @@ private theorem quarter_parameters (M : ℕ) (hm : 16 ≤ M) :
   have m16 : (16:ℝ) ≤ M := by exact_mod_cast hm
   have sr := Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) M)
   have pos := Real.sqrt_nonneg (M:ℝ)
-  have four : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by norm_num; exact m16)
+  have four : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by exact_mod_cast hm)
   have small : 4*Real.sqrt (M:ℝ) ≤ M := by nlinarith only [sr,mul_le_mul_of_nonneg_right four pos]
   have qpos := Real.sqrt_nonneg (Real.sqrt (M:ℝ))
   have qsq := Real.sq_sqrt pos
