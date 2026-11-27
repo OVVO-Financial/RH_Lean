@@ -119,7 +119,7 @@ private def returnsEndpoint (env : Environment) (c : ConstantInfo) : MetaM Bool 
 private def checkImportedTerminals (env : Environment) : CommandElabM Unit := do
   let compact := #[`New.grh, `riemannHypothesis, `riemannZeta_eq_zero_re,
     `LFunction_ne_zero_of_half_lt_re, `LFunction_eq_zero_re, `LFunction_eq_zero_re_of_isPrimitive]
-  let mut checked := 0
+  let mut checked : Nat := 0
   for i in [:env.header.moduleNames.size] do
     let m := env.header.moduleNames[i]!
     if nativeModule m then continue
