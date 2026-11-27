@@ -186,7 +186,7 @@ theorem wheel_depths (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset �
 class test is the transform of a constant. -/
 def readAt (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ) (w : G e → ℝ)
     (p : ℕ) (χ : AddChar ((alpogeNativeHostData e q d).inertia p) ℂ) : ℂ :=
-  (wheel e q d N (P.erase p) w:ℂ) * channel (fun u =>
+  (wheel e q d N (P.erase p) w:ℂ) * channel (fun u : (alpogeNativeHostData e q d).inertia p =>
     if p ∈ P then chartRead w (alpogeNativeHostData e q d).frob N p u else 1) χ
 
 theorem common_read (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
@@ -283,10 +283,11 @@ theorem row_det {S : Type*} {n : ℕ} (α : Fin n → S →₀ ℕ) (hi : Functi
     by_cases h : i = j
     · subst j; simp [tested]
     · simp [derivativeProjection, measuredTest, fockInner_monomial_right,
-        hi.ne h, hi.ne (Ne.symm h), Matrix.diagonal, h]
+        hi.ne h, Matrix.diagonal, h]
+  have castDet (L : Matrix (Fin n) (Fin n) ℤ) : (L.map (Int.castRingHom ℂ)).det = (L.det:ℂ) :=
+    ((Int.castRingHom ℂ).map_det L).symm
   rw [rowMatrix, diag, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, Matrix.det_diagonal,
-    ← RingHom.map_det, ← RingHom.map_det]
-  rfl
+    castDet, castDet]
 
 /-- The full row determinant and every rank-one test share the same
 attaining character. Integral changes of the two test tables are included,
@@ -311,7 +312,7 @@ theorem exact_row_price (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.
     have hv := IsUltrametricDist.norm_intCast_le_one (PadicAlgCl p) V.det
     exact (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (Finset.prod_nonneg fun _ _ => norm_nonneg _)) hv).trans
       ((mul_le_of_le_one_left (Finset.prod_nonneg fun _ _ => norm_nonneg _) hu).trans
-      (Finset.prod_le_prod (fun _ _ => norm_nonneg _) fun i _ => (b i).1 (χ i) (ψ i)))
+      (Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) fun i _ => (b i).1 (χ i) (ψ i)))
   · rw [row_det α hi, Matrix.det_one, Int.cast_one, one_mul, mul_one, map_prod, norm_prod]
     exact Finset.prod_congr rfl fun i _ => (b i).2
 
@@ -407,7 +408,7 @@ theorem common_native_allowance (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
     exact (mul_le_of_le_one_left (by exact_mod_cast padicNorm.nonneg (p := p) (Q i))
       (by exact_mod_cast hunit)).trans (localBound i)
   · calc
-      _ ≤ ∏ _i : Fin n, Real.exp (γ p) := Finset.prod_le_prod
+      _ ≤ ∏ _i : Fin n, Real.exp (γ p) := Finset.prod_le_prod₀
         (fun i _ => by exact_mod_cast padicNorm.nonneg (p := p) (Q i)) fun i _ => localBound i
       _ = Real.exp ((n:ℝ)*γ p) := by simp [Real.exp_nat_mul]
       _ ≤ _ := by
@@ -428,7 +429,8 @@ theorem singletonOrders_injective {e : ℕ} (b l : ℝ) (h : ⌈b⌉₊ ≠ ⌈l
   intro t u hu
   by_contra hne
   have eq := DFunLike.congr_fun hu (((0,1),t) : G e)
+  apply h
   simpa [singletonOrders, alpogeNativeInPhi, alpogeNativeFreezeThick, alpogeNativeThickPositiveSites,
-    hne, Ne.symm hne, h] using eq
+    zero_add t, zero_add u, hne] using eq
 
 end RHLean.Analysis.AlpogeThin.WheelFit
