@@ -325,7 +325,9 @@ theorem original_addresses {m : ℕ} (h : Fin (m+1) → ℝ) (v : ℝ)
     ⟨a.2.val, Finset.mem_Ioc.mpr ⟨(ends _ _ a.2.property).1,
       (ends _ _ a.2.property).2.trans (anti.antitone (Fin.zero_le _))⟩⟩
   have apart {i j : Fin (m+1)} (hij : i < j) {k : ℕ} (hi : k ∈ bands h v i) (hj : k ∈ bands h v j) : False := by
-    obtain ⟨a,rfl⟩ := Fin.eq_castSucc_of_ne_last (fun e => (Fin.le_last j).not_lt (e ▸ hij))
+    have hlast : i ≠ Fin.last m := (hij.trans_le (Fin.le_last j)).ne
+    obtain ⟨a,ha⟩ := Fin.eq_castSucc_of_ne_last hlast
+    rw [← ha] at hi hij
     have hak : k ∈ Finset.Ioc (H a.succ) (H a.castSucc) := by simpa [H,bands] using hi
     have hle : a.succ ≤ j := by omega
     exact (Finset.mem_Ioc.mp hak).1.not_ge ((ends _ _ hj).2.trans (anti.antitone hle))
