@@ -189,6 +189,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.interval_jet_norm_ge_one
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.primitive_line_denominator
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.measured_line_denominator
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.split_prime_clearing
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_ceil_norm_ge_half
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_jet
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.dyadic_nominal_jet

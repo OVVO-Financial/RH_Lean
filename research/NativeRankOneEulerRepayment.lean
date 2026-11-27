@@ -1,4 +1,5 @@
 import RHLean.Analysis.AlpogeNativeThickFreezing
+import RHLean.Analysis.AlpogeThin.NativeDyadicHostPrimePowerWeights
 import RHLean.Geometry.NativeThetaFock
 
 /-! The rank-one finite test at nominal source widths. At p one inertia
@@ -349,6 +350,47 @@ theorem measured_line_denominator {S : Type*} (α : S →₀ ℕ) (A B C h d : �
   · rintro ⟨z, hz⟩
     exact ⟨z, (div_eq_iff den).2 (by exact_mod_cast hz.trans (Nat.mul_comm _ _))⟩
 
+/-- At an actual unramified split prime on the selected dyadic host,
+all eligible inertia charts have trivial admission. If the class
+multiplier and metric numerator are p-units, the projector clearing
+must contain the whole p-part of the factorial of the measured order. -/
+theorem split_prime_clearing (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (hp : p.Prime) (hpN : ¬p ∣ alpogeNativeHostN e q d)
+    (hsplit : jacobiSym (-(d:ℤ)) p = 1)
+    (P : Finset ℕ) (hP : ∀ l ∈ P, l.Prime) (w : G (AlpogeNativeDyadicH e) → ℝ)
+    (u : ℕ → G (AlpogeNativeDyadicH e)) (hu : ∀ l, u l ∈ (alpogeNativeHostData e q d).inertia l)
+    (α : G (AlpogeNativeDyadicH e) →₀ ℕ) (B C h δ : ℕ) (hC : C ≠ 0) (hunit : p.Coprime (h*B)) :
+    let D := alpogeNativeHostData e q d
+    let A := ∏ l ∈ P, chartRead w D.frob N l (u l)
+    p.Coprime A ∧ ((∃ z : ℕ, ((δ*h:ℕ):ℝ)*fockNormSq ((Real.sqrt ((B:ℝ)/C)) • dividedJet α A) = z) →
+      p^((multiFactorial α).factorization p) ∣ δ) := by
+  let D := alpogeNativeHostData e q d
+  let A := ∏ l ∈ P, chartRead w D.frob N l (u l)
+  have hu0 : u p = 0 := by
+    have h := hu p
+    rwa [nativeDyadicHostData_inertia_unramified e q d p hp hpN, AddSubgroup.mem_bot] at h
+  have hg (i : ℕ) : alpogeNativeInPhi (i • D.frob p) := by
+    by_contra h
+    have hneg := (nativeDyadicHostData_frob_not_inPhi_iff e q d p hH hp hpN).1
+      ((nativeDyadic_not_inPhi_nsmul e (D.frob p) i).1 h).2
+    rw [hsplit] at hneg
+    norm_num at hneg
+  have hA : p.Coprime A := by
+    apply Nat.Coprime.prod_right
+    intro l hl
+    rw [chartRead_eq]
+    by_cases he : l = p
+    · subst l
+      simp [chartDepth, hu0, hg]
+    · exact Nat.Coprime.pow_right _ ((Nat.coprime_primes hp (hP l hl)).2 he.symm)
+  refine ⟨hA, ?_⟩
+  intro htest
+  have hdiv := (measured_line_denominator α A B C h δ hC).1 htest
+  have hpaid : p^((multiFactorial α).factorization p) ∣ δ * ((h*B)*A^2) := by
+    rw [← mul_assoc, ← mul_assoc]
+    exact ((Nat.ordProj_dvd (multiFactorial α) p).trans (dvd_mul_right _ _)).trans hdiv
+  exact (Nat.Coprime.pow_left _ (Nat.Coprime.mul_right hunit (Nat.Coprime.pow_right 2 hA))).dvd_of_dvd_mul_right hpaid
+
 /-- Take the first admissible order at each positive site of the actual
 translated thick/thin dyadic host. The unmodified ledger cutoff
 ceil(Amax/beta) bounds every nominal ratio. -/
@@ -426,7 +468,7 @@ theorem derivativeProjection_spec {S : Type*} (α : S →₀ ℕ) (s : ℝ) (hs 
   have hsc : (s:ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hs.ne'
   constructor
   · have h : derivativeProjection α P = ((P.coeff α)*(s:ℂ)) • derivativeVector α s := by
-      simp [derivativeProjection, derivativeVector, MvPolynomial.smul_monomial, hsc, mul_assoc]
+      simp [derivativeProjection, derivativeVector, MvPolynomial.smul_monomial, hsc]
     rw [h]
     exact Submodule.smul_mem _ _ (Submodule.mem_span_singleton_self _)
   · simp [derivativeProjection, derivativeVector, fockInner_monomial_right]
@@ -438,7 +480,7 @@ theorem projected_test_pair {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z z' : �
       (s:ℂ)^2 * (z * starRingEnd ℂ z') / (multiFactorial α:ℂ) := by
   classical
   have hf : (multiFactorial α:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
-  simp [derivativeProjection, measuredTest, fockInner_monomial_right, field, hf]
+  simp [derivativeProjection, measuredTest, fockInner_monomial_right, field]
   <;> ring
 
 /-- For a rational squared dilation the actual derivative norm has the

@@ -186,6 +186,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.RankOne.interval_jet_norm_ge_one,
     ``RHLean.Analysis.AlpogeThin.RankOne.primitive_line_denominator,
     ``RHLean.Analysis.AlpogeThin.RankOne.measured_line_denominator,
+    ``RHLean.Analysis.AlpogeThin.RankOne.split_prime_clearing,
     ``RHLean.Analysis.AlpogeThin.RankOne.nominal_ceil_norm_ge_half,
     ``RHLean.Analysis.AlpogeThin.RankOne.nominal_jet,
     ``RHLean.Analysis.AlpogeThin.RankOne.dyadic_nominal_jet,
