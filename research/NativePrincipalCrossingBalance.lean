@@ -536,5 +536,204 @@ theorem all_cells_centered (M K R : ℕ) (hm : 2 ≤ M) :
   rw [intervalIntegral.integral_const_mul,crossingBalance,tent_minus_main_eq_integral _ _ (hd k)]
 
 
+private theorem theta_envelope {δ : ℝ} (hδ : 0 < δ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ n : ℕ, |nativeTheta n-n| ≤ δ*n+B := by
+  have lo := (tendsto_order.1 nativeTheta_div_atTop_one).1 (1-δ) (by linarith)
+  have hi := (tendsto_order.1 nativeTheta_div_atTop_one).2 (1+δ) (by linarith)
+  obtain ⟨L,good⟩ := Filter.eventually_atTop.1 (lo.and hi)
+  let C := Real.log 4+1
+  have hC : 0 ≤ C := by dsimp [C]; positivity
+  refine ⟨C*(L+1),by positivity,?_⟩
+  intro n
+  have hn : (0:ℝ) ≤ n := Nat.cast_nonneg n
+  by_cases large : L+1 ≤ n
+  · have pos : (0:ℝ) < n := by exact_mod_cast (show 0 < n by omega)
+    obtain ⟨l,u⟩ := good n (by omega)
+    have base : 0 ≤ C*((L:ℝ)+1) := by positivity
+    rw [abs_le]
+    constructor <;> linarith only [(lt_div_iff₀ pos).1 l,(div_lt_iff₀ pos).1 u,base]
+  · have small : (n:ℝ) ≤ (L:ℝ)+1 := by exact_mod_cast (show n ≤ L+1 by omega)
+    have b := mul_le_mul_of_nonneg_left small hC
+    dsimp only [C] at b ⊢
+    rw [abs_le]
+    constructor <;> linarith only [b,nativeTheta_nonneg n,nativeTheta_le_log4_mul n,
+      mul_nonneg hδ.le hn,mul_nonneg (Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)) hn,hn]
+
+/-- Both endpoint conventions are explicit. At t=a/v, j is the largest
+integer strictly below t. -/
+private theorem active_at (M : ℕ) {a v : ℝ} (hv : 0 < v) (ht : 0 < a/v) (hm : a/v ≤ M) :
+    let j := ⌈a/v⌉₊-1
+    activeMass M a v = nativeTheta j-nativeTheta (min M.sqrt j) := by
+  intro j
+  have hceil : 0 < ⌈a/v⌉₊ := Nat.lt_ceil.mpr (by simpa only [Nat.cast_zero] using ht)
+  have limit := Nat.ceil_le.mpr hm
+  have jm : j ≤ M := by dsimp [j]; omega
+  have cutoff (p : ℕ) : (p:ℝ) < a/v ↔ p ≤ j := by rw [← Nat.lt_ceil]; dsimp [j]; omega
+  have sets : (retainedFirstPrimes M).filter (fun p : ℕ => (p:ℝ) < a/v) =
+      nativePrimeSet j \ nativePrimeSet (min M.sqrt j) := by
+    ext p
+    simp only [Finset.mem_sdiff,Finset.mem_filter,mem_retainedFirstPrimes,nativePrimeSet,
+      Finset.mem_filter,Finset.mem_Icc,cutoff,le_min_iff]
+    omega
+  have sub : nativePrimeSet (min M.sqrt j) ⊆ nativePrimeSet j := by
+    intro p hp
+    obtain ⟨r,pr⟩ := Finset.mem_filter.mp hp
+    exact Finset.mem_filter.mpr ⟨Finset.Icc_subset_Icc le_rfl (min_le_right ..) r,pr⟩
+  have mass := Finset.sum_sdiff (f := fun p : ℕ => Real.log p) sub
+  have eq := cofactorDiscrepancy_eq M a hv
+  rw [sets,cofactorDiscrepancy] at eq
+  change _+nativeTheta (min M.sqrt j)=nativeTheta j at mass
+  linarith only [eq,mass]
+
+private theorem discrepancy_envelope {δ : ℝ} (hδ : 0 < δ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ (M : ℕ) (v : ℝ), 2 ≤ M → 1 ≤ v →
+      |cofactorDiscrepancy M (evenEndpoint M) v| ≤ δ*M+B+Real.log 4*Real.sqrt M := by
+  obtain ⟨C,hC,theta⟩ := theta_envelope hδ
+  refine ⟨C+1,by positivity,?_⟩
+  intro M v hM hv
+  let a := evenEndpoint M
+  let t := a/v
+  let j := ⌈t⌉₊-1
+  have a0 : 0 < a := by
+    have h : 0 < M/2 := by omega
+    dsimp [a,evenEndpoint]; positivity
+  have scale : a ≤ M := by dsimp [a,evenEndpoint]; exact_mod_cast (show 2*(M/2) ≤ M by omega)
+  have v0 : 0 < v := by linarith
+  have t0 : 0 < t := div_pos a0 v0
+  have tm : t ≤ M := (div_le_self a0.le hv).trans scale
+  have hc : 0 < ⌈t⌉₊ := Nat.lt_ceil.mpr (by simpa only [Nat.cast_zero] using t0)
+  have ceil : (j:ℝ)+1=⌈t⌉₊ := by exact_mod_cast (show j+1=⌈t⌉₊ by dsimp [j]; omega)
+  have jl : (j:ℝ) ≤ t := by linarith only [ceil,Nat.ceil_lt_add_one t0.le]
+  have ju : t ≤ (j:ℝ)+1 := by linarith only [ceil,Nat.le_ceil t]
+  have hs : (M.sqrt:ℝ) ≤ Real.sqrt M := (Real.le_sqrt (by positivity) (Nat.cast_nonneg M)).2 (by
+    rw [sq]; exact_mod_cast Nat.sqrt_le M)
+  have lower : ((min M.sqrt j:ℕ):ℝ) ≤ Real.sqrt M :=
+    (show ((min M.sqrt j:ℕ):ℝ) ≤ M.sqrt by exact_mod_cast min_le_left M.sqrt j).trans hs
+  have cut := active_at M v0 t0 tm
+  change activeMass M a v=nativeTheta j-nativeTheta (min M.sqrt j) at cut
+  change |activeMass M a v-t| ≤ _
+  rw [cut,abs_le]
+  have paid := (nativeTheta_le_log4_mul (min M.sqrt j)).trans (mul_le_mul_of_nonneg_left lower
+    (Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)))
+  have d := mul_le_mul_of_nonneg_left (jl.trans tm) hδ.le
+  have b := abs_le.mp (theta j)
+  constructor <;> linarith only [b.1,b.2,paid,nativeTheta_nonneg (min M.sqrt j),ju,jl,d]
+
+private theorem cell_envelope {δ : ℝ} (hδ : 0 < δ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ M k : ℕ, 2 ≤ M →
+      |crossingBalance M k| ≤ 2*(δ*M+B+Real.log 4*Real.sqrt M) := by
+  obtain ⟨B,hB,obs⟩ := discrepancy_envelope hδ
+  refine ⟨B,hB,?_⟩
+  intro M k hm
+  let a := evenEndpoint M
+  let d := oddCofactor k
+  let C := δ*M+B+Real.log 4*Real.sqrt M
+  have hd : 1 ≤ d := by dsimp [d,oddCofactor]; linarith only [Nat.cast_nonneg (α := ℝ) k]
+  have pos : 0 < d := by linarith
+  have cost : 0 ≤ cellWeight k := by dsimp [cellWeight,oddCofactor]; positivity
+  have cost1 : cellWeight k ≤ 1 := (div_le_one (by dsimp [oddCofactor]; positivity)).2 (by change 1 ≤ 2*(d+1); linarith)
+  have obs2 (s : ℝ) (hs : 0 ≤ s) : |cofactorDiscrepancy M a (d+s)-cofactorDiscrepancy M a (d+1+s)| ≤ 2*C := by
+    exact (abs_sub _ _).trans (by linarith only [obs M (d+s) hm (by linarith),obs M (d+1+s) hm (by linarith)])
+  have integral := intervalIntegral.norm_integral_le_of_norm_le_const (a := (0:ℝ)) (b := 1)
+    (f := fun s => cofactorDiscrepancy M a (d+s)-cofactorDiscrepancy M a (d+1+s)) (C := 2*C) (fun s hs => by
+      rw [Set.uIoc_of_le zero_le_one] at hs
+      simpa only [Real.norm_eq_abs] using obs2 s hs.1.le)
+  simp only [Real.norm_eq_abs,sub_zero,abs_one,mul_one] at integral
+  rw [crossingBalance,tent_minus_main_eq_integral M a pos,abs_mul,abs_of_nonneg cost]
+  exact (mul_le_mul_of_nonneg_right cost1 (abs_nonneg _)).trans ((one_mul _).le.trans integral)
+
+/-- Unconditional matching of the entire absolute sum of prime curvature
+discrepancies to every fixed relative precision. B may depend on that
+precision. The same B works for every integer scale and all terminal cells. -/
+theorem complete_curvature_relative (δ : ℝ) (hδ : 0 < δ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ M R : ℕ, 2 ≤ M →
+      ∑ k ∈ Finset.Ico 1 R, |crossingBalance M k| ≤ δ*M+B*Real.sqrt M := by
+  let c := Real.log 4+1
+  have hc : 0 ≤ c := by dsimp [c]; positivity
+  obtain ⟨T,hT⟩ := exists_nat_gt (2*c/δ+1)
+  have posT : 1 ≤ T := by
+    have pos : 0 ≤ 2*c/δ := by positivity
+    exact_mod_cast (show (1:ℝ) ≤ T by linarith)
+  have cover : 2*c ≤ δ*T := by
+    have h : 2*c/δ ≤ T := by linarith
+    linarith only [(div_le_iff₀ hδ).1 h]
+  let η := δ/(4*((T:ℝ)+1))
+  have posη : 0 < η := by dsimp [η]; positivity
+  obtain ⟨A,hA,early⟩ := cell_envelope posη
+  let B := 2*(T:ℝ)*(A+Real.log 4)
+  refine ⟨B,by dsimp [B]; positivity,?_⟩
+  intro M R hm
+  let U := max R T
+  have tU : T ≤ U := le_max_right ..
+  have rU : R ≤ U := le_max_left ..
+  have root : 1 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by exact_mod_cast (show 1 ≤ M by omega))
+  have cap : ∑ k ∈ Finset.Ico 1 T, |crossingBalance M k| ≤ (T:ℝ)*(2*(η*M+A+Real.log 4*Real.sqrt M)) := by
+    refine (Finset.sum_le_sum (fun k _ => early M k hm)).trans ?_
+    rw [Finset.sum_const,nsmul_eq_mul]
+    exact mul_le_mul_of_nonneg_right (by exact_mod_cast (show (Finset.Ico 1 T).card ≤ T by simp))
+      (by positivity)
+  have dc : 0 < oddCofactor T := by dsimp [oddCofactor]; positivity
+  have ds : (T:ℝ) ≤ oddCofactor T*oddCofactor T := by
+    dsimp [oddCofactor]; nlinarith only [Nat.cast_nonneg (α := ℝ) T,sq_nonneg (T:ℝ)]
+  have denom : c/(oddCofactor T*oddCofactor T) ≤ δ/2 := (div_le_iff₀ (mul_pos dc dc)).2
+    (by linarith only [cover,mul_le_mul_of_nonneg_left ds hδ.le])
+  have endM : evenEndpoint M ≤ M := by dsimp [evenEndpoint]; exact_mod_cast (show 2*(M/2) ≤ M by omega)
+  have fine := fine_crossing_price M T U tU
+  have late : ∑ k ∈ Finset.Ico T U, |crossingBalance M k| ≤ (δ/2)*M := by
+    change _ ≤ c*(evenEndpoint M/oddCofactor T)*(1/oddCofactor T) at fine
+    rw [show c*(evenEndpoint M/oddCofactor T)*(1/oddCofactor T)=c/(oddCofactor T*oddCofactor T)*evenEndpoint M by ring] at fine
+    exact fine.trans (mul_le_mul denom endM (by dsimp [evenEndpoint]; positivity) (by positivity))
+  have rate : 2*(T:ℝ)*η ≤ δ/2 := by
+    have id : 4*((T:ℝ)+1)*η=δ := by dsimp [η]; field_simp
+    linarith only [id,posη]
+  have start : (∑ k ∈ Finset.Ico 1 R, |crossingBalance M k|) ≤ ∑ k ∈ Finset.Ico 1 U, |crossingBalance M k| :=
+    Finset.sum_le_sum_of_subset_of_nonneg (Finset.Ico_subset_Ico le_rfl rU) (fun k _ _ => abs_nonneg _)
+  rw [← Finset.sum_Ico_consecutive (f := fun k => |crossingBalance M k|) posT tU] at start
+  dsimp only [B]
+  linarith only [start,cap,late,mul_le_mul_of_nonneg_right rate (Nat.cast_nonneg (α := ℝ) M),
+    mul_le_mul_of_nonneg_left (show A ≤ A*Real.sqrt M by nlinarith only [mul_le_mul_of_nonneg_left root hA])
+      (show 0 ≤ 2*(T:ℝ) by positivity)]
+
+/-- The endpoint contribution of all paired cells and all ancestors. -/
+def chordHistory (N : ℕ) : ℝ :=
+  if _h : N < 16 then 0 else chordHistory (N/2)-∑ k ∈ Finset.Ico 1 ⌈Real.sqrt N⌉₊, chord N k
+termination_by N
+decreasing_by omega
+
+/-- A common independently obtained relative tolerance accounts for all
+centered prime intervals in the complete signed history. -/
+theorem whole_chord_price (δ : ℝ) (hδ : 0 < δ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ N : ℕ, |firstPrimeHistory N-chordHistory N| ≤ δ*N+B*Real.sqrt N := by
+  obtain ⟨C,hC,all⟩ := complete_curvature_relative (δ/2) (by positivity)
+  refine ⟨4*C,by positivity,?_⟩
+  intro N
+  induction N using Nat.strong_induction_on with
+  | h N ih =>
+    by_cases short : N < 16
+    · have base : chordHistory N=0 := by rw [chordHistory]; simp [short]
+      rw [base,firstPrimeHistory,sumHistory_small _ _ short,sub_zero,abs_zero]
+      positivity
+    · let q := N/2
+      let R := ⌈Real.sqrt N⌉₊
+      let S := Finset.Ico 1 R
+      have raw : firstPrimeHistory N =
+          firstPrimeHistory q-((∑ k ∈ S, chord N k)+∑ k ∈ S, crossingBalance N k) := by
+        rw [firstPrimeHistory,sumHistory_step _ _ short]
+        congr 1
+        have proof := all_cells_eq N 1 R (by omega)
+        simpa only [evenEndpoint,oddCofactor,show ∀ k : ℕ, 2*(k:ℝ)+1+1=2*k+2 by intro k; ring] using proof
+      have cstep : chordHistory N=chordHistory q-∑ k ∈ S, chord N k := by
+        rw [chordHistory]; simp [short,q,S,R]
+      have id : firstPrimeHistory N-chordHistory N =
+          (firstPrimeHistory q-chordHistory q)-∑ k ∈ S, crossingBalance N k := by rw [raw,cstep]; ring
+      have cap : |∑ k ∈ S, crossingBalance N k| ≤ (δ/2)*N+C*Real.sqrt N :=
+        (Finset.abs_sum_le_sum_abs _ _).trans (all N R (by omega))
+      have half : (q:ℝ)*2 ≤ N := by exact_mod_cast (show q*2 ≤ N by dsimp [q]; omega)
+      have root : Real.sqrt (q:ℝ) ≤ (3/4)*Real.sqrt N := (Real.sqrt_le_iff).2
+        ⟨by positivity,by nlinarith only [half,Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) N),Nat.cast_nonneg (α := ℝ) N]⟩
+      rw [id]
+      exact (abs_sub _ _).trans (by linarith only [ih q (by dsimp [q]; omega),cap,
+        mul_le_mul_of_nonneg_left half hδ.le,mul_le_mul_of_nonneg_left root hC])
+
 end
 end RHLean.Analysis.PrincipalCofactor

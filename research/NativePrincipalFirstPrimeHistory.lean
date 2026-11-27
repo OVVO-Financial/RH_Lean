@@ -58,6 +58,10 @@ def firstPrimeValue (M : ℕ) (t : ℝ) : ℝ :=
 
 def retainedFirstPrimes (M : ℕ) : Finset ℕ := (Finset.Icc 1 M).filter (kept M)
 
+theorem mem_retainedFirstPrimes {M p : ℕ} :
+    p ∈ retainedFirstPrimes M ↔ (1 ≤ p ∧ p ≤ M) ∧ p.Prime ∧ M.sqrt < p := by
+  simp only [retainedFirstPrimes, Finset.mem_filter, Finset.mem_Icc, kept]
+
 def clippedReciprocal (M : ℕ) : ℝ := ∑ i ∈ Finset.Icc 1 M, removed M i/i
 
 /-- In the cofactor coordinate the clipped reciprocal slopes and the affine

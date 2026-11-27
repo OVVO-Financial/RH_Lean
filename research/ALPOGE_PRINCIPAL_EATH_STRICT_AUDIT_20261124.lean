@@ -293,6 +293,8 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.all_cells_eq,
     ``RHLean.Analysis.PrincipalCofactor.tent_minus_main_eq_integral,
     ``RHLean.Analysis.PrincipalCofactor.all_cells_centered,
+    ``RHLean.Analysis.PrincipalCofactor.complete_curvature_relative,
+    ``RHLean.Analysis.PrincipalCofactor.whole_chord_price,
     ``RHLean.Analysis.PrincipalCofactor.odd_quotient_variation,
     ``RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints,
     ``RHLean.Analysis.PrincipalCofactor.quarter_step_price,
