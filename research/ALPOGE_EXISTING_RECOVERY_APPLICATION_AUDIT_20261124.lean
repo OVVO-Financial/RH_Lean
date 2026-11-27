@@ -273,6 +273,12 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_minimum
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelNormal_star
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementaryLog_eq
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_prime_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_constant
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheel_star_kernel
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.constant_extension_index
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.constant_complement_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.kernelASK_prefix
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.signedMain_row
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheel_prefix_log_bound
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_bounds_signedMain

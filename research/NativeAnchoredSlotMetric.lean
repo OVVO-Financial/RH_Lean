@@ -124,7 +124,7 @@ theorem complementary_minimum {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin 
     · intro i _; positivity
     · intro i _
       apply le_of_eq
-      field_simp [(hw i).ne'] <;> ring
+      field_simp [(hw i).ne']
   · let N := dualEnergy S D
     let A := fun i => (t/N) * ((wheelNormal D i:ℝ)/(S i).card)
     have level : (∑ i, (wheelNormal D i:ℝ)*A i) = (t/N)*N := by
@@ -140,7 +140,7 @@ theorem complementary_minimum {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin 
       apply Finset.sum_congr rfl
       intro i _
       dsimp only [A]
-      field_simp [(hw i).ne'] <;> ring
+      field_simp [(hw i).ne']
     refine ⟨A, level.trans (div_mul_cancel₀ _ positive.ne'), energy.trans ?_⟩
     change (t/N)^2*N = t^2/N
     field_simp [show N ≠ 0 from positive.ne']
@@ -152,10 +152,99 @@ theorem wheelNormal_star {r : ℕ} (D : Fin (r+1) → ℕ) (j : Fin r) :
       (fun k => (D k:ℤ)) (Finset.mem_univ i)
   simp [starColumn, mul_sub, mul_ite, Finset.sum_sub_distrib, same]
 
+def normalReading {r : ℕ} (D : Fin (r+1) → ℕ) (A : Fin (r+1) → ℤ) : ℤ :=
+  ∑ i, (wheelNormal D i:ℤ)*A i
+
+/-- On integral amplitudes the normal equation cuts out exactly the measured
+star lattice. Pairwise coprimality recovers the original integer coefficients. -/
+theorem wheel_star_kernel {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
+    (cop : Pairwise (fun i j => (D i).Coprime (D j))) (A : Fin (r+1) → ℤ) :
+    normalReading D A = 0 ↔ ∃ z : Fin r → ℤ, ∀ i, A i = ∑ j, starColumn D j i 0 * z j := by
+  classical
+  constructor
+  · intro zero
+    have hz (i : Fin (r+1)) : (D i:ℤ) ∣ A i := by
+      have hcop : (D i).Coprime (wheelNormal D i) := (Nat.coprime_prod_left_iff.mpr
+        (fun j hj => cop (Finset.mem_erase.mp hj).1)).symm
+      apply hcop.isCoprime.dvd_of_dvd_mul_left
+      let f := fun j => (wheelNormal D j:ℤ)*A j
+      have rest : (D i:ℤ) ∣ ∑ j ∈ Finset.univ.erase i, f j := by
+        apply Finset.dvd_sum
+        intro j hj
+        have div : D i ∣ wheelNormal D j := Finset.dvd_prod_of_mem D
+          (Finset.mem_erase.mpr ⟨(Finset.mem_erase.mp hj).1.symm, Finset.mem_univ i⟩)
+        exact dvd_mul_of_dvd_left (by exact_mod_cast div) _
+      have eqn := Finset.sum_erase_add Finset.univ f (Finset.mem_univ i)
+      change ∑ j, f j = 0 at zero
+      change (D i:ℤ) ∣ f i
+      rw [show f i = -(∑ j ∈ Finset.univ.erase i, f j) by omega]
+      exact dvd_neg.mpr rest
+    choose u hu using hz
+    let N := ∏ i, (D i:ℤ)
+    have nonzero : N ≠ 0 := Finset.prod_ne_zero_iff.mpr fun i _ => by exact_mod_cast (hD i).ne'
+    have same i : (wheelNormal D i:ℤ)*(D i:ℤ) = N := by
+      simpa only [wheelNormal, Nat.cast_prod, N] using
+        Finset.prod_erase_mul Finset.univ (fun j => (D j:ℤ)) (Finset.mem_univ i)
+    have sumU : ∑ i, u i = 0 := by
+      apply (mul_eq_zero.mp (show N*∑ i, u i = 0 by
+        rw [Finset.mul_sum]
+        simpa only [normalReading, hu, ← mul_assoc, same] using zero)).resolve_left nonzero
+    rw [Fin.sum_univ_succ] at sumU
+    refine ⟨fun j => u j.succ, fun i => Fin.cases ?_ (fun j => ?_) i⟩
+    · rw [hu 0, show u 0 = -(∑ j : Fin r, u j.succ) by omega]
+      simp [starColumn, (Fin.succ_ne_zero _).symm, neg_mul, mul_neg, Finset.mul_sum]
+    · simp [starColumn, Fin.succ_ne_zero, ite_mul, hu]
+  · rintro ⟨z,hz⟩
+    unfold normalReading
+    simp_rw [hz, Finset.mul_sum, ← mul_assoc]
+    rw [Finset.sum_comm]
+    simp only [← Finset.sum_mul, wheelNormal_star, zero_mul, Finset.sum_const_zero]
+
+/-- Ordinary index after adjoining the literal constant anchor to the original
+wheel stars. A primitive completion has normal reading one instead. -/
+theorem constant_extension_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
+    (cop : Pairwise (fun i j => (D i).Coprime (D j))) :
+    let δ := ∑ i, wheelNormal D i
+    let F : (Fin (r+1) → ℤ) →+ ZMod δ := {
+      toFun := fun A => (normalReading D A : ZMod δ)
+      map_zero' := by simp [normalReading]
+      map_add' := fun A B => by simp [normalReading, mul_add, Finset.sum_add_distrib] }
+    F.ker.index = δ ∧ (∀ A, A ∈ F.ker ↔ ∃ (a : ℤ) (z : Fin r → ℤ),
+      ∀ i, A i = a + ∑ j, starColumn D j i 0*z j) := by
+  classical
+  intro δ F
+  have hd : 0 < δ := Finset.sum_pos (fun i _ => Finset.prod_pos (fun j _ => hD j)) Finset.univ_nonempty
+  let : NeZero δ := ⟨hd.ne'⟩
+  obtain ⟨w,hw,_⟩ := nativeDyadic_firstPrime_wheel_short_completion (0 : Fin (r+1)) D hD cop
+  have onto : Function.Surjective F := by
+    intro y
+    obtain ⟨v,hv⟩ := ZMod.intCast_surjective y
+    refine ⟨fun i => w i*v, ?_⟩
+    change ((∑ i, (wheelNormal D i:ℤ)*(w i*v):ℤ):ZMod δ) = y
+    simp only [← mul_assoc, ← Finset.sum_mul, wheelNormal, hw, one_mul, hv]
+  constructor
+  · rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
+    simp only [Nat.card_eq_fintype_card, ZMod.card]
+  · intro A
+    change ((normalReading D A:ℤ):ZMod δ) = 0 ↔ _
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd]
+    have shift (a : ℤ) : normalReading D (fun i => A i-a) = normalReading D A - (δ:ℤ)*a := by
+      simp only [normalReading, mul_sub, Finset.sum_sub_distrib, ← Finset.sum_mul, δ, Nat.cast_sum]
+    constructor
+    · rintro ⟨a,ha⟩
+      obtain ⟨z,hz⟩ := (wheel_star_kernel D hD cop (fun i => A i-a)).1 (by rw [shift, ha, sub_self])
+      exact ⟨a,z,fun i => by have h := hz i; dsimp only at h; omega⟩
+    · rintro ⟨a,z,hz⟩
+      have h := (wheel_star_kernel D hD cop (fun i => A i-a)).2 ⟨z,fun i => by rw [hz i]; abel⟩
+      exact ⟨a,sub_eq_zero.mp ((shift a).symm.trans h)⟩
+
 /-- The projected length is evaluated independently through the dual norm.
 Its relative log is the opposite of the measured star log covolume. -/
 def complementaryLog {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ) : ℝ :=
   (Real.log (1/dualEnergy S D) - Real.log (1/dualEnergy S (fun _ => 1)))/2
+
+private theorem erase_cost_cancel (u v t : ℝ) (ht : t ≠ 0) : u*v = (u*t)*(v/t) := by
+  field_simp
 
 theorem complementaryLog_eq {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
     (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) :
@@ -172,11 +261,33 @@ theorem complementaryLog_eq {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r
     intro i _
     simp only [L, wheelNormal, Nat.cast_prod, Finset.prod_mul_distrib, Finset.prod_pow]
     rw [← Finset.prod_erase_mul Finset.univ (fun k => ((S k).card:ℝ)) (Finset.mem_univ i)]
-    field_simp [(hw i).ne'] <;> ring
+    exact erase_cost_cancel _ _ _ (hw i).ne'
   dsimp only [complementaryLog, logVolume]
   rw [det D hD, det _ (fun _ => Nat.zero_lt_one), Real.log_mul hL.ne' (dualEnergy_pos S D hS hD).ne',
     Real.log_mul hL.ne' (dualEnergy_pos S _ hS (fun _ => Nat.zero_lt_one)).ne']
   simp only [one_div, Real.log_inv]
   ring
+
+/-- The constant anchor has normal level δ. Using it as the added column of
+the wheel stars changes the relative archimedean volume by exactly the log
+of the *relative* ordinary index, including the unit-wheel index r+1. -/
+theorem constant_complement_price {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) :
+    let δ := ∑ i, wheelNormal D i
+    (Real.log ((δ:ℝ)^2/dualEnergy S D) -
+      Real.log (((r+1:ℕ):ℝ)^2/dualEnergy S (fun _ => 1)))/2 =
+      Real.log ((δ:ℝ)/(r+1:ℕ)) - logVolume S D := by
+  intro δ
+  have hd : 0 < δ := Finset.sum_pos (fun i _ => Finset.prod_pos fun j _ => hD j) Finset.univ_nonempty
+  have hd' : (δ:ℝ) ≠ 0 := by exact_mod_cast hd.ne'
+  have hr : ((r+1:ℕ):ℝ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero r
+  have h1 := (dualEnergy_pos S _ hS (fun _ => Nat.zero_lt_one)).ne'
+  have h2 := (dualEnergy_pos S D hS hD).ne'
+  have opp := complementaryLog_eq S D hS hD
+  simp only [complementaryLog, one_div, Real.log_inv] at opp
+  rw [Real.log_div (pow_ne_zero _ hd') h2, Real.log_div (pow_ne_zero _ hr) h1,
+    Real.log_div hd' hr, Real.log_pow, Real.log_pow]
+  norm_num only [Nat.cast_ofNat]
+  linarith only [opp]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector

@@ -140,4 +140,30 @@ theorem anchoredRecovery_index {r : ℕ} (d : Fin r → ℕ) (hd : ∀ j, 0 < d 
   rw [hr, AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
   simp only [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card]
 
+/-- Exact all-prime index of any sequence of boundary-depth requirements.
+One vector of original amplitudes realizes the entire image. -/
+theorem anchoredRecovery_prime_price {r : ℕ} (P : Finset ℕ) (hp : ∀ p ∈ P, p.Prime)
+    (e : ℕ → Fin r → ℕ) :
+    let d := fun j => ∏ p ∈ P, p^e p j
+    Real.log (((anchoredRecovery (fun j => (d j:ℤ))).toAddMonoidHom.range.index:ℕ):ℝ) =
+      ∑ p ∈ P, (∑ j, (e p j:ℝ))*Real.log p := by
+  intro d
+  have hd j : 0 < d j := Finset.prod_pos fun p h => pow_pos (hp p h).pos _
+  rw [(anchoredRecovery_index d hd).2, Nat.cast_prod, Real.log_prod (fun j _ => by exact_mod_cast (hd j).ne')]
+  have each (j : Fin r) : Real.log (d j:ℝ) = ∑ p ∈ P, (e p j:ℝ)*Real.log p := by
+    simp only [d, Nat.cast_prod, Nat.cast_pow]
+    rw [Real.log_prod (fun p h => pow_ne_zero _ (by exact_mod_cast (hp p h).ne_zero))]
+    simp only [Real.log_pow]
+  simp_rw [each]
+  rw [Finset.sum_comm]
+  exact Finset.sum_congr rfl fun p _ => (Finset.sum_mul _ _ _).symm
+
+theorem anchoredRecovery_constant {r : ℕ} (A : Fin (r+1) → ℤ) :
+    anchoredRecovery (fun _ => 0) A = fun _ => A 0 := by
+  apply eq_of_anchor_jumps
+  · exact anchoredRecovery_zero _ _
+  · intro j
+    rw [anchoredRecovery_jump, zero_mul]
+    exact (sub_self _).symm
+
 end RHLean.Analysis.AlpogeThin.SlotProjector
