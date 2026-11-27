@@ -284,6 +284,7 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.binomial_high_odd_mass,
     ``RHLean.Analysis.PrincipalCofactor.high_hit_boundary,
     ``RHLean.Analysis.PrincipalCofactor.interior_crossing_gain,
+    ``RHLean.Analysis.PrincipalCofactor.interior_bands_separate,
     ``RHLean.Analysis.PrincipalCofactor.firstPrime_history_signed_gain,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_history,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick,

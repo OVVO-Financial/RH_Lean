@@ -324,7 +324,7 @@ private theorem reading_split (M : ℕ) {y z : ℝ} (hzy : z ≤ y) :
 retained triangular crossing, uniformly in every sufficiently large integer
 ancestor. The theta input is the native PNT. -/
 theorem interior_crossing_gain :
-    ∀ᶠ M : ℕ in Filter.atTop, (M:ℝ)/1000 ≤ crossing M (2*((M/2:ℕ):ℝ)/3) (2*((M/2:ℕ):ℝ)/4) := by
+    ∀ᶠ M : ℕ in Filter.atTop, (M:ℝ)/972 ≤ crossing M (2*((M/2:ℕ):ℝ)/3) (2*((M/2:ℕ):ℝ)/4) := by
   have lo := (tendsto_order.1 nativeTheta_div_atTop_one).1 (99/100) (by norm_num)
   have hi := (tendsto_order.1 nativeTheta_div_atTop_one).2 (101/100) (by norm_num)
   obtain ⟨N,hN⟩ := Filter.eventually_atTop.1 (lo.and hi)
@@ -362,8 +362,8 @@ theorem interior_crossing_gain :
     exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨pr.one_le,by omega⟩,pr,root.trans_lt l⟩
   let a := 2*((M/2:ℕ):ℝ)
   let f (p : ℕ) := if a/4 < (p:ℝ) then Real.log p*max ((a/3)/p-1) 0 else 0
-  have alo : 80*(h:ℝ) ≤ a := by exact_mod_cast hq
-  have ahi : a ≤ 81*(h:ℝ) := by exact_mod_cast (show 2*(M/2) ≤ 81*h by omega)
+  have alo : 80*(h:ℝ) ≤ a := by dsimp only [a]; exact_mod_cast hq
+  have ahi : a ≤ 81*(h:ℝ) := by dsimp only [a]; exact_mod_cast (show 2*(M/2) ≤ 81*h by omega)
   have w (p : ℕ) (hp : p ∈ B) : Real.log p/6 ≤ f p := by
     obtain ⟨pr,l,r⟩ := spec hp
     have l' : 21*(h:ℝ) < p := by exact_mod_cast l
@@ -374,7 +374,7 @@ theorem interior_crossing_gain :
       rw [le_sub_iff_add_le,le_div_iff₀ pos]
       linarith only [r',alo]
     dsimp only [f]
-    rw [if_pos hit]
+    rw [ite_eq_left hit]
     exact (show Real.log p/6 = Real.log p*(1/6) by ring).le.trans
       (mul_le_mul_of_nonneg_left (weight.trans (le_max_left _ _)) (Real.log_nonneg (by exact_mod_cast pr.one_le)))
   change _ ≤ ∑ p ∈ P, f p
@@ -408,11 +408,16 @@ private theorem history_gap_step (M : ℕ) (h : ¬ M < 16) :
   dsimp only [S,t,u] at split
   linarith only [split]
 
-/-- A one-sided payment on the complete surviving first-prime history. All
-ancestor crossings have the favorable sign. The top interior cell alone
-pays the displayed linear amount. -/
+/-- The interior bands used by successive admissions are disjoint even with
+the original integer cutoffs. -/
+theorem interior_bands_separate {M m p : ℕ} (hm : m ≤ M/2) (hp : p ≤ 22*(m/80)) :
+    p ≤ 21*(M/80) := by omega
+
+/-- Every large dyadic ancestor contributes its own interior prime band.
+Their gains accumulate with the original history signs. The finite initial
+range and all integer halving losses fit one constant for all anchors. -/
 theorem firstPrime_history_signed_gain :
-    ∀ᶠ M : ℕ in Filter.atTop, firstPrimeHistory M ≤ affineHistory M-(M:ℝ)/1000 := by
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ M : ℕ, firstPrimeHistory M ≤ affineHistory M-(M:ℝ)/500+B := by
   have pos (M : ℕ) : 0 ≤ affineHistory M-firstPrimeHistory M := by
     induction M using Nat.strong_induction_on with
     | h M ih =>
@@ -421,13 +426,29 @@ theorem firstPrime_history_signed_gain :
         rw [sumHistory_small _ M small,sumHistory_small _ M small,sub_self]
       · rw [history_gap_step M small]
         exact add_nonneg (ih (M/2) (by omega)) (Finset.sum_nonneg fun _ _ => crossing_nonneg ..)
-  filter_upwards [interior_crossing_gain,Filter.eventually_ge_atTop 16] with M gain hM
-  have hs : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by exact_mod_cast hM)
-  have four : 4 ≤ ⌈Real.sqrt M⌉₊ := by exact_mod_cast hs.trans (Nat.le_ceil _)
-  have one : 1 ∈ Finset.Ico 1 ⌈Real.sqrt M⌉₊ := Finset.mem_Ico.mpr ⟨le_rfl,by omega⟩
-  have lower := Finset.single_le_sum (f := fun k : ℕ =>
-    crossing M (2*((M/2:ℕ):ℝ)/(2*(k:ℝ)+1)) (2*((M/2:ℕ):ℝ)/(2*(k:ℝ)+2))) (fun k _ => crossing_nonneg ..) one
-  norm_num at lower
-  linarith only [pos (M/2),history_gap_step M (by omega),gain,lower]
+  have stage : ∀ᶠ M : ℕ in atTop, (M:ℝ)/972+(affineHistory (M/2)-firstPrimeHistory (M/2)) ≤
+      affineHistory M-firstPrimeHistory M := by
+    filter_upwards [interior_crossing_gain,Filter.eventually_ge_atTop 16] with M gain hM
+    have hs : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by exact_mod_cast hM)
+    have four : 4 ≤ ⌈Real.sqrt M⌉₊ := by exact_mod_cast hs.trans (Nat.le_ceil _)
+    have one : 1 ∈ Finset.Ico 1 ⌈Real.sqrt M⌉₊ := Finset.mem_Ico.mpr ⟨le_rfl,by omega⟩
+    have lower := Finset.single_le_sum (f := fun k : ℕ =>
+      crossing M (2*((M/2:ℕ):ℝ)/(2*(k:ℝ)+1)) (2*((M/2:ℕ):ℝ)/(2*(k:ℝ)+2))) (fun k _ => crossing_nonneg ..) one
+    norm_num at lower
+    linarith only [history_gap_step M (by omega),gain,lower]
+  obtain ⟨L,hL⟩ := Filter.eventually_atTop.1 stage
+  let A := max L 80
+  refine ⟨(A:ℝ)/500,by positivity,?_⟩
+  intro M
+  induction M using Nat.strong_induction_on with
+  | h M ih =>
+    by_cases short : M < A
+    · have lt : (M:ℝ) ≤ A := by exact_mod_cast short.le
+      linarith only [pos M,lt]
+    · have hA := le_of_not_gt short
+      have large : 80 ≤ M := (le_max_right L 80).trans hA
+      have floorBill : (M:ℝ) ≤ 2*((M/2:ℕ):ℝ)+1 := by exact_mod_cast (show M ≤ 2*(M/2)+1 by omega)
+      have size : (80:ℝ) ≤ M := by exact_mod_cast large
+      linarith only [hL M ((le_max_left L 80).trans hA),ih (M/2) (by omega),floorBill,size]
 
 end RHLean.Analysis.PrincipalCofactor

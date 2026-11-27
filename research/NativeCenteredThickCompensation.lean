@@ -435,12 +435,12 @@ theorem centered_thick_history (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) → (∀ t ∈ TT, a t/b ∈ Set.Icc Y Z) →
       (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
       |Hc-high-C-PrincipalCofactor.firstPrimeHistory ⌊x⌋₊| ≤ K*x^((1:ℝ)/2+9*ε/8) ∧
-      Hc-high ≤ C+PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/1000+K*x^((1:ℝ)/2+9*ε/8) := by
+      Hc-high ≤ C+PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/500+K*x^((1:ℝ)/2+9*ε/8) := by
   obtain ⟨_,_,_,_,measured⟩ := centered_thick_measured ε he he1
   obtain ⟨B,hB,bound⟩ := PrincipalCofactor.real_firstPrime_history_price
-  refine ⟨53*Real.log 4+106+8/ε+B,by positivity,?_⟩
-  have interior := (tendsto_nat_floor_atTop (α := ℝ)).eventually PrincipalCofactor.firstPrime_history_signed_gain
-  filter_upwards [measured,eventually_ge_atTop (1:ℝ),interior] with x frame hx interior
+  obtain ⟨A,hA,interior⟩ := PrincipalCofactor.firstPrime_history_signed_gain
+  refine ⟨53*Real.log 4+106+8/ε+B+A,by positivity,?_⟩
+  filter_upwards [measured,eventually_ge_atTop (1:ℝ)] with x frame hx
   intro e q d n _ _ Y Z pair TT T a η w b D F v Hc high C htt ht hn hη grid density ha win hw
   let β := (1:ℝ)/2+9*ε/8
   have gap := ((frame e q d n pair TT T a η w htt ht hn hη grid density ha win hw).1).trans
@@ -453,10 +453,11 @@ theorem centered_thick_history (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       (53*Real.log 4+106+8/ε+B)*x^β := by
     refine (abs_sub_le _ (alpogeNativeGzArithmetic x) _).trans ?_
     linarith only [gap,hist,mul_le_mul_of_nonneg_left root hB.le]
-  refine ⟨measuredHistory,?_⟩
-  change PrincipalCofactor.firstPrimeHistory ⌊x⌋₊ ≤ PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/1000 at interior
-  change Hc-high ≤ C+PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/1000+(53*Real.log 4+106+8/ε+B)*x^β
-  linarith only [(abs_le.mp measuredHistory).2,interior]
+  have one : 1 ≤ x^β := Real.one_le_rpow hx (by linarith only [hβ])
+  have base := mul_le_mul_of_nonneg_left one hA
+  change _ ≤ (53*Real.log 4+106+8/ε+B+A)*x^β ∧ Hc-high ≤
+    C+PrincipalCofactor.affineHistory ⌊x⌋₊-(⌊x⌋₊:ℝ)/500+(53*Real.log 4+106+8/ε+B+A)*x^β
+  constructor <;> linarith only [measuredHistory,(abs_le.mp measuredHistory).2,interior ⌊x⌋₊,base,hA]
 
 /-- At the original finite cutoff the centered thin term has its own MAIN.
 The bound is simultaneous in every cutoff. Host size and conductor are
