@@ -1,3 +1,4 @@
+import «research.NativePrincipalCofactorTrace»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -270,6 +271,8 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_width_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_principal
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_measured
+#print axioms RHLean.Analysis.PrincipalCofactor.trace_eq
+#print axioms RHLean.Analysis.PrincipalCofactor.trace_dilation
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image
