@@ -1,4 +1,4 @@
-import RHLean.Analysis.AlpogeNativeSignedWidthPayment
+import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Geometry.NativeThetaFock
 
 /-! The rank-one finite test at nominal source widths. At p one inertia
@@ -90,7 +90,7 @@ theorem chartDepth_le (w : G H → ℝ) (F : ℕ → G H) (N p : ℕ) (u : G H)
   refine Finset.sum_le_sum fun σ hσ => Finset.sum_le_sum fun e _ => ?_
   split_ifs
   · exact le_rfl
-  · exact slots_le _ _ _ (hw σ hσ)
+  · simpa only [Nat.cast_pow] using slots_le (w σ) (w (target σ (e • F p+u))) (p^e) (hw σ hσ)
 
 /-- A place may choose its test. The same inertia chart works for every
 summand at that prime, including ramified primes. -/
@@ -172,6 +172,7 @@ theorem common_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
   norm_num only [Nat.cast_ofNat]
   linarith only [cost]
 
+omit [DecidableEq H] in
 /-- Changing an inertia representative is exactly translation in the unaltered
 colour kernel. The coefficient 2 is the original two-bit character factor. -/
 private theorem coset_sum (I : AddSubgroup (G H)) (a : G H) (f : G H → ℝ) :
@@ -324,6 +325,89 @@ theorem nominal_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
     (fun σ hσ => (hpos σ hσ).le) α _ (Finset.prod_pos fun σ hσ =>
       pow_pos (Real.sqrt_pos.2 (hpos σ (hα hσ))) _)
 
+/-- Take the first admissible order at each positive site of the actual
+translated thick/thin dyadic host. The unmodified ledger cutoff
+ceil(Amax/beta) bounds every nominal ratio. -/
+theorem dyadic_nominal_jet (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (T2 : Finset (AlpogeNativeDyadicH e)) (t : AlpogeNativeDyadicH e)
+    (a Amax x x₁ : ℝ) (ha : 0 < a) (hamax : a ≤ Amax) (hx : 1 ≤ x) (hx₁ : x ≤ x₁) :
+    let D := alpogeNativeHostData e q d
+    let β := a/x₁
+    let w := alpogeNativeFreezeThick T2 t (a/x) (fun _ => β)
+    let N := ⌈Amax/β⌉₊
+    let α := Finsupp.equivFunOnFinite.symm (fun σ => if σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e)
+      then ⌈w σ⌉₊ else 0)
+    let scale := α.prod (fun σ m => Real.sqrt (w σ)^m)
+    let P := (Finset.range (N+1)).filter Nat.Prime
+    ∃ u : ℕ → G (AlpogeNativeDyadicH e), (∀ p, u p ∈ D.inertia p) ∧
+      let A := ∏ p ∈ P, chartRead w D.frob N p (u p)
+      0 < A ∧ (∀ p ∈ P, (A.factorization p:ℝ) ≤ forced D.inertia D.frob w N p) ∧
+      (multiFactorial α:ℝ) * (dividedJet α A).coeff α = A ∧
+      Real.log (fockNormSq (scale • dividedJet α A)) ≤
+        -Real.log (multiFactorial α) + 2*Real.log scale +
+          ∑ σ ∈ alpogeNativePhiSet (AlpogeNativeDyadicH e),
+            (alpogeNativeFullKernelASK D.inertia D.frob N (w σ) 0 (fun ρ => w (σ+ρ))).re := by
+  classical
+  let β := a/x₁
+  let w := alpogeNativeFreezeThick T2 t (a/x) (fun _ => β)
+  have hxx : 0 < x := zero_lt_one.trans_le hx
+  have hβ : 0 < β := div_pos ha (hxx.trans_le hx₁)
+  have hw (σ) : β ≤ w σ ∧ w σ ≤ Amax := by
+    have hv : β ≤ a/x := div_le_div_of_nonneg_left ha.le hxx hx₁
+    have hA := (div_le_self ha.le hx).trans hamax
+    change β ≤ (if _ then a/x else β) ∧ (if _ then a/x else β) ≤ Amax
+    split_ifs <;> exacts [⟨hv, hA⟩, ⟨le_rfl, hv.trans hA⟩]
+  apply nominal_jet
+  · intro σ hσ
+    by_contra h
+    exact Finsupp.mem_support_iff.mp hσ (by simp [h])
+  · exact fun σ _ => hβ.trans_le (hw σ).1
+  · exact fun σ _ ρ _ => hβ.trans_le (hw (σ+ρ)).1
+  · intro σ _ ρ _
+    exact (div_le_div₀ (ha.le.trans hamax) (hw σ).2 hβ (hw (σ+ρ)).1).trans (Nat.le_ceil _)
+
+/-- The Riesz vector of the top derivative in the interval coordinates
+with positive dilation s. It is fixed independently of the character. -/
+def derivativeVector {S : Type*} (α : S →₀ ℕ) (s : ℝ) : MvPolynomial S ℂ :=
+  MvPolynomial.monomial α (s:ℂ)⁻¹
+
+def measuredTest {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z : ℂ) : MvPolynomial S ℂ :=
+  MvPolynomial.monomial α ((s:ℂ)*z/(multiFactorial α:ℂ))
+
+theorem derivative_pair {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z : ℂ) (hs : 0 < s) :
+    fockInner (measuredTest α s z) (derivativeVector α s) = z ∧
+      fockNormSq (derivativeVector α s) = (multiFactorial α:ℝ)/s^2 := by
+  classical
+  have hf : (multiFactorial α:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
+  have hsc : (s:ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hs.ne'
+  constructor
+  · rw [measuredTest, derivativeVector, fockInner_monomial_right, MvPolynomial.coeff_monomial]
+    simp only [ite_true, map_inv₀, Complex.conj_ofReal]
+    field [hf, hsc]
+  · rw [derivativeVector, fockNormSq_monomial, norm_inv, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_pos hs, inv_pow, div_eq_mul_inv]
+
+/-- For a rational squared dilation the actual derivative norm has the
+correct all-place orientation. W is rational at every embedding and W
+times the squared norm is literally one, hence integral at every place. -/
+theorem rational_derivative_height {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 < r) :
+    let W := (r:ℂ)/(multiFactorial α:ℂ)
+    W ≠ 0 ∧ (∀ σ : ℂ ≃+* ℂ, Real.log ‖σ W‖ = Real.log (r:ℝ) - Real.log (multiFactorial α)) ∧
+      W * (fockNormSq (derivativeVector α (Real.sqrt (r:ℝ))):ℂ) = 1 := by
+  dsimp only
+  have hr' : 0 < (r:ℝ) := by exact_mod_cast hr
+  have hrc : (r:ℂ) ≠ 0 := by exact_mod_cast hr.ne'
+  have hf : (multiFactorial α:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
+  refine ⟨div_ne_zero hrc hf, ?_, ?_⟩
+  · intro σ
+    have hn : ‖(r:ℂ)‖ = (r:ℝ) := by
+      rw [show (r:ℂ) = ((r:ℝ):ℂ) by norm_cast, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hr']
+    rw [map_div₀, map_ratCast, map_natCast, norm_div, hn, Complex.norm_natCast,
+      Real.log_div hr'.ne' (Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne')]
+  · rw [(derivative_pair α _ 0 (Real.sqrt_pos.2 hr')).2, Real.sq_sqrt hr'.le]
+    push_cast
+    field [hrc, hf]
+
 /-- Unnormalised twisted class sum on the finite native inertia group. -/
 def classTest {C : Type*} [AddCommGroup C] [Fintype C] (a : C → ℕ) (u : C) (χ : AddChar C ℂ) : ℂ :=
   ∑ v, χ v * (a (u+v):ℂ)
@@ -368,13 +452,16 @@ The same global integer from common_jet is detected by an integral
 character numerator on this genuine inertia group, at every place. -/
 theorem common_jet_twisted_read {L : Type*} [NormedField L] [IsUltrametricDist L]
     (ι : ℂ →+* L) (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H → ℝ)
-    (N : ℕ) (P : Finset ℕ) (u : ℕ → G H) (hu : ∀ p, u p ∈ I p) (p : ℕ) (hp : p ∈ P) :
+    (N : ℕ) (P : Finset ℕ) (u : ℕ → G H) (hu : ∀ p, u p ∈ I p) (p : ℕ) (hp : p ∈ P)
+    (α : G H →₀ ℕ) (scale : ℝ) (hs : 0 < scale) :
     let a := fun v : I p => (∏ q ∈ P.erase p, chartRead w F N q (u q)) * chartRead w F N p v
     let b := (⟨u p, hu p⟩ : I p)
     let A := ∏ q ∈ P, chartRead w F N q (u q)
-    ∃ χ : AddChar (I p) ℂ, IsIntegral ℤ (classTest a b χ) ∧
-      ‖ι (A:ℂ)‖ ≤ ‖ι (classTest a b χ / (Fintype.card (I p):ℂ))‖ ∧
-      ∀ σ : ℂ ≃+* ℂ, ‖σ (classTest a b χ)‖ ≤ ∑ v, (a (b+v):ℝ) := by
+    let T := derivativeVector α scale
+    fockNormSq T = (multiFactorial α:ℝ)/scale^2 ∧ ∃ χ : AddChar (I p) ℂ,
+      let z := fockInner (measuredTest α scale (classTest a b χ)) T
+      IsIntegral ℤ z ∧ ‖ι (A:ℂ)‖ ≤ ‖ι (z / (Fintype.card (I p):ℂ))‖ ∧
+      ∀ σ : ℂ ≃+* ℂ, ‖σ z‖ ≤ ∑ v, (a (b+v):ℝ) := by
   classical
   dsimp only
   let a := fun v : I p => (∏ q ∈ P.erase p, chartRead w F N q (u q)) * chartRead w F N p v
@@ -382,6 +469,8 @@ theorem common_jet_twisted_read {L : Type*} [NormedField L] [IsUltrametricDist L
   obtain ⟨χ, h⟩ := exists_classTest_ge ι a b
   have val : a b = ∏ q ∈ P, chartRead w F N q (u q) := Finset.prod_erase_mul P _ hp
   rw [val] at h
-  exact ⟨χ, (classTest_bounds a b χ).1, h, (classTest_bounds a b χ).2⟩
+  refine ⟨(derivative_pair α scale 0 hs).2, χ, ?_⟩
+  rw [(derivative_pair α scale (classTest a b χ) hs).1]
+  exact ⟨(classTest_bounds a b χ).1, h, (classTest_bounds a b χ).2⟩
 
 end RHLean.Analysis.AlpogeThin.RankOne
