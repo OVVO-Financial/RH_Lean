@@ -1,3 +1,4 @@
+import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
 import «research.NativeSignedWidthSweep»
@@ -199,6 +200,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.RankOne.classTest_bounds,
     ``RHLean.Analysis.AlpogeThin.RankOne.exists_classTest_ge,
     ``RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.dyadic_all_channels,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.log_interval_cost,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.firstPrime_endpoint_phase,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.signed_row_eq,

@@ -1,3 +1,4 @@
+import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeSignedWidthSweep»
 import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
@@ -202,6 +203,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.classTest_bounds
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.exists_classTest_ge
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.dyadic_all_channels
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_frozen_top_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq
