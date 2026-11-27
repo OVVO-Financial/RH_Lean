@@ -33,7 +33,7 @@ $A_{\mathrm{high}}$ uses the original translated, normalized first-prime reads t
 
 On a complete residue fibre for one prime $p$, let $T_a f(j)=f(j+a)$. These displacements commute on the actual $p$ seats. At a nonzero Fourier mode, their product of differences has multiplier $\prod_{a=1}^{p-1}(1-\zeta^{ka})=p$. The constant mode has multiplier zero. Fourier inversion gives the integral identity
 $$
-\left[\prod_{a=1}^{p-1}(I-T_a)f\right](j)
+\left(\prod_{a=1}^{p-1}(I-T_a)f\right)(j)
 =p f(j)-\sum_{u\bmod p}f(u).
 $$
 Consequently the product of $p-1$ distinct stages maps the mean-zero integer lattice $L$ exactly onto $pL$. Its rank is $p-1$, with integral basis $e_i-e_0$ for $1\le i<p$. The log index is $(p-1)\log p$, equal to the gross log divisibility on those directions. On a fibre of original slots $a+Wj$ contained in one measured layer, every star column is constant and its image is zero. If a cut occupies $h$ of those seats with $0<h<p$, every output coordinate of its indicator is congruent to $-h\bmod p$. Such a boundary cut fails divisibility by $p$ at every seat. These computations identify the cost of using ordinary residue displacements for multiplicity at a single prime. [Same-prime calculation](NativePrimeWheelResidueLayers.lean)
