@@ -133,7 +133,257 @@ theorem centered_thick_translate (I : ℕ → AddSubgroup (AlpogeNativeE0 × H))
   calc
     _ ≤ _ := (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun u _ => row u)
     _ = (∑ u, bill u)+(Fintype.card H:ℝ)*logBill := by simp [Finset.sum_add_distrib]
-    _ ≤ T.card*(2*(R-l)*nativePsi N)+(Fintype.card H:ℝ)*logBill := add_le_add_right W _
+    _ ≤ T.card*(2*(R-l)*nativePsi N)+(Fintype.card H:ℝ)*logBill := add_le_add W le_rfl
     _ = _ := by dsimp only [logBill]; rw [alpogeNativeProjectionPhi_card, Nat.cast_mul, Nat.cast_ofNat]; field_simp [card] <;> ring
+
+/-- The literal centered thick numerator with the original top, row and host weights. -/
+def centeredThick (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ) (TT T : Finset H) {n : ℕ}
+    (a : H → ℝ) (v : H → Fin n → AlpogeNativeE0 × H → ℝ) : ℝ :=
+  (1/(Fintype.card (⊤ : AddSubgroup H):ℝ))*∑ u : (⊤ : AddSubgroup H), ∑ t ∈ TT, ∑ j : Fin n,
+    (alpogeNativeProjectionActualThick F T (a t) u t (v u j)).re
+
+/-- Normalized price of moving every centered thick reading to its common
+width. Both terms have been averaged before the mask density cancels. -/
+theorem centered_thick_width_price (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (f : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ) (TT T : Finset H) {n : ℕ} (a : H → ℝ) (A l b R : ℝ)
+    (v : H → Fin n → AlpogeNativeE0 × H → ℝ) (htt : TT.Nonempty) (ht : T.Nonempty) (hn : 0 < n)
+    (ha : ∀ t ∈ TT, 0 < a t ∧ a t ≤ A) (hl : 0 < l) (hlb : l ≤ b) (hbR : b ≤ R)
+    (hv : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → v u j ρ ∈ Set.Icc l R) :
+    let F := alpogeNativeFrobInertiaGPsi I f ell
+    |centeredThick F TT T a v/alpogeNativeProjectionDivisor TT T n b - alpogeNativeProjectedSignal ⊤ F TT a b| ≤
+      (4*(R-l)*(Real.log 4+2)*(A/l+1)+A*Real.log (R/l))/b := by
+  classical
+  intro F
+  let Q := alpogeNativeProjectionDivisor TT T n b
+  let J := (⊤ : AddSubgroup H)
+  let B := 2*(R-l)*(Real.log 4+2)*(A/l+1)+A/2*Real.log (R/l)
+  let d := fun (u t : H) (j : Fin n) => (alpogeNativeProjectionActualThick F T (a t) u t (v u j)).re -
+    (alpogeNativeFrozenThick F T b (a t/b) u t).re
+  have hQ : 0 < Q := alpogeNativeProjectionDivisor_pos TT T htt ht n hn b (hl.trans_le hlb)
+  have hc : 0 ≤ Real.log 4+2 := by positivity
+  have hR := sub_nonneg.mpr (hlb.trans hbR)
+  have hlog := Real.log_nonneg ((one_le_div hl).2 (hlb.trans hbR))
+  have per (t) (h : t ∈ TT) (j : Fin n) : |∑ u, d u t j| ≤ T.card*B := by
+    apply (centered_thick_translate I f ell T t (a t) l b R (fun u => v u j) (ha t h).1 hl hlb hbR
+      (fun u ρ => hv u j ρ)).trans
+    have ps : nativePsi ⌈a t/l⌉₊ ≤ (Real.log 4+2)*(A/l+1) := (nativePsi_le_const_mul _).trans <|
+      mul_le_mul_of_nonneg_left ((Nat.ceil_lt_add_one (div_nonneg (ha t h).1.le hl.le)).le.trans
+        (add_le_add (div_le_div_of_nonneg_right (ha t h).2 hl.le) le_rfl)) hc
+    apply mul_le_mul_of_nonneg_left _ (Nat.cast_nonneg _)
+    dsimp only [B]
+    have p := mul_le_mul_of_nonneg_left ps (mul_nonneg (by norm_num : (0:ℝ) ≤ 2) hR)
+    linarith only [p,mul_le_mul_of_nonneg_right (ha t h).2 hlog]
+  have total : |∑ t ∈ TT, ∑ j : Fin n, ∑ u : H, d u t j| ≤ (TT.card:ℝ)*(n*(T.card*B)) := calc
+    _ ≤ ∑ t ∈ TT, ∑ j : Fin n, T.card*B := (Finset.abs_sum_le_sum_abs _ _).trans <|
+      Finset.sum_le_sum fun t h => (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun j _ => per t h j)
+    _ = _ := by simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+  let eqv : J ≃ H := AddSubgroup.topEquiv.toEquiv
+  have identity : centeredThick F TT T a v - Q*alpogeNativeProjectedSignal J F TT a b =
+      (1/(Fintype.card H:ℝ))*∑ t ∈ TT, ∑ j : Fin n, ∑ u : H, d u t j := by
+    rw [show Q*alpogeNativeProjectedSignal J F TT a b = _ from
+      (alpogeNativeFrozenThick_average_eq_signal J F TT T htt (fun _ _ => trivial) n a b).symm]
+    unfold centeredThick
+    rw [← mul_sub]
+    simp_rw [← Finset.sum_sub_distrib]
+    change (1/(Fintype.card J:ℝ))*(∑ u : J, ∑ t ∈ TT, ∑ j : Fin n, d (u:H) t j) = _
+    rw [eqv.sum_comp (fun u => ∑ t ∈ TT, ∑ j : Fin n, d u t j), Fintype.card_congr eqv, Finset.sum_comm]
+    exact congrArg (fun v' : ℝ => (1/(Fintype.card H:ℝ))*v') (Finset.sum_congr rfl fun t _ => Finset.sum_comm)
+  have hH : (Fintype.card H:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+  have hb := hl.trans_le hlb
+  change |centeredThick F TT T a v/Q - _| ≤ _
+  rw [show centeredThick F TT T a v/Q-alpogeNativeProjectedSignal J F TT a b =
+    (centeredThick F TT T a v-Q*alpogeNativeProjectedSignal J F TT a b)/Q by field_simp, identity,
+    abs_div,abs_of_pos hQ,abs_mul,abs_of_nonneg (by positivity : 0 ≤ 1/(Fintype.card H:ℝ))]
+  apply (div_le_iff₀ hQ).2
+  calc
+    _ ≤ (1/(Fintype.card H:ℝ))*((TT.card:ℝ)*(n*(T.card*B))) := mul_le_mul_of_nonneg_left total (by positivity)
+    _ = _ := by dsimp only [B,Q,alpogeNativeProjectionDivisor,alpogeNativeProjectionDensity]; field_simp [hH,hb.ne'] <;> ring
+
+private theorem grid_collar (w b x η : ℝ) (hb : 0 < b) (hη : 0 < η) (hη2 : η ≤ 1/2)
+    (hw : w ∈ Set.Icc b (b*(1+1/x))) :
+    alpogeNativeLowerLogWidth η w ∈ Set.Icc (b*(1-η)) (b*(1+1/x)) := by
+  have hw0 := hb.trans_le hw.1
+  have hi := (le_div_iff₀ hη).mp (Int.floor_le (Real.log w/η))
+  have lo := (div_lt_iff₀ hη).mp (Int.lt_floor_add_one (Real.log w/η))
+  have e := Real.add_one_le_exp (-η)
+  constructor
+  · calc
+      _ ≤ w*(1-η) := mul_le_mul_of_nonneg_right hw.1 (by linarith)
+      _ ≤ w*Real.exp (-η) := mul_le_mul_of_nonneg_left (by linarith only [e]) hw0.le
+      _ = Real.exp (Real.log w-η) := by rw [sub_eq_add_neg,Real.exp_add,Real.exp_log hw0]
+      _ ≤ _ := Real.exp_le_exp.mpr (by linarith only [lo])
+  · exact ((Real.exp_le_exp.mpr hi).trans (Real.exp_log hw0).le).trans hw.2
+
+private theorem collar_price (x b η : ℝ) (hx : 4 ≤ x) (hb : 0 < b) (hη : 0 < η) (grid : η ≤ 1/Real.sqrt x) :
+    let A := (x+1)*b
+    let l := b*(1-η)
+    let R := b*(1+1/x)
+    (4*(R-l)*(Real.log 4+2)*(A/l+1)+A*Real.log (R/l))/b ≤ 32*(Real.log 4+3)*Real.sqrt x := by
+  intro A l R
+  have hx0 : 0 < x := by linarith
+  have hr : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+  have hr0 : 0 < Real.sqrt x := by linarith
+  have hhalf : η ≤ 1/2 := grid.trans ((div_le_div_iff₀ hr0 (by norm_num : (0:ℝ)<2)).2 (by linarith))
+  have hl : 0 < l := mul_pos hb (by linarith)
+  have hl2 : b ≤ 2*l := by dsimp [l]; nlinarith only [mul_le_mul_of_nonneg_left hhalf hb.le]
+  let s := η+1/x
+  have hs : 0 ≤ s := by dsimp [s]; positivity
+  have hR : R-l = b*s := by dsimp [R,l,s]; ring
+  have hRl := sub_nonneg.mp (hR.symm ▸ mul_nonneg hb.le hs)
+  have logprice : Real.log (R/l) ≤ 2*s := calc
+    _ ≤ R/l-1 := Real.log_le_sub_one_of_pos (div_pos (hl.trans_le hRl) hl)
+    _ ≤ _ := by apply (sub_le_iff_le_add).2; apply (div_le_iff₀ hl).2; nlinarith only [hR,mul_le_mul_of_nonneg_right hl2 hs]
+  have size : A/l+1 ≤ 3*x := by
+    have h : A/l ≤ 2*(x+1) := (div_le_iff₀ hl).2 (by dsimp [A]; nlinarith only [mul_le_mul_of_nonneg_left hl2 (by linarith : 0 ≤ x+1)])
+    linarith
+  have cs : 0 ≤ Real.log 4+2 := by positivity
+  have hL : 0 ≤ Real.log (4:ℝ) := Real.log_nonneg (by norm_num)
+  have t := (Real.sqrt_le_self_iff.mpr (Or.inr (by linarith : 1 ≤ x)))
+  have sm : s ≤ 2/Real.sqrt x := by dsimp [s]; linarith only [grid,one_div_le_one_div_of_le hr0 t]
+  have xs : x*s ≤ 2*Real.sqrt x := calc
+    _ ≤ x*(2/Real.sqrt x) := mul_le_mul_of_nonneg_left sm hx0.le
+    _ = _ := by field_simp [hr0.ne']; nlinarith only [Real.mul_self_sqrt hx0.le]
+  have logp := mul_le_mul_of_nonneg_left logprice (by dsimp [A]; positivity : 0 ≤ A)
+  have p := mul_le_mul_of_nonneg_left size (mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 4) (sub_nonneg.mpr hRl)) cs)
+  rw [hR] at p ⊢
+  apply (div_le_iff₀ hb).2
+  have t1 := mul_le_mul_of_nonneg_left xs (mul_nonneg (by norm_num : (0:ℝ) ≤ 12) cs)
+  have t2 := mul_le_mul_of_nonneg_right (show 2*(x+1) ≤ 3*x by linarith) hs
+  dsimp only [A] at logp
+  nlinarith only [p,logp,mul_le_mul_of_nonneg_right t1 hb.le,mul_le_mul_of_nonneg_left t2 hb.le,
+    mul_le_mul_of_nonneg_left xs hb.le, mul_nonneg hb.le (mul_nonneg hr0.le hL), mul_nonneg hb.le hr0.le]
+
+/-- The complete rounded centered thick source differs from the original
+principal arithmetic value by a root-scale price on the selected pair. -/
+theorem centered_thick_principal (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] {ε Y Z x : ℝ}
+    (pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (he : 0 ≤ ε) (hx : 4 ≤ x)
+    (TT T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ) (b η : ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (htt : TT.Nonempty) (ht : T.Nonempty) (hn : 0 < n) (hb : 0 < b) (hη : 0 < η) (grid : η ≤ 1/Real.sqrt x)
+    (ha : ∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) (win : ∀ t ∈ TT, a t/b ∈ Set.Icc Y Z)
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let D := alpogeNativeHostData e q d
+    let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+    let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
+    |centeredThick F TT T a v/alpogeNativeProjectionDivisor TT T n b - alpogeNativeGzArithmetic x| ≤
+      32*(Real.log 4+3)*Real.sqrt x + (3*(x+1)^((1:ℝ)/2+ε/2)+alpogeNativeMoveConstant) := by
+  classical
+  intro D F v
+  let l := b*(1-η)
+  let R := b*(1+1/x)
+  let A := (x+1)*b
+  have hx0 : 0 < x := by linarith
+  have hr : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+  have hhalf : η ≤ 1/2 := grid.trans ((div_le_div_iff₀ (Real.sqrt_pos.2 hx0) (by norm_num : (0:ℝ)<2)).2 (by linarith))
+  have hl : 0 < l := mul_pos hb (by linarith)
+  have hlb : l ≤ b := by dsimp [l]; nlinarith only [mul_nonneg hb.le hη.le]
+  have hbR : b ≤ R := le_mul_of_one_le_right hb.le (by linarith only [one_div_pos.mpr hx0])
+  have width := (centered_thick_width_price D.inertia D.frob (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+    TT T a A l b R v htt ht hn (fun t h => ⟨(mul_pos hx0 hb).trans_le (ha t h).1,(ha t h).2⟩)
+    hl hlb hbR (fun u j ρ hρ => grid_collar _ b x η hb hη hhalf (hw u j ρ hρ))).trans (collar_price x b η hx hb hη grid)
+  let S := alpogeNativeFrobInertiaGsig D.inertia D.frob (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+    (alpogeNativeChC (AlpogeNativeDyadicH e)) (alpogeNativePsC (AlpogeNativeDyadicH e))
+  let γ := (1:ℝ)/2+ε/2
+  let E := 3*(x+1)^γ+alpogeNativeMoveConstant
+  have point t (h : t ∈ TT) : |(S (a t/b)).re-alpogeNativeGzArithmetic x| ≤ E := by
+    let y := a t/b
+    have lo : x ≤ y := (le_div_iff₀ hb).2 (ha t h).1
+    have hi : y ≤ x+1 := (div_le_iff₀ hb).2 (ha t h).2
+    have twist := (Complex.abs_re_le_norm _).trans (nativePairGood_dyadicGsig_sub_Gz_norm_le e q d pair
+      y (win t h).1 (win t h).2)
+    change |(S y).re-alpogeNativeGzArithmetic y| ≤ 3*y^γ at twist
+    have mov := alpogeNativeGzArithmetic_sub_abs_le_of_le y x (by linarith) lo hi
+    have pow := Real.rpow_le_rpow (hx0.le.trans lo) hi (show 0 ≤ γ by dsimp [γ]; linarith)
+    calc
+      _ ≤ |(S y).re-alpogeNativeGzArithmetic y| + |alpogeNativeGzArithmetic y-alpogeNativeGzArithmetic x| := abs_sub_le ..
+      _ ≤ E := by dsimp only [E]; linarith only [twist,mov,pow,
+        mul_le_mul_of_nonneg_left (show y-x ≤ 1 by linarith only [hi]) alpogeNativeMoveConstant_nonneg]
+  have hc : (0:ℝ) < TT.card := by exact_mod_cast htt.card_pos
+  have sig : |alpogeNativeProjectedSignal ⊤ F TT a b-alpogeNativeGzArithmetic x| ≤ E := by
+    rw [alpogeNativeProjectedSignal_top_eq_Gsig]
+    change |1/(TT.card:ℝ)*(∑ t ∈ TT, (S (a t/b)).re) - _| ≤ E
+    have id : 1/(TT.card:ℝ)*(∑ t ∈ TT, ((S (a t/b)).re-alpogeNativeGzArithmetic x)) =
+        1/(TT.card:ℝ)*(∑ t ∈ TT, (S (a t/b)).re)-alpogeNativeGzArithmetic x := by
+      rw [Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul]; field_simp [hc.ne']
+    rw [← id, abs_mul, abs_of_pos (one_div_pos.mpr hc)]
+    calc
+      _ ≤ 1/(TT.card:ℝ)*(∑ _t ∈ TT, E) := mul_le_mul_of_nonneg_left
+        ((Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum point)) (by positivity)
+      _ = E := by rw [Finset.sum_const, nsmul_eq_mul]; field_simp [hc.ne']
+  exact (abs_sub_le _ (alpogeNativeProjectedSignal ⊤ F TT a b) _).trans (add_le_add width sig)
+
+/-- Negative complementary log-volume in the independently measured counting metric. -/
+def highComplement (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (TT T : Finset (AlpogeNativeDyadicH e))
+    (a : AlpogeNativeDyadicH e → ℝ) (x : ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) : ℝ :=
+  let c := ⌊Real.sqrt x⌋₊
+  let P := highThickPrimes e q d x
+  let g := fun p => ((alpogeNativeHostData e q d).frob p).2
+  let V := occupied TT P g
+  let p := primeAt TT P g
+  let r := fun s : ↥V => (partnerPrimes TT P g s.val).card-1
+  let D := fun (s : ↥V) (i : Fin (r s+1)) => p s i ^ (⌊(c:ℝ)*x⌋₊/p s i-c)
+  let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) => bands (fun i => a (s.val-g (p s i))/(p s i:ℝ))
+    (w j.val.1 j.val.2 ((0,1),s.val))
+  4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (D s))/((c:ℝ)*((T.card*n:ℕ):ℝ)*TT.card)
+
+/-- Two-sided identification of the centered thick deficit after subtracting
+the actual high reads and measured negative complement. A classical bound
+on the surviving principal component gives an unconditional sublinear price. -/
+theorem centered_thick_measured (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
+    ∃ κ K : ℝ, 0 < κ ∧ 0 < K ∧ ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+      {Y Z : ℝ} (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (TT T : Finset (AlpogeNativeDyadicH e))
+      (a : AlpogeNativeDyadicH e → ℝ) (η : ℝ)
+      (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+      let b := Real.exp (x^ε)
+      let D := alpogeNativeHostData e q d
+      let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+      let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
+      let Hc := centeredThick F TT T a v/alpogeNativeProjectionDivisor TT T n b
+      let high := roundedHighASK e q d n TT T a b x η w
+      let C := highComplement e q d n TT T a x w
+      let E := 32*(Real.log 4+3)*Real.sqrt x + (3*(x+1)^((1:ℝ)/2+ε/2)+alpogeNativeMoveConstant) +
+        (20*Real.log 4*Real.sqrt x+(8/ε)*x^((1:ℝ)/2+9*ε/8))
+      TT.Nonempty → T.Nonempty → 0 < n → 0 < η → η ≤ 1/Real.sqrt x →
+      x^(-(ε/8))*(Fintype.card (AlpogeNativeDyadicH e):ℝ)/2 ≤ TT.card →
+      (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) → (∀ t ∈ TT, a t/b ∈ Set.Icc Y Z) →
+      (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
+      |(Hc-high-C)-alpogeNativeGzArithmetic x| ≤ E ∧
+      Hc-high ≤ C+K*x*Real.exp (-κ*Real.sqrt (Real.log x))+E := by
+  classical
+  obtain ⟨κ,K,hκ,hK⟩ := Formalism.ZF.gzPNT
+  refine ⟨κ,max 1 K,hκ,zero_lt_one.trans_le (le_max_left _ _),?_⟩
+  filter_upwards [highThick_frame ε he he1,eventually_ge_atTop (10:ℝ)] with x frame hx
+  intro e q d n _ _ Y Z pair TT T a η w b D F v Hc high C E htt ht hn hη grid density ha win hw
+  have principal := centered_thick_principal e q d n pair he.le (by linarith : 4 ≤ x) TT T a b η w htt ht hn
+    (Real.exp_pos _) hη grid ha win hw
+  obtain ⟨hS,_,_,_,_,_,_,pay⟩ := frame e q d n 1 TT T a w Nat.zero_lt_one ha hw
+  let c := ⌊Real.sqrt x⌋₊
+  let P := highThickPrimes e q d x
+  let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+  let V := occupied TT P g
+  let p := primeAt TT P g
+  let r := fun s : ↥V => (partnerPrimes TT P g s.val).card-1
+  let pow := fun (s : ↥V) (i : Fin (r s+1)) => p s i^(⌊(c:ℝ)*x⌋₊/p s i-c)
+  let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) => bands (fun i => a (s.val-g (p s i))/(p s i:ℝ))
+    (w j.val.1 j.val.2 ((0,1),s.val))
+  have pos (s : ↥V) (i : Fin (r s+1)) : 0 < pow s i := pow_pos (highThick_primeAt e q d x TT s i).1.pos _
+  have opp : C = -(4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (pow s))/
+      ((c:ℝ)*((T.card*n:ℕ):ℝ)*TT.card)) := by
+    change 4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (pow s))/_ = _
+    simp_rw [fun s j => complementaryLog_eq (S s j) (pow s) (hS s j) (pos s),Finset.sum_neg_distrib]
+    ring
+  have hp : |high+C| ≤ 20*Real.log 4*Real.sqrt x+(8/ε)*x^((1:ℝ)/2+9*ε/8) := by
+    rw [opp, ← sub_eq_add_neg]; exact pay η hη grid htt ht hn density
+  have gap : |(Hc-high-C)-alpogeNativeGzArithmetic x| ≤ E := by
+    rw [show (Hc-high-C)-alpogeNativeGzArithmetic x = (Hc-alpogeNativeGzArithmetic x)-(high+C) by ring]
+    exact (abs_sub _ _).trans (add_le_add principal hp)
+  refine ⟨gap,?_⟩
+  have classicalBound := hK x (by linarith)
+  change |AlpogeNativeBoundHandoff.statementOCGz x| ≤ _ at classicalBound
+  rw [AlpogeNativeBoundHandoff.statementOCGz_eq_native] at classicalBound
+  have positive := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right (le_max_right (1:ℝ) K) (by linarith : 0 ≤ x))
+    (Real.exp_pos (-κ*Real.sqrt (Real.log x))).le
+  linarith only [(abs_le.mp gap).2, le_abs_self (alpogeNativeGzArithmetic x),classicalBound,positive]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
