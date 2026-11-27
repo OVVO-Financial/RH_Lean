@@ -134,7 +134,7 @@ theorem centered_thick_translate (I : ℕ → AddSubgroup (AlpogeNativeE0 × H))
     _ ≤ _ := (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun u _ => row u)
     _ = (∑ u, bill u)+(Fintype.card H:ℝ)*logBill := by simp [Finset.sum_add_distrib]
     _ ≤ T.card*(2*(R-l)*nativePsi N)+(Fintype.card H:ℝ)*logBill := add_le_add W le_rfl
-    _ = _ := by dsimp only [logBill]; rw [alpogeNativeProjectionPhi_card, Nat.cast_mul, Nat.cast_ofNat]; field_simp [card] <;> ring
+    _ = _ := by dsimp only [logBill]; rw [alpogeNativeProjectionPhi_card, Nat.cast_mul, Nat.cast_ofNat]; field_simp [card]; ring
 
 /-- The literal centered thick numerator with the original top, row and host weights. -/
 def centeredThick (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ) (TT T : Finset H) {n : ℕ}
@@ -180,14 +180,16 @@ theorem centered_thick_width_price (I : ℕ → AddSubgroup (AlpogeNativeE0 × H
   let eqv : J ≃ H := AddSubgroup.topEquiv.toEquiv
   have identity : centeredThick F TT T a v - Q*alpogeNativeProjectedSignal J F TT a b =
       (1/(Fintype.card H:ℝ))*∑ t ∈ TT, ∑ j : Fin n, ∑ u : H, d u t j := by
-    rw [show Q*alpogeNativeProjectedSignal J F TT a b = _ from
-      (alpogeNativeFrozenThick_average_eq_signal J F TT T htt (fun _ _ => trivial) n a b).symm]
-    unfold centeredThick
-    rw [← mul_sub]
-    simp_rw [← Finset.sum_sub_distrib]
-    change (1/(Fintype.card J:ℝ))*(∑ u : J, ∑ t ∈ TT, ∑ j : Fin n, d (u:H) t j) = _
-    rw [eqv.sum_comp (fun u => ∑ t ∈ TT, ∑ j : Fin n, d u t j), Fintype.card_congr eqv, Finset.sum_comm]
-    exact congrArg (fun v' : ℝ => (1/(Fintype.card H:ℝ))*v') (Finset.sum_congr rfl fun t _ => Finset.sum_comm)
+    have join : (∑ u : J, ∑ t ∈ TT, ∑ j : Fin n, d (u:H) t j) =
+        (∑ u : J, ∑ t ∈ TT, ∑ j : Fin n, (alpogeNativeProjectionActualThick F T (a t) u t (v u j)).re) -
+          ∑ u : J, ∑ t ∈ TT, ∑ _j : Fin n, (alpogeNativeFrozenThick F T b (a t/b) u t).re := by
+      simp only [d,Finset.sum_sub_distrib]
+    have swap : (∑ u : J, ∑ t ∈ TT, ∑ j : Fin n, d (u:H) t j) = ∑ t ∈ TT, ∑ j : Fin n, ∑ u : H, d u t j := calc
+      _ = ∑ u : H, ∑ t ∈ TT, ∑ j : Fin n, d u t j := eqv.sum_comp (fun u => ∑ t ∈ TT, ∑ j : Fin n, d u t j)
+      _ = _ := by rw [Finset.sum_comm]; exact Finset.sum_congr rfl fun t _ => Finset.sum_comm
+    rw [← swap,← Fintype.card_congr eqv,join,mul_sub,
+      alpogeNativeFrozenThick_average_eq_signal J F TT T htt (fun _ _ => trivial) n a b]
+    all_goals rfl
   have hH : (Fintype.card H:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
   have hb := hl.trans_le hlb
   change |centeredThick F TT T a v/Q - _| ≤ _
@@ -197,7 +199,7 @@ theorem centered_thick_width_price (I : ℕ → AddSubgroup (AlpogeNativeE0 × H
   apply (div_le_iff₀ hQ).2
   calc
     _ ≤ (1/(Fintype.card H:ℝ))*((TT.card:ℝ)*(n*(T.card*B))) := mul_le_mul_of_nonneg_left total (by positivity)
-    _ = _ := by dsimp only [B,Q,alpogeNativeProjectionDivisor,alpogeNativeProjectionDensity]; field_simp [hH,hb.ne'] <;> ring
+    _ = _ := by dsimp only [B,Q,alpogeNativeProjectionDivisor,alpogeNativeProjectionDensity]; field_simp [hH,hb.ne']; all_goals ring
 
 private theorem grid_collar (w b x η : ℝ) (hb : 0 < b) (hη : 0 < η) (hη2 : η ≤ 1/2)
     (hw : w ∈ Set.Icc b (b*(1+1/x))) :
@@ -239,7 +241,9 @@ private theorem collar_price (x b η : ℝ) (hx : 4 ≤ x) (hb : 0 < b) (hη : 0
   have cs : 0 ≤ Real.log 4+2 := by positivity
   have hL : 0 ≤ Real.log (4:ℝ) := Real.log_nonneg (by norm_num)
   have t := (Real.sqrt_le_self_iff.mpr (Or.inr (by linarith : 1 ≤ x)))
-  have sm : s ≤ 2/Real.sqrt x := by dsimp [s]; linarith only [grid,one_div_le_one_div_of_le hr0 t]
+  have sm : s ≤ 2/Real.sqrt x := calc
+    _ ≤ 1/Real.sqrt x + 1/Real.sqrt x := add_le_add grid (one_div_le_one_div_of_le hr0 t)
+    _ = _ := by ring
   have xs : x*s ≤ 2*Real.sqrt x := calc
     _ ≤ x*(2/Real.sqrt x) := mul_le_mul_of_nonneg_left sm hx0.le
     _ = _ := by field_simp [hr0.ne']; nlinarith only [Real.mul_self_sqrt hx0.le]
@@ -249,7 +253,7 @@ private theorem collar_price (x b η : ℝ) (hx : 4 ≤ x) (hb : 0 < b) (hη : 0
   apply (div_le_iff₀ hb).2
   have t1 := mul_le_mul_of_nonneg_left xs (mul_nonneg (by norm_num : (0:ℝ) ≤ 12) cs)
   have t2 := mul_le_mul_of_nonneg_right (show 2*(x+1) ≤ 3*x by linarith) hs
-  dsimp only [A] at logp
+  dsimp only [A] at logp p ⊢
   nlinarith only [p,logp,mul_le_mul_of_nonneg_right t1 hb.le,mul_le_mul_of_nonneg_left t2 hb.le,
     mul_le_mul_of_nonneg_left xs hb.le, mul_nonneg hb.le (mul_nonneg hr0.le hL), mul_nonneg hb.le hr0.le]
 
@@ -419,7 +423,9 @@ theorem original_cutoff_centered_thick (ε : ℝ) (he : 0 < ε) (h52 : ε < 1/52
   let θ := Real.exp (-(x^(ε/8)))
   let δ := alpogeNativeProjectionDensity T
   have hθ : 0 ≤ θ := (Real.exp_pos _).le
-  have hm : 0 < m := by exact_mod_cast Fintype.card_pos
+  have hm : 0 < m := by
+    change 0 < (Fintype.card (AlpogeNativeDyadicH e):ℝ)
+    exact_mod_cast Fintype.card_pos
   have hx0 : 0 < x := by linarith
   have hb : 0 < b := Real.exp_pos _
   have hQ : 0 < Q := alpogeNativeProjectionDivisor_pos TT T htt ht n hn b hb
@@ -444,17 +450,22 @@ theorem original_cutoff_centered_thick (ε : ℝ) (he : 0 < ε) (h52 : ε < 1/52
       _ = b*(4*m*(x+1)*θ) := by ring
       _ ≤ b/x := by simpa only [mul_one_div] using mul_le_mul_of_nonneg_left cheap hb.le
   have hJ : (Fintype.card J:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
-  have sum := mul_le_mul_of_nonneg_left (Finset.sum_le_sum (fun (u : J) (_ : u ∈ Finset.univ) =>
-    Finset.sum_le_sum (fun t h => Finset.sum_le_sum (fun j (_ : j ∈ Finset.univ) => row (u:AlpogeNativeDyadicH e) t h j))))
-    (by positivity : 0 ≤ 1/(Fintype.card J:ℝ))
-  simp only [Finset.sum_add_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_fin,nsmul_eq_mul,mul_add] at sum
-  have cap : alpogeNativePhysicalSubgroupTopExcess J D.inertia D.frob ell N TT a v ≤
+  have cap : alpogeNativePhysicalSubgroupTopExcess (⊤ : AddSubgroup (AlpogeNativeDyadicH e)) D.inertia D.frob ell N TT a v ≤
       centeredThick F TT T a v+(TT.card:ℝ)*n*(b/x) := by
-    have id : 1/(Fintype.card J:ℝ)*((Fintype.card J:ℝ)*(TT.card*(n*(b/x)))) = (TT.card:ℝ)*n*(b/x) := by field_simp [hJ] <;> ring
-    simpa only [id] using sum
+    unfold alpogeNativePhysicalSubgroupTopExcess centeredThick
+    calc
+      _ ≤ (1/(Fintype.card (⊤ : AddSubgroup (AlpogeNativeDyadicH e)):ℝ))*
+          ∑ u : (⊤ : AddSubgroup (AlpogeNativeDyadicH e)), ∑ t ∈ TT, ∑ j : Fin n,
+            ((alpogeNativeProjectionActualThick F T (a t) u t (v u j)).re+b/x) :=
+        mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun u _ => Finset.sum_le_sum fun t h =>
+          Finset.sum_le_sum fun j _ => row (u:AlpogeNativeDyadicH e) t h j) (by positivity)
+      _ = _ := by
+        simp only [Finset.sum_add_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_fin,nsmul_eq_mul,mul_add]
+        apply congrArg (_ + ·)
+        field_simp [hJ]; all_goals ring
   have norm : ((TT.card:ℝ)*n*(b/x))/Q = 2/(δ*x) := by
     dsimp only [Q,δ,alpogeNativeProjectionDivisor]; field_simp [hb.ne',hx0.ne',hδ.ne',
-      (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')] <;> ring
+      (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')]; all_goals ring
   have inv : 1/δ ≤ x^ε := by
     have orig : x^(-ε) ≤ δ := density
     rw [Real.rpow_neg hx0.le, ← one_div] at orig
