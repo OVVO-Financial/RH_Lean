@@ -88,8 +88,9 @@ theorem chartDepth_le (w : G H → ℝ) (F : ℕ → G H) (N p : ℕ) (u : G H)
   unfold chartDepth chartMass
   push_cast
   refine Finset.sum_le_sum fun σ hσ => Finset.sum_le_sum fun e _ => ?_
-  split_ifs <;> simp only [Nat.cast_zero, le_refl]
-  exact slots_le _ _ _ (hw σ hσ)
+  split_ifs
+  · exact le_rfl
+  · exact slots_le _ _ _ (hw σ hσ)
 
 /-- A place may choose its test. The same inertia chart works for every
 summand at that prime, including ramified primes. -/
@@ -177,8 +178,8 @@ private theorem coset_sum (I : AddSubgroup (G H)) (a : G H) (f : G H → ℝ) :
     (∑ g : G H, if g-a ∈ I then f g else 0) = ∑ u ∈ places I, f (a+u) := by
   classical
   let E := Equiv.addLeft a
-  have h := E.sum_comp (fun g : G H => if g-a ∈ I then f g else 0)
-  simpa [E, places, Finset.sum_filter, add_sub_cancel_left] using h.symm
+  have h := Equiv.sum_comp E (fun g : G H => if g-a ∈ I then f g else 0)
+  simpa [E, places, Finset.sum_filter] using h.symm
 
 private theorem site_census (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H → ℝ)
     (N : ℕ) (σ : G H)
@@ -274,8 +275,7 @@ theorem primitive_line_denominator {S : Type*} (α : S →₀ ℕ) (A : ℕ) (hA
   · rintro ⟨z, h⟩
     refine ⟨z, ?_⟩
     have heq := (div_eq_iff hz).1 h
-    rw [mul_comm] at heq
-    exact_mod_cast heq
+    exact_mod_cast heq.trans (mul_comm _ _)
   · rintro ⟨z, h⟩
     refine ⟨z, (div_eq_iff hz).2 ?_⟩
     exact_mod_cast h.trans (Nat.mul_comm _ _)
@@ -323,5 +323,65 @@ theorem nominal_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
   exact common_jet I F w N _ (fun _ hp => (Finset.mem_filter.mp hp).2)
     (fun σ hσ => (hpos σ hσ).le) α _ (Finset.prod_pos fun σ hσ =>
       pow_pos (Real.sqrt_pos.2 (hpos σ (hα hσ))) _)
+
+/-- Unnormalised twisted class sum on the finite native inertia group. -/
+def classTest {C : Type*} [AddCommGroup C] [Fintype C] (a : C → ℕ) (u : C) (χ : AddChar C ℂ) : ℂ :=
+  ∑ v, χ v * (a (u+v):ℂ)
+
+/-- The character numerator is integral and its size at every archimedean
+embedding is bounded by the sum of the actual readings. -/
+theorem classTest_bounds {C : Type*} [AddCommGroup C] [Fintype C] (a : C → ℕ)
+    (u : C) (χ : AddChar C ℂ) : IsIntegral ℤ (classTest a u χ) ∧
+      ∀ σ : ℂ ≃+* ℂ, ‖σ (classTest a u χ)‖ ≤ ∑ v, (a (u+v):ℝ) := by
+  have hroot (v : C) : χ v ^ Fintype.card C = 1 := by
+    rw [← AddChar.map_nsmul_eq_pow, card_nsmul_eq_zero, AddChar.map_zero_eq_one]
+  constructor
+  · change (∑ v, χ v * (a (u+v):ℂ)) ∈ integralClosure ℤ ℂ
+    apply Subalgebra.sum_mem
+    intro v _
+    exact (IsIntegral.of_pow Fintype.card_pos (hroot v ▸ isIntegral_one)).mul (isIntegral_natCast _)
+  · intro σ
+    rw [classTest, map_sum]
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun v _ => ?_)
+    have h : (σ (χ v))^Fintype.card C = 1 := by rw [← map_pow, hroot, map_one]
+    rw [map_mul, map_natCast, norm_mul, Complex.norm_eq_one_of_pow_eq_one h Fintype.card_ne_zero,
+      one_mul, Complex.norm_natCast]
+
+/-- Complete character inversion and the ultrametric triangle inequality
+select a twist after the place. The exact class divisor is retained. -/
+theorem exists_classTest_ge {C L : Type*} [AddCommGroup C] [Fintype C]
+    [NormedField L] [IsUltrametricDist L] (ι : ℂ →+* L) (a : C → ℕ) (u : C) :
+    ∃ χ : AddChar C ℂ, ‖ι (a u:ℂ)‖ ≤ ‖ι (classTest a u χ / (Fintype.card C:ℂ))‖ := by
+  classical
+  have hc : (Fintype.card C:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+  have inv : (∑ χ : AddChar C ℂ, classTest a u χ / (Fintype.card C:ℂ)) = (a u:ℂ) := by
+    simp only [classTest, ← Finset.sum_div]
+    rw [Finset.sum_comm]
+    simp_rw [← Finset.sum_mul, AddChar.sum_apply_eq_ite]
+    simp [ite_mul, hc]
+  obtain ⟨χ, _, hχ⟩ := IsUltrametricDist.exists_norm_finsetSum_le_of_nonempty Finset.univ_nonempty
+    (fun χ : AddChar C ℂ => ι (classTest a u χ / (Fintype.card C:ℂ)))
+  exact ⟨χ, by simpa only [← map_sum, inv] using hχ⟩
+
+/-- Vary just the p-chart of the wheel jet, freezing every other reading.
+The same global integer from common_jet is detected by an integral
+character numerator on this genuine inertia group, at every place. -/
+theorem common_jet_twisted_read {L : Type*} [NormedField L] [IsUltrametricDist L]
+    (ι : ℂ →+* L) (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H → ℝ)
+    (N : ℕ) (P : Finset ℕ) (u : ℕ → G H) (hu : ∀ p, u p ∈ I p) (p : ℕ) (hp : p ∈ P) :
+    let a := fun v : I p => (∏ q ∈ P.erase p, chartRead w F N q (u q)) * chartRead w F N p v
+    let b := (⟨u p, hu p⟩ : I p)
+    let A := ∏ q ∈ P, chartRead w F N q (u q)
+    ∃ χ : AddChar (I p) ℂ, IsIntegral ℤ (classTest a b χ) ∧
+      ‖ι (A:ℂ)‖ ≤ ‖ι (classTest a b χ / (Fintype.card (I p):ℂ))‖ ∧
+      ∀ σ : ℂ ≃+* ℂ, ‖σ (classTest a b χ)‖ ≤ ∑ v, (a (b+v):ℝ) := by
+  classical
+  dsimp only
+  let a := fun v : I p => (∏ q ∈ P.erase p, chartRead w F N q (u q)) * chartRead w F N p v
+  let b : I p := ⟨u p, hu p⟩
+  obtain ⟨χ, h⟩ := exists_classTest_ge ι a b
+  have val : a b = ∏ q ∈ P, chartRead w F N q (u q) := Finset.prod_erase_mul P _ hp
+  rw [val] at h
+  exact ⟨χ, (classTest_bounds a b χ).1, h, (classTest_bounds a b χ).2⟩
 
 end RHLean.Analysis.AlpogeThin.RankOne
