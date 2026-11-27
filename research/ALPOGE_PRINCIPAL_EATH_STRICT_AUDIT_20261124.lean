@@ -1,3 +1,4 @@
+import «research.NativeMeasuredCutGram»
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
@@ -172,6 +173,10 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_short_completion,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_dual_gram,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_block_supplied,
+    ``RHLean.Analysis.AlpogeThin.MeasuredCut.gram_det,
+    ``RHLean.Analysis.AlpogeThin.MeasuredCut.admission_bounds,
+    ``RHLean.Analysis.AlpogeThin.MeasuredCut.wheel_factor_le,
+    ``RHLean.Analysis.AlpogeThin.MeasuredCut.firstPrime_fibre,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_high_wheel_normalized_price,
     ``RHLean.Analysis.AlpogeThin.nativeSquareClock_injectiveHeights_log_eventually,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_thickTail_mass,
