@@ -89,10 +89,10 @@ theorem partnerPrimes_rank {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype
   · simp [Finset.not_nonempty_iff_eq_empty.mp hs, N]
 
 /-- Insert a band address at its actual integer coordinate. -/
-private def slotInclusion {I J : Type*} [DecidableEq J] (f : I ↪ J) : Matrix J I ℝ :=
+def slotInclusion {I J : Type*} [DecidableEq J] (f : I ↪ J) : Matrix J I ℝ :=
   fun k i => if k = f i then 1 else 0
 
-private theorem inclusion_gram {I J : Type*} [DecidableEq I] [Fintype J] [DecidableEq J]
+theorem inclusion_gram {I J : Type*} [DecidableEq I] [Fintype J] [DecidableEq J]
     (f : I ↪ J) : (slotInclusion f).transpose * slotInclusion f = 1 := by
   classical
   ext i j

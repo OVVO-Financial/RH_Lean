@@ -293,6 +293,14 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.all_cells_centered
 #print axioms RHLean.Analysis.PrincipalCofactor.complete_curvature_relative
 #print axioms RHLean.Analysis.PrincipalCofactor.whole_chord_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.translated_pair
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.physical_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.complementary_volume
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.first_moment
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.oriented_schur
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.decode_boundary
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.observed_star
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.boundary_pair
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
 #print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price

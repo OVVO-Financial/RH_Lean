@@ -363,7 +363,7 @@ theorem original_addresses {m : ℕ} (h : Fin (m+1) → ℝ) (v : ℝ)
 def columns {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
     Matrix (Address S) (Fin m) ℤ := fun a j => starColumn D j a.1 a.2.val
 
-private theorem dot_read {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+theorem dot_read {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
     (z : Fin (m+1) → ℕ → ℤ) (j : Fin m) :
     ∑ x : Address S, z x.1 x.2.val * columns S D x j = read S D z j := by
   classical
