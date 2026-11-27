@@ -1,4 +1,5 @@
 import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
+import Mathlib.Algebra.Order.Ring.GeomSum
 
 /-! A common integer translation of the original top heights controls divisibility
 of differences between their actual quotient-slot endpoints. -/
@@ -112,5 +113,102 @@ theorem sharedHeight_count (a b p q h k N : ℕ) (hp : p.Prime) (hq : q.Prime) (
         _ = s*((N/s/d)*d) := Nat.mul_assoc ..
         _ ≤ s*(N/s) := Nat.mul_le_mul_left _ (Nat.div_mul_le_self _ _)
         _ ≤ N := (Nat.mul_comm _ _).trans_le (Nat.div_mul_le_self _ _)
+
+private theorem sharedHeight_sum (a b p q h N L : ℕ) (hp : p.Prime) (hq : q.Prime) (hne : p ≠ q)
+    (size : ∀ i < N, 0 < (heightEndpointGap a b p q (h+i)).natAbs ∧
+      (heightEndpointGap a b p q (h+i)).natAbs < p^L) :
+    ∑ i ∈ Finset.range N, (heightEndpointGap a b p q (h+i)).natAbs.factorization p ≤
+      N/(p-1)+(L-1)*(p*q) := by
+  classical
+  let g i := heightEndpointGap a b p q (h+i)
+  let T := Finset.Ico 1 L
+  have levels i (hi : i ∈ Finset.range N) : (g i).natAbs.factorization p =
+      ∑ k ∈ T, if (g i : ZMod (p^k)) = 0 then 1 else 0 := by
+    have hs := size i (Finset.mem_range.mp hi)
+    rw [Nat.factorization_eq_card_pow_dvd_of_lt hp hs.1 hs.2, Finset.card_filter]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd, ← Int.dvd_natAbs, Int.natCast_dvd_natCast]
+  calc
+    _ = ∑ i ∈ Finset.range N, ∑ k ∈ T, if (g i : ZMod (p^k)) = 0 then 1 else 0 :=
+      Finset.sum_congr rfl levels
+    _ = ∑ k ∈ T, ∑ i ∈ Finset.range N, if (g i : ZMod (p^k)) = 0 then 1 else 0 := Finset.sum_comm
+    _ ≤ ∑ k ∈ T, (N/(p^k)+p*q) := by
+      refine Finset.sum_le_sum fun k _ => ?_
+      rw [← Finset.card_filter]
+      exact sharedHeight_count a b p q h k N hp hq hne
+    _ ≤ _ := by
+      rw [Finset.sum_add_distrib, Finset.sum_const, nsmul_eq_mul, Nat.card_Ico]
+      exact Nat.add_le_add_right (Nat.geom_sum_Ico_le hp.two_le N L) _
+
+/-- One common shift in the allowed interval pays the actual full owner-prime
+valuations for every labelled comparison together, including repeated use of
+a starting height. The natural endpoint correction uses only the number of
+possible valuation levels. -/
+theorem sharedHeight_total {I : Type*} (tags : Finset I) (p q a b L : I → ℕ) (h N : ℕ)
+    (hN : 0 < N) (hp : ∀ i ∈ tags, (p i).Prime) (hq : ∀ i ∈ tags, (q i).Prime)
+    (hne : ∀ i ∈ tags, p i ≠ q i) (size : ∀ i ∈ tags, ∀ j < N,
+      0 < (heightEndpointGap (a i) (b i) (p i) (q i) (h+j)).natAbs ∧
+      (heightEndpointGap (a i) (b i) (p i) (q i) (h+j)).natAbs < p i ^ L i) :
+    ∃ j < N, (N:ℝ)*(∑ i ∈ tags,
+      ((heightEndpointGap (a i) (b i) (p i) (q i) (h+j)).natAbs.factorization (p i):ℝ)*
+        Real.log (p i)) ≤
+      ∑ i ∈ tags, ((N/(p i-1)+(L i-1)*(p i*q i):ℕ):ℝ)*Real.log (p i) := by
+  classical
+  let mass (i : I) j := (heightEndpointGap (a i) (b i) (p i) (q i) (h+j)).natAbs.factorization (p i)
+  let bill j := ∑ i ∈ tags, (mass i j:ℝ)*Real.log (p i)
+  obtain ⟨j, hj, least⟩ := Finset.exists_min_image (Finset.range N) bill (Finset.nonempty_range_iff.mpr hN.ne')
+  refine ⟨j, Finset.mem_range.mp hj, ?_⟩
+  change (N:ℝ)*bill j ≤ _
+  calc
+    _ = ∑ _t ∈ Finset.range N, bill j := by rw [Finset.sum_const, nsmul_eq_mul, Finset.card_range]
+    _ ≤ ∑ t ∈ Finset.range N, bill t := Finset.sum_le_sum fun t ht => least t ht
+    _ = ∑ i ∈ tags, (∑ t ∈ Finset.range N, (mass i t:ℝ))*Real.log (p i) := by
+      simp only [bill, Finset.sum_mul]
+      exact Finset.sum_comm
+    _ ≤ _ := by
+      refine Finset.sum_le_sum fun i hi => mul_le_mul_of_nonneg_right ?_ (Real.log_natCast_nonneg _)
+      exact_mod_cast sharedHeight_sum (a i) (b i) (p i) (q i) h N (L i)
+        (hp i hi) (hq i hi) (hne i hi) (size i hi)
+
+/-- Integral diagonal multiplier on the original integer slots. Each distinct
+factor is read at the actual cutoff of a competitor on the same height profile. -/
+def slotSelector {I : Type*} (C : Finset I) (z : I → ℕ) (k : ℕ) : ℤ :=
+  ∏ i ∈ C, ((k:ℤ)-z i)
+
+/-- Exact lost valuation at the owner's endpoint, vanishing at every competing
+endpoint and an independent real norm bound on the whole physical slot set. -/
+theorem slotSelector_price {I : Type*} (C : Finset I) (a q : I → ℕ) (b p h A : ℕ)
+    (U : Finset ℕ) (hcut : ∀ i ∈ C, (a i+h)/q i ≤ A) (hslot : ∀ k ∈ U, k ≤ A)
+    (hs : ∀ i ∈ C, heightEndpointGap b (a i) p (q i) h ≠ 0) :
+    let z := fun i => (a i+h)/q i
+    let S := slotSelector C z
+    (∀ i ∈ C, S (z i) = 0) ∧
+    (S ((b+h)/p)).natAbs.factorization p =
+      ∑ i ∈ C, (heightEndpointGap b (a i) p (q i) h).natAbs.factorization p ∧
+    ∀ f : ℕ → ℝ, ∑ k ∈ U, ((S k:ℝ)*f k)^2 ≤
+      ((A:ℝ)^C.card)^2 * ∑ k ∈ U, (f k)^2 := by
+  classical
+  intro z S
+  refine ⟨fun i hi => Finset.prod_eq_zero hi (sub_self _), ?_, ?_⟩
+  · change (Int.natAbsHom (∏ i ∈ C, heightEndpointGap b (a i) p (q i) h)).factorization p = _
+    rw [map_prod]
+    exact Nat.factorization_prod_apply fun i hi => Int.natAbs_ne_zero.mpr (hs i hi)
+  · intro f
+    have bound (k : ℕ) (hk : k ∈ U) : |(S k:ℝ)| ≤ (A:ℝ)^C.card := by
+      change |((∏ i ∈ C, ((k:ℤ)-z i) : ℤ):ℝ)| ≤ _
+      rw [Int.cast_prod, Finset.abs_prod, ← Finset.prod_const]
+      refine Finset.prod_le_prod (fun _ _ => abs_nonneg _) fun i hi => ?_
+      have h1 : (k:ℝ) ≤ A := by exact_mod_cast hslot k hk
+      have h2 : (z i:ℝ) ≤ A := by exact_mod_cast hcut i hi
+      push_cast
+      exact abs_le.mpr ⟨by linarith only [h2,Nat.cast_nonneg (α := ℝ) k],
+        by linarith only [h1,Nat.cast_nonneg (α := ℝ) (z i)]⟩
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro k hk
+    rw [mul_pow]
+    have power := pow_le_pow_left₀ (abs_nonneg _) (bound k hk) 2
+    rw [sq_abs] at power
+    exact mul_le_mul_of_nonneg_right power (sq_nonneg _)
 
 end RHLean.Analysis.AlpogeThin.SlotProjector

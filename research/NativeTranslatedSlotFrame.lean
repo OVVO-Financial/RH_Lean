@@ -439,7 +439,8 @@ private theorem ask_wheel (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
       obtain ⟨s, hs, hcol⟩ := Finset.mem_image.mp mem
       rw [← hcol, alpogeNativeProjectionThick_partner]
       have hh := hw u j _ (Finset.mem_image.mpr ⟨s,hs,rfl⟩)
-      convert hh using 2 <;> ring)
+      convert hh using 2
+      ring)
   have card (l) (hl : l ∈ P) t : (U l t).card = T.card := by
     change (Finset.univ.filter (fun u => F l ∈ alpogeNativeProjectionThickColours T u t)).card = _
     rw [(spec l hl).2.2.2]

@@ -265,6 +265,8 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.familyJump_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_period
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_count
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_total
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.slotSelector_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame
