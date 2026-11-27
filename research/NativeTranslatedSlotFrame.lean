@@ -1,4 +1,5 @@
 import «research.NativeMeasuredSlotProjector»
+import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import Mathlib.Algebra.Order.Chebyshev
 import Mathlib.LinearAlgebra.Matrix.Trace
 
@@ -510,6 +511,22 @@ private theorem row_mem {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
   simp [siteRows, alpogeNativeProjectionThickColours, alpogeNativeThickPositiveSites,
     alpogeNativeProjectionE1]
 
+private theorem partner_at {H : Type*} [AddCommGroup H] (s g : H) :
+    alpogeNativePartner (s-g) (alpogeNativeProjectionE1 g) = (((0,1) : AlpogeNativeE0),s) := by
+  have h := alpogeNativeProjectionThick_partner s 0 (s-g)
+  have heq : s - (s-g) = g := by abel
+  simpa only [add_zero, heq] using h
+
+private theorem normalize_volume (c k t G v : ℝ) (hc : c ≠ 0) (hk : k ≠ 0) (ht : t ≠ 0) :
+    (4/c)*G - 4*v/(c*k*t) = 4*(k*(t*G)-v)/(c*k*t) := by
+  field_simp
+  <;> ring
+
+private theorem normalize_loss (v k c r z t : ℝ) (ht : t ≠ 0) :
+    4*(v*k*(c*r*z)) = 4*(v/t)*r*z*(c*k*t) := by
+  field_simp
+  <;> ring
+
 /-- Supply the layers, admissions, and translated projectors from the
 original top heights, Frobenius values, and measured width of each row.
 Each omitted direction is charged once per occupied site and active row.
@@ -579,10 +596,8 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
   have partner (s : ↥V) (i : Fin (r s+1)) :
       alpogeNativePartner (s.val-g (p s i)) ((alpogeNativeHostData e q d).frob (p s i)) =
         (((0,1) : AlpogeNativeE0),s.val) := by
-    have heq : s.val - (s.val-g (p s i)) = g (p s i) := by abel
     rw [(info s i).2.2.2.1]
-    simpa only [add_zero, heq] using
-      alpogeNativeProjectionThick_partner s.val 0 (s.val-g (p s i))
+    exact partner_at _ _
   have hS (s : ↥V) (j : ↥(siteRows T n s.val)) (i) : (S s j i).Nonempty := by
     have hwidth := hw j.val.1 j.val.2 _ ((row_mem T n s.val j.val).1 j.property)
     exact (firstPrime_slots e q d (r s) (p s) (fun i => s.val-g (p s i)) a (w j.val.1 j.val.2)
@@ -624,20 +639,21 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       have hfloor := Nat.lt_floor_add_one (Real.sqrt x)
       dsimp [c]
       linarith
-    have hk : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+    have hk : 0 < k := by
+      change 0 < ((T.card*n:ℕ):ℝ)
+      exact_mod_cast Nat.mul_pos hT.card_pos hn
     have ht0 : 0 < (tops.card:ℝ) := by exact_mod_cast ht.card_pos
     have hden : 0 < (c:ℝ)*k*tops.card := mul_pos (mul_pos hc hk) ht0
     have use := ask_wheel e q d n tops T a b x η w ht hT hn hx (Real.exp_pos _) hη grid ha hw
     have normalized : |(4/(c:ℝ))*G - 4*Vtotal/((c:ℝ)*k*tops.card)| ≤
         4*((V.card:ℝ)/tops.card)*Real.sqrt x*Real.log x := by
-      rw [show (4/(c:ℝ))*G - 4*Vtotal/((c:ℝ)*k*tops.card) =
-        4*(k*(tops.card*G)-Vtotal)/((c:ℝ)*k*tops.card) by field [hc.ne',hk.ne',ht0.ne']]
+      rw [normalize_volume _ _ _ _ _ hc.ne' hk.ne' ht0.ne']
       rw [abs_of_nonneg (div_nonneg (mul_nonneg (by norm_num) volume.1) hden.le),
         div_le_iff₀ hden]
       calc
         _ ≤ 4*((V.card:ℝ)*k*((c:ℝ)*Real.sqrt x*Real.log x)) :=
           mul_le_mul_of_nonneg_left volume.2 (by norm_num)
-        _ = _ := by field [ht0.ne']
+        _ = _ := normalize_loss _ _ _ _ _ _ ht0.ne'
     have size : (V.card:ℝ)/tops.card ≤ 2*x^(ε/8) := by
       apply (div_le_iff₀ ht0).2
       have hcard : (V.card:ℝ) ≤ Fintype.card (AlpogeNativeDyadicH e) :=
@@ -651,8 +667,10 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
         (8/ε)*x^((1:ℝ)/2+9*ε/8) := by
       calc
         _ ≤ 4*(2*x^(ε/8))*Real.sqrt x*(x^ε/ε) := by
-          gcongr
-          exacts [Real.log_nonneg hx1, Real.log_le_rpow_div hx0.le he]
+          exact mul_le_mul
+            (mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left size (by norm_num))
+              (Real.sqrt_nonneg x)) (Real.log_le_rpow_div hx0.le he)
+            (Real.log_nonneg hx1) (by positivity)
         _ = _ := by
           rw [Real.sqrt_eq_rpow, show (1:ℝ)/2+9*ε/8 = ε/8+1/2+ε by ring,
             Real.rpow_add hx0, Real.rpow_add hx0]
