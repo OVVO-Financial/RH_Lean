@@ -285,7 +285,7 @@ private theorem frozen_source_translate (I : ℕ → AddSubgroup (AlpogeNativeE0
   dsimp only [logTerm]
   rw [alpogeNativeProjectionPhi_card, Nat.cast_mul, Nat.cast_ofNat]
   have hcard : (Fintype.card H:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
-  field_simp [hcard] <;> ring
+  field_simp [hcard]
 
 /-- The complete frozen source difference, divided by the original Q, is the
 top average of the native two-cutoff remainders. Arbitrary positive thin
@@ -426,6 +426,7 @@ theorem pairGood_frozen_top_le (eps : ℝ) (he : 0 < eps) :
     D.inertia D.frob ell N TT a (widths v)
   let Q := alpogeNativeProjectionDivisor TT T2 m b
   let C := 4*(Fintype.card (AlpogeNativeDyadicH e):ℝ)*Real.exp (-(x^(eps/8)))
+  have hC : 0 ≤ C := mul_nonneg (mul_nonneg (by norm_num) (Nat.cast_nonneg _)) (Real.exp_pos _).le
   have hQ : 0 < Q := alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm b hb
   have pref (u j ρ) (hρ : alpogeNativeInPhi ρ) : 0 < raw u j ρ := by
     simp only [raw, alpogeNativeFreezeThick]
@@ -446,7 +447,7 @@ theorem pairGood_frozen_top_le (eps : ℝ) (he : 0 < eps) :
       Nat.cast_mul, Nat.cast_ofNat, div_self (mul_ne_zero two_ne_zero cardH), one_mul] at far
     rw [← gridFreeze]
     exact far.trans (((mul_right_comm _ _ _).le).trans
-      (mul_le_mul_of_nonneg_left (ha t ht).2 (by dsimp [C]; positivity)))
+      (mul_le_mul_of_nonneg_left (ha t ht).2 hC))
   let J := (⊤ : AddSubgroup (AlpogeNativeDyadicH e))
   have far : S s ≤ (TT.card:ℝ)*m*(C*A) := by
     unfold S alpogeNativePhysicalSubgroupTopExcess
@@ -456,7 +457,8 @@ theorem pairGood_frozen_top_le (eps : ℝ) (he : 0 < eps) :
           Finset.sum_le_sum fun j _ => bound (u:AlpogeNativeDyadicH e) j t ht) (by positivity)
       _ = _ := by
         simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
-        field [Nat.cast_ne_zero.mpr (Fintype.card_ne_zero (α := J)) : (Fintype.card J:ℝ) ≠ 0]
+        have hJ : (Fintype.card J:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+        field [hJ]
   have refPrice : S s/Q ≤ 8*(Fintype.card (AlpogeNativeDyadicH e):ℝ)*A*Real.exp (-(x^(eps/8))) /
       (b*alpogeNativeProjectionDensity T2) := by
     refine (div_le_div_of_nonneg_right far hQ.le).trans (le_of_eq ?_)
