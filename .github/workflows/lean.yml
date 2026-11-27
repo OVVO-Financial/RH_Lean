@@ -15,6 +15,8 @@ on:
       - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/ci/superseded_build_caches.awk'
+      - 'scripts/test_ci_cache_contract.py'
       - 'scripts/lake_build_fail_fast.py'
       - 'scripts/test_lake_build_fail_fast.py'
       - 'scripts/repo_index.py'
@@ -43,6 +45,8 @@ on:
       - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/ci/superseded_build_caches.awk'
+      - 'scripts/test_ci_cache_contract.py'
       - 'scripts/lake_build_fail_fast.py'
       - 'scripts/test_lake_build_fail_fast.py'
       - 'scripts/repo_index.py'
@@ -290,15 +294,17 @@ jobs:
       # them, and every run of this workflow used to add another multi-gigabyte
       # .lake/build entry under a fresh content hash, so a busy afternoon
       # evicted the very entries the next run wanted and turned a two minute
-      # incremental build back into a fifteen minute cold one.  Keep only the
-      # newest build entry per ref; the save above has already written it.
+      # incremental build back into a fifteen minute cold one. An exact full
+      # hit is older than any preflight saved after it. Retire entries only
+      # after locating this successful build key on this specific ref.
       #
       # Forked pull requests get a read-only token, so this is best effort.
       - name: Trim superseded build caches for this ref
-        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
+        if: ${{ success() && github.event.pull_request.head.repo.fork != true }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
+          CURRENT_BUILD_KEY: ${{ steps.rhleancache.outputs.cache-primary-key }}
           CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
         run: |
           set -euo pipefail
@@ -306,8 +312,9 @@ jobs:
             "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
             --jq '.actions_caches[] | select((.key | startswith("rhlean-build-")) or (.key | startswith("rhlean-preflight-build-v1-"))) | [.created_at, (.id|tostring), .key] | @tsv' \
             > caches.tsv || : > caches.tsv
-          # Newest first, keep row one, delete the rest.
-          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
+          LC_ALL=C sort -r caches.tsv |
+            awk -v current="$CURRENT_BUILD_KEY" -f scripts/ci/superseded_build_caches.awk |
+            while IFS=$'\t' read -r created id key; do
             echo "deleting superseded cache ${key} (${created})"
             gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
           done

@@ -3,6 +3,7 @@
 from contextlib import redirect_stdout
 import io
 import os
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -46,6 +47,23 @@ class CacheContractTest(unittest.TestCase):
             file = Path(d) / "test.yml"
             file.write_text(body)
             return audit(file)
+
+    def test_full_cache_survives_a_newer_preflight(self):
+        selector = Path(__file__).resolve().parent / "ci" / "superseded_build_caches.awk"
+        rows = [
+            "2026-11-27T03:00:00Z\t40\tpreflight",
+            "2026-11-27T02:00:00Z\t30\tfull-current",
+            "2026-11-27T02:00:00Z\t25\tsame-time",
+            "2026-11-27T01:00:00Z\t20\told-preflight",
+            "2026-11-26T01:00:00Z\t10\told-full",
+        ]
+        for current, expected in (("full-current", rows[3:]), ("unpublished", []), ("", [])):
+            with self.subTest(current=current):
+                proc = subprocess.run(
+                    ["awk", "-v", f"current={current}", "-f", str(selector)],
+                    input="\n".join(rows) + "\n", text=True, capture_output=True, check=True,
+                )
+                self.assertEqual(proc.stdout.splitlines(), expected)
 
     def test_mixed_uncached_fails(self):
         problems = self.check_text(
