@@ -330,7 +330,7 @@ theorem primeAt_sum {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
     exact fun hv => hs (Finset.mem_filter.mpr ⟨Finset.mem_univ _, hv⟩)
   calc
     _ = ∑ s : ↥V, ∑ p ∈ L s.val, f p := Finset.sum_congr rfl fun s _ => enumerate s
-    _ = ∑ s ∈ V, ∑ p ∈ L s, f p := Finset.sum_coe_sort _ _
+    _ = ∑ s ∈ V, ∑ p ∈ L s, f p := Finset.sum_coe_sort V (fun s : H => ∑ p ∈ L s, f p)
     _ = ∑ s : H, ∑ p ∈ L s, f p := Finset.sum_subset (Finset.subset_univ _) fun s _ hs =>
       by rw [empty s hs, Finset.sum_empty]
     _ = _ := by
@@ -370,15 +370,139 @@ private theorem volume_loss {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r
     Real.log_prod (fun i _ => by exact_mod_cast (hD i).ne')] at low high
   rw [Real.log_mul (sq_pos_of_pos (Real.exp_pos L)).ne' hb.ne', Real.log_pow,
     Real.log_exp] at high
+  norm_num only [Nat.cast_ofNat] at low high
   dsimp only [logVolume]
-  constructor <;> linarith
+  constructor <;> linarith only [low, high]
 
-/-- On the original dyadic host all high first primes of the thick colour
-are selected directly from the cutoff. -/
-def highThickPrimes (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (x : ℝ) : Finset ℕ :=
-  (Nat.primesLE ⌊x⌋₊).filter fun p => Real.sqrt x ≤ (p:ℝ) ∧ (p:ℝ)+1 ≤ x ∧
-    (alpogeNativeHostData e q d).frob p =
+/-- The complete high, unramified, first-prime thick colour up through x.
+The interior slot frame can omit the last unit interval. Its Euler depth
+there is zero, and the rounded arithmetic readings there are still counted. -/
+def outerHighPrimes (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (x : ℝ) : Finset ℕ :=
+  (Nat.primesLE ⌊x⌋₊).filter fun p => p ≠ 2 ∧ p ≠ q ∧ p ≠ d ∧
+    Real.sqrt x ≤ (p:ℝ) ∧ (alpogeNativeHostData e q d).frob p =
       alpogeNativeProjectionE1 ((alpogeNativeHostData e q d).frob p).2
+
+def highThickPrimes (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (x : ℝ) : Finset ℕ :=
+  (outerHighPrimes e q d x).filter fun p => (p:ℝ)+1 ≤ x
+
+/-- The original translated arithmetic first-prime reads with the lower log
+grid, the kernel weight, the host average and the original divisor combined
+as in nativeLedger_high_wheel_normalized_price. -/
+def roundedHighASK (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+    (b x η : ℝ) (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) :
+    ℝ :=
+  let F := (alpogeNativeHostData e q d).frob
+  (4/((tops.card:ℝ)*n*T.card)) * ∑ l ∈ outerHighPrimes e q d x, Real.log l *
+    ∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ Finset.univ.filter (fun u => F l ∈ alpogeNativeProjectionThickColours T u t),
+      nativeDyadicLocalSourceAtom e q d l (a t) t (fun z => alpogeNativeLowerLogWidth η (w u j z)) 1 / b
+
+private theorem ask_wheel (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+    (b x η : ℝ) (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (htops : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n) (hx : 10 ≤ x) (hb : 0 < b)
+    (hη : 0 < η) (grid : η ≤ 1/Real.sqrt x)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let c := ⌊Real.sqrt x⌋₊
+    let depth := fun l : ℕ => ⌊(c:ℝ)*x⌋₊/l-c
+    |roundedHighASK e q d n tops T a b x η w -
+      (4/(c:ℝ))*∑ l ∈ highThickPrimes e q d x, Real.log ((l^depth l:ℕ):ℝ)| ≤
+      20*Real.log 4*Real.sqrt x := by
+  classical
+  intro c depth
+  let P := outerHighPrimes e q d x
+  let F := (alpogeNativeHostData e q d).frob
+  let K := (tops.card:ℝ)*n*T.card
+  let U := fun l t => Finset.univ.filter (fun u => F l ∈ alpogeNativeProjectionThickColours T u t)
+  let W := fun l t (j : Fin n) u => nativeDyadicLocalSourceAtom e q d l (a t) t
+    (fun z => alpogeNativeLowerLogWidth η (w u j z)) 1 / b
+  have hx0 : 0 < x := by linarith
+  have hR : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+  have hr0 : 0 < Real.sqrt x := by linarith
+  have hc1 : (1:ℝ) ≤ c := by have := Nat.lt_floor_add_one (Real.sqrt x); dsimp [c]; linarith
+  have hc : 0 < c := by exact_mod_cast hc1
+  have hc0 : 0 < (c:ℝ) := by linarith
+  have hK : 0 < K := mul_pos (mul_pos (by exact_mod_cast htops.card_pos) (by exact_mod_cast hn))
+    (by exact_mod_cast hT.card_pos)
+  have spec l (hl : l ∈ P) : l.Prime ∧ (l:ℝ) ≤ x ∧ Real.sqrt x ≤ l ∧
+      F l = alpogeNativeProjectionE1 (F l).2 := by
+    have h := Finset.mem_filter.mp hl
+    have h' := Nat.mem_primesLE.mp h.1
+    exact ⟨h'.2, (Nat.cast_le.mpr h'.1).trans (Nat.floor_le hx0.le), h.2.2.2.2⟩
+  have pay := nativeLedger_high_wheel_normalized_price e q d c n tops T P a b x η (b/x) w
+    htops hT hn hc hb hη (div_nonneg hb.le hx0.le)
+    (fun t ht => ⟨(le_div_iff₀ hb).2 (ha t ht).1, (div_le_iff₀ hb).2 (ha t ht).2⟩)
+    (fun l hl => ⟨(spec l hl).1, (spec l hl).2.1, (spec l hl).2.2.2⟩)
+    (fun t _ l _ u j mem => by
+      obtain ⟨s, hs, hcol⟩ := Finset.mem_image.mp mem
+      rw [← hcol, alpogeNativeProjectionThick_partner]
+      have hh := hw u j _ (Finset.mem_image.mpr ⟨s,hs,rfl⟩)
+      convert hh using 2 <;> ring)
+  have card (l) (hl : l ∈ P) t : (U l t).card = T.card := by
+    change (Finset.univ.filter (fun u => F l ∈ alpogeNativeProjectionThickColours T u t)).card = _
+    rw [(spec l hl).2.2.2]
+    exact alpogeNativeThickColour_translate_count T t _
+  have group (l) (hl : l ∈ P) :
+      (∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ U l t, (W l t j u - (depth l:ℝ)/c)) =
+      (∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ U l t, W l t j u) - K * ((depth l:ℝ)/c) := by
+    simp only [Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul, Finset.card_univ,
+      Fintype.card_fin, card l hl, K, mul_assoc]
+  let G := ∑ l ∈ P, Real.log ((l^depth l:ℕ):ℝ)
+  have total :
+      (∑ l ∈ P, Real.log l * ∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ U l t, (W l t j u - (depth l:ℝ)/c)) =
+      (∑ l ∈ P, Real.log l * ∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ U l t, W l t j u) - (K/c)*G := by
+    rw [show (K/c)*G = ∑ l ∈ P, (K/c)*Real.log ((l^depth l:ℕ):ℝ) from Finset.mul_sum ..,
+      ← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro l hl
+    rw [group l hl, Nat.cast_pow, Real.log_pow]
+    ring
+  have cutoff : (∑ l ∈ highThickPrimes e q d x, Real.log ((l^depth l:ℕ):ℝ)) = G := by
+    apply Finset.sum_subset (Finset.filter_subset _ _)
+    intro l hl hskip
+    have hxlt : x < (l:ℝ)+1 := lt_of_not_ge fun h => hskip (Finset.mem_filter.mpr ⟨hl,h⟩)
+    have hcl : (c:ℝ) ≤ l := (Nat.floor_le (Real.sqrt_nonneg x)).trans (spec l hl).2.2.1
+    have small : ⌊(c:ℝ)*x⌋₊ / l < c+1 := by
+      apply (Nat.div_lt_iff_lt_mul (spec l hl).1.pos).2
+      have bnd := (Nat.floor_le (mul_nonneg hc0.le hx0.le)).trans_lt
+        (mul_lt_mul_of_pos_left hxlt hc0)
+      exact_mod_cast (show (⌊(c:ℝ)*x⌋₊:ℝ) < ((c:ℝ)+1)*l by nlinarith only [bnd,hcl])
+    have zero : depth l = 0 := Nat.sub_eq_zero_of_le (Nat.le_of_lt_succ small)
+    simp [zero]
+  change |(4/K)*(∑ l ∈ P, Real.log l * ∑ t ∈ tops, ∑ j : Fin n, ∑ u ∈ U l t,
+    (W l t j u - (depth l:ℝ)/c))| ≤ _ at pay
+  rw [total, mul_sub, show (4/K)*((K/c)*G) = (4/(c:ℝ))*G by field [hK.ne',hc0.ne']] at pay
+  rw [cutoff]
+  apply pay.trans
+  have cInv : 1/(c:ℝ) ≤ 2/Real.sqrt x := by
+    apply (div_le_div_iff₀ hc0 hr0).2
+    have := Nat.lt_floor_add_one (Real.sqrt x)
+    dsimp [c] at hc1 ⊢
+    linarith
+  have xInv : 1/x ≤ 1/Real.sqrt x := one_div_le_one_div_of_le hr0
+    (Real.sqrt_le_self_iff.mpr (Or.inr (by linarith)))
+  have sums : ∑ l ∈ P, Real.log (l:ℝ) ≤ Real.log 4*x := by
+    calc
+      _ ≤ ∑ l ∈ Nat.primesLE ⌊x⌋₊, Real.log (l:ℝ) :=
+        Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+          (fun l _ _ => Real.log_natCast_nonneg l)
+      _ = Chebyshev.theta x := by rw [Chebyshev.theta, Nat.primesLE_eq_filter_Ioc_zero]
+      _ ≤ _ := Chebyshev.theta_le_log4_mul_x hx0.le
+  have cost : ∀ l ∈ P, 1/(l:ℝ)+(η+(b/x)/b)+1/(c:ℝ) ≤ 5/Real.sqrt x := by
+    intro l hl
+    have inv := one_div_le_one_div_of_le hr0 (spec l hl).2.2.1
+    rw [show (b/x)/b = 1/x by field [hb.ne',hx0.ne']]
+    linarith only [inv, grid, xInv, cInv]
+  calc
+    _ ≤ 4 * ∑ l ∈ P, Real.log (l:ℝ)*(5/Real.sqrt x) := by
+      refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun l hl =>
+        mul_le_mul_of_nonneg_left (cost l hl) (Real.log_natCast_nonneg l)) (by norm_num)
+    _ ≤ 4 * ((Real.log 4*x)*(5/Real.sqrt x)) := by
+      rw [← Finset.sum_mul]
+      gcongr
+    _ = 20*Real.log 4*(x/Real.sqrt x) := by ring
+    _ = _ := by rw [(div_eq_iff hr0.ne').2 (Real.mul_self_sqrt hx0.le).symm]
 
 private theorem row_mem {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
     (T : Finset H) (n : ℕ) (s : H) (a : H × Fin n) :
@@ -421,9 +545,15 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
         (k*(tops.card*(∑ l ∈ P, Real.log (power l:ℝ))) -
           ∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)) ∈
             Set.Icc 0 ((V.card:ℝ)*k*((c:ℝ)*Real.sqrt x*Real.log x)) ∧
-        ∀ s j (U : Finset ℕ),
+        (∀ s j (U : Finset ℕ),
           (∑ l ∈ U, ((allowance (fun i => (S s j i).card * D s i^2) E).factorization l:ℝ)*
-            Real.log l)/(E:ℝ) ≤ x^4 := by
+            Real.log l)/(E:ℝ) ≤ x^4) ∧
+        (∀ η : ℝ, 0 < η → η ≤ 1/Real.sqrt x → tops.Nonempty → T.Nonempty → 0 < n →
+          x^(-(ε/8))*(Fintype.card (AlpogeNativeDyadicH e):ℝ)/2 ≤ tops.card →
+          |roundedHighASK e q d n tops T a b x η w -
+            4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s))/
+              ((c:ℝ)*k*tops.card)| ≤
+            20*Real.log 4*Real.sqrt x + (8/ε)*x^((1:ℝ)/2+9*ε/8)) := by
   classical
   filter_upwards [dyadic_rpow_le_exp_eventually 3 ε he, Filter.eventually_ge_atTop (10:ℝ)]
     with x hlarge hx
@@ -431,15 +561,15 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
   have hx1 : 1 ≤ x := by linarith
   have hb4 : 4*x^2 ≤ b := by
     rw [show (3:ℝ) = (3:ℕ) by norm_num, Real.rpow_natCast] at hlarge
-    exact (show 4*x^2 ≤ x^3 by nlinarith only
-      [mul_nonneg (show 0 ≤ x-4 by linarith) (sq_nonneg x)]).trans hlarge
+    exact (show 4*x^2 ≤ x^3 by nlinarith only [mul_nonneg (show 0 ≤ x-4 by linarith) (sq_nonneg x)]).trans hlarge
   have info (s : ↥V) (i : Fin (r s+1)) :
       (p s i).Prime ∧ Real.sqrt x ≤ (p s i:ℝ) ∧ (p s i:ℝ)+1 ≤ x ∧
       (alpogeNativeHostData e q d).frob (p s i) = alpogeNativeProjectionE1 (g (p s i)) ∧
       s.val - g (p s i) ∈ tops := by
     have hp := Finset.mem_filter.mp (primeAt_mem tops P g s i)
     have hi := Finset.mem_filter.mp hp.1
-    exact ⟨(Nat.mem_primesLE.mp hi.1).2, hi.2.1, hi.2.2.1, hi.2.2.2, hp.2⟩
+    have ho := Finset.mem_filter.mp hi.1
+    exact ⟨(Nat.mem_primesLE.mp ho.1).2, ho.2.2.2.2.1, hi.2, ho.2.2.2.2.2, hp.2⟩
   have hp s i := (info s i).1
   have high s i := (info s i).2.1
   have band s i := (info s i).2.2.1
@@ -459,8 +589,10 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       x b hx1 hb4 (hp s) (p s).strictMono (band s) (height s) _ (partner s)
       ((Real.exp_pos _).le.trans hwidth.1) hwidth.2 i).2.1
   obtain ⟨adj, tr, tr2, eff⟩ := translated_frame V T n r cut width D hD hS
-  refine ⟨hS, adj, tr, tr2, eff, ?_, ?_⟩
-  · let L := (c:ℝ)*Real.sqrt x*Real.log x
+  have volume : (k*(tops.card*(∑ l ∈ P, Real.log (power l:ℝ))) -
+        ∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)) ∈
+        Set.Icc 0 ((V.card:ℝ)*k*((c:ℝ)*Real.sqrt x*Real.log x)) := by
+    let L := (c:ℝ)*Real.sqrt x*Real.log x
     let gross := fun s : ↥V => ∑ i, Real.log (D s i:ℝ)
     let loss := fun (s : ↥V) (j : ↥(siteRows T n s.val)) => gross s - logVolume (S s j) (D s)
     have one (s : ↥V) (j : ↥(siteRows T n s.val)) : loss s j ∈ Set.Icc 0 L :=
@@ -478,8 +610,56 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       _ ≤ ∑ s : ↥V, ∑ _j : ↥(siteRows T n s.val), L :=
         Finset.sum_le_sum fun s _ => Finset.sum_le_sum fun j _ => (one s j).2
       _ = _ := by simp [k, siteRows_card, mul_assoc, L]
+  refine ⟨hS, adj, tr, tr2, eff, volume, ?_, ?_⟩
   · intro s j U
     exact squareClock_price (r s) E (p s) (fun i => a (s.val-g (p s i))) (width j.val s) x ε
       hx he1 hE (hp s) (p s).strictMono (high s) (px s) (fun i => (height s i).2) U (hS s j)
+
+  · intro η hη grid ht hT hn density
+    let G := ∑ l ∈ P, Real.log (power l:ℝ)
+    let Vtotal := ∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)
+    have hx0 : 0 < x := by linarith
+    have hc : 0 < (c:ℝ) := by
+      have hR : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+      have hfloor := Nat.lt_floor_add_one (Real.sqrt x)
+      dsimp [c]
+      linarith
+    have hk : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+    have ht0 : 0 < (tops.card:ℝ) := by exact_mod_cast ht.card_pos
+    have hden : 0 < (c:ℝ)*k*tops.card := mul_pos (mul_pos hc hk) ht0
+    have use := ask_wheel e q d n tops T a b x η w ht hT hn hx (Real.exp_pos _) hη grid ha hw
+    have normalized : |(4/(c:ℝ))*G - 4*Vtotal/((c:ℝ)*k*tops.card)| ≤
+        4*((V.card:ℝ)/tops.card)*Real.sqrt x*Real.log x := by
+      rw [show (4/(c:ℝ))*G - 4*Vtotal/((c:ℝ)*k*tops.card) =
+        4*(k*(tops.card*G)-Vtotal)/((c:ℝ)*k*tops.card) by field [hc.ne',hk.ne',ht0.ne']]
+      rw [abs_of_nonneg (div_nonneg (mul_nonneg (by norm_num) volume.1) hden.le),
+        div_le_iff₀ hden]
+      calc
+        _ ≤ 4*((V.card:ℝ)*k*((c:ℝ)*Real.sqrt x*Real.log x)) :=
+          mul_le_mul_of_nonneg_left volume.2 (by norm_num)
+        _ = _ := by field [ht0.ne']
+    have size : (V.card:ℝ)/tops.card ≤ 2*x^(ε/8) := by
+      apply (div_le_iff₀ ht0).2
+      have hcard : (V.card:ℝ) ≤ Fintype.card (AlpogeNativeDyadicH e) :=
+        by exact_mod_cast Finset.card_le_univ V
+      have hr := Real.rpow_pos_of_pos hx0 (ε/8)
+      rw [Real.rpow_neg hx0.le, ← div_eq_inv_mul] at density
+      have hhost := (div_le_iff₀ hr).1 (show
+        (Fintype.card (AlpogeNativeDyadicH e):ℝ)/x^(ε/8) ≤ 2*tops.card by linarith only [density])
+      linarith only [hcard, hhost]
+    have paid : 4*((V.card:ℝ)/tops.card)*Real.sqrt x*Real.log x ≤
+        (8/ε)*x^((1:ℝ)/2+9*ε/8) := by
+      calc
+        _ ≤ 4*(2*x^(ε/8))*Real.sqrt x*(x^ε/ε) := by
+          gcongr
+          exacts [Real.log_nonneg hx1, Real.log_le_rpow_div hx0.le he]
+        _ = _ := by
+          rw [Real.sqrt_eq_rpow, show (1:ℝ)/2+9*ε/8 = ε/8+1/2+ε by ring,
+            Real.rpow_add hx0, Real.rpow_add hx0]
+          ring
+    calc
+      _ ≤ |roundedHighASK e q d n tops T a b x η w - (4/(c:ℝ))*G| +
+          |(4/(c:ℝ))*G - 4*Vtotal/((c:ℝ)*k*tops.card)| := abs_sub_le ..
+      _ ≤ _ := add_le_add use (normalized.trans paid)
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
