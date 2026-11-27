@@ -1,3 +1,4 @@
+import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
 import Mathlib.NumberTheory.Chebyshev
 import «research.NativeRankOneEulerRepayment»
 
@@ -832,7 +833,7 @@ theorem nominal_tail_price (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Fi
     (by dsimp [C]; rw [mul_div_cancel₀ _ he.ne'])
   have one p (hpt : p ∈ T) : (U.card:ℝ)*Real.log p ≤ ((h i).factorization p:ℝ)*Real.log p + γ p := by
     have prime := (ht p hpt).1
-    letI : Fact p.Prime := ⟨prime⟩
+    let _ : Fact p.Prime := ⟨prime⟩
     have hp : 0 < (p:ℝ) := by exact_mod_cast prime.pos
     have H := (loc p).1 i
     change (padicNorm p (payment (α i) _ (h i) (wheel e q d N P (w i))):ℝ) ≤ _ at H
@@ -922,5 +923,78 @@ theorem nominal_cutoff_linear :
   have hd := mul_le_mul_of_nonneg_right hfour (Nat.cast_nonneg H)
   have hbound : 16*(H:ℝ) ≤ z := by exact_mod_cast hH
   linarith only [hmass, hsmall, htop, htwo, hd, hbound]
+
+open Filter in
+/-- Apply the obstruction at the original native cutoff ceil(Amax/beta)
+and at the actual translated thick sites. The scalar cost windows alone
+separate the cutoff from the thick orders on the exponential clock. -/
+theorem squareClock_nominal_tail (ε : ℝ) (hε : 0 < ε) :
+    ∀ᶠ x : ℝ in atTop, ∀ (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+      (b β Amax : ℝ) (T2 : Finset (AlpogeNativeDyadicH e)) {n : ℕ}
+      (t : Fin n → AlpogeNativeDyadicH e) (k : Fin n → ℤ) (h : Fin n → ℕ) (E : ℕ)
+      (i : Fin n), (Fintype.card (AlpogeNativeDyadicH e):ℝ) ≤ x^3 →
+      Real.exp (x^ε) ≤ b → 0 < β → 0 ≤ Amax → Amax/b ≤ x+1 →
+      b/((Fintype.card (AlpogeNativeDyadicH e):ℝ)*Real.exp (x^(ε/3))) ≤ β →
+      0 < h i → 0 < E →
+      let N := ⌈Amax/β⌉₊
+      let P := (Finset.range (N+1)).filter Nat.Prime
+      let w := fun j => alpogeNativeFreezeThick T2 (t j) b (fun _ => β)
+      let A := fun j => wheel e q d N P (w j)
+      let α := fun j => maskOrders T2 (t j) b β
+      let L := fun j => payment (α j) ((2:ℚ)^k j) (h j) (A j)
+      let Q := fun j => payment (α j) ((2:ℚ)^k j) 1 (A j)
+      (T2.card:ℝ)*b/4 ≤ Real.log (h i) + Real.log (jointDen L Q E)/(E:ℝ) := by
+  classical
+  obtain ⟨z₀, hz₀⟩ := eventually_atTop.1 nominal_cutoff_linear
+  filter_upwards [nativeDyadicLocalShiftCost_scalar_eventually ε hε,
+    dyadic_rpow_le_exp_eventually 1 ε hε, eventually_ge_atTop (max 32 (z₀:ℝ))]
+    with x shift clock hx
+  intro e q d _ _ b β Amax T2 n t k h E i hn hb hβ hA hmax hmin hh hE
+  let N := ⌈Amax/β⌉₊
+  let P := (Finset.range (N+1)).filter Nat.Prime
+  let U := alpogeNativeThickPositiveSites T2 (t i)
+  let w := fun j => alpogeNativeFreezeThick T2 (t j) b (fun _ => β)
+  let α := fun j => maskOrders T2 (t j) b β
+  have hx32 : 32 ≤ x := (le_max_left ..).trans hx
+  have hx1 : 1 ≤ x := by linarith
+  have hx0 := zero_lt_one.trans_le hx1
+  rw [Real.rpow_one] at clock
+  have bx := clock.trans hb
+  have hb0 := hx0.trans_le bx
+  have hz : z₀ ≤ ⌈b⌉₊ := by
+    exact_mod_cast (show (z₀:ℝ) ≤ (⌈b⌉₊:ℝ) from (((le_max_right ..).trans hx).trans bx).trans (Nat.le_ceil b))
+  have hcost := shift (Fintype.card (AlpogeNativeDyadicH e)) b β 1 Amax 1 (by exact_mod_cast Fintype.card_pos)
+    hn hβ zero_le_one hA hb hmin
+    (by have he := Real.one_le_exp (Real.rpow_nonneg hx0.le (ε/4)); linarith)
+    hmax (Real.rpow_le_one_of_one_le_of_nonpos hx1 (by linarith))
+  simp only [mul_one, one_mul] at hcost
+  have hNb : 16*(N:ℝ) ≤ b := by
+    have HH := (div_le_div_iff₀ hb0 hx0).1 hcost
+    have hn0 : (0:ℝ) ≤ N := Nat.cast_nonneg _
+    have hxN : (N:ℝ) ≤ (N:ℝ)*x := le_mul_of_one_le_right hn0 hx1
+    have hl := Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)
+    change (12*(Real.log 4+2)*(N:ℝ))*x ≤ 1*b at HH
+    nlinarith only [HH, hxN, hn0, mul_nonneg hl (mul_nonneg hn0 hx0.le)]
+  have hcap : 16*max 2 N ≤ ⌈b⌉₊ := by
+    rcases le_total 2 N with H|H
+    · rw [max_eq_right H]
+      exact_mod_cast hNb.trans (Nat.le_ceil b)
+    · rw [max_eq_left H]
+      exact_mod_cast (show (32:ℝ) ≤ (⌈b⌉₊:ℝ) from (hx32.trans bx).trans (Nat.le_ceil b))
+  have ho (σ) (hσ : σ ∈ U) : ⌈b⌉₊ ≤ α i σ := by
+    have hφ : alpogeNativeInPhi σ := by obtain ⟨s, _, rfl⟩ := Finset.mem_image.mp hσ; rfl
+    have hmem : σ ∈ alpogeNativeThickPositiveSites T2 (t i) := hσ
+    simp [α, maskOrders, alpogeNativeFreezeThick, hφ, hmem]
+  have hc := nominal_cutoff_price e q d N P (fun p hp => (Finset.mem_filter.mp hp).2) w α k h E hE i hh
+    U (max 2 N) ⌈b⌉₊ (le_max_left ..)
+    (fun p hp => (Nat.le_of_lt_succ (Finset.mem_range.mp (Finset.mem_filter.mp hp).1)).trans (le_max_right ..))
+    (by omega) ho
+  have hlin := hz₀ _ hz _ hcap
+  have hU : U.card = T2.card := alpogeNativeThickPositiveSites_card _ _
+  rw [hU] at hc
+  exact le_trans (by
+    rw [mul_div_assoc]
+    exact mul_le_mul_of_nonneg_left ((div_le_div_of_nonneg_right (Nat.le_ceil b) (by norm_num)).trans hlin)
+      (Nat.cast_nonneg T2.card)) hc
 
 end RHLean.Analysis.AlpogeThin.WheelFit

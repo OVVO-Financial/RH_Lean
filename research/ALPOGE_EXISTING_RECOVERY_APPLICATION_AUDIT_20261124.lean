@@ -251,3 +251,5 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_tail_price
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_price
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_linear
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.squareClock_nominal_tail
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131

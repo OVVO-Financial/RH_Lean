@@ -79,7 +79,13 @@ The original dyadic nominal jet also imposes a lower bound on the price of trans
 $$
 u\bigl(\vartheta(z)-\vartheta(H)\bigr)\le \log h_i+\frac{\log M}{E},\qquad 2\le H\le z.
 $$
-Here $\vartheta$ is the sum of the logarithms of the primes. With $16H\le z$ and $z$ sufficiently large, the left side is at least $uz/4$. Increasing the auxiliary rank leaves this lower bound in force. Any proposed dyadic transport with $\log h_i+B_{\rm dir}<uz/4$ fails the economic test on that row. Applying this obstruction to the full selected family requires its actual orders, cutoff and class count. [Nominal row price and factorial tail](NativeWheelFitProjector.lean)
+Here $\vartheta$ is the sum of the logarithms of the primes. With $16H\le z$ and $z$ sufficiently large, the left side is at least $uz/4$. At the native cutoff $N=\lceil A_{\max}/\beta\rceil$, the existing scalar cost windows imply $16\max(2,N)\le\lceil b\rceil$ eventually. The $|T_2|$ actual translated thick sites each have order $\lceil b\rceil$. Consequently the measured dyadic nominal family obeys
+$$
+\frac{|T_2|b}{4}\le \log h_i+\frac{\log M}{E}
+$$
+for every selected row with $h_i>0$. Increasing the auxiliary rank leaves this lower bound in force. A dyadic transport with $\log h_i+B_{\rm dir}<|T_2|b/4$ fails the economic test. [Nominal price at the original cutoff](NativeWheelFitProjector.lean)
+
+For a finite comparison take $x=65$, $b=100000$, $\beta=50000$, and $a=A_{\max}=6500000$. The cuts at $31,47,59$ give slot counts $71380,28128,10169$ and prime weights $31^8,47^3,1$. Modulo $131$, the full Gram determinant is $17$ and the two line determinants are $109$ and $33$. At this same prime the four nominal orders $100000,50000,50000,50000$ contribute valuation $768+3\cdot383=1917$. The original cutoff is $130$. With $h_i=1$ and a dyadic scale, the nominal line has a pole of order $1917$ at a place where all slot projectors preserve integrality. Thus a literal pullback by integral test rows at $131$ fails on this example. These parameters illustrate the comparison at a finite anchor. [Arithmetic certificate](NativeMeasuredSlotProjector.lean)
 
 The retained rank here is $n$ in the $n+1$ dimensional span of the band indicators. The nominal jet in the compact inverse-ratio proof uses every prescribed site order, its factorial normalization and the actual twisted and untwisted section norms. The comparison from those sections to the slot columns still needs a map with a paid rank deficit, index and archimedean distortion. The slot Gram alone gives no identification with the factorial term in the common main amount. The complete signed comparison in #1201 and the small-epsilon window supplier for #1205 remain open.
 

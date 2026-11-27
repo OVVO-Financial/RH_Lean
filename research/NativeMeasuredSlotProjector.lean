@@ -685,4 +685,24 @@ theorem firstPrime_projector (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (ε : �
     (fun i => MeasuredCut.wheel_factor_le (p i) c x (hp i) hx1 (high i) (px i)), fun T =>
     squareClock_price m E p (fun i => a (t i)) (w site) x ε hx hε1 hE hp ho high px (fun i => (ha i).2) T hS⟩
 
+/-- Shared-anchor arithmetic certificate. For x=65, b=100000 and
+beta=50000 the complete cutoff is 130. The three high cuts at 31,47,59
+give unit clearing factors at 131. A thick order and three thin orders
+have total factorial valuation 1917 at that very prime. -/
+theorem cutoff131 :
+    let top := 65*100000
+    let D := fun p : ℕ => p^(520/p-8)
+    let s₀ := (top/31-top/47)*D 31^2
+    let s₁ := (top/47-top/59)*D 47^2
+    let s₂ := (top/59-100000)*D 59^2
+    top/50000=130 ∧ (s₀*s₁+s₀*s₂+s₁*s₂)%131=17 ∧
+      (s₀+s₁)%131=109 ∧ (s₀+s₂)%131=33 ∧
+      (100000.factorial.factorization 131 + 3*50000.factorial.factorization 131)=1917 := by
+  let _ : Fact (Nat.Prime 131) := ⟨by norm_num⟩
+  refine ⟨by decide, by decide, by decide, by decide, ?_⟩
+  rw [Nat.factorization_def _ Fact.out, Nat.factorization_def _ Fact.out,
+    padicValNat_factorial (by decide : Nat.log 131 100000 < 3),
+    padicValNat_factorial (by decide : Nat.log 131 50000 < 3)]
+  decide
+
 end RHLean.Analysis.AlpogeThin.SlotProjector
