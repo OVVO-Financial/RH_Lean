@@ -1,3 +1,4 @@
+import Mathlib.NumberTheory.Chebyshev
 import «research.NativeRankOneEulerRepayment»
 
 /-! The joint local comparison at the pinned Sernau fit-family cut.
@@ -794,5 +795,132 @@ theorem singletonOrders_injective {e : ℕ} (b l : ℝ) (h : ⌈b⌉₊ ≠ ⌈l
   apply h
   simpa [singletonOrders, maskOrders, alpogeNativeInPhi, alpogeNativeFreezeThick, alpogeNativeThickPositiveSites,
     zero_add t, zero_add u, hne] using eq
+
+/-- Every site whose nominal order reaches p contributes at least one p
+to the factorial. -/
+private theorem supported_orders {S : Type*} (α : S →₀ ℕ) (U : Finset S)
+    (p : ℕ) (hp : p.Prime) (h : ∀ σ ∈ U, p ≤ α σ) :
+    U.card ≤ (multiFactorial α).factorization p := by
+  classical
+  apply (hp.pow_dvd_iff_le_factorization (multiFactorial_pos α).ne').1
+  have inc : U ⊆ α.support := fun σ hσ => Finsupp.mem_support_iff.mpr (hp.pos.trans_le (h σ hσ)).ne'
+  have H := Finset.prod_dvd_prod_of_dvd (s := U) (fun _ : S => p) (fun σ => (α σ).factorial)
+    (fun σ hσ => Nat.dvd_factorial hp.pos (h σ hσ))
+  exact (show p^U.card ∣ ∏ σ ∈ U, (α σ).factorial by simpa using H).trans
+    (Finset.prod_dvd_prod_of_subset U α.support (fun σ => (α σ).factorial) inc)
+
+/-- A necessary cost of transport to the original dyadic nominal jet.
+Every omitted odd prime below each of the indicated site orders charges
+the rank-one allowance. The entire class multiplier can repay at most
+its logarithm. This bound survives any determinant rank exponent. -/
+theorem nominal_tail_price (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ)
+    (hP : ∀ p ∈ P, p.Prime) {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ)
+    (α : Fin n → S →₀ ℕ) (k : Fin n → ℤ) (h : Fin n → ℕ) (E : ℕ) (hE : 0 < E)
+    (i : Fin n) (hh : 0 < h i) (U : Finset S) (T : Finset ℕ)
+    (ht : ∀ p ∈ T, p.Prime ∧ p ∉ P ∧ p ≠ 2)
+    (orders : ∀ p ∈ T, ∀ σ ∈ U, p ≤ α i σ) :
+    let A := fun j => wheel e q d N P (w j)
+    let L := fun j => payment (α j) ((2:ℚ)^k j) (h j) (A j)
+    let Q := fun j => payment (α j) ((2:ℚ)^k j) 1 (A j)
+    (U.card:ℝ)*(∑ p ∈ T, Real.log p) ≤ Real.log (h i) + Real.log (jointDen L Q E)/(E:ℝ) := by
+  classical
+  let L := fun j => payment (α j) ((2:ℚ)^k j) (h j) (wheel e q d N P (w j))
+  let Q := fun j => payment (α j) ((2:ℚ)^k j) 1 (wheel e q d N P (w j))
+  let C := Real.log (jointDen L Q E)/(E:ℝ)
+  have he : (0:ℝ) < E := by exact_mod_cast hE
+  obtain ⟨γ, _, total, loc⟩ := (sharp_joint_total L Q E hE C).2
+    (by dsimp [C]; rw [mul_div_cancel₀ _ he.ne'])
+  have one p (hpt : p ∈ T) : (U.card:ℝ)*Real.log p ≤ ((h i).factorization p:ℝ)*Real.log p + γ p := by
+    have prime := (ht p hpt).1
+    letI : Fact p.Prime := ⟨prime⟩
+    have hp : 0 < (p:ℝ) := by exact_mod_cast prime.pos
+    have H := (loc p).1 i
+    change (padicNorm p (payment (α i) _ (h i) (wheel e q d N P (w i))):ℝ) ≤ _ at H
+    have ph : padicNorm p (h i:ℚ) = ((p:ℚ)^((h i).factorization p))⁻¹ := by
+      rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr hh.ne'), padicValRat.of_nat,
+        Nat.factorization_def _ prime, zpow_neg, zpow_natCast]
+    rw [outside_wheel_price e q d N P hP (w i) p (ht p hpt).2.1 (ht p hpt).2.2, ph] at H
+    simp only [Rat.cast_mul, Rat.cast_inv, Rat.cast_pow, Rat.cast_natCast] at H
+    have logged := (Real.log_le_iff_le_exp (mul_pos (inv_pos.mpr (pow_pos hp _)) (pow_pos hp _))).2 H
+    rw [Real.log_mul (inv_ne_zero (pow_ne_zero _ hp.ne')) (pow_ne_zero _ hp.ne'),
+      Real.log_inv, Real.log_pow, Real.log_pow] at logged
+    have cnt := mul_le_mul_of_nonneg_right (show (U.card:ℝ) ≤ ((multiFactorial (α i)).factorization p:ℝ) by
+      exact_mod_cast supported_orders (α i) U p prime (orders p hpt)) (Real.log_natCast_nonneg p)
+    linarith only [cnt, logged]
+  change _ ≤ Real.log (h i)+C
+  rw [Finset.mul_sum]
+  apply (Finset.sum_le_sum one).trans
+  rw [Finset.sum_add_distrib]
+  exact add_le_add (finite_row_budget (h i) T) (total T (fun p hpt => (ht p hpt).1))
+
+/-- Explicit obstruction on a dyadic nominal row. Primes between the
+wheel cutoff and the lowest selected order occur in every corresponding
+factorial, with a Chebyshev lower bound independent of both wheel readings. -/
+theorem nominal_cutoff_price (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime] (P : Finset ℕ)
+    (hP : ∀ p ∈ P, p.Prime) {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ)
+    (α : Fin n → S →₀ ℕ) (k : Fin n → ℤ) (h : Fin n → ℕ) (E : ℕ) (hE : 0 < E)
+    (i : Fin n) (hh : 0 < h i) (U : Finset S) (H z : ℕ) (hH : 2 ≤ H)
+    (hcap : ∀ p ∈ P, p ≤ H) (hz : H ≤ z) (hU : ∀ σ ∈ U, z ≤ α i σ) :
+    let A := fun j => wheel e q d N P (w j)
+    let L := fun j => payment (α j) ((2:ℚ)^k j) (h j) (A j)
+    let Q := fun j => payment (α j) ((2:ℚ)^k j) 1 (A j)
+    (U.card:ℝ)*((z:ℝ)*Real.log 2 - Real.log ((z:ℝ)+1) -
+      2*Real.sqrt z*Real.log z - Real.log 4*(H:ℝ)) ≤
+      Real.log (h i) + Real.log (jointDen L Q E)/(E:ℝ) := by
+  classical
+  let T := Nat.primesLE z \ Nat.primesLE H
+  have sub : Nat.primesLE H ⊆ Nat.primesLE z := fun p hp =>
+    Nat.mem_primesLE.mpr ⟨(Nat.le_of_mem_primesLE hp).trans hz, Nat.prime_of_mem_primesLE hp⟩
+  have bounds (p) (hp : p ∈ T) : H < p ∧ p ≤ z ∧ p.Prime := by
+    obtain ⟨hpz,hpn⟩ := Finset.mem_sdiff.mp hp
+    have prime := Nat.prime_of_mem_primesLE hpz
+    exact ⟨lt_of_not_ge (fun hle => hpn (Nat.mem_primesLE.mpr ⟨hle,prime⟩)), Nat.le_of_mem_primesLE hpz, prime⟩
+  have Hline := nominal_tail_price e q d N P hP w α k h E hE i hh U T
+    (fun p hp => ⟨(bounds p hp).2.2, fun hpin => ((bounds p hp).1.not_ge (hcap p hpin)),
+      (hH.trans_lt (bounds p hp).1).ne'⟩)
+    (fun p hp σ hσ => (bounds p hp).2.1.trans (hU σ hσ))
+  apply le_trans _ Hline
+  apply mul_le_mul_of_nonneg_left _ (Nat.cast_nonneg _)
+  have eqn : (∑ p ∈ T, Real.log p) + Chebyshev.theta H = Chebyshev.theta z := by
+    rw [Chebyshev.theta_eq_sum_primesLE_log, Chebyshev.theta_eq_sum_primesLE_log]
+    exact Finset.sum_sdiff sub
+  linarith only [eqn, Chebyshev.theta_ge z, Chebyshev.theta_le_log4_mul_x (Nat.cast_nonneg H)]
+
+open Filter in
+/-- On every sufficiently large nominal order, a wheel ending by z/16
+leaves factorial log-price at least z/4 per selected site, before the
+one class payment. The bound is uniform in the row and its rank exponent. -/
+theorem nominal_cutoff_linear :
+    ∀ᶠ z : ℕ in atTop, ∀ H : ℕ, 16*H ≤ z →
+      (z:ℝ)/4 ≤ (z:ℝ)*Real.log 2 - Real.log ((z:ℝ)+1) -
+        2*Real.sqrt z*Real.log z - Real.log 4*(H:ℝ) := by
+  have logSmall := (isLittleO_log_rpow_atTop (by norm_num : (0:ℝ) < 1/2)).bound
+    (by norm_num : (0:ℝ) < 1/32)
+  filter_upwards [tendsto_natCast_atTop_atTop.eventually logSmall, eventually_ge_atTop (2:ℕ)]
+    with z hl hz
+  intro H hH
+  have hz' : (2:ℝ) ≤ z := by exact_mod_cast hz
+  have hz1 : (1:ℝ) ≤ z := by linarith
+  have hpos := zero_lt_one.trans_le hz1
+  change ‖Real.log (z:ℝ)‖ ≤ 1/32 * ‖(z:ℝ)^(1/2:ℝ)‖ at hl
+  rw [Real.norm_of_nonneg (Real.log_nonneg hz1), Real.norm_of_nonneg (Real.rpow_nonneg hpos.le _),
+    ← Real.sqrt_eq_rpow] at hl
+  have hs : (1:ℝ) ≤ Real.sqrt z := by simpa using Real.sqrt_le_sqrt hz1
+  have hlog := Real.log_nonneg hz1
+  have htop : Real.log ((z:ℝ)+1) ≤ 2*Real.log z := calc
+    _ ≤ Real.log (2*(z:ℝ)) := Real.log_le_log (by positivity) (by linarith)
+    _ = Real.log 2 + Real.log z := Real.log_mul (by norm_num) hpos.ne'
+    _ ≤ _ := by linarith only [Real.log_le_log (by norm_num : (0:ℝ)<2) hz']
+  have hmass : 32*(Real.sqrt z*Real.log z) ≤ z := by
+    have hp := mul_le_mul_of_nonneg_left hl (Real.sqrt_nonneg (z:ℝ))
+    nlinarith only [hp,Real.mul_self_sqrt hpos.le]
+  have hsmall := le_mul_of_one_le_left hlog hs
+  have htwo := mul_le_mul_of_nonneg_left (show (1/2:ℝ) ≤ Real.log 2 by linarith only [Real.log_two_gt_d9]) hpos.le
+  have hfour : Real.log 4 ≤ 2 := by
+    rw [show (4:ℝ) = 2*2 by norm_num, Real.log_mul (by norm_num) (by norm_num)]
+    linarith only [Real.log_two_lt_d9]
+  have hd := mul_le_mul_of_nonneg_right hfour (Nat.cast_nonneg H)
+  have hbound : 16*(H:ℝ) ≤ z := by exact_mod_cast hH
+  linarith only [hmass, hsmall, htop, htwo, hd, hbound]
 
 end RHLean.Analysis.AlpogeThin.WheelFit

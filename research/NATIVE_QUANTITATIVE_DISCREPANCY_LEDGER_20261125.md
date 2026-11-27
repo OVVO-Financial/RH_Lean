@@ -75,6 +75,12 @@ $$
 $$
 This includes primes outside the wheel. With $b=\exp(x^\varepsilon)$ and $0<\varepsilon\le1$, the price is at most $x^4$ for every eligible fibre at every sufficiently large real anchor. For fixed polynomial bounds $x^J$ on the number of such prices and $x^K$ on $mk$, their total satisfies $x^Jx^4\le fa(\log b)^3/(mk)$ eventually for $f\ge1$ and $a\ge b$. [Projector and square-clock estimates](NativeMeasuredSlotProjector.lean)
 
+The original dyadic nominal jet also imposes a lower bound on the price of transport. Take one row with positive class multiplier $h_i$. Let $u$ count the selected sites with order at least $z$, and let $H$ bound the admitted primes. At every odd prime in $(H,z]$, each such site contributes a factorial pole and both wheel readings are units. The sharp joint denominator $M$ for the nominal family satisfies
+$$
+u\bigl(\vartheta(z)-\vartheta(H)\bigr)\le \log h_i+\frac{\log M}{E},\qquad 2\le H\le z.
+$$
+Here $\vartheta$ is the sum of the logarithms of the primes. With $16H\le z$ and $z$ sufficiently large, the left side is at least $uz/4$. Increasing the auxiliary rank leaves this lower bound in force. Any proposed dyadic transport with $\log h_i+B_{\rm dir}<uz/4$ fails the economic test on that row. Applying this obstruction to the full selected family requires its actual orders, cutoff and class count. [Nominal row price and factorial tail](NativeWheelFitProjector.lean)
+
 The retained rank here is $n$ in the $n+1$ dimensional span of the band indicators. The nominal jet in the compact inverse-ratio proof uses every prescribed site order, its factorial normalization and the actual twisted and untwisted section norms. The comparison from those sections to the slot columns still needs a map with a paid rank deficit, index and archimedean distortion. The slot Gram alone gives no identification with the factorial term in the common main amount. The complete signed comparison in #1201 and the small-epsilon window supplier for #1205 remain open.
 
 ### What supplies one inverse ratio

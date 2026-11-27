@@ -248,3 +248,6 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.bounded_dual
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.line_det
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_projector
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_tail_price
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_price
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_linear
