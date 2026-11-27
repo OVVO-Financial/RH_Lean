@@ -487,11 +487,11 @@ theorem original_cutoff_centered_thick (ε : ℝ) (he : 0 < ε) (h52 : ε < 1/52
       _ = _ := by
         simp only [Finset.sum_add_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_fin,nsmul_eq_mul,mul_add]
         refine congrArg₂ (· + ·) ?_ ?_
-        · first | rfl | congr!
-        · field_simp [hJ]; all_goals ring
+        · rfl
+        · field_simp [hJ]
   have norm : ((TT.card:ℝ)*n*(b/x))/Q = 2/(δ*x) := by
     dsimp only [Q,δ,alpogeNativeProjectionDivisor]; field_simp [hb.ne',hx0.ne',hδ.ne',
-      (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')]; all_goals ring
+      (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')]
   have inv : 1/δ ≤ x^ε := by
     have orig : x^(-ε) ≤ δ := density
     rw [Real.rpow_neg hx0.le, ← one_div] at orig
