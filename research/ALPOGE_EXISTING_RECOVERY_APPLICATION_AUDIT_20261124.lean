@@ -313,6 +313,10 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_recovered
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.weighted_interval_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_energy
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.physical_metric
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.clipped_hit
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.broad_physical_read
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.balanced_crossing_recovery
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
 #print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price

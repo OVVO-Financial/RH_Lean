@@ -403,6 +403,17 @@ theorem mass_det {m : ℕ} (s : Fin (m+1) → ℕ) (hs : ∀ i, 0 < s i) :
   rw [← Finset.prod_erase_mul _ (fun j => (s j:ℝ)) (Finset.mem_univ i), mul_assoc,
     mul_inv_cancel₀ (show (s i:ℝ) ≠ 0 by exact_mod_cast (hs i).ne'), mul_one]
 
+/-- Every integral section pairing in the measured layer metric. -/
+theorem columns_gram {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
+    (Int.castRingHom ℝ).mapMatrix ((columns S D).transpose * columns S D) =
+      MeasuredCut.gram (fun i => (((S i).card * D i^2 : ℕ):ℝ)) := by
+  ext i j
+  have hj := congrFun (congrFun (measured_gram S D) i) j
+  change (((∑ x : Address S, columns S D x i * columns S D x j):ℤ):ℝ) = _
+  rw [show (∑ x : Address S, columns S D x i * columns S D x j) = read S D (starColumn D j) i by
+    simpa only [columns, mul_comm] using dot_read S D (starColumn D j) i]
+  simpa using hj
+
 theorem columns_det {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
     (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) :
     ((columns S D).transpose * columns S D).det =
@@ -412,13 +423,7 @@ theorem columns_det {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → 
   have hs i : 0 < s i := Nat.mul_pos (Finset.card_pos.mpr (hS i)) (pow_pos (hD i) _)
   let f := Int.castRingHom ℝ
   have hg : f.mapMatrix ((columns S D).transpose * columns S D) =
-      MeasuredCut.gram (fun i => (s i:ℝ)) := by
-    ext i j
-    have hj := congrFun (congrFun (measured_gram S D) i) j
-    change (((∑ x : Address S, columns S D x i * columns S D x j):ℤ):ℝ) = _
-    rw [show (∑ x : Address S, columns S D x i * columns S D x j) = read S D (starColumn D j) i by
-      simpa only [columns, mul_comm] using dot_read S D (starColumn D j) i]
-    simpa [s] using hj
+      MeasuredCut.gram (fun i => (s i:ℝ)) := columns_gram S D
   apply Int.cast_injective (α := ℝ)
   change f _ = _
   rw [RingHom.map_det, hg, ← mass_det s hs]

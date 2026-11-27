@@ -46,6 +46,16 @@ theorem translated_pair {r : ℕ} {U : Type*} (h : Fin (r+1) → ℝ) (v : U →
   rw [coDiv_eq]
   rfl
 
+/-- Entrywise Co–Div equals the independently measured wheel metric for
+the full arithmetic mask, including its off-diagonal root pairings. -/
+theorem physical_metric {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
+    (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) :
+    coDiv (physicalColumns h v hne D) =
+      MeasuredCut.gram (fun i => (((bands h v i).card * D i^2 : ℕ):ℝ)) := by
+  rw [physicalColumns, insert_gram, coDiv_eq, ← columns_gram (bands h v) D,
+    RingHom.mapMatrix_apply, Matrix.map_mul]
+  rfl
+
 /-- Exact identification with the integral Gram determinant used to charge the
 finite projector, on every retained translate and with its original prime powers. -/
 theorem physical_det {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
@@ -137,10 +147,10 @@ prime test embedded into the same integer slot space. -/
 def observed {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ) :
     Matrix (↥(Finset.Iic ⌊h 0⌋₊)) (Fin r ⊕ Bool) ℝ :=
-  slotInclusion (physicalAddress h v hne) * (fun z =>
+  let X : Matrix (Address (bands h v)) (Fin r ⊕ Bool) ℝ := fun z =>
     Sum.elim (fun j => (columns (bands h v) D z j : ℝ))
-      (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z) :
-      Matrix (Address (bands h v)) (Fin r ⊕ Bool) ℝ)
+      (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z)
+  slotInclusion (physicalAddress h v hne) * X
 
 theorem observed_star {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ)
@@ -304,7 +314,7 @@ theorem admission_price (a : ℝ) (p e l u : ℕ) (hp : p.Prime)
   change (coDiv (splitColumns l c u d)) true true = R*(d:ℝ)^2 at h2
   rw [ident, h0, h1, h2]
   refine ⟨rfl, ?_, by ring, ?_⟩
-  · field_simp [pos.ne'] <;> ring
+  · field_simp [pos.ne']; ring
   · simpa using (anchoredRecovery_index (fun _ : Fin 1 => d) (fun _ => pow_pos hp.pos e)).2
 
 
@@ -378,7 +388,7 @@ theorem boundary_projection {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) →
   apply sub_eq_zero.mpr
   refine Finset.sum_congr rfl fun i _ => ?_
   have pos : ((S i).card:ℝ) ≠ 0 := by exact_mod_cast (hne i).card_pos.ne'
-  simp [pos, mul_div_assoc, mul_comm, mul_left_comm, mul_assoc, div_eq_mul_inv]
+  simp [pos, mul_comm, mul_left_comm, div_eq_mul_inv]
 
 /-- If both the logarithm and the contrast use an endpoint, the anchored
 layer projection sees at most one slot's fraction of each nonnegative

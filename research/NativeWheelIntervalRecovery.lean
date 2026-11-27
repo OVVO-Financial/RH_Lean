@@ -67,10 +67,10 @@ theorem interval_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (L U : ℝ) (d : Fi
 
 private theorem clearing_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Monotone p) (L U : ℝ)
     (d : Fin r → ℕ) (hd : ∀ j, 0 < d j) (B : ℝ) (hB : 0 ≤ B)
-    (price : ∀ j, Real.log (d j:ℝ) ≤ B) : Real.log (clearing p L U d:ℝ) ≤ 2*B := by
+    (price : ∀ j ∈ changes p L U, Real.log (d j:ℝ) ≤ B) : Real.log (clearing p L U d:ℝ) ≤ 2*B := by
   rw [clearing,Nat.cast_prod,Real.log_prod (fun j _ => by exact_mod_cast (hd j).ne')]
   calc
-    _ ≤ ∑ _j ∈ changes p L U, B := Finset.sum_le_sum fun j _ => price j
+    _ ≤ ∑ _j ∈ changes p L U, B := Finset.sum_le_sum price
     _ = ((changes p L U).card:ℝ)*B := by simp
     _ ≤ _ := mul_le_mul_of_nonneg_right (by exact_mod_cast changes_card p hp L U) hB
 
@@ -93,7 +93,7 @@ theorem weighted_interval_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMo
   have price (j) : Real.log (d j:ℝ) ≤ B :=
     (Real.log_le_iff_le_exp (by exact_mod_cast hd j)).2
       (MeasuredCut.wheel_factor_le _ c x (hprime _) hx (hhigh _) (hpx _))
-  have bound k := clearing_price p hp.monotone (a/(v k+1)) (a/v k) d hd B B0 price
+  have bound k := clearing_price p hp.monotone (a/(v k+1)) (a/v k) d hd B B0 (fun j _ => price j)
   have weight (k : ℕ) (hk : k ∈ Finset.Ico 1 R) : PrincipalCofactor.cellWeight k ≤ 1/(k:ℝ) := by
     have pos : 0 < (k:ℝ) := by exact_mod_cast (Finset.mem_Ico.mp hk).1
     exact one_div_le_one_div_of_le pos (by dsimp [PrincipalCofactor.oddCofactor]; linarith :
@@ -144,5 +144,192 @@ theorem interval_energy {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
   calc
     _ ≤ _ := Real.log_le_log (by linarith : 0 < 1+E) norm
     _ = _ := by rw [Real.log_mul (by positivity) (by positivity),Real.log_pow]; norm_num
+
+
+/-- The cutoff includes exactly the retained first primes, with the same half-open
+moving endpoints as the principal curvature. -/
+def lowerCut (M : ℕ) (a v : ℝ) : ℝ := max ((M.sqrt:ℝ)+1) (a/(v+1))
+def upperCut (M : ℕ) (a v : ℝ) : ℝ := min ((M:ℝ)+1) (a/v)
+
+theorem clipped_hit (M p : ℕ) (hp : p.Prime) (a v : ℝ) :
+    (lowerCut M a v ≤ (p:ℝ) ∧ (p:ℝ) < upperCut M a v) ↔
+    p ∈ PrincipalCofactor.retainedFirstPrimes M ∧ a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v := by
+  rw [lowerCut,upperCut,max_le_iff,lt_min_iff,PrincipalCofactor.mem_retainedFirstPrimes]
+  have minP : (M.sqrt:ℝ)+1 ≤ p ↔ M.sqrt < p := by exact_mod_cast (Iff.rfl : M.sqrt+1 ≤ p ↔ M.sqrt < p)
+  have maxP : (p:ℝ) < (M:ℝ)+1 ↔ p ≤ M := by exact_mod_cast (Nat.lt_succ_iff : p < M+1 ↔ p ≤ M)
+  simp only [minP,maxP,hp,hp.one_le,true_and,and_true]
+  tauto
+
+private theorem changed_lower {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Monotone p) (L U : ℝ)
+    (j : Fin r) (hj : j ∈ changes p L U) : L ≤ (p j.succ:ℝ) := by
+  by_contra! low
+  have ord : (p j.castSucc:ℝ) ≤ p j.succ := by exact_mod_cast hp (show j.castSucc ≤ j.succ from Fin.castSucc_lt_succ.le)
+  have diff := (Finset.mem_filter.mp hj).2
+  simp [intervalTest,not_le.mpr low,not_le.mpr (ord.trans_lt low)] at diff
+
+/-- One integral source scale for every broad contrast at the fixed common shift. -/
+def broadClearing {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) : ℕ :=
+  ∏ k ∈ Finset.Ico 1 K, clearing p (lowerCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
+    (upperCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s)) d
+
+/-- Same integral operator, same multiplier, all cofactor tests and all the
+original layer amplitudes. Changing the width at this site does not enter
+the multiplier. -/
+theorem broad_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
+    ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
+      anchoredRecovery (fun j => (d j:ℤ)) (A k) = fun i =>
+        (broadClearing p d M K s:ℤ)*intervalTest p
+          (lowerCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
+          (upperCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s)) i := by
+  classical
+  let A := fun k => intervalTest p (lowerCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
+    (upperCut M (PrincipalCofactor.evenEndpoint M) (PrincipalCofactor.oddCofactor k+s))
+  have ex (k : ℕ) (hk : k ∈ Finset.Ico 1 K) : ∃ B, anchoredRecovery (fun j => (d j:ℤ)) B =
+      fun i => (broadClearing p d M K s:ℤ)*A k i := by
+    apply (interval_clearing_iff ..).2
+    intro j hj
+    exact (Finset.dvd_prod_of_mem d hj).trans (Finset.dvd_prod_of_mem _ hk)
+  exact ⟨fun k => if hk : k ∈ Finset.Ico 1 K then (ex k hk).choose else 0,
+    fun k hk => by simpa only [dif_pos hk] using (ex k hk).choose_spec⟩
+
+/-- With that single multiplier, each original clipped log-prime interval is
+a pairing against an actual integral image section on the same quotient slots. -/
+theorem broad_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
+    (hp : ∀ i, (p i).Prime) (hn : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
+    (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
+    (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
+    let h := fun i => num i/(p i:ℝ)
+    let a := PrincipalCofactor.evenEndpoint M
+    let v := fun k => PrincipalCofactor.oddCofactor k+s
+    let m := broadClearing p d M K s
+    ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
+      (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
+        ((onSlots (bands h width) (anchoredRecovery (fun j => (d j:ℤ)) (A k)) z:ℤ):ℝ)) =
+        (m:ℝ)*(∑ i, Real.log (p i) * (if p i ∈ PrincipalCofactor.retainedFirstPrimes M ∧
+          a/(v k+1) ≤ (p i:ℝ) ∧ (p i:ℝ) < a/v k then 1 else 0)) := by
+  intro h a v m
+  obtain ⟨A,recov⟩ := broad_recovered p d M K s
+  refine ⟨A, fun k hk => ?_⟩
+  change (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
+    (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) z.1:ℤ):ℝ)) = _
+  rw [boundary_against_layers num p (fun i => (hp i).pos) hn width hS (fun l => Real.log l)
+    (fun i => (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) i:ℤ):ℝ)),recov k hk,Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  change Real.log (p i) * (((m:ℤ)*intervalTest p (lowerCut M a (v k)) (upperCut M a (v k)) i:ℤ):ℝ) = _
+  simp only [Int.cast_mul,Int.cast_natCast,intervalTest,clipped_hit M (p i) (hp i)]
+  split_ifs <;> push_cast <;> ring
+
+private theorem depth_at_crossing (p c : ℕ) (x a v : ℝ) (hp : p.Prime) (hx : 1 ≤ x)
+    (ha : 0 < a) (hv : 0 < v) (hd : a/v ≤ (p:ℝ)) (hpx : (p:ℝ) ≤ x) :
+    Real.log ((p^(⌊(c:ℝ)*x⌋₊/p-c):ℕ):ℝ) ≤ ((c:ℝ)*x*v/a)*Real.log x := by
+  let e := ⌊(c:ℝ)*x⌋₊/p-c
+  have times : (e:ℝ)*(p:ℝ) ≤ (c:ℝ)*x := by
+    have n : e*p ≤ ⌊(c:ℝ)*x⌋₊ := (Nat.mul_le_mul_right p (Nat.sub_le ..)).trans (Nat.div_mul_le_self _ _)
+    exact (show (e:ℝ)*(p:ℝ) ≤ (⌊(c:ℝ)*x⌋₊:ℝ) by exact_mod_cast n).trans
+      (Nat.floor_le (mul_nonneg (Nat.cast_nonneg _) (zero_le_one.trans hx)))
+  have depth : (e:ℝ) ≤ (c:ℝ)*x*v/a := by
+    apply (le_div_iff₀ ha).2
+    calc
+      _ ≤ (e:ℝ)*((p:ℝ)*v) := mul_le_mul_of_nonneg_left ((div_le_iff₀ hv).1 hd) (Nat.cast_nonneg _)
+      _ ≤ _ := by rw [← mul_assoc]; exact mul_le_mul_of_nonneg_right times hv.le
+  rw [Nat.cast_pow,Real.log_pow]
+  exact mul_le_mul depth (Real.log_le_log (by exact_mod_cast hp.pos) hpx) (Real.log_natCast_nonneg _)
+    (by positivity)
+
+/-- Pay for an actual common product, including repeated prime powers. Its
+dependence on the original frame scale x and the ancestor endpoint a is explicit. -/
+theorem broad_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMono p) (c M K : ℕ)
+    (x s : ℝ) (hx : 1 ≤ x) (hs : s ∈ Set.Icc 0 1) (ha : 0 < PrincipalCofactor.evenEndpoint M)
+    (hprime : ∀ i, (p i).Prime) (hpx : ∀ i, (p i:ℝ) ≤ x) :
+    let a := PrincipalCofactor.evenEndpoint M
+    let d := fun j : Fin r => (p j.succ)^(⌊(c:ℝ)*x⌋₊/(p j.succ)-c)
+    Real.log (broadClearing p d M K s:ℝ) ≤ 10*(c:ℝ)*x*(K:ℝ)^2/a*Real.log x := by
+  intro a d
+  let v := fun k => PrincipalCofactor.oddCofactor k+s
+  let L := fun k => lowerCut M a (v k)
+  let U := fun k => upperCut M a (v k)
+  let B := (c:ℝ)*x*(5*K)/a*Real.log x
+  have log0 := Real.log_nonneg hx
+  have x0 := zero_le_one.trans hx
+  have B0 : 0 ≤ B := by dsimp [B]; positivity
+  have hd j : 0 < d j := pow_pos (hprime _).pos _
+  have pos k : 0 < clearing p (L k) (U k) d := Finset.prod_pos fun j _ => hd j
+  have per (k : ℕ) (hk : k ∈ Finset.Ico 1 K) : Real.log (clearing p (L k) (U k) d:ℝ) ≤ 2*B := by
+    apply clearing_price p hp.monotone _ _ d hd B B0
+    intro j hj
+    have low : a/(v k+1) ≤ (p j.succ:ℝ) := (le_max_right _ _).trans (changed_lower p hp.monotone _ _ j hj)
+    have kv : v k+1 ≤ 5*(K:ℝ) := by
+      have step : (k:ℝ)+1 ≤ K := by exact_mod_cast (Finset.mem_Ico.mp hk).2
+      dsimp [v,PrincipalCofactor.oddCofactor]
+      linarith only [step,hs.2,Nat.cast_nonneg (α := ℝ) k]
+    have vpos : 0 < v k+1 := by dsimp [v,PrincipalCofactor.oddCofactor]; linarith only [Nat.cast_nonneg (α := ℝ) k,hs.1]
+    exact (depth_at_crossing _ c x a (v k+1) (hprime _) hx ha vpos low (hpx _)).trans
+      (mul_le_mul_of_nonneg_right (div_le_div_of_nonneg_right
+        (mul_le_mul_of_nonneg_left kv (mul_nonneg (Nat.cast_nonneg c) x0)) ha.le) log0)
+  change Real.log ((∏ k ∈ Finset.Ico 1 K, clearing p (L k) (U k) d:ℕ):ℝ) ≤ _
+  rw [Nat.cast_prod, Real.log_prod (fun k _ => by exact_mod_cast (pos k).ne')]
+  calc
+    _ ≤ ∑ _k ∈ Finset.Ico 1 K, 2*B := Finset.sum_le_sum per
+    _ = ((K-1:ℕ):ℝ)*(2*B) := by simp
+    _ ≤ (K:ℝ)*(2*B) := mul_le_mul_of_nonneg_right (by exact_mod_cast Nat.sub_le K 1) (by positivity)
+    _ = _ := by dsimp [B]; ring
+
+/-- Balance the log of the common integral multiplier and the fine curvature
+charge on the original frame scale, for each dyadic ancestor independently
+of its distance from that scale. -/
+theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMono p)
+    (c M R : ℕ) (x s : ℝ) (hx : 1 ≤ x) (hs : s ∈ Set.Icc 0 1)
+    (hm : 0 < PrincipalCofactor.evenEndpoint M) (hprime : ∀ i, (p i).Prime)
+    (hpx : ∀ i, (p i:ℝ) ≤ x) :
+    let a := PrincipalCofactor.evenEndpoint M
+    let K := ⌈Real.sqrt (a/Real.sqrt x)⌉₊
+    let d := fun j : Fin r => (p j.succ)^(⌊(c:ℝ)*x⌋₊/(p j.succ)-c)
+    Real.log (broadClearing p d M K s:ℝ) ≤ 40*(c:ℝ)*Real.sqrt x*Real.log x ∧
+      ∑ k ∈ Finset.Ico K R, |PrincipalCofactor.crossingBalance M k| ≤
+        (Real.log 4+1)*Real.sqrt x := by
+  intro a K d
+  let t := Real.sqrt x
+  let u := Real.sqrt (a/t)
+  have tp : 0 < t := Real.sqrt_pos.2 (zero_lt_one.trans_le hx)
+  have up : 0 < u := Real.sqrt_pos.2 (div_pos hm tp)
+  have tsq : t^2=x := Real.sq_sqrt (zero_le_one.trans hx)
+  have usq : u^2=a/t := Real.sq_sqrt (div_pos hm tp).le
+  have ceil : u ≤ K := Nat.le_ceil _
+  have le : a ≤ (K:ℝ)^2*t := by
+    rw [← div_le_iff₀ tp, ← usq]
+    exact pow_le_pow_left₀ up.le ceil 2
+  constructor
+  · by_cases small : K ≤ 1
+    · rw [broadClearing,Finset.Ico_eq_empty_of_le small,Finset.prod_empty,Nat.cast_one,Real.log_one]
+      exact mul_nonneg (by positivity) (Real.log_nonneg hx)
+    · have u1 : 1 < u := by
+        by_contra! h
+        exact small (Nat.ceil_le.mpr (by simpa using h))
+      have ku : (K:ℝ) ≤ 2*u := by linarith only [(Nat.ceil_lt_add_one up.le).le,u1]
+      have square := pow_le_pow_left₀ (Nat.cast_nonneg (α := ℝ) K) ku 2
+      have Ksq : (K:ℝ)^2 ≤ 4*(a/t) := by nlinarith only [square,usq]
+      have ratio : x*(K:ℝ)^2/a ≤ 4*t := by
+        apply (div_le_iff₀ hm).2
+        calc
+          _ ≤ x*(4*(a/t)) := mul_le_mul_of_nonneg_left Ksq (zero_le_one.trans hx)
+          _ = 4*t*a := by rw [← tsq]; field_simp [tp.ne']; ring
+      calc
+        _ ≤ _ := broad_price p hp c M K x s hx hs hm hprime hpx
+        _ = (10*(c:ℝ))*(x*(K:ℝ)^2/a)*Real.log x := by ring
+        _ ≤ (10*(c:ℝ))*(4*t)*Real.log x :=
+          mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left ratio (by positivity)) (Real.log_nonneg hx)
+        _ = _ := by dsimp [t]; ring
+  · by_cases kr : K ≤ R
+    · have dk : (K:ℝ) ≤ PrincipalCofactor.oddCofactor K := by dsimp [PrincipalCofactor.oddCofactor]; linarith only [Nat.cast_nonneg (α := ℝ) K]
+      have dp : 0 < PrincipalCofactor.oddCofactor K := up.trans_le (ceil.trans dk)
+      have low := le.trans (mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (Nat.cast_nonneg _) dk 2) tp.le)
+      have frac : (a/PrincipalCofactor.oddCofactor K)*(1/PrincipalCofactor.oddCofactor K) ≤ t := by
+        rw [mul_one_div,div_div,div_le_iff₀ (mul_pos dp dp)]
+        nlinarith only [low]
+      exact (PrincipalCofactor.fine_crossing_price M K R kr).trans
+        (by simpa only [mul_assoc] using mul_le_mul_of_nonneg_left frac
+          (show 0 ≤ Real.log 4+1 by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]))
+    · rw [Finset.Ico_eq_empty_of_le (le_of_not_ge kr),Finset.sum_empty]
+      exact mul_nonneg (by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]) tp.le
 
 end RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS
