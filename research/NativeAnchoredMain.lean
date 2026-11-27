@@ -184,7 +184,8 @@ theorem thick_above_prefix (ε : ℝ) (he : 0 < ε) :
     _ ≤ (x+1)*(Real.exp 1*v) := mul_le_mul_of_nonneg_left (hbw.trans grid) (by linarith)
     _ = ((x+1)*Real.exp 1)*v := (mul_assoc _ _ _).symm
     _ ≤ _ := mul_le_mul_of_nonneg_right (cutoff.trans hn'.le) hv.le
-  exact max_eq_right (sub_nonpos.mpr ((div_le_iff₀ hn0).2 (by simpa only [mul_comm v (n:ℝ)] using hcut)))
+  change max (a/(n:ℝ)-v) 0 = 0
+  exact max_eq_right (sub_nonpos.mpr ((div_le_iff₀ hn0).2 (hcut.trans_eq (mul_comm (n:ℝ) v))))
 
 /-- Actual clipped wheel depths fit inside one factorial of the original
 integer prefix. This estimates their total and introduces no section transport. -/
