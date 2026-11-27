@@ -473,7 +473,7 @@ theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [F
       simp [hz, hχ]
     · rw [div_mul_cancel₀ _ hz]
 
-private theorem integral_det (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) {n : ℕ}
+theorem integral_det (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) {n : ℕ}
     (U : Matrix (Fin n) (Fin n) ℂ) (hu : ∀ a i, ‖ι (U a i)‖ ≤ 1) : ‖ι U.det‖ ≤ 1 := by
   rw [Matrix.det_apply', map_sum]
   refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun σ _ => ?_

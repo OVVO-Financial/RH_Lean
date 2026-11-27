@@ -239,3 +239,9 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.allowance_dvd
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.allowance_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_norm_cap
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.place_bound
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.squareClock_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.squareClock_budget
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.integral_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.rounded_gram
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.columns_gain

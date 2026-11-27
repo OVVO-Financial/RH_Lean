@@ -1,3 +1,4 @@
+import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import «research.NativeMeasuredCutGram»
 import «research.NativeWheelFitProjector»
 
@@ -154,9 +155,9 @@ theorem measured_gram {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) �
   ext i j
   by_cases hij : i = j
   · subst j
-    simp [read, starColumn, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, pow_two]
+    simp [read, starColumn, MeasuredCut.gram, Matrix.mul_apply, (Fin.succ_ne_zero i).symm, pow_two]
     <;> ring
-  · simp [read, starColumn, MeasuredCut.gram, Matrix.diagonal_apply, Matrix.mul_apply, hij, pow_two]
+  · simp [read, starColumn, MeasuredCut.gram, Matrix.mul_apply, (Fin.succ_ne_zero j).symm, hij, pow_two]
     <;> ring
 
 /-- The top determinant of the orthogonal projector has a single Gram
@@ -186,6 +187,52 @@ theorem projector_det {m : ℕ} {J : Type*} [Fintype J] (B : Matrix J (Fin m) �
       (U.map f*A)*G⁻¹*(V.map f*A).transpose := by simp only [Matrix.transpose_mul, Matrix.mul_assoc]
   rw [grouping, map_mul, mapGram, mapProd U, mapProd V, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose]
   linear_combination (U.map f*A).det*(V.map f*A).det * G.det_nonsing_inv_mul_det hG'
+
+private theorem place_test {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.Prime]
+    (ι : ℂ →+* PadicAlgCl p) (B : Matrix J (Fin m) ℤ) (U : Matrix (Fin m) J ℂ)
+    (hU : ∀ i k, ‖ι (U i k)‖ ≤ 1) :
+    ‖ι (U*B.map (Int.castRingHom ℂ)).det‖ ≤ 1 := by
+  classical
+  apply WheelFit.integral_det
+  intro i j
+  rw [Matrix.mul_apply, map_sum]
+  apply IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one
+  intro k _
+  change ‖ι (U i k*((B k j:ℤ):ℂ))‖ ≤ 1
+  rw [map_mul, map_intCast, norm_mul]
+  exact (mul_le_of_le_one_right (norm_nonneg _) (IsUltrametricDist.norm_intCast_le_one _ _)).trans (hU i k)
+
+/-- At each prime and every complex-to-p-adic embedding, the same single
+determinant clears arbitrary locally integral tests. The second row is
+tested at the conjugate embedding. -/
+theorem place_bound {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.Prime]
+    (ι : ℂ →+* PadicAlgCl p) (B : Matrix J (Fin m) ℤ) (U V : Matrix (Fin m) J ℂ)
+    (hg : (B.transpose*B).det ≠ 0) (hu : ∀ i k, ‖ι (U i k)‖ ≤ 1)
+    (hv : ∀ i k, ‖(ι.comp (starRingEnd ℂ)) (V i k)‖ ≤ 1) :
+    let A := B.map (Int.castRingHom ℂ)
+    let P := A*(A.transpose*A)⁻¹*A.transpose
+    ‖ι ((((B.transpose*B).det:ℤ):ℂ)*(U*P*(V.map (starRingEnd ℂ)).transpose).det)‖ ≤ 1 := by
+  classical
+  let f := Int.castRingHom ℂ
+  let A := B.map f
+  let G := A.transpose*A
+  let W := V.map (starRingEnd ℂ)
+  have hcast : f (B.transpose*B).det = G.det := by
+    rw [RingHom.map_det, RingHom.mapMatrix_apply, Matrix.map_mul]
+  have hG : IsUnit G.det := isUnit_iff_ne_zero.mpr (by
+    rw [← hcast]
+    change (((B.transpose*B).det:ℤ):ℂ) ≠ 0
+    exact_mod_cast hg)
+  have H : (((B.transpose*B).det:ℤ):ℂ) * (U*(A*G⁻¹*A.transpose)*W.transpose).det =
+      (U*A).det*(W*A).det := by
+    change f _ * _ = _
+    rw [hcast, show U*(A*G⁻¹*A.transpose)*W.transpose = (U*A)*G⁻¹*(W*A).transpose by
+      simp only [Matrix.transpose_mul, Matrix.mul_assoc], Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose]
+    linear_combination (U*A).det*(W*A).det * G.det_nonsing_inv_mul_det hG
+  dsimp only
+  change ‖ι (_ * (U*(A*G⁻¹*A.transpose)*W.transpose).det)‖ ≤ 1
+  rw [H, map_mul, norm_mul]
+  exact (mul_le_of_le_one_right (norm_nonneg _) (place_test p ι B W hv)).trans (place_test p ι B U hu)
 
 /-- A quotient address records the prime direction and the actual integer
 in its band. No volume or local height is supplied to this definition. -/
@@ -253,7 +300,7 @@ theorem columns_det {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → 
   apply Int.cast_injective (α := ℝ)
   change f _ = _
   rw [RingHom.map_det, hg, ← mass_det s hs]
-  simp [f]
+  simp [s]
 
 /-- The common denominator is attained by integral tests on the same slot
 columns. Thus the determinant clearing factor is exact on their lattice. -/
@@ -279,7 +326,7 @@ theorem attained_price {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) �
   dsimp only at test ⊢
   refine ⟨Y, hY, ?_⟩
   rw [hY, Matrix.det_one, mul_one, Int.cast_one, hg, Int.cast_natCast] at test
-  exact (eq_inv_of_mul_eq_one_left (by simpa only [mul_comm] using test))
+  exact eq_inv_of_mul_eq_one_right test
 
 /-- Bounding each measured layer bounds the actual clearing determinant.
 The exponent is the number of nonpivot columns. -/
@@ -358,10 +405,155 @@ theorem firstPrime_norm_cap (m c : ℕ) (p : Fin (m+1) → ℕ) (a : Fin (m+1) �
     · simpa only [Nat.floor_of_nonpos (le_of_not_ge hi), Nat.cast_zero] using hxb
   have card (i) : ((bands h v i).card:ℝ) ≤ (x+1)*b := by
     have hi : (bands h v i).card ≤ ⌊h i⌋₊ := by
-      refine Fin.lastCases ?_ (fun j => ?_) i <;> simp [bands, Nat.sub_le]
+      refine Fin.lastCases ?_ (fun j => ?_) i <;> simp [bands]
     exact (show ((bands h v i).card:ℝ) ≤ (⌊h i⌋₊:ℝ) by exact_mod_cast hi).trans (bound i)
   dsimp only
   exact fun i => mul_le_mul (card i) (pow_le_pow_left₀ (Nat.cast_nonneg _)
     (MeasuredCut.wheel_factor_le (p i) c x (hp i) hx (hhigh i) (hband i)) 2) (sq_nonneg _) hxb
+
+private theorem cofactor {m : ℕ} (w : Fin (m+1) → ℝ) (hw : ∀ i, 0 < w i) :
+    (MeasuredCut.gram w).det = ∑ i, ∏ j ∈ Finset.univ.erase i, w j := by
+  rw [MeasuredCut.gram_det w hw, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [← Finset.prod_erase_mul _ w (Finset.mem_univ i), mul_assoc, mul_inv_cancel₀ (hw i).ne', mul_one]
+
+private theorem scaled_le {m : ℕ} (w v : Fin (m+1) → ℝ) (c d : ℝ)
+    (hw : ∀ i, 0 < w i) (hv : ∀ i, 0 < v i) (hc : 0 ≤ c) (h : ∀ i, c*w i ≤ d*v i) :
+    c^m*(MeasuredCut.gram w).det ≤ d^m*(MeasuredCut.gram v).det := by
+  classical
+  rw [cofactor w hw, cofactor v hv, Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro i _
+  have H := Finset.prod_le_prod₀ (s := Finset.univ.erase i)
+    (fun j _ => mul_nonneg hc (hw j).le) (fun j _ => h j)
+  simpa [Finset.prod_mul_distrib] using H
+
+/-- Relative cost of changing from real cut lengths to actual integer
+slot counts in the same Gram. The prime weights can already be present. -/
+theorem rounded_gram {m : ℕ} (w D : Fin (m+1) → ℝ) (S : Fin (m+1) → Finset ℕ)
+    (r : ℝ) (hr : 4 ≤ r) (hw : ∀ i, r ≤ w i) (hD : ∀ i, 0 < D i)
+    (lo : ∀ i, w i-2 ≤ ((S i).card:ℝ)) (hi : ∀ i, ((S i).card:ℝ) ≤ w i+1) :
+    let old := (MeasuredCut.gram (fun i => w i * D i^2)).det
+    let newVol := (MeasuredCut.gram (fun i => ((S i).card:ℝ) * D i^2)).det
+    (1-2/r)^m * old ≤ newVol ∧ newVol ≤ (1+1/r)^m * old := by
+  have hr0 : 0 < r := by linarith
+  have hp i := mul_pos (hr0.trans_le (hw i)) (sq_pos_of_pos (hD i))
+  have hq i := mul_pos (show 0 < ((S i).card:ℝ) by linarith only [lo i, hw i, hr]) (sq_pos_of_pos (hD i))
+  have hlow i : (1-2/r)*w i ≤ ((S i).card:ℝ) := by
+    have HH := mul_le_mul_of_nonneg_left (hw i) (by positivity : (0:ℝ) ≤ 2/r)
+    rw [div_mul_cancel₀ _ hr0.ne'] at HH
+    linarith only [HH, lo i]
+  have hhigh i : ((S i).card:ℝ) ≤ (1+1/r)*w i := by
+    have HH := mul_le_mul_of_nonneg_left (hw i) (by positivity : (0:ℝ) ≤ 1/r)
+    rw [div_mul_cancel₀ _ hr0.ne'] at HH
+    linarith only [HH, hi i]
+  constructor
+  · simpa using scaled_le _ _ (1-2/r) 1 hp hq (sub_nonneg.mpr ((div_le_one hr0).2 (by linarith)))
+      (fun i => by simpa only [one_mul, ← mul_assoc] using mul_le_mul_of_nonneg_right (hlow i) (sq_nonneg (D i)))
+  · simpa using scaled_le _ _ 1 (1+1/r) hq hp zero_le_one
+      (fun i => by simpa only [one_mul, ← mul_assoc] using mul_le_mul_of_nonneg_right (hhigh i) (sq_nonneg (D i)))
+
+/-- Aggregate admission and the price of its one omitted direction in the
+integer Gram determinants of precisely the slot sections used for testing. -/
+theorem columns_gain {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) (K : ℝ) (hK : ∀ i, (D i:ℝ) ≤ K) :
+    let A := columns S (fun _ => 1)
+    let B := columns S D
+    let before := (((A.transpose*A).det:ℤ):ℝ)
+    let after := (((B.transpose*B).det:ℤ):ℝ)
+    after ≤ (∏ i, (D i:ℝ))^2 * before ∧ (∏ i, (D i:ℝ))^2 * before ≤ K^2 * after := by
+  dsimp only
+  rw [columns_det S D hS hD, columns_det S (fun _ => 1) hS (fun _ => Nat.zero_lt_one)]
+  simp only [Int.cast_natCast, one_pow, mul_one]
+  rw [mass_det _ (fun i => Nat.mul_pos (Finset.card_pos.mpr (hS i)) (pow_pos (hD i) _)),
+    mass_det _ (fun i => Finset.card_pos.mpr (hS i))]
+  push_cast
+  exact MeasuredCut.admission_bounds _ _ K (fun i => by exact_mod_cast Finset.card_pos.mpr (hS i))
+    (fun i => ⟨by exact_mod_cast hD i, hK i⟩)
+
+/-- At the square-clock scale the entire joint clearing price of a single
+fibre, including its rank-one tests, is at most x^4. -/
+theorem squareClock_price (m E : ℕ) (p : Fin (m+1) → ℕ) (a : Fin (m+1) → ℝ)
+    (v x ε : ℝ) (hx : 10 ≤ x) (hε : ε ≤ 1) (hE : 0 < E)
+    (hp : ∀ i, (p i).Prime) (ho : StrictMono p) (high : ∀ i, Real.sqrt x ≤ p i)
+    (band : ∀ i, (p i:ℝ) ≤ x) (ha : ∀ i, a i ≤ (x+1)*Real.exp (x^ε))
+    (T : Finset ℕ) :
+    let c := ⌊Real.sqrt x⌋₊
+    let S := bands (fun i => a i/(p i:ℝ)) v
+    let D := fun i => p i^(⌊(c:ℝ)*x⌋₊ / p i - c)
+    (∀ i, (S i).Nonempty) →
+      (∑ l ∈ T, ((allowance (fun i => (S i).card * D i^2) E).factorization l:ℝ)*Real.log l)/(E:ℝ) ≤ x^4 := by
+  classical
+  let b := Real.exp (x^ε)
+  let c := ⌊Real.sqrt x⌋₊
+  let S := bands (fun i => a i/(p i:ℝ)) v
+  let D := fun i => p i^(⌊(c:ℝ)*x⌋₊ / p i - c)
+  let s := fun i => (S i).card * D i^2
+  change (∀ i, (S i).Nonempty) → _
+  intro hS
+  have hx1 : 1 ≤ x := by linarith
+  have hx0 : 0 < x := zero_lt_one.trans_le hx1
+  have hcount : m+1 ≤ ⌊x⌋₊ := by
+    have hi := Finset.card_le_card_of_injOn (s := Finset.univ)
+      (t := Finset.Icc 1 ⌊x⌋₊) p (fun i _ => Finset.mem_Icc.mpr ⟨(hp i).one_le, Nat.le_floor (band i)⟩)
+      (fun _ _ _ _ h => ho.injective h)
+    simpa using hi
+  have hm : (m:ℝ) ≤ x := (show (m:ℝ) ≤ (⌊x⌋₊:ℝ) by exact_mod_cast Nat.le_of_succ_le hcount).trans
+    (Nat.floor_le hx0.le)
+  let L := (x+1)*b*Real.exp ((c:ℝ)*Real.sqrt x*Real.log x)^2
+  have hL : 0 < L := by dsimp [L,b]; positivity
+  have hnorm (i) : (s i:ℝ) ≤ L := by
+    simpa [s,D,S,L,c,b] using firstPrime_norm_cap m c p a v x b hx1 (Real.exp_pos _).le ha hp high band i
+  have H := allowance_price s (fun i => Nat.mul_pos (Finset.card_pos.mpr (hS i))
+    (pow_pos (pow_pos (hp i).pos _) _)) L hnorm E hE T
+  apply H.trans
+  have hcx : (c:ℝ)*Real.sqrt x ≤ x :=
+    (mul_le_mul_of_nonneg_right (Nat.floor_le (Real.sqrt_nonneg x)) (Real.sqrt_nonneg x)).trans_eq
+      (Real.mul_self_sqrt hx0.le)
+  have hlogx : Real.log x ≤ x := (Real.log_le_sub_one_of_pos hx0).trans (by linarith)
+  have hpow : x^ε ≤ x := by simpa using Real.rpow_le_rpow_of_exponent_le hx1 hε
+  have logL : Real.log L ≤ 4*x^2 := by
+    dsimp [L,b]
+    rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by positivity) (by positivity),
+      Real.log_exp, Real.log_pow, Real.log_exp]
+    have hterm := mul_le_mul hcx hlogx (Real.log_nonneg hx1) hx0.le
+    nlinarith only [Real.log_le_sub_one_of_pos (show 0 < x+1 by linarith), hpow, hterm,
+      mul_nonneg hx0.le (show 0 ≤ x-1 by linarith)]
+  have logm : Real.log (m+1:ℕ) ≤ m := by
+    simpa using Real.log_le_sub_one_of_pos (show (0:ℝ) < (m+1:ℕ) by positivity)
+  have hE1 : (1:ℝ) ≤ E := by exact_mod_cast hE
+  have Ediv : (Real.log (m+1:ℕ)+(m:ℝ)*Real.log L)/(E:ℝ) ≤ (m:ℝ)+(m:ℝ)*(4*x^2) :=
+    (div_le_div_of_nonneg_right (add_le_add logm (mul_le_mul_of_nonneg_left logL (Nat.cast_nonneg m)))
+      (Nat.cast_nonneg E)).trans (div_le_self (by positivity) hE1)
+  have htwo : Real.log (2*L) ≤ 1+4*x^2 := by
+    rw [Real.log_mul (by norm_num) hL.ne']
+    linarith only [Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 2), logL]
+  calc
+    _ ≤ ((m:ℝ)+(m:ℝ)*(4*x^2)) + (m:ℝ)*(1+4*x^2) :=
+      add_le_add Ediv (mul_le_mul_of_nonneg_left htwo (Nat.cast_nonneg m))
+    _ = (m:ℝ)*(2+8*x^2) := by ring
+    _ ≤ x*(2+8*x^2) := mul_le_mul_of_nonneg_right hm (by positivity)
+    _ ≤ x^4 := by nlinarith only [mul_nonneg (show 0 ≤ x-10 by linarith) (pow_nonneg hx0.le 3),
+      mul_nonneg hx0.le (show 0 ≤ x^2-1 by nlinarith only [sq_nonneg (x-1),hx])]
+
+open Filter in
+/-- Even polynomially many such fibre prices are affordable in the
+compact per-direction budget on the native exponential-width clock. -/
+theorem squareClock_budget (ε J K : ℝ) (hε : 0 < ε) :
+    ∀ᶠ x : ℝ in atTop, ∀ (f a t : ℝ), 1 ≤ f → Real.exp (x^ε) ≤ a →
+      0 < t → t ≤ x^K → x^J*x^4 ≤ f*a*(Real.log (Real.exp (x^ε)))^3/t := by
+  filter_upwards [dyadic_rpow_le_exp_eventually (J+4+K) ε hε, eventually_ge_atTop (1:ℝ)]
+    with x h hx
+  intro f a t hf ha ht htk
+  have hx0 := zero_lt_one.trans_le hx
+  have hεx : 1 ≤ x^ε := Real.one_le_rpow hx hε.le
+  rw [Real.rpow_add hx0, Real.rpow_add hx0, show x^(4:ℝ) = x^(4:ℕ) from Real.rpow_natCast x 4] at h
+  rw [Real.log_exp, le_div_iff₀ ht]
+  calc
+    _ ≤ x^J*x^4*x^K := mul_le_mul_of_nonneg_left htk (by positivity)
+    _ ≤ a := h.trans ha
+    _ ≤ f*a := le_mul_of_one_le_left ((Real.exp_pos _).le.trans ha) hf
+    _ ≤ _ := le_mul_of_one_le_right (mul_nonneg (zero_le_one.trans hf) ((Real.exp_pos _).le.trans ha))
+      (one_le_pow₀ hεx)
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
