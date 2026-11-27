@@ -206,6 +206,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.WheelFit.row_det,
     ``RHLean.Analysis.AlpogeThin.WheelFit.exact_row_price,
     ``RHLean.Analysis.AlpogeThin.WheelFit.joint_budget_iff,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.character_coordinates,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.lattice_budget_iff,
     ``RHLean.Analysis.AlpogeThin.WheelFit.finite_row_budget,
     ``RHLean.Analysis.AlpogeThin.WheelFit.rowLCM_local,
     ``RHLean.Analysis.AlpogeThin.WheelFit.common_native_allowance,

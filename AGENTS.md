@@ -4,6 +4,8 @@ Use [Sernau’s readable and compact proofs at `72fead102f663d5c7a407964a13dc0cf
 
 Begin at `Data.heightLe_inv_ratio` in the pinned compact edition. Extract the upper valuation on one integral test and the independent untwisted norm at the nominal site orders. Use their product on the same measured operator before transporting it to the lower determinant. The per-direction allowance is `Data.B₀ = Data.budget / (m*k)`.
 
+Extract `exists_isFitFamily`, `denominatorLe_rowBudget` and `DenominatorLe.rank_one_bound` together. Price all tested rows and every eligible line at the same place with one summable allowance. Keep the global class multiplier on the line, the dimension and auxiliary rank in the determinant exponent, and both wheel readings in the actual pairings. Compare the measured wheel lattice with the retained section lattice on every anchor.
+
 Follow the [native discrepancy ledger](research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md) from the compact `star_inequality` through A, B and C. Account for the common main amount, rank, aggregate prime gain, finite index and lower determinant on the same measured family, or prove the signed comparison directly on its complete arithmetic source. Keep the original cutoff, divisor and full cofinal-window quantifiers. Apply #1205 once its native bound is supplied. Preserve the existing hosted caches and strict dependency checks, including the exclusion of terminal RH inputs.
 
 ## 2026-11-25 — native economical recovery (controlling seven-agent task)

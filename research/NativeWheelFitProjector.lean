@@ -339,6 +339,107 @@ theorem joint_budget_iff (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p
   · rintro ⟨hl,hd⟩
     exact ⟨fun i χ ψ => ((one i).1 χ ψ).trans (hl i), fun χ ψ U V => (row.1 χ ψ U V).trans hd⟩
 
+/-- Coordinates of a row of character tests relative to each direction's
+common trivial-character test. Coefficients can vary with row, direction
+and character. -/
+def characterCoordinates {C : Type*} [AddCommGroup C] [Fintype C] {n : ℕ}
+    (z : Fin n → AddChar C ℂ → ℂ) (u : Fin n → Fin n → AddChar C ℂ → ℂ) :
+    Matrix (Fin n) (Fin n) ℂ := Matrix.of fun a i => ∑ χ, u a i χ * (z i χ / z i 0)
+
+/-- Every combination with integral coefficients at this embedding lies
+in the local span of the common test, and the normalized coordinate
+recovers the original, unnormalized row entry exactly. -/
+theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
+    {n : ℕ} (w : Fin n → G e → ℝ)
+    (u : Fin n → Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ → ℂ)
+    (hu : ∀ a i χ, ‖ι (u a i χ)‖ ≤ 1) :
+    let z := fun i => readAt e q d N P (w i) p
+    ∀ a i, ‖ι (characterCoordinates z u a i)‖ ≤ 1 ∧
+      characterCoordinates z u a i * z i 0 = ∑ χ, u a i χ * z i χ := by
+  classical
+  let z := fun i => readAt e q d N P (w i) p
+  intro a i
+  obtain ⟨all, attained⟩ := common_read e q d N p hH ι P (w i)
+  have best (χ) : ‖ι (z i χ)‖ ≤ ‖ι (z i 0)‖ := (all χ).trans_eq attained.symm
+  have ratio (χ) : ‖ι (z i χ / z i 0)‖ ≤ 1 := by
+    by_cases hz : z i 0 = 0
+    · simp [hz]
+    · rw [map_div₀, norm_div]
+      exact (div_le_one (norm_pos_iff.mpr (fun he => hz (ι.injective (he.trans ι.map_zero.symm))))).2 (best χ)
+  change ‖ι (∑ χ, u a i χ * (z i χ / z i 0))‖ ≤ 1 ∧ _
+  constructor
+  · rw [map_sum]
+    refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun χ _ => ?_
+    rw [map_mul, norm_mul]
+    exact mul_le_one₀ (hu a i χ) (norm_nonneg _) (ratio χ)
+  · change (∑ χ, u a i χ * (z i χ / z i 0)) * z i 0 = _
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl fun χ _ => ?_
+    rw [mul_assoc]
+    by_cases hz : z i 0 = 0
+    · have hn : ι (z i χ) = 0 := norm_le_zero_iff.mp (by simpa only [hz, map_zero, norm_zero] using best χ)
+      have hχ : z i χ = 0 := ι.injective (hn.trans ι.map_zero.symm)
+      simp [hz, hχ]
+    · rw [div_mul_cancel₀ _ hz]
+
+private theorem integral_det (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) {n : ℕ}
+    (U : Matrix (Fin n) (Fin n) ℂ) (hu : ∀ a i, ‖ι (U a i)‖ ≤ 1) : ‖ι U.det‖ ≤ 1 := by
+  rw [Matrix.det_apply', map_sum]
+  refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun σ _ => ?_
+  rw [map_mul, map_intCast, map_prod, norm_mul, norm_prod]
+  exact mul_le_one₀ (IsUltrametricDist.norm_intCast_le_one _ _) (Finset.prod_nonneg fun _ _ => norm_nonneg _)
+    (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _) fun i _ => hu _ i)
+
+/-- The Gram of two independent row tables in the measured basis.
+The second coordinates are conjugated in the Fock pairing. -/
+def latticeGram {S : Type*} {n : ℕ} (α : Fin n → S →₀ ℕ) (r : Fin n → ℚ) (z : Fin n → ℂ)
+    (U V : Matrix (Fin n) (Fin n) ℂ) :=
+  U * rowMatrix α r z z 1 1 * (V.map (starRingEnd ℂ)).transpose
+
+/-- Sharp joint comparison for all place-integral combinations of the
+wheel tests. The two tables may vary independently at every entry.
+The identity tables and common trivial characters attain both prices. -/
+theorem lattice_budget_iff (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
+    {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ) (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (hr : ∀ i, 0 < r i) (h : Fin n → ℕ) (auxRank : ℕ) (β : ℝ) :
+    let A := fun i => wheel e q d N P (w i)
+    let z := fun i => readAt e q d N P (w i) p
+    ((∀ i χ ψ, ‖ι (tested (α i) (r i) (h i) (z i χ) (z i ψ))‖ ≤ Real.exp β) ∧
+      ∀ U V : Matrix (Fin n) (Fin n) ℂ, (∀ a i, ‖ι (U a i)‖ ≤ 1) →
+        (∀ a i, ‖(ι.comp (starRingEnd ℂ)) (V a i)‖ ≤ 1) →
+        ‖ι (latticeGram α r (fun i => z i 0) U V).det‖ ≤ Real.exp ((n:ℝ)*(auxRank*β))) ↔
+    ((∀ i, (padicNorm p (payment (α i) (r i) (h i) (A i)):ℝ) ≤ Real.exp β) ∧
+      (∏ i, (padicNorm p (payment (α i) (r i) 1 (A i)):ℝ)) ≤ Real.exp ((n:ℝ)*(auxRank*β))) := by
+  classical
+  let z := fun i => readAt e q d N P (w i) p 0
+  let core := rowMatrix α r z z 1 1
+  let κ := ι.comp (starRingEnd ℂ)
+  have price := (exact_row_price e q d N p hH ι P w α hi r hr).2
+  have one i := exact_projector_price e q d N p hH ι P (w i) (α i) (r i) (hr i) (h i)
+  have scalar (U V : Matrix (Fin n) (Fin n) ℂ) :
+      ‖ι (latticeGram α r z U V).det‖ = ‖ι U.det‖ * ‖ι core.det‖ * ‖κ V.det‖ := by
+    have hj : (V.map (starRingEnd ℂ)).det = starRingEnd ℂ V.det := ((starRingEnd ℂ).map_det V).symm
+    rw [latticeGram, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, hj, map_mul, map_mul,
+      norm_mul, norm_mul]
+    rfl
+  have idBound (j : ℂ →+* PadicAlgCl p) (a i : Fin n) : ‖j ((1 : Matrix (Fin n) (Fin n) ℂ) a i)‖ ≤ 1 := by
+    by_cases ha : a = i <;> simp [Matrix.one_apply, ha]
+  constructor
+  · rintro ⟨hl, hd⟩
+    have hbase := hd 1 1 (idBound ι) (idBound κ)
+    change ‖ι (latticeGram α r z 1 1).det‖ ≤ _ at hbase
+    rw [scalar, Matrix.det_one, map_one, map_one, norm_one, one_mul, mul_one] at hbase
+    exact ⟨fun i => (one i).2.symm.le.trans (hl i 0 0), price.symm.le.trans hbase⟩
+  · rintro ⟨hl, hd⟩
+    refine ⟨fun i χ ψ => ((one i).1 χ ψ).trans (hl i), ?_⟩
+    intro U V hu hv
+    change ‖ι (latticeGram α r z U V).det‖ ≤ _
+    rw [scalar]
+    exact (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (integral_det p κ V hv)).trans
+      ((mul_le_of_le_one_left (norm_nonneg _) (integral_det p ι U hu)).trans (price.le.trans hd))
+
 /-- Least common clearing of the rational diagonal readings. Its
 factorization is a single per-prime allowance, shared by all rows. -/
 def rowLCM {n : ℕ} (Q : Fin n → ℚ) : ℕ := Finset.univ.lcm fun i => (Q i).den
