@@ -540,7 +540,7 @@ theorem all_cells_centered (M K R : ℕ) (hm : 2 ≤ M) :
 dyadic history. The unit rounding is uniform in both endpoints and in M. -/
 theorem exists_common_shift_lower (M K R : ℕ) (hm : 2 ≤ M) :
     ∃ s ∈ Set.Icc (0:ℝ) 1,
-      (∑ k ∈ Finset.Ico K R, chord M k + cellWeight k*movingExcess M (evenEndpoint M) (oddCofactor k+s))
+      (∑ k ∈ Finset.Ico K R, (chord M k + cellWeight k*movingExcess M (evenEndpoint M) (oddCofactor k+s)))
         ≤ (∑ k ∈ Finset.Ico K R, primePairReading M k)+1 := by
   let a := evenEndpoint M
   let S := Finset.Ico K R
@@ -552,7 +552,11 @@ theorem exists_common_shift_lower (M K R : ℕ) (hm : 2 ≤ M) :
   have intE (k : ℕ) : IntervalIntegrable (fun s => cellWeight k*E k s) volume 0 1 :=
     ((discrepancy_integrable M a (hd k)).sub (discrepancy_integrable M a (d := oddCofactor k+1)
       (by linarith only [hd k]))).const_mul _
-  have integrable : IntervalIntegrable f volume 0 1 := IntervalIntegrable.finsetSum fun k _ => intE k
+  have sumInt (T : Finset ℕ) : IntervalIntegrable (fun s => ∑ k ∈ T, cellWeight k*E k s) volume 0 1 := by
+    induction T using Finset.induction_on with
+    | empty => simpa only [Finset.sum_empty] using (intervalIntegrable_const (a := (0:ℝ)) (b := 1) (μ := volume) (c := (0:ℝ)))
+    | insert k t hk ih => simpa only [Finset.sum_insert hk] using (intE k).add ih
+  have integrable : IntervalIntegrable f volume 0 1 := sumInt S
   have point (s : ℝ) (hs : s ∈ Set.Icc (0:ℝ) 1) :
       f s = ∑ k ∈ S, cellWeight k*movingExcess M a (oddCofactor k+s) := by
     apply Finset.sum_congr rfl

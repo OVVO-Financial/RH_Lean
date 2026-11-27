@@ -327,6 +327,9 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.marginal_volume
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_volume
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.metric_sandwich
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.measured_history_step
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.fine_metric_lower
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.principal_metric_upper
 #print axioms RHLean.Analysis.PrincipalCofactor.exists_common_shift_lower
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints

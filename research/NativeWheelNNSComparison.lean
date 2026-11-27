@@ -687,5 +687,208 @@ theorem metric_sandwich (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : 
   exact ⟨⟨by linarith only [zero],by linarith only [finite]⟩,by linarith only [(abs_le.mp approx).1,finite],
     by linarith only [(abs_le.mp approx).2,zero]⟩
 
+/-- On the actual translated wheel, the complete signed step, including all
+odd endpoint readings, is bounded from the history side by the same measured
+marginal volumes, the unserved primes and the full affine lengths. One
+common shift suffices. Its rounding price is one per dyadic ancestor. -/
+theorem measured_history_step (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : Finset (AlpogeNativeDyadicH e))
+    (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b : ℝ) (hx : 1 ≤ x) (hb : 4*x^2 ≤ b)
+    (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x)))
+    (M K R : ℕ) (hm : 2 ≤ M) :
+    let P := highThickPrimes e q d x
+    let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+    let c := ⌊Real.sqrt x⌋₊
+    let power := fun p : ℕ => p^(⌊(c:ℝ)*x⌋₊/p-c)
+    let width := fun (j : AlpogeNativeDyadicH e × Fin n) (y : AlpogeNativeDyadicH e) => w j.1 j.2 ((0,1),y)
+    let scale := ((T.card*n:ℕ):ℝ)*tops.card
+    let A := PrincipalCofactor.evenEndpoint M
+    let I := fun v : ℝ => (PrincipalCofactor.retainedFirstPrimes M).filter
+      (fun l : ℕ => A/(v+1) ≤ (l:ℝ) ∧ (l:ℝ) < A/v)
+    let measured := fun v : ℝ => translatedMarginal tops T P g n a width power (fun l => l ∈ I v)/scale
+    let outside := fun v : ℝ => ∑ l ∈ I v \ P, Real.log l
+    let base := fun v : ℝ => A/v-A/(v+1)
+    ∃ s ∈ Set.Icc (0:ℝ) 1, -(∑ k ∈ Finset.Ico K R, PrincipalCofactor.primePairReading M k) ≤
+      1-(∑ k ∈ Finset.Ico K R, (PrincipalCofactor.chord M k + PrincipalCofactor.cellWeight k *
+        (measured (PrincipalCofactor.oddCofactor k+s)+outside (PrincipalCofactor.oddCofactor k+s)-
+          base (PrincipalCofactor.oddCofactor k+s)))) := by
+  intro P g c power width scale A I measured outside base
+  obtain ⟨s,hs,shift⟩ := PrincipalCofactor.exists_common_shift_lower M K R hm
+  obtain ⟨_,_,all⟩ := metric_sandwich e q d n tops T a w x b 1 hx hb (by norm_num) ht hT hn ha hw
+  have per (k : ℕ) : let v := PrincipalCofactor.oddCofactor k+s
+      measured v+outside v-base v ≤ PrincipalCofactor.movingExcess M A v := by
+    intro v
+    have one : 1 ≤ v := by dsimp [v,PrincipalCofactor.oddCofactor]; linarith only [hs.1,Nat.cast_nonneg (α := ℝ) k]
+    exact (all M v hm one).1.1
+  refine ⟨s,hs,?_⟩
+  have bound := Finset.sum_le_sum (s := Finset.Ico K R) (fun (k : ℕ) _ =>
+    add_le_add_left (mul_le_mul_of_nonneg_left (per k)
+      (by dsimp [PrincipalCofactor.cellWeight,PrincipalCofactor.oddCofactor]; positivity :
+        0 ≤ PrincipalCofactor.cellWeight k)) (PrincipalCofactor.chord M k))
+  linarith only [bound,shift]
+
+/-- The independent lower comparison at every fine cell together, uniform
+in the very shift chosen for the broad cells. It charges the full affine
+length, the actual marginal determinant and the omitted primes. -/
+theorem fine_metric_lower (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : Finset (AlpogeNativeDyadicH e))
+    (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b : ℝ) (hx : 1 ≤ x) (hb : 4*x^2 ≤ b)
+    (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x)))
+    (M K R : ℕ) (hm : 2 ≤ M) (one : 1 ≤ K) (kr : K ≤ R) (s : ℝ) (hs : s ∈ Set.Icc 0 1) :
+    let P := highThickPrimes e q d x
+    let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+    let c := ⌊Real.sqrt x⌋₊
+    let power := fun p : ℕ => p^(⌊(c:ℝ)*x⌋₊/p-c)
+    let width := fun (j : AlpogeNativeDyadicH e × Fin n) (y : AlpogeNativeDyadicH e) => w j.1 j.2 ((0,1),y)
+    let scale := ((T.card*n:ℕ):ℝ)*tops.card
+    let A := PrincipalCofactor.evenEndpoint M
+    let I := fun v : ℝ => (PrincipalCofactor.retainedFirstPrimes M).filter
+      (fun l : ℕ => A/(v+1) ≤ (l:ℝ) ∧ (l:ℝ) < A/v)
+    let measured := fun v : ℝ => translatedMarginal tops T P g n a width power (fun l => l ∈ I v)/scale
+    let outside := fun v : ℝ => ∑ l ∈ I v \ P, Real.log l
+    let base := fun v : ℝ => A/v-A/(v+1)
+    let count := ((occupied tops P g).card:ℝ)/tops.card
+    -(∑ k ∈ Finset.Ico K R, PrincipalCofactor.cellWeight k*
+      (measured (PrincipalCofactor.oddCofactor k+s)+outside (PrincipalCofactor.oddCofactor k+s)-
+        base (PrincipalCofactor.oddCofactor k+s))) ≤
+      A/(PrincipalCofactor.oddCofactor K)^2+(count*Real.log x)*(1+Real.log R) := by
+  intro P g c power width scale A I measured outside base count
+  let S := Finset.Ico K R
+  let v := fun k => PrincipalCofactor.oddCofactor k+s
+  let t := fun k => A/PrincipalCofactor.oddCofactor k
+  let cost := count*Real.log x
+  let m := fun k => measured (v k)+outside (v k)-base (v k)
+  have A0 : 0 ≤ A := by dsimp [A,PrincipalCofactor.evenEndpoint]; positivity
+  have cost0 : 0 ≤ cost := mul_nonneg (by dsimp [count]; positivity) (Real.log_nonneg hx)
+  have dpos k : 0 < PrincipalCofactor.oddCofactor k := by dsimp [PrincipalCofactor.oddCofactor]; positivity
+  have wpos k : 0 ≤ PrincipalCofactor.cellWeight k := by dsimp [PrincipalCofactor.cellWeight,PrincipalCofactor.oddCofactor]; positivity
+  obtain ⟨_,_,all⟩ := metric_sandwich e q d n tops T a w x b 1 hx hb (by norm_num) ht hT hn ha hw
+  have per (k : ℕ) : -m k ≤ base (v k)+cost := by
+    have vk : 1 ≤ v k := by dsimp [v,PrincipalCofactor.oddCofactor]; linarith only [hs.1,Nat.cast_nonneg (α := ℝ) k]
+    have earned : PrincipalCofactor.movingExcess M A (v k) ≤ m k+cost := (all M (v k) hm vk).1.2
+    have mass : 0 ≤ ∑ l ∈ I (v k), Real.log (l:ℝ) := Finset.sum_nonneg fun l _ => Real.log_natCast_nonneg l
+    change (∑ l ∈ I (v k), Real.log (l:ℝ))-base (v k) ≤ m k+cost at earned
+    linarith only [earned,mass]
+  have edge k : base (v k) ≤ t k-t (k+1) := by
+    have left : PrincipalCofactor.oddCofactor k ≤ v k := le_add_of_nonneg_right hs.1
+    have right : v k+1 ≤ PrincipalCofactor.oddCofactor (k+1) := by
+      dsimp [v,PrincipalCofactor.oddCofactor]; push_cast; linarith only [hs.2]
+    exact sub_le_sub (div_le_div_of_nonneg_left A0 (dpos k) left)
+      (div_le_div_of_nonneg_left A0 (by linarith only [left,dpos k]) right)
+  have point (k : ℕ) (hk : k ∈ S) :
+      PrincipalCofactor.cellWeight k*(-m k) ≤ (1/PrincipalCofactor.oddCofactor K)*(t k-t (k+1))+(1/(k:ℝ))*cost := by
+    have low : (K:ℝ) ≤ k := by exact_mod_cast (Finset.mem_Ico.mp hk).1
+    have step : PrincipalCofactor.oddCofactor k ≤ PrincipalCofactor.oddCofactor (k+1) := by
+      dsimp [PrincipalCofactor.oddCofactor]; push_cast; linarith
+    have monot : 0 ≤ t k-t (k+1) := sub_nonneg.mpr (div_le_div_of_nonneg_left A0 (dpos k) step)
+    have den : PrincipalCofactor.oddCofactor K ≤ 2*(PrincipalCofactor.oddCofactor k+1) := by
+      dsimp [PrincipalCofactor.oddCofactor]; linarith only [low,Nat.cast_nonneg (α := ℝ) k]
+    have kn : 0 < (k:ℝ) := by exact_mod_cast one.trans (Finset.mem_Ico.mp hk).1
+    have cheap : (k:ℝ) ≤ 2*(PrincipalCofactor.oddCofactor k+1) := by dsimp [PrincipalCofactor.oddCofactor]; linarith
+    calc
+      _ ≤ PrincipalCofactor.cellWeight k*((t k-t (k+1))+cost) :=
+        mul_le_mul_of_nonneg_left ((per k).trans (add_le_add_right (edge k) _)) (wpos k)
+      _ ≤ _ := by
+        rw [mul_add]
+        exact add_le_add (mul_le_mul_of_nonneg_right (one_div_le_one_div_of_le (dpos K) den) monot)
+          (mul_le_mul_of_nonneg_right (one_div_le_one_div_of_le kn cheap) cost0)
+  have tel (B : ℕ) (ge : K ≤ B) : ∑ k ∈ Finset.Ico K B, (t k-t (k+1))=t K-t B := by
+    induction B, ge using Nat.le_induction with
+    | base => simp
+    | succ B ge ih => rw [Finset.sum_Ico_succ_top ge,ih]; ring
+  have harmonic : (∑ k ∈ S, 1/(k:ℝ)) ≤ 1+Real.log R :=
+    (nativeTailReciprocalIco_le K R one).trans (harmonic_le_one_add_log R)
+  change -(∑ k ∈ S, PrincipalCofactor.cellWeight k*m k) ≤ _
+  calc
+    _ = ∑ k ∈ S, PrincipalCofactor.cellWeight k*(-m k) := by simp [Finset.sum_neg_distrib]
+    _ ≤ _ := Finset.sum_le_sum point
+    _ = (1/PrincipalCofactor.oddCofactor K)*(t K-t R)+(∑ k ∈ S, 1/(k:ℝ))*cost := by
+      rw [Finset.sum_add_distrib,← Finset.mul_sum,← Finset.sum_mul,tel R kr]
+    _ ≤ (1/PrincipalCofactor.oddCofactor K)*t K+(1+Real.log R)*cost :=
+      add_le_add (mul_le_mul_of_nonneg_left (sub_le_self _ (div_nonneg A0 (dpos R).le)) (one_div_pos.mpr (dpos K)).le)
+        (mul_le_mul_of_nonneg_right harmonic cost0)
+    _ = _ := by dsimp only [t,cost]; ring
+
+/-- Evaluate the physical metric lower estimate along the original halving
+chain. Each ancestor keeps its common shift and all of its endpoint chords. -/
+def signedMetricHistory (term : ℕ → ℝ → ℝ) (shift : ℕ → ℝ) (N : ℕ) : ℝ :=
+  if _h : N < 16 then 0 else signedMetricHistory term shift (N/2)+1 -
+    ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt N⌉₊, (PrincipalCofactor.chord N k+
+      PrincipalCofactor.cellWeight k*term N (PrincipalCofactor.oddCofactor k+shift N))
+termination_by N
+decreasing_by omega
+
+/-- One-sided comparison for the complete original signed integer history. The sum
+on the right is evaluated from actual marginal wheel covolumes, the outside
+prime log mass, ordinary lengths and the original endpoint chords. -/
+theorem principal_metric_upper (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : Finset (AlpogeNativeDyadicH e))
+    (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b : ℝ) (hx : 1 ≤ x) (hb : 4*x^2 ≤ b)
+    (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let P := highThickPrimes e q d x
+    let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+    let c := ⌊Real.sqrt x⌋₊
+    let power := fun p : ℕ => p^(⌊(c:ℝ)*x⌋₊/p-c)
+    let width := fun (j : AlpogeNativeDyadicH e × Fin n) (y : AlpogeNativeDyadicH e) => w j.1 j.2 ((0,1),y)
+    let scale := ((T.card*n:ℕ):ℝ)*tops.card
+    let A := PrincipalCofactor.evenEndpoint
+    let I := fun (M : ℕ) (v : ℝ) => (PrincipalCofactor.retainedFirstPrimes M).filter
+      (fun l : ℕ => A M/(v+1) ≤ (l:ℝ) ∧ (l:ℝ) < A M/v)
+    let measured := fun (M : ℕ) (v : ℝ) => translatedMarginal tops T P g n a width power (fun l => l ∈ I M v)/scale
+    let outside := fun (M : ℕ) (v : ℝ) => ∑ l ∈ I M v \ P, Real.log l
+    let base := fun (M : ℕ) (v : ℝ) => A M/v-A M/(v+1)
+    ∃ C : ℝ, 0 < C ∧ ∃ shift : ℕ → ℝ, (∀ M, shift M ∈ Set.Icc (0:ℝ) 1) ∧
+      (∀ N, PrincipalCofactor.affineHistory N-PrincipalCofactor.weightedCrossings N ≤
+        signedMetricHistory (fun M v => measured M v+outside M v-base M v) shift N) ∧
+      ∀ y : ℝ, 1 ≤ y → alpogeNativeGzArithmetic y ≤
+        signedMetricHistory (fun M v => measured M v+outside M v-base M v) shift ⌊y⌋₊+C*Real.sqrt y := by
+  classical
+  intro P g c power width scale A I measured outside base
+  let term := fun M v => measured M v+outside M v-base M v
+  let choose (M : ℕ) (large : 16 ≤ M) :=
+    measured_history_step e q d n tops T a w x b hx hb ht hT hn ha hw M 1 ⌈Real.sqrt M⌉₊ (by omega)
+  let shift := fun M => if hm : 16 ≤ M then (choose M hm).choose else 0
+  obtain ⟨C,hC,actual⟩ := PrincipalCofactor.real_firstPrime_history_price
+  have inRange (M : ℕ) : shift M ∈ Set.Icc (0:ℝ) 1 := by
+    by_cases large : 16 ≤ M
+    · simpa only [shift,dite_eq_left large] using (choose M large).choose_spec.1
+    · simp [shift,large]
+  have price (N : ℕ) : PrincipalCofactor.firstPrimeHistory N ≤ signedMetricHistory term shift N := by
+    induction N using Nat.strong_induction_on with
+    | h N ih =>
+      by_cases tiny : N < 16
+      · rw [PrincipalCofactor.firstPrimeHistory,PrincipalCofactor.sumHistory_small _ N tiny,signedMetricHistory]
+        simp [tiny]
+      · have large : 16 ≤ N := by omega
+        have prev := ih (N/2) (by omega)
+        have step := (choose N large).choose_spec.2
+        have eq : shift N=(choose N large).choose := by simp [shift,large]
+        have recursion : PrincipalCofactor.firstPrimeHistory N =
+            PrincipalCofactor.firstPrimeHistory (N/2) -
+            ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt N⌉₊, PrincipalCofactor.primePairReading N k := by
+          rw [PrincipalCofactor.firstPrimeHistory,PrincipalCofactor.sumHistory_step _ N tiny]
+          simp only [PrincipalCofactor.firstPrimeHistory,PrincipalCofactor.primePairReading,
+            PrincipalCofactor.oddPrimeReading,PrincipalCofactor.evenEndpoint,PrincipalCofactor.oddCofactor,
+            show ∀ k : ℕ, 2*(k:ℝ)+1+1=2*k+2 by intro k; ring]
+        rw [recursion,signedMetricHistory,dite_eq_right tiny,eq]
+        exact (sub_le_sub_right prev _).trans (by linarith only [step])
+
+  refine ⟨C,hC,shift,inRange,?_,?_⟩
+  · intro N
+    rw [PrincipalCofactor.affine_sub_weightedCrossings]
+    exact price N
+  · intro y hy
+    exact (sub_le_iff_le_add'.mp (abs_le.mp (actual y hy)).2).trans
+      (by linarith only [price ⌊y⌋₊])
+
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
