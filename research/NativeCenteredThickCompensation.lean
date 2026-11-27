@@ -1,6 +1,6 @@
 import «research.NativeSignedWidthSweep»
 import «research.NativeAnchoredSlotMetric»
-import «research.NativePrincipalFirstPrimeHistory»
+import «research.NativePrincipalCrossingBalance»
 import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.LogDerivRegion
 
 /-! The centered thick response on the actual translated widths and its own MAIN.

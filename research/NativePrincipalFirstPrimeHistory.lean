@@ -56,6 +56,29 @@ def firstPrimeValue (M : ℕ) (t : ℝ) : ℝ :=
   (∑ p ∈ (Finset.Icc 1 M).filter (kept M), Real.log p * max (t/p-1) 0) +
     t*(∑ i ∈ Finset.Icc 1 M, removed M i/i)-t*Real.log t+(1+Real.eulerMascheroniConstant)*t
 
+/-- In the cofactor coordinate the clipped reciprocal slopes and the affine
+part of the original MAIN form a single constant, independent of the cofactor. -/
+theorem scaled_firstPrimeValue (M : ℕ) {a d : ℝ} (ha : 0 < a) (hd : 0 < d) :
+    d*firstPrimeValue M (a/d) =
+      (∑ p ∈ (Finset.Icc 1 M).filter (fun p => p.Prime ∧ M.sqrt < p),
+        Real.log p * max (a/p-d) 0) + a*Real.log d +
+      a*((∑ i ∈ Finset.Icc 1 M, (if i.Prime ∧ M.sqrt < i then 0 else (Λ i : ℝ))/i) +
+        1+Real.eulerMascheroniConstant-Real.log a) := by
+  have atom (p : ℕ) : d*(Real.log p * max (a/d/p-1) 0) = Real.log p * max (a/p-d) 0 := by
+    have da : d*(a/d) = a := by field_simp
+    rw [mul_left_comm, mul_max_of_nonneg _ _ hd.le, mul_zero, mul_sub, ← mul_div_assoc, da, mul_one]
+  unfold firstPrimeValue
+  let P := (Finset.Icc 1 M).filter (kept M)
+  have sum := Finset.sum_congr (s₁ := P) rfl (fun p _ => atom p)
+  rw [← Finset.mul_sum] at sum
+  rw [Real.log_div ha.ne' hd.ne']
+  dsimp only [P, kept] at sum
+  dsimp only [removed, kept]
+  have da : d*(a/d) = a := by field_simp
+  linear_combination sum + ((∑ i ∈ Finset.Icc 1 M,
+    (if i.Prime ∧ M.sqrt < i then 0 else (Λ i : ℝ))/i) -
+    (Real.log a-Real.log d)+(1+Real.eulerMascheroniConstant))*da
+
 private def clip (M : ℕ) (t : ℝ) : ℝ :=
   ∑ i ∈ Finset.Icc 1 M, removed M i*min (t/i) 1
 
