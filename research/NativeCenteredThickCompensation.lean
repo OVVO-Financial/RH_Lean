@@ -1,5 +1,5 @@
 import «research.NativeSignedWidthSweep»
-import «research.NativeWheelIntervalRecovery»
+import «research.NativeWheelNNSComparison»
 import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.LogDerivRegion
 
 /-! The centered thick response on the actual translated widths and its own MAIN.

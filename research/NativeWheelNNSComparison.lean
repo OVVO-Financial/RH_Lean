@@ -1,5 +1,4 @@
-import «research.NativeAnchoredSlotMetric»
-import «research.NativePrincipalCrossingBalance»
+import «research.NativeWheelIntervalRecovery»
 import RHLean.Analysis.PartialMomentSchurTarget
 
 /-! Partial moments on the integral wheel and on the common integer address space
@@ -142,15 +141,17 @@ def boundaryObs {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ) (f : ℕ → ℝ)
     (z : Address (bands h v)) : ℝ :=
   if z.2.val = ⌊h z.1⌋₊ then f ⌊a z.1/(z.2.val:ℝ)⌋₊ else 0
 
+private def layerObservations {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
+    (D : Fin (r+1) → ℕ) (f : ℕ → ℝ) : Matrix (Address (bands h v)) (Fin r ⊕ Bool) ℝ :=
+  fun z => Sum.elim (fun j => (columns (bands h v) D z j : ℝ))
+    (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z)
+
 /-- Original integral sections, the prime logarithm, and a separately oriented
 prime test embedded into the same integer slot space. -/
 def observed {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ) :
     Matrix (↥(Finset.Iic ⌊h 0⌋₊)) (Fin r ⊕ Bool) ℝ :=
-  let X : Matrix (Address (bands h v)) (Fin r ⊕ Bool) ℝ := fun z =>
-    Sum.elim (fun j => (columns (bands h v) D z j : ℝ))
-      (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z)
-  slotInclusion (physicalAddress h v hne) * X
+  slotInclusion (physicalAddress h v hne) * layerObservations a h v D f
 
 theorem observed_star {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ)
@@ -166,7 +167,8 @@ theorem boundary_pair {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) → ℕ)
     coDiv (observed a (fun j => a j/(p j:ℝ)) v hne D f) (.inr false) (.inr true) =
       ∑ i, Real.log (p i)*f (p i) := by
   rw [observed, insert_gram, coDiv_eq]
-  simp only [Matrix.mul_apply, Matrix.transpose_apply, Sum.elim_inr, Bool.false_eq_true, if_false, if_true]
+  change (∑ z : Address (bands (fun j => a j/(p j:ℝ)) v),
+    boundaryObs a _ v (fun l => Real.log l) z * boundaryObs a _ v f z) = _
   rw [Fintype.sum_sigma]
   refine Finset.sum_congr rfl fun i _ => ?_
   let h := fun j => a j/(p j:ℝ)
@@ -410,6 +412,79 @@ theorem sparse_projection_price {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1)
   intro i _
   rw [← mul_div_assoc]
   exact div_le_div_of_nonneg_left (mul_nonneg (Real.log_natCast_nonneg _) (hf i)) hm (hmS i)
+
+/-- With that single multiplier, each original clipped log-prime interval is
+a pairing against an actual integral image section on the same quotient slots. -/
+theorem broad_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
+    (hp : ∀ i, (p i).Prime) (hn : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
+    (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
+    (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
+    let h := fun i => num i/(p i:ℝ)
+    let a := PrincipalCofactor.evenEndpoint M
+    let v := fun k => PrincipalCofactor.oddCofactor k+s
+    let m := broadClearing p d M K s
+    ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
+      (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
+        ((onSlots (bands h width) (anchoredRecovery (fun j => (d j:ℤ)) (A k)) z:ℤ):ℝ)) =
+        (m:ℝ)*(∑ i, Real.log (p i) * (if p i ∈ PrincipalCofactor.retainedFirstPrimes M ∧
+          a/(v k+1) ≤ (p i:ℝ) ∧ (p i:ℝ) < a/v k then 1 else 0)) := by
+  intro h a v m
+  obtain ⟨A,recov⟩ := broad_recovered p d M K s
+  refine ⟨A, fun k hk => ?_⟩
+  change (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
+    (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) z.1:ℤ):ℝ)) = _
+  rw [boundary_against_layers num p (fun i => (hp i).pos) hn width hS (fun l => Real.log l)
+    (fun i => (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) i:ℤ):ℝ)),recov k hk,Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  change Real.log (p i) * (((m:ℤ)*intervalTest p (lowerCut M a (v k)) (upperCut M a (v k)) i:ℤ):ℝ) = _
+  simp only [Int.cast_mul,Int.cast_natCast,intervalTest,clipped_hit M (p i) (hp i)]
+  split_ifs <;> push_cast <;> ring
+
+/-- Use the Riesz vector of the measured wheel normal as principal mode.
+The logarithm is sampled once on a layer, and the signed contrast is constant
+on that layer. This gives its exact target-independent residual against an
+affine interval length, with both principal readings present. -/
+theorem signed_normal_balance {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D p : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) (f : ℕ → ℝ) (length : ℝ) (target : Bool → ℝ) :
+    let q := fun i => (wheelNormal D i:ℝ)
+    let n := fun i => ((S i).card:ℝ)
+    let w := fun i => (q i)^2/n i
+    let X := fun i (col : Bool) => if col then n i*f (p i)/q i else Real.log (p i)/q i
+    let E := dualEnergy S D
+    (∑ i, Real.log (p i)*f (p i))-length =
+      finiteTargetScaledSchur Finset.univ w X target false true/E +
+      ((∑ i, q i*Real.log (p i)/n i)*(∑ i, q i*f (p i)))/E-length := by
+  intro q n w X E
+  have q0 (i) : q i ≠ 0 := by
+    dsimp [q,wheelNormal]
+    exact_mod_cast (Finset.prod_pos (fun j _ => hD j) : 0 < ∏ j ∈ Finset.univ.erase i, D j).ne'
+  have n0 (i) : n i ≠ 0 := by dsimp [n]; exact_mod_cast (hS i).card_pos.ne'
+  have energy : finiteTotalWeight Finset.univ w = E := rfl
+  have left : finiteTargetFirstMoment Finset.univ w X 0 false = ∑ i, q i*Real.log (p i)/n i := by
+    apply Finset.sum_congr rfl
+    intro i _
+    change w i*(Real.log (p i)/q i-0)=_
+    dsimp only [w]
+    field_simp [q0 i,n0 i]; ring
+  have right : finiteTargetFirstMoment Finset.univ w X 0 true = ∑ i, q i*f (p i) := by
+    apply Finset.sum_congr rfl
+    intro i _
+    change w i*(n i*f (p i)/q i-0)=_
+    dsimp only [w]
+    field_simp [q0 i,n0 i]; ring
+  have pair : finiteTargetSecondMoment Finset.univ w X 0 false true = ∑ i, Real.log (p i)*f (p i) := by
+    apply Finset.sum_congr rfl
+    intro i _
+    change w i*(Real.log (p i)/q i-0)*(n i*f (p i)/q i-0)=_
+    dsimp only [w]
+    field_simp [q0 i,n0 i]; ring
+  have positive : 0 < E := dualEnergy_pos S D hS hD
+  rw [finiteTargetScaledSchur_target_invariant _ _ X 0 target]
+  change _ = (finiteTotalWeight _ w*finiteTargetSecondMoment _ w X 0 false true -
+    finiteTargetFirstMoment _ w X 0 false*finiteTargetFirstMoment _ w X 0 true)/E+_-length
+  rw [energy,left,right,pair]
+  field_simp [positive.ne']
+  <;> ring
 
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector

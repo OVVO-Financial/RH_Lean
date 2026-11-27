@@ -1,4 +1,5 @@
-import «research.NativeWheelNNSComparison»
+import «research.NativeAnchoredSlotMetric»
+import «research.NativePrincipalCrossingBalance»
 import RHLean.Analysis.NativePNTSquarePrefixTailReciprocalBound
 
 /-! Integral recovery of the layer-constant signed test on the original sorted
@@ -112,16 +113,13 @@ theorem weighted_interval_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMo
 slot metric. The logarithmic price includes the same finite multiplier and
 the actual size of the parent interval. Empty tests have zero energy. -/
 theorem interval_energy {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
-    (hne : ∀ i, (bands h v i).Nonempty) (p : Fin (r+1) → ℕ) (L U : ℝ) (d : Fin r → ℕ)
-    (hd : ∀ j, 0 < d j) :
-    let m := clearing p L U d
+    (hne : ∀ i, (bands h v i).Nonempty) (p : Fin (r+1) → ℕ) (L U : ℝ) (m : ℕ) (pos : 0 < m) :
     let J := Finset.univ.filter fun i => L ≤ (p i:ℝ) ∧ (p i:ℝ) < U
     let S := bands h v
     let E := slotEnergy S (fun i => (m:ℝ)*(intervalTest p L U i:ℝ))
     E = (m:ℝ)^2*(∑ i ∈ J, ((S i).card:ℝ)) ∧
       Real.log (1+E) ≤ 2*Real.log (m:ℝ)+Real.log (1+(⌊h 0⌋₊-⌈v⌉₊:ℕ):ℝ) := by
-  intro m J S E
-  have pos : 0 < m := Finset.prod_pos fun j _ => hd j
+  intro J S E
   have eq : E = (m:ℝ)^2*(∑ i ∈ J, ((S i).card:ℝ)) := by
     dsimp only [E,slotEnergy,J]
     rw [Finset.sum_filter,Finset.mul_sum]
@@ -191,33 +189,6 @@ theorem broad_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M
     exact (Finset.dvd_prod_of_mem d hj).trans (Finset.dvd_prod_of_mem _ hk)
   exact ⟨fun k => if hk : k ∈ Finset.Ico 1 K then (ex k hk).choose else 0,
     fun k hk => by simpa only [dif_pos hk] using (ex k hk).choose_spec⟩
-
-/-- With that single multiplier, each original clipped log-prime interval is
-a pairing against an actual integral image section on the same quotient slots. -/
-theorem broad_physical_read {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → ℝ)
-    (hp : ∀ i, (p i).Prime) (hn : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ num i)
-    (width : ℝ) (hS : ∀ i, (bands (fun j => num j/(p j:ℝ)) width i).Nonempty)
-    (d : Fin r → ℕ) (M K : ℕ) (s : ℝ) :
-    let h := fun i => num i/(p i:ℝ)
-    let a := PrincipalCofactor.evenEndpoint M
-    let v := fun k => PrincipalCofactor.oddCofactor k+s
-    let m := broadClearing p d M K s
-    ∃ A : ℕ → Fin (r+1) → ℤ, ∀ k ∈ Finset.Ico 1 K,
-      (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
-        ((onSlots (bands h width) (anchoredRecovery (fun j => (d j:ℤ)) (A k)) z:ℤ):ℝ)) =
-        (m:ℝ)*(∑ i, Real.log (p i) * (if p i ∈ PrincipalCofactor.retainedFirstPrimes M ∧
-          a/(v k+1) ≤ (p i:ℝ) ∧ (p i:ℝ) < a/v k then 1 else 0)) := by
-  intro h a v m
-  obtain ⟨A,recov⟩ := broad_recovered p d M K s
-  refine ⟨A, fun k hk => ?_⟩
-  change (∑ z : Address (bands h width), boundaryObs num h width (fun l => Real.log l) z *
-    (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) z.1:ℤ):ℝ)) = _
-  rw [boundary_against_layers num p (fun i => (hp i).pos) hn width hS (fun l => Real.log l)
-    (fun i => (((anchoredRecovery (fun j => (d j:ℤ)) (A k)) i:ℤ):ℝ)),recov k hk,Finset.mul_sum]
-  refine Finset.sum_congr rfl fun i _ => ?_
-  change Real.log (p i) * (((m:ℤ)*intervalTest p (lowerCut M a (v k)) (upperCut M a (v k)) i:ℤ):ℝ) = _
-  simp only [Int.cast_mul,Int.cast_natCast,intervalTest,clipped_hit M (p i) (hp i)]
-  split_ifs <;> push_cast <;> ring
 
 private theorem depth_at_crossing (p c : ℕ) (x a v : ℝ) (hp : p.Prime) (hx : 1 ≤ x)
     (ha : 0 < a) (hv : 0 < v) (hd : a/v ≤ (p:ℝ)) (hpx : (p:ℝ) ≤ x) :
@@ -331,5 +302,78 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
           (show 0 ≤ Real.log 4+1 by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]))
     · rw [Finset.Ico_eq_empty_of_le (le_of_not_ge kr),Finset.sum_empty]
       exact mul_nonneg (by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]) tp.le
+
+/-- A single simultaneous multiplier at each actual occupied site. Charge both
+its finite log and an upper bound for the archimedean log norm of every
+recovered column. The count of original translated fibres and the divisor
+are the same as in the measured high-thick comparison. -/
+theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b s : ℝ) (hx : 1 ≤ x) (hb : 1 ≤ b) (hs : s ∈ Set.Icc 0 1)
+    (hm : 0 < PrincipalCofactor.evenEndpoint M) (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n) :
+    let P := highThickPrimes e q d x
+    let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+    let V := occupied tops P g
+    let p := primeAt tops P g
+    let K := ⌈Real.sqrt (PrincipalCofactor.evenEndpoint M/Real.sqrt x)⌉₊
+    let c := ⌊Real.sqrt x⌋₊
+    let d' := fun (y : ↥V) (j : Fin ((partnerPrimes tops P g y.val).card-1)) =>
+      (p y j.succ)^(⌊(c:ℝ)*x⌋₊/(p y j.succ)-c)
+    let m := fun y : ↥V => broadClearing (p y) (d' y) M K s
+    let size := fun (y : ↥V) (j : ↥(siteRows T n y.val)) =>
+      ⌊a (y.val-g (p y 0))/(p y 0:ℝ)⌋₊-⌈w j.val.1 j.val.2 ((0,1),y.val)⌉₊
+    let k := ((T.card*n:ℕ):ℝ)
+    (∑ y : ↥V, ∑ j : ↥(siteRows T n y.val),
+      Real.log (m y:ℝ)+Real.log (1+(m y:ℝ)^2*(size y j:ℝ))/2) / ((c:ℝ)*k*tops.card) ≤
+      ((V.card:ℝ)/tops.card)*(80*Real.sqrt x*Real.log x + Real.log (1+(x+1)*b)/(2*c)) := by
+  classical
+  intro P g V p K c d' m size k
+  have info := highThick_primeAt e q d x tops
+  have x0 := zero_le_one.trans hx
+  have b0 := zero_le_one.trans hb
+  have cpos : 0 < (c:ℝ) := by
+    have one : 1 ≤ Real.sqrt x := by simpa using Real.sqrt_le_sqrt hx
+    exact_mod_cast (show 1 ≤ c from (Nat.le_floor_iff (Real.sqrt_nonneg x)).2 (by simpa using one))
+  have kp : 0 < k := by change 0 < ((T.card*n:ℕ):ℝ); exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have tp : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
+  let B := 40*(c:ℝ)*Real.sqrt x*Real.log x
+  let height := 1+(x+1)*b
+  have cost (y : ↥V) : Real.log (m y:ℝ) ≤ B :=
+    (balanced_crossing_recovery (p y) (p y).strictMono c M 0 x s hx hs hm
+      (fun i => (info y i).1) (fun i => by linarith only [(info y i).2.2.1])).1
+  have pos (y : ↥V) : 0 < m y := Finset.prod_pos fun l _ =>
+    Finset.prod_pos fun j _ => pow_pos (info y j.succ).1.pos _
+  have per (y : ↥V) (j : ↥(siteRows T n y.val)) :
+      Real.log (m y:ℝ)+Real.log (1+(m y:ℝ)^2*(size y j:ℝ))/2 ≤ 2*B+Real.log height/2 := by
+    let u := a (y.val-g (p y 0))
+    let l := p y 0
+    have ub : u ∈ Set.Icc (x*b) ((x+1)*b) := ha _ (info y 0).2.2.2.2
+    have up : 0 ≤ u := (mul_nonneg x0 b0).trans ub.1
+    have lc : (1:ℝ) ≤ l := by exact_mod_cast (info y 0).1.one_le
+    have bound : (size y j:ℝ) ≤ (x+1)*b := calc
+      _ ≤ (⌊u/(l:ℝ)⌋₊:ℝ) := by exact_mod_cast Nat.sub_le _ _
+      _ ≤ u/(l:ℝ) := Nat.floor_le (div_nonneg up (zero_le_one.trans lc))
+      _ ≤ u := div_le_self up lc
+      _ ≤ _ := ub.2
+    have one : (1:ℝ) ≤ m y := by exact_mod_cast pos y
+    have m2 : (1:ℝ) ≤ (m y:ℝ)^2 := by nlinarith only [one,sq_nonneg ((m y:ℝ)-1)]
+    have big : 1+(m y:ℝ)^2*(size y j:ℝ) ≤ (m y:ℝ)^2*height := by
+      dsimp only [height]
+      rw [mul_add,mul_one]
+      exact add_le_add m2 (mul_le_mul_of_nonneg_left bound (sq_nonneg _))
+    have logs := Real.log_le_log (by positivity) big
+    have hpos : 0 < height := by dsimp [height]; positivity
+    rw [Real.log_mul (by positivity) hpos.ne',Real.log_pow] at logs
+    linarith only [logs,cost y]
+  have count : (∑ y : ↥V, ∑ _j : ↥(siteRows T n y.val), (2*B+Real.log height/2)) =
+      (V.card:ℝ)*(k*(2*B+Real.log height/2)) := by
+    simp only [Finset.sum_const,Finset.card_univ,Fintype.card_coe,siteRows_card,nsmul_eq_mul,k]
+  apply (div_le_iff₀ (mul_pos (mul_pos cpos kp) tp)).2
+  calc
+    _ ≤ _ := Finset.sum_le_sum fun y _ => Finset.sum_le_sum fun j _ => per y j
+    _ = _ := count
+    _ = _ := by dsimp only [B,height]; field_simp [tp.ne',cpos.ne']; ring
 
 end RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS
