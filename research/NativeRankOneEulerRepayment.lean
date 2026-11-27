@@ -325,6 +325,30 @@ theorem nominal_jet (I : ℕ → AddSubgroup (G H)) (F : ℕ → G H) (w : G H �
     (fun σ hσ => (hpos σ hσ).le) α _ (Finset.prod_pos fun σ hσ =>
       pow_pos (Real.sqrt_pos.2 (hpos σ (hα hσ))) _)
 
+/-- The divided-power reading belongs to the derivative line, so its
+tested projector diagonal equals its squared norm. In a rational interval
+metric B/C this gives an exact integer clearing test on the same wheel
+reading A. B and C need not be in lowest terms. -/
+theorem measured_line_denominator {S : Type*} (α : S →₀ ℕ) (A B C h d : ℕ)
+    (hC : C ≠ 0) :
+    (∃ z : ℕ, ((d*h:ℕ):ℝ)*fockNormSq ((Real.sqrt ((B:ℝ)/C)) • dividedJet α A) = z) ↔
+      multiFactorial α * C ∣ (d*h)*B*A^2 := by
+  have hfc : (multiFactorial α:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
+  have hc : (C:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hC
+  have den : ((multiFactorial α*C:ℕ):ℝ) ≠ 0 := Nat.cast_ne_zero.mpr
+    (mul_ne_zero (multiFactorial_pos α).ne' hC)
+  have val : ((d*h:ℕ):ℝ)*fockNormSq ((Real.sqrt ((B:ℝ)/C)) • dividedJet α A) =
+      (((d*h)*B*A^2:ℕ):ℝ)/((multiFactorial α*C:ℕ):ℝ) := by
+    rw [(jet_read_norm α A _).2, mul_pow, Real.sq_sqrt (div_nonneg (Nat.cast_nonneg B) (Nat.cast_nonneg C))]
+    push_cast
+    field [hfc, hc]
+  rw [val]
+  constructor
+  · rintro ⟨z, hz⟩
+    exact ⟨z, by exact_mod_cast ((div_eq_iff den).1 hz).trans (mul_comm _ _)⟩
+  · rintro ⟨z, hz⟩
+    exact ⟨z, (div_eq_iff den).2 (by exact_mod_cast hz.trans (Nat.mul_comm _ _))⟩
+
 /-- Take the first admissible order at each positive site of the actual
 translated thick/thin dyadic host. The unmodified ledger cutoff
 ceil(Amax/beta) bounds every nominal ratio. -/
@@ -356,7 +380,9 @@ theorem dyadic_nominal_jet (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     have hv : β ≤ a/x := div_le_div_of_nonneg_left ha.le hxx hx₁
     have hA := (div_le_self ha.le hx).trans hamax
     change β ≤ (if _ then a/x else β) ∧ (if _ then a/x else β) ≤ Amax
-    split_ifs <;> exacts [⟨hv, hA⟩, ⟨le_rfl, hv.trans hA⟩]
+    split_ifs
+    · exact ⟨hv, hA⟩
+    · exact ⟨le_rfl, hv.trans hA⟩
   apply nominal_jet
   · intro σ hσ
     by_contra h
@@ -387,6 +413,34 @@ theorem derivative_pair {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z : ℂ) (hs 
   · rw [derivativeVector, fockNormSq_monomial, norm_inv, Complex.norm_real, Real.norm_eq_abs,
       abs_of_pos hs, inv_pow, div_eq_mul_inv]
 
+/-- Orthogonal projection onto the monomial representing the derivative
+in the factorial-weighted Fock pairing. -/
+def derivativeProjection {S : Type*} (α : S →₀ ℕ) (P : MvPolynomial S ℂ) : MvPolynomial S ℂ :=
+  MvPolynomial.monomial α (P.coeff α)
+
+theorem derivativeProjection_spec {S : Type*} (α : S →₀ ℕ) (s : ℝ) (hs : 0 < s)
+    (P : MvPolynomial S ℂ) :
+    derivativeProjection α P ∈ Submodule.span ℂ {derivativeVector α s} ∧
+    fockInner (P - derivativeProjection α P) (derivativeVector α s) = 0 := by
+  classical
+  have hsc : (s:ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hs.ne'
+  constructor
+  · have h : derivativeProjection α P = ((P.coeff α)*(s:ℂ)) • derivativeVector α s := by
+      simp [derivativeProjection, derivativeVector, MvPolynomial.smul_monomial, hsc, mul_assoc]
+    rw [h]
+    exact Submodule.smul_mem _ _ (Submodule.mem_span_singleton_self _)
+  · simp [derivativeProjection, derivativeVector, fockInner_monomial_right]
+
+/-- The native tested projector entry, including both test numerators,
+the measured dilation and its complete factorial denominator. -/
+theorem projected_test_pair {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z z' : ℂ) :
+    fockInner (measuredTest α s z) (derivativeProjection α (measuredTest α s z')) =
+      (s:ℂ)^2 * (z * starRingEnd ℂ z') / (multiFactorial α:ℂ) := by
+  classical
+  have hf : (multiFactorial α:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
+  simp [derivativeProjection, measuredTest, fockInner_monomial_right, field, hf]
+  <;> ring
+
 /-- For a rational squared dilation the actual derivative norm has the
 correct all-place orientation. W is rational at every embedding and W
 times the squared norm is literally one, hence integral at every place. -/
@@ -407,6 +461,46 @@ theorem rational_derivative_height {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr
   · rw [(derivative_pair α _ 0 (Real.sqrt_pos.2 hr')).2, Real.sq_sqrt hr'.le]
     push_cast
     field [hrc, hf]
+
+/-- A rational comparison metric exists for every real measured scale.
+Its squared dilation differs by less than a factor two. The height
+witness uses the actual derivative in this comparison metric. -/
+theorem dyadic_derivative_height {S : Type*} (α : S →₀ ℕ) (s : ℝ) (hs : 0 < s) :
+    let k := Int.log 2 (s^2)
+    let r : ℚ := (2:ℚ)^k
+    let W := (r:ℂ)/(multiFactorial α:ℂ)
+    (r:ℝ) ≤ s^2 ∧ s^2 < 2*(r:ℝ) ∧ W ≠ 0 ∧
+      (∀ σ : ℂ ≃+* ℂ, Real.log ‖σ W‖ ≤ Real.log (s^2) - Real.log (multiFactorial α)) ∧
+      W * (fockNormSq (derivativeVector α (Real.sqrt (r:ℝ))):ℂ) = 1 := by
+  let k := Int.log 2 (s^2)
+  let r : ℚ := (2:ℚ)^k
+  have hr : 0 < r := zpow_pos (by norm_num) _
+  have hr' : 0 < (r:ℝ) := by exact_mod_cast hr
+  have eqr : (r:ℝ) = (2:ℝ)^k := by simp [r]
+  have hlow : (r:ℝ) ≤ s^2 := by
+    rw [eqr]
+    exact Int.zpow_log_le_self (by decide : 1 < 2) (sq_pos_of_pos hs)
+  have hhigh := Int.lt_zpow_succ_log_self (by decide : 1 < 2) (s^2)
+  have ub : s^2 < 2*(r:ℝ) := by
+    rw [eqr, mul_comm]
+    simpa only [Nat.cast_ofNat, zpow_add_one₀ (by norm_num : (2:ℝ) ≠ 0)] using hhigh
+  obtain ⟨hn, arch, prod⟩ := rational_derivative_height α r hr
+  exact ⟨hlow, ub, hn, fun σ => (arch σ).trans_le (sub_le_sub_right
+    (Real.log_le_log hr' hlow) _), prod⟩
+
+/-- The finite price of dyadic replacement is supported entirely at 2,
+including when its exponent is negative. -/
+theorem dyadic_metric_padic (p : ℕ) [Fact p.Prime] (k : ℤ) :
+    padicNorm p ((2:ℚ)^k) = if p = 2 then ((2:ℚ)⁻¹)^k else 1 := by
+  have h : padicNorm p ((2:ℚ)^k) = (padicNorm p 2)^k :=
+    map_zpow₀ (IsAbsoluteValue.abvHom (padicNorm p)) _ _
+  rw [h]
+  split_ifs with hp
+  · subst p
+    have hn : padicNorm 2 2 = (2:ℚ)⁻¹ := padicNorm.padicNorm_p_of_prime
+    rw [hn]
+  · have hn : padicNorm p 2 = 1 := padicNorm.padicNorm_of_prime_of_ne (p := p) (q := 2) hp
+    rw [hn, one_zpow]
 
 /-- Unnormalised twisted class sum on the finite native inertia group. -/
 def classTest {C : Type*} [AddCommGroup C] [Fintype C] (a : C → ℕ) (u : C) (χ : AddChar C ℂ) : ℂ :=

@@ -188,11 +188,16 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.forced_sum_eq_nominal_ask
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.interval_jet_norm_ge_one
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.primitive_line_denominator
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.measured_line_denominator
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_ceil_norm_ge_half
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.nominal_jet
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.dyadic_nominal_jet
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.derivative_pair
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.derivativeProjection_spec
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.projected_test_pair
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.rational_derivative_height
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.dyadic_derivative_height
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.dyadic_metric_padic
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.classTest_bounds
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.exists_classTest_ge
 #print axioms RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read
