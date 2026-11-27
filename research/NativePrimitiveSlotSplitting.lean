@@ -102,4 +102,69 @@ theorem anchor_on_wheel_star {r : ℕ} (D : Fin (r+1) → ℕ) (j : Fin r) :
   simp only [normalReading, starColumn, ite_eq_right (Fin.succ_ne_zero j).symm, ite_true, zero_sub,
     ← Finset.sum_mul, Nat.cast_sum]
 
+/-- Exact index of the jumps of the original star sections after forgetting
+one anchor. Taking differences identifies the constant-extended star lattice
+modulo the entire kernel of the jump map. -/
+theorem wheel_star_jump_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
+    (cop : Pairwise (fun i j => (D i).Coprime (D j))) :
+    ∃ K : AddSubgroup (Fin r → ℤ), K.index = ∑ i, wheelNormal D i ∧
+      ∀ y, y ∈ K ↔ ∃ z : Fin r → ℤ, y = layerJump (fun i => ∑ j, starColumn D j i 0*z j) := by
+  classical
+  let J : (Fin (r+1) → ℤ) →+ (Fin r → ℤ) := {
+    toFun := layerJump
+    map_zero' := by funext j; simp [layerJump]
+    map_add' A B := by funext j; simp only [layerJump, Pi.add_apply]; abel }
+  let F := wheelCongruence D
+  have h := constant_extension_index D hD cop
+  have onto : Function.Surjective J := fun y => ⟨fromJumps 0 y, funext fun j => layerJump_fromJumps 0 y j⟩
+  have ker : J.ker ≤ F.ker := by
+    intro A hA
+    change J A = 0 at hA
+    have same : A = fun _ => A 0 := eq_of_anchor_jumps rfl fun j => by
+      have hj := congrFun hA j
+      change layerJump A j = 0 at hj
+      change layerJump A j = A 0-A 0
+      rw [hj, sub_self]
+    apply (h.2 A).2
+    refine ⟨A 0,fun _ => 0,fun i => ?_⟩
+    simpa only [mul_zero, Finset.sum_const_zero, add_zero] using congrFun same i
+  refine ⟨F.ker.map J, (F.ker.index_map_eq onto ker).trans h.1, ?_⟩
+  intro y
+  constructor
+  · rintro ⟨A,hA,rfl⟩
+    obtain ⟨a,z,vals⟩ := (h.2 A).1 hA
+    refine ⟨z, funext fun j => ?_⟩
+    change A j.succ - A j.castSucc = _ - _
+    rw [vals j.succ, vals j.castSucc]
+    abel
+  · rintro ⟨z,rfl⟩
+    refine ⟨fun i => ∑ j, starColumn D j i 0*z j, (h.2 _).2 ⟨0,z,fun _ => (zero_add _).symm⟩,rfl⟩
+
+/-- Eliminating the anchor costs at least the entire positive log volume
+of the same wheel block in its actual counting metric. -/
+theorem logVolume_le_log_congruence {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) :
+    logVolume S D ≤ Real.log ((∑ i, wheelNormal D i : ℕ):ℝ) := by
+  classical
+  let δ := ∑ i, wheelNormal D i
+  have hd : 0 < δ := Finset.sum_pos (fun i _ => Finset.prod_pos fun j _ => hD j) Finset.univ_nonempty
+  have dual : dualEnergy S D ≤ (δ:ℝ)^2 * dualEnergy S (fun _ => 1) := by
+    unfold dualEnergy
+    rw [Finset.mul_sum]
+    apply Finset.sum_le_sum
+    intro i _
+    have hi : (wheelNormal D i:ℝ) ≤ (δ:ℝ) := by
+      exact_mod_cast (Finset.single_le_sum (f := wheelNormal D) (fun _ _ => Nat.zero_le _) (Finset.mem_univ i))
+    have sq := pow_le_pow_left₀ (Nat.cast_nonneg (wheelNormal D i)) hi 2
+    have lower := div_le_div_of_nonneg_right sq (Nat.cast_nonneg (S i).card : 0 ≤ ((S i).card:ℝ))
+    simpa only [wheelNormal, Finset.prod_const_one, Nat.cast_one, one_pow, mul_one_div] using lower
+  have hh := Real.log_le_log (dualEnergy_pos S D hS hD) dual
+  rw [Real.log_mul (pow_ne_zero _ (by exact_mod_cast hd.ne')) (dualEnergy_pos S _ hS (fun _ => Nat.zero_lt_one)).ne',
+    Real.log_pow] at hh
+  have opp := complementaryLog_eq S D hS hD
+  simp only [complementaryLog, one_div, Real.log_inv] at opp
+  change logVolume S D ≤ Real.log (δ:ℝ)
+  norm_num only [Nat.cast_ofNat] at hh
+  linarith only [hh,opp]
+
 end RHLean.Analysis.AlpogeThin.SlotProjector

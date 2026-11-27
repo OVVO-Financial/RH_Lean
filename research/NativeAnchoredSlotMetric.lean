@@ -291,15 +291,19 @@ theorem wheel_star_kernel {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i
     rw [Finset.sum_comm]
     simp only [← Finset.sum_mul, wheelNormal_star, zero_mul, Finset.sum_const_zero]
 
+/-- Read an integral section modulo the normal level of the constant column. -/
+def wheelCongruence {r : ℕ} (D : Fin (r+1) → ℕ) :
+    (Fin (r+1) → ℤ) →+ ZMod (∑ i, wheelNormal D i) where
+  toFun A := (normalReading D A : ZMod _)
+  map_zero' := by simp [normalReading]
+  map_add' A B := by simp [normalReading, mul_add, Finset.sum_add_distrib]
+
 /-- Ordinary index after adjoining the literal constant anchor to the original
 wheel stars. A primitive completion has normal reading one instead. -/
 theorem constant_extension_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
     (cop : Pairwise (fun i j => (D i).Coprime (D j))) :
     let δ := ∑ i, wheelNormal D i
-    let F : (Fin (r+1) → ℤ) →+ ZMod δ := {
-      toFun := fun A => (normalReading D A : ZMod δ)
-      map_zero' := by simp [normalReading]
-      map_add' := fun A B => by simp [normalReading, mul_add, Finset.sum_add_distrib] }
+    let F := wheelCongruence D
     F.ker.index = δ ∧ (∀ A, A ∈ F.ker ↔ ∃ (a : ℤ) (z : Fin r → ℤ),
       ∀ i, A i = a + ∑ j, starColumn D j i 0*z j) := by
   classical
