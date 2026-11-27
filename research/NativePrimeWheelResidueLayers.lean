@@ -60,7 +60,8 @@ private theorem wheel_complex (m : ℕ) (hp : (m+1).Prime) (f : ZMod (m+1) → �
     have hm : 0 < m := by have := hp.two_le; omega
     have prod0 : (∏ j ∈ Finset.range m, (1 - ZMod.stdAddChar (0 : ZMod (m+1))^(j+1))) = 0 :=
       Finset.prod_eq_zero (Finset.mem_range.mpr hm : 0 ∈ Finset.range m) (by simp)
-    simp only [wheel_spectrum, prod0, zero_mul, ZMod.dft_apply_zero, Finset.sum_const,
+    rw [wheel_spectrum, prod0, zero_mul]
+    simp only [ZMod.dft_apply_zero, Finset.sum_const,
       Finset.card_univ, ZMod.card, nsmul_eq_mul, sub_self]
   · have hne : ZMod.stdAddChar k ≠ 1 := fun h => hk <| ZMod.injective_stdAddChar
         (h.trans (AddChar.map_zero_eq_one _).symm)
@@ -111,8 +112,9 @@ theorem wheel_joint_recovery (m : ℕ) (hp : (m+1).Prime) :
     (∀ f : ZMod (m+1) → ℤ, ∃ a : ℤ, ∀ j, d*f j = wheelSweep f m j + a) := by
   classical
   intro P d
-  have mem (f : ZMod (m+1) → ℤ) : f ∈ P.ker ↔ d ∣ ∑ j, f j :=
-    ZMod.intCast_zmod_eq_zero_iff_dvd _ _
+  have mem (f : ZMod (m+1) → ℤ) : f ∈ P.ker ↔ d ∣ ∑ j, f j := by
+    change ((∑ j, f j : ℤ) : ZMod (m+1)) = 0 ↔ ((m+1:ℕ):ℤ) ∣ ∑ j, f j
+    exact ZMod.intCast_zmod_eq_zero_iff_dvd (∑ j, f j) (m+1)
   have onto : Function.Surjective P := by
     intro y
     obtain ⟨a, ha⟩ := ZMod.intCast_surjective y
@@ -161,7 +163,7 @@ theorem wheelSweep_jump (m : ℕ) (hp : (m+1).Prime) (U : Finset (ZMod (m+1)))
         Finset.sum_congr rfl fun i _ => by by_cases h : i ∈ U <;> simp [h]
       _ = _ := by
         rw [Finset.sum_add_distrib, ← Finset.sum_mul, Finset.sum_boole]
-        simp [ZMod.card, nsmul_eq_mul]
+        simp [ZMod.card]
   have hunit : ¬ ((m+1:ℕ):ℤ) ∣ (U.card:ℤ) :=
     fun h => hhi.not_ge (Nat.le_of_dvd hlo (Int.natCast_dvd_natCast.mp h))
   rw [wheelSweep_eq m hp, dvd_sub_right (dvd_mul_right _ _), mass,
@@ -203,7 +205,11 @@ private theorem levelValue_sumZero {r p : ℕ} (D : Fin (r+1) → ℕ) (U : Fin 
   refine Fin.cases ?_ (fun j => ?_) i
   · rw [Fin.sum_univ_succ] at hs
     have h0 : U 0 = -(∑ j : Fin r, U j.succ) := eq_neg_of_add_eq_zero_left hs
-    simp [levelValue, starColumn, Fin.succ_ne_zero, ← Finset.mul_sum, h0, neg_mul, mul_neg]
+    have coeff (j : Fin r) : (starColumn D j 0 0 : ZMod p) = -(D 0 : ZMod p) := by
+      simp [starColumn, (Fin.succ_ne_zero j).symm]
+    calc
+      _ = -(D 0 : ZMod p) * ∑ j : Fin r, U j.succ := by simp only [levelValue, coeff, Finset.mul_sum]
+      _ = _ := by rw [h0, neg_mul, mul_neg]
   · simp [levelValue, starColumn, Fin.succ_ne_zero, ite_mul]
 
 private theorem star_shift_onto {r p : ℕ} [Fact p.Prime] (D : Fin (r+1) → ℕ)
@@ -219,7 +225,7 @@ private theorem star_shift_onto {r p : ℕ} [Fact p.Prime] (D : Fin (r+1) → �
   · subst i
     rw [ha, zero_mul, sub_self]
   · change (D i : ZMod p)*((t i-t a)/(D i : ZMod p) - (if i = a then ∑ l, v l else 0)) = _
-    rw [if_neg h, sub_zero, mul_comm, div_mul_cancel₀ _ (others i h)]
+    rw [ite_eq_right h, sub_zero, mul_comm, div_mul_cancel₀ _ (others i h)]
 
 /-- Each separated, unaligned interior edge costs exactly one factor of the
 admitted prime on the genuine star coefficient lattice, even jointly. A wheel
@@ -230,7 +236,7 @@ theorem starJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime
     (starJump (fun i => prime i ^ depth i) (prime a) edges).ker.index = prime a ^ edges.card := by
   classical
   let p := prime a
-  letI : Fact p.Prime := ⟨hp a⟩
+  let _ : Fact p.Prime := ⟨hp a⟩
   let D := fun i => prime i ^ depth i
   let F := starJump D p edges
   have ha : (D a : ZMod p) = 0 := by
@@ -241,8 +247,8 @@ theorem starJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime
     rw [Nat.cast_pow]
     apply pow_ne_zero
     intro hz
-    exact h (inj (((Nat.prime_dvd_prime_iff_eq (hp a) (hp i)).mp
-      ((ZMod.natCast_eq_zero_iff _ _).mp hz)).symm)
+    have hdvd : prime a ∣ prime i := (ZMod.natCast_eq_zero_iff _ _).mp hz
+    exact h (inj ((Nat.prime_dvd_prime_iff_eq (hp a) (hp i)).mp hdvd).symm)
   have onto : Function.Surjective F := by
     intro y
     let step (i : ℕ) := if hi : i < r then
