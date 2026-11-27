@@ -1,6 +1,5 @@
 import «research.NativeSignedWidthSweep»
 import «research.NativeAnchoredSlotMetric»
-import RHLean.Analysis.AlpogeThin.NativeScalarSupplierPayment
 import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.LogDerivRegion
 
 /-! The centered thick response on the actual translated widths and its own MAIN.
@@ -331,6 +330,31 @@ def highComplement (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (TT T : Finset 
     (w j.val.1 j.val.2 ((0,1),s.val))
   4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (D s))/((c:ℝ)*((T.card*n:ℕ):ℝ)*TT.card)
 
+private theorem centered_root_price (x ε : ℝ) (hx : 1 ≤ x) (he : 0 ≤ ε) (he1 : ε ≤ 1) :
+    32*(Real.log 4+3)*Real.sqrt x + (3*(x+1)^((1:ℝ)/2+ε/2)+alpogeNativeMoveConstant) +
+      (20*Real.log 4*Real.sqrt x+(8/ε)*x^((1:ℝ)/2+9*ε/8)) ≤
+      (53*Real.log 4+106+8/ε)*x^((1:ℝ)/2+9*ε/8) := by
+  let α := (1:ℝ)/2+ε/2
+  let β := (1:ℝ)/2+9*ε/8
+  have hx0 := zero_le_one.trans hx
+  have hα : 0 ≤ α := by dsimp [α]; linarith
+  have hβ : 0 ≤ β := by dsimp [β]; linarith
+  have root : Real.sqrt x ≤ x^β := by
+    rw [Real.sqrt_eq_rpow]; apply Real.rpow_le_rpow_of_exponent_le hx; dsimp [β]; linarith
+  have power : (x+1)^α ≤ 2*x^β := calc
+    _ ≤ (2*x)^α := Real.rpow_le_rpow (by linarith) (by linarith) hα
+    _ = (2:ℝ)^α*x^α := Real.mul_rpow (by norm_num) hx0
+    _ ≤ 2*x^α := mul_le_mul_of_nonneg_right (by
+      simpa only [Real.rpow_one] using Real.rpow_le_rpow_of_exponent_le (by norm_num : (1:ℝ) ≤ 2)
+        (show α ≤ 1 by dsimp [α]; linarith)) (Real.rpow_nonneg hx0 _)
+    _ ≤ _ := mul_le_mul_of_nonneg_left (Real.rpow_le_rpow_of_exponent_le hx (show α ≤ β by dsimp [α,β]; linarith)) (by norm_num)
+  have unit : 1 ≤ x^β := Real.one_le_rpow hx hβ
+  change 32*(Real.log 4+3)*Real.sqrt x + (3*(x+1)^α+(Real.log 4+4)) +
+    (20*Real.log 4*Real.sqrt x+(8/ε)*x^β) ≤ (53*Real.log 4+106+8/ε)*x^β
+  linarith only [power,mul_le_mul_of_nonneg_left root (by positivity : 0 ≤ 32*(Real.log 4+3)),
+    mul_le_mul_of_nonneg_left root (by positivity : 0 ≤ 20*Real.log 4),
+    mul_le_mul_of_nonneg_left unit (by positivity : 0 ≤ Real.log 4+4)]
+
 /-- Two-sided identification of the centered thick deficit after subtracting
 the actual high reads and measured negative complement. A classical bound
 on the surviving principal component gives an unconditional sublinear price. -/
@@ -353,7 +377,7 @@ theorem centered_thick_measured (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
       (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) → (∀ t ∈ TT, a t/b ∈ Set.Icc Y Z) →
       (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
       |(Hc-high-C)-alpogeNativeGzArithmetic x| ≤ E ∧
-      Hc-high ≤ C+K*x*Real.exp (-κ*Real.sqrt (Real.log x))+E := by
+      Hc-high ≤ C+K*x*Real.exp (-κ*Real.sqrt (Real.log x))+(53*Real.log 4+106+8/ε)*x^((1:ℝ)/2+9*ε/8) := by
   classical
   obtain ⟨κ,K,hκ,hK⟩ := Formalism.ZF.gzPNT
   refine ⟨κ,max 1 K,hκ,zero_lt_one.trans_le (le_max_left _ _),?_⟩
@@ -388,7 +412,8 @@ theorem centered_thick_measured (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
   rw [AlpogeNativeBoundHandoff.statementOCGz_eq_native] at classicalBound
   have positive := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right (le_max_right (1:ℝ) K) (by linarith : 0 ≤ x))
     (Real.exp_pos (-κ*Real.sqrt (Real.log x))).le
-  linarith only [(abs_le.mp gap).2, le_abs_self (alpogeNativeGzArithmetic x),classicalBound,positive]
+  have paid : E ≤ (53*Real.log 4+106+8/ε)*x^((1:ℝ)/2+9*ε/8) := centered_root_price x ε (by linarith) he.le he1
+  linarith only [(abs_le.mp gap).2, le_abs_self (alpogeNativeGzArithmetic x),classicalBound,positive,paid]
 
 /-- At the original finite cutoff the centered thin term has its own MAIN.
 The bound is simultaneous in every cutoff. Host size and conductor are
@@ -461,8 +486,9 @@ theorem original_cutoff_centered_thick (ε : ℝ) (he : 0 < ε) (h52 : ε < 1/52
           Finset.sum_le_sum fun j _ => row (u:AlpogeNativeDyadicH e) t h j) (by positivity)
       _ = _ := by
         simp only [Finset.sum_add_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_fin,nsmul_eq_mul,mul_add]
-        apply congrArg (_ + ·)
-        field_simp [hJ]; all_goals ring
+        refine congrArg₂ (· + ·) ?_ ?_
+        · first | rfl | congr!
+        · field_simp [hJ]; all_goals ring
   have norm : ((TT.card:ℝ)*n*(b/x))/Q = 2/(δ*x) := by
     dsimp only [Q,δ,alpogeNativeProjectionDivisor]; field_simp [hb.ne',hx0.ne',hδ.ne',
       (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')]; all_goals ring

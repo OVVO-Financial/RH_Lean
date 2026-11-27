@@ -151,7 +151,7 @@ The first term counts the full signed width displacement through the moving prim
 
 The selected pair pays the three nonprincipal characters at each genuine $a_t/b$ in its window. The principal response changes by at most $\log4+4$ over $[x,x+1]$. Combining this calculation with the independently measured $C_\perp$ gives
 $$\left|\frac{H(v)}{Q}-h_{\rm high}-C_\perp-G_z(x)\right|\le E,$$
-where $E=32(\log4+3)\sqrt x+3(x+1)^{1/2+\varepsilon/2}+\log4+4+20\log4\sqrt x+(8/\varepsilon)x^{1/2+9\varepsilon/8}$. This controls both signs on the very same family. The classical zero-free region gives a uniform one-sided price $H(v)/Q-h_{\rm high}\le C_\perp+E+Kx\exp(-\kappa\sqrt{\log x})$. The remaining square-root comparison requires independent signed gain on the surviving principal arithmetic component. [Centered widths, projected principal and measured compensation](NativeCenteredThickCompensation.lean)
+where $E=32(\log4+3)\sqrt x+3(x+1)^{1/2+\varepsilon/2}+\log4+4+20\log4\sqrt x+(8/\varepsilon)x^{1/2+9\varepsilon/8}$. This error is at most $(53\log4+106+8/\varepsilon)x^{1/2+9\varepsilon/8}$ for $0<\varepsilon\le1$. It controls both signs on the very same family. The classical zero-free region gives a uniform one-sided price $H(v)/Q-h_{\rm high}\le C_\perp+E+Kx\exp(-\kappa\sqrt{\log x})$. The remaining square-root comparison requires independent signed gain on the surviving principal arithmetic component. [Centered widths, projected principal and measured compensation](NativeCenteredThickCompensation.lean)
 
 ### Perron readings of integer slots
 
