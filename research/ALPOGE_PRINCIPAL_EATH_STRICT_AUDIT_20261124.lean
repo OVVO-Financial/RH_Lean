@@ -1,4 +1,4 @@
-import «research.NativeMeasuredSlotProjector»
+import «research.NativeTranslatedSlotFrame»
 import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
@@ -256,6 +256,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.line_det,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_projector,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank,
     ``RHLean.Analysis.AlpogeThin.WheelFit.place_rat,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.common_place,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.transport_integral,
