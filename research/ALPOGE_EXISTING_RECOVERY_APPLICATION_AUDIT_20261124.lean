@@ -178,4 +178,5 @@ run_cmd do
     logInfo m!"PASS native existing recovery application {root}: {axs}"
 
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
+#print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_frozen_top_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq

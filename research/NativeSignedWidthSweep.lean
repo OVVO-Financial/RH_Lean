@@ -233,7 +233,7 @@ private theorem frozen_mass_translate (I : ℕ → AddSubgroup (AlpogeNativeE0 �
         obtain ⟨s, _, heq⟩ := Finset.mem_image.mp ((alpogeNativeFreezing_partner_mem_iff T2 u t g).1 hin)
         exact hg (Finset.mem_image.mpr ⟨s+u-t, Finset.mem_univ _, heq⟩)
       have zero (u : H) : Z g u = 0 := by
-        simp only [Z, alpogeNativeFreezeThick, if_neg (off u), sub_self]
+        simp only [Z, alpogeNativeFreezeThick, ite_eq_right (off u), sub_self]
         exact min_eq_right (le_max_right _ _)
       simp [zero]
     _ = _ := by
@@ -261,7 +261,7 @@ private theorem frozen_source_translate (I : ℕ → AddSubgroup (AlpogeNativeE0
       alpogeNativeSignedWidthSource I F ell N a t (prof l u) = logTerm - bill u := by
     have hh ρ (hρ : alpogeNativeInPhi ρ) : 0 < prof l u ρ ∧ prof l u ρ ≤ prof r u ρ := by
       by_cases hmem : ρ ∈ alpogeNativeThickPositiveSites T2 u
-      · simpa only [prof, alpogeNativeFreezeThick, if_pos hmem] using And.intro hl hlr
+      · simpa only [prof, alpogeNativeFreezeThick, ite_eq_left hmem] using And.intro hl hlr
       · simp [prof, alpogeNativeFreezeThick, hmem, hw u ρ hρ]
     have rel := signed_row_eq I F ell N a t (prof l u) (prof r u) hh
     rw [show (∑ ρ ∈ alpogeNativePhiSet H, Real.log (prof r u ρ / prof l u ρ)) = _ from
@@ -331,7 +331,7 @@ theorem frozen_top_excess_eq (I : ℕ → AddSubgroup (AlpogeNativeE0 × H))
   have h2 : (T2.card:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hT2.card_pos.ne'
   have hmr : (m:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hm.ne'
   have hh : (Fintype.card H:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
-  field_simp [ht, h2, hmr, hh, hb.ne'] <;> ring
+  field_simp [ht, h2, hmr, hh, hb.ne']
 
 /-- Cap the measured widths at a common raw width s before rounding. On the
 selected native pair the reference lies in the all-thin range. The right
@@ -382,5 +382,101 @@ theorem pairGood_row_le (eps : ℝ) (he : 0 < eps) :
       (Real.log_le_log (hraw ρ hρ) (min_le_left _ _)) hη.le)
   rw [signed_row_eq _ _ _ N a t lo hi order]
   exact sub_le_sub_right (add_le_add budget le_rfl) _
+
+/-- The complete frozen ASK minus MAIN, divided by its original positive Q.
+The far width is certified by the independent all-thin PairGood estimate.
+Only the displayed moving-colour near-minus-far difference is left. -/
+theorem pairGood_frozen_top_le (eps : ℝ) (he : 0 < eps) :
+    ∃ x₀ : ℝ, ∀ x : ℝ, x₀ ≤ x → ∀ (Y Z : ℝ) (q d e N : ℕ)
+      (hG : UpperTheory.Top.PairGood 1 eps Y Z q d),
+      letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+      letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+      ∀ (m : ℕ) (TT T2 : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+        (b A η s r : ℝ) (w : AlpogeNativeDyadicH e → Fin m → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+        TT.Nonempty → T2.Nonempty → 0 < m → 0 < b → 0 < η → 0 < s → s ≤ r →
+        (∀ t ∈ TT, 0 < a t ∧ a t ≤ A) →
+        (∀ u j ρ, alpogeNativeInPhi ρ → 0 < w u j ρ) →
+        (∀ u j t, t ∈ TT → ∀ g, ¬alpogeNativeInPhi g →
+          Real.exp (x^(eps/3))/3 ≤ a t / alpogeNativeFreezeThick T2 u s (w u j) (alpogeNativePartner t g)) →
+        Real.log (alpogeNativeHostN e q d) ≤ 2*x^(eps/5)*Real.log x^2 →
+        let D := alpogeNativeHostData e q d
+        let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+        let grid := alpogeNativeLowerLogWidth η
+        let S := alpogeNativePhysicalSubgroupTopExcess (⊤ : AddSubgroup (AlpogeNativeDyadicH e)) D.inertia D.frob ell
+          N TT a (fun u j => alpogeNativeFreezeThick T2 u (grid r) (fun ρ => grid (w u j ρ)))
+        S / alpogeNativeProjectionDivisor TT T2 m b ≤
+          8 * (Fintype.card (AlpogeNativeDyadicH e):ℝ) * A * Real.exp (-(x^(eps/8))) /
+            (b * alpogeNativeProjectionDensity T2) +
+          (1/((TT.card:ℝ)*b)) * ∑ t ∈ TT, a t *
+            (colourRemainder D.inertia D.frob N (a t/grid r) - colourRemainder D.inertia D.frob N (a t/grid s)) := by
+  classical
+  obtain ⟨x₀, h₀⟩ := nativeLedger_pairGood_roundedASK_le_thick eps he
+  refine ⟨x₀, ?_⟩
+  intro x hx Y Z q d e N hG
+  let : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  dsimp only
+  intro m TT T2 a b A η s r w hTT hT2 hm hb hη hs hsr ha hw hthin hlog
+  let D := alpogeNativeHostData e q d
+  let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+  let grid := alpogeNativeLowerLogWidth η
+  let raw := fun u j => alpogeNativeFreezeThick T2 u s (w u j)
+  let widths := fun v u j => alpogeNativeFreezeThick T2 u (grid v) (fun ρ => grid (w u j ρ))
+  let S := fun v => alpogeNativePhysicalSubgroupTopExcess (⊤ : AddSubgroup (AlpogeNativeDyadicH e))
+    D.inertia D.frob ell N TT a (widths v)
+  let Q := alpogeNativeProjectionDivisor TT T2 m b
+  let C := 4*(Fintype.card (AlpogeNativeDyadicH e):ℝ)*Real.exp (-(x^(eps/8)))
+  have hQ : 0 < Q := alpogeNativeProjectionDivisor_pos TT T2 hTT hT2 m hm b hb
+  have pref (u j ρ) (hρ : alpogeNativeInPhi ρ) : 0 < raw u j ρ := by
+    simp only [raw, alpogeNativeFreezeThick]
+    split <;> first | exact hs | exact hw u j ρ hρ
+  have gridFreeze (u j) : (fun ρ => grid (raw u j ρ)) = widths s u j := by
+    funext ρ
+    simp only [raw, widths, alpogeNativeFreezeThick]
+    split <;> rfl
+  have cardH : (Fintype.card (AlpogeNativeDyadicH e):ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+  have bound u j t (ht : t ∈ TT) :
+      alpogeNativeSignedWidthSource D.inertia D.frob ell N (a t) t (widths s u j) ≤ C*A := by
+    have far := h₀ x hx Y Z q d e N hG ∅ 0 t (a t) η (raw u j) (ha t ht).1 hη hlog (by
+      intro g hg
+      have hg' : ¬alpogeNativeInPhi g := (Finset.mem_filter.mp (Finset.mem_sdiff.mp hg).1).2
+      exact ⟨pref _ _ _ (alpogeNativeFreezing_partner_inPhi t g hg'), hthin u j t ht g hg'⟩)
+    simp only [alpogeNativeProjectionActualThick, Finset.sum_empty, mul_zero, Complex.zero_re,
+      zero_add, Finset.card_empty, Nat.cast_zero, sub_zero, alpogeNativeProjectionPhi_card,
+      Nat.cast_mul, Nat.cast_ofNat, div_self (mul_ne_zero two_ne_zero cardH), one_mul] at far
+    rw [← gridFreeze]
+    exact far.trans (((mul_right_comm _ _ _).le).trans
+      (mul_le_mul_of_nonneg_left (ha t ht).2 (by dsimp [C]; positivity)))
+  let J := (⊤ : AddSubgroup (AlpogeNativeDyadicH e))
+  have far : S s ≤ (TT.card:ℝ)*m*(C*A) := by
+    unfold S alpogeNativePhysicalSubgroupTopExcess
+    calc
+      _ ≤ 1/(Fintype.card J:ℝ) * ∑ _u : J, ∑ _t ∈ TT, ∑ _j : Fin m, C*A :=
+        mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun u _ => Finset.sum_le_sum fun t ht =>
+          Finset.sum_le_sum fun j _ => bound (u:AlpogeNativeDyadicH e) j t ht) (by positivity)
+      _ = _ := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        field [Nat.cast_ne_zero.mpr (Fintype.card_ne_zero (α := J)) : (Fintype.card J:ℝ) ≠ 0]
+  have refPrice : S s/Q ≤ 8*(Fintype.card (AlpogeNativeDyadicH e):ℝ)*A*Real.exp (-(x^(eps/8))) /
+      (b*alpogeNativeProjectionDensity T2) := by
+    refine (div_le_div_of_nonneg_right far hQ.le).trans (le_of_eq ?_)
+    dsimp only [Q, alpogeNativeProjectionDivisor, C]
+    have ht : (TT.card:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hTT.card_pos.ne'
+    have hmr : (m:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hm.ne'
+    have hden : 0 < alpogeNativeProjectionDensity T2 := by
+      unfold alpogeNativeProjectionDensity
+      exact div_pos (by exact_mod_cast hT2.card_pos) (by exact_mod_cast Fintype.card_pos)
+    field [ht, hmr, hb.ne', hden.ne']
+  have order : grid s ≤ grid r := by
+    apply Real.exp_le_exp.mpr
+    apply mul_le_mul_of_nonneg_right _ hη.le
+    exact_mod_cast Int.floor_le_floor (div_le_div_of_nonneg_right (Real.log_le_log hs hsr) hη.le)
+  have changeCost := frozen_top_excess_eq D.inertia D.frob ell N m TT T2 a b (grid s) (grid r)
+    (fun u j ρ => grid (w u j ρ)) hTT hT2 hm hb (fun t ht => (ha t ht).1) (Real.exp_pos _)
+    order (fun _ _ _ _ => Real.exp_pos _)
+  change (S r - S s)/Q = _ at changeCost
+  rw [sub_div] at changeCost
+  change S r/Q ≤ _ + _
+  linarith only [changeCost, refPrice]
 
 end RHLean.Analysis.AlpogeThin.WidthSweep
