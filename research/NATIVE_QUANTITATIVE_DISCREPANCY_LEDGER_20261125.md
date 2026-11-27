@@ -35,7 +35,7 @@ For distinct measured monomials $X^{\alpha_i}$ with positive rational squared sc
 $$
  Q_i=\frac{r_i A_i^2}{\alpha_i!},\qquad L_i=h_iQ_i,\qquad V=\prod_i Q_i .
 $$
-The price of the worst rank-one pairing at $p$ is exactly $|L_i|_p$. The price of the worst full determinant is exactly $|V|_p$. Independent changes of the two row tables are allowed, with coordinates integral at $\iota$ and $\iota\circ\mathrm{conj}$ respectively. In `character_coordinates` the coefficient at every row, direction and character can be chosen independently. The trivial character and identity tables attain equality. A thick singleton translated through the actual dyadic host gives distinct directions whenever the thick and thin integral ceiling orders differ. This proves rank for those translates. The compact retained-rank quota measures the dimension of a larger space.
+The price of the worst rank-one pairing at $p$ is exactly $|L_i|_p$. The price of the worst full determinant is exactly $|V|_p$. Independent changes of the two row tables are allowed, with coordinates integral at $\iota$ and $\iota\circ\mathrm{conj}$ respectively. In `character_coordinates` the coefficient at every row, direction and character can be chosen independently. The trivial character and identity tables attain equality. When the thick and thin ceiling orders differ, two directions coincide exactly when their translated thick masks coincide. Thus one can compute rank on the prescribed mask by counting distinct translates. Singleton masks realize the full translate count. The density and retained-rank requirements of the window theorem apply to its selected family.
 
 For $E=nr_O>0$, reduce all rational entries before forming the integer
 $$
@@ -54,7 +54,7 @@ At primes where all $h_i$ are units, the rank-one inequalities imply the full de
 $$
  \sum_{p>N}v_p(\alpha_i!)\log p\le B+\log h_i\qquad(N\ge2,\ P\subseteq[2,N]).
 $$
-This tests the factorial tail even with a positive prime gain inside the cutoff. [Outside-wheel comparison](NativeWheelFitProjector.lean)
+For example, multiplying $a=A_{\max}$ by ten in the $q=11,d=7$ calculation leaves $N=180$, gives orders $1800,300$ and $A=3^{300}5^{60}$. With $h=1$ the primes above $180$ alone cost $\sum_{p>180} v_p(1800!300!)\log p=3491.432052\ldots$. The prime gain inside the cutoff is positive throughout. [Outside-wheel comparison](NativeWheelFitProjector.lean)
 
 **Physical obligation.** On the retained section family one must identify the integral tested columns, their adjoint and the class normalization, or bound the cost of carrying those columns and their duals to the measured wheel lattice. A change of lattice or metric also changes the denominator and the archimedean comparison. That transport, its rank and index, and a uniform bound on its combined price with $\log M/E$ remain open. A direct measured construction meeting these inequalities would replace the upstream Selmer rows and auxiliary primes. It would supply the projection estimate used by the opposite test in the inverse ratio and by the determinant of comparison forms. The existing frozen ledger and principal-character handoff require the resulting signed inequality on the original family and normalization.
 

@@ -265,7 +265,9 @@ theorem nominal_signed_witness (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
       rw [← mul_assoc]
       exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left (zero_depth_le e q d N p hH w hw) zero_le_two)
         (Real.log_natCast_nonneg _)
-    linarith only [bound]
+    norm_num only [Nat.cast_ofNat]
+    rw [sub_eq_add_neg, add_comm (Real.log (r:ℝ)) (-Real.log (multiFactorial α))]
+    exact add_le_add_left bound _
   · intro p _ ι
     have hc : (Q:ℂ) ≠ 0 := by exact_mod_cast hQ.ne'
     rw [← map_mul, mul_inv_cancel₀ hc, map_one]
@@ -297,7 +299,7 @@ theorem outside_wheel_price (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
   have hf : padicNorm p (multiFactorial α:ℚ) = ((p:ℚ)^(multiFactorial α).factorization p)⁻¹ := by
     rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'), padicValRat.of_nat,
       Nat.factorization_def _ (Fact.out : p.Prime), zpow_neg, zpow_natCast]
-  rw [payment, padicNorm.mul, padicNorm.div, padicNorm.mul, dyadic_metric_padic, if_neg hodd, mul_one,
+  rw [payment, padicNorm.mul, padicNorm.div, padicNorm.mul, dyadic_metric_padic, ite_eq_right hodd, mul_one,
     hu, mul_one, hf, div_inv_eq_mul]
 
 private theorem tested_eq {S : Type*} (α : S →₀ ℕ) (r : ℚ) (hr : 0 ≤ r) (h : ℕ) (z z' : ℂ) :
@@ -460,7 +462,8 @@ theorem character_coordinates (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [F
     refine IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one fun χ _ => ?_
     rw [map_mul, norm_mul]
     exact (mul_le_of_le_one_left (norm_nonneg _) (hu a i χ)).trans (ratio χ)
-  · change (∑ χ ∈ (u a i).support, u a i χ * (z i χ / z i 0)) * z i 0 = _
+  · change (∑ χ ∈ (u a i).support, u a i χ * (z i χ / z i 0)) * z i 0 =
+      ∑ χ ∈ (u a i).support, u a i χ * z i χ
     rw [Finset.sum_mul]
     refine Finset.sum_congr rfl fun χ _ => ?_
     rw [mul_assoc]
@@ -745,12 +748,43 @@ theorem common_native_allowance (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
         exact mul_le_mul_of_nonneg_left (le_mul_of_one_le_left hg (by exact_mod_cast ha))
           (Nat.cast_nonneg _)
 
+/-- Measured nominal derivative orders for a prescribed thick mask on
+the actual host. -/
+def maskOrders {e : ℕ} (T : Finset (AlpogeNativeDyadicH e)) (t : AlpogeNativeDyadicH e)
+    (b l : ℝ) : G e →₀ ℕ :=
+  Finsupp.equivFunOnFinite.symm (fun σ => if alpogeNativeInPhi σ then
+    ⌈alpogeNativeFreezeThick T t b (fun _ => l) σ⌉₊ else 0)
+
+/-- Two proposed directions coincide exactly when the translated
+thick masks coincide. This tests joint rank on the supplied mask. -/
+theorem maskOrders_eq_iff {e : ℕ} (T U : Finset (AlpogeNativeDyadicH e)) (t u : AlpogeNativeDyadicH e)
+    (b l : ℝ) (hne : ⌈b⌉₊ ≠ ⌈l⌉₊) :
+    maskOrders T t b l = maskOrders U u b l ↔
+      alpogeNativeThickPositiveSites T t = alpogeNativeThickPositiveSites U u := by
+  have phi {V : Finset (AlpogeNativeDyadicH e)} {v σ} (hv : σ ∈ alpogeNativeThickPositiveSites V v) :
+      alpogeNativeInPhi σ := by
+    obtain ⟨i, _, rfl⟩ := Finset.mem_image.mp hv
+    rfl
+  constructor
+  · intro he
+    ext σ
+    have atσ := DFunLike.congr_fun he σ
+    by_cases ht : σ ∈ alpogeNativeThickPositiveSites T t
+    · by_cases hu : σ ∈ alpogeNativeThickPositiveSites U u
+      · exact iff_of_true ht hu
+      · exact (hne (by simpa [maskOrders, alpogeNativeFreezeThick, phi ht, ht, hu] using atσ)).elim
+    · by_cases hu : σ ∈ alpogeNativeThickPositiveSites U u
+      · exact (hne (by simpa [maskOrders, alpogeNativeFreezeThick, phi hu, ht, hu] using atσ.symm)).elim
+      · exact iff_of_false ht hu
+  · intro he
+    ext σ
+    simp [maskOrders, alpogeNativeFreezeThick, he]
+
 /-- A distinct thick-site translate gives a distinct measured direction
 when the two integral orders differ. This family realizes joint rank on
 the actual modular-unit host and uses its original thick-site mask. -/
 def singletonOrders {e : ℕ} (t : AlpogeNativeDyadicH e) (b l : ℝ) : G e →₀ ℕ :=
-  Finsupp.equivFunOnFinite.symm (fun σ => if alpogeNativeInPhi σ then
-    ⌈alpogeNativeFreezeThick {0} t b (fun _ => l) σ⌉₊ else 0)
+  maskOrders {0} t b l
 
 theorem singletonOrders_injective {e : ℕ} (b l : ℝ) (h : ⌈b⌉₊ ≠ ⌈l⌉₊) :
     Function.Injective (fun t : AlpogeNativeDyadicH e => singletonOrders t b l) := by
@@ -758,7 +792,7 @@ theorem singletonOrders_injective {e : ℕ} (b l : ℝ) (h : ⌈b⌉₊ ≠ ⌈l
   by_contra hne
   have eq := DFunLike.congr_fun hu (((0,1),t) : G e)
   apply h
-  simpa [singletonOrders, alpogeNativeInPhi, alpogeNativeFreezeThick, alpogeNativeThickPositiveSites,
+  simpa [singletonOrders, maskOrders, alpogeNativeInPhi, alpogeNativeFreezeThick, alpogeNativeThickPositiveSites,
     zero_add t, zero_add u, hne] using eq
 
 end RHLean.Analysis.AlpogeThin.WheelFit

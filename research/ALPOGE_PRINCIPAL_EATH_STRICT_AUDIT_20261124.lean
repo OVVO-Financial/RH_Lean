@@ -216,6 +216,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.WheelFit.sharp_joint_total,
     ``RHLean.Analysis.AlpogeThin.WheelFit.native_fit_budget,
     ``RHLean.Analysis.AlpogeThin.WheelFit.common_native_allowance,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.maskOrders_eq_iff,
     ``RHLean.Analysis.AlpogeThin.WheelFit.singletonOrders_injective,
     ``RHLean.Analysis.AlpogeThin.WheelFit.common_read,
     ``RHLean.Analysis.AlpogeThin.WheelFit.exact_projector_price,

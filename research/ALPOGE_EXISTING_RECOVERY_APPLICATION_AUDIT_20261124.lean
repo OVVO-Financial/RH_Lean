@@ -219,6 +219,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.sharp_joint_total
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.native_fit_budget
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_native_allowance
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.maskOrders_eq_iff
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.singletonOrders_injective
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_read
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.exact_projector_price
