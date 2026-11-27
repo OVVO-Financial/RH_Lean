@@ -80,6 +80,7 @@ jobs:
           cargo build --locked --release --manifest-path independent/nanoda/Cargo.toml --bin nanoda_bin
           mkdir -p independent/bin
           cp independent/exporter/.lake/build/bin/lean4export independent/nanoda/target/release/nanoda_bin independent/bin/
+          lake env leanchecker --fresh Init.Data.Nat.Basic
           lake env independent/bin/lean4export Init -- Nat.add_comm | independent/bin/nanoda_bin scripts/ci/native_rh_nanoda.json
           lake env independent/bin/lean4export Init -- sorryAx > independent/unpermitted.ndjson
           if independent/bin/nanoda_bin scripts/ci/native_rh_nanoda.json < independent/unpermitted.ndjson > independent/negative.log 2>&1; then

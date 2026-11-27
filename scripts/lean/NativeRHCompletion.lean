@@ -114,11 +114,38 @@ private def returnsEndpoint (env : Environment) (c : ConstantInfo) : MetaM Bool 
       return ← forallTelescope c.type fun _ residual => endpointType residual
   return false
 
+-- Check what the production root imported, including unused declarations.
+-- In the dependency cone below we also reject conditional external endings.
+private def checkImportedTerminals (env : Environment) : CommandElabM Unit := do
+  let compact := #[`New.grh, `riemannHypothesis, `riemannZeta_eq_zero_re,
+    `LFunction_ne_zero_of_half_lt_re, `LFunction_eq_zero_re, `LFunction_eq_zero_re_of_isPrimitive]
+  let mut checked := 0
+  for i in [:env.header.moduleNames.size] do
+    let m := env.header.moduleNames[i]!
+    if nativeModule m then continue
+    for n in env.header.moduleData[i]!.constNames do
+      let some c := env.checked.get.find? n | continue
+      checked := checked + 1
+      if compact.contains n || c.type.isConstOf `RiemannHypothesis then
+        throwError "production imports terminal declaration {n} from {m}"
+      let candidate := match c.type.getAppFn.constName? with
+        | some name => match env.find? name with
+          | some (.defnInfo pred) => pred.type.getForallBody == mkSort .zero
+          | _ => false
+        | none =>
+          let refs := c.type.getUsedConstants
+          refs.contains `riemannZeta || refs.contains `DirichletCharacter.LFunction
+      if candidate then
+        if ← liftTermElabM <| endpointType c.type then
+          throwError "production imports an equivalent terminal declaration {n} from {m}"
+  logInfo m!"Checked {checked} imported kernel declarations for external terminal proofs"
+
 private def audit (env : Environment) : CommandElabM Unit := do
   let root := `native_riemannHypothesis
   let handoff := `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound
   unless moduleOf env `RiemannHypothesis == some `Mathlib.NumberTheory.LSeries.RiemannZeta do
     throwError "unexpected provenance for Mathlib RiemannHypothesis"
+  checkImportedTerminals env
   let some consumer := env.checked.get.find? handoff | throwError "missing production #1205 handoff"
   unless consumer.type.isForall && (← liftTermElabM <| returnsEndpoint env consumer) do
     throwError "unexpected #1205 handoff type"

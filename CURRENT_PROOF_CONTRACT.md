@@ -20,7 +20,7 @@ On the wheel route the review covers the actual integral sections and duals, pai
 - [ ] Kernel proofs of the critical quantitative estimates
 - [ ] Proof cone free of holes, admitted proofs and unauthorized axioms
 - [ ] Transitive axioms confined to `propext`, `Classical.choice` and `Quot.sound`
-- [ ] Provenance excludes imported terminal RH or GRH proofs
+- [ ] Production imports and proof provenance exclude external terminal RH or GRH proofs, including the pinned compact terminal signatures
 - [ ] Complete transitive kernel type and proof-body audit, including external constants
 - [ ] Independent physical height, rank and gain measurements with semantic review for circularity
 - [ ] Literal arithmetic source and complete real-window quantifiers
