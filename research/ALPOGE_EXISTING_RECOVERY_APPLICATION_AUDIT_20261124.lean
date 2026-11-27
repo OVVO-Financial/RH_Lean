@@ -1,3 +1,4 @@
+import «research.NativeAnchoredSlotRecovery»
 import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
 import «research.NativeSharedHeightRecovery»
@@ -263,6 +264,10 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.starJump_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.familyJump_index
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_slot_rank
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_period
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_count
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_total
