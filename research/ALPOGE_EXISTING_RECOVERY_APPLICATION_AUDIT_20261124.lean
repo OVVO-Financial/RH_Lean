@@ -283,6 +283,7 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.interior_crossing_gain
 #print axioms RHLean.Analysis.PrincipalCofactor.interior_bands_separate
 #print axioms RHLean.Analysis.PrincipalCofactor.firstPrime_history_signed_gain
+#print axioms RHLean.Analysis.PrincipalCofactor.affine_sub_weightedCrossings
 #print axioms RHLean.Analysis.PrincipalCofactor.crossingTent_eq
 #print axioms RHLean.Analysis.PrincipalCofactor.cofactor_second_difference
 #print axioms RHLean.Analysis.PrincipalCofactor.weighted_cell_eq

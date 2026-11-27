@@ -572,9 +572,21 @@ private theorem active_at (M : ℕ) {a v : ℝ} (hv : 0 < v) (ht : 0 < a/v) (hm 
   have sets : (retainedFirstPrimes M).filter (fun p : ℕ => (p:ℝ) < a/v) =
       nativePrimeSet j \ nativePrimeSet (min M.sqrt j) := by
     ext p
-    simp only [Finset.mem_sdiff,Finset.mem_filter,mem_retainedFirstPrimes,nativePrimeSet,
-      Finset.mem_filter,Finset.mem_Icc,cutoff,le_min_iff]
-    omega
+    constructor
+    · intro hp
+      obtain ⟨ret,t⟩ := Finset.mem_filter.mp hp
+      obtain ⟨⟨one,_⟩,pr,root⟩ := mem_retainedFirstPrimes.mp ret
+      have pj := (cutoff p).1 t
+      refine Finset.mem_sdiff.mpr ⟨Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨one,pj⟩,pr⟩,?_⟩
+      intro low
+      exact (not_le.mpr root) ((Finset.mem_Icc.mp (Finset.mem_filter.mp low).1).2.trans (min_le_left ..))
+    · intro hp
+      obtain ⟨hit,out⟩ := Finset.mem_sdiff.mp hp
+      obtain ⟨r,pr⟩ := Finset.mem_filter.mp hit
+      obtain ⟨one,pj⟩ := Finset.mem_Icc.mp r
+      have root : M.sqrt < p := lt_of_not_ge fun down =>
+        out (Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨one,le_min down pj⟩,pr⟩)
+      exact Finset.mem_filter.mpr ⟨mem_retainedFirstPrimes.mpr ⟨⟨one,pj.trans jm⟩,pr,root⟩,(cutoff p).2 pj⟩
   have sub : nativePrimeSet (min M.sqrt j) ⊆ nativePrimeSet j := by
     intro p hp
     obtain ⟨r,pr⟩ := Finset.mem_filter.mp hp
@@ -703,7 +715,9 @@ decreasing_by omega
 /-- A common independently obtained relative tolerance accounts for all
 centered prime intervals in the complete signed history. -/
 theorem whole_chord_price (δ : ℝ) (hδ : 0 < δ) :
-    ∃ B : ℝ, 0 ≤ B ∧ ∀ N : ℕ, |firstPrimeHistory N-chordHistory N| ≤ δ*N+B*Real.sqrt N := by
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ N : ℕ, |(affineHistory N-weightedCrossings N)-chordHistory N| ≤
+      δ*N+B*Real.sqrt N := by
+  simp_rw [affine_sub_weightedCrossings]
   obtain ⟨C,hC,all⟩ := complete_curvature_relative (δ/2) (by positivity)
   refine ⟨4*C,by positivity,?_⟩
   intro N
@@ -731,9 +745,11 @@ theorem whole_chord_price (δ : ℝ) (hδ : 0 < δ) :
       have half : (q:ℝ)*2 ≤ N := by exact_mod_cast (show q*2 ≤ N by dsimp [q]; omega)
       have root : Real.sqrt (q:ℝ) ≤ (3/4)*Real.sqrt N := (Real.sqrt_le_iff).2
         ⟨by positivity,by nlinarith only [half,Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) N),Nat.cast_nonneg (α := ℝ) N]⟩
+      have previous := ih q (by dsimp [q]; omega)
+      have scaledHalf := mul_le_mul_of_nonneg_left half hδ.le
+      have scaledRoot := mul_le_mul_of_nonneg_left root hC
       rw [id]
-      exact (abs_sub _ _).trans (by linarith only [ih q (by dsimp [q]; omega),cap,
-        mul_le_mul_of_nonneg_left half hδ.le,mul_le_mul_of_nonneg_left root hC])
+      exact (abs_sub _ _).trans (by linarith only [previous,cap,scaledHalf,scaledRoot])
 
 end
 end RHLean.Analysis.PrincipalCofactor

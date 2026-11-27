@@ -437,6 +437,23 @@ private theorem history_gap_step (M : ℕ) (h : ¬ M < 16) :
   dsimp only [S,t,u] at split
   linarith only [split]
 
+/-- Sum of the actual triangular crossing payments over all retained cells
+and ancestors, with the positive sign of the gain. -/
+def weightedCrossings (N : ℕ) : ℝ := -sumHistory crossing N
+
+theorem affine_sub_weightedCrossings (N : ℕ) :
+    affineHistory N-weightedCrossings N = firstPrimeHistory N := by
+  induction N using Nat.strong_induction_on with
+  | h N ih =>
+    by_cases short : N < 16
+    · unfold affineHistory weightedCrossings firstPrimeHistory
+      rw [sumHistory_small _ _ short,sumHistory_small _ _ short,sumHistory_small _ _ short]
+      ring
+    · have prev := ih (N/2) (by omega)
+      unfold weightedCrossings at prev ⊢
+      rw [sumHistory_step _ _ short]
+      linarith only [prev,history_gap_step N short]
+
 /-- The interior bands used by successive admissions are disjoint even with
 the original integer cutoffs. -/
 theorem interior_bands_separate {M m p : ℕ} (hm : m ≤ M/2) (hp : p ≤ 22*(m/80)) :

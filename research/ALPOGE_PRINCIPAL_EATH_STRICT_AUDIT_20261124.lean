@@ -286,6 +286,7 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.interior_crossing_gain,
     ``RHLean.Analysis.PrincipalCofactor.interior_bands_separate,
     ``RHLean.Analysis.PrincipalCofactor.firstPrime_history_signed_gain,
+    ``RHLean.Analysis.PrincipalCofactor.affine_sub_weightedCrossings,
     ``RHLean.Analysis.PrincipalCofactor.crossingTent_eq,
     ``RHLean.Analysis.PrincipalCofactor.cofactor_second_difference,
     ``RHLean.Analysis.PrincipalCofactor.weighted_cell_eq,
