@@ -78,7 +78,7 @@ theorem cofactor_second_difference (M : ℕ) {a d : ℝ} (ha : 0 < a) (hd : 0 < 
 
 def oddCofactor (k : ℕ) : ℝ := 2*(k:ℝ)+1
 def evenEndpoint (M : ℕ) : ℝ := 2*((M/2:ℕ):ℝ)
-private def price (k : ℕ) : ℝ := 1/(2*(oddCofactor k+1))
+def cellWeight (k : ℕ) : ℝ := 1/(2*(oddCofactor k+1))
 
 /-- Both adjacent odd endpoints of the actual high-prime reading. -/
 def chord (M k : ℕ) : ℝ :=
@@ -87,7 +87,7 @@ def chord (M k : ℕ) : ℝ :=
 
 /-- Arithmetic mass less the original logarithmic MAIN on this pair. -/
 def crossingBalance (M k : ℕ) : ℝ :=
-  price k*(tentMass M (evenEndpoint M) (oddCofactor k)-evenEndpoint M*logCurvature (oddCofactor k))
+  cellWeight k*(tentMass M (evenEndpoint M) (oddCofactor k)-evenEndpoint M*logCurvature (oddCofactor k))
 
 theorem weighted_cell_eq (M k : ℕ) (hM : 2 ≤ M) :
     firstPrimeValue M (evenEndpoint M/oddCofactor k)-firstPrimeValue M (evenEndpoint M/(oddCofactor k+1)) =
@@ -97,10 +97,10 @@ theorem weighted_cell_eq (M k : ℕ) (hM : 2 ≤ M) :
     dsimp [evenEndpoint]; positivity
   have hd : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
   have den : 2*(oddCofactor k+1) ≠ 0 := by positivity
-  unfold chord crossingBalance price
+  unfold chord crossingBalance cellWeight
   rw [← cofactor_second_difference M ha hd]
   field_simp
-  <;> ring
+  ring
 
 private theorem paired_drop (F : ℕ → ℝ) (hF : Antitone F) (K R : ℕ) (h : K ≤ R) :
     ∑ k ∈ Finset.Ico K R, (F (2*k)-F (2*k+1)) ≤ F (2*K)-F (2*R) := by
@@ -113,7 +113,7 @@ private theorem paired_drop (F : ℕ → ℝ) (hF : Antitone F) (K R : ℕ) (h :
 private theorem total_tent (K R : ℕ) (h : K ≤ R) (u : ℝ) :
     ∑ k ∈ Finset.Ico K R, crossingTent (oddCofactor k) u ≤ cap (oddCofactor K) u := by
   let f (j : ℕ) := cap ((j:ℝ)+1) u
-  have drop := paired_drop f (fun _ _ hj => cap_antitone u (by dsimp [f]; exact_mod_cast Nat.succ_le_succ hj)) K R h
+  have drop := paired_drop f (fun _ _ hj => cap_antitone u (by exact_mod_cast Nat.succ_le_succ hj)) K R h
   have eq (k : ℕ) : crossingTent (oddCofactor k) u = f (2*k)-f (2*k+1) := by simp [crossingTent,oddCofactor,f]
   simp_rw [eq]
   exact drop.trans ((sub_le_self _ (cap_nonneg _ _)).trans_eq (by simp [f,oddCofactor]))
@@ -156,7 +156,7 @@ private theorem total_mass (M K R : ℕ) (h : K ≤ R) (a : ℝ) (ha : 0 ≤ a) 
       (Nat.floor_le (div_nonneg ha hd.le)) (Real.log_nonneg (by norm_num)))
 
 private theorem logStep_mono {d e : ℝ} (hd : 0 < d) (h : d ≤ e) : logStep e ≤ logStep d :=
-  Real.log_le_log (by have := hd.trans_le h; positivity) (add_le_add_left (one_div_le_one_div_of_le hd h) _)
+  Real.log_le_log (by have := hd.trans_le h; positivity) (add_le_add le_rfl (one_div_le_one_div_of_le hd h))
 
 private theorem total_log (K R : ℕ) (h : K ≤ R) :
     ∑ k ∈ Finset.Ico K R, logCurvature (oddCofactor k) ≤ 1/oddCofactor K := by
@@ -186,8 +186,8 @@ theorem fine_crossing_price (M K R : ℕ) (h : K ≤ R) :
   have point (k : ℕ) (hk : k ∈ Finset.Ico K R) :
       |crossingBalance M k| ≤ (1/oddCofactor K)*(tentMass M a (oddCofactor k)+a*logCurvature (oddCofactor k)) := by
     have le : (K:ℝ) ≤ k := by exact_mod_cast (Finset.mem_Ico.mp hk).1
-    have price0 : 0 ≤ price k := by dsimp [price,oddCofactor]; positivity
-    have priceK : price k ≤ 1/oddCofactor K := one_div_le_one_div_of_le (hd K) (by dsimp [oddCofactor]; linarith only [le,Nat.cast_nonneg (α := ℝ) k])
+    have price0 : 0 ≤ cellWeight k := by dsimp [cellWeight,oddCofactor]; positivity
+    have priceK : cellWeight k ≤ 1/oddCofactor K := one_div_le_one_div_of_le (hd K) (by dsimp [oddCofactor]; linarith only [le,Nat.cast_nonneg (α := ℝ) k])
     rw [crossingBalance,abs_mul,abs_of_nonneg price0]
     exact mul_le_mul priceK ((abs_sub _ _).trans_eq (by rw [abs_of_nonneg (mass k),abs_of_nonneg (mul_nonneg ha (logc k))]))
       (abs_nonneg _) (one_div_pos.mpr (hd K)).le
@@ -213,16 +213,16 @@ theorem all_cells_eq (M K R : ℕ) (hM : 2 ≤ M) :
 
 private theorem residual_pair (M k : ℕ) (hm : 2 ≤ M) :
     primePairReading M k = (oddPrimeReading M k-oddPrimeReading M (k+1))/2 +
-      (price k*(oddPrimeReading M k-oddPrimeReading M (k+1))+crossingBalance M k) := by
+      (cellWeight k*(oddPrimeReading M k-oddPrimeReading M (k+1))+crossingBalance M k) := by
   change firstPrimeValue M _-firstPrimeValue M _ = _
   rw [weighted_cell_eq M k hm]
   unfold chord oddPrimeReading
   rw [odd_next]
   have hd : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
-  have factor : (oddCofactor k+2)/(2*(oddCofactor k+1))=1/2+price k := by
-    dsimp only [price]
+  have factor : (oddCofactor k+2)/(2*(oddCofactor k+1))=1/2+cellWeight k := by
+    dsimp only [cellWeight]
     field_simp
-    <;> ring
+    ring
   rw [factor]
   ring
 
@@ -246,21 +246,21 @@ theorem fine_pairs_to_endpoints :
     | base => simp
     | succ r hr ih => rw [Finset.sum_Ico_succ_top hr, ih]; dsimp only [diff]; ring
   have split : (∑ k ∈ S, primePairReading M k)-(oddPrimeReading M K-oddPrimeReading M R)/2 =
-      (∑ k ∈ S, price k*diff k)+∑ k ∈ S, crossingBalance M k := by
+      (∑ k ∈ S, cellWeight k*diff k)+∑ k ∈ S, crossingBalance M k := by
     simp_rw [residual_pair M _ hm]
-    change (∑ k ∈ S, (diff k/2+(price k*diff k+crossingBalance M k)))-_ = _
+    change (∑ k ∈ S, (diff k/2+(cellWeight k*diff k+crossingBalance M k)))-_ = _
     rw [Finset.sum_add_distrib,Finset.sum_add_distrib,← Finset.sum_div,tel R kr]
     ring
   have scale : evenEndpoint M ≤ M := by dsimp only [evenEndpoint]; exact_mod_cast (show 2*(M/2) ≤ M by omega)
   have v := variation M K R (evenEndpoint M) (by omega) (by dsimp [evenEndpoint]; positivity) scale kr one
   change ∑ k ∈ S, |diff k| ≤ alpogeNativeMoveConstant*(evenEndpoint M/oddCofactor K)+B*Real.sqrt M at v
-  have e : |∑ k ∈ S, price k*diff k| ≤ (1/oddCofactor K)*(alpogeNativeMoveConstant*(evenEndpoint M/oddCofactor K)+B*Real.sqrt M) := by
+  have e : |∑ k ∈ S, cellWeight k*diff k| ≤ (1/oddCofactor K)*(alpogeNativeMoveConstant*(evenEndpoint M/oddCofactor K)+B*Real.sqrt M) := by
     refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
     refine (Finset.sum_le_sum (g := fun k => (1/oddCofactor K)*|diff k|) fun k hk => ?_).trans ?_
     · have le : (K:ℝ) ≤ k := by exact_mod_cast (Finset.mem_Ico.mp hk).1
-      have cost : price k ≤ 1/oddCofactor K := one_div_le_one_div_of_le (hd K)
+      have cost : cellWeight k ≤ 1/oddCofactor K := one_div_le_one_div_of_le (hd K)
         (by dsimp [oddCofactor]; linarith only [le,Nat.cast_nonneg (α := ℝ) k])
-      rw [abs_mul,abs_of_nonneg (by dsimp [price,oddCofactor]; positivity : 0 ≤ price k)]
+      rw [abs_mul,abs_of_nonneg (by dsimp [cellWeight,oddCofactor]; positivity : 0 ≤ cellWeight k)]
       exact mul_le_mul_of_nonneg_right cost (abs_nonneg _)
     · rw [← Finset.mul_sum]
       exact mul_le_mul_of_nonneg_left v (one_div_pos.mpr (hd K)).le
@@ -286,7 +286,7 @@ private theorem quarter_parameters (M : ℕ) (hm : 16 ≤ M) :
   have m16 : (16:ℝ) ≤ M := by exact_mod_cast hm
   have sr := Real.sq_sqrt (Nat.cast_nonneg (α := ℝ) M)
   have pos := Real.sqrt_nonneg (M:ℝ)
-  have four : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 m16
+  have four : 4 ≤ Real.sqrt (M:ℝ) := (Real.le_sqrt (by norm_num) (Nat.cast_nonneg M)).2 (by norm_num; exact m16)
   have small : 4*Real.sqrt (M:ℝ) ≤ M := by nlinarith only [sr,mul_le_mul_of_nonneg_right four pos]
   have qpos := Real.sqrt_nonneg (Real.sqrt (M:ℝ))
   have qsq := Real.sq_sqrt pos
@@ -351,7 +351,6 @@ theorem quarter_history_price :
       let S := ∑ k ∈ Finset.Ico 1 ⌈Real.sqrt N⌉₊, primePairReading N k
       have step : firstPrimeHistory N = firstPrimeHistory q-S := by
         rw [firstPrimeHistory,sumHistory_step _ _ small]
-        change _ - _ = _ - _
         congr 1
         apply Finset.sum_congr rfl
         intro k _
@@ -391,7 +390,7 @@ def cofactorDiscrepancy (M : ℕ) (a v : ℝ) : ℝ := activeMass M a v-a/v
 
 theorem cofactorDiscrepancy_eq (M : ℕ) (a : ℝ) {v : ℝ} (hv : 0 < v) :
     cofactorDiscrepancy M a v =
-      (∑ p ∈ (retainedFirstPrimes M).filter (fun p => (p:ℝ) < a/v), Real.log p)-a/v := by
+      (∑ p ∈ (retainedFirstPrimes M).filter (fun p : ℕ => (p:ℝ) < a/v), Real.log p)-a/v := by
   rw [cofactorDiscrepancy,activeMass,Finset.sum_filter]
   congr 1
   apply Finset.sum_congr rfl
@@ -424,7 +423,7 @@ private theorem active_anti (M : ℕ) (a d : ℝ) : Antitone (fun s => activeMas
   intro s t h
   apply Finset.sum_le_sum
   intro p hp
-  exact mul_le_mul_of_nonneg_left (ind_anti (a/(p:ℝ)) (add_le_add_left h d))
+  exact mul_le_mul_of_nonneg_left (ind_anti (a/(p:ℝ)) (add_le_add le_rfl h))
     (Real.log_nonneg (by exact_mod_cast (Finset.mem_filter.mp hp).2.1.one_le))
 
 private theorem integrated_active (M : ℕ) (a d : ℝ) :
@@ -434,9 +433,9 @@ private theorem integrated_active (M : ℕ) (a d : ℝ) :
     unfold activeMass
     apply Finset.sum_congr rfl
     intro p _
-    rw [show d+s < a/p ↔ s < a/p-d by constructor <;> intro h <;> linarith]
+    simp only [show d+s < a/p ↔ s < a/p-d by constructor <;> intro h <;> linarith]
   simp_rw [obs]
-  rw [intervalIntegral.integral_finsetSum (fun p _ => ((ind_anti (a/(p:ℝ)-d)).intervalIntegrable).const_mul (Real.log p))]
+  rw [intervalIntegral.integral_finsetSum (fun (p : ℕ) _ => ((ind_anti (a/(p:ℝ)-d)).intervalIntegrable).const_mul (Real.log p))]
   exact Finset.sum_congr rfl fun p _ => by rw [intervalIntegral.integral_const_mul,integral_cap]
 
 private theorem density_integrable (a : ℝ) {d : ℝ} (hd : 0 < d) :
@@ -455,6 +454,10 @@ private theorem integrated_density (a : ℝ) {d : ℝ} (hd : 0 < d) :
   simp only [add_zero]
   rw [logStep,show 1+1/d=(d+1)/d by field_simp]
 
+private theorem discrepancy_integrable (M : ℕ) (a : ℝ) {d : ℝ} (hd : 0 < d) :
+    IntervalIntegrable (fun s => cofactorDiscrepancy M a (d+s)) volume 0 1 :=
+  (active_anti M a d).intervalIntegrable.sub (density_integrable a hd)
+
 /-- Exact discrepancy balance on two equal cofactor intervals. A common
 constant discrepancy has zero contribution. Unit spatial density gives
 exactly the original log curvature with its original scale. -/
@@ -462,9 +465,7 @@ theorem tent_minus_main_eq_integral (M : ℕ) (a : ℝ) {d : ℝ} (hd : 0 < d) :
     tentMass M a d-a*logCurvature d =
       ∫ s in (0:ℝ)..1, (cofactorDiscrepancy M a (d+s)-cofactorDiscrepancy M a (d+1+s)) := by
   have one : 0 < d+1 := by linarith
-  have centered (v : ℝ) (hv : 0 < v) : IntervalIntegrable (fun s => cofactorDiscrepancy M a (v+s)) volume 0 1 :=
-    (active_anti M a v).intervalIntegrable.sub (density_integrable a hv)
-  rw [intervalIntegral.integral_sub (centered d hd) (centered (d+1) one)]
+  rw [intervalIntegral.integral_sub (discrepancy_integrable M a hd) (discrepancy_integrable M a one)]
   simp only [cofactorDiscrepancy]
   rw [intervalIntegral.integral_sub (active_anti M a d).intervalIntegrable (density_integrable a hd),
     intervalIntegral.integral_sub (active_anti M a (d+1)).intervalIntegrable (density_integrable a one),
@@ -479,7 +480,7 @@ theorem tent_minus_main_eq_integral (M : ℕ) (a : ℝ) {d : ℝ} (hd : 0 < d) :
 /-- High-prime log mass in the actual moving interval, less its length.
 The lower endpoint is included and the upper endpoint is excluded. -/
 def movingExcess (M : ℕ) (a v : ℝ) : ℝ :=
-  (∑ p ∈ (retainedFirstPrimes M).filter (fun p => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v), Real.log p)-
+  (∑ p ∈ (retainedFirstPrimes M).filter (fun p : ℕ => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v), Real.log p)-
     (a/v-a/(v+1))
 
 private theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
@@ -488,9 +489,9 @@ private theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
   let P := retainedFirstPrimes M
   let U := a/v
   let L := a/(v+1)
-  have count : (∑ p ∈ P.filter (fun p => (p:ℝ) < U), Real.log p)-
-      (∑ p ∈ P.filter (fun p => (p:ℝ) < L), Real.log p) =
-      ∑ p ∈ P.filter (fun p => L ≤ (p:ℝ) ∧ (p:ℝ) < U), Real.log p := by
+  have count : (∑ p ∈ P.filter (fun p : ℕ => (p:ℝ) < U), Real.log p)-
+      (∑ p ∈ P.filter (fun p : ℕ => (p:ℝ) < L), Real.log p) =
+      ∑ p ∈ P.filter (fun p : ℕ => L ≤ (p:ℝ) ∧ (p:ℝ) < U), Real.log p := by
     simp only [Finset.sum_filter]
     rw [← Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
@@ -508,20 +509,32 @@ private theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
 The integral averages actual interval discrepancies over the same shift s. -/
 theorem all_cells_centered (M K R : ℕ) (hm : 2 ≤ M) :
     (∑ k ∈ Finset.Ico K R, primePairReading M k) = (∑ k ∈ Finset.Ico K R, chord M k)+
-      ∑ k ∈ Finset.Ico K R, price k*(∫ s in (0:ℝ)..1, movingExcess M (evenEndpoint M) (oddCofactor k+s)) := by
-  change (∑ k ∈ Finset.Ico K R, firstPrimeValue M _-firstPrimeValue M _) = _
-  rw [all_cells_eq M K R hm]
+      ∫ s in (0:ℝ)..1, ∑ k ∈ Finset.Ico K R, cellWeight k*movingExcess M (evenEndpoint M) (oddCofactor k+s) := by
+  let a := evenEndpoint M
+  let S := Finset.Ico K R
+  let E (k : ℕ) (s : ℝ) := cofactorDiscrepancy M a (oddCofactor k+s)-
+    cofactorDiscrepancy M a (oddCofactor k+1+s)
+  have hd (k : ℕ) : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
+  have hint (k : ℕ) : IntervalIntegrable (fun s => cellWeight k*E k s) volume 0 1 :=
+    ((discrepancy_integrable M a (hd k)).sub (discrepancy_integrable M a (d := oddCofactor k+1)
+      (by linarith only [hd k]))).const_mul _
+  have joint : (∫ s in (0:ℝ)..1, ∑ k ∈ S, cellWeight k*movingExcess M a (oddCofactor k+s)) =
+      ∫ s in (0:ℝ)..1, ∑ k ∈ S, cellWeight k*E k s := by
+    apply intervalIntegral.integral_congr
+    intro s hs
+    rw [Set.uIcc_of_le zero_le_one] at hs
+    apply Finset.sum_congr rfl
+    intro k _
+    dsimp only [E]
+    rw [show oddCofactor k+1+s=(oddCofactor k+s)+1 by ring,
+      moving_eq M (by dsimp [a,evenEndpoint]; positivity) (by linarith only [hd k,hs.1])]
+  unfold primePairReading oddPrimeReading
+  rw [all_cells_eq M K R hm,joint,intervalIntegral.integral_finsetSum (fun k _ => hint k)]
   congr 1
   apply Finset.sum_congr rfl
   intro k _
-  have hd : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
-  rw [crossingBalance,tent_minus_main_eq_integral _ _ hd]
-  congr 1
-  apply intervalIntegral.integral_congr
-  intro s hs
-  rw [Set.uIcc_of_le zero_le_one] at hs
-  rw [show oddCofactor k+1+s=(oddCofactor k+s)+1 by ring]
-  exact moving_eq M (by dsimp [evenEndpoint]; positivity) (by linarith [hs.1])
+  rw [intervalIntegral.integral_const_mul,crossingBalance,tent_minus_main_eq_integral _ _ (hd k)]
+
 
 end
 end RHLean.Analysis.PrincipalCofactor
