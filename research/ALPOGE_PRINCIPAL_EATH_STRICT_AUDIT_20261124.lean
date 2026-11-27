@@ -1,3 +1,4 @@
+import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
 import «research.NativeTranslatedSlotFrame»
@@ -268,6 +269,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.starJump_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.familyJump_index,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_translate,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_slot_rank,

@@ -68,6 +68,17 @@ def mass (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ → AlpogeNati
       min (alpogeASKPos (a / (n:ℝ)) (lo (alpogeNativePartner t g)))
         (hi (alpogeNativePartner t g) - lo (alpogeNativePartner t g))
 
+/-- Swept mass is the drop in the original finite ASK at the same cutoff. -/
+theorem ask_drop_eq_mass (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H) (lo hi : AlpogeNativeE0 × H → ℝ)
+    (h : ∀ ρ, alpogeNativeInPhi ρ → lo ρ ≤ hi ρ) :
+    (alpogeNativeFullKernelASK I F N a t lo).re - (alpogeNativeFullKernelASK I F N a t hi).re =
+      mass I F N a t lo hi := by
+  simp only [alpogeNativeFullKernelASK_re_eq_weighted, mass, ← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl fun n _ => Finset.sum_congr rfl fun g hg => ?_
+  rw [← mul_sub, cut_sub (h _ (alpogeNativeFreezing_partner_inPhi t g
+    (Finset.mem_filter.mp hg).2))]
+
 /-- The height and character constants cancel in the original signed MAIN.
 Only the logarithmic width integral survives, with positive sign; the finite
 prime-power mass has negative sign. -/
@@ -80,12 +91,7 @@ theorem signed_row_eq (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ �
         a * ((1 / ((alpogeNativePhiSet H).card:ℝ)) *
           ∑ ρ ∈ alpogeNativePhiSet H, Real.log (hi ρ / lo ρ)) - mass I F N a t lo hi := by
   classical
-  have paid : (alpogeNativeFullKernelASK I F N a t lo).re -
-      (alpogeNativeFullKernelASK I F N a t hi).re = mass I F N a t lo hi := by
-    simp only [alpogeNativeFullKernelASK_re_eq_weighted, mass, ← Finset.sum_sub_distrib]
-    refine Finset.sum_congr rfl fun n _ => Finset.sum_congr rfl fun g hg => ?_
-    rw [← mul_sub, cut_sub (h _ (alpogeNativeFreezing_partner_inPhi t g
-      (Finset.mem_filter.mp hg).2)).2]
+  have paid := ask_drop_eq_mass I F N a t lo hi fun ρ hρ => (h ρ hρ).2
   have logs : (∑ ρ ∈ alpogeNativePhiSet H, (Real.log (hi ρ) - Real.log (lo ρ))) =
       ∑ ρ ∈ alpogeNativePhiSet H, Real.log (hi ρ / lo ρ) := by
     apply Finset.sum_congr rfl
@@ -196,7 +202,7 @@ theorem two_cutoff_eq (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ �
   rw [← diff]
   ring
 
-private theorem frozen_mass_translate (I : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+theorem frozen_mass_translate (I : ℕ → AddSubgroup (AlpogeNativeE0 × H))
     (F : ℕ → AlpogeNativeE0 × H) (N : ℕ) (a l r : ℝ) (t : H) (T2 : Finset H)
     (w : H → AlpogeNativeE0 × H → ℝ) :
     (∑ u : H, mass I F N a t (alpogeNativeFreezeThick T2 u l (w u))
