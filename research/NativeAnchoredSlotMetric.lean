@@ -319,7 +319,7 @@ theorem constant_extension_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 
     simp only [← mul_assoc, ← Finset.sum_mul, wheelNormal, hw, one_mul, hv]
   constructor
   · rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
-    simp only [Nat.card_eq_fintype_card, ZMod.card]
+    simp only [Nat.card_eq_fintype_card, ZMod.card, δ]
   · intro A
     change ((normalReading D A:ℤ):ZMod δ) = 0 ↔ _
     rw [ZMod.intCast_zmod_eq_zero_iff_dvd]
