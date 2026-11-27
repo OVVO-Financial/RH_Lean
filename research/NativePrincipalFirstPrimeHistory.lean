@@ -56,19 +56,21 @@ def firstPrimeValue (M : ℕ) (t : ℝ) : ℝ :=
   (∑ p ∈ (Finset.Icc 1 M).filter (kept M), Real.log p * max (t/p-1) 0) +
     t*(∑ i ∈ Finset.Icc 1 M, removed M i/i)-t*Real.log t+(1+Real.eulerMascheroniConstant)*t
 
+def retainedFirstPrimes (M : ℕ) : Finset ℕ := (Finset.Icc 1 M).filter (kept M)
+
+def clippedReciprocal (M : ℕ) : ℝ := ∑ i ∈ Finset.Icc 1 M, removed M i/i
+
 /-- In the cofactor coordinate the clipped reciprocal slopes and the affine
 part of the original MAIN form a single constant, independent of the cofactor. -/
 theorem scaled_firstPrimeValue (M : ℕ) {a d : ℝ} (ha : 0 < a) (hd : 0 < d) :
     d*firstPrimeValue M (a/d) =
-      (∑ p ∈ (Finset.Icc 1 M).filter (fun p => p.Prime ∧ M.sqrt < p),
-        Real.log p * max (a/p-d) 0) + a*Real.log d +
-      a*((∑ i ∈ Finset.Icc 1 M, (if i.Prime ∧ M.sqrt < i then 0 else (Λ i : ℝ))/i) +
-        1+Real.eulerMascheroniConstant-Real.log a) := by
+      (∑ p ∈ retainedFirstPrimes M, Real.log p * max (a/p-d) 0) + a*Real.log d +
+      a*(clippedReciprocal M+1+Real.eulerMascheroniConstant-Real.log a) := by
   have atom (p : ℕ) : d*(Real.log p * max (a/d/p-1) 0) = Real.log p * max (a/p-d) 0 := by
     have da : d*(a/d) = a := by field_simp
     rw [mul_left_comm, mul_max_of_nonneg _ _ hd.le, mul_zero, mul_sub, ← mul_div_assoc, da, mul_one]
-  let P := (Finset.Icc 1 M).filter (kept M)
-  let s := ∑ i ∈ Finset.Icc 1 M, removed M i/i
+  let P := retainedFirstPrimes M
+  let s := clippedReciprocal M
   have sum := Finset.sum_congr (s₁ := P) rfl (fun p _ => atom p)
   rw [← Finset.mul_sum] at sum
   change d*((∑ p ∈ P, Real.log p*max (a/d/p-1) 0)+(a/d)*s-

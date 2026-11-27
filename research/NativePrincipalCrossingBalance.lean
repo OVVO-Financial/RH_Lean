@@ -1,4 +1,5 @@
 import «research.NativePrincipalFirstPrimeHistory»
+import RHLean.Geometry.AlpogeAllPlace.Formalism.CorankShare.CorankShareProofs.LayerCakeFormula
 
 /-! The weighted crossing and its affine counterpart on the same physical
 quotient cells. Multiplication by the cofactor makes every reciprocal
@@ -49,10 +50,8 @@ private theorem tent_ramps (d u : ℝ) : crossingTent d u =
   rw [crossingTent,cap_ramp,cap_ramp,show d+1+1 = d+2 by ring]
   ring
 
-private def primeSet (M : ℕ) := (Finset.Icc 1 M).filter (fun p => p.Prime ∧ M.sqrt < p)
-
 def tentMass (M : ℕ) (a d : ℝ) : ℝ :=
-  ∑ p ∈ primeSet M, Real.log p * crossingTent d (a/p)
+  ∑ p ∈ retainedFirstPrimes M, Real.log p * crossingTent d (a/p)
 
 private def logStep (d : ℝ) : ℝ := Real.log (1+1/d)
 
@@ -67,15 +66,14 @@ theorem cofactor_second_difference (M : ℕ) {a d : ℝ} (ha : 0 < a) (hd : 0 < 
     d*firstPrimeValue M (a/d)-2*((d+1)*firstPrimeValue M (a/(d+1)))+
       (d+2)*firstPrimeValue M (a/(d+2)) = tentMass M a d-a*logCurvature d := by
   have mass : tentMass M a d =
-      (∑ p ∈ primeSet M, Real.log p*max (a/p-d) 0) -
-      2*(∑ p ∈ primeSet M, Real.log p*max (a/p-(d+1)) 0) +
-      ∑ p ∈ primeSet M, Real.log p*max (a/p-(d+2)) 0 := by
+      (∑ p ∈ retainedFirstPrimes M, Real.log p*max (a/p-d) 0) -
+      2*(∑ p ∈ retainedFirstPrimes M, Real.log p*max (a/p-(d+1)) 0) +
+      ∑ p ∈ retainedFirstPrimes M, Real.log p*max (a/p-(d+2)) 0 := by
     rw [tentMass, Finset.mul_sum, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
     exact Finset.sum_congr rfl fun p _ => by rw [tent_ramps]; ring
   rw [scaled_firstPrimeValue _ ha hd, scaled_firstPrimeValue _ ha (by positivity),
     scaled_firstPrimeValue _ ha (by positivity),mass,logCurvature,logStep_eq hd,
     logStep_eq (by positivity),show d+1+1=d+2 by ring]
-  dsimp only [primeSet]
   ring
 
 def oddCofactor (k : ℕ) : ℝ := 2*(k:ℝ)+1
@@ -123,7 +121,7 @@ private theorem total_tent (K R : ℕ) (h : K ≤ R) (u : ℝ) :
 private theorem total_mass (M K R : ℕ) (h : K ≤ R) (a : ℝ) (ha : 0 ≤ a) :
     ∑ k ∈ Finset.Ico K R, tentMass M a (oddCofactor k) ≤ Real.log 4*(a/oddCofactor K) := by
   let Q := ⌊a/oddCofactor K⌋₊
-  let P := primeSet M
+  let P := retainedFirstPrimes M
   have hd : 0 < oddCofactor K := by dsimp [oddCofactor]; positivity
   have l (p : ℕ) (hp : p ∈ P) : 0 ≤ Real.log (p:ℝ) :=
     Real.log_nonneg (by exact_mod_cast (Finset.mem_filter.mp hp).2.1.one_le)
@@ -381,4 +379,149 @@ theorem real_quarter_history_price :
     linarith only [a x hx,b ⌊x⌋₊,mul_le_mul_of_nonneg_left
       (Real.sqrt_le_sqrt (Nat.floor_le (zero_le_one.trans hx))) hB])
 
+section
+open MeasureTheory
+open RHLean.Geometry.AlpogeAllPlace.Formalism.CorankShareLayerCake.FR.Pgsn2pfran
+
+private def activeMass (M : ℕ) (a v : ℝ) : ℝ :=
+  ∑ p ∈ retainedFirstPrimes M, Real.log p * (if v < a/p then (1:ℝ) else 0)
+
+/-- The centered Chebyshev count in the cofactor variable. -/
+def cofactorDiscrepancy (M : ℕ) (a v : ℝ) : ℝ := activeMass M a v-a/v
+
+theorem cofactorDiscrepancy_eq (M : ℕ) (a : ℝ) {v : ℝ} (hv : 0 < v) :
+    cofactorDiscrepancy M a v =
+      (∑ p ∈ (retainedFirstPrimes M).filter (fun p => (p:ℝ) < a/v), Real.log p)-a/v := by
+  rw [cofactorDiscrepancy,activeMass,Finset.sum_filter]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro p hp
+  have pp : 0 < (p:ℝ) := by exact_mod_cast (Finset.mem_filter.mp hp).2.1.pos
+  have iff : v < a/p ↔ (p:ℝ) < a/v := by rw [lt_div_iff₀ pp,lt_div_iff₀ hv,mul_comm]
+  by_cases cut : (p:ℝ) < a/v <;> simp [iff,cut]
+
+private theorem integral_cap (d u : ℝ) :
+    (∫ s in (0:ℝ)..1, if s < u-d then (1:ℝ) else 0) = cap d u := by
+  by_cases lo : 0 ≤ u-d
+  · by_cases hi : u-d ≤ 1
+    · rw [ind_int _ _ lo hi,cap,max_eq_left lo,min_eq_right hi]
+    · have eq : (∫ s in (0:ℝ)..1, if s < u-d then (1:ℝ) else 0) = ∫ _s in (0:ℝ)..1, (1:ℝ) := by
+        apply intervalIntegral.integral_congr
+        intro s hs
+        rw [Set.uIcc_of_le zero_le_one] at hs
+        simp [hs.2.trans_lt (lt_of_not_ge hi)]
+      rw [eq,cap,max_eq_left lo,min_eq_left (le_of_not_ge hi)]
+      norm_num
+  · have eq : (∫ s in (0:ℝ)..1, if s < u-d then (1:ℝ) else 0) = ∫ _s in (0:ℝ)..1, (0:ℝ) := by
+      apply intervalIntegral.integral_congr
+      intro s hs
+      rw [Set.uIcc_of_le zero_le_one] at hs
+      simp [not_lt.mpr ((le_of_not_ge lo).trans hs.1)]
+    rw [eq,cap,max_eq_right (le_of_not_ge lo)]
+    norm_num
+
+private theorem active_anti (M : ℕ) (a d : ℝ) : Antitone (fun s => activeMass M a (d+s)) := by
+  intro s t h
+  apply Finset.sum_le_sum
+  intro p hp
+  exact mul_le_mul_of_nonneg_left (ind_anti (a/(p:ℝ)) (add_le_add_left h d))
+    (Real.log_nonneg (by exact_mod_cast (Finset.mem_filter.mp hp).2.1.one_le))
+
+private theorem integrated_active (M : ℕ) (a d : ℝ) :
+    (∫ s in (0:ℝ)..1, activeMass M a (d+s)) = ∑ p ∈ retainedFirstPrimes M, Real.log p*cap d (a/p) := by
+  have obs (s : ℝ) : activeMass M a (d+s) =
+      ∑ p ∈ retainedFirstPrimes M, Real.log p*(if s < a/p-d then (1:ℝ) else 0) := by
+    unfold activeMass
+    apply Finset.sum_congr rfl
+    intro p _
+    rw [show d+s < a/p ↔ s < a/p-d by constructor <;> intro h <;> linarith]
+  simp_rw [obs]
+  rw [intervalIntegral.integral_finsetSum (fun p _ => ((ind_anti (a/(p:ℝ)-d)).intervalIntegrable).const_mul (Real.log p))]
+  exact Finset.sum_congr rfl fun p _ => by rw [intervalIntegral.integral_const_mul,integral_cap]
+
+private theorem density_integrable (a : ℝ) {d : ℝ} (hd : 0 < d) :
+    IntervalIntegrable (fun s : ℝ => a/(d+s)) volume 0 1 := by
+  apply ContinuousOn.intervalIntegrable
+  refine continuousOn_const.div (continuousOn_const.add continuousOn_id) ?_
+  intro s hs
+  rw [Set.uIcc_of_le zero_le_one] at hs
+  exact (lt_of_lt_of_le hd (le_add_of_nonneg_right hs.1)).ne'
+
+private theorem integrated_density (a : ℝ) {d : ℝ} (hd : 0 < d) :
+    (∫ s in (0:ℝ)..1, a/(d+s)) = a*logStep d := by
+  have shift := intervalIntegral.integral_comp_add_left (fun t : ℝ => t⁻¹) (a := 0) (b := 1) d
+  simp_rw [div_eq_mul_inv]
+  rw [intervalIntegral.integral_const_mul,shift,integral_inv_of_pos (by linarith) (by linarith)]
+  simp only [add_zero]
+  rw [logStep,show 1+1/d=(d+1)/d by field_simp]
+
+/-- Exact discrepancy balance on two equal cofactor intervals. A common
+constant discrepancy has zero contribution. Unit spatial density gives
+exactly the original log curvature with its original scale. -/
+theorem tent_minus_main_eq_integral (M : ℕ) (a : ℝ) {d : ℝ} (hd : 0 < d) :
+    tentMass M a d-a*logCurvature d =
+      ∫ s in (0:ℝ)..1, (cofactorDiscrepancy M a (d+s)-cofactorDiscrepancy M a (d+1+s)) := by
+  have one : 0 < d+1 := by linarith
+  have centered (v : ℝ) (hv : 0 < v) : IntervalIntegrable (fun s => cofactorDiscrepancy M a (v+s)) volume 0 1 :=
+    (active_anti M a v).intervalIntegrable.sub (density_integrable a hv)
+  rw [intervalIntegral.integral_sub (centered d hd) (centered (d+1) one)]
+  simp only [cofactorDiscrepancy]
+  rw [intervalIntegral.integral_sub (active_anti M a d).intervalIntegrable (density_integrable a hd),
+    intervalIntegral.integral_sub (active_anti M a (d+1)).intervalIntegrable (density_integrable a one),
+    integrated_active,integrated_active,integrated_density a hd,integrated_density a one]
+  have split : tentMass M a d = (∑ p ∈ retainedFirstPrimes M, Real.log p*cap d (a/p))-
+      ∑ p ∈ retainedFirstPrimes M, Real.log p*cap (d+1) (a/p) := by
+    rw [tentMass,← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl fun _ _ => by rw [crossingTent,mul_sub]
+  rw [split,logCurvature]
+  ring
+
+/-- High-prime log mass in the actual moving interval, less its length.
+The lower endpoint is included and the upper endpoint is excluded. -/
+def movingExcess (M : ℕ) (a v : ℝ) : ℝ :=
+  (∑ p ∈ (retainedFirstPrimes M).filter (fun p => a/(v+1) ≤ (p:ℝ) ∧ (p:ℝ) < a/v), Real.log p)-
+    (a/v-a/(v+1))
+
+private theorem moving_eq (M : ℕ) {a v : ℝ} (ha : 0 ≤ a) (hv : 0 < v) :
+    cofactorDiscrepancy M a v-cofactorDiscrepancy M a (v+1) = movingExcess M a v := by
+  have lo : a/(v+1) ≤ a/v := div_le_div_of_nonneg_left ha hv (by linarith)
+  let P := retainedFirstPrimes M
+  let U := a/v
+  let L := a/(v+1)
+  have count : (∑ p ∈ P.filter (fun p => (p:ℝ) < U), Real.log p)-
+      (∑ p ∈ P.filter (fun p => (p:ℝ) < L), Real.log p) =
+      ∑ p ∈ P.filter (fun p => L ≤ (p:ℝ) ∧ (p:ℝ) < U), Real.log p := by
+    simp only [Finset.sum_filter]
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro p _
+    by_cases low : (p:ℝ) < L
+    · have up : (p:ℝ) < U := low.trans_le lo
+      simp [low,up,not_le.mpr low]
+    · have hit : L ≤ (p:ℝ) := le_of_not_gt low
+      simp [low,hit]
+  rw [cofactorDiscrepancy_eq _ _ hv,cofactorDiscrepancy_eq _ _ (by linarith),movingExcess]
+  dsimp only [P,U,L] at count
+  linarith only [count]
+
+/-- Complete weighted identity with every retained affine counterpart.
+The integral averages actual interval discrepancies over the same shift s. -/
+theorem all_cells_centered (M K R : ℕ) (hm : 2 ≤ M) :
+    (∑ k ∈ Finset.Ico K R, primePairReading M k) = (∑ k ∈ Finset.Ico K R, chord M k)+
+      ∑ k ∈ Finset.Ico K R, price k*(∫ s in (0:ℝ)..1, movingExcess M (evenEndpoint M) (oddCofactor k+s)) := by
+  change (∑ k ∈ Finset.Ico K R, firstPrimeValue M _-firstPrimeValue M _) = _
+  rw [all_cells_eq M K R hm]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro k _
+  have hd : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
+  rw [crossingBalance,tent_minus_main_eq_integral _ _ hd]
+  congr 1
+  apply intervalIntegral.integral_congr
+  intro s hs
+  rw [Set.uIcc_of_le zero_le_one] at hs
+  rw [show oddCofactor k+1+s=(oddCofactor k+s)+1 by ring]
+  exact moving_eq M (by dsimp [evenEndpoint]; positivity) (by linarith [hs.1])
+
+end
 end RHLean.Analysis.PrincipalCofactor

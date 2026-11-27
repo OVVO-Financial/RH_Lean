@@ -288,6 +288,8 @@ run_cmd do
 #print axioms RHLean.Analysis.PrincipalCofactor.weighted_cell_eq
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_crossing_price
 #print axioms RHLean.Analysis.PrincipalCofactor.all_cells_eq
+#print axioms RHLean.Analysis.PrincipalCofactor.tent_minus_main_eq_integral
+#print axioms RHLean.Analysis.PrincipalCofactor.all_cells_centered
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
 #print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price

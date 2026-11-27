@@ -180,6 +180,16 @@ The first retained interval also furnishes a positive lower bound on the true we
 $$H(v)/Q-h_{\rm high}\le C_\perp+H_{\rm aff}(\lfloor x\rfloor)-\lfloor x\rfloor/500+K_\varepsilon x^{1/2+9\varepsilon/8}.$$
 The full weighted crossings must still be compared with the whole affine term. [Interior crossing and signed history gain](NativePrincipalFirstPrimeHistory.lean) · [Comparison at the original divisor](NativeCenteredThickCompensation.lean)
 
+#### The complete weighted crossing balance
+
+For an ancestor $M$ write $a=2\lfloor M/2\rfloor$, $P_M=\{p\text{ prime}:\sqrt M<p\le M\}$, and $V(t)$ for the original clipped reading `firstPrimeValue M t`. Put $F(d)=d V(a/d)$ and $\tau_d(u)=(1-|u-d-1|)_+$. The reciprocal slopes from every removed prime power and the linear part of the original MAIN are constant in $F$. Taking the second difference gives
+
+$$F(d)-2F(d+1)+F(d+2)=\sum_{p\in P_M}\log p\,\tau_d(a/p)-a\log\frac{(d+1)^2}{d(d+2)}.$$
+
+For $v>0$, let $I_v=[a/(v+1),a/v)$. The entire right side equals $\int_0^1(\sum_{p\in P_M\cap I_{d+s}}\log p-|I_{d+s}|)\,ds$. This identity computes the logarithmic MAIN from ordinary interval lengths at the original scale. For each $d=2k+1$, the original pair reading is the sum of the chord $\frac{d+2}{2(d+1)}(V(a/d)-V(a/(d+2)))$ and this centered integral divided by $2(d+1)$. The identity holds after summing over every retained cell, with the same shift in both endpoints. [Complete prime interval comparison](NativePrincipalCrossingBalance.lean)
+
+Over $K\le k<R$, each prime has total triangular weight at most one and occurs only below $a/(2K+1)$. The elementary Chebyshev upper bound and the telescoping log increments give the sum of the absolute weighted curvatures at most $(1+\log 4)a/(2K+1)^2$. The chord weights differ from $1/2$ by $1/(4k+4)$. Summing their error uses the total variation of the principal source on the contiguous odd quotients and one monotone prime-power clipping cost. Consequently for $K=\lceil M^{1/4}\rceil$, $R=\lceil\sqrt M\rceil$, the whole fine sum equals $\frac12(V(a/(2K+1))-V(a/(2R+1)))+O(\sqrt M)$. The costs across dyadic ancestors add to $O(\sqrt N)$ with an absolute constant. The measured frame consumes the resulting `quarterHistory` for every admissible real anchor at the original divisor. The signed sum of the broad moving-interval discrepancies and the retained endpoint readings still requires a one-sided square-root bound on complete windows. [Measured comparison](NativeCenteredThickCompensation.lean)
+
 ### Perron readings of integer slots
 
 For an integer slot $k\ge2$, use the log interval $J_k=(\log(k-1),\log k]$. The critical-line reading of its weighted indicator $g_k(u)=e^{u/2}\mathbf1_{J_k}(u)$ is
