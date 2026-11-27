@@ -256,8 +256,11 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelDiff_comm
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_eq
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheel_joint_recovery
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_cut
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_jump
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.starJump_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame
