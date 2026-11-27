@@ -267,7 +267,7 @@ theorem nominal_signed_witness (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
         (Real.log_natCast_nonneg _)
     norm_num only [Nat.cast_ofNat]
     rw [sub_eq_add_neg, add_comm (Real.log (r:ℝ)) (-Real.log (multiFactorial α))]
-    exact add_le_add_left bound _
+    exact add_le_add le_rfl bound
   · intro p _ ι
     have hc : (Q:ℂ) ≠ 0 := by exact_mod_cast hQ.ne'
     rw [← map_mul, mul_inv_cancel₀ hc, map_one]

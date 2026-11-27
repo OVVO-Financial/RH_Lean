@@ -1,0 +1,109 @@
+name: Native RH completion
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: native-rh-completion-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  PROOF_HEAD: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  kernel:
+    name: Build and audit the production terminal theorem
+    if: github.event.pull_request.number == 1214
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Check proof revision and review-gate regressions
+        run: |
+          test "$(git rev-parse HEAD)" = "$PROOF_HEAD"
+          python3 -m unittest discover -s scripts/ci -p 'test_native_rh_review.py' -v
+          python3 scripts/check_root_manifest.py
+          bash scripts/audit_assumptions.sh
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Build full production library
+        run: python3 scripts/lake_build_fail_fast.py RHLean
+      - name: Check literal RH, the original window supplier and the full external and native proof cone
+        run: lake env lean -DwarningAsError=true scripts/lean/NativeRHCompletion.lean
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-rh-kernel-${{ github.event.pull_request.head.sha }}
+          path: |
+            native-rh-cone.jsonl
+            native-rh-module.txt
+          if-no-files-found: error
+
+  replay:
+    name: Independently rebuild and replay the terminal module
+    needs: kernel
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-rh-kernel-${{ github.event.pull_request.head.sha }}
+          path: first-check
+      - uses: ./.github/actions/lean-setup
+      # A new runner, pinned dependencies and a fresh project build. No project
+      # .oleans are restored or saved in this independent verification job.
+      - name: Rebuild the terminal module from its source on the exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$PROOF_HEAD"
+          test ! -e .lake/build
+          module=$(cat first-check/native-rh-module.txt)
+          [[ "$module" =~ ^RHLean([.][[:alnum:]_]+)*$ ]]
+          python3 scripts/lake_build_fail_fast.py "$module"
+          lake env leanchecker --fresh "$module"
+      - name: Record replayed revision
+        run: echo "$PROOF_HEAD" > native-rh-replayed.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-rh-replay-${{ github.event.pull_request.head.sha }}
+          path: native-rh-replayed.txt
+          if-no-files-found: error
+
+  acceptance:
+    name: Native RH proof acceptance
+    if: always() && github.event.pull_request.number == 1214
+    needs: [kernel, replay]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require successful full kernel audit and independent replay on this revision
+        env:
+          KERNEL: ${{ needs.kernel.result }}
+          REPLAY: ${{ needs.replay.result }}
+        run: |
+          if [[ "$KERNEL" != success || "$REPLAY" != success ]]; then
+            echo "::error::Native RH proof incomplete on $PROOF_HEAD (kernel=$KERNEL, replay=$REPLAY)."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Require independent human review of the terminal mathematical suppliers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/native_rh_review.py

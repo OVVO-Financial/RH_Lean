@@ -1,5 +1,7 @@
 ## Current native signed-compensation proof on #1214
 
+The [#1214 terminal acceptance contract](CURRENT_PROOF_CONTRACT.md#1214-unconditional-native-rh-acceptance) governs this PR. Keep the final status red until the closed production `native_riemannHypothesis`, its actual #1205 window supplier, full dependency audit, independent replay and human mathematical approval all refer to the same commit.
+
 Use [Sernau’s readable and compact proofs at `72fead102f663d5c7a407964a13dc0cf9d977207`](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207) as the primary upstream mathematical reference. Continue the single closure assignment on #1214 from the frozen, verified #1201 checkpoint. Earlier role assignments and instructions to develop on #1201 are historical for this work.
 
 Begin at `Data.heightLe_inv_ratio` in the pinned compact edition. Extract the upper valuation on one integral test and the independent untwisted norm at the nominal site orders. Use their product on the same measured operator before transporting it to the lower determinant. The per-direction allowance is `Data.B₀ = Data.budget / (m*k)`.
