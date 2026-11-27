@@ -200,7 +200,7 @@ For the sorted primes at a fixed site, the clipped interval $I_v\cap[\lfloor\sqr
 $$
 \frac{|V|}{|\mathrm{tops}|}\left(80\sqrt{x}\log x\,\frac{\log N}{\log 2}+\frac{\log(1+(x+1)b)}{2c}\right).
 $$
-Here $V$ counts occupied sites. The common multiplier can depend on the shift. [Common denominator and measured test norms](NativeWheelIntervalRecovery.lean)
+Here $V$ counts occupied sites. For $N\le x$, $x\ge3$, $b=e^{x^\varepsilon}$, $0<\varepsilon\le1$ and the selected top density, this is at most $((160/\log 2+6)/\varepsilon^2)x^{1/2+17\varepsilon/8}$. The common multiplier can depend on the shift. [Common denominator and measured test norms](NativeWheelIntervalRecovery.lean)
 
 For $q_i=\prod_{j\ne i}D_j$, $n_i=|S_i|$, the normal has dual energy $E=\sum_i q_i^2/n_i$. In these measured coordinates the served log mass minus the original interval length equals the signed mixed Schur entry divided by $E$, plus $(\sum_i q_i\log(p_i)/n_i)(\sum_i q_i\mathbf 1_I(p_i))/E$, minus the interval length. The full crossing also contains the retained prime mass outside the served family and the odd endpoint readings. A one-sided estimate of this signed arithmetic combination on complete windows remains open. [Normal and residual comparison](NativeWheelNNSComparison.lean)
 

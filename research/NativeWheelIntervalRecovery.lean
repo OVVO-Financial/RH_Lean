@@ -279,7 +279,8 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
       exact mul_nonneg (by positivity) (Real.log_nonneg hx)
     · have u1 : 1 < u := by
         by_contra! h
-        exact small (Nat.ceil_le.mpr (show u ≤ ((1:ℕ):ℝ) by exact h))
+        have h1 : u ≤ ((1:ℕ):ℝ) := by simpa only [Nat.cast_one] using h
+        exact small (show ⌈u⌉₊ ≤ 1 from Nat.ceil_le.mpr h1)
       have ku : (K:ℝ) ≤ 2*u := by linarith only [(Nat.ceil_lt_add_one up.le).le,u1]
       have square := pow_le_pow_left₀ (Nat.cast_nonneg (α := ℝ) K) ku 2
       have Ksq : (K:ℝ)^2 ≤ 4*(a/t) := by nlinarith only [square,usq]
@@ -318,7 +319,7 @@ decreasing_by omega
 
 private theorem broad_pos {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ)
     (hd : ∀ j, 0 < d j) : 0 < broadClearing p d M K s :=
-  Finset.prod_pos fun k _ => Finset.prod_pos fun j _ => hd j
+  Finset.prod_pos fun _k _ => Finset.prod_pos fun j _ => hd j
 
 theorem history_pos {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (x s : ℝ)
     (hd : ∀ j, 0 < d j) (N : ℕ) : 0 < historyClearing p d x s N := by
@@ -341,12 +342,12 @@ theorem ancestor_dvd_history {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → �
   induction j generalizing N with
   | zero =>
     simp only [pow_zero,Nat.div_one] at hM ⊢
-    rw [historyClearing,if_neg (by omega : ¬ N < 16)]
+    rw [historyClearing,dite_eq_right (by omega : ¬ N < 16)]
     exact dvd_mul_right _ _
   | succ j ih =>
     have eq : (N/2)/2^j = N/2^(j+1) := by rw [Nat.div_div_eq_div_mul,pow_succ,mul_comm 2]
     have hN : 16 ≤ N := hM.trans (Nat.div_le_self _ _)
-    rw [historyClearing,if_neg (by omega : ¬ N < 16),← eq]
+    rw [historyClearing,dite_eq_right (by omega : ¬ N < 16),← eq]
     exact (ih (N/2) (eq.symm ▸ hM)).trans (dvd_mul_left _ _)
 
 /-- At fixed shift the entire dyadic history uses one positive multiplier
@@ -460,7 +461,71 @@ theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
     _ = ((V.card:ℝ)/tops.card)*(80*Real.sqrt x*Real.log x/Real.log 2*Real.log M +
         Real.log (1+(x+1)*b)/(2*c))*((c:ℝ)*k*tops.card) := by
       dsimp only [B,height]
-      field_simp [tp.ne',cpos.ne', (Real.log_pos (by norm_num : (1:ℝ)<2)).ne']
-      <;> ring
+      field_simp [tp.ne',cpos.ne', (Real.log_pos (by norm_num : (1:ℝ)<2)).ne']; ring
+
+/-- The complete finite and archimedean envelope at the density used by the
+translated high-thick frame. Constants are independent of the ancestor,
+the common shift and the location of the window. -/
+theorem highThick_price_exponent {H : Type*} [Fintype H] (V tops : Finset H) (N c : ℕ)
+    (ε x : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) (hx : 3 ≤ x) (hc : 0 < c) (ht : tops.Nonempty)
+    (hn : (N:ℝ) ≤ x) (density : x^(-(ε/8))*(Fintype.card H:ℝ)/2 ≤ tops.card) :
+    ((V.card:ℝ)/tops.card) * (80*Real.sqrt x*Real.log x/Real.log 2*Real.log N +
+      Real.log (1+(x+1)*Real.exp (x^ε))/(2*c)) ≤
+        ((160/Real.log 2+6)/ε^2)*x^((1:ℝ)/2+17*ε/8) := by
+  let L := x^ε/ε
+  let t := Real.sqrt x
+  let b := Real.exp (x^ε)
+  have x1 : 1 ≤ x := by linarith
+  have xp := zero_lt_one.trans_le x1
+  have lp : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have t1 : 1 ≤ t := by simpa [t] using Real.sqrt_le_sqrt x1
+  have p1 : 1 ≤ x^ε := Real.one_le_rpow x1 he.le
+  have L1 : 1 ≤ L := (le_div_iff₀ he).2 (by linarith)
+  have pe : x^ε ≤ L := (le_div_iff₀ he).2 ((mul_le_mul_of_nonneg_left he1 (zero_le_one.trans p1)).trans_eq (mul_one _))
+  have logx : Real.log x ≤ L := Real.log_le_rpow_div xp.le he
+  have logN : Real.log N ≤ L := by
+    by_cases hn0 : N=0
+    · simpa [hn0] using (zero_le_one.trans L1)
+    · exact (Real.log_le_log (by exact_mod_cast Nat.pos_of_ne_zero hn0) hn).trans logx
+  have top : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
+  have ratio : (V.card:ℝ)/tops.card ≤ 2*x^(ε/8) := by
+    apply (div_le_iff₀ top).2
+    have card : (V.card:ℝ) ≤ Fintype.card H := by exact_mod_cast Finset.card_le_univ V
+    have pos := Real.rpow_pos_of_pos xp (ε/8)
+    rw [Real.rpow_neg xp.le, ← div_eq_inv_mul] at density
+    have host := (div_le_iff₀ pos).1 (show (Fintype.card H:ℝ)/x^(ε/8) ≤ 2*tops.card by linarith only [density])
+    linarith only [card,host]
+  have b1 : 1 ≤ b := Real.one_le_exp (by positivity)
+  have size : 1+(x+1)*b ≤ (3*x)*b := by nlinarith only [b1,mul_nonneg (sub_nonneg.mpr x1) (zero_le_one.trans b1)]
+  have logSize := Real.log_le_log (by positivity) size
+  rw [Real.log_mul (by positivity) (by positivity),Real.log_mul (by norm_num) xp.ne',show Real.log b=x^ε from Real.log_exp _] at logSize
+  have log3 : Real.log 3 ≤ L := (Real.log_le_log (by norm_num) hx).trans logx
+  have g0 : 0 ≤ Real.log (1+(x+1)*b) := Real.log_nonneg (by linarith only [mul_nonneg (by linarith : 0 ≤ x+1) (zero_le_one.trans b1)])
+  have cone : (1:ℝ) ≤ c := by exact_mod_cast hc
+  have hcost : Real.log (1+(x+1)*b)/(2*c) ≤ 3*L :=
+    (div_le_self g0 (by linarith only [cone])).trans (by linarith only [logSize,log3,logx,pe])
+  have grow : L ≤ t*L^2 := calc
+    _ ≤ L^2 := by nlinarith only [L1,sq_nonneg (L-1)]
+    _ ≤ _ := le_mul_of_one_le_left (sq_nonneg _) t1
+  have two : Real.log x*Real.log N ≤ L^2 := by
+    rw [pow_two]
+    exact mul_le_mul logx logN (Real.log_natCast_nonneg N) (zero_le_one.trans L1)
+  have a0 : 0 ≤ 80*t/Real.log 2 := div_nonneg (mul_nonneg (by norm_num) (zero_le_one.trans t1)) lp.le
+  have bound : 80*t*Real.log x/Real.log 2*Real.log N + Real.log (1+(x+1)*b)/(2*c) ≤
+      (80/Real.log 2+3)*(t*L^2) := by
+    calc
+      _ = (80*t/Real.log 2)*(Real.log x*Real.log N)+_ := by ring
+      _ ≤ (80*t/Real.log 2)*L^2+3*(t*L^2) :=
+        add_le_add (mul_le_mul_of_nonneg_left two a0) (hcost.trans (mul_le_mul_of_nonneg_left grow (by norm_num)))
+      _ = _ := by ring
+  calc
+    _ ≤ ((V.card:ℝ)/tops.card)*((80/Real.log 2+3)*(t*L^2)) :=
+      mul_le_mul_of_nonneg_left bound (by positivity)
+    _ ≤ (2*x^(ε/8))*((80/Real.log 2+3)*(t*L^2)) := mul_le_mul_of_nonneg_right ratio (by dsimp [t]; positivity)
+    _ = _ := by
+      dsimp [t,L]
+      rw [Real.sqrt_eq_rpow,show (1:ℝ)/2+17*ε/8=ε/8+1/2+ε+ε by ring,
+        Real.rpow_add xp,Real.rpow_add xp,Real.rpow_add xp]
+      ring
 
 end RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS
