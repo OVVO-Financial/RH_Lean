@@ -321,6 +321,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.broad_physical_read,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.balanced_crossing_recovery,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_common_price,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.ancestor_dvd_history,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.history_common_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.signed_normal_balance,
     ``RHLean.Analysis.PrincipalCofactor.odd_quotient_variation,
     ``RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints,

@@ -53,9 +53,10 @@ theorem interval_clearing_iff {r : ℕ} (p : Fin (r+1) → ℕ) (L U : ℝ) (d :
   have localIff (j : Fin r) :
       ((d j:ℤ) ∣ layerJump (fun i => (m:ℤ)*intervalTest p L U i) j) ↔
         (j ∈ changes p L U → d j ∣ m) := by
+    simp only [changes,Finset.mem_filter,Finset.mem_univ,true_and]
     by_cases left : L ≤ (p j.castSucc:ℝ) ∧ (p j.castSucc:ℝ) < U <;>
       by_cases right : L ≤ (p j.succ:ℝ) ∧ (p j.succ:ℝ) < U <;>
-      simp [layerJump,changes,intervalTest,left,right]
+      simp [layerJump,intervalTest,left,right,Int.natCast_dvd_natCast]
   exact forall_congr' localIff
 
 def clearing {r : ℕ} (p : Fin (r+1) → ℕ) (L U : ℝ) (d : Fin r → ℕ) : ℕ :=
@@ -102,8 +103,11 @@ theorem weighted_interval_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMo
   calc
     _ ≤ ∑ k ∈ Finset.Ico 1 R, (1/(k:ℝ))*(2*B) := by
       refine Finset.sum_le_sum fun k hk => ?_
-      exact (mul_le_mul_of_nonneg_left (bound k) (by dsimp [PrincipalCofactor.cellWeight,
-        PrincipalCofactor.oddCofactor]; positivity)).trans (mul_le_mul_of_nonneg_right (weight k hk) (by positivity))
+      have positive : 0 ≤ PrincipalCofactor.cellWeight k := by
+        dsimp [PrincipalCofactor.cellWeight,PrincipalCofactor.oddCofactor]
+        positivity
+      exact (mul_le_mul_of_nonneg_left (bound k) positive).trans
+        (mul_le_mul_of_nonneg_right (weight k hk) (by positivity))
     _ = (2*B)*(∑ k ∈ Finset.Ico 1 R, 1/(k:ℝ)) := by rw [← Finset.sum_mul]; ring
     _ ≤ _ := mul_le_mul_of_nonneg_left
       ((nativeTailReciprocalIco_le 1 R le_rfl).trans (harmonic_le_one_add_log R)) (by positivity)
@@ -155,7 +159,7 @@ theorem clipped_hit (M p : ℕ) (hp : p.Prime) (a v : ℝ) :
   rw [lowerCut,upperCut,max_le_iff,lt_min_iff,PrincipalCofactor.mem_retainedFirstPrimes]
   have minP : (M.sqrt:ℝ)+1 ≤ p ↔ M.sqrt < p := by exact_mod_cast (Iff.rfl : M.sqrt+1 ≤ p ↔ M.sqrt < p)
   have maxP : (p:ℝ) < (M:ℝ)+1 ↔ p ≤ M := by exact_mod_cast (Nat.lt_succ_iff : p < M+1 ↔ p ≤ M)
-  simp only [minP,maxP,hp,hp.one_le,true_and,and_true]
+  simp only [minP,maxP,hp,hp.one_le,true_and]
   tauto
 
 private theorem changed_lower {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Monotone p) (L U : ℝ)
@@ -188,7 +192,7 @@ theorem broad_recovered {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M
     intro j hj
     exact (Finset.dvd_prod_of_mem d hj).trans (Finset.dvd_prod_of_mem _ hk)
   exact ⟨fun k => if hk : k ∈ Finset.Ico 1 K then (ex k hk).choose else 0,
-    fun k hk => by simpa only [dif_pos hk] using (ex k hk).choose_spec⟩
+    fun k hk => by simpa only [dite_eq_left hk] using (ex k hk).choose_spec⟩
 
 private theorem depth_at_crossing (p c : ℕ) (x a v : ℝ) (hp : p.Prime) (hx : 1 ≤ x)
     (ha : 0 < a) (hv : 0 < v) (hd : a/v ≤ (p:ℝ)) (hpx : (p:ℝ) ≤ x) :
@@ -275,7 +279,7 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
       exact mul_nonneg (by positivity) (Real.log_nonneg hx)
     · have u1 : 1 < u := by
         by_contra! h
-        exact small (Nat.ceil_le.mpr (by simpa using h))
+        exact small (Nat.ceil_le.mpr (show u ≤ ((1:ℕ):ℝ) by exact h))
       have ku : (K:ℝ) ≤ 2*u := by linarith only [(Nat.ceil_lt_add_one up.le).le,u1]
       have square := pow_le_pow_left₀ (Nat.cast_nonneg (α := ℝ) K) ku 2
       have Ksq : (K:ℝ)^2 ≤ 4*(a/t) := by nlinarith only [square,usq]
@@ -283,7 +287,7 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
         apply (div_le_iff₀ hm).2
         calc
           _ ≤ x*(4*(a/t)) := mul_le_mul_of_nonneg_left Ksq (zero_le_one.trans hx)
-          _ = 4*t*a := by rw [← tsq]; field_simp [tp.ne']; ring
+          _ = 4*t*a := by rw [← tsq]; field_simp [tp.ne']
       calc
         _ ≤ _ := broad_price p hp c M K x s hx hs hm hprime hpx
         _ = (10*(c:ℝ))*(x*(K:ℝ)^2/a)*Real.log x := by ring
@@ -297,11 +301,91 @@ theorem balanced_crossing_recovery {r : ℕ} (p : Fin (r+1) → ℕ) (hp : Stric
       have frac : (a/PrincipalCofactor.oddCofactor K)*(1/PrincipalCofactor.oddCofactor K) ≤ t := by
         rw [mul_one_div,div_div,div_le_iff₀ (mul_pos dp dp)]
         nlinarith only [low]
-      exact (PrincipalCofactor.fine_crossing_price M K R kr).trans
-        (by simpa only [mul_assoc] using mul_le_mul_of_nonneg_left frac
-          (show 0 ≤ Real.log 4+1 by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]))
+      have coef : 0 ≤ Real.log 4+1 := by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]
+      have scaled := mul_le_mul_of_nonneg_left frac coef
+      exact (PrincipalCofactor.fine_crossing_price M K R kr).trans (by simpa only [mul_assoc] using scaled)
     · rw [Finset.Ico_eq_empty_of_le (le_of_not_ge kr),Finset.sum_empty]
       exact mul_nonneg (by linarith only [Real.log_nonneg (by norm_num : (1:ℝ) ≤ 4)]) tp.le
+
+/-- Multiply the actual denominators along the same halving chain as the signed
+principal history. The prime powers and the frame scale stay fixed. -/
+def historyClearing {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (x s : ℝ) (N : ℕ) : ℕ :=
+  if _h : N < 16 then 1 else
+    broadClearing p d N ⌈Real.sqrt (PrincipalCofactor.evenEndpoint N/Real.sqrt x)⌉₊ s *
+      historyClearing p d x s (N/2)
+termination_by N
+decreasing_by omega
+
+private theorem broad_pos {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (M K : ℕ) (s : ℝ)
+    (hd : ∀ j, 0 < d j) : 0 < broadClearing p d M K s :=
+  Finset.prod_pos fun k _ => Finset.prod_pos fun j _ => hd j
+
+theorem history_pos {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (x s : ℝ)
+    (hd : ∀ j, 0 < d j) (N : ℕ) : 0 < historyClearing p d x s N := by
+  induction N using Nat.strong_induction_on with
+  | h N ih =>
+    rw [historyClearing]
+    split
+    · decide
+    · exact Nat.mul_pos (broad_pos p d _ _ _ hd) (ih (N/2) (by omega))
+
+/-- Every broad multiplier used at every physical dyadic ancestor divides
+this same integer. This permits all the interval preimages to be rescaled
+inside the one anchored recovery image. -/
+theorem ancestor_dvd_history {r : ℕ} (p : Fin (r+1) → ℕ) (d : Fin r → ℕ) (x s : ℝ)
+    (j N : ℕ) (hM : 16 ≤ N/2^j) :
+    let M := N/2^j
+    broadClearing p d M ⌈Real.sqrt (PrincipalCofactor.evenEndpoint M/Real.sqrt x)⌉₊ s ∣
+      historyClearing p d x s N := by
+  dsimp only
+  induction j generalizing N with
+  | zero =>
+    simp only [pow_zero,Nat.div_one] at hM ⊢
+    rw [historyClearing,if_neg (by omega : ¬ N < 16)]
+    exact dvd_mul_right _ _
+  | succ j ih =>
+    have eq : (N/2)/2^j = N/2^(j+1) := by rw [Nat.div_div_eq_div_mul,pow_succ,mul_comm 2]
+    have hN : 16 ≤ N := hM.trans (Nat.div_le_self _ _)
+    rw [historyClearing,if_neg (by omega : ¬ N < 16),← eq]
+    exact (ih (N/2) (eq.symm ▸ hM)).trans (dvd_mul_left _ _)
+
+/-- At fixed shift the entire dyadic history uses one positive multiplier
+with at most one additional logarithm after the original division by c. -/
+theorem history_common_price {r : ℕ} (p : Fin (r+1) → ℕ) (hp : StrictMono p) (c : ℕ)
+    (x s : ℝ) (hx : 1 ≤ x) (hs : s ∈ Set.Icc 0 1) (hprime : ∀ i, (p i).Prime)
+    (hpx : ∀ i, (p i:ℝ) ≤ x) (N : ℕ) :
+    let d := fun j : Fin r => (p j.succ)^(⌊(c:ℝ)*x⌋₊/(p j.succ)-c)
+    Real.log (historyClearing p d x s N:ℝ) ≤
+      (40*(c:ℝ)*Real.sqrt x*Real.log x/Real.log 2)*Real.log N := by
+  intro d
+  let B := 40*(c:ℝ)*Real.sqrt x*Real.log x
+  have hB : 0 ≤ B := mul_nonneg (by positivity) (Real.log_nonneg hx)
+  have h2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have scale := div_nonneg hB h2.le
+  have hd (j) : 0 < d j := pow_pos (hprime _).pos _
+  induction N using Nat.strong_induction_on with
+  | h N ih =>
+    rw [historyClearing]
+    split
+    · simp only [Nat.cast_one,Real.log_one]
+      exact mul_nonneg scale (Real.log_natCast_nonneg _)
+    · rename_i large
+      let q := N/2
+      have qp : (0:ℝ) < q := by exact_mod_cast (show 0 < q by dsimp [q]; omega)
+      have hm : 0 < PrincipalCofactor.evenEndpoint N := by
+        change 0 < 2*(q:ℝ)
+        positivity
+      have per := (balanced_crossing_recovery p hp c N 0 x s hx hs hm hprime hpx).1
+      have past := ih q (by dsimp [q]; omega)
+      have left := broad_pos p d N ⌈Real.sqrt (PrincipalCofactor.evenEndpoint N/Real.sqrt x)⌉₊ s hd
+      rw [Nat.cast_mul,Real.log_mul (by exact_mod_cast left.ne') (by exact_mod_cast (history_pos p d x s hd q).ne')]
+      have mono := Real.log_le_log (mul_pos (by norm_num : (0:ℝ)<2) qp)
+        (show 2*(q:ℝ) ≤ N by exact_mod_cast (show 2*q ≤ N by dsimp [q]; omega))
+      rw [Real.log_mul (by norm_num) qp.ne'] at mono
+      have fixed : B/Real.log 2*Real.log 2=B := div_mul_cancel₀ _ h2.ne'
+      have sum := mul_le_mul_of_nonneg_left mono scale
+      rw [mul_add,fixed] at sum
+      exact (add_le_add per past).trans sum
 
 /-- A single simultaneous multiplier at each actual occupied site. Charge both
 its finite log and an upper bound for the archimedean log norm of every
@@ -311,25 +395,24 @@ theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
     (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
     (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
     (x b s : ℝ) (hx : 1 ≤ x) (hb : 1 ≤ b) (hs : s ∈ Set.Icc 0 1)
-    (hm : 0 < PrincipalCofactor.evenEndpoint M) (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
     (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n) :
     let P := highThickPrimes e q d x
     let g := fun l => ((alpogeNativeHostData e q d).frob l).2
     let V := occupied tops P g
     let p := primeAt tops P g
-    let K := ⌈Real.sqrt (PrincipalCofactor.evenEndpoint M/Real.sqrt x)⌉₊
     let c := ⌊Real.sqrt x⌋₊
     let d' := fun (y : ↥V) (j : Fin ((partnerPrimes tops P g y.val).card-1)) =>
       (p y j.succ)^(⌊(c:ℝ)*x⌋₊/(p y j.succ)-c)
-    let m := fun y : ↥V => broadClearing (p y) (d' y) M K s
+    let m := fun y : ↥V => historyClearing (p y) (d' y) x s M
     let size := fun (y : ↥V) (j : ↥(siteRows T n y.val)) =>
       ⌊a (y.val-g (p y 0))/(p y 0:ℝ)⌋₊-⌈w j.val.1 j.val.2 ((0,1),y.val)⌉₊
     let k := ((T.card*n:ℕ):ℝ)
     (∑ y : ↥V, ∑ j : ↥(siteRows T n y.val),
-      Real.log (m y:ℝ)+Real.log (1+(m y:ℝ)^2*(size y j:ℝ))/2) / ((c:ℝ)*k*tops.card) ≤
-      ((V.card:ℝ)/tops.card)*(80*Real.sqrt x*Real.log x + Real.log (1+(x+1)*b)/(2*c)) := by
+      (Real.log (m y:ℝ)+Real.log (1+(m y:ℝ)^2*(size y j:ℝ))/2)) / ((c:ℝ)*k*tops.card) ≤
+      ((V.card:ℝ)/tops.card)*(80*Real.sqrt x*Real.log x/Real.log 2*Real.log M + Real.log (1+(x+1)*b)/(2*c)) := by
   classical
-  intro P g V p K c d' m size k
+  intro P g V p c d' m size k
   have info := highThick_primeAt e q d x tops
   have x0 := zero_le_one.trans hx
   have b0 := zero_le_one.trans hb
@@ -338,13 +421,12 @@ theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
     exact_mod_cast (show 1 ≤ c from (Nat.le_floor_iff (Real.sqrt_nonneg x)).2 (by simpa using one))
   have kp : 0 < k := by change 0 < ((T.card*n:ℕ):ℝ); exact_mod_cast Nat.mul_pos hT.card_pos hn
   have tp : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
-  let B := 40*(c:ℝ)*Real.sqrt x*Real.log x
+  let B := 40*(c:ℝ)*Real.sqrt x*Real.log x/Real.log 2*Real.log M
   let height := 1+(x+1)*b
   have cost (y : ↥V) : Real.log (m y:ℝ) ≤ B :=
-    (balanced_crossing_recovery (p y) (p y).strictMono c M 0 x s hx hs hm
-      (fun i => (info y i).1) (fun i => by linarith only [(info y i).2.2.1])).1
-  have pos (y : ↥V) : 0 < m y := Finset.prod_pos fun l _ =>
-    Finset.prod_pos fun j _ => pow_pos (info y j.succ).1.pos _
+    history_common_price (p y) (p y).strictMono c x s hx hs
+      (fun i => (info y i).1) (fun i => by linarith only [(info y i).2.2.1]) M
+  have pos (y : ↥V) : 0 < m y := history_pos (p y) (d' y) x s (fun j => pow_pos (info y j.succ).1.pos _) M
   have per (y : ↥V) (j : ↥(siteRows T n y.val)) :
       Real.log (m y:ℝ)+Real.log (1+(m y:ℝ)^2*(size y j:ℝ))/2 ≤ 2*B+Real.log height/2 := by
     let u := a (y.val-g (p y 0))
@@ -366,6 +448,7 @@ theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
     have logs := Real.log_le_log (by positivity) big
     have hpos : 0 < height := by dsimp [height]; positivity
     rw [Real.log_mul (by positivity) hpos.ne',Real.log_pow] at logs
+    norm_num1 at logs
     linarith only [logs,cost y]
   have count : (∑ y : ↥V, ∑ _j : ↥(siteRows T n y.val), (2*B+Real.log height/2)) =
       (V.card:ℝ)*(k*(2*B+Real.log height/2)) := by
@@ -374,6 +457,10 @@ theorem highThick_common_price (e q d n M : ℕ) [Fact q.Prime] [Fact d.Prime]
   calc
     _ ≤ _ := Finset.sum_le_sum fun y _ => Finset.sum_le_sum fun j _ => per y j
     _ = _ := count
-    _ = _ := by dsimp only [B,height]; field_simp [tp.ne',cpos.ne']; ring
+    _ = ((V.card:ℝ)/tops.card)*(80*Real.sqrt x*Real.log x/Real.log 2*Real.log M +
+        Real.log (1+(x+1)*b)/(2*c))*((c:ℝ)*k*tops.card) := by
+      dsimp only [B,height]
+      field_simp [tp.ne',cpos.ne', (Real.log_pos (by norm_num : (1:ℝ)<2)).ne']
+      <;> ring
 
 end RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS
