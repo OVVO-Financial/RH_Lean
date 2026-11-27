@@ -304,6 +304,15 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.admission_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.highThick_reads
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.moving_balance
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.star_divergent_zero
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.boundary_against_layers
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.boundary_projection
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.sparse_projection_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.changes_card
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_clearing_iff
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_recovered
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.weighted_interval_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_energy
 #print axioms RHLean.Analysis.PrincipalCofactor.odd_quotient_variation
 #print axioms RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints
 #print axioms RHLean.Analysis.PrincipalCofactor.quarter_step_price

@@ -19,9 +19,10 @@ def coDiv {J ι : Type*} [Fintype J] (X : Matrix J ι ℝ) : Matrix ι ι ℝ :=
 
 theorem coDiv_eq {J ι : Type*} [Fintype J] (X : Matrix J ι ℝ) :
     coDiv X = X.transpose * X := by
-  rw [coDiv, ← finiteTargetSecondMoment_eq_partial_reassembly]
-  ext i j
-  simp [finiteTargetSecondMoment, Matrix.mul_apply]
+  calc
+    _ = finiteTargetSecondMoment Finset.univ (fun _ => 1) (fun z i => X z i) 0 :=
+      (finiteTargetSecondMoment_eq_partial_reassembly Finset.univ (fun _ => 1) (fun z i => X z i) 0).symm
+    _ = _ := by ext i j; simp [finiteTargetSecondMoment,Matrix.mul_apply]
 
 /-- Inserting the original rows at their integer addresses preserves every mixed entry,
 including one between a section and a signed arithmetic observation. -/
@@ -90,8 +91,8 @@ theorem oriented_schur {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) �
   rw [finiteTargetScaledSchur_target_invariant _ _ X 0 t]
   change finiteTotalWeight _ _ * finiteTargetSecondMoment _ _ X 0 i j -
     finiteTargetFirstMoment _ _ X 0 i * finiteTargetFirstMoment _ _ X 0 j = _
-  rw [first_moment, first_moment, finiteTargetSecondMoment_eq_partial_reassembly]
-  simp [coDiv, finiteTotalWeight]
+  rw [first_moment, first_moment, coDiv_eq]
+  simp [finiteTargetSecondMoment, finiteTotalWeight, Matrix.mul_apply]
 
 /-- Every nonempty retained layer contains the upper slot of its own prime cut. -/
 theorem boundary_mem {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
@@ -136,9 +137,10 @@ prime test embedded into the same integer slot space. -/
 def observed {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ) :
     Matrix (↥(Finset.Iic ⌊h 0⌋₊)) (Fin r ⊕ Bool) ℝ :=
-  slotInclusion (physicalAddress h v hne) * fun z =>
+  slotInclusion (physicalAddress h v hne) * (fun z =>
     Sum.elim (fun j => (columns (bands h v) D z j : ℝ))
-      (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z)
+      (fun b => if b then boundaryObs a h v f z else boundaryObs a h v (fun p => Real.log p) z) :
+      Matrix (Address (bands h v)) (Fin r ⊕ Bool) ℝ)
 
 theorem observed_star {r : ℕ} (a h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (D : Fin (r+1) → ℕ) (f : ℕ → ℝ)
@@ -241,7 +243,10 @@ theorem moving_balance (P : Finset ℕ) (M : ℕ) (a v : ℝ) :
   have all := Finset.sum_sdiff (f := fun p : ℕ => Real.log p) (show U ∩ P ⊆ U from Finset.inter_subset_left)
   rw [rest] at all
   change (∑ p ∈ U, Real.log p)-(a/v-a/(v+1)) = _
-  rw [eq, add_comm, all]
+  rw [eq]
+  change (∑ p ∈ U, Real.log p) - _ =
+    ((∑ p ∈ U ∩ P, Real.log p) + ∑ p ∈ U \ P, Real.log p) - _
+  linarith only [all]
 
 /-- Partition the original parent interval at the upper slot of an admitted
 prime. Both children retain their actual quotient coordinates. -/
@@ -259,7 +264,7 @@ def splitAddress (l c u : ℕ) (hl : l ≤ c) (hu : c ≤ u) : SplitSlots l c u 
     cases z with
     | inl k => simp [(Finset.mem_Ioc.mp k.property).2]
     | inr k => simp [not_le.mpr (Finset.mem_Ioc.mp k.property).1]
-  right_inv k := by split <;> rfl
+  right_inv k := by by_cases edge : k.val ≤ c <;> simp [edge]
 
 /-- The anchor is constant on the parent. The recovered jump is multiplied by
 the original Euler power on the upper child. -/
@@ -272,7 +277,7 @@ private theorem split_entries (l c u d : ℕ) :
     let R : ℝ := (u-c:ℕ)
     G false false = L+R ∧ G false true = R*d ∧ G true true = R*(d:ℝ)^2 := by
   intro G L R
-  simp [G, L, R, coDiv_eq, Matrix.mul_apply, splitColumns, Fintype.sum_sum_type, pow_two, mul_assoc]
+  simp [G, L, R, coDiv_eq, Matrix.mul_apply, splitColumns, Fintype.sum_sum_type, pow_two]
 
 /-- Complete one-admission price on a changing mask. The determinant is in the
 parent counting metric. The Schur pivot removes the retained anchor only over
@@ -289,7 +294,9 @@ theorem admission_price (a : ℝ) (p e l u : ℕ) (hp : p.Prime)
     G false false*G true true - G false true^2 = (d:ℝ)^2*L*R ∧
     (anchoredRecovery (fun _ : Fin 1 => (d:ℤ))).toAddMonoidHom.range.index = d := by
   intro c d L R G
-  have pos : 0 < L+R := add_pos (by exact_mod_cast Nat.sub_pos_of_lt hl) (by exact_mod_cast Nat.sub_pos_of_lt hu)
+  have left : 0 < L := by dsimp [L,c]; exact_mod_cast Nat.sub_pos_of_lt hl
+  have right : 0 < R := by dsimp [R,c]; exact_mod_cast Nat.sub_pos_of_lt hu
+  have pos := add_pos left right
   have ident : G = coDiv (splitColumns l c u d) := insert_gram _ _
   obtain ⟨h0,h1,h2⟩ := split_entries l c u d
   change (coDiv (splitColumns l c u d)) false false = L+R at h0
@@ -299,6 +306,100 @@ theorem admission_price (a : ℝ) (p e l u : ℕ) (hp : p.Prime)
   refine ⟨rfl, ?_, by ring, ?_⟩
   · field_simp [pos.ne'] <;> ring
   · simpa using (anchoredRecovery_index (fun _ : Fin 1 => d) (fun _ => pow_pos hp.pos e)).2
+
+
+/-- At zero target the bare star has a uniform sign across each slot row.
+Its two divergent partial-moment matrices vanish even when a signed prime
+read on precisely these slots is nonzero. -/
+theorem star_divergent_zero {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ) :
+    let X := (columns S D).map (Int.castRingHom ℝ)
+    finiteDLPM Finset.univ (fun _ => 1) X 0 = 0 ∧ finiteDUPM Finset.univ (fun _ => 1) X 0 = 0 := by
+  intro X
+  have signs (z : Address S) : (∀ j, X z j ≤ 0) ∨ (∀ j, 0 ≤ X z j) := by
+    by_cases root : z.1 = 0
+    · left
+      intro j
+      change ((starColumn D j z.1 z.2.val:ℤ):ℝ) ≤ 0
+      simp [starColumn,root,(Fin.succ_ne_zero j).symm]
+    · right
+      intro j
+      change 0 ≤ ((starColumn D j z.1 z.2.val:ℤ):ℝ)
+      by_cases leaf : z.1 = j.succ <;> simp [starColumn,root,leaf]
+  have upper {z : ℝ} (hz : z ≤ 0) : partialUpper z 0 = 0 := by
+    unfold partialUpper
+    split_ifs <;> linarith
+  have lower {z : ℝ} (hz : 0 ≤ z) : partialLower z 0 = 0 := by simp [partialLower, not_lt.mpr hz]
+  constructor
+  · ext i j
+    apply Finset.sum_eq_zero
+    intro z _
+    rcases signs z with h|h
+    · simp [upper (h j)]
+    · simp [lower (h i)]
+  · ext i j
+    apply Finset.sum_eq_zero
+    intro z _
+    rcases signs z with h|h
+    · simp [upper (h i)]
+    · simp [lower (h j)]
+
+/-- Dot products with every layer-constant section characterize the projection
+of the endpoint observation. No prime mass is inserted at the other slots. -/
+theorem boundary_against_layers {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) → ℕ)
+    (hp : ∀ i, 0 < p i) (ha : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ a i)
+    (v : ℝ) (hne : ∀ i, (bands (fun j => a j/(p j:ℝ)) v i).Nonempty)
+    (f : ℕ → ℝ) (b : Fin (r+1) → ℝ) :
+    let h := fun i => a i/(p i:ℝ)
+    (∑ z : Address (bands h v), boundaryObs a h v f z*b z.1) = ∑ i, f (p i)*b i := by
+  intro h
+  rw [Fintype.sum_sigma]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  let k : ↥(bands h v i) := ⟨⌊h i⌋₊, boundary_mem h v hne i⟩
+  rw [Finset.sum_eq_single k]
+  · simp [boundaryObs,k,h,decode_boundary _ _ (hp i) (ha i)]
+  · intro z _ hz
+    have ne : z.val ≠ ⌊h i⌋₊ := fun eq => hz (Subtype.ext eq)
+    simp [boundaryObs,ne]
+  · simp
+
+/-- Projection onto the entire layer-constant space, which contains the
+stars and the retained anchor, averages the sparse signed read over each
+original layer. Pairing with any layer section leaves the read unchanged. -/
+theorem boundary_projection {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) → ℕ)
+    (hp : ∀ i, 0 < p i) (ha : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ a i)
+    (v : ℝ) (hne : ∀ i, (bands (fun j => a j/(p j:ℝ)) v i).Nonempty)
+    (f : ℕ → ℝ) (b : Fin (r+1) → ℝ) :
+    let h := fun i => a i/(p i:ℝ)
+    let S := bands h v
+    (∑ z : Address S, (boundaryObs a h v f z - f (p z.1)/(S z.1).card)*b z.1) = 0 := by
+  intro h S
+  simp_rw [sub_mul, Finset.sum_sub_distrib]
+  rw [boundary_against_layers a p hp ha v hne f b, Fintype.sum_sigma]
+  apply sub_eq_zero.mpr
+  refine Finset.sum_congr rfl fun i _ => ?_
+  have pos : ((S i).card:ℝ) ≠ 0 := by exact_mod_cast (hne i).card_pos.ne'
+  simp [pos, mul_div_assoc, mul_comm, mul_left_comm, mul_assoc, div_eq_mul_inv]
+
+/-- If both the logarithm and the contrast use an endpoint, the anchored
+layer projection sees at most one slot's fraction of each nonnegative
+crossing. With a layer-constant signed test the full read survives, as
+computed in `boundary_against_layers`. -/
+theorem sparse_projection_price {r : ℕ} (a : Fin (r+1) → ℝ) (p : Fin (r+1) → ℕ)
+    (hp : ∀ i, 0 < p i) (ha : ∀ i, (p i:ℝ)*((p i:ℝ)+1) ≤ a i)
+    (v : ℝ) (hne : ∀ i, (bands (fun j => a j/(p j:ℝ)) v i).Nonempty)
+    (f : ℕ → ℝ) (hf : ∀ i, 0 ≤ f (p i)) {m : ℝ} (hm : 0 < m)
+    (hmS : ∀ i, m ≤ ((bands (fun j => a j/(p j:ℝ)) v i).card:ℝ)) :
+    let h := fun i => a i/(p i:ℝ)
+    let S := bands h v
+    (∑ z : Address S, boundaryObs a h v (fun l => Real.log l) z*(f (p z.1)/(S z.1).card)) ≤
+      (∑ i, Real.log (p i)*f (p i))/m := by
+  intro h S
+  rw [boundary_against_layers a p hp ha v hne (fun l => Real.log l) (fun i => f (p i)/(S i).card),
+    Finset.sum_div]
+  apply Finset.sum_le_sum
+  intro i _
+  rw [← mul_div_assoc]
+  exact div_le_div_of_nonneg_left (mul_nonneg (Real.log_natCast_nonneg _) (hf i)) hm (hmS i)
 
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
