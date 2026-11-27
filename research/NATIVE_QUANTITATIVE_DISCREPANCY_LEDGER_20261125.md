@@ -31,6 +31,8 @@ $A_{\mathrm{high}}$ uses the original translated, normalized first-prime reads t
 
 ### What repeated operations at one admitted prime recover
 
+The fixed-prime consumer for Proposition 12.16 is already present as `lengthFromAllBut_of_sandwich`. It takes the lattice inclusions and the exceptional generators. At the original scale the bound is $m^{\beta+1}\sum_{\#B=\beta+1}\#G_B$. The full residue fibre below has a single exceptional constant vector. Identifying its surviving directions with the simultaneous served tests on the original restricted section lattice is additional work. Theorem 12.21 uses the resulting colength in the slope of this same lattice. Proposition 12.26 subtracts the restriction charge $\tau(p)$ from the sum of corrected divisibility gains and retains the low and floor terms on the arithmetic side. The local index calculation below measures a concrete restriction charge. Identifying the arithmetic side of that proposition, including its exceptional primes and proper powers, is essential before this charge can enter the signed ledger. [Existing colength consumer](../RHLean/Geometry/NativeServedPrimeApplication.lean)
+
 On a complete residue fibre for one prime $p$, let $T_a f(j)=f(j+a)$. These displacements commute on the actual $p$ seats. At a nonzero Fourier mode, their product of differences has multiplier $\prod_{a=1}^{p-1}(1-\zeta^{ka})=p$. The constant mode has multiplier zero. Fourier inversion gives the integral identity
 $$
 \left(\prod_{a=1}^{p-1}(I-T_a)f\right)(j)
@@ -71,7 +73,7 @@ There is an explicit price for trying to supply stages by ordinary polynomial in
 $$
 \frac{2(m-1)}c\log G\,\left(|P|-(m-1)\frac{|V|}{|TT|}\right).
 $$
-For $m\asymp c\asymp\sqrt x$ this is too large on the selected-pair high-prime scale $|P|\gg x/\log x$, with $\varepsilon$ sufficiently small. Each block on its own gives only $O(m\log((x+1)b))$ per direction; the complete sum explains the extra cost. Any use of interpolation here must price only the required local valuations or independently compensate that ordinary index. The remaining three terms of the complete Stepanov balance still require a common signed construction. The determinant and normalization calculation in this paragraph is on paper. [Original slot spacing](NativeMeasuredSlotProjector.lean) · [Pinned Vandermonde determinant](https://github.com/leanprover-community/mathlib4/blob/d13f23b723b8a846827a245b89c10fc7d3f11612/Mathlib/LinearAlgebra/Vandermonde.lean)
+For $m\asymp c\asymp\sqrt x$ this is too large on the selected-pair high-prime scale $|P|\gg x/\log x$, with $\varepsilon$ sufficiently small. Each block on its own gives only $O(m\log((x+1)b))$ per direction; the complete sum explains the extra cost. Any use of interpolation here must price only the required local valuations or independently compensate that ordinary index. The slot multiplier below accounts for an $m x^{O(\varepsilon)}$ maximum norm. The remaining $xm/k$ and $k x^{O(\varepsilon)}/(nN_T)$ terms, and conversion of that maximum norm to the complete normalized signed budget, still require a common construction. Here $k$ denotes Proposition 4.3’s scale parameter, distinct from the translated-row count used in the preceding display. The determinant and normalization calculation in this paragraph is on paper. [Original slot spacing](NativeMeasuredSlotProjector.lean) · [Pinned Vandermonde determinant](https://github.com/leanprover-community/mathlib4/blob/d13f23b723b8a846827a245b89c10fc7d3f11612/Mathlib/LinearAlgebra/Vandermonde.lean)
 
 ### Local interpolation with one common translation of the actual heights
 
@@ -123,6 +125,22 @@ $$
 =\frac{k^{1/2+i\tau}-(k-1)^{1/2+i\tau}}{1/2+i\tau}.
 $$
 The $J_k$ are disjoint and each has $\int_{J_k}e^u\,du=1$. Plancherel with measure $d\tau/(2\pi)$ therefore gives the counting Gram exactly for every finite signed combination of slots, including every entry between two different integral star columns. Applying this independently at each physical partner site realizes the preceding frame metric in the full frequency space. Its dimension remains the dimension of the actual measured images. To apply this calculation to the signed arithmetic source one still needs a comparison of the original Perron weights, MAIN and ASK on those images. This Plancherel calculation is on paper. The existing endpoint-phase identity uses the project's actual multiplier at $a/p$. [Endpoint phases](NativeSignedWidthSweep.lean)
+
+### Seven comparisons that must hold on the same signed family
+
+Adriazola’s Proposition 3.1 on page 12 uses $A=\sum_t a_t$, $\operatorname{ph}(a)=a\log a-a$, $\log\Omega=\gamma+\log(\pi/v)-\lambda_1$ and $\langle X\rangle_d=\sum_u d_u X_u/\sum_u d_u$. In this table $S$ denotes the proposition’s arithmetic input, $\Gamma$ its earned finite divisibility gain and $h_u$ the independently measured height of the period map.
+
+| Paper | Required inequality | What the native calculation supplies |
+|---|---|---|
+| (3.1) | $S\le\Gamma+e_1$ | The measured volume controls the high first-prime ASK. A gain covering the complete arithmetic input on that family is still required. |
+| (3.2) | $\mu_u^M+\Gamma+L-E_u-e_2\le\mu_u^N$ | The boundary restriction and the common-height selector give genuine local indices. A lower slope comparison for the complete restricted section lattice still has to incorporate its real norm and every finite place. |
+| (3.3) | $\langle\mu^N-h\rangle_d-e_3\le\mu_C$ | The translated slot frame bounds its own effective rank. It remains to obtain the target slope with sufficient aggregate rank on the complete maps that carry $S$. |
+| (3.4) | $\mu_C+h_u-L\le\sum_t[m\,\operatorname{ph}(a_t)-m a_t\log\Omega-a_t\log T_u]+e_4$ | The selector has an independently measured upper norm on slots. An upper comparison with this specific factorial and period expression on the same map remains open. |
+| (3.5) | $E_u\le mAg+e_5$ | The existing discrepancy ledger prices its transfer errors on admissible data. The complete local error in the common slope comparison must also include transport back from endpoint readings. |
+| (3.6) | $\log T_u\ge\sum_j f^{-1}\sum_\rho\log(w_{j\rho}v/\pi)+mg-e_6$ | The actual measured widths and their rounding costs are available. Their inclusion in an independently measured global local-factor product still needs proof. |
+| (3.7) | $\mu_u^M\ge-e_7$ | A counting metric gives a base slope on the measured slot lattice. Its use here requires the very same base lattice in (3.2). |
+
+Taking weighted means cancels $h_u$ only after (3.3) and (3.4) have been proved for the same maps. The total error is $e_1+e_2+e_3+e_4+e_5+A e_6+e_7$. Section 18.7 requires identifying the height used in that accounting with its independently defined period. The measurements in this branch are slot Gram determinants, integral indices and operator norms. Their comparison with the original signed MAIN is the outstanding identification. [Native signed consumer](../RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean) · [Pinned compact accounting](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/ShortAndEnough.lean)
 
 ## Same-family cancellation in the pinned Sernau editions
 

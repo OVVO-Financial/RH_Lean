@@ -129,7 +129,11 @@ private theorem sharedHeight_sum (a b p q h N L : ℕ) (hp : p.Prime) (hq : q.Pr
     refine Finset.sum_congr rfl fun k _ => ?_
     have test : (g i : ZMod (p^k)) = 0 ↔ p^k ∣ (g i).natAbs := by
       rw [ZMod.intCast_zmod_eq_zero_iff_dvd, ← Int.natCast_dvd_natCast, Int.dvd_natAbs]
-    simp only [test]
+    change (if p^k ∣ (g i).natAbs then (1:ℕ) else 0) =
+      if (g i : ZMod (p^k)) = 0 then 1 else 0
+    by_cases hk : p^k ∣ (g i).natAbs
+    · rw [ite_eq_left hk, ite_eq_left (test.mpr hk)]
+    · rw [ite_eq_right hk, ite_eq_right (mt test.mp hk)]
   calc
     _ = ∑ i ∈ Finset.range N, ∑ k ∈ T, if (g i : ZMod (p^k)) = 0 then 1 else 0 :=
       Finset.sum_congr rfl levels
