@@ -577,7 +577,7 @@ private theorem ask_wheel (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
     _ = 20*Real.log 4*(x/Real.sqrt x) := by ring
     _ = _ := by rw [(div_eq_iff hr0.ne').2 (Real.mul_self_sqrt hx0.le).symm]
 
-private theorem row_mem {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
+theorem siteRows_mem_iff {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
     (T : Finset H) (n : ℕ) (s : H) (a : H × Fin n) :
     a ∈ siteRows T n s ↔ (((0,1) : AlpogeNativeE0),s) ∈ alpogeNativeThickPositiveSites T a.1 := by
   simp [siteRows, alpogeNativeProjectionThickColours, alpogeNativeThickPositiveSites,
@@ -588,6 +588,24 @@ private theorem partner_at {H : Type*} [AddCommGroup H] (s g : H) :
   have h := alpogeNativeProjectionThick_partner s 0 (s-g)
   have heq : s - (s-g) = g := by abel
   simpa only [add_zero, heq] using h
+
+/-- Every sorted prime cut has its original partner, top, and high-prime bounds. -/
+theorem highThick_primeAt (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (x : ℝ)
+    (tops : Finset (AlpogeNativeDyadicH e)) :
+    let P := highThickPrimes e q d x
+    let g := fun p => ((alpogeNativeHostData e q d).frob p).2
+    ∀ (s : ↥(occupied tops P g)) (i), let p := primeAt tops P g s i
+      p.Prime ∧ Real.sqrt x ≤ (p:ℝ) ∧ (p:ℝ)+1 ≤ x ∧
+      alpogeNativePartner (s.val-g p) ((alpogeNativeHostData e q d).frob p) =
+        (((0,1) : AlpogeNativeE0),s.val) ∧ s.val-g p ∈ tops := by
+  intro P g s i p
+  have hp := Finset.mem_filter.mp (primeAt_mem tops P g s i)
+  have hi := Finset.mem_filter.mp hp.1
+  have ho := Finset.mem_filter.mp hi.1
+  refine ⟨(Nat.mem_primesLE.mp ho.1).2, ho.2.2.2.2.1, hi.2, ?_, hp.2⟩
+  change alpogeNativePartner (s.val-g (primeAt tops P g s i)) _ = _
+  rw [ho.2.2.2.2.2]
+  exact partner_at _ _
 
 private theorem normalize_volume (c k t G v : ℝ) (hc : c ≠ 0) (hk : k ≠ 0) (ht : t ≠ 0) :
     (4/c)*G - 4*v/(c*k*t) = 4*(k*(t*G)-v)/(c*k*t) := by
@@ -649,27 +667,16 @@ theorem highThick_frame (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
   have hb4 : 4*x^2 ≤ b := by
     rw [show (3:ℝ) = (3:ℕ) by norm_num, Real.rpow_natCast] at hlarge
     exact (show 4*x^2 ≤ x^3 by nlinarith only [mul_nonneg (show 0 ≤ x-4 by linarith) (sq_nonneg x)]).trans hlarge
-  have info (s : ↥V) (i : Fin (r s+1)) :
-      (p s i).Prime ∧ Real.sqrt x ≤ (p s i:ℝ) ∧ (p s i:ℝ)+1 ≤ x ∧
-      (alpogeNativeHostData e q d).frob (p s i) = alpogeNativeProjectionE1 (g (p s i)) ∧
-      s.val - g (p s i) ∈ tops := by
-    have hp := Finset.mem_filter.mp (primeAt_mem tops P g s i)
-    have hi := Finset.mem_filter.mp hp.1
-    have ho := Finset.mem_filter.mp hi.1
-    exact ⟨(Nat.mem_primesLE.mp ho.1).2, ho.2.2.2.2.1, hi.2, ho.2.2.2.2.2, hp.2⟩
+  have info := highThick_primeAt e q d x tops
   have hp s i := (info s i).1
   have high s i := (info s i).2.1
   have band s i := (info s i).2.2.1
   have px s i : (p s i:ℝ) ≤ x := by linarith only [band s i]
   have height s i := ha _ (info s i).2.2.2.2
   have hD s i : 0 < D s i := pow_pos (hp s i).pos _
-  have partner (s : ↥V) (i : Fin (r s+1)) :
-      alpogeNativePartner (s.val-g (p s i)) ((alpogeNativeHostData e q d).frob (p s i)) =
-        (((0,1) : AlpogeNativeE0),s.val) := by
-    rw [(info s i).2.2.2.1]
-    exact partner_at _ _
+  have partner s i := (info s i).2.2.2.1
   have hS (s : ↥V) (j : ↥(siteRows T n s.val)) (i) : (S s j i).Nonempty := by
-    have hwidth := hw j.val.1 j.val.2 _ ((row_mem T n s.val j.val).1 j.property)
+    have hwidth := hw j.val.1 j.val.2 _ ((siteRows_mem_iff T n s.val j.val).1 j.property)
     exact (firstPrime_slots e q d (r s) (p s) (fun i => s.val-g (p s i)) a (w j.val.1 j.val.2)
       x b hx1 hb4 (hp s) (p s).strictMono (band s) (height s) _ (partner s)
       ((Real.exp_pos _).le.trans hwidth.1) hwidth.2 i).2.1

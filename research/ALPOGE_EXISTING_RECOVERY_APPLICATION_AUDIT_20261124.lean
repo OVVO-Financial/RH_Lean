@@ -270,6 +270,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_slot_rank
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchor_norm
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_anchor_total_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.firstPrime_anchor_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_minimum
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelNormal_star

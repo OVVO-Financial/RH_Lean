@@ -86,6 +86,97 @@ theorem firstPrime_anchor_price (e q d r : ℕ) [Fact q.Prime] [Fact d.Prime]
     _ ≤ (2*x)*((2*((S l).card:ℝ))*x^2) := mul_le_mul_of_nonneg_left low (by positivity)
     _ = _ := by ring
 
+/-- Sum the exact real log norms of the retained anchors over their actual
+translated rows. One prime from each occupied block pays its anchor. The
+prime/top incidence identity and Chebyshev's bound give a uniform square-root
+cost after the original wheel-volume normalization. -/
+theorem translated_anchor_total_price (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b : ℝ) (hx : 10 ≤ x) (hb : 4*x^2 ≤ b) (ht : tops.Nonempty) (hT : T.Nonempty)
+    (hn : 0 < n) (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let c := ⌊Real.sqrt x⌋₊
+    let k := ((T.card*n:ℕ):ℝ)
+    let P := highThickPrimes e q d x
+    let g := fun l => ((alpogeNativeHostData e q d).frob l).2
+    let V := occupied tops P g
+    let p := primeAt tops P g
+    let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+      bands (fun i => a (s.val-g (p s i))/(p s i:ℝ)) (w j.val.1 j.val.2 ((0,1),s.val))
+    2*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val),
+      Real.log ((∑ i, ((S s j i).card:ℝ))/((S s j 0).card:ℝ)))/((c:ℝ)*k*tops.card) ≤
+        32*Real.log 4*Real.sqrt x := by
+  classical
+  intro c k P g V p S
+  let r := fun s : ↥V => (partnerPrimes tops P g s.val).card-1
+  let R := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    (∑ i, ((S s j i).card:ℝ))/((S s j 0).card:ℝ)
+  have hx1 : 1 ≤ x := by linarith
+  have hx0 : 0 < x := by linarith
+  have hb0 : 0 < b := lt_of_lt_of_le (by positivity) hb
+  have hsqrt : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+  have hfloor := Nat.lt_floor_add_one (Real.sqrt x)
+  change Real.sqrt x < (c:ℝ)+1 at hfloor
+  have hc : 0 < (c:ℝ) := by linarith
+  have hk : 0 < k := by
+    change 0 < ((T.card*n:ℕ):ℝ)
+    exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have ht0 : 0 < (tops.card:ℝ) := by exact_mod_cast ht.card_pos
+  have info := highThick_primeAt e q d x tops
+  have per (s : ↥V) (j : ↥(siteRows T n s.val)) :
+      Real.log (R s j) ≤ 8*∑ i, Real.log (p s i:ℝ) := by
+    have width := hw j.val.1 j.val.2 _ ((siteRows_mem_iff T n s.val j.val).1 j.property)
+    have prime i := (info s i).1
+    have band i := (info s i).2.2.1
+    have height i := ha _ (info s i).2.2.2.2
+    have partner i := (info s i).2.2.2.1
+    have price := firstPrime_anchor_price e q d (r s) (p s) (fun i => s.val-g (p s i))
+      a (w j.val.1 j.val.2) x b hx1 hb prime (p s).strictMono band height _ partner
+      (hb0.le.trans width.1) width.2 0
+    have layer := (firstPrime_slots e q d (r s) (p s) (fun i => s.val-g (p s i)) a (w j.val.1 j.val.2)
+      x b hx1 hb prime (p s).strictMono band height _ partner (hb0.le.trans width.1) width.2 0).2.1
+    have h0 : 0 < ((S s j 0).card:ℝ) := by exact_mod_cast layer.card_pos
+    have term : ((S s j 0).card:ℝ) ≤ ∑ i, ((S s j i).card:ℝ) :=
+      Finset.single_le_sum (f := fun i => ((S s j i).card:ℝ)) (fun _ _ => Nat.cast_nonneg _) (Finset.mem_univ 0)
+    have hlog := Real.log_le_log (Real.sqrt_pos.2 hx0) (info s 0).2.1
+    rw [Real.log_sqrt hx0.le] at hlog
+    calc
+      Real.log (R s j) ≤ Real.log (4*x^3) := Real.log_le_log (div_pos (h0.trans_le term) h0) price
+      _ ≤ 8*Real.log (p s 0:ℝ) := by
+        rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]
+        norm_num only [Nat.cast_ofNat]
+        linarith only [hlog, Real.log_le_log (by norm_num : (0:ℝ) < 4) (by linarith : 4 ≤ x)]
+      _ ≤ _ := mul_le_mul_of_nonneg_left (Finset.single_le_sum (f := fun i => Real.log (p s i:ℝ))
+        (fun i _ => Real.log_natCast_nonneg _) (Finset.mem_univ 0)) (by norm_num)
+  have sums : ∑ l ∈ P, Real.log (l:ℝ) ≤ Real.log 4*x := by
+    calc
+      _ ≤ ∑ l ∈ Nat.primesLE ⌊x⌋₊, Real.log (l:ℝ) :=
+        Finset.sum_le_sum_of_subset_of_nonneg ((Finset.filter_subset _ _).trans (Finset.filter_subset _ _))
+          (fun l _ _ => Real.log_natCast_nonneg l)
+      _ = Chebyshev.theta x := by rw [Chebyshev.theta, Nat.primesLE_eq_filter_Ioc_zero]
+      _ ≤ _ := Chebyshev.theta_le_log4_mul_x hx0.le
+  have charge : (∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), Real.log (R s j)) ≤
+      k*(8*(tops.card*(Real.log 4*x))) := by
+    calc
+      _ ≤ ∑ s : ↥V, ∑ _j : ↥(siteRows T n s.val), 8*∑ i, Real.log (p s i:ℝ) :=
+        Finset.sum_le_sum fun s _ => Finset.sum_le_sum fun j _ => per s j
+      _ = k*(8*(tops.card*∑ l ∈ P, Real.log (l:ℝ))) := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_coe, siteRows_card, nsmul_eq_mul,
+          ← Finset.mul_sum]
+        exact congrArg (fun v : ℝ => k*(8*v)) (primeAt_sum tops P g (fun l => Real.log (l:ℝ)))
+      _ ≤ _ := mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left
+        (mul_le_mul_of_nonneg_left sums ht0.le) (by norm_num)) hk.le
+  have scale : x ≤ 2*Real.sqrt x*(c:ℝ) := by
+    nlinarith only [Real.mul_self_sqrt hx0.le, mul_le_mul_of_nonneg_left
+      (show Real.sqrt x ≤ 2*(c:ℝ) by linarith) (Real.sqrt_nonneg x)]
+  apply (div_le_iff₀ (mul_pos (mul_pos hc hk) ht0)).2
+  calc
+    _ ≤ 2*(k*(8*(tops.card*(Real.log 4*x)))) := mul_le_mul_of_nonneg_left charge (by norm_num)
+    _ = ((16*Real.log 4)*k*tops.card)*x := by ring
+    _ ≤ ((16*Real.log 4)*k*tops.card)*(2*Real.sqrt x*c) := mul_le_mul_of_nonneg_left scale (by positivity)
+    _ = _ := by ring
+
 /-- Cofactor of a measured star column matrix at each layer. -/
 def wheelNormal {r : ℕ} (D : Fin (r+1) → ℕ) (i : Fin (r+1)) : ℕ :=
   ∏ j ∈ Finset.univ.erase i, D j
