@@ -1,0 +1,275 @@
+import «research.NativeAnchoredSlotMetric»
+
+/-! The original negative MAIN on the selected dyadic character host.
+The character estimate uses the primitive twist of the selected pair. The other
+input is the number of genuine thin widths. The original ASK is kept separate. -/
+
+set_option autoImplicit false
+noncomputable section
+open scoped Classical BigOperators
+open Filter
+
+namespace RHLean.Analysis.AlpogeThin.SlotProjector
+
+private theorem canonical_class_bound (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    {ε Y Z x : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (hY : Y ≤ x) (hZ : x ≤ Z) :
+    ‖alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d) (alpogeNativeChC (AlpogeNativeDyadicH e))‖
+      ≤ 4*Real.log x := by
+  let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+    (nativeDyadicTwoBitCharacter e 0 1)
+  let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
+  have h := (pair.bounds (1 : DirichletCharacter ℂ 1) 0 1 (Or.inr (by decide))
+    χ.conductor χ.primitiveCharacter (nativeDyadicTwoBitCharacter_induces e q d 0 1) x hY hZ).2
+  change ‖alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d) (nativeDyadicTwoBitCharacter e 0 1)‖ ≤ _ at h
+  simpa [nativeDyadicTwoBitCharacter] using h
+
+private theorem half_thin_log {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (T : Finset H) (u : H) (a L : ℝ) (ha : 0 < a) (hL : 0 ≤ L)
+    (w : AlpogeNativeE0 × H → ℝ)
+    (hp : ∀ ρ ∈ alpogeNativePhiSet H, 0 < w ρ)
+    (ht : ∀ ρ ∈ alpogeNativeThickPositiveSites T u, w ρ ≤ a)
+    (hn : ∀ ρ ∈ alpogeNativePhiSet H \ alpogeNativeThickPositiveSites T u,
+      Real.exp L ≤ a / w ρ) :
+    L/2 ≤ Real.log a - (1/((alpogeNativePhiSet H).card:ℝ))*
+      ∑ ρ ∈ alpogeNativePhiSet H, Real.log (w ρ) := by
+  classical
+  let P := alpogeNativePhiSet H
+  let T' := alpogeNativeThickPositiveSites T u
+  let f := fun ρ => Real.log a - Real.log (w ρ)
+  have sub : T' ⊆ P := by
+    intro ρ hρ
+    obtain ⟨s,_,rfl⟩ := Finset.mem_image.mp hρ
+    simp [P, alpogeNativePhiSet, alpogeNativeInPhi]
+  have hcard : (Fintype.card H) ≤ (P \ T').card := by
+    rw [Finset.card_sdiff_of_subset sub, show P.card = 2*Fintype.card H from alpogeNativeProjectionPhi_card,
+      show T'.card = T.card from alpogeNativeThickPositiveSites_card T u]
+    have h := Finset.card_le_univ T
+    omega
+  have lower : ((P \ T').card:ℝ)*L ≤ ∑ ρ ∈ P \ T', f ρ := by
+    rw [← nsmul_eq_mul, ← Finset.sum_const]
+    apply Finset.sum_le_sum
+    intro ρ hρ
+    have h := Real.log_le_log (Real.exp_pos L) (hn ρ hρ)
+    rwa [Real.log_exp, Real.log_div ha.ne' (hp ρ (Finset.mem_sdiff.mp hρ).1).ne'] at h
+  have thick : 0 ≤ ∑ ρ ∈ T', f ρ := Finset.sum_nonneg fun ρ hρ =>
+    sub_nonneg.mpr (Real.log_le_log (hp ρ (sub hρ)) (ht ρ hρ))
+  have allSites : (Fintype.card H:ℝ)*L ≤ ∑ ρ ∈ P, f ρ := by
+    rw [← Finset.sum_sdiff sub]
+    linarith only [lower, thick, mul_le_mul_of_nonneg_right (show (Fintype.card H:ℝ) ≤ (P \ T').card by
+      exact_mod_cast hcard) hL]
+  have total : (∑ ρ ∈ P, f ρ) = (P.card:ℝ)*Real.log a - ∑ ρ ∈ P, Real.log (w ρ) := by
+    simp only [f, Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul]
+  have c : (P.card:ℝ) = 2*(Fintype.card H:ℝ) := by exact_mod_cast (alpogeNativeProjectionPhi_card (H := H))
+  have hH : 0 < (Fintype.card H:ℝ) := by exact_mod_cast Fintype.card_pos
+  change L/2 ≤ Real.log a - (1/(P.card:ℝ))*_
+  rw [total, c] at allSites
+  rw [c]
+  field_simp [hH.ne']
+  linarith only [allSites]
+
+/-- A row estimate on the actual class character and all the original widths.
+It is uniform over the selected pairs and over the position of the window. -/
+theorem signedMain_row (ε : ℝ) (he : 0 < ε) :
+    ∀ᶠ x : ℝ in atTop, ∀ (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+      {Y Z : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
+      ∀ (T : Finset (AlpogeNativeDyadicH e)) (u : AlpogeNativeDyadicH e) (a : ℝ)
+        (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ), 0 < a →
+        (∀ ρ ∈ alpogeNativePhiSet _, 0 < w ρ) →
+        (∀ ρ ∈ alpogeNativeThickPositiveSites T u, w ρ ≤ a) →
+        (∀ ρ ∈ alpogeNativePhiSet _ \ alpogeNativeThickPositiveSites T u, Real.exp (x^(ε/3))/3 ≤ a/w ρ) →
+        4*a*Real.log x ≤ (alpogeNativeMAIN
+          (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)) a w).re := by
+  have hr : 0 < ε/3 := by positivity
+  filter_upwards [(isLittleO_log_rpow_atTop hr).bound (by norm_num : (0:ℝ) < 1/32),
+    (tendsto_rpow_atTop hr).eventually_ge_atTop (4*Real.log 3+16), eventually_ge_atTop (1:ℝ)]
+    with x hlog hbig hx
+  rw [Real.norm_of_nonneg (Real.log_nonneg hx), Real.norm_of_nonneg (Real.rpow_nonneg (by linarith) _)] at hlog
+  intro e q d _ _ Y Z pair hY hZ T u a w ha hp ht hn
+  let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+  have hc := (abs_le.mp ((Complex.abs_re_le_norm _).trans (canonical_class_bound e q d pair hY hZ))).1
+  have hl := half_thin_log T u a (x^(ε/3)-Real.log 3) ha
+    (by linarith only [hbig, Real.log_nonneg (by norm_num : (1:ℝ) ≤ 3)]) w hp ht (by
+      intro ρ hρ
+      rw [Real.exp_sub, Real.exp_log (by norm_num : (0:ℝ) < 3)]
+      exact hn ρ hρ)
+  have scalar : 4*Real.log x ≤ Real.log a - 1 - Real.eulerMascheroniConstant +
+      (ell (alpogeNativeChC _)).re - (1/((alpogeNativePhiSet (AlpogeNativeDyadicH e)).card:ℝ))*
+        ∑ ρ ∈ alpogeNativePhiSet _, Real.log (w ρ) := by
+    change -(4*Real.log x) ≤ (ell (alpogeNativeChC _)).re at hc
+    linarith only [hlog, hbig, hc, hl, Real.eulerMascheroniConstant_lt_two_thirds]
+  simp only [alpogeNativeMAIN, Complex.re_ofReal_mul, Complex.sub_re, Complex.add_re, Complex.ofReal_re]
+  change _ ≤ a * _
+  simpa only [mul_left_comm, mul_assoc, mul_comm] using mul_le_mul_of_nonneg_left scalar ha.le
+
+/-- Actual clipped wheel depths fit inside one factorial of the original
+integer prefix. This estimates their total and introduces no section transport. -/
+theorem wheel_prefix_log_bound (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime) (N c : ℕ) :
+    ∑ p ∈ P, Real.log ((p^(N/p-c):ℕ):ℝ) ≤ (N:ℝ)*Real.log N := by
+  classical
+  let D := fun p : ℕ => p^(N/p-c)
+  have hd p (hp : p ∈ P) : 0 < D p := pow_pos (hP p hp).pos _
+  have divides : (∏ p ∈ P, D p) ∣ N.factorial := by
+    apply Finset.prod_dvd_of_coprime
+    · intro p hp q hq hpq
+      exact (Nat.coprime_pow_primes _ _ (hP p hp) (hP q hq) hpq).isCoprime
+    · intro p hp
+      let : Fact p.Prime := ⟨hP p hp⟩
+      have hv := (padicValNat_mul_div_factorial (p := p) N).symm.trans (padicValNat_factorial_mul (N/p))
+      have lower : N/p-c ≤ padicValNat p N.factorial := by omega
+      exact (pow_dvd_pow p lower).trans pow_padicValNat_dvd
+  have hn : (∏ p ∈ P, D p) ≤ N^N := (Nat.le_of_dvd (Nat.factorial_pos _) divides).trans N.factorial_le_pow
+  have h := Real.log_le_log (show 0 < ((∏ p ∈ P, D p:ℕ):ℝ) by exact_mod_cast Finset.prod_pos hd)
+    (show ((∏ p ∈ P, D p:ℕ):ℝ) ≤ ((N^N:ℕ):ℝ) by exact_mod_cast hn)
+  rw [Nat.cast_prod, Real.log_prod (fun p hp => by exact_mod_cast (hd p hp).ne'), Nat.cast_pow, Real.log_pow] at h
+  exact h
+
+/-- The negative MAIN summand of the original subgroup top excess with its original divisor. -/
+def normalizedNegMain {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H] {n : ℕ}
+    (tops T : Finset H) (a : H → ℝ) (b : ℝ) (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (v : H → Fin n → AlpogeNativeE0 × H → ℝ) : ℝ :=
+  ((1/(Fintype.card (⊤ : AddSubgroup H):ℝ))*∑ u : (⊤ : AddSubgroup H), ∑ t ∈ tops, ∑ j : Fin n,
+    -(alpogeNativeMAIN ell (a t) (v u j)).re) / alpogeNativeProjectionDivisor tops T n b
+
+private theorem normalize_MAIN {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H] {n : ℕ}
+    (tops T : Finset H) (a : H → ℝ) (b x : ℝ) (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (v : H → Fin n → AlpogeNativeE0 × H → ℝ) (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (hb : 0 < b) (hx : 1 ≤ x)
+    (hrow : ∀ (u : H) t, t ∈ tops → ∀ j, 4*x*b*Real.log x ≤ (alpogeNativeMAIN ell (a t) (v u j)).re) :
+    normalizedNegMain tops T a b ell v ≤ -(8*x*Real.log x) := by
+  let A0 : AddSubgroup H := ⊤
+  let M := 4*x*b*Real.log x
+  have hU : 0 < (Fintype.card A0:ℝ) := by exact_mod_cast Fintype.card_pos
+  have hlog := Real.log_nonneg hx
+  have hx0 : 0 < x := zero_lt_one.trans_le hx
+  have hQ := alpogeNativeProjectionDivisor_pos tops T ht hT n hn b hb
+  have hsum : (∑ u : A0, ∑ t ∈ tops, ∑ j : Fin n, -(alpogeNativeMAIN ell (a t) (v u j)).re) ≤
+      ∑ _u : A0, ∑ _t ∈ tops, ∑ _j : Fin n, -M := by
+    exact Finset.sum_le_sum fun u _ => Finset.sum_le_sum fun t ht' =>
+      Finset.sum_le_sum fun j _ => neg_le_neg (hrow u t ht' j)
+  have hDelta : alpogeNativeProjectionDensity T ≤ 1 := by
+    unfold alpogeNativeProjectionDensity
+    apply (div_le_iff₀ (by exact_mod_cast Fintype.card_pos : 0 < (Fintype.card H:ℝ))).2
+    simpa only [one_mul] using (show (T.card:ℝ) ≤ Fintype.card H by exact_mod_cast Finset.card_le_univ T)
+  unfold normalizedNegMain
+  apply (div_le_iff₀ hQ).2
+  calc
+    _ ≤ (1/(Fintype.card A0:ℝ))*∑ _u : A0, ∑ _t ∈ tops, ∑ _j : Fin n, -M :=
+      mul_le_mul_of_nonneg_left hsum (by positivity)
+    _ = -((tops.card:ℝ)*n*M) := by
+      simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+      field_simp [hU.ne']
+    _ ≤ -((tops.card:ℝ)*n*M*alpogeNativeProjectionDensity T) := by
+      apply neg_le_neg
+      exact mul_le_of_le_one_right (by dsimp only [M]; positivity) hDelta
+    _ = _ := by unfold alpogeNativeProjectionDivisor; dsimp [M]; ring
+
+private theorem prefix_real_bound (P : Finset ℕ) (hp : ∀ p ∈ P, p.Prime)
+    (x : ℝ) (hx : 10 ≤ x) :
+    let c := ⌊Real.sqrt x⌋₊
+    ∑ p ∈ P, Real.log ((p^(⌊(c:ℝ)*x⌋₊/p-c):ℕ):ℝ) ≤ 2*(c:ℝ)*x*Real.log x := by
+  intro c
+  let N := ⌊(c:ℝ)*x⌋₊
+  have hx0 : 0 < x := by linarith
+  have hc : 1 ≤ (c:ℝ) := by
+    have hs : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+    have hf := Nat.lt_floor_add_one (Real.sqrt x)
+    dsimp only [c]
+    linarith
+  have hlog := Real.log_nonneg (by linarith : 1 ≤ x)
+  have hcx : (c:ℝ) ≤ x :=
+    (Nat.floor_le (Real.sqrt_nonneg x)).trans (Real.sqrt_le_self_iff.mpr (Or.inr (by linarith)))
+  have hN : (N:ℝ) ≤ (c:ℝ)*x := Nat.floor_le (by positivity)
+  have hN0 : 0 < (N:ℝ) := by
+    have hf := Nat.lt_floor_add_one ((c:ℝ)*x)
+    have h1 := mul_le_mul_of_nonneg_right hc hx0.le
+    dsimp only [N]
+    linarith
+  have hln : Real.log N ≤ 2*Real.log x := by
+    have h := Real.log_le_log hN0 (hN.trans (mul_le_mul_of_nonneg_right hcx hx0.le))
+    rwa [Real.log_mul hx0.ne' hx0.ne', ← two_mul] at h
+  calc
+    _ ≤ (N:ℝ)*Real.log N := wheel_prefix_log_bound P hp N c
+    _ ≤ (N:ℝ)*(2*Real.log x) := mul_le_mul_of_nonneg_left hln hN0.le
+    _ ≤ ((c:ℝ)*x)*(2*Real.log x) := mul_le_mul_of_nonneg_right hN (by positivity)
+    _ = _ := by ring
+
+/-- The measured complementary volume bounds the original negative MAIN on
+the very same rounded rows and pair. Each summand in the right side is the
+relative log of the level-one minimum on the original quotient-slot block. -/
+theorem complementary_bounds_signedMain (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
+    ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
+      {Y Z : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
+      ∀ (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
+        (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) (η : ℝ),
+      let b := Real.exp (x^ε)
+      let c := ⌊Real.sqrt x⌋₊
+      let P := highThickPrimes e q d x
+      let g := fun p => ((alpogeNativeHostData e q d).frob p).2
+      let V := occupied tops P g
+      let p := primeAt tops P g
+      let r := fun s : ↥V => (partnerPrimes tops P g s.val).card-1
+      let D := fun (s : ↥V) (i : Fin (r s+1)) => p s i ^ (⌊(c:ℝ)*x⌋₊/p s i-c)
+      let cut := fun (s : ↥V) (i : Fin (r s+1)) => a (s.val-g (p s i))/(p s i:ℝ)
+      let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) => bands (cut s) (w j.val.1 j.val.2 ((0,1),s.val))
+      let k := ((T.card*n:ℕ):ℝ)
+      let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
+      let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+      0 < η → tops.Nonempty → T.Nonempty → 0 < n →
+      (∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b)) →
+      (∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) →
+      (∀ u j ρ, ρ ∈ alpogeNativePhiSet _ → 0 < w u j ρ) →
+      (∀ u j t, t ∈ tops → ∀ ρ ∈ alpogeNativePhiSet _ \ alpogeNativeThickPositiveSites T u,
+        Real.exp (x^(ε/3))/3 ≤ a t/w u j ρ) →
+      normalizedNegMain tops T a b ell v ≤
+        4*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (D s))/((c:ℝ)*k*tops.card) := by
+  classical
+  filter_upwards [signedMain_row ε he, highThick_frame ε he he1, eventually_ge_atTop (10:ℝ)] with x row frame hx
+  intro e q d n _ _ Y Z pair hY hZ tops T a w η b c P g V p r D cut S k v ell hη ht hT hn ha hw hpos hthin
+  have hx0 : 0 < x := by linarith
+  have hb : 0 < b := Real.exp_pos _
+  have hlog := Real.log_nonneg (by linarith : 1 ≤ x)
+  have negative : normalizedNegMain tops T a b ell v ≤ -(8*x*Real.log x) := by
+    apply normalize_MAIN tops T a b x ell v ht hT hn hb (by linarith)
+    intro u t ht' j
+    have hta : 0 < a t := (mul_pos hx0 hb).trans_le (ha t ht').1
+    have hthick (ρ) (hρ : ρ ∈ alpogeNativeThickPositiveSites T u) : w u j ρ ≤ a t := by
+      have hxinv : 1/x ≤ 1 := (div_le_iff₀ hx0).2 (by linarith)
+      have hscale := mul_le_mul_of_nonneg_left (by linarith only [hx,hxinv] : 1+1/x ≤ x) hb.le
+      exact (hw u j ρ hρ).2.trans (hscale.trans (by simpa only [mul_comm b x] using (ha t ht').1))
+    have hmain := row e q d pair hY hZ T u (a t) (w u j) hta (hpos u j) hthick (hthin u j t ht')
+    have monotone : (alpogeNativeMAIN ell (a t) (w u j)).re ≤ (alpogeNativeMAIN ell (a t) (v u j)).re := by
+      apply alpogeNativeMAIN_re_antitone_width ell _ hta.le _ _
+      · intro ρ _; exact Real.exp_pos _
+      · intro ρ hρ
+        have hp := hpos u j ρ (Finset.mem_filter.mpr ⟨Finset.mem_univ _, hρ⟩)
+        exact (Real.exp_le_exp.mpr ((le_div_iff₀ hη).mp (Int.floor_le (Real.log (w u j ρ)/η)))).trans
+          (Real.exp_log hp).le
+    exact (by nlinarith only [mul_le_mul_of_nonneg_right (ha t ht').1 hlog] :
+      4*x*b*Real.log x ≤ 4*a t*Real.log x).trans (hmain.trans monotone)
+  obtain ⟨hS,_,_,_,_,vol,_,_⟩ := frame e q d n 1 tops T a w Nat.zero_lt_one ha hw
+  have primes (l) (hl : l ∈ P) : l.Prime :=
+    (Nat.mem_primesLE.mp (Finset.mem_filter.mp (Finset.mem_filter.mp hl).1).1).2
+  have hD (s : ↥V) (i : Fin (r s+1)) : 0 < D s i := by
+    have hm : p s i ∈ partnerPrimes tops P g s.val := Finset.orderEmbOfFin_mem ..
+    exact pow_pos (primes _ (Finset.mem_filter.mp hm).1).pos _
+  have opp : (∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), complementaryLog (S s j) (D s)) =
+      -(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)) := by
+    simp_rw [fun s j => complementaryLog_eq (S s j) (D s) (hS s j) (hD s), Finset.sum_neg_distrib]
+  have hc : 0 < (c:ℝ) := by
+    have hs : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx0.le).2 (by linarith)
+    have hf := Nat.lt_floor_add_one (Real.sqrt x)
+    dsimp only [c]
+    linarith
+  have hk : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have ht0 : 0 < (tops.card:ℝ) := by exact_mod_cast ht.card_pos
+  have hmass := mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left (prefix_real_bound P primes x hx) ht0.le) hk.le
+  have upper := (sub_nonneg.mp vol.1).trans hmass
+  apply negative.trans
+  rw [opp]
+  apply (le_div_iff₀ (mul_pos (mul_pos hc hk) ht0)).2
+  change _ ≤ 4 * -_
+  change (∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)) ≤
+    k*((tops.card:ℝ)*(2*(c:ℝ)*x*Real.log x)) at upper
+  linarith only [upper]
+
+end RHLean.Analysis.AlpogeThin.SlotProjector

@@ -37,7 +37,7 @@ theorem anchor_norm {r : ℕ} (S : Fin (r+1) → Finset ℕ) (hS : (S 0).Nonempt
       _ ≤ _ := mul_le_mul_of_nonneg_left one (div_nonneg hL h0.le)
   · let A := fun i : Fin (r+1) => if i = 0 then (1:ℤ) else 0
     have ha : slotEnergy S (fun i => (A i:ℝ)) = ((S 0).card:ℝ) := by
-      simp [slotEnergy, A, apply_ite, mul_ite]
+      simp [slotEnergy, A, apply_ite]
     refine ⟨A, ha.symm ▸ h0, ?_⟩
     rw [total, ha]
     simp [A, h0.ne']
@@ -115,7 +115,9 @@ theorem complementary_minimum {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin 
   · intro A hA
     apply (div_le_iff₀ positive).2
     rw [← hA]
-    apply Finset.sum_sq_le_sum_mul_sum_of_sq_le_mul
+    unfold slotEnergy dualEnergy
+    apply Finset.sum_sq_le_sum_mul_sum_of_sq_le_mul Finset.univ
+      (r := fun i => (wheelNormal D i:ℝ)*A i)
       (f := fun i => ((S i).card:ℝ)*(A i)^2)
       (g := fun i => (wheelNormal D i:ℝ)^2/(S i).card)
     · intro i _; positivity
@@ -171,7 +173,7 @@ theorem complementaryLog_eq {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r
     simp only [L, wheelNormal, Nat.cast_prod, Finset.prod_mul_distrib, Finset.prod_pow]
     rw [← Finset.prod_erase_mul Finset.univ (fun k => ((S k).card:ℝ)) (Finset.mem_univ i)]
     field_simp [(hw i).ne'] <;> ring
-  unfold complementaryLog logVolume
+  dsimp only [complementaryLog, logVolume]
   rw [det D hD, det _ (fun _ => Nat.zero_lt_one), Real.log_mul hL.ne' (dualEnergy_pos S D hS hD).ne',
     Real.log_mul hL.ne' (dualEnergy_pos S _ hS (fun _ => Nat.zero_lt_one)).ne']
   simp only [one_div, Real.log_inv]

@@ -1,4 +1,4 @@
-import «research.NativeAnchoredSlotMetric»
+import «research.NativeAnchoredMain»
 import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
 import «research.NativeSharedHeightRecovery»
@@ -273,6 +273,9 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_minimum
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelNormal_star
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementaryLog_eq
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.signedMain_row
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheel_prefix_log_bound
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_bounds_signedMain
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_period
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_count
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.sharedHeight_total
