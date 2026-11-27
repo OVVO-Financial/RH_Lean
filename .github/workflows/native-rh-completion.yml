@@ -31,7 +31,7 @@ jobs:
       - name: Check proof revision and review-gate regressions
         run: |
           test "$(git rev-parse HEAD)" = "$PROOF_HEAD"
-          python3 -m unittest discover -s scripts/ci -p 'test_native_rh_review.py' -v
+          python3 -m unittest discover -s scripts/ci -p 'test_native_rh_*.py' -v
           python3 scripts/check_root_manifest.py
           bash scripts/audit_assumptions.sh
       - uses: ./.github/actions/lean-setup
@@ -48,9 +48,49 @@ jobs:
             native-rh-module.txt
           if-no-files-found: error
 
+  checkers:
+    name: Build and exercise the independent checker
+    if: github.event.pull_request.number == 1214
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/lean-setup
+      - uses: actions/checkout@v4
+        with:
+          repository: leanprover/lean4export
+          ref: 076e8e57707e813375e8f9da8bf989799ace9680
+          path: independent/exporter
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ammkrn/nanoda_lib
+          ref: 0da9f98feadd3a0a2ef4b3dbcf52a298a6fef929
+          path: independent/nanoda
+          persist-credentials: false
+      - name: Build pinned tools with the project's Lean toolchain and test a kernel theorem
+        shell: bash
+        run: |
+          set -euo pipefail
+          export ELAN_TOOLCHAIN="$(cat lean-toolchain)"
+          lake -d independent/exporter build lean4export
+          cargo build --locked --release --manifest-path independent/nanoda/Cargo.toml --bin nanoda_bin
+          mkdir -p independent/bin
+          cp independent/exporter/.lake/build/bin/lean4export independent/nanoda/target/release/nanoda_bin independent/bin/
+          lake env independent/bin/lean4export Init -- Nat.add_comm | independent/bin/nanoda_bin scripts/ci/native_rh_nanoda.json
+          tar -C independent/bin -czf independent-checkers.tar.gz lean4export nanoda_bin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: independent-checkers-${{ github.event.pull_request.head.sha }}
+          path: independent-checkers.tar.gz
+          if-no-files-found: error
+
   replay:
     name: Independently rebuild and replay the terminal module
-    needs: kernel
+    needs: [kernel, checkers]
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
@@ -75,12 +115,28 @@ jobs:
           [[ "$module" =~ ^RHLean([.][[:alnum:]_]+)*$ ]]
           python3 scripts/lake_build_fail_fast.py "$module"
           lake env leanchecker --fresh "$module"
+      - uses: actions/download-artifact@v4
+        with:
+          name: independent-checkers-${{ github.event.pull_request.head.sha }}
+          path: checker-tools
+      - name: Check the exact terminal proof in the independent Rust kernel
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -C checker-tools -xzf checker-tools/independent-checkers.tar.gz
+          module=$(cat first-check/native-rh-module.txt)
+          lake env checker-tools/lean4export "$module" -- native_riemannHypothesis > native-rh.ndjson
+          python3 scripts/ci/check_native_rh_export.py native-rh.ndjson
+          checker-tools/nanoda_bin scripts/ci/native_rh_nanoda.json < native-rh.ndjson
+          sha256sum native-rh.ndjson > native-rh-export.sha256
       - name: Record replayed revision
         run: echo "$PROOF_HEAD" > native-rh-replayed.txt
       - uses: actions/upload-artifact@v4
         with:
           name: native-rh-replay-${{ github.event.pull_request.head.sha }}
-          path: native-rh-replayed.txt
+          path: |
+            native-rh-replayed.txt
+            native-rh-export.sha256
           if-no-files-found: error
 
   acceptance:
