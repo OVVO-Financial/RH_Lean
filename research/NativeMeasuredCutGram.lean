@@ -44,7 +44,7 @@ theorem gram_det {m : ℕ} (s : Fin (m+1) → ℝ) (hs : ∀ i, 0 < s i) :
   rw [Matrix.det_one_add_replicateCol_mul_replicateRow, Fin.prod_univ_succ s,
     Fin.sum_univ_succ (fun i => (s i)⁻¹)]
   simp only [dotProduct, u, one_mul, div_eq_mul_inv, ← Finset.mul_sum]
-  field_simp [(hs 0).ne'] <;> ring
+  field_simp [(hs 0).ne']
 
 /-- For the same physical layer lengths, admission changes the squared
 covolume by the product of all squared prime factors, up to one omitted

@@ -1,3 +1,9 @@
+## Current native signed-compensation proof on #1214
+
+Use [Sernau’s readable and compact proofs at `72fead102f663d5c7a407964a13dc0cf9d977207`](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207) as the primary upstream mathematical reference. Continue the single closure assignment on #1214 from the frozen, verified #1201 checkpoint. Earlier role assignments and instructions to develop on #1201 are historical for this work.
+
+Follow the [native discrepancy ledger](research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md) from the compact `star_inequality` through A, B and C. Account for the common main amount, rank, aggregate prime gain, finite index and lower determinant on the same measured family, or prove the signed comparison directly on its complete arithmetic source. Keep the original cutoff, divisor and full cofinal-window quantifiers. Apply #1205 once its native bound is supplied. Preserve the existing hosted caches and strict dependency checks, including the exclusion of terminal RH inputs.
+
 ## 2026-11-25 — native economical recovery (controlling seven-agent task)
 
 **NATIVE_ECONOMICAL_RECOVERY_V1 — controlling research assignment after human-reviewed policy merge.** ALL SEVEN existing roles must read [the native economical recovery directive](docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md) before selecting work. Recover what Alpöge recovers, measure what Alpöge measures, pay what Alpöge pays through native prime-exponent coordinates and square-block ancestry. This supersedes conflicting task priorities in older main or #1201 instructions; preserve the existing final #1201 proof contract and its safeguards. Work on the actual latest #1201 head; #1201 is the only mathematical completion PR, and #1205 remains its existing principal-window handoff.
