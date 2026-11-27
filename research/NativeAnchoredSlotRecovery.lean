@@ -56,10 +56,12 @@ def anchoredRecovery {r : ℕ} (d : Fin r → ℤ) : (Fin (r+1) → ℤ) →ₗ[
       ring
 
 @[simp] theorem anchoredRecovery_zero {r : ℕ} (d : Fin r → ℤ) (A : Fin (r+1) → ℤ) :
-    anchoredRecovery d A 0 = A 0 := fromJumps_zero _ _
+    anchoredRecovery d A 0 = A 0 :=
+  fromJumps_zero (A 0) (fun i => d i * layerJump A i)
 
 @[simp] theorem anchoredRecovery_jump {r : ℕ} (d : Fin r → ℤ) (A : Fin (r+1) → ℤ) (j : Fin r) :
-    layerJump (anchoredRecovery d A) j = d j * layerJump A j := layerJump_fromJumps _ _ _
+    layerJump (anchoredRecovery d A) j = d j * layerJump A j :=
+  layerJump_fromJumps (A 0) (fun i => d i * layerJump A i) j
 
 theorem anchoredRecovery_mul {r : ℕ} (d e : Fin r → ℤ) (A : Fin (r+1) → ℤ) :
     anchoredRecovery d (anchoredRecovery e A) = anchoredRecovery (d*e) A := by
@@ -106,7 +108,8 @@ theorem anchoredRecovery_slot_rank {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     · intro j
       have h' := congrArg (fun C => layerJump C j) h
       simpa only [anchoredRecovery_jump, mul_right_inj' (hd j)] using h'
-  rw [LinearMap.finrank_range_of_inj (hslot.comp hinj), Module.finrank_pi, Fintype.card_fin]
+  have hc : Function.Injective ((onSlots S).comp (anchoredRecovery d)) := fun _ _ h => hinj (hslot h)
+  rw [LinearMap.finrank_range_of_inj hc, Module.finrank_pi, Fintype.card_fin]
 
 def boundaryResidues {r : ℕ} (d : Fin r → ℕ) :
     (Fin (r+1) → ℤ) →+ ((j : Fin r) → ZMod (d j)) where
@@ -124,7 +127,7 @@ theorem anchoredRecovery_index {r : ℕ} (d : Fin r → ℕ) (hd : ∀ j, 0 < d 
   let (j : Fin r) : NeZero (d j) := ⟨(hd j).ne'⟩
   have hr : (anchoredRecovery (fun j => (d j : ℤ))).toAddMonoidHom.range = F.ker := by
     ext B
-    change (∃ A, anchoredRecovery _ A = B) ↔ F B = 0
+    change (∃ A, anchoredRecovery (fun j => (d j : ℤ)) A = B) ↔ F B = 0
     rw [anchoredRecovery_image, funext_iff]
     exact forall_congr' fun j => (ZMod.intCast_zmod_eq_zero_iff_dvd (layerJump B j) (d j)).symm
   refine ⟨hr, ?_⟩
