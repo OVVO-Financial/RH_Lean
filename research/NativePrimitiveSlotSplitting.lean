@@ -99,7 +99,7 @@ theorem anchor_on_wheel_star {r : ℕ} (D : Fin (r+1) → ℕ) (j : Fin r) :
     normalReading D (anchoredRecovery (fun _ => 0) (fun i => starColumn D j i 0)) =
       ((∑ i, wheelNormal D i : ℕ):ℤ) * (-(D 0:ℤ)) := by
   rw [anchoredRecovery_constant]
-  simp only [normalReading, starColumn, if_neg (Fin.succ_ne_zero j).symm, if_true, zero_sub,
+  simp only [normalReading, starColumn, ite_eq_right (Fin.succ_ne_zero j).symm, ite_true, zero_sub,
     ← Finset.sum_mul, Nat.cast_sum]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
