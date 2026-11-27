@@ -94,7 +94,7 @@ private theorem physical (M : ℕ) (t : ℝ) (ht : 0 ≤ t) (hM : t ≤ M) :
     intro i _
     by_cases hi : kept M i
     · simp [removed,hi, ArithmeticFunction.vonMangoldt_apply_prime hi.1]
-    · simp only [hi, if_false, removed, zero_add]
+    · simp only [hi, ite_false, removed, zero_add]
       rcases le_total (t/i) 1 with h|h
       · rw [max_eq_right (sub_nonpos.mpr h), min_eq_left h]; ring
       · rw [max_eq_left (sub_nonneg.mpr h), min_eq_right h]; ring
@@ -245,6 +245,7 @@ theorem binomial_high_odd_mass :
   have upper : Real.log (((2*q).choose q:ℕ):ℝ)-highOddMass q ≤ K*Real.sqrt (2*q:ℕ) := by
     rw [id]
     refine (Finset.sum_le_sum fun i _ => mul_le_of_le_one_right (removed_nonneg (2*q) i) ?_).trans (cap _ (by omega))
+    dsimp only [bit]
     exact_mod_cast (show (2*q/i)%2 ≤ 1 by omega)
   have a := abs_le.mp (nativeLogFactorial_sub_main_abs_le (2*q) (by omega))
   have b := abs_le.mp (nativeLogFactorial_sub_main_abs_le q hq)
@@ -275,9 +276,9 @@ theorem high_hit_boundary (p : ℕ) (hp : p.Prime) (h5 : 5 ≤ p) :
     have sq := Nat.mul_le_mul h h
     nlinarith only [hs,twice,sq,Nat.mul_le_mul_right p h5,h5]
   have realId : 2*(q:ℝ)=3*p+1 := by exact_mod_cast twice
-  refine ⟨pr,by rw [div]; decide,?_⟩
-  rw [realId]
-  field_simp [show (p:ℝ) ≠ 0 by exact_mod_cast hp.ne_zero]
-  <;> ring
+  refine ⟨pr,by rw [div],?_⟩
+  rw [realId, add_div, div_self (mul_ne_zero (by norm_num : (3:ℝ) ≠ 0)
+    (show (p:ℝ) ≠ 0 by exact_mod_cast hp.ne_zero))]
+  ring
 
 end RHLean.Analysis.PrincipalCofactor
