@@ -286,6 +286,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchor_on_wheel_star,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheel_star_jump_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.logVolume_le_log_congruence,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.translated_star_jump_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.constant_complement_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.kernelASK_prefix,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.thick_above_prefix,

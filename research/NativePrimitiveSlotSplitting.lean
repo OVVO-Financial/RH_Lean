@@ -107,7 +107,7 @@ one anchor. Taking differences identifies the constant-extended star lattice
 modulo the entire kernel of the jump map. -/
 theorem wheel_star_jump_index {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
     (cop : Pairwise (fun i j => (D i).Coprime (D j))) :
-    ∃ K : AddSubgroup (Fin r → ℤ), K.index = ∑ i, wheelNormal D i ∧
+    ∃ K : AddSubgroup (Fin r → ℤ), K.index = (∑ i, wheelNormal D i) ∧
       ∀ y, y ∈ K ↔ ∃ z : Fin r → ℤ, y = layerJump (fun i => ∑ j, starColumn D j i 0*z j) := by
   classical
   let J : (Fin (r+1) → ℤ) →+ (Fin r → ℤ) := {
@@ -166,5 +166,47 @@ theorem logVolume_le_log_congruence {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D 
   change logVolume S D ≤ Real.log (δ:ℝ)
   norm_num only [Nat.cast_ofNat] at hh
   linarith only [hh,opp]
+
+/-- One common amplitude vector at each physical site, shared by all its
+translated rows. Eliminating the anchors gives one index factor per site.
+The logarithm of this single global index bounds the *row average* of the
+entire measured wheel gain. -/
+theorem translated_star_jump_index {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (V T : Finset H) (n : ℕ) (r : ↥V → ℕ) (D : (s : ↥V) → Fin (r s+1) → ℕ)
+    (hD : ∀ s i, 0 < D s i) (cop : ∀ s, Pairwise (fun i j => (D s i).Coprime (D s j))) :
+    ∃ K : AddSubgroup ((s : ↥V) → Fin (r s) → ℤ),
+      K.index = (∏ s : ↥V, ∑ i, wheelNormal (D s) i) ∧
+      (∀ y, y ∈ K ↔ ∀ s, ∃ z : Fin (r s) → ℤ, y s = layerJump (fun i => ∑ j, starColumn (D s) j i 0*z j)) ∧
+      ∀ (S : (s : ↥V) → ↥(siteRows T n s.val) → Fin (r s+1) → Finset ℕ),
+        (∀ s j i, (S s j i).Nonempty) →
+        (∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), logVolume (S s j) (D s)) ≤
+          ((T.card*n:ℕ):ℝ)*Real.log (K.index:ℝ) := by
+  classical
+  choose B hidx hmem using fun s => wheel_star_jump_index (D s) (hD s) (cop s)
+  let K := AddSubgroup.pi Set.univ B
+  have idx : K.index = ∏ s : ↥V, ∑ i, wheelNormal (D s) i := by
+    calc
+      _ = ∏ s, (B s).index := by
+        dsimp only [K]
+        simp_rw [AddSubgroup.index, ← Nat.card_pi]
+        refine Nat.card_congr ((Quotient.congrRight (fun x y => ?_)).trans (Setoid.piQuotientEquiv _).symm)
+        rw [QuotientAddGroup.leftRel_pi]
+      _ = _ := Finset.prod_congr rfl fun s _ => hidx s
+  refine ⟨K,idx,?_,?_⟩
+  · intro y
+    constructor
+    · intro h s
+      exact (hmem s (y s)).1 (h s (Set.mem_univ s))
+    · intro h s _
+      exact (hmem s (y s)).2 (h s)
+  · intro S hS
+    have pos (s : ↥V) : 0 < ∑ i, wheelNormal (D s) i :=
+      Finset.sum_pos (fun i _ => Finset.prod_pos fun j _ => hD s j) Finset.univ_nonempty
+    rw [idx, Nat.cast_prod, Real.log_prod (fun s _ => by exact_mod_cast (pos s).ne')]
+    calc
+      _ ≤ ∑ s : ↥V, ∑ _j : ↥(siteRows T n s.val), Real.log ((∑ i, wheelNormal (D s) i : ℕ):ℝ) :=
+        Finset.sum_le_sum fun s _ => Finset.sum_le_sum fun j _ => logVolume_le_log_congruence _ _ (hS s j) (hD s)
+      _ = _ := by simp only [Finset.sum_const, Finset.card_univ, Fintype.card_coe, siteRows_card,
+                             nsmul_eq_mul, ← Finset.mul_sum]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
