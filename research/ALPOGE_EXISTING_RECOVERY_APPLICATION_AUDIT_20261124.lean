@@ -1,4 +1,5 @@
 import «research.NativeTranslatedSlotFrame»
+import «research.NativePrimeWheelResidueLayers»
 import «research.NativeWheelFitProjector»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeSignedWidthSweep»
@@ -253,6 +254,10 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_linear
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.squareClock_nominal_tail
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelDiff_comm
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_eq
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_cut
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame

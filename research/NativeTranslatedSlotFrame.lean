@@ -494,7 +494,10 @@ private theorem ask_wheel (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
     intro l hl
     have inv := one_div_le_one_div_of_le hr0 (spec l hl).2.2.1
     rw [show (b/x)/b = 1/x by field [hb.ne',hx0.ne']]
-    linarith only [inv, grid, xInv, cInv]
+    calc
+      _ ≤ 1/Real.sqrt x + (1/Real.sqrt x + 1/Real.sqrt x) + 2/Real.sqrt x :=
+        add_le_add (add_le_add inv (add_le_add grid xInv)) cInv
+      _ = _ := by ring
   calc
     _ ≤ 4 * ∑ l ∈ P, Real.log (l:ℝ)*(5/Real.sqrt x) := by
       refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun l hl =>
@@ -520,12 +523,10 @@ private theorem partner_at {H : Type*} [AddCommGroup H] (s g : H) :
 private theorem normalize_volume (c k t G v : ℝ) (hc : c ≠ 0) (hk : k ≠ 0) (ht : t ≠ 0) :
     (4/c)*G - 4*v/(c*k*t) = 4*(k*(t*G)-v)/(c*k*t) := by
   field_simp
-  <;> ring
 
 private theorem normalize_loss (v k c r z t : ℝ) (ht : t ≠ 0) :
     4*(v*k*(c*r*z)) = 4*(v/t)*r*z*(c*k*t) := by
   field_simp
-  <;> ring
 
 /-- Supply the layers, admissions, and translated projectors from the
 original top heights, Frobenius values, and measured width of each row.

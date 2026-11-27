@@ -4,6 +4,42 @@ The three transfer errors below have a uniform bound with exponent coefficient 1
 
 Hosted Lean verified the assembled inequality, its normalized price and the independent physical mass bound at commit `393cb5c`. The same job verified the refinement that freezes only the thick widths. [Proof and axiom audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45780078438/job/139773341050).
 
+## Measured translated high first-prime frame on #1214
+
+For the actual top set $TT$, write $g_p$ for the host component of Frobenius and $P$ for the unramified thick first primes with $\sqrt x\le p\le x-1$. At partner site $s$ the prime $p$ has just one possible top, $s-g_p$. Set $P_s=\{p\in P:s-g_p\in TT\}$ and $V=\{s:P_s\ne\varnothing\}$. The measured star columns give $r_s=|P_s|-1$ directions at each occupied site. Counting each prime with its original top gives
+$$
+d=\sum_{s\in V}r_s=|TT|\,|P|-|V|.
+$$
+A site occurs in $k=n|T_2|$ translated rows, where $n$ is the number of lifts. Each row embeds its integral columns $B$ into the same physical coordinates $(s,\text{integer slot})$. With the induced domain Gram $B^{\mathsf T}B$, its adjoint is $B^\dagger=(B^{\mathsf T}B)^{-1}B^{\mathsf T}$. Thus $B^\dagger B=I$, and the Hilbert–Schmidt error in this metric is zero. The sum of the orthogonal projections over all active rows satisfies
+$$
+\operatorname{tr}F=kd,\qquad \operatorname{tr}(F^2)\le k^2d,\qquad
+r_{\mathrm{eff}}(F)\ge d\quad(kd>0).
+$$
+The factor $k$ cancels in the rank estimate. A comparison with the required $D+D_1$ for sections carrying the signed source is still needed. [Measured physical frame](NativeTranslatedSlotFrame.lean)
+
+Set $c=\lfloor\sqrt x\rfloor$ and $D_p=p^{\lfloor\lfloor cx\rfloor/p\rfloor-c}$ on $P$. Let $\mathcal V$ be the sum, over these same sites and active rows, of half the log ratio of the Gram determinants with and without these admitted powers. The Gram expansion loses at most one wheel factor on each occupied site and row. Hence
+$$
+0\le k|TT|\sum_{p\in P}\log D_p-\mathcal V
+\le |V|\,k\,c\sqrt{x}\log x .
+$$
+For $0<\varepsilon\le1$ and all sufficiently large $x$, take the original rounded grid $0<\eta\le1/\sqrt x$, admissible high widths and heights, and $|TT|\ge |H|x^{-\varepsilon/8}/2$. The independent high first-prime comparison then gives
+$$
+\left|A_{\mathrm{high}}-\frac{4\mathcal V}{c\,k\,|TT|}\right|
+\le20\log(4)\sqrt{x}+\frac8{\varepsilon}x^{1/2+9\varepsilon/8}.
+$$
+$A_{\mathrm{high}}$ uses the original translated, normalized first-prime reads through $x$. A prime in $x-1<p\le x$ has wheel depth zero and retains its rounded arithmetic read in the $20\log(4)\sqrt x$ error. The finite price per eligible measured fibre is at most $x^4$. The signed term still to compare is the original MAIN together with the remaining ASK. Establishing an upper bound against the negative projected volume requires a further same-family inequality. [Source normalization](../RHLean/Analysis/AlpogeThin/NativeExistingRecoveryPayment.lean) · [Same-family estimate](NativeTranslatedSlotFrame.lean)
+
+### What repeated operations at one admitted prime recover
+
+On a complete residue fibre for one prime $p$, let $T_a f(j)=f(j+a)$. These displacements commute on the actual $p$ seats. At a nonzero Fourier mode, their product of differences has multiplier $\prod_{a=1}^{p-1}(1-\zeta^{ka})=p$. The constant mode has multiplier zero. Fourier inversion gives the integral identity
+$$
+\left[\prod_{a=1}^{p-1}(I-T_a)f\right](j)
+=p f(j)-\sum_{u\bmod p}f(u).
+$$
+Consequently the product of $p-1$ distinct stages maps the mean-zero integer lattice $L$ exactly onto $pL$. Its rank is $p-1$, with integral basis $e_i-e_0$ for $1\le i<p$. The log index is $(p-1)\log p$, equal to the gross log divisibility on those directions. On a fibre of original slots $a+Wj$ contained in one measured layer, every star column is constant and its image is zero. If a cut occupies $h$ of those seats with $0<h<p$, every output coordinate of its indicator is congruent to $-h\bmod p$. Such a boundary cut fails divisibility by $p$ at every seat. These computations identify the cost of using ordinary residue displacements for multiplicity at a single prime. [Same-prime calculation](NativePrimeWheelResidueLayers.lean)
+
+There is a separate exact charge on the lattice of the original measured star readings. With independent depths $e_i$ prescribed at a fixed prime, the simultaneous integral left inverse makes the reduction onto $\prod_i\mathbb Z/p^{e_i}\mathbb Z$ surjective. Restriction to the kernel costs $(\sum_i e_i)\log p$. To earn positive net recovery, further arithmetic operators must retain the original signed readings through the cross-layer boundary and pay less than this restriction cost on the common lattice. [Joint index](NativeTranslatedSlotFrame.lean)
+
 ## Same-family cancellation in the pinned Sernau editions
 
 The primary reference for #1214 is `lsernau/grh-lean@72fead102f663d5c7a407964a13dc0cf9d977207`. The original proof map and the community port remain available for the local valuations. [Readable guide](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh/GUIDE.md) · [Original proof map](https://riemann.verifytask.cn/?lang=en) · [Independent verification of both editions](https://math.mit.edu/~drew/shortgrh/).
