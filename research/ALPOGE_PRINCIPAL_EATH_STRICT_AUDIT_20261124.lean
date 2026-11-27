@@ -258,6 +258,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame,
     ``RHLean.Analysis.AlpogeThin.WheelFit.place_rat,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.common_place,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.transport_integral,
