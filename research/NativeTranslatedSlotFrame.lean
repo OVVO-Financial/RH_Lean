@@ -355,12 +355,14 @@ theorem primeAt_sum {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
       refine Finset.sum_congr rfl fun p _ => ?_
       rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul, translate_card]
 
+private def layerBasis {r : ℕ} (S : Fin (r+1) → Finset ℕ) : Matrix (Address S) (Fin (r+1)) ℝ :=
+  fun a i => if a.1 = i then 1 else 0
+
 /-- The occupied-layer basis of the augmented lattice on the original integer
 slot numbers. All translated rows at a given site share the same ambient interval. -/
 def physicalLayers {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ) (hne : ∀ i, (bands h v i).Nonempty) :
     Matrix (↥(Finset.Iic ⌊h 0⌋₊)) (Fin (r+1)) ℝ :=
-  slotInclusion (physicalAddress h v hne) *
-    (fun (a : Address (bands h v)) (i : Fin (r+1)) => if a.1 = i then 1 else 0)
+  slotInclusion (physicalAddress h v hne) * layerBasis (bands h v)
 
 private theorem layers_gram {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ) (hne : ∀ i, (bands h v i).Nonempty) :
     let B := physicalLayers h v hne
@@ -368,16 +370,17 @@ private theorem layers_gram {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ) (hne : �
   classical
   let S := bands h v
   let E := slotInclusion (physicalAddress h v hne)
-  let U : Matrix (Address S) (Fin (r+1)) ℝ := fun a i => if a.1 = i then 1 else 0
+  let U := layerBasis S
   have inner (i j l : Fin (r+1)) : (∑ k : ↥(S l), U ⟨l,k⟩ i*U ⟨l,k⟩ j) =
       if l=i then (if l=j then ((S l).card:ℝ) else 0) else 0 := by
-    by_cases hi : l=i <;> by_cases hj : l=j <;> simp [U,hi,hj]
+    by_cases hi : l=i <;> by_cases hj : l=j <;> simp [U,layerBasis,hi,hj]
   have gram : U.transpose*U = Matrix.diagonal (fun i => ((S i).card:ℝ)) := by
     ext i j
     change (∑ a : Address S, U a i*U a j) = _
     rw [Fintype.sum_sigma]
     simp_rw [inner]
     simp [Matrix.diagonal_apply]
+  dsimp only [physicalLayers]
   change IsUnit (((E*U).transpose*(E*U)).det)
   rw [Matrix.transpose_mul, Matrix.mul_assoc, ← Matrix.mul_assoc E.transpose E U,
     inclusion_gram, Matrix.one_mul, gram, Matrix.det_diagonal]

@@ -1,4 +1,5 @@
 import «research.NativeAnchoredMain»
+import «research.NativePrimitiveSlotSplitting»
 import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
 import «research.NativeSharedHeightRecovery»
@@ -280,6 +281,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_constant,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheel_star_kernel,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.constant_extension_index,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.primitive_splitting_cost,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.anchor_on_wheel_star,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.constant_complement_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.kernelASK_prefix,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.signedMain_row,

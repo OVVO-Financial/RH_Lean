@@ -155,9 +155,9 @@ theorem wheel_prefix_log_bound (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime) (N c
   let D := fun p : ℕ => p^(N/p-c)
   have hd p (hp : p ∈ P) : 0 < D p := pow_pos (hP p hp).pos _
   have divides : (∏ p ∈ P, D p) ∣ N.factorial := by
-    apply Finset.prod_dvd_of_coprime
+    apply Finset.prod_dvd_of_isRelPrime
     · intro p hp q hq hpq
-      exact (Nat.coprime_pow_primes _ _ (hP p hp) (hP q hq) hpq).isCoprime
+      exact Nat.coprime_iff_isRelPrime.mp (Nat.coprime_pow_primes _ _ (hP p hp) (hP q hq) hpq)
     · intro p hp
       let : Fact p.Prime := ⟨hP p hp⟩
       have hv := (padicValNat_mul_div_factorial (p := p) N).symm.trans (padicValNat_factorial_mul (N/p))

@@ -54,9 +54,9 @@ theorem firstPrime_anchor_price (e q d r : ℕ) [Fact q.Prime] [Fact d.Prime]
     (hs : ∀ i, alpogeNativePartner (t i) ((alpogeNativeHostData e q d).frob (p i)) = s)
     (hv : 0 ≤ w s) (hw : w s ≤ b*(1+1/x)) :
     let S := bands (fun i => a (t i)/(p i:ℝ)) (w s)
-    (∑ i, ((S i).card:ℝ))/((S 0).card:ℝ) ≤ 4*x^3 := by
+    ∀ l, (∑ i, ((S i).card:ℝ))/((S l).card:ℝ) ≤ 4*x^3 := by
   classical
-  intro S
+  intro S l
   have hx0 : 0 < x := zero_lt_one.trans_le hx
   have hx2 : 0 < x^2 := sq_pos_of_pos hx0
   have hb0 : 0 < b := by linarith
@@ -74,16 +74,16 @@ theorem firstPrime_anchor_price (e q d r : ℕ) [Fact q.Prime] [Fact d.Prime]
       _ ≤ a (t 0)/(p 0:ℝ) := Nat.floor_le (div_nonneg hpos (by linarith))
       _ ≤ a (t 0) := div_le_self hpos one
       _ ≤ _ := (ha 0).2
-  have hcount : 0 < ((S 0).card:ℝ) := by exact_mod_cast (hS 0).card_pos
-  have sep : b/x^2 - 2 ≤ ((S 0).card:ℝ) := by
-    linarith only [(spec 0).2.2.1, (spec 0).2.2.2.1]
+  have hcount : 0 < ((S l).card:ℝ) := by exact_mod_cast (hS l).card_pos
+  have sep : b/x^2 - 2 ≤ ((S l).card:ℝ) := by
+    linarith only [(spec l).2.2.1, (spec l).2.2.2.1]
   have h4 : 4 ≤ b/x^2 := (le_div_iff₀ hx2).2 hb
-  have low : b ≤ (2*((S 0).card:ℝ))*x^2 := (div_le_iff₀ hx2).1 (by linarith only [h4,sep])
+  have low : b ≤ (2*((S l).card:ℝ))*x^2 := (div_le_iff₀ hx2).1 (by linarith only [h4,sep])
   apply (div_le_iff₀ hcount).2
   calc
     _ ≤ (x+1)*b := upper
     _ ≤ (2*x)*b := mul_le_mul_of_nonneg_right (by linarith) hb0.le
-    _ ≤ (2*x)*((2*((S 0).card:ℝ))*x^2) := mul_le_mul_of_nonneg_left low (by positivity)
+    _ ≤ (2*x)*((2*((S l).card:ℝ))*x^2) := mul_le_mul_of_nonneg_left low (by positivity)
     _ = _ := by ring
 
 /-- Cofactor of a measured star column matrix at each layer. -/
@@ -93,7 +93,7 @@ def wheelNormal {r : ℕ} (D : Fin (r+1) → ℕ) (i : Fin (r+1)) : ℕ :=
 def dualEnergy {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ) : ℝ :=
   ∑ i, (wheelNormal D i:ℝ)^2 / (S i).card
 
-private theorem dualEnergy_pos {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+theorem dualEnergy_pos {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
     (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) : 0 < dualEnergy S D := by
   apply Finset.sum_pos _ Finset.univ_nonempty
   intro i _
