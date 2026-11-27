@@ -285,6 +285,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchor_on_wheel_star,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.constant_complement_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.kernelASK_prefix,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.thick_above_prefix,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.signedMain_row,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheel_prefix_log_bound,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.complementary_bounds_signedMain,

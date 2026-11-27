@@ -282,6 +282,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchor_on_wheel_star
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.constant_complement_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.kernelASK_prefix
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.thick_above_prefix
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.signedMain_row
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.wheel_prefix_log_bound
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.complementary_bounds_signedMain

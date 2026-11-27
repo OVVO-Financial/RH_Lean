@@ -12,6 +12,7 @@ open Filter
 
 namespace RHLean.Analysis.AlpogeThin.SlotProjector
 
+set_option maxHeartbeats 2000000 in
 private theorem canonical_class_bound (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     {ε Y Z x : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d) (hY : Y ≤ x) (hZ : x ≤ Z) :
     ‖alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d) (alpogeNativeChC (AlpogeNativeDyadicH e))‖
@@ -19,10 +20,12 @@ private theorem canonical_class_bound (e q d : ℕ) [Fact q.Prime] [Fact d.Prime
   let χ := alpogeNativeDirChar (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
     (nativeDyadicTwoBitCharacter e 0 1)
   let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero χ⟩
-  have h := (pair.bounds (1 : DirichletCharacter ℂ 1) 0 1 (Or.inr (by decide))
+  have twist : nativeDyadicTwoBitCharacter e 0 1 = alpogeNativeChC (AlpogeNativeDyadicH e) := by
+    simp [nativeDyadicTwoBitCharacter]
+  rw [← twist]
+  change ‖Formalism.HC.An.logDerivativeAtOne χ.primitiveCharacter‖ ≤ 4*Real.log x
+  exact (pair.bounds (1 : DirichletCharacter ℂ 1) 0 1 (Or.inr (by decide))
     χ.conductor χ.primitiveCharacter (nativeDyadicTwoBitCharacter_induces e q d 0 1) x hY hZ).2
-  change ‖alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d) (nativeDyadicTwoBitCharacter e 0 1)‖ ≤ _ at h
-  simpa [nativeDyadicTwoBitCharacter] using h
 
 private theorem thin_sites_of_partner {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
     (T : Finset H) (u t : H) (a L : ℝ) (w : AlpogeNativeE0 × H → ℝ)
@@ -116,7 +119,8 @@ theorem signedMain_row (ε : ℝ) (he : 0 < ε) :
       (ell (alpogeNativeChC _)).re - (1/((alpogeNativePhiSet (AlpogeNativeDyadicH e)).card:ℝ))*
         ∑ ρ ∈ alpogeNativePhiSet _, Real.log (w ρ) := by
     change -(4*Real.log x) ≤ (ell (alpogeNativeChC _)).re at hc
-    linarith only [hlog, hbig, hc, hl, Real.eulerMascheroniConstant_lt_two_thirds]
+    linarith only [hlog, hbig, hc, hl, Real.eulerMascheroniConstant_lt_two_thirds,
+      Real.log_nonneg (by norm_num : (1:ℝ) ≤ 3)]
   simp only [alpogeNativeMAIN, Complex.re_ofReal_mul, Complex.sub_re, Complex.add_re, Complex.ofReal_re]
   change _ ≤ a * _
   exact mul_le_mul_of_nonneg_left scalar ha.le
@@ -146,6 +150,41 @@ theorem kernelASK_prefix {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H
     _ = (2*a)*nativeLambdaRecip M := (Finset.mul_sum _ _ _).symm
     _ ≤ _ := mul_le_mul_of_nonneg_left (by linarith only [(nativeLambdaRecip_sub_log_bounds M hM).2])
       (by positivity)
+
+/-- Above the paid prefix every original thick reading vanishes. This uses
+the lower log grid and the actual height collar at the original cutoff. -/
+theorem thick_above_prefix (ε : ℝ) (he : 0 < ε) :
+    ∀ᶠ x : ℝ in atTop, ∀ (a b w η : ℝ) (n : ℕ), 0 < b → b ≤ w → a ≤ (x+1)*b →
+      0 < η → η ≤ 1 → ⌊Real.exp (x^(ε/3)/16)⌋₊ < n →
+      alpogeASKPos (a/(n:ℝ)) (alpogeNativeLowerLogWidth η w) = 0 := by
+  have hr : 0 < ε/3 := by positivity
+  filter_upwards [(isLittleO_log_rpow_atTop hr).bound (by norm_num : (0:ℝ) < 1/64),
+    Real.tendsto_log_atTop.eventually_ge_atTop 1, eventually_ge_atTop (2:ℝ)] with x hlog h1 hx
+  have hx0 : 0 < x := by linarith
+  have hln := Real.log_nonneg (by linarith : 1 ≤ x)
+  rw [Real.norm_of_nonneg hln, Real.norm_of_nonneg (Real.rpow_nonneg hx0.le _)] at hlog
+  intro a b w η n hb hbw ha hη hη1 hn
+  let v := alpogeNativeLowerLogWidth η w
+  have hw := hb.trans_le hbw
+  have hv : 0 < v := Real.exp_pos _
+  have floorUp := (lt_div_iff₀ hη).mp (Int.lt_floor_add_one (Real.log w / η))
+  have grid : w ≤ Real.exp 1*v := by
+    rw [← Real.exp_log hw, show v = Real.exp ((⌊Real.log w/η⌋:ℤ)*η) from rfl, ← Real.exp_add]
+    exact Real.exp_le_exp.mpr (by linarith only [floorUp,hη1])
+  have cutoff : (x+1)*Real.exp 1 ≤ Real.exp (x^(ε/3)/16) := by
+    have h := Real.log_le_log (by linarith : 0 < x+1) (by nlinarith : x+1 ≤ x*x)
+    rw [Real.log_mul hx0.ne' hx0.ne'] at h
+    calc
+      _ = Real.exp (Real.log (x+1)+1) := by rw [Real.exp_add, Real.exp_log (by linarith : 0 < x+1)]
+      _ ≤ _ := Real.exp_le_exp.mpr (by linarith only [h,h1,hlog])
+  have hn' : Real.exp (x^(ε/3)/16) < (n:ℝ) := (Nat.floor_lt (Real.exp_pos _).le).mp hn
+  have hn0 := (Real.exp_pos _).trans hn'
+  have hcut : a ≤ (n:ℝ)*v := calc
+    _ ≤ (x+1)*b := ha
+    _ ≤ (x+1)*(Real.exp 1*v) := mul_le_mul_of_nonneg_left (hbw.trans grid) (by linarith)
+    _ = ((x+1)*Real.exp 1)*v := (mul_assoc _ _ _).symm
+    _ ≤ _ := mul_le_mul_of_nonneg_right (cutoff.trans hn'.le) hv.le
+  exact max_eq_right (sub_nonpos.mpr ((div_le_iff₀ hn0).2 (by simpa only [mul_comm v (n:ℝ)] using hcut)))
 
 /-- Actual clipped wheel depths fit inside one factorial of the original
 integer prefix. This estimates their total and introduces no section transport. -/
@@ -316,7 +355,9 @@ theorem complementary_bounds_signedMain (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1
     have hf := Nat.lt_floor_add_one (Real.sqrt x)
     dsimp only [c]
     linarith
-  have hk : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have hk : 0 < k := by
+    change 0 < ((T.card*n:ℕ):ℝ)
+    exact_mod_cast Nat.mul_pos hT.card_pos hn
   have ht0 : 0 < (tops.card:ℝ) := by exact_mod_cast ht.card_pos
   have hmass := mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left (prefix_real_bound P primes x hx) ht0.le) hk.le
   have upper := (sub_nonneg.mp vol.1).trans hmass
