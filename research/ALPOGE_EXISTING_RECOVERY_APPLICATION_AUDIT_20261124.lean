@@ -208,6 +208,11 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.wheel_depths
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.row_det
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.exact_row_price
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.joint_budget_iff
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.finite_row_budget
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.rowLCM_local
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_native_allowance
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.singletonOrders_injective
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_read
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.exact_projector_price
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le

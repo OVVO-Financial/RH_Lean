@@ -41,7 +41,9 @@ private theorem two_norm {C : Type*} [AddCommGroup C] [Fintype C] (p : ℕ) [Fac
       ‖ι ((1+(p:ℂ)^k)/2)‖ = 1 := by
   have hr2 := place_rat p ι 2
   have htwo : ‖ι 2‖ = 1 := by
-    simpa [padicNorm.padicNorm_of_prime_of_ne (p := p) (q := 2) hp] using hr2
+    have hrat : padicNorm p (2:ℚ) = 1 := padicNorm.padicNorm_of_prime_of_ne (p := p) (q := 2) hp
+    change ‖ι 2‖ = ((padicNorm p (2:ℚ):ℚ):ℝ) at hr2
+    rwa [hrat, Rat.cast_one] at hr2
   have hp0 : ‖ι (p:ℂ)‖ < 1 := by
     have h := place_rat p ι (p:ℚ)
     simpa only [Rat.cast_natCast, ← Padic.eq_padicNorm, Rat.cast_natCast] using
@@ -133,10 +135,8 @@ theorem dyadic_all_channels (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime] [Fac
       obtain ⟨hI,hF⟩ := nativeDyadicHostData_typeI e q d p hH Fact.out hA
       have one (v : D.inertia p) : f v = 1 := phi_read e q d N p w v (hI _ v.property) hF
       exact constant fun v => (one v).trans (one 0).symm
-  · exact constant fun v => congrArg f (Subtype.ext (by
-      have hv := v.property
-      change v.val ∈ (alpogeNativeHostData e q d).inertia p at hv
-      rwa [nativeDyadicHostData_inertia_unramified e q d p Fact.out hbad, AddSubgroup.mem_bot] at hv))
+  · have ht : D.inertia p ≤ ⊥ := (nativeDyadicHostData_inertia_unramified e q d p Fact.out hbad).le
+    exact constant fun v => congrArg f (Subtype.ext (AddSubgroup.mem_bot.mp (ht v.property)))
 
 /-- The integral reading at the common zero representative, prior to
 selection of the prime, place, direction or power. -/
@@ -314,5 +314,121 @@ theorem exact_row_price (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.
       (Finset.prod_le_prod (fun _ _ => norm_nonneg _) fun i _ => (b i).1 (χ i) (ψ i)))
   · rw [row_det α hi, Matrix.det_one, Int.cast_one, one_mul, mul_one, map_prod, norm_prod]
     exact Finset.prod_congr rfl fun i _ => (b i).2
+
+/-- This is the simultaneous fit comparison on the measured monomial
+space. The class multiplier occurs only on the rank-one side. The full
+determinant has the original dimension times the auxiliary rank in its
+exponent. All character tests are quantified before the bound. -/
+theorem joint_budget_iff (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
+    {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ) (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (hr : ∀ i, 0 < r i) (h : Fin n → ℕ) (auxRank : ℕ) (β : ℝ) :
+    let A := fun i => wheel e q d N P (w i)
+    let z := fun i => readAt e q d N P (w i) p
+    let rz := fun (χ : Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ) i => z i (χ i)
+    ((∀ i χ ψ, ‖ι (tested (α i) (r i) (h i) (z i χ) (z i ψ))‖ ≤ Real.exp β) ∧
+      ∀ χ ψ U V, ‖ι ((rowMatrix α r (rz χ) (rz ψ) U V).det)‖ ≤ Real.exp ((n:ℝ)*(auxRank*β))) ↔
+    ((∀ i, (padicNorm p (payment (α i) (r i) (h i) (A i)):ℝ) ≤ Real.exp β) ∧
+      (∏ i, (padicNorm p (payment (α i) (r i) 1 (A i)):ℝ)) ≤ Real.exp ((n:ℝ)*(auxRank*β))) := by
+  let one i := exact_projector_price e q d N p hH ι P (w i) (α i) (r i) (hr i) (h i)
+  let row := exact_row_price e q d N p hH ι P w α hi r hr
+  constructor
+  · rintro ⟨hl,hd⟩
+    exact ⟨fun i => (one i).2.symm.le.trans (hl i 0 0), row.2.symm.le.trans (hd 0 0 1 1)⟩
+  · rintro ⟨hl,hd⟩
+    exact ⟨fun i χ ψ => ((one i).1 χ ψ).trans (hl i), fun χ ψ U V => (row.1 χ ψ U V).trans hd⟩
+
+/-- Least common clearing of the rational diagonal readings. Its
+factorization is a single per-prime allowance, shared by all rows. -/
+def rowLCM {n : ℕ} (Q : Fin n → ℚ) : ℕ := Finset.univ.lcm fun i => (Q i).den
+
+theorem finite_row_budget (M : ℕ) (T : Finset ℕ) :
+    (∑ p ∈ T, (M.factorization p:ℝ)*Real.log p) ≤ Real.log M := by
+  classical
+  rw [Real.log_nat_eq_sum_factorization]
+  let S := M.factorization.support ∪ T
+  rw [Finsupp.sum_of_support_subset _ (show M.factorization.support ⊆ S from Finset.subset_union_left)
+    (fun (p t : ℕ) => (t:ℝ)*Real.log p) (by simp)]
+  exact Finset.sum_le_sum_of_subset_of_nonneg Finset.subset_union_right
+    (fun p _ _ => mul_nonneg (Nat.cast_nonneg _) (Real.log_natCast_nonneg _))
+
+theorem rowLCM_local {n : ℕ} (Q : Fin n → ℚ) (i : Fin n) (p : ℕ) [Fact p.Prime] :
+    (padicNorm p (Q i):ℝ) ≤ Real.exp (((rowLCM Q).factorization p:ℝ)*Real.log p) := by
+  let M := rowLCM Q
+  have hm : M ≠ 0 := Finset.lcm_ne_zero_iff.mpr fun i _ => (Q i).den_ne_zero
+  obtain ⟨k,hk⟩ : (Q i).den ∣ M := Finset.dvd_lcm (Finset.mem_univ i)
+  have hmul : (M:ℚ)*(Q i) = (((Q i).num*(k:ℤ):ℤ):ℚ) := by
+    rw [hk, Nat.cast_mul, mul_right_comm, mul_comm ((Q i).den:ℚ), Rat.mul_den_eq_num]
+    push_cast
+    rfl
+  have hb : padicNorm p (M:ℚ)*padicNorm p (Q i) ≤ 1 := by
+    rw [← padicNorm.mul, hmul]
+    exact padicNorm.of_int _
+  have hp0 : 0 < (p:ℚ) := by exact_mod_cast (Fact.out : p.Prime).pos
+  have pnorm : padicNorm p (M:ℚ) = ((p:ℚ)^M.factorization p)⁻¹ := by
+    rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr hm), Nat.factorization_def M Fact.out,
+      padicValRat.of_nat, zpow_neg, zpow_natCast]
+  rw [pnorm, inv_mul_eq_div] at hb
+  have hq := (div_le_one (pow_pos hp0 _)).1 hb
+  rw [Real.exp_nat_mul, Real.exp_log (show 0 < (p:ℝ) by exact_mod_cast hp0)]
+  exact_mod_cast hq
+
+/-- Construct a single summable allowance for the two native tested
+spaces at every prime and embedding. Its independently measured total
+is log(M). Comparison of this total or the sharper joint criterion with
+the compact per-direction budget is the remaining economic question. -/
+theorem common_native_allowance (e q d N : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (P : Finset ℕ)
+    {S : Type*} {n : ℕ} (w : Fin n → G e → ℝ) (α : Fin n → S →₀ ℕ) (hi : Function.Injective α)
+    (r : Fin n → ℚ) (hr : ∀ i, 0 < r i) (h : Fin n → ℕ) (auxRank : ℕ) (ha : 1 ≤ auxRank) :
+    let A := fun i => wheel e q d N P (w i)
+    let M := rowLCM fun i => payment (α i) (r i) 1 (A i)
+    let γ := fun p => (M.factorization p:ℝ)*Real.log p
+    (∀ T : Finset ℕ, ∑ p ∈ T, γ p ≤ Real.log M) ∧
+      ∀ p : ℕ, ∀ [Fact p.Prime], ∀ ι : ℂ →+* PadicAlgCl p,
+        let z := fun i => readAt e q d N P (w i) p
+        let rz := fun (χ : Fin n → AddChar ((alpogeNativeHostData e q d).inertia p) ℂ) i => z i (χ i)
+        (∀ i χ ψ, ‖ι (tested (α i) (r i) (h i) (z i χ) (z i ψ))‖ ≤ Real.exp (γ p)) ∧
+        ∀ χ ψ U V, ‖ι ((rowMatrix α r (rz χ) (rz ψ) U V).det)‖ ≤
+          Real.exp ((n:ℝ)*(auxRank*γ p)) := by
+  let A := fun i => wheel e q d N P (w i)
+  let Q := fun i => payment (α i) (r i) 1 (A i)
+  let M := rowLCM Q
+  let γ := fun p => (M.factorization p:ℝ)*Real.log p
+  refine ⟨finite_row_budget M, ?_⟩
+  intro p _ ι
+  apply (joint_budget_iff e q d N p hH ι P w α hi r hr h auxRank (γ p)).2
+  have localBound (i) : (padicNorm p (Q i):ℝ) ≤ Real.exp (γ p) := rowLCM_local Q i p
+  constructor
+  · intro i
+    have eq : payment (α i) (r i) (h i) (A i) = (h i:ℚ)*Q i := by dsimp [Q, payment]; ring
+    rw [eq, padicNorm.mul, Rat.cast_mul]
+    have hunit : padicNorm p (h i:ℚ) ≤ 1 := by exact_mod_cast padicNorm.of_int (p := p) (h i:ℤ)
+    exact (mul_le_of_le_one_left (by exact_mod_cast padicNorm.nonneg (p := p) (Q i))
+      (by exact_mod_cast hunit)).trans (localBound i)
+  · calc
+      _ ≤ ∏ _i : Fin n, Real.exp (γ p) := Finset.prod_le_prod
+        (fun i _ => by exact_mod_cast padicNorm.nonneg (p := p) (Q i)) fun i _ => localBound i
+      _ = Real.exp ((n:ℝ)*γ p) := by simp [Real.exp_nat_mul]
+      _ ≤ _ := by
+        apply Real.exp_le_exp.mpr
+        have hg : 0 ≤ γ p := mul_nonneg (Nat.cast_nonneg _) (Real.log_natCast_nonneg _)
+        exact mul_le_mul_of_nonneg_left (le_mul_of_one_le_left hg (by exact_mod_cast ha))
+          (Nat.cast_nonneg _)
+
+/-- A distinct thick-site translate gives a distinct measured direction
+when the two integral orders differ. This family realizes joint rank on
+the actual modular-unit host and uses its original thick-site mask. -/
+def singletonOrders {e : ℕ} (t : AlpogeNativeDyadicH e) (b l : ℝ) : G e →₀ ℕ :=
+  Finsupp.equivFunOnFinite.symm (fun σ => if alpogeNativeInPhi σ then
+    ⌈alpogeNativeFreezeThick {0} t b (fun _ => l) σ⌉₊ else 0)
+
+theorem singletonOrders_injective {e : ℕ} (b l : ℝ) (h : ⌈b⌉₊ ≠ ⌈l⌉₊) :
+    Function.Injective (fun t : AlpogeNativeDyadicH e => singletonOrders t b l) := by
+  intro t u hu
+  by_contra hne
+  have eq := DFunLike.congr_fun hu (((0,1),t) : G e)
+  simpa [singletonOrders, alpogeNativeInPhi, alpogeNativeFreezeThick, alpogeNativeThickPositiveSites,
+    hne, Ne.symm hne, h] using eq
 
 end RHLean.Analysis.AlpogeThin.WheelFit
