@@ -381,8 +381,16 @@ theorem split_prime_clearing (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime]
     rw [chartRead_eq]
     by_cases he : l = p
     · subst l
-      simp [chartDepth, hu0, hg]
-    · exact Nat.Coprime.pow_right _ ((Nat.coprime_primes hp (hP l hl)).2 he.symm)
+      have zero : chartDepth w D.frob N p (u p) = 0 := by
+        unfold chartDepth
+        refine Finset.sum_eq_zero fun _ _ => Finset.sum_eq_zero fun i _ => ?_
+        have eligible : alpogeNativeInPhi (i • D.frob p + u p) := by
+          rw [hu0, add_zero]
+          exact hg i
+        exact if_pos eligible
+      rw [zero, pow_zero]
+      exact Nat.coprime_one_right _
+    · exact Nat.Coprime.pow_right _ ((Nat.coprime_primes hp (hP l hl)).2 (Ne.symm he))
   refine ⟨hA, ?_⟩
   intro htest
   have hdiv := (measured_line_denominator α A B C h δ hC).1 htest
@@ -481,7 +489,6 @@ theorem projected_test_pair {S : Type*} (α : S →₀ ℕ) (s : ℝ) (z z' : �
   classical
   have hf : (multiFactorial α:ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (multiFactorial_pos α).ne'
   simp [derivativeProjection, measuredTest, fockInner_monomial_right, field]
-  <;> ring
 
 /-- For a rational squared dilation the actual derivative norm has the
 correct all-place orientation. W is rational at every embedding and W
