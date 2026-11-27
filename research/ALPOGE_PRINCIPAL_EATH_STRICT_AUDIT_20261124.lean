@@ -1,3 +1,4 @@
+import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
 import «research.NativeSignedWidthSweep»
 import RHLean.Analysis.AlpogeThin.NativePrincipalEAtH
@@ -174,6 +175,13 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_short_completion,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_dual_gram,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_firstPrime_wheel_block_supplied,
+    ``RHLean.Analysis.AlpogeThin.RankOne.slots_le,
+    ``RHLean.Analysis.AlpogeThin.RankOne.gcd_admission,
+    ``RHLean.Analysis.AlpogeThin.RankOne.chartRead_eq,
+    ``RHLean.Analysis.AlpogeThin.RankOne.chartDepth_le,
+    ``RHLean.Analysis.AlpogeThin.RankOne.exists_chart,
+    ``RHLean.Analysis.AlpogeThin.RankOne.jet_read_norm,
+    ``RHLean.Analysis.AlpogeThin.RankOne.common_jet,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.log_interval_cost,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.firstPrime_endpoint_phase,
     ``RHLean.Analysis.AlpogeThin.WidthSweep.signed_row_eq,

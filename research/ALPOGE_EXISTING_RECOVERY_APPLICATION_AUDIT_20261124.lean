@@ -1,3 +1,4 @@
+import «research.NativeRankOneEulerRepayment»
 import «research.NativeSignedWidthSweep»
 import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
@@ -177,6 +178,13 @@ run_cmd do
         throwError "Unapproved terminal axiom for {root}: {ax}"
     logInfo m!"PASS native existing recovery application {root}: {axs}"
 
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.slots_le
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.gcd_admission
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.chartRead_eq
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.chartDepth_le
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.exists_chart
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.jet_read_norm
+#print axioms RHLean.Analysis.AlpogeThin.RankOne.common_jet
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_frozen_top_le
 #print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq

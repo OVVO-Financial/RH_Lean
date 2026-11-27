@@ -2,6 +2,8 @@
 
 Use [Sernau’s readable and compact proofs at `72fead102f663d5c7a407964a13dc0cf9d977207`](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207) as the primary upstream mathematical reference. Continue the single closure assignment on #1214 from the frozen, verified #1201 checkpoint. Earlier role assignments and instructions to develop on #1201 are historical for this work.
 
+Begin at `Data.heightLe_inv_ratio` in the pinned compact edition. Extract the upper valuation on one integral test and the independent untwisted norm at the nominal site orders. Use their product on the same measured operator before transporting it to the lower determinant. The per-direction allowance is `Data.B₀ = Data.budget / (m*k)`.
+
 Follow the [native discrepancy ledger](research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md) from the compact `star_inequality` through A, B and C. Account for the common main amount, rank, aggregate prime gain, finite index and lower determinant on the same measured family, or prove the signed comparison directly on its complete arithmetic source. Keep the original cutoff, divisor and full cofinal-window quantifiers. Apply #1205 once its native bound is supplied. Preserve the existing hosted caches and strict dependency checks, including the exclusion of terminal RH inputs.
 
 ## 2026-11-25 — native economical recovery (controlling seven-agent task)
