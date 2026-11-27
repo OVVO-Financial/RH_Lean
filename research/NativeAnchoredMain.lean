@@ -94,7 +94,7 @@ private theorem half_thin_log {H : Type*} [AddCommGroup H] [Fintype H] [Decidabl
 It is uniform over the selected pairs and over the position of the window. -/
 theorem signedMain_row (ε : ℝ) (he : 0 < ε) :
     ∀ᶠ x : ℝ in atTop, ∀ (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
-      {Y Z : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
+      {Y Z : ℝ} (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
       ∀ (T : Finset (AlpogeNativeDyadicH e)) (u : AlpogeNativeDyadicH e) (a : ℝ)
         (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ), 0 < a →
         (∀ ρ ∈ alpogeNativePhiSet _, 0 < w ρ) →
@@ -167,7 +167,7 @@ theorem thick_above_prefix (ε : ℝ) (he : 0 < ε) :
   let v := alpogeNativeLowerLogWidth η w
   have hw := hb.trans_le hbw
   have hv : 0 < v := Real.exp_pos _
-  have floorUp := (lt_div_iff₀ hη).mp (Int.lt_floor_add_one (Real.log w / η))
+  have floorUp := (div_lt_iff₀ hη).mp (Int.lt_floor_add_one (Real.log w / η))
   have grid : w ≤ Real.exp 1*v := by
     rw [← Real.exp_log hw, show v = Real.exp ((⌊Real.log w/η⌋:ℤ)*η) from rfl, ← Real.exp_add]
     exact Real.exp_le_exp.mpr (by linarith only [floorUp,hη1])
@@ -282,7 +282,7 @@ the very same rounded rows and pair. Each summand in the right side is the
 relative log of the level-one minimum on the original quotient-slot block. -/
 theorem complementary_bounds_signedMain (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
     ∀ᶠ x : ℝ in atTop, ∀ (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime]
-      {Y Z : ℝ} (pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
+      {Y Z : ℝ} (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d), Y ≤ x → x ≤ Z →
       ∀ (tops T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ)
         (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) (η : ℝ),
       let b := Real.exp (x^ε)
