@@ -147,6 +147,64 @@ theorem integral_dual {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) �
     simpa [read, hk, c] using hu j
   · exact fun i => ⟨k i, hk i, fun l hl => by simp [Ne.symm hl]⟩
 
+/-- One CRT representative lies in a fundamental interval. For a coordinate
+test every resulting coefficient is nonnegative and at most one plus the
+product of the admitted prime powers. The resulting dual norm is measured
+in the same counting metric as the columns. -/
+theorem bounded_dual {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (hc : Pairwise (fun i j => (D i).Coprime (D j))) (j : Fin m) :
+    ∃ z : Fin (m+1) → ℕ → ℤ,
+      (∀ i, read S D z i = if j=i then 1 else 0) ∧
+      (∑ i, ∑ k ∈ S i, (z i k:ℝ)^2) ≤ (m+1:ℕ)*(1+∏ i, (D i:ℝ))^2 := by
+  classical
+  let y := fun i : Fin m => if j=i then (1:ℤ) else 0
+  obtain ⟨v, u, hu⟩ := nativeDyadic_firstPrime_wheel_block_dual (fun i : Fin m => D i.succ)
+    (D 0) (fun i => (hD _).ne') (fun i => hc (Fin.succ_ne_zero i).symm)
+    (fun _ _ h => hc (fun he => h (Fin.succ_injective m he))) y
+  let M := ∏ i : Fin m, (D i.succ:ℤ)
+  let v' := v % M
+  have Mpos : 0 < M := Finset.prod_pos fun i _ => by exact_mod_cast hD i.succ
+  have v0 : 0 ≤ v' := Int.emod_nonneg _ Mpos.ne'
+  have vM : v' ≤ M := (Int.emod_lt_of_pos v Mpos).le
+  have Dpos (i) : 0 < (D i:ℤ) := by exact_mod_cast hD i
+  have md (i : Fin m) : (D i.succ:ℤ) ∣ M :=
+    Finset.dvd_prod_of_mem (fun k : Fin m => (D k.succ:ℤ)) (Finset.mem_univ i)
+  have dv i : (D i.succ:ℤ) ∣ y i+(D 0:ℤ)*v' := by
+    obtain ⟨l, hl⟩ := md i
+    refine ⟨u i-(D 0:ℤ)*l*(v/M), ?_⟩
+    have q : v' + M*(v/M) = v := Int.emod_add_mul_ediv v M
+    linear_combination -hu i + (D 0:ℤ)*q - (D 0:ℤ)*(v/M)*hl
+  choose u' prop using dv
+  let c : Fin (m+1) → ℤ := Fin.cases v' u'
+  have bound (i) : 0 ≤ c i ∧ c i ≤ 1+(D 0:ℤ)*M := by
+    refine Fin.cases ?_ (fun k => ?_) i
+    · have h := le_mul_of_one_le_left Mpos.le (by exact_mod_cast hD 0 : (1:ℤ) ≤ D 0)
+      exact ⟨v0, by change v' ≤ _; linarith only [vM,h]⟩
+    · have hy : 0 ≤ y k ∧ y k ≤ 1 := by dsimp [y]; split <;> simp
+      have hz : 0 ≤ u' k := by
+        apply nonneg_of_mul_nonneg_right _ (Dpos k.succ)
+        rw [← prop k]
+        exact add_nonneg hy.1 (mul_nonneg (Dpos 0).le v0)
+      have hle := le_mul_of_one_le_left hz (show (1:ℤ) ≤ D k.succ by exact_mod_cast hD k.succ)
+      have hupp := mul_le_mul_of_nonneg_left vM (Dpos 0).le
+      exact ⟨hz, by change u' k ≤ _; linarith only [hle,prop k,hy.2,hupp]⟩
+  choose a ha using hS
+  let z := fun i k => if a i = k then c i else 0
+  refine ⟨z, fun i => ?_, ?_⟩
+  · dsimp [read,z]
+    simpa [ha,c,y] using (show (D i.succ:ℤ)*u' i-(D 0:ℤ)*v' = y i by linarith only [prop i])
+  · have HM : (∏ i, (D i:ℝ)) = (D 0:ℝ)*(M:ℝ) := by simp [M,Fin.prod_univ_succ]
+    calc
+      _ = ∑ i, (c i:ℝ)^2 := by simp [z, ha, ite_pow]
+      _ ≤ ∑ _i : Fin (m+1), (1+∏ i, (D i:ℝ))^2 := by
+        apply Finset.sum_le_sum
+        intro i _
+        apply pow_le_pow_left₀ (by exact_mod_cast (bound i).1)
+        rw [HM]
+        exact_mod_cast (bound i).2
+      _ = _ := by simp
+
 /-- Real Gram from integer pairings on the same slots and the same sections. -/
 theorem measured_gram {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) :
     (fun i j : Fin m => (read S D (starColumn D j) i : ℝ)) =
@@ -156,9 +214,9 @@ theorem measured_gram {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) �
   by_cases hij : i = j
   · subst j
     simp [read, starColumn, MeasuredCut.gram, Matrix.mul_apply, (Fin.succ_ne_zero i).symm, pow_two]
-    <;> ring
+    ring
   · simp [read, starColumn, MeasuredCut.gram, Matrix.mul_apply, (Fin.succ_ne_zero j).symm, hij, pow_two]
-    <;> ring
+    ring
 
 /-- The top determinant of the orthogonal projector has a single Gram
 denominator for every pair of integral test matrices, in every ambient dimension. -/
@@ -219,6 +277,7 @@ theorem place_bound {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.Prime]
   let W := V.map (starRingEnd ℂ)
   have hcast : f (B.transpose*B).det = G.det := by
     rw [RingHom.map_det, RingHom.mapMatrix_apply, Matrix.map_mul]
+    rfl
   have hG : IsUnit G.det := isUnit_iff_ne_zero.mpr (by
     rw [← hcast]
     change (((B.transpose*B).det:ℤ):ℂ) ≠ 0
@@ -517,8 +576,10 @@ theorem squareClock_price (m E : ℕ) (p : Fin (m+1) → ℕ) (a : Fin (m+1) →
     rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by positivity) (by positivity),
       Real.log_exp, Real.log_pow, Real.log_exp]
     have hterm := mul_le_mul hcx hlogx (Real.log_nonneg hx1) hx0.le
-    nlinarith only [Real.log_le_sub_one_of_pos (show 0 < x+1 by linarith), hpow, hterm,
-      mul_nonneg hx0.le (show 0 ≤ x-1 by linarith)]
+    have he : Real.log (x+1) ≤ x := by linarith only [Real.log_le_sub_one_of_pos (show 0 < x+1 by linarith)]
+    calc
+      _ ≤ x+x+2*(x*x) := add_le_add (add_le_add he hpow) (mul_le_mul_of_nonneg_left hterm (by norm_num))
+      _ ≤ _ := by nlinarith only [mul_nonneg hx0.le (show 0 ≤ x-1 by linarith)]
   have logm : Real.log (m+1:ℕ) ≤ m := by
     simpa using Real.log_le_sub_one_of_pos (show (0:ℝ) < (m+1:ℕ) by positivity)
   have hE1 : (1:ℝ) ≤ E := by exact_mod_cast hE
@@ -533,8 +594,10 @@ theorem squareClock_price (m E : ℕ) (p : Fin (m+1) → ℕ) (a : Fin (m+1) →
       add_le_add Ediv (mul_le_mul_of_nonneg_left htwo (Nat.cast_nonneg m))
     _ = (m:ℝ)*(2+8*x^2) := by ring
     _ ≤ x*(2+8*x^2) := mul_le_mul_of_nonneg_right hm (by positivity)
-    _ ≤ x^4 := by nlinarith only [mul_nonneg (show 0 ≤ x-10 by linarith) (pow_nonneg hx0.le 3),
-      mul_nonneg hx0.le (show 0 ≤ x^2-1 by nlinarith only [sq_nonneg (x-1),hx])]
+    _ ≤ x^4 := by
+      have h1 := mul_nonneg (show 0 ≤ x-10 by linarith) (pow_nonneg hx0.le 3)
+      have h2 := mul_nonneg hx0.le (show 0 ≤ x^2-1 by nlinarith only [sq_nonneg (x-1),hx])
+      nlinarith only [h1, h2]
 
 open Filter in
 /-- Even polynomially many such fibre prices are affordable in the
@@ -555,5 +618,71 @@ theorem squareClock_budget (ε J K : ℝ) (hε : 0 < ε) :
     _ ≤ f*a := le_mul_of_one_le_left ((Real.exp_pos _).le.trans ha) hf
     _ ≤ _ := le_mul_of_one_le_right (mul_nonneg (zero_le_one.trans hf) ((Real.exp_pos _).le.trans ha))
       (one_le_pow₀ hεx)
+
+/-- The denominator of the projector onto one of the very same columns
+is the sum of its two measured integer masses. -/
+theorem line_det {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ) (j : Fin m) :
+    let B : Matrix (Address S) (Fin 1) ℤ := fun x _ => columns S D x j
+    (B.transpose*B).det = (((S 0).card*D 0^2 + (S j.succ).card*D j.succ^2:ℕ):ℤ) := by
+  classical
+  dsimp only
+  rw [Matrix.det_fin_one]
+  change (∑ x : Address S, starColumn D j x.1 x.2.val * columns S D x j) = _
+  rw [dot_read]
+  simp [read, starColumn, (Fin.succ_ne_zero j).symm, pow_two]
+  ring
+
+open Filter in
+/-- Uniform at every sufficiently large real anchor. For every eligible
+ordered high first-prime fibre the integral dual attains the projector
+determinant, admission retains the stated prime product on these columns,
+and the joint finite price is at most x^4. -/
+theorem firstPrime_projector (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (ε : ℝ)
+    (hε : 0 < ε) (hε1 : ε ≤ 1) :
+    ∀ᶠ x : ℝ in atTop, ∀ (m E : ℕ) (p : Fin (m+1) → ℕ)
+      (t : Fin (m+1) → AlpogeNativeDyadicH e) (a : AlpogeNativeDyadicH e → ℝ)
+      (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ) (site : AlpogeNativeE0 × AlpogeNativeDyadicH e),
+      let b := Real.exp (x^ε)
+      let c := ⌊Real.sqrt x⌋₊
+      let S := bands (fun i => a (t i)/(p i:ℝ)) (w site)
+      let D := fun i => p i^(⌊(c:ℝ)*x⌋₊/p i-c)
+      let s := fun i => (S i).card*D i^2
+      let A := columns S (fun _ => 1)
+      let B := columns S D
+      let Bq := B.map (Int.castRingHom ℚ)
+      let P := Bq*(Bq.transpose*Bq)⁻¹*Bq.transpose
+      let before := (((A.transpose*A).det:ℤ):ℝ)
+      let after := (((B.transpose*B).det:ℤ):ℝ)
+      0 < E → (∀ i, (p i).Prime) → StrictMono p → (∀ i, Real.sqrt x ≤ p i) →
+      (∀ i, (p i:ℝ)+1 ≤ x) → (∀ i, a (t i) ∈ Set.Icc (x*b) ((x+1)*b)) →
+      (∀ i, alpogeNativePartner (t i) ((alpogeNativeHostData e q d).frob (p i)) = site) →
+      0 ≤ w site → w site ≤ b*(1+1/x) →
+      (∃ Y : Matrix (Fin m) (Address S) ℤ,
+        let T := Y.map (Int.castRingHom ℚ)
+        Y*B=1 ∧ (T*P*T.transpose).det = ((mass s:ℕ):ℚ)⁻¹) ∧
+      (after ≤ (∏ i, (D i:ℝ))^2*before ∧
+        (∏ i, (D i:ℝ))^2*before ≤ Real.exp ((c:ℝ)*Real.sqrt x*Real.log x)^2*after) ∧
+      ∀ T : Finset ℕ, (∑ l ∈ T, ((allowance s E).factorization l:ℝ)*Real.log l)/(E:ℝ) ≤ x^4 := by
+  filter_upwards [dyadic_rpow_le_exp_eventually 3 ε hε, eventually_ge_atTop (10:ℝ)]
+    with x hb hx
+  intro m E p t a w site
+  dsimp only
+  intro hE hp ho high band ha hsite hv hw
+  let b := Real.exp (x^ε)
+  let c := ⌊Real.sqrt x⌋₊
+  let S := bands (fun i => a (t i)/(p i:ℝ)) (w site)
+  let D := fun i => p i^(⌊(c:ℝ)*x⌋₊/p i-c)
+  have hx1 : 1 ≤ x := by linarith
+  have hb' : 4*x^2 ≤ b := by
+    rw [show (3:ℝ) = (3:ℕ) by norm_num, Real.rpow_natCast] at hb
+    exact (show 4*x^2 ≤ x^3 by nlinarith only [mul_nonneg (show 0 ≤ x-4 by linarith) (sq_nonneg x)]).trans hb
+  have hS (i) : (S i).Nonempty := (firstPrime_slots e q d m p t a w x b hx1 hb' hp ho band ha site hsite hv hw i).2.1
+  have hD (i) : 0 < D i := pow_pos (hp i).pos _
+  have cop : Pairwise (fun i j => (D i).Coprime (D j)) := fun i j hij =>
+    Nat.coprime_pow_primes _ _ (hp i) (hp j) (ho.injective.ne hij)
+  have px (i) : (p i:ℝ) ≤ x := by linarith only [band i]
+  exact ⟨attained_price S D hS hD cop, columns_gain S D hS hD _
+    (fun i => MeasuredCut.wheel_factor_le (p i) c x (hp i) hx1 (high i) (px i)), fun T =>
+    squareClock_price m E p (fun i => a (t i)) (w site) x ε hx hε1 hE hp ho high px (fun i => (ha i).2) T hS⟩
 
 end RHLean.Analysis.AlpogeThin.SlotProjector

@@ -58,6 +58,25 @@ For example, multiplying $a=A_{\max}$ by ten in the $q=11,d=7$ calculation leave
 
 **Physical obligation.** On the retained section family one must identify the integral tested columns, their adjoint and the class normalization, or bound the cost of carrying those columns and their duals to the measured wheel lattice. A change of lattice or metric also changes the denominator and the archimedean comparison. That transport, its rank and index, and a uniform bound on its combined price with $\log M/E$ remain open. A direct measured construction meeting these inequalities would replace the upstream Selmer rows and auxiliary primes. It would supply the projection estimate used by the opposite test in the inverse ratio and by the determinant of comparison forms. The existing frozen ledger and principal-character handoff require the resulting signed inequality on the original family and normalization.
 
+### Joint projector cost on the integer quotient slots of a thick fibre
+
+Fix one translated partner with width $v$. List its distinct first primes in increasing order, writing $p_i$ for the prime and $a_i$ for its actual top height. Set $u_i=a_i/p_i-v$ and $\lambda_i=u_i-u_{i+1}$, with $\lambda_n=u_n$ on a fibre of $n+1$ primes. If $\sqrt{x}\le p_i\le x-1$, $xb\le a_i\le(x+1)b$, and $0\le v\le b(1+1/x)$, then $\lambda_i\ge b/x^2$. For $b\ge4x^2$, partition the native quotient slots at the consecutive endpoints $\lfloor a_i/p_i\rfloor$, using the native last endpoint $\lceil v\rceil$. Each band $S_i$ is nonempty and belongs to its original quotient test. Its cardinality satisfies $\lambda_i-2\le |S_i|\le\lambda_i+1$. Before and after admission, replacing the real lengths by these counts changes the squared Gram determinant by a factor between $(1-2x^2/b)^n$ and $(1+x^2/b)^n$. [Slot construction and change of metric](NativeMeasuredSlotProjector.lean)
+
+Put $c=\lfloor\sqrt{x}\rfloor$, $D_i=p_i^{\lfloor\lfloor cx\rfloor/p_i\rfloor-c}$ with natural subtraction, and $s_i=|S_i|D_i^2$. The columns are $D_{j+1}\mathbf{1}_{S_{j+1}}-D_0\mathbf{1}_{S_0}$ in the integral lattice of the slot addresses. Counting these slots supplies the scalar product independently of the target inequality. CRT gives an integral left inverse supported at one slot in each band. Each coordinate dual has squared norm at most $(n+1)(1+\prod_i D_i)^2$. The index in the saturation is one. On these same columns, the gained squared covolume divided by its untwisted value is between $(\prod_i D_i)^2/\exp(2c\sqrt{x}\log x)$ and $(\prod_i D_i)^2$. [Integral dual, measured Gram and admission](NativeMeasuredSlotProjector.lean)
+
+For this matrix $B$, let $P=B(B^tB)^{-1}B^t$. Its full and line clearing factors are
+$$
+g=\det(B^tB)=\sum_i\prod_{j\ne i}s_j,\qquad g_j=s_0+s_{j+1}.
+$$
+For integral test matrices $U,V$, one has $g\det(UPV^t)=\det(UB)\det(VB)$. The integral left inverse attains $1/g$. At every finite place the same clearing works for arbitrary locally integral rows and a conjugate-integral second table. Applying this to a single column clears its line projector. Multiplication by an integral class count preserves clearing. For $E=n r_O>0$ a sufficient common integer is $C=g(\prod_j g_j)^E$. If $s_i\le L$, then for every finite set $T$ of primes,
+$$
+\frac{1}{E}\sum_{p\in T}v_p(C)\log p
+\le \frac{\log(n+1)+n\log L}{E}+n\log(2L).
+$$
+This includes primes outside the wheel. With $b=\exp(x^\varepsilon)$ and $0<\varepsilon\le1$, the price is at most $x^4$ for every eligible fibre at every sufficiently large real anchor. For fixed polynomial bounds $x^J$ on the number of such prices and $x^K$ on $mk$, their total satisfies $x^Jx^4\le fa(\log b)^3/(mk)$ eventually for $f\ge1$ and $a\ge b$. [Projector and square-clock estimates](NativeMeasuredSlotProjector.lean)
+
+The retained rank here is $n$ in the $n+1$ dimensional span of the band indicators. The nominal jet in the compact inverse-ratio proof uses every prescribed site order, its factorial normalization and the actual twisted and untwisted section norms. The comparison from those sections to the slot columns still needs a map with a paid rank deficit, index and archimedean distortion. The slot Gram alone gives no identification with the factorial term in the common main amount. The complete signed comparison in #1201 and the small-epsilon window supplier for #1205 remain open.
+
 ### What supplies one inverse ratio
 
 Use the compact `Data.heightLe_inv_ratio` as the starting point for the lower comparison. In this subsection write $B_{\rm dir}=fa(\log b)^3/(mk)$ for the compact `Data.B₀`. The $B_0$ of the endgame table below is the **global** budget $mk B_{\rm dir}$. Let $n_\sigma=w(0,\sigma)$ be the integral base order and $v_\sigma$ the nominal width ($a/x$ thick and $a/x_1$ thin). Then
