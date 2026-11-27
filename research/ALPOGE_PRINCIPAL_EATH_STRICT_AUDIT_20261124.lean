@@ -264,6 +264,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_jump,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.wheelSweep_layer,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.starJump_index,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.familyJump_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.residueRead_index,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.partnerPrimes_rank,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.translated_frame,

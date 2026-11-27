@@ -227,13 +227,10 @@ private theorem star_shift_onto {r p : ℕ} [Fact p.Prime] (D : Fin (r+1) → �
   · change (D i : ZMod p)*((t i-t a)/(D i : ZMod p) - (if i = a then ∑ l, v l else 0)) = _
     rw [ite_eq_right h, sub_zero, mul_comm, div_mul_cancel₀ _ (others i h)]
 
-/-- Each separated, unaligned interior edge costs exactly one factor of the
-admitted prime on the genuine star coefficient lattice, even jointly. A wheel
-power divisible by p at its own layer fixes the otherwise free common shift. -/
-theorem starJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime i).Prime)
+private theorem starJump_onto {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime i).Prime)
     (inj : Function.Injective prime) (depth : Fin (r+1) → ℕ) (a : Fin (r+1)) (hd : 0 < depth a)
     (edges : Finset (Fin r)) :
-    (starJump (fun i => prime i ^ depth i) (prime a) edges).ker.index = prime a ^ edges.card := by
+    Function.Surjective (starJump (fun i => prime i ^ depth i) (prime a) edges) := by
   classical
   let p := prime a
   let _ : Fact p.Prime := ⟨hp a⟩
@@ -263,8 +260,69 @@ theorem starJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime
     change (∑ j ∈ Finset.range (e.val.val+1), step j) - (∑ j ∈ Finset.range e.val.val, step j) = _
     rw [Finset.sum_range_succ, add_sub_cancel_left]
     simp [step, e.val.isLt, e.property]
+  exact onto
+
+/-- Each separated, unaligned interior edge costs exactly one factor of the
+admitted prime on the genuine star coefficient lattice, even jointly. A wheel
+power divisible by p at its own layer fixes the otherwise free common shift. -/
+theorem starJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime i).Prime)
+    (inj : Function.Injective prime) (depth : Fin (r+1) → ℕ) (a : Fin (r+1)) (hd : 0 < depth a)
+    (edges : Finset (Fin r)) :
+    (starJump (fun i => prime i ^ depth i) (prime a) edges).ker.index = prime a ^ edges.card := by
+  classical
+  let p := prime a
+  let _ : NeZero p := ⟨(hp a).ne_zero⟩
+  let F := starJump (fun i => prime i ^ depth i) p edges
+  have onto : Function.Surjective F := starJump_onto prime hp inj depth a hd edges
   change F.ker.index = _
   rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
-  simp [Nat.card_eq_fintype_card, Fintype.card_fun, ZMod.card, p]
+  simp [Nat.card_eq_fintype_card, ZMod.card, p]
+
+/-- Prime-specific crossed edges are imposed on a single vector of integral
+star coefficients. Each local index and the simultaneous coefficient size
+are measured for these very boundary readings. -/
+def familyJump {r : ℕ} (D prime : Fin (r+1) → ℕ) (A : Finset (Fin (r+1)))
+    (edges : ↥A → Finset (Fin r)) :
+    (Fin r → ℤ) →+ ((a : ↥A) → ↥(edges a) → ZMod (prime a.val)) where
+  toFun z a := starJump D (prime a.val) (edges a) z
+  map_zero' := funext fun _ => map_zero _
+  map_add' _ _ := funext fun _ => map_add _ _ _
+
+theorem familyJump_index {r : ℕ} (prime : Fin (r+1) → ℕ) (hp : ∀ i, (prime i).Prime)
+    (inj : Function.Injective prime) (depth : Fin (r+1) → ℕ)
+    (A : Finset (Fin (r+1))) (hd : ∀ a ∈ A, 0 < depth a) (edges : ↥A → Finset (Fin r)) :
+    let M := fun a : ↥A => prime a.val
+    let F := familyJump (fun i => prime i ^ depth i) prime A edges
+    F.ker.index = ∏ a : ↥A, M a ^ (edges a).card ∧
+      ∀ y, ∃ z : Fin r → ℕ, (∀ j, z j < ∏ a : ↥A, M a) ∧ F (fun j => (z j : ℤ)) = y := by
+  classical
+  intro M F
+  let D := fun i => prime i ^ depth i
+  let (a : ↥A) : NeZero (M a) := ⟨(hp a.val).ne_zero⟩
+  have cop : Set.Pairwise (Finset.univ : Finset ↥A) (fun a b => (M a).Coprime (M b)) := by
+    intro a _ b _ hn
+    exact (Nat.coprime_primes (hp a.val) (hp b.val)).2 fun h => hn (Subtype.ext (inj h))
+  have small (y) : ∃ z : Fin r → ℕ, (∀ j, z j < ∏ a : ↥A, M a) ∧ F (fun j => (z j : ℤ)) = y := by
+    choose v hv using fun a : ↥A => starJump_onto prime hp inj depth a.val (hd _ a.property) (edges a) (y a)
+    let t := fun (j : Fin r) (a : ↥A) => ((v a j : ℤ) : ZMod (M a)).val
+    let nn (a : ↥A) (_ : a ∈ (Finset.univ : Finset ↥A)) := (hp a.val).ne_zero
+    let z (j : Fin r) := Nat.chineseRemainderOfFinset (t j) M Finset.univ nn cop
+    refine ⟨fun j => (z j).val, fun j => Nat.chineseRemainderOfFinset_lt_prod (t j) M nn cop, ?_⟩
+    have agrees (a : ↥A) (j : Fin r) : ((z j).val : ZMod (M a)) = (v a j : ZMod (M a)) := by
+      have h := (ZMod.natCast_eq_natCast_iff _ _ _).2 ((z j).property a (Finset.mem_univ _))
+      simpa only [t, ZMod.natCast_zmod_val] using h
+    funext a e
+    change levelValue D (fun j => (((z j).val : ℤ) : ZMod (M a))) e.val.succ -
+      levelValue D (fun j => (((z j).val : ℤ) : ZMod (M a))) e.val.castSucc = _
+    simp only [Int.cast_natCast]
+    rw [funext (agrees a)]
+    exact congrFun (hv a) e
+  refine ⟨?_, small⟩
+  have onto : Function.Surjective F := by
+    intro y
+    obtain ⟨z, _, hz⟩ := small y
+    exact ⟨_, hz⟩
+  rw [AddSubgroup.index_ker, F.range_eq_top_of_surjective onto, AddSubgroup.card_top]
+  simp [Nat.card_eq_fintype_card, Fintype.card_pi, ZMod.card]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector
