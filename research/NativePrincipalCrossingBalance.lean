@@ -536,6 +536,47 @@ theorem all_cells_centered (M K R : ℕ) (hm : 2 ≤ M) :
   rw [intervalIntegral.integral_const_mul,crossingBalance,tent_minus_main_eq_integral _ _ (hd k)]
 
 
+/-- A single shift prices the whole retained sum from the side needed in the
+dyadic history. The unit rounding is uniform in both endpoints and in M. -/
+theorem exists_common_shift_lower (M K R : ℕ) (hm : 2 ≤ M) :
+    ∃ s ∈ Set.Icc (0:ℝ) 1,
+      (∑ k ∈ Finset.Ico K R, chord M k + cellWeight k*movingExcess M (evenEndpoint M) (oddCofactor k+s))
+        ≤ (∑ k ∈ Finset.Ico K R, primePairReading M k)+1 := by
+  let a := evenEndpoint M
+  let S := Finset.Ico K R
+  let E (k : ℕ) (s : ℝ) := cofactorDiscrepancy M a (oddCofactor k+s)-
+    cofactorDiscrepancy M a (oddCofactor k+1+s)
+  let f := fun s => ∑ k ∈ S, cellWeight k * E k s
+  let avg := ∫ s in (0:ℝ)..1, f s
+  have hd (k : ℕ) : 0 < oddCofactor k := by dsimp [oddCofactor]; positivity
+  have intE (k : ℕ) : IntervalIntegrable (fun s => cellWeight k*E k s) volume 0 1 :=
+    ((discrepancy_integrable M a (hd k)).sub (discrepancy_integrable M a (d := oddCofactor k+1)
+      (by linarith only [hd k]))).const_mul _
+  have integrable : IntervalIntegrable f volume 0 1 := IntervalIntegrable.finsetSum fun k _ => intE k
+  have point (s : ℝ) (hs : s ∈ Set.Icc (0:ℝ) 1) :
+      f s = ∑ k ∈ S, cellWeight k*movingExcess M a (oddCofactor k+s) := by
+    apply Finset.sum_congr rfl
+    intro k _
+    dsimp only [E]
+    rw [show oddCofactor k+1+s=oddCofactor k+s+1 by ring,
+      moving_eq M (by dsimp [a,evenEndpoint]; positivity) (by linarith only [hd k,hs.1])]
+  have avg_id : avg = ∫ s in (0:ℝ)..1, ∑ k ∈ S, cellWeight k*movingExcess M a (oddCofactor k+s) := by
+    apply intervalIntegral.integral_congr
+    intro s hs
+    rw [Set.uIcc_of_le zero_le_one] at hs
+    exact point s hs
+  have choose : ∃ s ∈ Set.Icc (0:ℝ) 1, f s ≤ avg+1 := by
+    by_contra! h
+    have impossible : (∫ _s in (0:ℝ)..1, avg+1) ≤ avg :=
+      intervalIntegral.integral_mono_on zero_le_one intervalIntegrable_const integrable (fun s hs => (h s hs).le)
+    simp only [intervalIntegral.integral_const,sub_zero,one_smul] at impossible
+    linarith
+  obtain ⟨s,hs,ok⟩ := choose
+  refine ⟨s,hs,?_⟩
+  rw [point s hs,avg_id] at ok
+  rw [Finset.sum_add_distrib,all_cells_centered M K R hm]
+  linarith only [ok]
+
 private theorem theta_envelope {δ : ℝ} (hδ : 0 < δ) :
     ∃ B : ℝ, 0 ≤ B ∧ ∀ n : ℕ, |nativeTheta n-n| ≤ δ*n+B := by
   have lo := (tendsto_order.1 nativeTheta_div_atTop_one).1 (1-δ) (by linarith)

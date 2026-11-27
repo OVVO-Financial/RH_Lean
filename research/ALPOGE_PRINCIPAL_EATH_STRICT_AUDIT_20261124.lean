@@ -329,6 +329,8 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.signed_normal_balance,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.marginal_volume,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.interval_volume,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.metric_sandwich,
+    ``RHLean.Analysis.PrincipalCofactor.exists_common_shift_lower,
     ``RHLean.Analysis.PrincipalCofactor.odd_quotient_variation,
     ``RHLean.Analysis.PrincipalCofactor.fine_pairs_to_endpoints,
     ``RHLean.Analysis.PrincipalCofactor.quarter_step_price,

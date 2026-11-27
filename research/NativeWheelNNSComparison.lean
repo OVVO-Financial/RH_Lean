@@ -522,10 +522,10 @@ theorem marginal_volume {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D F : Fin (r+1
   let b := fun i => s i*(F i)^2
   have positive i : 0 < s i := Nat.mul_pos (hS i).card_pos (pow_pos (hD i) _)
   have bp i : 0 < b i := Nat.mul_pos (positive i) (pow_pos (hF i) _)
-  have omit (g : Fin (r+1) → ℕ) (hg : ∀ i, 0 < g i) (j : Fin (r+1)) :
+  have omitPos (g : Fin (r+1) → ℕ) (hg : ∀ i, 0 < g i) (j : Fin (r+1)) :
       0 < ∏ i ∈ Finset.univ.erase j, g i := Finset.prod_pos fun i _ => hg i
   have mp (g : Fin (r+1) → ℕ) (hg : ∀ i, 0 < g i) : 0 < (mass g:ℝ) := by
-    exact_mod_cast (Finset.sum_pos (fun i _ => omit g hg i) Finset.univ_nonempty)
+    exact_mod_cast (Finset.sum_pos (fun i _ => omitPos g hg i) Finset.univ_nonempty)
   let P := ∏ i, (F i:ℝ)
   have pp : 0 < P := Finset.prod_pos fun i _ => by exact_mod_cast hF i
   have bounds (j : Fin (r+1)) :
@@ -583,7 +583,109 @@ theorem interval_volume {r : ℕ} (p : Fin (r+1) → ℕ) (num : Fin (r+1) → �
     by_cases hit : L ≤ (p i:ℝ) ∧ (p i:ℝ) < U <;> simp [intervalTest,F,hit]
   simp_rw [id]
   exact marginal_volume S D F hS hD (fun i => by dsimp [F]; split <;> first | exact (hp i).pos | decide)
-    x (zero_lt_one.trans_le hx) (fun i => by dsimp [F]; split <;> first | exact hpx i | exact hx)
+    x (zero_lt_one.trans_le hx) (fun i => by
+      dsimp [F]; split
+      · exact hpx i
+      · simpa only [Nat.cast_one] using hx)
+
+/-- Block-diagonal sum of marginal wheel covolumes at all occupied sites and
+translates. A selected prime is admitted once above its original depth. -/
+def translatedMarginal {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
+    (tops T : Finset H) (P : Finset ℕ) (g : ℕ → H) (n : ℕ) (a : H → ℝ)
+    (width : H × Fin n → H → ℝ) (power : ℕ → ℕ) (hit : ℕ → Prop) [DecidablePred hit] : ℝ :=
+  let p := primeAt tops P g
+  let h := fun (s : ↥(occupied tops P g)) i => a (s.val-g (p s i))/(p s i:ℝ)
+  ∑ s : ↥(occupied tops P g), ∑ j : ↥(siteRows T n s.val),
+    (logVolume (bands (h s) (width j.val s.val))
+      (fun i => power (p s i)*(if hit (p s i) then p s i else 1)) -
+     logVolume (bands (h s) (width j.val s.val)) (fun i => power (p s i)))
+
+/-- Bounds for the very same marginal volume. Its upper comparison comes
+from joint determinant divisibility. The lower comparison uses the original
+interval length and an independent theta estimate with prescribed relative
+precision. The mass outside the measured prime family occurs on both sides. -/
+theorem metric_sandwich (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T : Finset (AlpogeNativeDyadicH e))
+    (a : AlpogeNativeDyadicH e → ℝ)
+    (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (x b δ : ℝ) (hx : 1 ≤ x) (hb : 4*x^2 ≤ b) (hδ : 0 < δ)
+    (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (ha : ∀ t ∈ tops, a t ∈ Set.Icc (x*b) ((x+1)*b))
+    (hw : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T u → w u j ρ ∈ Set.Icc b (b*(1+1/x))) :
+    let P := highThickPrimes e q d x
+    let g := fun p => ((alpogeNativeHostData e q d).frob p).2
+    let V := occupied tops P g
+    let c := ⌊Real.sqrt x⌋₊
+    let power := fun p : ℕ => p^(⌊(c:ℝ)*x⌋₊/p-c)
+    let width := fun (j : AlpogeNativeDyadicH e × Fin n) (y : AlpogeNativeDyadicH e) => w j.1 j.2 ((0,1),y)
+    let k := ((T.card*n:ℕ):ℝ)
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (M : ℕ) (v : ℝ), 2 ≤ M → 1 ≤ v →
+      let A := PrincipalCofactor.evenEndpoint M
+      let I := (PrincipalCofactor.retainedFirstPrimes M).filter (fun l : ℕ => A/(v+1) ≤ (l:ℝ) ∧ (l:ℝ) < A/v)
+      let outside := ∑ l ∈ I \ P, Real.log l
+      let base := A/v-A/(v+1)
+      let measured := translatedMarginal tops T P g n a width power (fun l => l ∈ I)/(k*tops.card)
+      let error := 2*(δ*M+C+Real.log 4*Real.sqrt M)
+      let cost := ((V.card:ℝ)/tops.card)*Real.log x
+      (measured+outside-base ≤ PrincipalCofactor.movingExcess M A v ∧
+        PrincipalCofactor.movingExcess M A v ≤ measured+outside-base+cost) ∧
+      base-outside-error-cost ≤ measured ∧ measured ≤ base-outside+error := by
+  classical
+  intro P g V c power width k
+  obtain ⟨C,hC,env⟩ := PrincipalCofactor.discrepancy_envelope hδ
+  refine ⟨C,hC,fun M v hM hv => ?_⟩
+  intro A I outside base measured error cost
+  let p := primeAt tops P g
+  let cut := fun (y : ↥V) i => a (y.val-g (p y i))/(p y i:ℝ)
+  obtain ⟨hS,_⟩ := highThick_reads e q d n x b tops T a w hx hb ha hw
+  have info := highThick_primeAt e q d x tops
+  let F := fun (y : ↥V) i => if p y i ∈ I then p y i else 1
+  let source := ∑ l ∈ P, Real.log l*(if l ∈ I then 1 else 0)
+  let raw := translatedMarginal tops T P g n a width power (fun l => l ∈ I)
+  let S := fun (y : ↥V) (j : ↥(siteRows T n y.val)) => bands (cut y) (width j.val y.val)
+  let loss := fun (y : ↥V) (j : ↥(siteRows T n y.val)) =>
+    (∑ i, Real.log (F y i:ℝ)) - (logVolume (S y j) (fun i => power (p y i)*F y i) -
+      logVolume (S y j) (fun i => power (p y i)))
+  have band (y : ↥V) (j : ↥(siteRows T n y.val)) : loss y j ∈ Set.Icc 0 (Real.log x) := by
+    have pos (i) : 0 < F y i := by dsimp [F]; split <;> first | exact (info y i).1.pos | decide
+    have cap (i) : (F y i:ℝ) ≤ x := by
+      dsimp [F]; split <;> push_cast <;> first | exact hx | linarith only [(info y i).2.2.1]
+    exact marginal_volume (S y j) _ (F y) (hS y j) (fun i => pow_pos (info y i).1.pos _) pos x
+      (zero_lt_one.trans_le hx) cap
+  have fs (y : ↥V) i : Real.log (F y i:ℝ) = Real.log (p y i)*(if p y i ∈ I then 1 else 0) := by
+    by_cases hit : p y i ∈ I <;> simp [F,hit]
+  have total : (∑ y : ↥V, ∑ j : ↥(siteRows T n y.val), loss y j) = k*(tops.card*source)-raw := by
+    simp only [loss,Finset.sum_sub_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_coe,
+      siteRows_card,nsmul_eq_mul,← Finset.mul_sum]
+    simp_rw [fs]
+    exact congrArg (fun z : ℝ => k*z-raw) (primeAt_sum tops P g (fun l => Real.log l*(if l ∈ I then 1 else 0)))
+  have lower : 0 ≤ k*(tops.card*source)-raw := by
+    rw [← total]; exact Finset.sum_nonneg fun y _ => Finset.sum_nonneg fun j _ => (band y j).1
+  have upper : k*(tops.card*source)-raw ≤ (V.card:ℝ)*(k*Real.log x) := by
+    rw [← total]
+    calc
+      _ ≤ ∑ y : ↥V, ∑ _j : ↥(siteRows T n y.val), Real.log x :=
+        Finset.sum_le_sum fun y _ => Finset.sum_le_sum fun j _ => (band y j).2
+      _ = _ := by simp [k,siteRows_card]
+  have kt : 0 < k := by change 0 < ((T.card*n:ℕ):ℝ); exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have tt : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
+  have denom := mul_pos kt tt
+  have id : source-measured=(k*(tops.card*source)-raw)/(k*tops.card) := by
+    change source-raw/(k*tops.card)=_
+    field_simp [kt.ne',tt.ne']
+  have rati : (V.card:ℝ)*(k*Real.log x)/(k*tops.card)=cost := by
+    dsimp [cost]; field_simp [kt.ne',tt.ne']
+  have zero : 0 ≤ source-measured := by rw [id]; exact div_nonneg lower denom.le
+  have finite : source-measured ≤ cost := by rw [id,← rati]; exact div_le_div_of_nonneg_right upper denom.le
+  have compare : PrincipalCofactor.movingExcess M A v = source+outside-base := by
+    simpa only [source,outside,base,I,Finset.mem_filter] using moving_balance P M A v
+  have posA : 0 ≤ A := by dsimp [A,PrincipalCofactor.evenEndpoint]; positivity
+  have approx : |PrincipalCofactor.movingExcess M A v| ≤ error := by
+    rw [← PrincipalCofactor.moving_eq M posA (zero_lt_one.trans_le hv)]
+    dsimp only [error]
+    exact (abs_sub _ _).trans (by linarith only [env M v hM hv,env M (v+1) hM (by linarith)])
+  rw [compare] at approx ⊢
+  exact ⟨⟨by linarith only [zero],by linarith only [finite]⟩,by linarith only [(abs_le.mp approx).1,finite],
+    by linarith only [(abs_le.mp approx).2,zero]⟩
 
 end WheelNNS
 end RHLean.Analysis.AlpogeThin.SlotProjector
