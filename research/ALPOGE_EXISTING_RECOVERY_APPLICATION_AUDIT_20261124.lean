@@ -1,3 +1,4 @@
+import «research.NativeSignedWidthSweep»
 import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
 import RHLean.Analysis.AlpogeThin.NativeExistingRecoveryPayment
 import RHLean.Geometry.NativeThetaFactorialDigitReadout
@@ -175,3 +176,6 @@ run_cmd do
       unless allowed.contains ax do
         throwError "Unapproved terminal axiom for {root}: {ax}"
     logInfo m!"PASS native existing recovery application {root}: {axs}"
+
+#print axioms RHLean.Analysis.AlpogeThin.WidthSweep.pairGood_row_le
+#print axioms RHLean.Analysis.AlpogeThin.WidthSweep.two_cutoff_eq

@@ -151,6 +151,51 @@ theorem frozen_log_sum (T2 : Finset H) (u : H) (l r : ℝ)
       simp [alpogeNativeFreezeThick, hρ]
     _ = _ := by rw [Finset.sum_const, nsmul_eq_mul, alpogeNativeThickPositiveSites_card]
 
+/-- The native thick-class two-cutoff remainder. The additive centering
+constant cancels in a difference; the same finite N is used at both arguments. -/
+def colourRemainder (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (y : ℝ) : ℝ :=
+  (∑ n ∈ Finset.Icc 1 N, (2 * ∑ h : H, alpogeNativeASKRealWeight I F n (alpogeNativeProjectionE1 h)) *
+    max (1/(n:ℝ) - 1/y) 0) - Real.log y
+
+/-- The normalized thick height numerator is exactly the small-cutoff
+remainder minus the far-cutoff remainder on the native moving colour. -/
+theorem two_cutoff_eq (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a l r : ℝ) (ha : 0 < a) (hl : 0 < l) (hlr : l ≤ r) :
+    a * (colourRemainder I F N (a/r) - colourRemainder I F N (a/l)) =
+      a * Real.log (r/l) -
+        ∑ n ∈ Finset.Icc 1 N, (2 * ∑ h : H, alpogeNativeASKRealWeight I F n
+          (alpogeNativeProjectionE1 h)) * min (alpogeASKPos (a/(n:ℝ)) l) (r-l) := by
+  classical
+  let W := fun n => 2 * ∑ h : H, alpogeNativeASKRealWeight I F n (alpogeNativeProjectionE1 h)
+  have scaled (v : ℝ) (hv : 0 < v) :
+      a * colourRemainder I F N (a/v) =
+        (∑ n ∈ Finset.Icc 1 N, W n * alpogeASKPos (a/(n:ℝ)) v) - a * Real.log (a/v) := by
+    unfold colourRemainder
+    rw [mul_sub, Finset.mul_sum]
+    apply congrArg (· - a * Real.log (a/v))
+    apply Finset.sum_congr rfl
+    intro n hn
+    have hn0 : 0 < (n:ℝ) := by exact_mod_cast (Finset.mem_Icc.mp hn).1
+    have step : a * max (1/(n:ℝ)-1/(a/v)) 0 = alpogeASKPos (a/(n:ℝ)) v := by
+      rw [mul_max_of_nonneg _ _ ha.le, mul_zero]
+      unfold alpogeASKPos
+      congr 1
+      field [ha.ne', hv.ne', hn0.ne']
+    change a * (W n * _) = _
+    rw [mul_left_comm, step]
+  have diff : (∑ n ∈ Finset.Icc 1 N, W n * alpogeASKPos (a/(n:ℝ)) l) -
+      (∑ n ∈ Finset.Icc 1 N, W n * alpogeASKPos (a/(n:ℝ)) r) =
+      ∑ n ∈ Finset.Icc 1 N, W n * min (alpogeASKPos (a/(n:ℝ)) l) (r-l) := by
+    rw [← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl fun n _ => by rw [← mul_sub, cut_sub hlr]
+  rw [mul_sub, scaled r (hl.trans_le hlr), scaled l hl,
+    Real.log_div ha.ne' (hl.trans_le hlr).ne', Real.log_div ha.ne' hl.ne',
+    Real.log_div (hl.trans_le hlr).ne' hl.ne']
+  change _ = a * _ - ∑ n ∈ Finset.Icc 1 N, W n * _
+  rw [← diff]
+  ring
+
 /-- Cap the measured widths at a common raw width s before rounding. On the
 selected native pair the reference lies in the all-thin range. The right
 hand side uses the same finite cutoff as the measured row, which can be any N. -/

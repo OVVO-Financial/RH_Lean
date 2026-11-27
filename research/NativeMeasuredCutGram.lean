@@ -36,8 +36,9 @@ theorem gram_det {m : ℕ} (s : Fin (m+1) → ℝ) (hs : ∀ i, 0 < s i) :
     unfold gram
     apply congrArg (A + ·)
     ext i j
-    simp [A, u, oneRow, Matrix.diagonal_mul, Matrix.mul_apply, (hs i.succ).ne',
-      div_eq_mul_inv, mul_left_comm, mul_comm, mul_assoc]
+    rw [show A = Matrix.diagonal (fun k : Fin m => s k.succ) from rfl, Matrix.diagonal_mul]
+    simpa [oneRow, u, Matrix.mul_apply] using
+      (show s 0 = s i.succ * (s 0 / s i.succ) by field [(hs i.succ).ne'])
   rw [factor, Matrix.det_mul, show A.det = ∏ i : Fin m, s i.succ from Matrix.det_diagonal]
   change _ * (1 + Matrix.replicateCol Unit u * Matrix.replicateRow Unit (fun _ => (1:ℝ))).det = _
   rw [Matrix.det_one_add_replicateCol_mul_replicateRow, Fin.prod_univ_succ s,
