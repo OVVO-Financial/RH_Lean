@@ -253,3 +253,6 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.nominal_cutoff_linear
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.squareClock_nominal_tail
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.cutoff131
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.common_place
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.place_rat
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.transport_integral

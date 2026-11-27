@@ -685,6 +685,105 @@ theorem firstPrime_projector (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (ε : �
     (fun i => MeasuredCut.wheel_factor_le (p i) c x (hp i) hx1 (high i) (px i)), fun T =>
     squareClock_price m E p (fun i => a (t i)) (w site) x ε hx hε1 hE hp ho high px (fun i => (ha i).2) T hS⟩
 
+private theorem clearing_bound (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p)
+    (a C k : ℕ) (ha : 0 < a) (hC : 0 < C) (hk : 0 < k) (hd : a^k ∣ C)
+    (z : ℂ) (hz : ‖ι ((a:ℂ)*z)‖ ≤ 1) :
+    ‖ι z‖ ≤ Real.exp (((C.factorization p:ℝ)*Real.log p)/(k:ℝ)) := by
+  have hp : 0 < (p:ℝ) := by exact_mod_cast (Fact.out : p.Prime).pos
+  have pn : padicNorm p (a:ℚ) = ((p:ℚ)^a.factorization p)⁻¹ := by
+    rw [padicNorm.eq_zpow_of_nonzero (Nat.cast_ne_zero.mpr ha.ne'), padicValRat.of_nat,
+      Nat.factorization_def _ (Fact.out : p.Prime), zpow_neg, zpow_natCast]
+  have normA : ‖ι (a:ℂ)‖ = ((p:ℝ)^a.factorization p)⁻¹ := by
+    simpa [pn] using WheelFit.place_rat p ι (a:ℚ)
+  rw [map_mul, norm_mul, normA, inv_mul_eq_div] at hz
+  have hf := (Nat.factorization_le_iff_dvd (pow_pos ha k).ne' hC.ne').2 hd p
+  have he : k*a.factorization p ≤ C.factorization p := by simpa [Nat.factorization_pow] using hf
+  have hc : (k:ℝ)*(a.factorization p:ℝ) ≤ (C.factorization p:ℝ) := by exact_mod_cast he
+  calc
+    _ ≤ (p:ℝ)^a.factorization p := (div_le_one (pow_pos hp _)).1 hz
+    _ = Real.exp ((a.factorization p:ℝ)*Real.log p) := by rw [Real.exp_nat_mul,Real.exp_log hp]
+    _ ≤ _ := by
+      apply Real.exp_le_exp.mpr
+      apply (le_div_iff₀ (show (0:ℝ)<k by exact_mod_cast hk)).mpr
+      calc
+        _ = ((k:ℝ)*(a.factorization p:ℝ))*Real.log p := by ring
+        _ ≤ _ := mul_le_mul_of_nonneg_right hc (Real.log_natCast_nonneg p)
+
+/-- Tested determinant for an integral matrix of sections and two
+arbitrary tables of complex rows. -/
+def testedDet {m : ℕ} {J : Type*} [Fintype J] (B : Matrix J (Fin m) ℤ)
+    (U V : Matrix (Fin m) J ℂ) : ℂ :=
+  let A := B.map (Int.castRingHom ℂ)
+  (U*(A*(A.transpose*A)⁻¹*A.transpose)*(V.map (starRingEnd ℂ)).transpose).det
+
+/-- Price a rational change of the two test lattices. The two clearing
+integers enter once each per determinant dimension. -/
+theorem transport_integral {m : ℕ} {J : Type*} [Fintype J] (p : ℕ) [Fact p.Prime]
+    (ι : ℂ →+* PadicAlgCl p) (B : Matrix J (Fin m) ℤ) (U V : Matrix (Fin m) J ℂ)
+    (a b : ℕ) (hg : (B.transpose*B).det ≠ 0)
+    (hu : ∀ i k, ‖ι ((a:ℂ)*U i k)‖ ≤ 1)
+    (hv : ∀ i k, ‖(ι.comp (starRingEnd ℂ)) ((b:ℂ)*V i k)‖ ≤ 1) :
+    ‖ι ((((B.transpose*B).det:ℤ):ℂ)*((a:ℂ)*(b:ℂ))^m*testedDet B U V)‖ ≤ 1 := by
+  classical
+  have H := place_bound p ι B ((a:ℂ) • U) ((b:ℂ) • V) hg hu hv
+  have bar : ((b:ℂ) • V).map (starRingEnd ℂ) = (b:ℂ) • V.map (starRingEnd ℂ) := by
+    ext i j
+    change (starRingEnd ℂ) ((b:ℂ)*V i j) = (b:ℂ)*((starRingEnd ℂ) (V i j))
+    rw [map_mul,map_natCast]
+  dsimp only at H
+  rw [bar, Matrix.transpose_smul, Matrix.smul_mul, Matrix.mul_smul, Matrix.smul_mul,
+    smul_smul, Matrix.det_smul, Fintype.card_fin] at H
+  simpa only [mul_comm (b:ℂ) (a:ℂ), mul_assoc] using H
+
+/-- One explicit local allowance works simultaneously for the full
+projector and every class-scaled line in it at every embedding. Its
+finite sums have the upper bound in allowance_price. -/
+theorem common_place {m : ℕ} (S : Fin (m+1) → Finset ℕ) (D : Fin (m+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i) (E p : ℕ) (hE : 0 < E)
+    [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) :
+    let s := fun i => (S i).card*D i^2
+    let γ := ((allowance s E).factorization p:ℝ)*Real.log p/(E:ℝ)
+    let B := columns S D
+    (∀ U V : Matrix (Fin m) (Address S) ℂ, (∀ i k, ‖ι (U i k)‖ ≤ 1) →
+      (∀ i k, ‖(ι.comp (starRingEnd ℂ)) (V i k)‖ ≤ 1) →
+      ‖ι (testedDet B U V)‖ ≤ Real.exp ((E:ℝ)*γ)) ∧
+    ∀ (j : Fin m) (h : ℕ) (U V : Matrix (Fin 1) (Address S) ℂ),
+      (∀ i k, ‖ι (U i k)‖ ≤ 1) → (∀ i k, ‖(ι.comp (starRingEnd ℂ)) (V i k)‖ ≤ 1) →
+      ‖ι ((h:ℂ)*testedDet (fun x (_ : Fin 1) => B x j) U V)‖ ≤ Real.exp γ := by
+  classical
+  let s := fun i => (S i).card*D i^2
+  have hs i : 0 < s i := Nat.mul_pos (Finset.card_pos.mpr (hS i)) (pow_pos (hD i) _)
+  have hg : 0 < mass s := Finset.sum_pos (fun i _ => Finset.prod_pos (fun j _ => hs j)) Finset.univ_nonempty
+  have hc : 0 < allowance s E := Nat.mul_pos hg (pow_pos (Finset.prod_pos fun j _ => Nat.add_pos_left (hs 0) _) _)
+  have he : (0:ℝ) < E := by exact_mod_cast hE
+  constructor
+  · intro U V hu hv
+    have eqg := columns_det S D hS hD
+    have hn : ((columns S D).transpose*columns S D).det ≠ 0 := by
+      rw [eqg]
+      exact_mod_cast hg.ne'
+    have H := place_bound p ι (columns S D) U V hn hu hv
+    dsimp only at H
+    rw [eqg, Int.cast_natCast] at H
+    have decl := clearing_bound p ι (mass s) (allowance s E) 1 hg hc Nat.zero_lt_one
+      (by simpa using (allowance_dvd s E).1) (testedDet (columns S D) U V) H
+    change ‖ι (testedDet (columns S D) U V)‖ ≤
+      Real.exp ((E:ℝ)*(((allowance s E).factorization p:ℝ)*Real.log p/(E:ℝ)))
+    rw [mul_div_cancel₀ _ he.ne']
+    simpa only [Nat.cast_one, div_one] using decl
+  · intro j h U V hu hv
+    let B : Matrix (Address S) (Fin 1) ℤ := fun x _ => columns S D x j
+    have eqg : (B.transpose*B).det = (s 0+s j.succ:ℕ) := line_det S D j
+    have hpos : 0 < s 0+s j.succ := Nat.add_pos_left (hs 0) _
+    have hn : (B.transpose*B).det ≠ 0 := by rw [eqg]; exact_mod_cast hpos.ne'
+    have H := place_bound p ι B U V hn hu hv
+    dsimp only at H
+    rw [eqg, Int.cast_natCast] at H
+    apply clearing_bound p ι (s 0+s j.succ) (allowance s E) E hpos hc hE ((allowance_dvd s E).2 j)
+    rw [mul_left_comm, map_mul, norm_mul]
+    rw [map_natCast]
+    exact (mul_le_of_le_one_left (norm_nonneg _) (IsUltrametricDist.norm_natCast_le_one (PadicAlgCl p) h)).trans H
+
 /-- Shared-anchor arithmetic certificate. For x=65, b=100000 and
 beta=50000 the complete cutoff is 130. The three high cuts at 31,47,59
 give unit clearing factors at 131. A thick order and three thin orders
@@ -697,7 +796,7 @@ theorem cutoff131 :
     let s₂ := (top/59-100000)*D 59^2
     top/50000=130 ∧ (s₀*s₁+s₀*s₂+s₁*s₂)%131=17 ∧
       (s₀+s₁)%131=109 ∧ (s₀+s₂)%131=33 ∧
-      (100000.factorial.factorization 131 + 3*50000.factorial.factorization 131)=1917 := by
+      ((Nat.factorial 100000).factorization 131 + 3*(Nat.factorial 50000).factorization 131)=1917 := by
   let _ : Fact (Nat.Prime 131) := ⟨by norm_num⟩
   refine ⟨by decide, by decide, by decide, by decide, ?_⟩
   rw [Nat.factorization_def _ Fact.out, Nat.factorization_def _ Fact.out,

@@ -26,7 +26,7 @@ private theorem channel_const {C : Type*} [AddCommGroup C] [Fintype C] (a : ℕ)
   rw [channel, ← Finset.sum_mul, AddChar.sum_eq_ite]
   split_ifs <;> simp [Fintype.card_ne_zero]
 
-private theorem place_rat (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) (r : ℚ) :
+theorem place_rat (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p) (r : ℚ) :
     ‖ι (r:ℂ)‖ = (padicNorm p r:ℝ) := by
   rw [map_ratCast, ← Padic.eq_padicNorm, ← PadicAlgCl.norm_extends]
   norm_cast
@@ -967,7 +967,7 @@ theorem squareClock_nominal_tail (ε : ℝ) (hε : 0 < ε) :
     hn hβ zero_le_one hA hb hmin
     (by have he := Real.one_le_exp (Real.rpow_nonneg hx0.le (ε/4)); linarith)
     hmax (Real.rpow_le_one_of_one_le_of_nonpos hx1 (by linarith))
-  simp only [mul_one, one_mul] at hcost
+  simp only [mul_one] at hcost
   have hNb : 16*(N:ℝ) ≤ b := by
     have HH := (div_le_div_iff₀ hb0 hx0).1 hcost
     have hn0 : (0:ℝ) ≤ N := Nat.cast_nonneg _
