@@ -385,9 +385,10 @@ theorem split_prime_clearing (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime]
         unfold chartDepth
         refine Finset.sum_eq_zero fun _ _ => Finset.sum_eq_zero fun i _ => ?_
         have eligible : alpogeNativeInPhi (i • D.frob p + u p) := by
-          rw [hu0, add_zero]
-          exact hg i
-        exact if_pos eligible
+          rw [hu0]
+          change (i • D.frob p).1.1 + (0 : ZMod 2) = 0
+          exact (add_zero _).trans (hg i)
+        exact ite_eq_left eligible
       rw [zero, pow_zero]
       exact Nat.coprime_one_right _
     · exact Nat.Coprime.pow_right _ ((Nat.coprime_primes hp (hP l hl)).2 (Ne.symm he))
