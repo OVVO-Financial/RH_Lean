@@ -153,6 +153,29 @@ The selected pair pays the three nonprincipal characters at each genuine $a_t/b$
 $$\left|\frac{H(v)}{Q}-h_{\rm high}-C_\perp-G_z(x)\right|\le E,$$
 where $E=32(\log4+3)\sqrt x+3(x+1)^{1/2+\varepsilon/2}+\log4+4+20\log4\sqrt x+(8/\varepsilon)x^{1/2+9\varepsilon/8}$. This error is at most $(53\log4+106+8/\varepsilon)x^{1/2+9\varepsilon/8}$ for $0<\varepsilon\le1$. It controls both signs on the very same family. The classical zero-free region gives a uniform one-sided price $H(v)/Q-h_{\rm high}\le C_\perp+E+Kx\exp(-\kappa\sqrt{\log x})$. The remaining square-root comparison requires independent signed gain on the surviving principal arithmetic component. [Centered widths, projected principal and measured compensation](NativeCenteredThickCompensation.lean)
 
+### The principal response on native cofactor intervals
+
+Let $T(N)=\sum_{d=1}^N G_z(N/d)$, with real quotient arguments. Summing the prime-power terms by their product uses $\sum_{a\mid n}\Lambda(a)=\log n$. Put $J_N=\sum_{d\le N}\log(d)/d$ and let $H_N$ be the harmonic number. Then
+
+$$T(N)=2NJ_N-\log(N!)+N(1+\gamma-\log N)H_N.$$
+
+For every integer dilation $m\ge1$ and $N\ge3$ this gives
+
+$$|T(mN)-mT(N)|\le 3+2\log(mN)+m(3+4\log N).$$
+
+The same reciprocal-log sum occurs at both endpoints. Its integral defect decreases by at most $\log(N)/N$ over the whole interval. The harmonic and factorial endpoint errors furnish the remaining terms. This proof uses finite prime arithmetic and elementary estimates on integer sums. [Cofactor trace](NativePrincipalCofactorTrace.lean)
+
+At a dyadic integer ancestor $M\ge16$ put $q=\lfloor M/2\rfloor$, $R=\lceil\sqrt M\rceil$, $y_k=2q/(2k+1)$, and $z_k=2q/(2k+2)$. The exact difference $T(2q)-2T(q)$ is the sum of $G_z(y_k)-G_z(z_k)$ for $0\le k<q$. The $k=0$ term contains the parent and the half-scale response. For $k\ge R$, the quotient intervals are disjoint, their individual lengths are at most one and their total length is at most $2q/(2R+1)$. The native Lipschitz estimate pays their entire signed contribution. In the remaining intervals each reading is exactly
+
+$$ (y-z)\biggl(\sum_{n\le z}\frac{\Lambda(n)}n+1+\gamma\biggr)
++\sum_{z<n\le y}\Lambda(n)(y/n-1)-(y\log y-z\log z).$$
+
+Starting at $\lfloor x\rfloor$, subtract these readings for $1\le k<R$ at every successive integer half until $M<16$. The resulting finite history differs from $G_z(x)$ by at most $C_d+4(29+3C_d)\sqrt{x}$ at every real $x\ge1$, where $C_d=\log 4+4$. The square-root costs sum geometrically. [Real-anchor proof and exact readings](NativePrincipalCofactorTrace.lean)
+
+At each ancestor let $P_M$ be the first primes $\sqrt M<p\le M$. For each $i\le M$ outside $P_M$, keep the original finite reciprocal term $t\Lambda(i)/i$. Its change from the positive-part prime source is $\Lambda(i)\min(t/i,1)$. This is nondecreasing in $t\ge0$, so the sum of its increments over the retained intervals is at most $\Lambda(i)$. Thus the entire scale pays at most $\vartheta(\sqrt M)+(\psi(M)-\vartheta(M))\ll\sqrt M$, independently of the number of intervals. Summing over the ancestors gives $0\le H_{\rm full}-H_{\rm first}\ll\sqrt x$. The high first-prime history still includes all the removed reciprocal intercepts at their own cutoffs. On the original admissible anchor, the measured deficit $H(v)/Q-h_{\rm high}-C_\perp$ differs from this history by at most $K_\varepsilon x^{1/2+9\varepsilon/8}$. [Shared clipping charge](NativePrincipalFirstPrimeHistory.lean) · [Measured comparison](NativeCenteredThickCompensation.lean)
+
+There is an independent count of the binary crossings. At the even endpoint $2q$ the total $\log p$ over $p>\sqrt{2q}$ with odd $\lfloor2q/p\rfloor$ is below $\log\binom{2q}{q}$ by at most $K\sqrt{2q}$. This follows from the parity of the factorial valuation and includes the outermost quotient cell. The retained history also weights the position within each cell. For every prime $p\ge5$, the even endpoint $2q=3p+1$ gives a full odd-cell hit at $p>\sqrt{2q}$, while its original triangular crossing weight is only $1/(3p)$. A uniform positive payment per hit fails even within this one retained cell. The unresolved comparison is a one-sided upper bound for the complete weighted first-prime history. [Binary mass and boundary calculation](NativePrincipalFirstPrimeHistory.lean)
+
 ### Perron readings of integer slots
 
 For an integer slot $k\ge2$, use the log interval $J_k=(\log(k-1),\log k]$. The critical-line reading of its weighted indicator $g_k(u)=e^{u/2}\mathbf1_{J_k}(u)$ is

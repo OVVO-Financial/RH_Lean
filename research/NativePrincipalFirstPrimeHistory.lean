@@ -249,7 +249,7 @@ theorem binomial_high_odd_mass :
   have a := abs_le.mp (nativeLogFactorial_sub_main_abs_le (2*q) (by omega))
   have b := abs_le.mp (nativeLogFactorial_sub_main_abs_le q hq)
   have logid : Real.log ((2*q:ℕ):ℝ) = Real.log 2 + Real.log q := by
-    push_cast; rw [Real.log_mul (by norm_num : (2:ℝ) ≠ 0) (by exact_mod_cast hq.ne')]
+    push_cast; rw [Real.log_mul (by norm_num : (2:ℝ) ≠ 0) (by exact_mod_cast Nat.one_le_iff_ne_zero.mp hq)]
   rw [logid] at a
   push_cast at a
   refine ⟨lower,upper,abs_le.mpr ⟨?_,?_⟩⟩ <;>

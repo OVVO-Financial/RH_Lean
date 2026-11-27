@@ -53,7 +53,7 @@ theorem trace_eq (N : ℕ) (hN : 1 ≤ N) :
   have main (d : ℕ) (hd : d ∈ Finset.Icc 1 N) :
       alpogeNativeGzArithmetic ((N:ℝ)/d) = alpogeNativePrincipalPrimeSum ((N:ℝ)/d) +
         ((N:ℝ)*(Real.log d/d) + c*(1/d)) := by
-    have hd0 : (d:ℝ) ≠ 0 := by exact_mod_cast (Finset.mem_Icc.mp hd).1.ne'
+    have hd0 : (d:ℝ) ≠ 0 := by exact_mod_cast Nat.one_le_iff_ne_zero.mp (Finset.mem_Icc.mp hd).1
     rw [alpogeNativeGzArithmetic_eq_principal,Real.log_div hn hd0]
     dsimp only [c]
     ring
