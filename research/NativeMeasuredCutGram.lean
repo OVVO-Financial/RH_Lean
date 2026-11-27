@@ -21,7 +21,7 @@ namespace RHLean.Analysis.AlpogeThin.MeasuredCut
 /-- In a star of coordinate differences, the shared pivot contributes to every
 entry of the Gram matrix and each nonpivot coordinate to a single diagonal entry. -/
 def gram {m : ℕ} (s : Fin (m+1) → ℝ) : Matrix (Fin m) (Fin m) ℝ :=
-  Matrix.diagonal (fun i => s i.succ) +
+  Matrix.diagonal (fun i : Fin m => s i.succ) +
     Matrix.replicateCol Unit (fun _ => s 0) * Matrix.replicateRow Unit (fun _ => 1)
 
 /-- The squared covolume, including the zero-column case of a singleton fibre. -/
@@ -33,6 +33,7 @@ theorem gram_det {m : ℕ} (s : Fin (m+1) → ℝ) (hs : ∀ i, 0 < s i) :
   let oneRow := Matrix.replicateRow Unit (fun _ : Fin m => (1 : ℝ))
   have factor : gram s = A * (1 + Matrix.replicateCol Unit u * oneRow) := by
     rw [Matrix.mul_add, Matrix.mul_one]
+    unfold gram
     apply congrArg (A + ·)
     ext i j
     simp [A, u, oneRow, Matrix.diagonal_mul, Matrix.mul_apply, (hs i.succ).ne',
@@ -157,7 +158,7 @@ theorem firstPrime_fibre (e q d c m : ℕ) [Fact q.Prime] [Fact d.Prime]
   have hlen (i) : 0 < layers U i := by
     refine Fin.lastCases ?_ (fun j => ?_) i
     · simpa [layers] using pos (Fin.last m)
-    · simpa [layers] using sub_pos.mpr (decreasing (Fin.castSucc_lt_succ j))
+    · simpa [layers] using sub_pos.mpr (decreasing (show j.castSucc < j.succ from Fin.castSucc_lt_succ))
   have hD (i) : 0 < D i := pow_pos (hprime i).pos _
   have cop : Pairwise (fun i j => (D i).Coprime (D j)) := fun i j hij =>
     Nat.coprime_pow_primes _ _ (hprime i) (hprime j) (horder.injective.ne hij)
