@@ -22,7 +22,7 @@ namespace RHLean.Analysis.AlpogeThin.MeasuredCut
 entry of the Gram matrix and each nonpivot coordinate to a single diagonal entry. -/
 def gram {m : ℕ} (s : Fin (m+1) → ℝ) : Matrix (Fin m) (Fin m) ℝ :=
   Matrix.diagonal (fun i : Fin m => s i.succ) +
-    Matrix.replicateCol Unit (fun _ => s 0) * Matrix.replicateRow Unit (fun _ => 1)
+    Matrix.replicateCol Unit (fun _ : Fin m => s 0) * Matrix.replicateRow Unit (fun _ : Fin m => (1:ℝ))
 
 /-- The squared covolume, including the zero-column case of a singleton fibre. -/
 theorem gram_det {m : ℕ} (s : Fin (m+1) → ℝ) (hs : ∀ i, 0 < s i) :

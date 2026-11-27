@@ -127,6 +127,43 @@ There is also an aggregate bound for the **integral duals** on these same blocks
 $$\det(Y^{\mathsf T}Y)=\sum_i w_i^2\le\ell(\ell+1)^2 N_w^2.$$
 Thus the total *ordinary* dual log Gram divided by $c$ is $O(\sqrt{x}\log x)$ for an integral dual simultaneously realizing every retained column. The submitted exact integral Gram declaration is `nativeDyadic_firstPrime_wheel_dual_gram`. Its normalized paper consequence prices joint covolume even when an individual dual vector is long. Moving that bound to the native signed height metric, or paying its distortion against the common MAIN, remains necessary.
 
+### Measured thick cuts, prime admission and the remaining signed count
+
+Fix a real anchor on the selected pair and keep the original divisor, heights, Frobenius, inertia and cutoff. At one thick site of a fixed translate and row, order its interior unramified first-prime addresses by increasing prime. Each prime occurs at most once there, because the prime and partner determine the top. Write $U_i=(a_{t_i}/p_i-v)_+$, where $v$ is the site's common measured or rounded width. For $0<b$, $xb\le a_t\le(x+1)b$, $v\le b(1+1/x)$ and $\sqrt{x}<p_i\le x-1$, the previous two-prime comparison gives $U_0>\cdots>U_{\ell-1}>0$. The disjoint layers of these actual intervals have lengths $\lambda_i=U_i-U_{i+1}$, with $U_\ell=0$. The integral layer coordinates are obtained from the nested interval indicators by consecutive differences.
+
+Take the wheel factors $D_i=p_i^{\lfloor\lfloor cx\rfloor/p_i\rfloor-c}$, $c=\lfloor\sqrt{x}\rfloor$. They count the downstream multiples on the earlier wheel and are pairwise coprime. On the layer coordinates take $D_i e_i-D_0e_0$ for $i>0$. These columns realize arbitrary integral dual readings simultaneously, with one missing dimension per nonempty fibre. In this lattice the image of the integral readout map has index one. Give the layers their observed lengths as the diagonal metric. With squared covolume $V_D$ and baseline $V_1$ (all factors one), the exact determinants satisfy
+
+$$
+ V_D=\Big(\prod_i\lambda_iD_i^2\Big)\sum_i(\lambda_iD_i^2)^{-1},\qquad
+ 0\le 2\sum_i\log D_i-\log(V_D/V_1)\le 2c\sqrt{x}\log x .
+$$
+
+The ratio after division by $\prod_iD_i^2$ is a weighted average of the $D_i^{-2}$ with positive weights $\lambda_i^{-1}$. The common product of the measured lengths cancels, however small the shortest layer. Each $\log D_i\le c\sqrt{x}\log x$. These statements include $\ell=1$, with squared covolume one in dimension zero. With $K=|TT|m|T_2|$, the multiplier on the sum of the log ratios is $2/(cK)$, because one physical first-prime read carries $2\log p$ and the divisor includes $1/2$. There are at most $|H|m|T_2|$ nonempty thick fibres. The total one-column loss is therefore at most $4(|H|/|TT|)\sqrt{x}\log x$, in addition to the independently priced wheel rounding. The dyadic top-density condition bounds $|H|/|TT|$ by $2x^{\varepsilon/8}$. The finite fibre statements are in [NativeMeasuredCutGram.lean](NativeMeasuredCutGram.lean). The summation here uses the original translate multiplicity.
+
+There is a precise limit to a direct application of Sernau B and C. On a fibre with $\ell<b^2/4$, the retained $\ell-1$ columns fall strictly below $(1-4/b^2)\ell$. Patching together these fibres preserves that deficit. An integral completion restores the dimension. Proving the required norm of the completed family with the arithmetic MAIN, or pricing the missing direction by an independent signed estimate, is still necessary. The readout index above belongs to the layer lattice. Sernau's index quantifies over all required prime-adic embeddings and twists of his sections.
+
+The complete signed row admits a separate comparison on these same physical data. Write $X'=\exp(x^{\varepsilon/3})$, choose $s=3\min_{t\in TT}a_t/X'$, and cap the raw widths by $s$ before applying the original lower log grid. Denote the resulting widths by $l_\rho$ and the original rounded widths by $r_\rho$. The cap leaves the physical thin sites fixed and puts every reference site in the all-thin range for every top. Each height and canonical character term in MAIN cancels exactly between these two rows. At the original cutoff $N$, their signed difference is
+
+$$
+ \frac{a_t}{|\Phi|}\sum_{\rho\in\Phi}\log(r_\rho/l_\rho)
+ -
+ \sum_{n=1}^{N}\sum_{g\notin\Phi} K_{ng}
+ \min\!\left((a_t/n-l_{\rho(t,g)})_+,\ r_{\rho(t,g)}-l_{\rho(t,g)}\right).
+$$
+
+Here $K_{ng}$ includes $\Lambda(n)$, the inertia multiplicity and the real Frobenius weight. The selected pair bounds the reference row above by $4|H|a_t\exp(-x^{\varepsilon/8})$ at every sufficiently large anchor, uniformly in $N$. After summing and dividing by $Q$ its allowance is $8|H|(\bar a/b)\exp(-x^{\varepsilon/8})/\Delta\le 2/(x\Delta)$ under the frozen host cost. At each layer the logarithm is its length in log-width coordinates. Its swept prime mass is the integral of $e^u$ over the part of that same interval below $\log(a_t/n)$. [NativeSignedWidthSweep.lean](NativeSignedWidthSweep.lean)
+
+This gives an explicit comparison for the two frozen thick levels $0<l\le r$ with unchanged positive thin widths. Use, for example, $l=L_\eta(s)$ and $r=L_\eta(b)$ at large anchors. Put $k_n^{10}=\sum_{h\in H}K_{n,((1,0),h)}$ and $\Psi_{10,N}(y)=\sum_{1\le n\le\min(N,\lfloor y\rfloor)}k_n^{10}$. Exactly $|T_2|$ translates serve each such colour and none serve the other binary colour. The same $|T_2|$ occurs in the logarithmic term since $|\Phi|=2|H|$. Finite summation and the substitution $y=a_t/e^u$ give the following **signed difference divided by the original $Q$**:
+
+$$
+ \frac{1}{|TT|b}\sum_{t\in TT} a_t
+ \int_{a_t/r}^{a_t/l}\!\left(1-\frac{2\Psi_{10,N}(y)}{y}\right)\frac{dy}{y}.
+$$
+
+Here $r,l$ are physical units of width. They do not replace $b$ in $Q$. Thin terms cancel in the difference, while the all-thin reference price covers their original signed contribution. A one-sided upper bound for this displayed integral average on every real anchor would pay the remaining signed comparison on frames with these levels. The signed comparison between the actual and frozen thick widths is priced elsewhere in this ledger. The finite layer identity and row bound are formalized; the integral average above is their analytic and finite-sum consequence.
+
+The Fourier representation uses these same intervals. With $L=\log l$, $B=\max(L,\log\min(r,a_t/n))$ for $a_t/n>0$, the squared norm of $e^{u/2}\mathbf1_{[L,B]}(u)$ is its swept mass. For transform convention $\widehat f(\xi)=\int f(u)e^{i\xi u}du$, its transform is $(e^{(1/2+i\xi)B}-e^{(1/2+i\xi)L})/(1/2+i\xi)$. At a first-prime endpoint and $\xi=2\tau$, the phase is the native critical Perron multiplier times $p$ and the height phase $e^{2i\tau\log a_t}$. Plancherel uses $d\xi/(2\pi)$. This identifies the measured energy and its frequency weight. Positivity gives a nonnegative mass. To obtain the required lower bound for that mass one must compare it with the displayed logarithmic main term, with a uniform error at the square-root scale.
+
 ## The two sources
 
 Fix $0<\varepsilon<1/52$ and a window exponent $A\ge1$. Take $e(x)$ and the pair $(q,d)$ for the window $[Y,Y^A]$ from `nativeConstructedDyadicGzPayment`. The pair stays fixed throughout that window. On its actual reciprocity host $H$, use a nonempty physical top set $TT$, nonempty thick set $T_2$, $m>0$, positive $b$, heights $a_t$, positive widths $w_{uj\rho}$, and the density, cutoff and width conditions of that theorem. Write

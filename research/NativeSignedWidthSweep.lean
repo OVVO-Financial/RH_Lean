@@ -96,6 +96,61 @@ theorem signed_row_eq (I : ℕ → AddSubgroup (AlpogeNativeE0 × H)) (F : ℕ �
   rw [logs] at rel
   linarith only [rel, paid]
 
+/-- Summing a swept E1-colour over all physical translates gives the exact
+thick multiplicity even when the other widths vary between translates. -/
+theorem frozen_colour_mass (T2 : Finset H) (t h : H) (z l r : ℝ)
+    (w : H → AlpogeNativeE0 × H → ℝ) :
+    let site := alpogeNativePartner t (alpogeNativeProjectionE1 h)
+    let lo := fun u => alpogeNativeFreezeThick T2 u l (w u) site
+    let hi := fun u => alpogeNativeFreezeThick T2 u r (w u) site
+    (∑ u : H, min (alpogeASKPos z (lo u)) (hi u - lo u)) =
+      (T2.card:ℝ) * min (alpogeASKPos z l) (r-l) := by
+  classical
+  dsimp only
+  let selected := fun u => alpogeNativeProjectionE1 h ∈ alpogeNativeProjectionThickColours T2 u t
+  calc
+    _ = ∑ u : H, if selected u then min (alpogeASKPos z l) (r-l) else 0 := by
+      apply Finset.sum_congr rfl
+      intro u _
+      by_cases hu : selected u
+      · have hm := (alpogeNativeFreezing_partner_mem_iff T2 u t _).2 hu
+        simp only [alpogeNativeFreezeThick, hm, hu, if_true]
+      · have hm := (alpogeNativeFreezing_partner_mem_iff T2 u t _).not.mpr hu
+        simp only [alpogeNativeFreezeThick, hm, hu, if_false, sub_self]
+        exact min_eq_right (le_max_right _ _)
+    _ = _ := by
+      rw [← Finset.sum_filter, Finset.sum_const, nsmul_eq_mul]
+      rw [show (Finset.univ.filter selected).card = T2.card from
+        alpogeNativeThickColour_translate_count T2 t h]
+
+/-- Exactly the same thick multiplicity multiplies the logarithm in MAIN. -/
+theorem frozen_log_sum (T2 : Finset H) (u : H) (l r : ℝ)
+    (w : AlpogeNativeE0 × H → ℝ) (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ) :
+    (∑ ρ ∈ alpogeNativePhiSet H,
+      Real.log (alpogeNativeFreezeThick T2 u r w ρ / alpogeNativeFreezeThick T2 u l w ρ)) =
+      (T2.card:ℝ) * Real.log (r/l) := by
+  classical
+  let mask := alpogeNativeThickPositiveSites T2 u
+  have sub : mask ⊆ alpogeNativePhiSet H := by
+    intro ρ hρ
+    obtain ⟨s, _, rfl⟩ := Finset.mem_image.mp hρ
+    simp [alpogeNativePhiSet, alpogeNativeInPhi]
+  calc
+    _ = ∑ ρ ∈ mask, Real.log (alpogeNativeFreezeThick T2 u r w ρ /
+        alpogeNativeFreezeThick T2 u l w ρ) := by
+      symm
+      apply Finset.sum_subset sub
+      intro ρ hρ hout
+      have h0 := (hw ρ (Finset.mem_filter.mp hρ).2).ne'
+      change ρ ∉ alpogeNativeThickPositiveSites T2 u at hout
+      simp [alpogeNativeFreezeThick, hout, h0]
+    _ = ∑ _ρ ∈ mask, Real.log (r/l) := by
+      apply Finset.sum_congr rfl
+      intro ρ hρ
+      change ρ ∈ alpogeNativeThickPositiveSites T2 u at hρ
+      simp [alpogeNativeFreezeThick, hρ]
+    _ = _ := by rw [Finset.sum_const, nsmul_eq_mul, alpogeNativeThickPositiveSites_card]
+
 /-- Cap the measured widths at a common raw width s before rounding. On the
 selected native pair the reference lies in the all-thin range. The right
 hand side uses the same finite cutoff as the measured row, which can be any N. -/
