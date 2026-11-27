@@ -270,6 +270,7 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_width_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_principal
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_measured
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_slot_rank

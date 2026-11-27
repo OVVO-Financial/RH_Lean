@@ -386,4 +386,85 @@ theorem centered_thick_measured (ε : ℝ) (he : 0 < ε) (he1 : ε ≤ 1) :
     (Real.exp_pos (-κ*Real.sqrt (Real.log x))).le
   linarith only [(abs_le.mp gap).2, le_abs_self (alpogeNativeGzArithmetic x),classicalBound,positive]
 
+/-- At the original finite cutoff the centered thin term has its own MAIN.
+The bound is simultaneous in every cutoff. Host size and conductor are
+supplied at this anchor by the original PageN and the selected pair. -/
+theorem original_cutoff_centered_thick (ε : ℝ) (he : 0 < ε) (h52 : ε < 1/52) :
+    ∀ᶠ x : ℝ in atTop, ∀ (e q d n N : ℕ) [Fact q.Prime] [Fact d.Prime] {Y Z : ℝ}
+      (_pair : UpperTheory.Top.PairGood 1 ε Y Z q d), 1 ≤ Y → Y ≤ x → UpperTheory.Top.PageN ε x e →
+      ∀ (TT T : Finset (AlpogeNativeDyadicH e)) (a : AlpogeNativeDyadicH e → ℝ) (η : ℝ)
+      (w : AlpogeNativeDyadicH e → Fin n → AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ),
+      let b := Real.exp (x^ε)
+      let D := alpogeNativeHostData e q d
+      let ell := alpogeNativeCanonicalHostEll (H := AlpogeNativeDyadicH e) (alpogeNativeRecMap e q d)
+      let F := alpogeNativeFrobInertiaGPsi D.inertia D.frob ell
+      let v := fun u j ρ => alpogeNativeLowerLogWidth η (w u j ρ)
+      let Q := alpogeNativeProjectionDivisor TT T n b
+      TT.Nonempty → T.Nonempty → 0 < n → 0 < η → x^(-ε) ≤ alpogeNativeProjectionDensity T →
+      (∀ t ∈ TT, a t ∈ Set.Icc (x*b) ((x+1)*b)) →
+      (∀ u j t, t ∈ TT → ∀ g ∈ (Finset.univ.filter (fun g : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+          ¬alpogeNativeInPhi g)) \ alpogeNativeProjectionThickColours T u t,
+        0 < w u j (alpogeNativePartner t g) ∧ Real.exp (x^(ε/3))/3 ≤ a t/w u j (alpogeNativePartner t g)) →
+      alpogeNativePhysicalSubgroupTopExcess ⊤ D.inertia D.frob ell N TT a v/Q ≤
+        centeredThick F TT T a v/Q+2*x^(ε-1) := by
+  classical
+  obtain ⟨x₁,source⟩ := nativeLedger_pairGood_roundedASK_le_thick ε he
+  obtain ⟨x₂,host⟩ := nativePageN_host_size_eventually ε h52
+  obtain ⟨x₃,cond⟩ := nativePageN_conductor_eventually ε he h52
+  filter_upwards [eventually_ge_atTop x₁,eventually_ge_atTop x₂,eventually_ge_atTop x₃,
+    nativeDyadicCostWindows_eventually ε 3 he,eventually_ge_atTop (2:ℝ)] with x hx₁ hx₂ hx₃ cost hx
+  intro e q d n N _ _ Y Z pair hY hy page TT T a η w b D ell F v Q htt ht hn hη density ha thin
+  let J := (⊤ : AddSubgroup (AlpogeNativeDyadicH e))
+  let m := (Fintype.card (AlpogeNativeDyadicH e):ℝ)
+  let θ := Real.exp (-(x^(ε/8)))
+  let δ := alpogeNativeProjectionDensity T
+  have hθ : 0 ≤ θ := (Real.exp_pos _).le
+  have hm : 0 < m := by exact_mod_cast Fintype.card_pos
+  have hx0 : 0 < x := by linarith
+  have hb : 0 < b := Real.exp_pos _
+  have hQ : 0 < Q := alpogeNativeProjectionDivisor_pos TT T htt ht n hn b hb
+  have hδ : 0 < δ := (Real.rpow_pos_of_pos hx0 _).trans_le density
+  have poly : (2:ℝ)^e ≤ x^(3:ℝ) := by simpa only [alpogeNativeDyadicH_card,Nat.cast_pow,Nat.cast_ofNat] using host x hx₂ e page
+  have cheap := (cost e poly b 0 le_rfl le_rfl (by positivity)).1
+  have mEq : m = (2:ℝ)^e := by simp only [m,alpogeNativeDyadicH_card,Nat.cast_pow,Nat.cast_ofNat]
+  change 4*(2:ℝ)^e*(x+1)*θ ≤ 1/x at cheap
+  rw [← mEq] at cheap
+  have row (u t : AlpogeNativeDyadicH e) (h : t ∈ TT) j :
+      (alpogeNativeFullKernelASK D.inertia D.frob N (a t) t (v u j)-alpogeNativeMAIN ell (a t) (v u j)).re ≤
+        (alpogeNativeProjectionActualThick F T (a t) u t (v u j)).re+b/x := by
+    have ha0 := (mul_pos hx0 hb).trans_le (ha t h).1
+    have s := source x hx₁ Y Z q d e N pair T u t (a t) η (w u j) ha0 hη
+      (cond x hx₃ Y q d e hY hy pair.pair page) (thin u j t h)
+    rw [alpogeNativeProjectionPhi_card,Nat.cast_mul,Nat.cast_ofNat] at s
+    apply s.trans (add_le_add le_rfl _)
+    change (2*m-(T.card:ℝ))/(2*m)*(4*m*a t*θ) ≤ b/x
+    calc
+      _ ≤ 4*m*a t*θ := mul_le_of_le_one_left (by positivity) ((div_le_one (by positivity)).2 (sub_le_self _ (by positivity)))
+      _ ≤ 4*m*((x+1)*b)*θ := mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left (ha t h).2 (by positivity)) hθ
+      _ = b*(4*m*(x+1)*θ) := by ring
+      _ ≤ b/x := by simpa only [mul_one_div] using mul_le_mul_of_nonneg_left cheap hb.le
+  have hJ : (Fintype.card J:ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+  have sum := mul_le_mul_of_nonneg_left (Finset.sum_le_sum (fun (u : J) (_ : u ∈ Finset.univ) =>
+    Finset.sum_le_sum (fun t h => Finset.sum_le_sum (fun j (_ : j ∈ Finset.univ) => row (u:AlpogeNativeDyadicH e) t h j))))
+    (by positivity : 0 ≤ 1/(Fintype.card J:ℝ))
+  simp only [Finset.sum_add_distrib,Finset.sum_const,Finset.card_univ,Fintype.card_fin,nsmul_eq_mul,mul_add] at sum
+  have cap : alpogeNativePhysicalSubgroupTopExcess J D.inertia D.frob ell N TT a v ≤
+      centeredThick F TT T a v+(TT.card:ℝ)*n*(b/x) := by
+    have id : 1/(Fintype.card J:ℝ)*((Fintype.card J:ℝ)*(TT.card*(n*(b/x)))) = (TT.card:ℝ)*n*(b/x) := by field_simp [hJ] <;> ring
+    simpa only [id] using sum
+  have norm : ((TT.card:ℝ)*n*(b/x))/Q = 2/(δ*x) := by
+    dsimp only [Q,δ,alpogeNativeProjectionDivisor]; field_simp [hb.ne',hx0.ne',hδ.ne',
+      (show ((TT.card:ℝ)) ≠ 0 by exact_mod_cast htt.card_pos.ne'), (show (n:ℝ) ≠ 0 by exact_mod_cast hn.ne')] <;> ring
+  have inv : 1/δ ≤ x^ε := by
+    have orig : x^(-ε) ≤ δ := density
+    rw [Real.rpow_neg hx0.le, ← one_div] at orig
+    exact (one_div_le_one_div_of_le (one_div_pos.mpr (Real.rpow_pos_of_pos hx0 ε)) orig).trans_eq (by rw [one_div_one_div])
+  have pay : 2/(δ*x) ≤ 2*x^(ε-1) := calc
+    _ = (2/x)*(1/δ) := by ring
+    _ ≤ (2/x)*x^ε := mul_le_mul_of_nonneg_left inv (by positivity)
+    _ = _ := by rw [Real.rpow_sub hx0,Real.rpow_one]; ring
+  calc
+    _ ≤ (centeredThick F TT T a v+(TT.card:ℝ)*n*(b/x))/Q := div_le_div_of_nonneg_right cap hQ.le
+    _ ≤ _ := by rw [add_div,norm]; exact add_le_add le_rfl pay
+
 end RHLean.Analysis.AlpogeThin.SlotProjector

@@ -273,6 +273,7 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_width_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_principal,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.centered_thick_measured,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.original_cutoff_centered_thick,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_comm,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_image,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.anchoredRecovery_slot_rank,
