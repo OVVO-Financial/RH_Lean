@@ -127,7 +127,9 @@ private theorem sharedHeight_sum (a b p q h N L : ℕ) (hp : p.Prime) (hq : q.Pr
     have hs := size i (Finset.mem_range.mp hi)
     rw [Nat.factorization_eq_card_pow_dvd_of_lt hp hs.1 hs.2, Finset.card_filter]
     refine Finset.sum_congr rfl fun k _ => ?_
-    rw [ZMod.intCast_zmod_eq_zero_iff_dvd, ← Int.dvd_natAbs, Int.natCast_dvd_natCast]
+    have test : (g i : ZMod (p^k)) = 0 ↔ p^k ∣ (g i).natAbs := by
+      rw [ZMod.intCast_zmod_eq_zero_iff_dvd, ← Int.natCast_dvd_natCast, Int.dvd_natAbs]
+    simp only [test]
   calc
     _ = ∑ i ∈ Finset.range N, ∑ k ∈ T, if (g i : ZMod (p^k)) = 0 then 1 else 0 :=
       Finset.sum_congr rfl levels
@@ -197,7 +199,7 @@ theorem slotSelector_price {I : Type*} (C : Finset I) (a q : I → ℕ) (b p h A
     have bound (k : ℕ) (hk : k ∈ U) : |(S k:ℝ)| ≤ (A:ℝ)^C.card := by
       change |((∏ i ∈ C, ((k:ℤ)-z i) : ℤ):ℝ)| ≤ _
       rw [Int.cast_prod, Finset.abs_prod, ← Finset.prod_const]
-      refine Finset.prod_le_prod (fun _ _ => abs_nonneg _) fun i hi => ?_
+      refine Finset.prod_le_prod₀ (fun _ _ => abs_nonneg _) fun i hi => ?_
       have h1 : (k:ℝ) ≤ A := by exact_mod_cast hslot k hk
       have h2 : (z i:ℝ) ≤ A := by exact_mod_cast hcut i hi
       push_cast

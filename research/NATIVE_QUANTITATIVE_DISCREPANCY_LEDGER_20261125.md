@@ -95,6 +95,26 @@ $$
 $$
 Linearity of the finite average uses a single height profile for every term. Each prime occurs at exactly $|TT|$ sites, including when different incidences share their starting height. The first sum is at most $2\log(x)(1+\log x)$, and the second term in parentheses tends to zero for fixed $\varepsilon>0$ at the original collar. Thus $m\asymp c$ is affordable for these owner-prime valuations. The finite averaging over all labelled incidences is the statement of `sharedHeight_total`. The final high-family normalization and asymptotic simplification displayed here are paper consequences. The same integral polynomial acts by pointwise multiplication on the entire original slot space. For every $k,z_q\in[0,A]$ its absolute value is at most $A^{m-1}$. The maximum log operator norm costs at most $(m-1)\log A=O_\varepsilon(mx^\varepsilon)$, measured with the original counting scalar product. Its zeros enforce the competing endpoint readings. Divisibility of the complete competing sections, the aggregate cost for their archimedean determinants and the comparison of their volumes with signed MAIN remain open.
 
+### Integral transport back from the endpoints
+
+Cheap interpolation at an owner's prime leaves a specific integral obstruction. On a whole $p$-cycle inside a competing layer, a product of fewer than $p$ linear factors has at most that many residue roots. If the layer amplitude is a unit at $p$, at least one original slot still gives a unit output. Zeros at the endpoint alone cannot establish divisibility on this section.
+
+Taking successive differences of layer amplitudes moves the readings to the physical cut boundaries. Write $A_i$ for the integer amplitudes and $D_i$ for the original, pairwise coprime wheel powers, with $0\le i\le r$. Put $w_i=\prod_{j\ne i}D_j$ and $\delta=\sum_i w_i$. The integer lattice of measured star amplitudes is exactly
+$$
+H_*=\{A\in\mathbb Z^{r+1}:\ \sum_i w_iA_i=0\}.
+$$
+Indeed the equation modulo $D_i$ forces $D_i\mid A_i$, since $w_i$ is a unit there. Dividing through by $\prod_iD_i$ gives $\sum_i A_i/D_i=0$, precisely the star relation. For interior jumps $y_j=A_{j+1}-A_j$, let $W_j=\sum_{i>j}w_i$. Recovering $A_i=A_0+\sum_{j<i}y_j$ reduces the one relation to $\delta A_0=-\sum_jW_jy_j$. Hence the actual integral jump lattice is
+$$
+J(H_*)=\{y\in\mathbb Z^r:\ \sum_j W_jy_j\equiv0\bmod\delta\}.
+$$
+For every prime dividing some $D_i$, the reduction $\delta\equiv w_i\bmod p$ is a unit. In particular $W_{r-1}=w_r$ is a unit modulo $\delta$ for $r\ge1$. The displayed congruence is surjective, so the full ordinary index is exactly $\delta$ and all its prime factors lie outside the admitted wheel powers.
+
+For $r\ge2$, both end coefficients $W_0=\delta-w_0$ and $W_{r-1}=w_r$ are units modulo $\delta$. At either end $j$ there exists $y\in J(H_*)$ with $y_j=1$, since the other end can pay its residue. Consequently a diagonal selector isolating this end, $y\mapsto s\,y_j e_j$, preserves the integral jump lattice only when $\delta\mid s$. This price has
+$$
+\log\delta\ \ge\ \sum_i\log D_i-\min_i\log D_i .
+$$
+Thus a selector can have tiny valuation at its owner prime and still require almost the entire wheel gain for an exact integral end projection. This is a paper calculation for the specified jump lattice. An enlarged lattice with the available unimodular complementary column can avoid this particular transport. Using its negative projected volume to pay the original signed MAIN still requires the quantitative comparison on that enlarged family. [Measured integer columns](NativeMeasuredSlotProjector.lean) · [Same-prime boundary recovery](NativePrimeWheelResidueLayers.lean)
+
 ### Perron readings of integer slots
 
 For an integer slot $k\ge2$, use the log interval $J_k=(\log(k-1),\log k]$. The critical-line reading of its weighted indicator $g_k(u)=e^{u/2}\mathbf1_{J_k}(u)$ is
