@@ -2,6 +2,7 @@ import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
+import «research.NativeDepthCongruence»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -377,6 +378,17 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.nat_log_product,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.quotient_log_product,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.common_witness_log,
+    ``RHLean.Analysis.NativeDepthCongruence.eigen_gap_dvd,
+    ``RHLean.Analysis.NativeDepthCongruence.eigen_gap_realizable,
+    ``RHLean.Analysis.NativeDepthCongruence.coeff_zero,
+    ``RHLean.Analysis.NativeDepthCongruence.content_pos,
+    ``RHLean.Analysis.NativeDepthCongruence.coeff_normSq,
+    ``RHLean.Analysis.NativeDepthCongruence.entry_pivot,
+    ``RHLean.Analysis.NativeDepthCongruence.projector_clear_iff,
+    ``RHLean.Analysis.NativeDepthCongruence.cleared_retraction_energy,
+    ``RHLean.Analysis.NativeDepthCongruence.unit_retraction,
+    ``RHLean.Analysis.NativeDepthCongruence.signed_swap_read,
+    ``RHLean.Analysis.NativeDepthCongruence.signed_swap_clearing,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
