@@ -28,7 +28,8 @@ theorem eigen_gap_realizable (u a b : ℤ)
     ∃ A B C : ℤ, A+u*B=a ∧ B+u*C=u*a ∧
       -u*A+B = -u*b ∧ -u*B+C=b := by
   obtain ⟨k,hk⟩ := h
-  refine ⟨b+k,u*k,b+u^2*k,?_,?_,?_,?_⟩ <;> nlinarith only [hk]
+  have ha : a = b+(1+u^2)*k := by linarith only [hk]
+  refine ⟨b+k,u*k,b+u^2*k,?_,?_,?_,?_⟩ <;> try rw [ha] <;> ring
 
 /-- Exact primitive tensor/Pluecker coordinates of the retained
 coupled profile graph. A coordinate equal to one is present globally. -/
@@ -42,7 +43,7 @@ def content {I : Type*} [Fintype I] (u : I → ℕ) : ℕ :=
     coeff u (fun _ => false) = 1 := by simp [coeff]
 
 theorem content_pos {I : Type*} [Fintype I] (u : I → ℕ) : 0 < content u :=
-  Finset.prod_pos fun i _ => Nat.zero_lt_succ _
+  Finset.prod_pos fun i _ => by positivity
 
 theorem coeff_normSq {I : Type*} [Fintype I] (u : I → ℕ) :
     (∑ x : I → Bool, coeff u x ^ 2) = (content u:ℤ) := by
@@ -78,8 +79,7 @@ theorem projector_clear_iff {I : Type*} [Fintype I] (u : I → ℕ) (h M : ℕ) 
     obtain ⟨z,hz⟩ := hc (fun _ => false) (fun _ => false)
     rw [entry_pivot,mul_one_div] at hz
     have hz' : ((h*M:ℕ):ℚ) = (content u:ℚ)*z := by
-      rw [mul_comm]
-      exact (div_eq_iff hn).mp hz
+      exact ((div_eq_iff hn).mp hz).trans (mul_comm _ _)
     have hi : ((content u:ℕ):ℤ) ∣ ((h*M:ℕ):ℤ) := by
       refine ⟨z,?_⟩
       exact_mod_cast hz'
@@ -88,7 +88,7 @@ theorem projector_clear_iff {I : Type*} [Fintype I] (u : I → ℕ) (h M : ℕ) 
     refine ⟨(k:ℤ)*coeff u x*coeff u y,?_⟩
     rw [hk,entry]
     push_cast
-    field_simp [hn]
+    field_simp [hn] <;> ring
 
 /-- Even allowing arbitrary mixed rational retractions of the
 primitive exterior line, clearing the global coefficients and
@@ -130,7 +130,7 @@ theorem unit_retraction {I : Type*} [Fintype I] [DecidableEq I] (u : I → ℕ) 
 /-- Comparing the two swapped orthogonal projectors cancels their
 off-diagonal NNS cross terms. The surviving signed probability is
 (1-u²)/(1+u²), whose odd-prime denominator is still present. -/
-theorem signed_swap_read (u : ℚ) (hn : 1+u^2 ≠ 0) :
+theorem signed_swap_read (u : ℚ) :
     1/(1+u^2)-u^2/(1+u^2)=(1-u^2)/(1+u^2) := by
   rw [← sub_div]
 
