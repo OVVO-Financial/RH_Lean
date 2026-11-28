@@ -581,10 +581,87 @@ unit minors at the same place.
 
 This prices the comparison with a maximum. Its difference from either
 prescribed reciprocal profile still contains the positive part of their
-logarithmic ratio. A compatible signed allowance for that difference,
-the common $q$-normalization, and a coefficient detected with the same
-orientation are still needed. The complementary labels occur in §§6–7
-in full.
+logarithmic ratio.
+
+### Clearing the full denominators on the same two physical stars
+
+The $q$-normalization admits a joint integral map and an independently
+bounded **signed** real change on the original star. For each distinct
+served label $p\in P$ with $p\ge\sqrt x$, set
+$$
+ m_{p,\sigma}=\sum_{k\le x/p}(\sigma a_{pk})_+\varphi(pk),\qquad
+ H_p=q^{\max(m_{p,+},m_{p,-})},\qquad
+ u_{p,\sigma}=p^{e_{p,\sigma}} B_{p,\sigma}/q^{m_{p,\sigma}},
+ \qquad L_p=\log(u_{p,+}/u_{p,-}).
+$$
+The $e_{p,\sigma}$ may be any of the original depth profiles satisfying
+$0\le e_{p,\sigma}\le d_p\le cx/p$. On the two physical copies use the
+integral entries $H_p u_{p,\sigma}$ on the **same** $s-1$ original
+columns. At $\ell\nmid q$ the preceding local proof is unchanged. At
+$\ell\mid q$ the determinant numerators are all units. Omit the unique
+$p=\ell$ depth coordinate if present (otherwise omit any coordinate), and
+at each retained coordinate take the sign with largest $m_{p,\sigma}$.
+The resulting maximal minor is a unit. Thus the **fully cleared stacked
+map has global saturation index one**. The domain has rank $s-1$, and
+the quotient has free rank $s+1$ in the two representative copies.
+For either individual sign at $\ell\mid q$ its exact saturation valuation
+is $\sum_p t_{p,\sigma}-\max_p t_{p,\sigma}$, where
+$$
+ t_{p,\sigma}=v_\ell(q)\bigl(\max(m_{p,+},m_{p,-})-m_{p,\sigma}\bigr)
+                 +\mathbf1_{p=\ell}e_{p,\sigma}.
+$$
+The formula is the gcd of the omit-one minors at that particular site.
+The ambient diagonal clearing on both copies has index $\prod_p H_p^2$
+in the two-copy integral coordinate lattice. Neither this index nor the
+individual saturation valuations are declared to be zero.
+
+For a single active row write $n_p>0$ for its physical layer counts and
+$\mathscr L(b)$ for the log covolume in this metric of the columns
+$b_i e_i-b_0 e_0$, $1\le i<s$. The exact omit-one Gram formula gives,
+for the cleared rows,
+$$
+ \mathscr L(Hu_+)-\mathscr L(Hu_-)
+ =\sum_p L_p+\tfrac12\log\sum_p \lambda_p e^{-2L_p},\qquad
+ \lambda_p=\frac{(n_p H_p^2 u_{p,-}^2)^{-1}}
+                   {\sum_j(n_j H_j^2 u_{j,-}^2)^{-1}}.
+$$
+The positive $\lambda_p$ sum to one. The last term is between
+$-\max_p L_p$ and $-\min_p L_p$. The same interval applies before
+clearing, so the change in the signed difference costs at most
+$\max_p L_p-\min_p L_p$. This compares two independently measured
+Gram determinants in their original counting metric. In particular the
+large common real volume $\sum_p\log H_p$ is included on both sides
+before subtracting.
+
+An independent bound on that one complement per occupied site uses
+$|a_n|\le c\|E\|_\infty+1/2$, the original depth capacities, and
+$|\log F_{pk}|\le\tau(pk)\log q\le2\tau(k)\log q$. Consequently
+$$
+ |L_p|\ll_E c(x/p)(1+\log x)^2\le c\sqrt{x}(1+\log x)^2.
+$$
+Let $A_P=\{2\le n\le N:\exists p\in P,\ p\mid n\}$. Each such $n$
+contains exactly one distinct served label, even at $x=p^2$. With
+$W$ the occupied sites, let $\Delta$ be the sum of the cleared signed
+log covolume differences over the actual active rows, divided by
+$ck|\mathcal T|$. The existing incidence identity now gives
+$$
+\left|\frac{\log Y}{c}-\left(
+\Delta-\frac1c\sum_{p\in P}(e_{p,+}-e_{p,-})\log p
++\frac1c\sum_{n\notin A_P,\ 2\le n\le N}a_n\log F_n(r)
+\right)\right|
+\ll_E \frac{|W|}{|\mathcal T|}\sqrt{x}(1+\log x)^2.
+$$
+Indeed each row has exactly one complementary normal and each prime
+has $|\mathcal T|$ partner incidences, each with $k$ active rows.
+Under the existing density estimate $|W|/|\mathcal T|\le2x^{\varepsilon/8}$
+this is within a square-root budget with a fixed positive epsilon
+margin. It keeps the signed clearing term, the native depth correction,
+and every complementary arithmetic label. It verifies the transport
+cost. An independent lower estimate for the expression in parentheses
+against $R_E(x)$ remains open. At primes of $q$ the unit selections can
+use different signs on different coordinates; the unit minor for the
+stacked family cannot serve as a prescribed-sign height bound on either
+of the two individual sections.
 
 In the pinned compact source, `heightLe_inv_ratio` uses the independently
 bounded conjugates of a common coefficient $V$, tests detecting $V$
