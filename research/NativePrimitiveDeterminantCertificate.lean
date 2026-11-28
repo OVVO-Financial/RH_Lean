@@ -381,8 +381,8 @@ private theorem reflect_abs_le (total : ℝ) {f : ℝ → ℝ} {B : ℝ} (hB : 0
     |reflect total f y| ≤ |total| + B := by
   unfold reflect
   split_ifs with h hlt
-  · exact (abs_sub _ _).trans (add_le_add_left
-      (hf (1 - y) (by linarith) (by linarith [(Set.mem_Icc.mp h).1])) _)
+  · have bound := hf (1 - y) (by linarith) (by linarith [(Set.mem_Icc.mp h).1])
+    exact (abs_sub total (f (1 - y))).trans (add_le_add le_rfl bound)
   · linarith only [hf y (le_of_not_gt hlt) (Set.mem_Icc.mp h).2, abs_nonneg total]
   · simpa only [abs_zero] using add_nonneg (abs_nonneg total) hB
 
@@ -536,7 +536,8 @@ theorem trace_reference_uniform {x : ℝ} (hx : 4 ≤ x) :
   have norm : 1 / (1 - r) = (c:ℝ)+1 := by
     dsimp [r, radius]
     push_cast
-    field_simp <;> ring
+    field_simp
+    ring
   have decay := cutoff_decay hx
   change r ^ traceCutoff x * (2*x)^4 ≤ 1 at decay
   have tail : (∑ n ∈ Icc 2 N, |residual (n / x)| * n.divisors.card) *
@@ -567,8 +568,97 @@ theorem trace_reference_uniform {x : ℝ} (hx : 4 ≤ x) :
     linarith only [h]
   exact (trace_reference_rounding hc).trans (add_le_add tail bill)
 
+/-- The divisor-level smoothing correction uses the same function as the
+integral in the independently evaluated reference. -/
+theorem block_endpoint_correction {x : ℝ} (hc : 0 < scale x) {n : ℕ} (hn : 1 < n) :
+    (∑ d ∈ n.divisors, (μ (n / d) : ℝ) * logCorrection (stepSize x * d)) =
+      Real.log (block (scale x) n : ℝ) - Λ n := by
+  let c : ℝ := scale x
+  have hcR : 0 < c := Nat.cast_pos.mpr hc
+  have hh : 0 < stepSize x := Real.log_pos (by change 1 < 1 + 1/c; linarith [one_div_pos.mpr hcR])
+  have he : Real.exp (-(stepSize x)) = (radius (scale x) : ℝ) := by
+    rw [stepSize, Real.exp_neg, Real.exp_log (by positivity : (0 : ℝ) < 1 + 1 / (scale x : ℝ))]
+    unfold radius
+    push_cast
+    change (1 + 1/c)⁻¹ = c / (c + 1)
+    rw [show 1 + 1/c = (c + 1)/c by rw [add_div, div_self hcR.ne'], inv_div]
+  have term (d : ℕ) (hd : d ∈ n.divisors) : logCorrection (stepSize x * d) =
+      Real.log ((1 - radius (scale x)^d : ℚ) : ℝ) - Real.log (stepSize x) - Real.log d := by
+    have hd₀ := Nat.pos_of_mem_divisors hd
+    have hdR : 0 < (d : ℝ) := Nat.cast_pos.mpr hd₀
+    have hu := mul_pos hh hdR
+    have hp : Real.exp (-(stepSize x * d)) = (radius (scale x) : ℝ)^d := by
+      rw [show -(stepSize x * d) = (d : ℝ) * (-stepSize x) by ring, Real.exp_nat_mul, he]
+    have hq : 0 < 1 - (radius (scale x) : ℝ)^d := by exact_mod_cast factor_pos (scale x) hd₀
+    unfold logCorrection
+    split
+    · contradiction
+    · rw [hp, Real.log_div hq.ne' hu.ne', Real.log_mul hh.ne' hdR.ne']
+      push_cast
+      ring
+  have hm : (∑ d ∈ n.divisors, (μ (n / d) : ℝ)) = 0 := by
+    exact_mod_cast sum_moebius_complementary_divisors_eq_zero hn
+  have von := congrArg (fun f : ArithmeticFunction ℝ => f n)
+    ArithmeticFunction.moebius_mul_log_eq_vonMangoldt
+  change ((μ : ArithmeticFunction ℝ) * ArithmeticFunction.log) n = Λ n at von
+  simp only [ArithmeticFunction.mul_apply, ArithmeticFunction.intCoe_apply, ArithmeticFunction.log_apply,
+    Nat.sum_divisorsAntidiagonal' (fun i j => (μ i : ℝ) * Real.log j)] at von
+  calc
+    _ = (∑ d ∈ n.divisors, (μ (n / d) : ℝ) * Real.log ((1-radius (scale x)^d : ℚ) : ℝ)) -
+        (∑ d ∈ n.divisors, (μ (n / d) : ℝ)) * Real.log (stepSize x) -
+        ∑ d ∈ n.divisors, (μ (n / d) : ℝ) * Real.log d := by
+      rw [sum_mul, ← sum_sub_distrib, ← sum_sub_distrib]
+      exact sum_congr rfl fun d hd => by rw [term d hd]; ring
+    _ = _ := by rw [← log_block, hm, von, zero_mul, sub_zero]
+
+/-- Exact complete real-clock transfer. The two ordinary quadrature errors
+are visible separately from the finite Taylor tail of the Ramanujan trace. -/
+theorem statementOCGz_sub_trace {x : ℝ} (hx : 4 ≤ x) :
+    let N := ⌊x⌋₊
+    let c := scale x
+    let r : ℝ := radius c
+    let H := traceCutoff x
+    AlpogeNativeBoundHandoff.statementOCGz x - ((∑ j ∈ Icc 1 H, r ^ j / j * tracePopulation x j) +
+      reference x) =
+      ((∑ k ∈ Icc 1 N, Real.log k * profile (k / x)) - x * Real.log x +
+        (1 + Real.eulerMascheroniConstant) * x) +
+      ((∑ n ∈ Icc 2 N, residual (n / x) *
+        ∑ d ∈ n.divisors, (μ (n/d) : ℝ) * logCorrection (stepSize x * d)) - reference x) -
+      ∑ n ∈ Icc 2 N, residual (n / x) *
+        ((∑ j ∈ Icc 1 H, r ^ j / j * (ramanujanDivisorKernel n j 0 : ℝ)) + Real.log (block c n : ℝ)) := by
+  intro N c r H
+  have hN : 1 ≤ N := (Nat.one_le_floor_iff _).mpr (by linarith)
+  have pe : (∑ n ∈ Icc 1 N, Λ n * residual (n / x)) = ∑ n ∈ Icc 2 N, Λ n * residual (n / x) := by
+    rw [← Finset.insert_Icc_succ_left_eq_Icc hN, sum_insert (by simp)]
+    simp
+  have source := statementOCGz_add_residual (show 0 < x by linarith)
+  rw [pe] at source
+  have tr : (∑ j ∈ Icc 1 H, r ^ j / j * tracePopulation x j) =
+      ∑ n ∈ Icc 2 N, residual (n / x) *
+        ∑ j ∈ Icc 1 H, r ^ j / j * (ramanujanDivisorKernel n j 0 : ℝ) := by
+    simp only [tracePopulation, mul_sum]
+    rw [sum_comm]
+    exact sum_congr rfl fun n _ => sum_congr rfl fun j _ => by ring
+  rw [tr]
+  have cost :
+      (∑ n ∈ Icc 2 N, residual (n / x) *
+          ((∑ j ∈ Icc 1 H, r ^ j / j * (ramanujanDivisorKernel n j 0 : ℝ)) +
+            Real.log (block c n : ℝ))) -
+        (∑ n ∈ Icc 2 N, residual (n / x) *
+          ∑ d ∈ n.divisors, (μ (n/d) : ℝ) * logCorrection (stepSize x * d)) =
+      (∑ n ∈ Icc 2 N, residual (n / x) * ∑ j ∈ Icc 1 H, r ^ j / j *
+        (ramanujanDivisorKernel n j 0 : ℝ)) + ∑ n ∈ Icc 2 N, Λ n * residual (n / x) := by
+    rw [← sum_sub_distrib, ← sum_add_distrib]
+    apply sum_congr rfl
+    intro n hn
+    rw [block_endpoint_correction (scale_bounds hx).1 (mem_Icc.mp hn).1]
+    change _ - _ * (Real.log (block c n : ℝ) - Λ n) = _
+    ring
+  linarith only [cost, source]
+
 #print axioms statementOCGz_add_residual
 #print axioms block_eq_cyclotomic
 #print axioms trace_reference_uniform
+#print axioms statementOCGz_sub_trace
 
 end RHLean.Analysis.PrimitiveCertificate
