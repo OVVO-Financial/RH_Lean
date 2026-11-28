@@ -28,14 +28,12 @@ private theorem unitAmplitude_det {r : ℕ} (a : Fin (r+1) → ℝ) :
       Matrix.det_updateRow_sum B 0 (fun _ => (1:ℝ))
   have h0 : C 0 0 = ∑ i, a i := by
     rw [show C 0 = ∑ i, B i from Matrix.updateRow_self]
-    change (∑ i, (B i : Fin (r+1) → ℝ)) 0 = _
-    rw [Finset.sum_apply]
-    rfl
+    change (∑ i : Fin (r+1), (fun k : Fin (r+1) => B i k)) 0 = _
+    simp [Finset.sum_apply, B, amplitude]
   have h1 (j : Fin r) : C 0 j.succ = 0 := by
     rw [show C 0 = ∑ i, B i from Matrix.updateRow_self]
-    change (∑ i, (B i : Fin (r+1) → ℝ)) j.succ = _
-    rw [Finset.sum_apply]
-    simp [B, amplitude, Finset.sum_sub_distrib]
+    change (∑ i : Fin (r+1), (fun k : Fin (r+1) => B i k)) j.succ = _
+    simp [Finset.sum_apply, B, amplitude, Finset.sum_sub_distrib]
   have hminor : C.submatrix Fin.succ Fin.succ = (1 : Matrix (Fin r) (Fin r) ℝ) := by
     ext i j
     simp [C, B, amplitude, Matrix.one_apply]
