@@ -137,8 +137,9 @@ theorem paired_exponent_bound {p T a b dL dR : ℕ} (hp : 1 < p)
     p^(a+b) = p^a * p^b := pow_add _ _ _
     _ ≤ (Nat.card W * p^dL) * (Nat.card V * p^dR) := Nat.mul_le_mul hW hV
     _ = (Nat.card W * Nat.card V) * (p^dL * p^dR) := by ring
-    _ ≤ p^T * (p^dL * p^dR) := Nat.mul_le_mul_right _ (hG ▸
-      orthogonal_card_mul_le W V pair hinj horth)
+    _ ≤ p^T * (p^dL * p^dR) := by
+      rw [← hG]
+      exact Nat.mul_le_mul_right _ (orthogonal_card_mul_le W V pair hinj horth)
     _ = p^(T+dL+dR) := by rw [pow_add, pow_add]; ring
 
 /-- If the full pole length is T and the saturated quotients have the
@@ -158,6 +159,63 @@ theorem uniform_index_arithmetic {D r s t dL dR : ℕ}
   · have he : t*(r+s-D)+t*D = t*r+t*s := by
       rw [← Nat.mul_add, Nat.sub_add_cancel (Nat.le_of_lt (Nat.lt_of_not_ge hle)), Nat.mul_add]
     omega
+
+/-- Cardinal bound for a saturated finite image using its actual
+complement coordinates: a surjection from the complement is sufficient,
+and the relative index is measured on the same image. -/
+theorem uniform_image_size (p t D r dL : ℕ) [NeZero (p^t)]
+    (W W₀ : AddSubgroup (Fin D → ZMod (p^t))) (hW : W ≤ W₀)
+    (f : (Fin (D-r) → ZMod (p^t)) → ((Fin D → ZMod (p^t)) ⧸ W₀))
+    (hf : Function.Surjective f) (hidx : W.relIndex W₀ ≤ p^dL) :
+    p^(t*D) ≤ Nat.card W * p^(dL+t*(D-r)) := by
+  have hG : Nat.card (Fin D → ZMod (p^t)) = p^(t*D) := by
+    rw [Nat.card_fun, Nat.card_fin, Nat.card_zmod, pow_mul]
+  have hq : W₀.index ≤ p^(t*(D-r)) := by
+    rw [AddSubgroup.index_eq_card]
+    refine (Nat.card_le_card_of_surjective f hf).trans_eq ?_
+    rw [Nat.card_fun, Nat.card_fin, Nat.card_zmod, pow_mul]
+  calc
+    _ = Nat.card W₀ * W₀.index := hG.symm.trans W₀.card_mul_index.symm
+    _ = Nat.card W * W.relIndex W₀ * W₀.index := by rw [relative_card W W₀ hW]
+    _ ≤ Nat.card W * p^dL * p^(t*(D-r)) :=
+      Nat.mul_le_mul (Nat.mul_le_mul_left _ hidx) hq
+    _ = _ := by rw [pow_add]; ring
+
+/-- The uniform two-lattice index obstruction using the actual finite
+pole pairing and explicit surjective complement coordinate maps. -/
+theorem uniform_paired_index (p t D r s dL dR : ℕ) [NeZero (p^t)]
+    (hp : 1 < p) (hr : r ≤ D) (hs : s ≤ D)
+    (u : Fin D → (ZMod (p^t))ˣ)
+    (W V W₀ V₀ : AddSubgroup (Fin D → ZMod (p^t)))
+    (hW : W ≤ W₀) (hV : V ≤ V₀)
+    (f : (Fin (D-r) → ZMod (p^t)) → ((Fin D → ZMod (p^t)) ⧸ W₀))
+    (g : (Fin (D-s) → ZMod (p^t)) → ((Fin D → ZMod (p^t)) ⧸ V₀))
+    (hf : Function.Surjective f) (hg : Function.Surjective g)
+    (hiL : W.relIndex W₀ ≤ p^dL) (hiR : V.relIndex V₀ ≤ p^dR)
+    (horth : ∀ x : V, ∀ y : W, poleChar (fun _ : Fin D => p^t) u x.1 y.1 = 1) :
+    t*(r+s-D) ≤ dL+dR := by
+  have hG : Nat.card (Fin D → ZMod (p^t)) = p^(t*D) := by
+    rw [Nat.card_fun, Nat.card_fin, Nat.card_zmod, pow_mul]
+  have h := paired_exponent_bound hp W V
+    (poleChar (fun _ : Fin D => p^t) u)
+    (poleChar_injective (fun _ : Fin D => p^t) u) horth hG
+    (uniform_image_size p t D r dL W W₀ hW f hf hiL)
+    (uniform_image_size p t D s dR V V₀ hV g hg hiR)
+  have er : t*(D-r)+t*r = t*D := by rw [← Nat.mul_add, Nat.sub_add_cancel hr]
+  have es : t*(D-s)+t*s = t*D := by rw [← Nat.mul_add, Nat.sub_add_cancel hs]
+  apply uniform_index_arithmetic
+  omega
+
+/-- On a common retained image, both tests charge the same actual
+relative index. No primitive near-full-rank image can ignore a pole. -/
+theorem uniform_common_index (p t D r d : ℕ) [NeZero (p^t)]
+    (hp : 1 < p) (hr : r ≤ D) (u : Fin D → (ZMod (p^t))ˣ)
+    (W W₀ : AddSubgroup (Fin D → ZMod (p^t))) (hW : W ≤ W₀)
+    (f : (Fin (D-r) → ZMod (p^t)) → ((Fin D → ZMod (p^t)) ⧸ W₀))
+    (hf : Function.Surjective f) (hi : W.relIndex W₀ ≤ p^d)
+    (horth : ∀ x : W, ∀ y : W, poleChar (fun _ : Fin D => p^t) u x.1 y.1 = 1) :
+    t*(r+r-D) ≤ d+d :=
+  uniform_paired_index p t D r r d d hp hr hr u W W W₀ W₀ hW hW f f hf hf hi hi horth
 
 /-- An actual coordinate clearing, applied to the right coefficients
 only on the overlapping left directions. -/
@@ -223,7 +281,7 @@ theorem recenter_arch (σ : ℂ ≃+* ℂ) (H : ℂ) (R : ℚ) :
 at every place, independently of the character or auxiliary embedding. -/
 theorem reciprocal_witness (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p)
     (z : ℂ) (R : ℚ) (hR : R ≠ 0) (h : ‖ι z‖ = (padicNorm p R:ℝ)) :
-    ‖ι ((↑R⁻¹:ℂ)*z)‖ = 1 := by
+    ‖ι (((R⁻¹:ℚ):ℂ)*z)‖ = 1 := by
   rw [recenter_finite p ι _ _ R h]
   have hRc : (R:ℂ) ≠ 0 := by exact_mod_cast hR
   rw [Rat.cast_inv, inv_mul_cancel₀ hRc, map_one, norm_one]
