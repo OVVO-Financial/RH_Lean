@@ -525,11 +525,66 @@ from the order tower makes this particular test succeed deterministically.
 The large retained frequency weight alone does not estimate the probability
 of success of the full common-coefficient and metric test.
 
-These maps price the determinant numerators before the original prime-depth
-multipliers and the $q$-normalization. A prime appearing in a depth and an
-exceptional determinant at another layer can eliminate two possible pivots.
-Repeated occurrences across different sites must still carry their original
-multiplicities. The complementary labels occur in §§6–7 in full.
+### The two signs together on the original depth lattice
+
+Restore the actual nonnegative depth exponents $e_{i,\sigma}$ on the
+original labels $p_i$, where $\sigma=+,-$. They may differ for the two
+profiles. Write $b_{i,\sigma}=p_i^{e_{i,\sigma}}B_{p_i,\sigma}$ and
+$M_\sigma z=(b_{i,\sigma}z_i)_i$ on the same $S$. Let $I_\sigma$ be
+the saturation index of its image. **At every finite place at least one
+entire sign has a unit maximal minor.** In particular
+$\gcd(I_+,I_-)=1$, and the map $z\mapsto(M_+z,M_-z)$ has globally
+saturated image of rank $s-1$. Both measurements use disjoint actual
+copies of each nonempty layer, which the slot bounds in §§3–4 provide.
+Reading a representative of each constant layer is an integral retraction.
+
+Indeed only the coordinate with $p_i=\ell$ can carry a depth at $\ell$.
+If there is no other exceptional label, deleting the potentially bad
+coordinate gives a common unit minor. If there is a distinct exceptional
+label $p_j$, the exceptional order $h$ must be divisible by $p_j$:
+the exceptional index has the form $h\ell^t$. Since
+$h\ell\ge p_j\ell>x$, **the only exceptional index in the entire
+population is $h$** at this place. Its one exponent $a_h$ belongs to
+only one sign. Deleting the depth coordinate on the other sign gives
+a unit minor. More precisely the individual maximal minors are the
+omit-one products of the $b_{i,\sigma}$. Thus in a collision
+$$
+ v_\ell(I_\sigma)=\min\{e_{i,\sigma},
+             (\sigma a_h)_+\, v_\ell(D_h)\},\qquad p_i=\ell,
+$$
+using $\sigma=+1,-1$. Away from collisions both indices are units.
+If there is no depth label at the site, delete the unique exceptional
+label if present. At $\ell\mid cq$ all numerator factors are units.
+The two indices are therefore coprime even for different nonnegative
+depth profiles. The stacked map contains all minors of both individual
+maps. Their gcd is one. For a collision with a positive depth on both
+signs and $a_h\ne0$, choosing the sign and omitted coordinate independently
+and uniformly succeeds with probability $1/(2s)$; selecting the good
+sign and depth pivot deterministically succeeds. This probability counts
+the finite set of actual minors, without any hypothesis on prime labels.
+
+There is an independent real cost for combining the signs in this way.
+Use one copy of each sign with the same metric weight on coordinate $i$.
+Put $b_{i,\max}=\max(b_{i,+},b_{i,-})$. On the original $S$ the squared
+counting norm of the stacked map lies between that of the diagonal
+$b_{i,\max}$ map and twice that norm. This follows coordinatewise from
+$b_{i,\max}^2\le b_{i,+}^2+b_{i,-}^2\le2b_{i,\max}^2$. Its log
+covolume differs from the maximum-profile log covolume by a number in
+$[0,(s-1)\log(2)/2]$, by the eigenvalues of the relative Gram on $S$.
+Summing this charge on the actual $k$ active rows at each occupied site
+and dividing by $ck|\mathcal T|$ costs at most $|P|\log(2)/(2c)$:
+the existing incidence identity gives $\sum_{\rm sites}s=|P||\mathcal T|$.
+This is $O(\sqrt x)$ even using $|P|\le x$. Repetitions of a prime
+across sites have their actual multiplicities. The construction neither
+adds independent columns nor assumes that both unstacked signs have
+unit minors at the same place.
+
+This prices the comparison with a maximum. Its difference from either
+prescribed reciprocal profile still contains the positive part of their
+logarithmic ratio. A compatible signed allowance for that difference,
+the common $q$-normalization, and a coefficient detected with the same
+orientation are still needed. The complementary labels occur in §§6–7
+in full.
 
 In the pinned compact source, `heightLe_inv_ratio` uses the independently
 bounded conjugates of a common coefficient $V$, tests detecting $V$
