@@ -3,6 +3,7 @@ import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
+import «research.NativePositiveTwist»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -389,6 +390,25 @@ run_cmd do
     ``RHLean.Analysis.NativeDepthCongruence.unit_retraction,
     ``RHLean.Analysis.NativeDepthCongruence.signed_swap_read,
     ``RHLean.Analysis.NativeDepthCongruence.signed_swap_clearing,
+    ``RHLean.Analysis.NativePositiveTwist.root_sum,
+    ``RHLean.Analysis.NativePositiveTwist.root_product,
+    ``RHLean.Analysis.NativePositiveTwist.upper_pos,
+    ``RHLean.Analysis.NativePositiveTwist.lower_pos,
+    ``RHLean.Analysis.NativePositiveTwist.root_upper_le,
+    ``RHLean.Analysis.NativePositiveTwist.upper_quadratic,
+    ``RHLean.Analysis.NativePositiveTwist.lower_quadratic,
+    ``RHLean.Analysis.NativePositiveTwist.root_integral,
+    ``RHLean.Analysis.NativePositiveTwist.unit_root,
+    ``RHLean.Analysis.NativePositiveTwist.chosen_norm_ratio,
+    ``RHLean.Analysis.NativePositiveTwist.indicator_pair,
+    ``RHLean.Analysis.NativePositiveTwist.indicator_energy,
+    ``RHLean.Analysis.NativePositiveTwist.signed_ratio_norm,
+    ``RHLean.Analysis.NativePositiveTwist.class_pair,
+    ``RHLean.Analysis.NativePositiveTwist.class_projector_bound,
+    ``RHLean.Analysis.NativePositiveTwist.class_indicator_read,
+    ``RHLean.Analysis.NativePositiveTwist.class_lift_energy,
+    ``RHLean.Analysis.NativePositiveTwist.class_scalar,
+    ``RHLean.Analysis.NativePositiveTwist.class_norm_ratio,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
