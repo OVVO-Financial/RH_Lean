@@ -305,4 +305,73 @@ theorem test_place {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → �
     rw [test,padicNorm.div,padicNorm.mul,hN,hD,mul_one,div_one]
     split_ifs <;> norm_num [padicNorm.neg,padicNorm.one,padicNorm.zero]
 
+/-- The rational product formula, proved here from the finite prime
+factorization of a natural number. No external height theorem is
+used. The cutoff can be chosen beyond both numerator and denominator. -/
+theorem nat_log_product (n M : ℕ) (hn : 0 < n) (hM : n < M) :
+    Real.log (n:ℝ) +
+      ∑ l ∈ (Finset.range M).filter Nat.Prime, Real.log (padicNorm l (n:ℚ):ℝ) = 0 := by
+  classical
+  let S := (Finset.range M).filter Nat.Prime
+  have hp (l : ℕ) (hl : l ∈ S) : l.Prime := (Finset.mem_filter.mp hl).2
+  have hprod := congrArg (fun k : ℕ => Real.log (k:ℝ))
+    (Nat.prod_pow_prime_padicValNat n hn.ne' M hM)
+  change Real.log ((↑(∏ l ∈ S, l^padicValNat l n):ℝ)) = Real.log (n:ℝ) at hprod
+  rw [Nat.cast_prod, Real.log_prod (fun l hl => pow_ne_zero _ (by exact_mod_cast (hp l hl).ne_zero))] at hprod
+  simp only [Nat.cast_pow,Real.log_pow] at hprod
+  have term (l : ℕ) (hl : l ∈ S) : Real.log (padicNorm l (n:ℚ):ℝ) =
+      -(padicValNat l n:ℝ)*Real.log (l:ℝ) := by
+    have hnq : (n:ℚ) ≠ 0 := by exact_mod_cast hn.ne'
+    rw [padicNorm.eq_zpow_of_nonzero hnq, Rat.cast_zpow, Rat.cast_natCast,
+      Real.log_zpow,padicValRat.of_nat,Int.cast_neg,Int.cast_natCast]
+  change Real.log (n:ℝ) + (∑ l ∈ S, Real.log (padicNorm l (n:ℚ):ℝ)) = 0
+  rw [Finset.sum_congr rfl term]
+  simp_rw [neg_mul,Finset.sum_neg_distrib]
+  linarith only [hprod]
+
+theorem quotient_log_product (A B M : ℕ) (hA : 0 < A) (hB : 0 < B)
+    (hMA : A < M) (hMB : B < M) :
+    Real.log ((A:ℝ)/B) +
+      ∑ l ∈ (Finset.range M).filter Nat.Prime, Real.log (padicNorm l ((A:ℚ)/B):ℝ) = 0 := by
+  classical
+  let S := (Finset.range M).filter Nat.Prime
+  have h1 := nat_log_product A M hA hMA
+  have h2 := nat_log_product B M hB hMB
+  have hAr : (A:ℝ) ≠ 0 := by exact_mod_cast hA.ne'
+  have hBr : (B:ℝ) ≠ 0 := by exact_mod_cast hB.ne'
+  have hAq : (A:ℚ) ≠ 0 := by exact_mod_cast hA.ne'
+  have hBq : (B:ℚ) ≠ 0 := by exact_mod_cast hB.ne'
+  have term (l : ℕ) (hl : l ∈ S) :
+      Real.log (padicNorm l ((A:ℚ)/B):ℝ) =
+        Real.log (padicNorm l (A:ℚ):ℝ)-Real.log (padicNorm l (B:ℚ):ℝ) := by
+    letI : Fact l.Prime := ⟨(Finset.mem_filter.mp hl).2⟩
+    rw [padicNorm.div,Rat.cast_div,Real.log_div
+      (by exact_mod_cast padicNorm.nonzero hAq)
+      (by exact_mod_cast padicNorm.nonzero hBq)]
+  change Real.log ((A:ℝ)/B) + (∑ l ∈ S, Real.log (padicNorm l ((A:ℚ)/B):ℝ)) = 0
+  rw [Real.log_div hAr hBr,Finset.sum_congr rfl term,Finset.sum_sub_distrib]
+  linarith only [h1,h2]
+
+/-- Recentring by a rational witness cannot improve the total signed
+height of a fixed ratio. This equality retains both the archimedean
+and all finite places, with a single common witness A/B. -/
+theorem common_witness_log (A B C D M : ℕ)
+    (hA : 0 < A) (hB : 0 < B) (hC : 0 < C) (hD : 0 < D)
+    (hAC : A*C < M) (hBD : B*D < M) :
+    Real.log ((A:ℝ)/B) +
+      ∑ l ∈ (Finset.range M).filter Nat.Prime,
+        Real.log (padicNorm l (((A:ℚ)/B)*((C:ℚ)/D)):ℝ) =
+      -Real.log ((C:ℝ)/D) := by
+  have h := quotient_log_product (A*C) (B*D) M (Nat.mul_pos hA hC)
+    (Nat.mul_pos hB hD) hAC hBD
+  have hA' : (A:ℝ) ≠ 0 := by exact_mod_cast hA.ne'
+  have hB' : (B:ℝ) ≠ 0 := by exact_mod_cast hB.ne'
+  have hC' : (C:ℝ) ≠ 0 := by exact_mod_cast hC.ne'
+  have hD' : (D:ℝ) ≠ 0 := by exact_mod_cast hD.ne'
+  push_cast at h
+  rw [show (A:ℝ)*C/((B:ℝ)*D) = ((A:ℝ)/B)*((C:ℝ)/D) by ring,
+    Real.log_mul (div_ne_zero hA' hB') (div_ne_zero hC' hD'),
+    show (A:ℚ)*C/((B:ℚ)*D) = ((A:ℚ)/B)*((C:ℚ)/D) by ring] at h
+  linarith only [h]
+
 end RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight
