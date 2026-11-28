@@ -6,6 +6,7 @@ import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
+import «research.NativeLevelBranching»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -110,6 +111,16 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.NativeLevelBranching.coeff_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.support_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.reweight_norm_le,
+    ``RHLean.Analysis.NativeLevelBranching.restriction_norm,
+    ``RHLean.Analysis.NativeLevelBranching.restriction_dilate,
+    ``RHLean.Analysis.NativeLevelBranching.compensated_integral,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_pair,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_pair_restrict,
+    ``RHLean.Analysis.NativeLevelBranching.mean_degree,
     ``RHLean.Analysis.NativeCommonScalarCost.paired_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_total,
@@ -521,3 +532,14 @@ run_cmd do
 #print axioms RHLean.Analysis.NativeCommonScalarCost.balanced_total
 #print axioms RHLean.Analysis.NativeCommonScalarCost.paired_total
 #print axioms RHLean.Analysis.NativeCommonScalarCost.paid_determinants
+
+#print axioms RHLean.Analysis.NativeLevelBranching.coeff_reweight
+#print axioms RHLean.Analysis.NativeLevelBranching.support_reweight
+#print axioms RHLean.Analysis.NativeLevelBranching.reweight_norm_le
+#print axioms RHLean.Analysis.NativeLevelBranching.restriction_norm
+#print axioms RHLean.Analysis.NativeLevelBranching.restriction_dilate
+#print axioms RHLean.Analysis.NativeLevelBranching.compensated_integral
+#print axioms RHLean.Analysis.NativeLevelBranching.fourier_reweight
+#print axioms RHLean.Analysis.NativeLevelBranching.fourier_pair
+#print axioms RHLean.Analysis.NativeLevelBranching.fourier_pair_restrict
+#print axioms RHLean.Analysis.NativeLevelBranching.mean_degree

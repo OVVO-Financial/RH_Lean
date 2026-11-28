@@ -5,6 +5,7 @@ import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
+import «research.NativeLevelBranching»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -74,6 +75,16 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.NativeLevelBranching.coeff_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.support_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.reweight_norm_le,
+    ``RHLean.Analysis.NativeLevelBranching.restriction_norm,
+    ``RHLean.Analysis.NativeLevelBranching.restriction_dilate,
+    ``RHLean.Analysis.NativeLevelBranching.compensated_integral,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_reweight,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_pair,
+    ``RHLean.Analysis.NativeLevelBranching.fourier_pair_restrict,
+    ``RHLean.Analysis.NativeLevelBranching.mean_degree,
     ``RHLean.Analysis.NativeCommonScalarCost.paired_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_total,
