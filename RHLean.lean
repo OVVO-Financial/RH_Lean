@@ -633,6 +633,7 @@ import RHLean.Analysis.MobiusRenewalSquareWheelSynthesis
 import RHLean.Analysis.MobiusRenewalTelescope
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
+import RHLean.Analysis.NNSCoDivDeterminant
 import RHLean.Analysis.NNSDiscreteResolventIntegral
 import RHLean.Analysis.NNSFiniteSelmerFourierIntegral
 import RHLean.Analysis.NativePNTAxer

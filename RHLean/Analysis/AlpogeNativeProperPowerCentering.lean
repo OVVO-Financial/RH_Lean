@@ -200,6 +200,52 @@ theorem nativeProperPowerCenter_summable_and_error :
     exact (finite_proper_power_error C hC hB hN M hM).2
 
 
+/-- A common scalar bound for the clipped loss on any finite proper-power prefix.
+The two cutoffs are independent. In particular the physical ASK cutoff may be
+much larger than the height-to-width ratio. -/
+theorem nativeProperPower_clippedMass_le :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ (M N : ℕ), 1 ≤ M →
+      ∑ n ∈ Finset.Icc 1 N, nativeProperPowerAtom n * min ((M : ℝ) / n) 1 ≤
+        K * Real.sqrt M := by
+  obtain ⟨D, hD⟩ := Chebyshev.psi_sub_theta_le_mul_sqrt
+  let C := |D|
+  have hC : 0 ≤ C := abs_nonneg _
+  have hB (k : ℕ) : mass k ≤ C * Real.sqrt k :=
+    (mass_chebyshev k).le.trans ((hD _).trans
+      (mul_le_mul_of_nonneg_right (le_abs_self _) (Real.sqrt_nonneg _)))
+  refine ⟨2 * C, by positivity, ?_⟩
+  intro M N hM
+  let f := fun n : ℕ => nativeProperPowerAtom n * min ((M : ℝ) / n) 1
+  have key (L : ℕ) (hL : M ≤ L) :
+      ∑ n ∈ Finset.Icc 1 L, f n =
+        (M : ℝ) * recipPrefix L - nativeSquareProperPowerCapacity M := by
+    induction L, hL using Nat.le_induction with
+    | base =>
+      rw [proper_capacity_eq]
+      suffices h : ∑ n ∈ Finset.Icc 1 M, f n = mass M by linarith
+      apply Finset.sum_congr rfl
+      intro n hn
+      obtain ⟨hn1, hnM⟩ := Finset.mem_Icc.mp hn
+      have hn0 : (0 : ℝ) < n := by exact_mod_cast (by omega : 0 < n)
+      have hle : (1 : ℝ) ≤ (M : ℝ) / n := (one_le_div hn0).2 (by exact_mod_cast hnM)
+      simp [f, min_eq_right hle]
+    | succ k hk ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ k + 1), ih, recipPrefix_succ]
+      have hle : (M : ℝ) / ((k + 1 : ℕ) : ℝ) ≤ 1 :=
+        (div_le_one (by positivity)).2 (by exact_mod_cast (by omega : M ≤ k + 1))
+      dsimp only [f]
+      rw [min_eq_left hle]
+      ring
+  have hsub : Finset.Icc 1 N ⊆ Finset.Icc 1 (max M N) :=
+    Finset.Icc_subset_Icc le_rfl (le_max_right _ _)
+  calc
+    _ ≤ ∑ n ∈ Finset.Icc 1 (max M N), f n := by
+      apply Finset.sum_le_sum_of_subset_of_nonneg hsub
+      intro n _ _
+      exact mul_nonneg (atom_nonneg _) (le_min (div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)) zero_le_one)
+    _ = _ := key _ (le_max_left _ _)
+    _ ≤ _ := (finite_proper_power_error C hC hB hM _ (le_max_left _ _)).2
+
 /-- The same centering constant pays the proper-power error throughout every
 square-clock window, including each upper cutoff `R^2 - 1`. -/
 theorem nativeProperPowerCenter_square_error :

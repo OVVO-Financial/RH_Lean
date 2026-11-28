@@ -1,0 +1,25 @@
+// Exact finite regression for the paper argument. Run with Node.js; no dependencies.
+// Does not test the RH-strength signed trace bound.
+function gcd(a,b){while(b){const t=a%b;a=b;b=t;}return a;}
+function divisors(n){return Array.from({length:n},(_,i)=>i+1).filter(d=>n%d===0);}
+function phi(n){let r=0;for(let j=0;j<n;j++)if(gcd(j,n)===1)r++;return r;}
+function isPrime(n){if(n<2)return false;for(let j=2;j*j<=n;j++)if(n%j===0)return false;return true;}
+function factorPowers(n){return divisors(n).filter(isPrime).map(p=>{let Q=p;while(n%(Q*p)===0)Q*=p;return [p,Q];});}
+function divPoly(f,g){let a=f.slice(),q=Array(f.length-g.length+1).fill(0n);for(let i=q.length-1;i>=0;i--){q[i]=a[i+g.length-1];for(let j=0;j<g.length;j++)a[i+j]-=q[i]*g[j];}if(a.some(t=>t!==0n))throw Error("nonexact polynomial quotient");return q;}
+function cyclotomics(N){let P=[[]];for(let n=1;n<=N;n++){let f=Array(n+1).fill(0n);f[0]=-1n;f[n]=1n;for(const d of divisors(n))if(d<n)f=divPoly(f,P[d]);P[n]=f;}return P;}
+function homogeneous(f,c){const a=BigInt(c+1),b=BigInt(c),r=f.length-1;return f.reduce((s,v,i)=>s+v*a**BigInt(i)*b**BigInt(r-i),0n);}
+function mod(x,l){const q=BigInt(l);return (x%q+q)%q;}
+function valuation(a,l){if(a===0n)throw Error("zero valuation");let k=0,q=BigInt(l);while(a%q===0n){a/=q;k++;}return k;}
+function order(c,l){if(c%l===0||(c+1)%l===0)return 0;let b=1;while((c*b)%l!==1)b++;const t=((c+1)*b)%l;let v=t,k=1;while(v!==1){v=v*t%l;k++;if(k>=l)throw Error("order");}return k;}
+function matrixB(f,c){const r=f.length-1,b=BigInt(c),a=b+1n;return Array.from({length:r},(_,i)=>Array.from({length:r},(_,j)=>(i===j?a:0n)+(j===r-1?b*f[i]:(i===j+1?-b:0n))));}
+function repair(B){const r=B.length;return B.map((row,i)=>row.map((v,j)=>j===r-1?(i===0?1n:0n):v));}
+function det(A){const n=A.length;if(!n)return 1n;let B=A.map(row=>row.slice()),sign=1n,prev=1n;for(let k=0;k<n-1;k++){let p=k;while(p<n&&B[p][k]===0n)p++;if(p===n)return 0n;if(p!==k){[B[p],B[k]]=[B[k],B[p]];sign=-sign;}let d=B[k][k];for(let i=k+1;i<n;i++){for(let j=k+1;j<n;j++){let z=B[i][j]*d-B[i][k]*B[k][j];if(z%prev!==0n)throw Error("Bareiss nonexact");B[i][j]=z/prev;}B[i][k]=0n;}prev=d;}return sign*B[n-1][n-1];}
+function rankMod(A,l){let B=A.map(row=>row.map(v=>mod(v,l))),r=0;const q=BigInt(l);for(let j=0;j<B[0].length&&r<B.length;j++){let p=r;while(p<B.length&&B[p][j]===0n)p++;if(p===B.length)continue;[B[p],B[r]]=[B[r],B[p]];let inv=1n;while(B[r][j]*inv%q!==1n)inv++;for(let i=r+1;i<B.length;i++){let t=B[i][j]*inv%q;for(let k=j;k<B[i].length;k++)B[i][k]=mod(B[i][k]-t*B[r][k],l);}r++;}return r;}
+function primitiveBasis(n){let tuples=[[]];for(const [p,Q] of factorPowers(n)){const h=Q/p,opts=[];for(let a=0;a<h;a++)for(let j=0;j<p-1;j++)opts.push([Q,a+j*h,a+(p-1)*h]);tuples=tuples.flatMap(t=>opts.map(o=>t.concat([o])));}return tuples.map(t=>Array.from({length:n},(_,i)=>t.reduce((s,[Q,a,b])=>s*(i%Q===a?1n:i%Q===b?-1n:0n),1n)));}
+function gram(V,w){return V.map(v=>V.map(u=>v.reduce((s,a,i)=>s+a*u[i]*w[i],0n)));}
+function run(){const P=cyclotomics(96),primes=Array.from({length:211},(_,i)=>i+1).filter(isPrime);let counts={frequencyOrders:0,orderTowerCases:0,higherTowerCases:0,nonunitCases:0,companionDeterminants:0,rankCases:0,rankDefects:0,unitRepairs:0,physicalGramCases:0,admissionCases:0};const check=(b,msg)=>{if(!b)throw Error(msg);};for(let n=1;n<=200;n++){for(const d of divisors(n)){let count=0;for(let j=0;j<n;j++)if(n/gcd(n,j)===d)count++;check(count===phi(d),"frequency law");counts.frequencyOrders++;}}
+for(const c of [1,2,3,4,5,8,13,17,31]){const D=P.map((f,n)=>n?homogeneous(f,c):1n);for(const l of primes){const h=order(c,l);for(let n=2;n<=96;n++){let isTower=false,power=0;if(h&&n%h===0){let t=n/h;while(t%l===0){t/=l;power++;}isTower=t===1;}const v=valuation(D[n],l);check((v>0)===isTower,"order tower");if(isTower&&power>0){check(v===1,"higher valuation");counts.higherTowerCases++;}counts.orderTowerCases++;if(v)counts.nonunitCases++;if(n%l===0&&n/l<l&&l>c+1){check(v===(D[n/l]%BigInt(l)===0n?1:0),"admission");counts.admissionCases++;}}}}
+for(const c of [1,2,5,9])for(let n=2;n<=32;n++){let B=matrixB(P[n],c),r=B.length,D=homogeneous(P[n],c);check(det(B)===D,"companion determinant");check(det(repair(B))===BigInt(c)**BigInt(r-1),"repair determinant");counts.companionDeterminants++;for(const l of primes.filter(p=>p<=47)){const bad=D%BigInt(l)===0n;check(rankMod(B,l)===r-(bad?1:0),"local rank");counts.rankCases++;if(bad){counts.rankDefects++;check(rankMod(repair(B),l)===r,"unit repair");counts.unitRepairs++;}}}
+for(let n=2;n<=32;n++){const V=primitiveBasis(n),r=V.length,G=gram(V,Array(n).fill(1n)),g=det(G);check(r===phi(n)&&g>0n,"primitive basis");for(const M of [3,4,5,7])for(const l of [2,3,5,7,11,13]){const m=M-(M%l===0?1:0),Q=factorPowers(n).find(a=>a[0]===l)?.[1]||0,w=Array.from({length:n},(_,i)=>BigInt(m+(Q&&i%Q>=(l-1)*(Q/l)?1:0)));const H=gram(V,w),d=det(H);check(d%BigInt(l)!==0n,"fitted physical Gram");check(d>=BigInt(M-1)**BigInt(r)*g&&d<=BigInt(M+1)**BigInt(r)*g,"physical metric sandwich");counts.physicalGramCases++;}}
+return counts;}
+console.log(JSON.stringify(run(), null, 2));

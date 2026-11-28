@@ -1,3 +1,15 @@
+## Current native signed-compensation proof on #1214
+
+The [#1214 terminal acceptance contract](CURRENT_PROOF_CONTRACT.md#1214-unconditional-native-rh-acceptance) governs this PR. Keep the final status red until the closed production `native_riemannHypothesis`, its actual #1205 window supplier, full dependency audit, independent replay and human mathematical approval all refer to the same commit.
+
+Use [Sernau’s readable and compact proofs at `72fead102f663d5c7a407964a13dc0cf9d977207`](https://github.com/lsernau/grh-lean/tree/72fead102f663d5c7a407964a13dc0cf9d977207) as the primary upstream mathematical reference. Continue the single closure assignment on #1214 from the frozen, verified #1201 checkpoint. Earlier role assignments and instructions to develop on #1201 are historical for this work.
+
+Begin at `Data.heightLe_inv_ratio` in the pinned compact edition. Extract the upper valuation on one integral test and the independent untwisted norm at the nominal site orders. Use their product on the same measured operator before transporting it to the lower determinant. The per-direction allowance is `Data.B₀ = Data.budget / (m*k)`.
+
+Extract `exists_isFitFamily`, `denominatorLe_rowBudget` and `DenominatorLe.rank_one_bound` together. Price all tested rows and every eligible line at the same place with one summable allowance. Keep the global class multiplier on the line, the dimension and auxiliary rank in the determinant exponent, and both wheel readings in the actual pairings. Compare the measured wheel lattice with the retained section lattice on every anchor.
+
+Follow the [native discrepancy ledger](research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md) from the compact `star_inequality` through A, B and C. Account for the common main amount, rank, aggregate prime gain, finite index and lower determinant on the same measured family, or prove the signed comparison directly on its complete arithmetic source. Keep the original cutoff, divisor and full cofinal-window quantifiers. Apply #1205 once its native bound is supplied. Preserve the existing hosted caches and strict dependency checks, including the exclusion of terminal RH inputs.
+
 ## 2026-11-25 — native economical recovery (controlling seven-agent task)
 
 **NATIVE_ECONOMICAL_RECOVERY_V1 — controlling research assignment after human-reviewed policy merge.** ALL SEVEN existing roles must read [the native economical recovery directive](docs/RHLEAN_NATIVE_ECONOMICAL_RECOVERY_20261125.md) before selecting work. Recover what Alpöge recovers, measure what Alpöge measures, pay what Alpöge pays through native prime-exponent coordinates and square-block ancestry. This supersedes conflicting task priorities in older main or #1201 instructions; preserve the existing final #1201 proof contract and its safeguards. Work on the actual latest #1201 head; #1201 is the only mathematical completion PR, and #1205 remains its existing principal-window handoff.

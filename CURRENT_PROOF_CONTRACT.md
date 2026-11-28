@@ -1,5 +1,42 @@
 # RH_Lean current proof contract
 
+## #1214 unconditional native RH acceptance
+
+The single active mathematical frontier is #1214, based on the verified #1201 checkpoint. Completion requires a production declaration named `native_riemannHypothesis` whose kernel kind is theorem, whose entire type is the literal Mathlib constant `RiemannHypothesis`, and whose type has zero binders and zero universe parameters. Review applies to a single immutable PR head.
+
+The terminal proof consumes `RHLean.Analysis.AlpogeNativeBoundHandoff.riemannHypothesis_of_smallEpsilonWindowBound` with an independently proved closed window supplier. In the original notation the claim is
+$$
+\exists K,\varepsilon_1\in\mathbb R,\quad 0<\varepsilon_1\ \land\
+\forall 0<\varepsilon<\varepsilon_1,\ \exists C_\varepsilon\in\mathbb R,\ \forall Y_0\in\mathbb R,\ \exists Y\ge Y_0,\ \forall y\in[Y,Y^{3/2}],\quad
+\mathrm{statementOCGz}(y)\le C_\varepsilon y^{1/2+K\varepsilon}.
+$$
+The production consumer allows real $K$. The verifier derives the positive-coefficient witness with $K'=\max(K,1)$ and $C'_\varepsilon=|C_\varepsilon|$ by requesting the same complete windows beyond $\max(Y_0,1)$. It also accepts a supplier giving positive $K$ directly. $C_\varepsilon$ is chosen before the requested location. The original source includes all von Mangoldt prime powers and its Euler centering. The arithmetic and quantifier checks elaborate against independently restated formulas. [Production handoff](RHLean/Analysis/AlpogeNativeBoundHandoff.lean)
+
+On the wheel route the review covers the actual integral sections and duals, paid rank deficit, aggregate Euler divisibility, a common summable projector allowance, an independent archimedean norm, the lower determinant with the upper comparison's main amount, the complete signed ASK−MAIN bound and every real anchor on cofinal complete windows. In particular it must prove the economic inequality $\log M/E\le B_{\rm dir}$ and pay the physical transport on the retained family. A direct signed proof may replace A, B and C if it supplies the same original window estimate. [Joint projector and discrepancy ledger](research/NATIVE_QUANTITATIVE_DISCREPANCY_LEDGER_20261125.md#one-budget-for-the-retained-space-and-its-rank-one-tests)
+
+**Final proof review**
+
+- [ ] Closed production theorem of literal type `RiemannHypothesis`
+- [ ] Kernel proofs of the critical quantitative estimates
+- [ ] Proof cone free of holes, admitted proofs and unauthorized axioms
+- [ ] Transitive axioms confined to `propext`, `Classical.choice` and `Quot.sound`
+- [ ] Production imports and proof provenance exclude external terminal RH or GRH proofs, including the pinned compact terminal signatures
+- [ ] Complete transitive kernel type and proof-body audit, including external constants
+- [ ] Independent physical height, rank and gain measurements with semantic review for circularity
+- [ ] Literal arithmetic source and complete real-window quantifiers
+- [ ] Full hosted Lean build and independent exact-head verification
+- [ ] Human mathematical review of the terminal supplier chain
+
+**Acceptance evidence.** The source-audit workflow checks the exact kernel census on #1214 and applies the existing mandatory stop to an unreviewed candidate. The Native RH completion workflow runs on every PR revision including documentation changes. It checks the generated kernel environment, publishes a dependency graph including opaque proof bodies, rejects terminal ancestors of the quantitative proof, and replays the terminal module with `leanchecker --fresh` on a separate hosted runner after rebuilding from source. That runner starts with the pinned dependencies and an empty project build directory. The gate independently reconstructs the #1205 application from the closed window witness. Fresh replay uses the Lean kernel. A pinned Lean exporter then exports the named proof and its dependencies. The independent Rust checker nanoda checks that exact export with a hard limit of the three allowed axioms. The gate verifies the exported theorem name, literal type and proof index, and records the export digest. The separate mathematical review assesses the meaning and provenance of the suppliers, including aliases and any unpriced input to a definition. [Kernel audit](scripts/lean/NativeRHCompletion.lean) · [Completion workflow](.github/workflows/native-rh-completion.yml)
+
+After inspecting the exact-head proof, full cone, quantitative constructions and verification evidence, an independent human repository reviewer records their findings in an approving GitHub review. Include the following attestation as a standalone line, substituting the full reviewed commit SHA.
+
+> I reviewed the native RH terminal supplier chain and all ten acceptance criteria at FULL_COMMIT_SHA.
+
+Acceptance reads the live review record, requires the current head and rejects stale approvals, dismissed approvals, outstanding changes requested on the same head, bot accounts and self-review. A checked box or statement in this file cannot approve a proof. The completion job fails on missing, failed or skipped kernel verification or replay. Review events refresh the decision. [Review check](scripts/ci/native_rh_review.py)
+
+## Historical checkpoint directives
+
 **FINAL_PR_1201_PROOF_CLOSURE_V1 — controlling research assignment (2026-11-24; effective after human-reviewed merge).** Before any older dated NEXT-* task, read [the final #1201 seven-agent closure directive](docs/RHLEAN_FINAL_PR_1201_PROOF_CLOSURE_20261124.md) and the latest #1201 AGENTS.md at its actual head. All seven roles attack the one independently earned same-host signed gain-to-cost frontier and the clean principal window application to #1205, not the full upstream family, unrelated geometry, OAI 7/8 or new conditional RH endpoints. DIRECT_CORE_CUT_V1 and STRICT_NO_GEOCL_ANYGEOMETRY_V1 govern; no direct/transitive prohibited geometry, circular cost or imported terminal RH. Preserve the exact signed native source, all quantifiers, six own-report-only roles, Lean's existing authorized non-main writes, lossless report continuity, hosted-only verification and human-only merge. Resume last actual reports and record final_1201_ack=FINAL_PR_1201_PROOF_CLOSURE_V1 only upon actual consumption. #1201 remains the sole mathematical completion PR; RH OPEN. This policy changes no runtime settings, schedules, grants or launches.
 
 **2026-11-22 ACTIVE RESEARCH ASSIGNMENT — ALPOGE_NATIVE_DESCENT_PAYMENT_V1 (after human-reviewed merge):** Read [the constructed-witness and complete-source directive](docs/RHLEAN_ALPOGE_NATIVE_DESCENT_PAYMENT_20261122.md) first. All seven roles now extract finite lattice descent, construct its integral maps with joint norm and rank control, and carry the complete signed source through the derived Q=T*m*b*Delta/2 normalization. Trace existing suppliers before declaring a cost unpaid; recombine signed character/width terms before separate bounds. Keep R_V, geometric R_A, theta m_A, map count q and host size n distinct. The [ALPOGE_VIOLE_TRACTABLE_RH_V1 charter](docs/RHLEAN_ALPOGE_VIOLE_TRACTABLE_PROOF_SEVEN_AGENTS_20261122.md) retains T/C/P: tractability, new reusable contribution and unconditional proof. The complete native critical estimate remains OPEN.

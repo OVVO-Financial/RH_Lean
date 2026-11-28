@@ -15,6 +15,8 @@ on:
       - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/ci/superseded_build_caches.awk'
+      - 'scripts/test_ci_cache_contract.py'
       - 'scripts/lake_build_fail_fast.py'
       - 'scripts/test_lake_build_fail_fast.py'
       - 'scripts/repo_index.py'
@@ -43,12 +45,16 @@ on:
       - 'scripts/check_kernel_rh_status.py'
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/ci/superseded_build_caches.awk'
+      - 'scripts/test_ci_cache_contract.py'
       - 'scripts/lake_build_fail_fast.py'
       - 'scripts/test_lake_build_fail_fast.py'
       - 'scripts/repo_index.py'
       - '.github/actions/**'
       - '.github/workflows/lean.yml'     # changes to this audit workflow
       - '.github/workflows/research-iteration.yml'
+  pull_request_review:
+    types: [submitted, edited, dismissed]
   workflow_dispatch:
 
 permissions:
@@ -57,6 +63,7 @@ permissions:
 jobs:
   # Reject inexpensive source/configuration failures before starting Lean.
   audit:
+    if: github.event_name != 'pull_request_review' || github.event.pull_request.number == 1214
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
@@ -64,6 +71,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.number == 1214 && github.event.pull_request.head.sha || github.sha }}
 
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
@@ -99,7 +108,7 @@ jobs:
 
       - name: Choose changed research Lean targets
         id: targets
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.event.pull_request.number == 1214
         shell: bash
         env:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -156,6 +165,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.number == 1214 && github.event.pull_request.head.sha || github.sha }}
 
       # Save cold dependencies before compiling proofs; exact complete hits
       # skip the repeated Mathlib download/unpack.
@@ -298,9 +309,15 @@ jobs:
       # instances, notation and macro expansion.
       - name: Validate exact elaborated declaration graph
         if: steps.directbuild.outcome == 'success'
+        env:
+          FINAL_PR: ${{ github.event.pull_request.number }}
         run: |
           lake env lean --run scripts/lean/DeclGraph.lean lean-decl-graph.jsonl
-          python3 scripts/check_kernel_rh_status.py lean-decl-graph.jsonl
+          # On the final PR the same mandatory review stop runs below, after
+          # publication of the graph reviewers need. Other builds retain the open census.
+          if [[ "$FINAL_PR" != 1214 ]]; then
+            python3 scripts/check_kernel_rh_status.py lean-decl-graph.jsonl
+          fi
           python3 scripts/decl_graph.py \
             --from-lean lean-decl-graph.jsonl \
             --json lean-decl-graph.json \
@@ -344,15 +361,17 @@ jobs:
       # them, and every run of this workflow used to add another multi-gigabyte
       # .lake/build entry under a fresh content hash, so a busy afternoon
       # evicted the very entries the next run wanted and turned a two minute
-      # incremental build back into a fifteen minute cold one.  Keep only the
-      # newest build entry per ref; the save above has already written it.
+      # incremental build back into a fifteen minute cold one. An exact full
+      # hit is older than any preflight saved after it. Retire entries only
+      # after locating this successful build key on this specific ref.
       #
       # Forked pull requests get a read-only token, so this is best effort.
       - name: Trim superseded build caches for this ref
-        if: ${{ !cancelled() && github.event.pull_request.head.repo.fork != true }}
+        if: ${{ success() && github.event.pull_request.head.repo.fork != true }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
+          CURRENT_BUILD_KEY: ${{ steps.rhleancache.outputs.cache-primary-key }}
           CACHE_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.number) || github.ref }}
         run: |
           set -euo pipefail
@@ -360,8 +379,9 @@ jobs:
             "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
             --jq '.actions_caches[] | select((.key | startswith("rhlean-build-")) or (.key | startswith("rhlean-preflight-build-v1-"))) | [.created_at, (.id|tostring), .key] | @tsv' \
             > caches.tsv || : > caches.tsv
-          # Newest first, keep row one, delete the rest.
-          sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
+          LC_ALL=C sort -r caches.tsv |
+            awk -v current="$CURRENT_BUILD_KEY" -f scripts/ci/superseded_build_caches.awk |
+            while IFS=$'\t' read -r created id key; do
             echo "deleting superseded cache ${key} (${created})"
             gh api -X DELETE "/repos/${GITHUB_REPOSITORY}/actions/caches/${id}" || true
           done
@@ -388,6 +408,41 @@ jobs:
         shell: bash
         run: python3 scripts/lean_diagnostic_inventory.py lean-build.log
 
+  terminal_contract:
+    name: Require the reviewed closed native RH theorem
+    if: always() && github.event.pull_request.number == 1214
+    needs: [build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Require a successful exact-head production build
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: test "$BUILD_RESULT" = success
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: exact-declaration-graph
+          path: exact-head
+      - name: Reject a missing or conditional theorem and stop unreviewed candidates
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROOF_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$PROOF_HEAD"
+          python3 scripts/check_rh_conditionality.py --require-unconditional native_riemannHypothesis --kernel-jsonl exact-head/lean-decl-graph.jsonl
+          if ! python3 scripts/ci/native_rh_review.py; then
+            python3 scripts/check_kernel_rh_status.py exact-head/lean-decl-graph.jsonl
+            exit 1
+          fi
+
   cancel_dependents:
     name: Stop remaining checks after failure
     needs: [audit, research, build]
@@ -410,6 +465,7 @@ jobs:
               ...context.repo, head_sha: pr.head.sha, event: 'pull_request', per_page: 100
             });
             for (const run of runs) {
+              if (pr.number === 1214 && run.path === '.github/workflows/native-rh-completion.yml') continue;
               if (run.id === context.runId || run.status === 'completed' ||
                   run.head_sha !== pr.head.sha || run.head_branch !== pr.head.ref ||
                   run.head_repository?.full_name !== pr.head.repo.full_name ||
