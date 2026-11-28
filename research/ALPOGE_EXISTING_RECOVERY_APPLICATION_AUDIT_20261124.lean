@@ -5,6 +5,7 @@ import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
 import «research.NativeSharedHeightRecovery»
 import «research.NativeWheelFitProjector»
+import «research.NativePairedCoefficientIndex»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeSignedWidthSweep»
 import RHLean.Analysis.AlpogeThin.NativeDyadicShiftedWidthRows
@@ -377,3 +378,27 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.WheelFit.place_rat
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.transport_integral
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.original_addresses
+
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.dyadic_nonzero_channels
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.common_read_nonzero
+#print axioms RHLean.Analysis.AlpogeThin.WheelFit.nonzero_projector_price
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.orthogonal_card_mul_le
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.poleChar_single
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.poleChar_injective
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.pole_card_bound
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.relative_card
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.paired_saturated_images
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.paired_exponent_bound
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.nonuniform_index_arithmetic
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.uniform_index_arithmetic
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.uniform_image_size
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.uniform_paired_index
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.uniform_common_index
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.paired_coordinate_integral
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.paired_coordinate_price
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.first_last_overlap
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.ratio_place_norm
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.native_test_ratio
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.recenter_finite
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.recenter_arch
+#print axioms RHLean.Analysis.AlpogeThin.PairedIndex.reciprocal_witness
