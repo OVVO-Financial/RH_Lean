@@ -1,6 +1,7 @@
 import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
+import «research.NativeSparseAnchorHeight»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -351,6 +352,31 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.originalGx_price,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.anchor_normal,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_amplitude_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_gram_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_pivot,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_schur_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_mul,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_eq_normal,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_omitted_add,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_ratio,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.factor_norm_other,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.factor_norm_self,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_norm_self,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_norm_outside,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_norm_self,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_norm_outside,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_norm_ratio,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_log_product,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.all_pivot_log,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_pivot,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_pair,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_energy,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_place,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.nat_log_product,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.quotient_log_product,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.common_witness_log,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
