@@ -8,6 +8,7 @@ import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
 import «research.NativeLevelBranching»
 import «research.NativeWheelLevelAttachment»
+import «research.NativeRetainedDegreePreimage»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -112,6 +113,20 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.layer_dvd_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.leaf_read,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.root_read,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_clearing_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_unrooted,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrooted_rooted,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_dvd_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_preimage,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_mulVec,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_image,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rootedDegree_sum,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_preimage,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at_neg,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_at,
@@ -584,3 +599,18 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.poly_ramified
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.original_star_dilation_cancel
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.positive_degree_preimage_readout
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.layer_dvd_iff
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.leaf_read
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.root_read
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_clearing_iff
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_unrooted
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrooted_rooted
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_dvd_iff
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_preimage
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_mulVec
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_image
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rootedDegree_sum
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_preimage

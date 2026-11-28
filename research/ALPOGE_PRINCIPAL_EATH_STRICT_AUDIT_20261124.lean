@@ -7,6 +7,7 @@ import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
 import «research.NativeLevelBranching»
 import «research.NativeWheelLevelAttachment»
+import «research.NativeRetainedDegreePreimage»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -76,6 +77,20 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.layer_dvd_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.leaf_read,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.root_read,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_clearing_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_unrooted,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrooted_rooted,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_dvd_iff,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rooted_preimage,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.unrootMatrix_mulVec,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_image,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rootedDegree_sum,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_preimage,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at_neg,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_at,
