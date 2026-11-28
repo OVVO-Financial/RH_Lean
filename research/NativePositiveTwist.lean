@@ -144,4 +144,65 @@ theorem signed_ratio_norm {K : Type*} [NormedField K]
     ‖((D/a)/(E/b))^2‖=‖(D/E)^2‖ := by
   simp [norm_pow,norm_div,ha,hb]
 
+/-- The actual class average on a retained physical layer, with no
+change of the original mask. Its scalar denominator is the class size. -/
+def classProjector {I : Type*} [Fintype I] (y : I → ℂ) : I → ℂ :=
+  fun _ => (∑ i, y i)/(Fintype.card I:ℂ)
+
+theorem class_pair {I : Type*} [Fintype I] (h : 0 < Fintype.card I)
+    (x y : I → ℂ) :
+    (Fintype.card I:ℂ)*(∑ i, star (x i)*classProjector y i) =
+      (∑ i, star (x i))*(∑ i, y i) := by
+  have hn : (Fintype.card I:ℂ) ≠ 0 := by exact_mod_cast h.ne'
+  unfold classProjector
+  rw [← Finset.sum_mul]
+  field_simp [hn]
+
+private theorem norm_sum_units {I K : Type*} [NormedField K] [IsUltrametricDist K]
+    (s : Finset I) (x : I → K) (hx : ∀ i ∈ s, ‖x i‖≤1) :
+    ‖∑ i ∈ s, x i‖≤1 := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert i s hi ih =>
+    rw [Finset.sum_insert hi]
+    exact (IsUltrametricDist.norm_add_le_max _ _).trans (max_le
+      (hx i (Finset.mem_insert_self _ _))
+      (ih fun j hj => hx j (Finset.mem_insert_of_mem hj)))
+
+/-- Paired tests integral at all embeddings above the selected prime
+pay the actual class factor, including the conjugate test. -/
+theorem class_projector_bound {I K : Type*} [Fintype I]
+    [NormedField K] [IsUltrametricDist K] (ι : ℂ →+* K)
+    (h : 0 < Fintype.card I) (x y : I → ℂ)
+    (hx : ∀ i, ‖ι (star (x i))‖≤1) (hy : ∀ i, ‖ι (y i)‖≤1) :
+    ‖ι ((Fintype.card I:ℂ)*(∑ i, star (x i)*classProjector y i))‖≤1 := by
+  rw [class_pair h,map_mul,map_sum,map_sum,norm_mul]
+  exact (mul_le_of_le_one_left (norm_nonneg _) (norm_sum_units _ _ fun i _ => hx i)).trans
+    (norm_sum_units _ _ fun i _ => hy i)
+
+/-- On the literal physical layer, the indicator is an integral
+test against both positive quadratic depths. It is in the lift
+range itself and hence orthogonal to its full complement. -/
+theorem class_indicator_read {I : Type*} [Fintype I] (t : ℂ) :
+    (∑ _i : I, star (1:ℂ)*t) = (Fintype.card I:ℂ)*t := by
+  simp [nsmul_eq_mul]
+
+/-- Measured rank-one squared norm, not an assigned height. -/
+theorem class_lift_energy {I : Type*} [Fintype I] (t : ℝ) :
+    (∑ _i : I, t^2) = (Fintype.card I:ℝ)*t^2 := by
+  simp [nsmul_eq_mul]
+
+theorem class_scalar {I : Type*} [Fintype I] (N t : ℝ) (hN : N≠0) :
+    (∑ _i : I, t) = (t/N)*(∑ _i : I, N) := by
+  simp only [Finset.sum_const,Finset.card_univ,nsmul_eq_mul]
+  field_simp [hN] <;> ring
+
+theorem class_norm_ratio {I : Type*} [Fintype I] (N t : ℝ)
+    (h : 0 < Fintype.card I) (hN : N≠0) :
+    (∑ _i : I, t^2)/(∑ _i : I, N^2)=(t/N)^2 := by
+  have hn : (Fintype.card I:ℝ) ≠ 0 := by exact_mod_cast h.ne'
+  rw [class_lift_energy,class_lift_energy]
+  field_simp [hn,hN]
+
 end RHLean.Analysis.NativePositiveTwist
