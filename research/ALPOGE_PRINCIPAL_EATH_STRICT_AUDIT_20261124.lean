@@ -1,4 +1,5 @@
 import «research.NativeTrueZeroSchurFit»
+import «research.NativeSignLift»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -331,6 +332,15 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.augmented_det,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.schur_det,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.native_schur_det,
+    ``RHLean.Analysis.NativeSignLift.lift_mul,
+    ``RHLean.Analysis.NativeSignLift.signed_mul,
+    ``RHLean.Analysis.NativeSignLift.unsigned_mul,
+    ``RHLean.Analysis.NativeSignLift.change_restore,
+    ``RHLean.Analysis.NativeSignLift.restore_change,
+    ``RHLean.Analysis.NativeSignLift.triangular_intertwine,
+    ``RHLean.Analysis.NativeSignLift.triangular_conjugate,
+    ``RHLean.Analysis.NativeSignLift.lift_det,
+    ``RHLean.Analysis.NativeSignLift.euler_lift_det,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
