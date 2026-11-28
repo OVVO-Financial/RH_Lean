@@ -1,6 +1,7 @@
 import RHLean.Analysis.AlpogeNativeBoundHandoff
 import RHLean.Analysis.MobiusRenewalTelescope
 import RHLean.Analysis.RamanujanDivisorBoundary
+import Mathlib.NumberTheory.Chebyshev
 import Mathlib.NumberTheory.Harmonic.Bounds
 import Mathlib.RingTheory.Polynomial.Cyclotomic.Basic
 
@@ -468,6 +469,48 @@ private theorem scale_bounds {x : ℝ} (hx : 4 ≤ x) :
   exact ⟨hc, Nat.floor_le (Real.sqrt_nonneg _),
     by linarith only [show Real.sqrt x < (scale x : ℝ) + 1 from Nat.lt_floor_add_one _, hc₁]⟩
 
+/-- The same integer exponents as the rational determinant read the full
+von Mangoldt endpoint. Chebyshev pays only their rounding error. -/
+theorem statementOCGz_rounded_residual {x : ℝ} (hx : 4 ≤ x) :
+    |(AlpogeNativeBoundHandoff.statementOCGz x +
+        ∑ n ∈ Icc 1 ⌊x⌋₊, Λ n * ((multiplicity x n : ℝ) / (scale x : ℝ))) -
+      ((∑ k ∈ Icc 1 ⌊x⌋₊, Real.log k * profile (k / x)) - x * Real.log x +
+        (1 + Real.eulerMascheroniConstant) * x)| ≤ (Real.log 4 + 4) * Real.sqrt x := by
+  let c : ℝ := scale x
+  have hc : 0 < c := Nat.cast_pos.mpr (scale_bounds hx).1
+  have hx₀ : 0 < x := by linarith
+  have mass : (∑ n ∈ Icc 1 ⌊x⌋₊, Λ n) ≤ (Real.log 4 + 4) * x := by
+    have indices : Icc 1 ⌊x⌋₊ = Ioc 0 ⌊x⌋₊ := by
+      ext n
+      simp only [mem_Icc, mem_Ioc]
+      omega
+    rw [indices, ← Chebyshev.psi]
+    exact Chebyshev.psi_le_const_mul_self hx₀.le
+  have err (n : ℕ) : |(multiplicity x n : ℝ) / c - residual (n / x)| ≤ (1 / 2) / c := by
+    have e : (multiplicity x n : ℝ) / c - residual (n / x) =
+        ((multiplicity x n : ℝ) - c * residual (n / x)) / c := by
+      rw [sub_div, mul_div_cancel_left₀ _ hc.ne']
+    rw [e, abs_div, abs_of_pos hc, abs_sub_comm]
+    exact div_le_div_of_nonneg_right (abs_sub_round _) hc.le
+  rw [← statementOCGz_add_residual hx₀, add_sub_add_left_eq_sub, ← sum_sub_distrib]
+  calc
+    _ ≤ _ := abs_sum_le_sum_abs _ _
+    _ ≤ ∑ n ∈ Icc 1 ⌊x⌋₊, Λ n * ((1 / 2) / c) := by
+      apply sum_le_sum
+      intro n _
+      rw [← mul_sub, abs_mul, abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
+      exact mul_le_mul_of_nonneg_left (err n) ArithmeticFunction.vonMangoldt_nonneg
+    _ = _ := (sum_mul ..).symm
+    _ ≤ ((Real.log 4 + 4) * x) * ((1 / 2) / c) := mul_le_mul_of_nonneg_right mass (by positivity)
+    _ ≤ _ := by
+      have hs : Real.sqrt x ≤ 2 * c := (scale_bounds hx).2.2
+      have h : x ≤ 2 * c * Real.sqrt x := by
+        nlinarith only [Real.sq_sqrt hx₀.le, mul_le_mul_of_nonneg_right hs (Real.sqrt_nonneg x)]
+      have hp := mul_le_mul_of_nonneg_left h (show 0 ≤ Real.log 4 + 4 by positivity)
+      rw [← mul_div_assoc]
+      apply (div_le_iff₀ hc).mpr
+      linarith only [hp]
+
 private theorem cutoff_decay {x : ℝ} (hx : 4 ≤ x) :
     ((radius (scale x) : ℝ) ^ traceCutoff x) * (2*x)^4 ≤ 1 := by
   let c : ℝ := scale x
@@ -657,6 +700,7 @@ theorem statementOCGz_sub_trace {x : ℝ} (hx : 4 ≤ x) :
   linarith only [cost, source]
 
 #print axioms statementOCGz_add_residual
+#print axioms statementOCGz_rounded_residual
 #print axioms block_eq_cyclotomic
 #print axioms trace_reference_uniform
 #print axioms statementOCGz_sub_trace
