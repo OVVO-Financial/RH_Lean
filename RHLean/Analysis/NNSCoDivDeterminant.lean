@@ -90,8 +90,7 @@ theorem divergent_diagonal_zero (S : Finset α) (w : α → ℝ) (x : α → ι 
     by_cases ha : t i ≤ x a i
     · simp [partialLower, not_lt_of_ge ha]
     · simp [partialUpper, ha]
-  unfold finiteDiv finiteDLPM finiteDUPM
-  simp only [Matrix.add_apply, mul_assoc]
+  simp only [finiteDiv, Matrix.add_apply, finiteDLPM, finiteDUPM, mul_assoc]
   have h' (a : α) : partialUpper (x a i) (t i) * partialLower (x a i) (t i) = 0 :=
     (mul_comm _ _).trans (h a)
   simp only [h, h', mul_zero, Finset.sum_const_zero, add_zero]
@@ -178,6 +177,7 @@ theorem normalized_certificate (C D : Matrix ι ι ℝ) (hc : C.PosDef)
   refine ⟨?_, hmk ▸ hm.conjTranspose_mul_mul_same R,
     hpk ▸ hp.conjTranspose_mul_mul_same R, ?_⟩
   · have he : K = Rᴴ*D*R := by rw [hR.1, hk]
+    change K.IsHermitian
     rw [he]
     exact Matrix.isHermitian_conjTranspose_mul_mul R hd
   · have h₁ : R.det * C.det * R.det = 1 := by
@@ -285,8 +285,8 @@ theorem co_posDef_of_second_moment {α : Type*} (S : Finset α) (w : α → ℝ)
 
 /-- A rigorous sufficient bound for net synthesis gain. The trace has
 its actual sign; it is not replaced by an unsigned estimate. -/
-theorem log_spectrum_le_neg_sum {λ : ι → ℝ} (h : ∀ i, λ i < 1) :
-    (∑ i, Real.log (1-λ i)) ≤ -(∑ i, λ i) := by
+theorem log_spectrum_le_neg_sum {ell : ι → ℝ} (h : ∀ i, ell i < 1) :
+    (∑ i, Real.log (1-ell i)) ≤ -(∑ i, ell i) := by
   rw [← Finset.sum_neg_distrib]
   apply Finset.sum_le_sum
   intro i _

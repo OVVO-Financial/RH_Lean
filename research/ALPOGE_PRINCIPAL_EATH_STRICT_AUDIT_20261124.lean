@@ -10,6 +10,7 @@ import «research.NativeWheelLevelAttachment»
 import «research.NativeRetainedDegreePreimage»
 import «research.NativePhysicalJetTransport»
 import «research.NativeCoDivSynthesis»
+import «research.NativeVandermondeResidueEnergy»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -79,6 +80,13 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.NativeVandermondeResidue.residueEnergy_nonneg,
+    ``RHLean.Analysis.NativeVandermondeResidue.collision_formula,
+    ``RHLean.Analysis.NativeVandermondeResidue.collision_residue,
+    ``RHLean.Analysis.NativeVandermondeResidue.weightedEnergy_nonneg,
+    ``RHLean.Analysis.NativeVandermondeResidue.pairLog_collision,
+    ``RHLean.Analysis.NativeVandermondeResidue.pairLog_energy,
+    ``RHLean.Analysis.NativeVandermondeResidue.ramp_le_pairLog,
     ``RHLean.Analysis.NNSCoDiv.co_posDef_of_second_moment,
     ``RHLean.Analysis.NNSCoDiv.log_spectrum_le_neg_sum,
     ``RHLean.Analysis.NNSCoDiv.finite_log_trace_bound,
