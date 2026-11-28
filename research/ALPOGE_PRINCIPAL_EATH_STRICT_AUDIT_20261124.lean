@@ -4,6 +4,7 @@ import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
+import «research.NativeCommonScalarCost»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -73,6 +74,11 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.NativeCommonScalarCost.paired_row,
+    ``RHLean.Analysis.NativeCommonScalarCost.balanced_row,
+    ``RHLean.Analysis.NativeCommonScalarCost.balanced_total,
+    ``RHLean.Analysis.NativeCommonScalarCost.paired_total,
+    ``RHLean.Analysis.NativeCommonScalarCost.paid_determinants,
     `RHLean.Geometry.NativeCore33.primeOrder_le_degree,
     `RHLean.Geometry.NativeCore33.primePower_eq_one,
     `RHLean.Geometry.NativeCore33.local_unipotent_primePower,

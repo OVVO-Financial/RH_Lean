@@ -5,6 +5,7 @@ import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
+import «research.NativeCommonScalarCost»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -109,6 +110,11 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.NativeCommonScalarCost.paired_row,
+    ``RHLean.Analysis.NativeCommonScalarCost.balanced_row,
+    ``RHLean.Analysis.NativeCommonScalarCost.balanced_total,
+    ``RHLean.Analysis.NativeCommonScalarCost.paired_total,
+    ``RHLean.Analysis.NativeCommonScalarCost.paid_determinants,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_price_le,
     ``RHLean.Analysis.AlpogeThin.nativeLedger_firstPrimeWidth_on_dyadicFrame,
     ``RHLean.Analysis.alpogeNativePartner_even_offset_iff,
@@ -509,3 +515,9 @@ run_cmd do
 #print axioms RHLean.Analysis.NativePositiveTwist.class_lift_energy
 #print axioms RHLean.Analysis.NativePositiveTwist.class_scalar
 #print axioms RHLean.Analysis.NativePositiveTwist.class_norm_ratio
+
+#print axioms RHLean.Analysis.NativeCommonScalarCost.paired_row
+#print axioms RHLean.Analysis.NativeCommonScalarCost.balanced_row
+#print axioms RHLean.Analysis.NativeCommonScalarCost.balanced_total
+#print axioms RHLean.Analysis.NativeCommonScalarCost.paired_total
+#print axioms RHLean.Analysis.NativeCommonScalarCost.paid_determinants
