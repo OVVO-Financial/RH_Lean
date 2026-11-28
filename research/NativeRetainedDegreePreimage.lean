@@ -186,7 +186,7 @@ theorem unrootMatrix_det (p : I) : (unrootMatrix p).det = 1 := by
   let c : I → ℤ := fun j => if j=p then 1 else -1
   have he : (∑ j, c j • (fun k : I => (1 : Matrix I I ℤ) j k)) = c := by
     funext k
-    simp [Finset.sum_apply, Pi.smul_apply, Matrix.one_apply, mul_ite]
+    simp [Finset.sum_apply, Matrix.one_apply, mul_ite]
   have h := Matrix.det_updateRow_sum (1 : Matrix I I ℤ) p c
   change ((1 : Matrix I I ℤ).updateRow p
     (∑ j, c j • (fun k : I => (1 : Matrix I I ℤ) j k))).det = _ at h
@@ -224,8 +224,10 @@ theorem preimageFrame_image (N : ℤ) (E : I → ℕ) (m : ℕ) (p : I)
     ((∀ i, N^(E i) ∣ u i) ∧ N^m ∣ ∑ i, u i) ↔
       ∃ w : I → ℤ, u = (preimageFrame N E m p).mulVec w := by
   rw [rooted_preimage N E m p hp]
-  simp only [preimageFrame, ← Matrix.mulVec_mulVec, unrootMatrix_mulVec,
-    Matrix.diagonal_mulVec, smul_eq_mul]
+  have hd (w : I → ℤ) : (Matrix.diagonal (fun i => N^(rootedDegree E m p i))).mulVec w =
+      fun i => N^(rootedDegree E m p i)*w i :=
+    funext fun i => Matrix.mulVec_diagonal _ _ i
+  simp only [preimageFrame, ← Matrix.mulVec_mulVec, unrootMatrix_mulVec, hd]
 
 theorem rootedDegree_sum (E : I → ℕ) (m : ℕ) (p : I) :
     (∑ i, rootedDegree E m p i) = (∑ i, E i) + (m-E p) := by

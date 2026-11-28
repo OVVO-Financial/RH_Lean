@@ -9,6 +9,7 @@ import «research.NativeCommonScalarCost»
 import «research.NativeLevelBranching»
 import «research.NativeWheelLevelAttachment»
 import «research.NativeRetainedDegreePreimage»
+import «research.NativePhysicalJetTransport»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -113,6 +114,21 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.restricted_mul,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.translation_dilation,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_val,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_range,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.profile_injective,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_mul,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_inverse,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_decode,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_lift_left_inverse,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_dilation,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_entry_cap,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.energy_bound,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_energy,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_coDiv_decode,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.layer_dvd_iff,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.leaf_read,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.root_read,
@@ -614,3 +630,19 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.rootedDegree_sum
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.preimageFrame_det
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.RetainedDegree.physical_preimage
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.restricted_mul
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.translation_dilation
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_val
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_range
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.profile_injective
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_mul
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_inverse
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_decode
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_lift_left_inverse
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_dilation
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_entry_cap
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.energy_bound
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_energy
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_coDiv_decode
