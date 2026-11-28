@@ -1,3 +1,4 @@
+import «research.NativeTrueZeroSchurFit»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -322,6 +323,18 @@ run_cmd do
     ``RHLean.Analysis.PrincipalCofactor.whole_chord_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.translated_pair,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.physical_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.normal_div,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.amplitude_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.anchoredColumns_zero,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.anchoredColumns_star,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.augmented_gram,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.augmented_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.schur_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.native_schur_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.signed_joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.complementary_volume,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.first_moment,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.oriented_schur,
