@@ -311,8 +311,8 @@ theorem originalGx_price {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H
       _ ≤ ∑ s : ↥V, ∑ _j : ↥(siteRows T n s.val), L :=
         Finset.sum_le_sum fun s _ => Finset.sum_le_sum fun j _ => bound s j
       _ = _ := by simp [k,siteRows_card,mul_assoc]
-  change |6*(∑ s, ∑ j, B s j)/(c*k*tops.card) -
-    6*(∑ s, ∑ j, A s j)/(c*k*tops.card)| ≤ _
+  change |6*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), B s j)/(c*k*tops.card) -
+    6*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), A s j)/(c*k*tops.card)| ≤ _
   rw [← sub_div,← mul_sub,abs_div,abs_mul,abs_of_pos pos,
     abs_of_nonneg (by norm_num : (0:ℝ) ≤ 6),← Finset.sum_sub_distrib]
   simp_rw [← Finset.sum_sub_distrib]
