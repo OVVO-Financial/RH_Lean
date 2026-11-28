@@ -484,7 +484,7 @@ theorem statementOCGz_rounded_residual {x : ℝ} (hx : 4 ≤ x) :
       ext n
       simp only [mem_Icc, mem_Ioc]
       omega
-    rw [indices, ← Chebyshev.psi]
+    rw [indices]
     exact Chebyshev.psi_le_const_mul_self hx₀.le
   have err (n : ℕ) : |(multiplicity x n : ℝ) / c - residual (n / x)| ≤ (1 / 2) / c := by
     have e : (multiplicity x n : ℝ) / c - residual (n / x) =
@@ -634,8 +634,8 @@ theorem block_endpoint_correction {x : ℝ} (hc : 0 < scale x) {n : ℕ} (hn : 1
       rw [show -(stepSize x * d) = (d : ℝ) * (-stepSize x) by ring, Real.exp_nat_mul, he]
     have hq : 0 < 1 - (radius (scale x) : ℝ)^d := by exact_mod_cast factor_pos (scale x) hd₀
     unfold logCorrection
-    split
-    · contradiction
+    split_ifs with hz
+    · exact (hu.ne' hz).elim
     · rw [hp, Real.log_div hq.ne' hu.ne', Real.log_mul hh.ne' hdR.ne']
       push_cast
       ring

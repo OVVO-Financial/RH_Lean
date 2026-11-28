@@ -220,7 +220,7 @@ theorem dyadic_nonzero_channels (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime] 
         simp [f, chartRead_eq, k]
       have hd2 : d ≠ 2 := by have := hH.2.2.2.1; omega
       have hv2 : (2:ℕ) • v = 0 := by
-        simpa only [hc] using card_nsmul_eq_zero v
+        simpa only [hc] using (card_nsmul_eq_zero : Fintype.card (D.inertia d) • v = 0)
       intro χ hz
       have hz' : (1+χ v*(d:ℂ)^k)/2 ≠ 0 := by simpa only [form] using hz
       change ‖ι (channel f χ)‖ = ‖ι (f 0:ℂ)‖

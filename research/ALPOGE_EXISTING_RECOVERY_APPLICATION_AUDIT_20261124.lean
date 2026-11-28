@@ -1,3 +1,4 @@
+import «research.NativePrimitiveDeterminantCertificate»
 import «research.NativeTrueZeroSchurFit»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
@@ -416,3 +417,12 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.signed_joint_log_loss
+
+#print axioms RHLean.Analysis.PrimitiveCertificate.block_eq_cyclotomic
+#print axioms RHLean.Analysis.PrimitiveCertificate.certificate_pos
+#print axioms RHLean.Analysis.PrimitiveCertificate.certificate_rounding
+#print axioms RHLean.Analysis.PrimitiveCertificate.trace_reference_uniform
+#print axioms RHLean.Analysis.PrimitiveCertificate.block_endpoint_correction
+#print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_add_residual
+#print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_rounded_residual
+#print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_sub_trace
