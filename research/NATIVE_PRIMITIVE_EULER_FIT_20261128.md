@@ -364,6 +364,85 @@ any of the remaining numerator or denominator factors. This proves the
 claim for both signs. The upstream signed, place-dependent
 `HeightLe` has different allowances, as the last row of the table shows.
 
+### An independently priced part of the normalization
+
+The two adjacent integers $c,q$ give a useful second way to account for
+the real scale, while retaining the exact finite ledger above. Put
+$w_c(y)=\operatorname{round}(c E(y))/c$, $u=\log(q/c)$, and form the
+positive rational
+$$
+ Z=\prod_{2\le n\le N}\left(\frac{D_n^2}{(cq)^{\varphi(n)}}\right)^{a_n}.
+$$
+Then $Y^2=r^M Z$ exactly. On the complete rounded population one has
+$$
+ \frac{\log Y}{c}
+ =\frac{\log Z}{2c}
+ -\frac{u x^2}{2\zeta(2)}\int_0^1 y w_c(y)\,dy
+ +O_E(\sqrt{x}\log(2x)).
+$$
+In particular the large scalar in this identity has an independent real
+reference to square-root accuracy. The integral uses the rounded profile
+itself. Replacing $w_c$ there by $E$ by the pointwise rounding bound would
+cost $O(x)$. At finite places the moved scalar still has exactly
+$v_\ell(r^M)=M(v_\ell(c)-v_\ell(q))$.
+
+Here are details of the uniform estimate for the discontinuous weight.
+On a dyadic interval $1/(2K)\le y\le1/K$, $K=1,2,4,\ldots$, the source
+estimate $|E'(y)|\ll 1/y$ gives $\operatorname{Var}E=O(1)$. The
+calibrated $V$ is piecewise rational on a fixed finite partition, with
+bounded degrees. Indeed the inverted ramps in its defining upper
+profiles only evaluate arguments at least $1/8$. Up to $2K$ dilates
+$V(dy)$ occur in $E$ on this interval, so there are $O(K)$ partition
+points. On each piece the sum, including $1/y-1$, is a rational function
+of degree $O(K)$ after clearing denominators. Its derivative has $O(K)$
+zeros unless the piece is constant. This gives $O(K^2)$ monotonicity
+intervals in all. On each, nearest-integer rounding is monotone and
+increases the endpoint variation by at most $1/c$. Endpoint values and
+any contacts at a tie are covered by splitting at the extrema. Hence
+$$
+ \operatorname{Var}w_c\ll_E 1+K^2/c.
+$$
+Because $E(y)=O(y)$, the rounded weight is identically zero for
+$K>C_Ec$. On each remaining dyadic interval the totient summatory formula
+above, including either convention at integer endpoints, bounds the
+discrepancy from the measure $x^2y\,dy/\zeta(2)$ on every subinterval by
+$O((x/K)\log(2x))$. Summation by parts against $w_c$ costs this discrepancy
+times $O_E(1+K^2/c)$, including its supremum at the endpoints. This
+estimate also applies to the actual values at the finitely many rounding
+jumps, since the interval discrepancy bound covers singletons.
+Summing over dyadic $K\le C_Ec$ uses
+$\sum_K (K^{-1}+K/c)=O_E(1)$. Consequently
+$$
+ \frac{M}{c}=\frac{x^2}{\zeta(2)}\int_0^1 y w_c(y)\,dy+O_E(x\log(2x)).
+$$
+The omission of $n=1$ costs at most a bounded term. Multiplication by
+$u\le 1/c$ gives the claimed price.
+
+There is a corresponding signed estimate on the actual primitive Gram
+matrices. For $n\ge2$ let $A_n=I-U_n$, $B_n=qI-cU_n$. In the counting
+metric $B_n^*B_n=I+cq A_n^*A_n$, and $A_n$ is invertible. Define
+$$
+ L_n=\tfrac12\log\det\!\left(I+(cq)^{-1}(A_n^*A_n)^{-1}\right).
+$$
+The eigenvalues of the matrix inside the determinant are at least one.
+Taking determinants gives
+$L_n=\log F_n(r)-\Lambda(n)+u\varphi(n)/2$.
+The real reference estimate from the admissions note gives
+$\sum E(n/x)(\log F_n(r)-\Lambda(n))=R_E(x)+O_E(\sqrt{x}\log(2x))$.
+Rounding this *difference* costs
+$O((N(1+\log N)\log q+\psi(N))/c)=O(\sqrt{x}\log^2(2x))$.
+It follows that the full signed curvature contribution obeys
+$$
+ \sum_{n=2}^N w_c(n/x)L_n
+ =R_E(x)+\frac{u x^2}{2\zeta(2)}\int_0^1 y w_c(y)\,dy
+ +O_E(\sqrt{x}\log^2(2x)).
+$$
+Both reference terms can be evaluated without the prime labels in the
+unresolved band. The remaining term in $\log Z/(2c)$ is exactly
+$\sum w_c(n/x)\Lambda(n)$. The curvature estimate prices one real
+contribution of the original determinant and leaves the independent
+lower bound for this last term outstanding.
+
 ## 8. Detection on the original star and its scope
 
 For the determinant numerators on the served population there is an

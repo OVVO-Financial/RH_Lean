@@ -382,7 +382,7 @@ private theorem reflect_abs_le (total : ℝ) {f : ℝ → ℝ} {B : ℝ} (hB : 0
   unfold reflect
   split_ifs with h hlt
   · exact (abs_sub _ _).trans (add_le_add_left
-      (hf _ (by linarith) (by linarith [(Set.mem_Icc.mp h).1])) _)
+      (hf (1 - y) (by linarith) (by linarith [(Set.mem_Icc.mp h).1])) _)
   · linarith only [hf y (le_of_not_gt hlt) (Set.mem_Icc.mp h).2, abs_nonneg total]
   · simpa only [abs_zero] using add_nonneg (abs_nonneg total) hB
 
@@ -419,14 +419,15 @@ private theorem bounded_profile (y : ℝ) : |profile y| ≤ 204 + |calibration| 
     exact abs_le.mpr ⟨by linarith [div_nonneg zero_le_one hs₀.le], by linarith⟩
   have B (t : ℝ) : |profileB t| ≤ 67 := by
     refine (reflect_abs_le 0 (B := 67) (by norm_num) (fun s hs _ => ?_) t).trans (by norm_num)
-    exact (abs_sub _ _).trans (by linarith only [
-      invertedRamp_bound (show 1 / 8 ≤ s / 2 by linarith), A (s / 2)])
+    have hU := invertedRamp_bound (show 1 / 8 ≤ s / 2 by linarith)
+    exact (abs_sub _ _).trans (by linarith only [hU, A (s / 2)])
   have C (t : ℝ) : |profileC₀ t| ≤ 134 := by
     refine (reflect_abs_le 0 (B := 134) (by norm_num) (fun s hs _ => ?_) t).trans (by norm_num)
     split_ifs
     · norm_num
-    · exact (abs_sub _ _).trans (by linarith only [abs_sub (invertedRamp (s/4)) (profileA (s/4)),
-        invertedRamp_bound (show 1 / 8 ≤ s / 4 by linarith), A (s / 4), B (s / 2)])
+    · have hU := invertedRamp_bound (show 1 / 8 ≤ s / 4 by linarith)
+      have hDiff := abs_sub (invertedRamp (s / 4)) (profileA (s / 4))
+      exact (abs_sub _ _).trans (by linarith only [hU, hDiff, A (s / 4), B (s / 2)])
   have D (t : ℝ) : |tent t| ≤ 1 := by
     refine (reflect_abs_le 0 (B := 1) (by norm_num) (fun s _ _ => ?_) t).trans (by norm_num)
     rw [abs_of_nonneg (le_max_right _ _)]
@@ -471,12 +472,13 @@ private theorem cutoff_decay {x : ℝ} (hx : 4 ≤ x) :
     ((radius (scale x) : ℝ) ^ traceCutoff x) * (2*x)^4 ≤ 1 := by
   let c : ℝ := scale x
   let r : ℝ := radius (scale x)
-  have hc : 0 < c := by exact_mod_cast (scale_bounds hx).1
+  have hc : 0 < c := Nat.cast_pos.mpr (scale_bounds hx).1
   have hs : 0 < stepSize x := Real.log_pos (by change 1 < 1 + 1/c; linarith [one_div_pos.mpr hc])
   have rinv : r = (1 + 1/c)⁻¹ := by
-    dsimp [r, radius, c]
+    dsimp only [r, radius]
     push_cast
-    field_simp [hc.ne'] <;> ring
+    change c / (c + 1) = (1 + 1/c)⁻¹
+    rw [show 1 + 1 / c = (c + 1) / c by rw [add_div, div_self hc.ne'], inv_div]
   have hr : 0 < r := rinv ▸ inv_pos.mpr (by positivity)
   have hlog : Real.log r = -stepSize x := by rw [rinv, Real.log_inv]; rfl
   have hH : 4 * Real.log (2*x) ≤ (traceCutoff x : ℝ) * stepSize x :=
@@ -510,8 +512,9 @@ theorem trace_reference_uniform {x : ℝ} (hx : 4 ≤ x) :
   have hB : 0 ≤ B := by dsimp [B]; positivity
   have hsq := Real.sq_sqrt hx₀.le
   have hs : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx₀.le).mpr (by linarith)
-  have hcx : (c:ℝ)+1 ≤ x := by nlinarith only [hcs, hs, hsq, mul_nonneg
-    (show 0 ≤ Real.sqrt x - 2 by linarith) (Real.sqrt_nonneg x)]
+  have hcx : (c:ℝ)+1 ≤ x := by
+    have hmul := mul_nonneg (show 0 ≤ Real.sqrt x - 2 by linarith) (Real.sqrt_nonneg x)
+    nlinarith only [hcs, hs, hsq, hmul]
   have count : (∑ n ∈ Icc 2 N, (n.divisors.card : ℝ)) ≤ x*x := by
     refine (divisor_count_le N).trans (mul_le_mul hN ?_ (by positivity) hx₀.le)
     linarith only [Real.log_le_sub_one_of_pos hNpos, hN]
@@ -563,5 +566,9 @@ theorem trace_reference_uniform {x : ℝ} (hx : 4 ≤ x) :
     apply (div_le_iff₀ hcR).mpr
     linarith only [h]
   exact (trace_reference_rounding hc).trans (add_le_add tail bill)
+
+#print axioms statementOCGz_add_residual
+#print axioms block_eq_cyclotomic
+#print axioms trace_reference_uniform
 
 end RHLean.Analysis.PrimitiveCertificate
