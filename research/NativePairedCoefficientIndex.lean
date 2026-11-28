@@ -36,7 +36,7 @@ theorem orthogonal_card_mul_le {G : Type*} [AddCommGroup G] [Finite G]
     ext z
     have e := congrArg (fun χ : AddChar (G ⧸ W) ℂ => χ (z : G ⧸ W)) h
     simpa [f] using e
-  letI : Fintype (G ⧸ W) := Fintype.ofFinite _
+  let : Fintype (G ⧸ W) := Fintype.ofFinite _
   have hc : Nat.card (AddChar (G ⧸ W) ℂ) = Nat.card (G ⧸ W) := by
     simp only [Nat.card_eq_fintype_card, AddChar.card_eq]
   have h := (Nat.card_le_card_of_injective f hf).trans_eq hc
@@ -59,9 +59,7 @@ theorem poleChar_single {ι : Type*} [Fintype ι] [DecidableEq ι]
     (a : ∀ i, ZMod (n i)) (i : ι) :
     poleChar n u a (Pi.single i (1 : ZMod (n i))) =
       ZMod.stdAddChar ((u i : ZMod (n i)) * a i) := by
-  classical
-  change (∏ j, ZMod.stdAddChar ((u j : ZMod (n j)) * a j *
-    (Pi.single i (1 : ZMod (n i))) j)) = _
+  simp only [poleChar, AddChar.coe_mk]
   rw [Finset.prod_eq_single i]
   · simp
   · intro j _ hj
@@ -100,13 +98,8 @@ index. This is a finite equality, not an assumed rank estimate. -/
 theorem relative_card {G : Type*} [AddCommGroup G] [Finite G]
     (W W₀ : AddSubgroup G) (hW : W ≤ W₀) :
     Nat.card W * W.relIndex W₀ = Nat.card W₀ := by
-  let e : W ≃ W.subgroupOf W₀ :=
-    { toFun := fun x => ⟨⟨x.1, hW x.2⟩, x.2⟩
-      invFun := fun x => ⟨x.1.1, x.2⟩
-      left_inv := fun _ => rfl
-      right_inv := fun _ => rfl }
-  rw [Nat.card_congr e, AddSubgroup.relIndex]
-  exact (W.subgroupOf W₀).card_mul_index
+  rw [← Nat.card_congr (AddSubgroup.addSubgroupOfEquivOfLe hW).toEquiv, AddSubgroup.relIndex]
+  exact (W.addSubgroupOf W₀).card_mul_index
 
 /-- Retained finite images with actual saturated image inclusions.
 The rank/complement estimates may be supplied by a basis of the
@@ -230,7 +223,7 @@ theorem paired_coordinate_integral {ι : Type*} [Fintype ι] [DecidableEq ι]
   intro i _
   by_cases hi : i ∈ W
   · refine ⟨u i * x i * y i, ?_⟩
-    simp only [rightClearing, if_pos hi]
+    simp [rightClearing, hi]
     ring
   · simp [hx i hi]
 
@@ -242,7 +235,7 @@ theorem paired_coordinate_price {ι : Type*} [DecidableEq ι]
   have he : V.filter (fun i => i ∈ W) = W ∩ V := by
     ext i
     simp [and_comm]
-  rw [he, Finset.sum_const, nsmul_eq_mul, mul_comm]
+  rw [he, Finset.sum_const, Nat.nsmul_eq_mul, Nat.mul_comm]
 
 theorem first_last_overlap (D r s : ℕ) (hr : r ≤ D) (hs : s ≤ D) :
     ((Finset.range r) ∩ Finset.Ico (D-s) D).card = r+s-D := by
@@ -292,7 +285,7 @@ theorem recenter_finite (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p)
 
 theorem recenter_arch (σ : ℂ ≃+* ℂ) (H : ℂ) (R : ℚ) :
     ‖σ (H*(R:ℂ))‖ = ‖σ H‖ * |(R:ℝ)| := by
-  rw [map_mul, map_ratCast, norm_mul, ← Complex.ofReal_ratCast, Complex.norm_real]
+  rw [map_mul, map_ratCast, norm_mul, Complex.norm_ratCast]
 
 /-- The explicit reciprocal rational witness kills the finite factor
 at every place, independently of the character or auxiliary embedding. -/
