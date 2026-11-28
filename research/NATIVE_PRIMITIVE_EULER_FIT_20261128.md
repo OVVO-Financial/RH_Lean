@@ -633,6 +633,22 @@ Gram determinants in their original counting metric. In particular the
 large common real volume $\sum_p\log H_p$ is included on both sides
 before subtracting.
 
+The same conclusion holds for the **true-zero NNS covariance on these
+columns**. Use any common positive physical anchor $v$ and positive
+retained counts. The [anchored determinant identity](NATIVE_TRUE_ZERO_SCHUR_FIT_20261128.md)
+gives $\det K_v(b)=(\prod n_i)(\sum_i v_i\prod_{j\ne i}b_j)^2/W_v$,
+where $W_v=\sum_i n_i v_i^2$. Therefore its signed log covolume reads
+$$
+ \tfrac12\log\frac{\det K_v(Hu_+)}{\det K_v(Hu_-)}
+ =\sum_p L_p+\log\sum_p\nu_p e^{-L_p},\qquad
+ \nu_p=\frac{v_p/(H_pu_{p,-})}{\sum_i v_i/(H_iu_{i,-})}.
+$$
+The last term again belongs to $[-\max L_p,-\min L_p]$. This is an
+actual positive probability on the omitted coordinates of the original
+row. The formula retains the NNS first-moment correction in the Schur
+determinant. It holds for a common place-dependent positive anchor as
+well: one does not sum its real allowance over the finite primes.
+
 An independent bound on that one complement per occupied site uses
 $|a_n|\le c\|E\|_\infty+1/2$, the original depth capacities, and
 $|\log F_{pk}|\le\tau(pk)\log q\le2\tau(k)\log q$. Consequently
@@ -642,7 +658,7 @@ $$
 Let $A_P=\{2\le n\le N:\exists p\in P,\ p\mid n\}$. Each such $n$
 contains exactly one distinct served label, even at $x=p^2$. With
 $W$ the occupied sites, let $\Delta$ be the sum of the cleared signed
-log covolume differences over the actual active rows, divided by
+log covolume differences (ordinary or true-zero, consistently) over the actual active rows, divided by
 $ck|\mathcal T|$. The existing incidence identity now gives
 $$
 \left|\frac{\log Y}{c}-\left(
