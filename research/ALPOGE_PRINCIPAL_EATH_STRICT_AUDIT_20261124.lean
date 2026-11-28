@@ -5,6 +5,7 @@ import «research.NativeTranslatedSlotFrame»
 import «research.NativePrimeWheelResidueLayers»
 import «research.NativeSharedHeightRecovery»
 import «research.NativeWheelFitProjector»
+import «research.NativePairedCoefficientIndex»
 import «research.NativeRankOneEulerRepayment»
 import «research.NativeMeasuredCutGram»
 import «research.NativeSignedWidthSweep»
@@ -207,6 +208,29 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.RankOne.exists_classTest_ge,
     ``RHLean.Analysis.AlpogeThin.RankOne.common_jet_twisted_read,
     ``RHLean.Analysis.AlpogeThin.WheelFit.dyadic_all_channels,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.dyadic_nonzero_channels,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.common_read_nonzero,
+    ``RHLean.Analysis.AlpogeThin.WheelFit.nonzero_projector_price,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.orthogonal_card_mul_le,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.poleChar_single,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.poleChar_injective,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.pole_card_bound,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.relative_card,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.paired_saturated_images,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.paired_exponent_bound,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.nonuniform_index_arithmetic,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.uniform_index_arithmetic,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.uniform_image_size,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.uniform_paired_index,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.uniform_common_index,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.paired_coordinate_integral,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.paired_coordinate_price,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.first_last_overlap,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.ratio_place_norm,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.native_test_ratio,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.recenter_finite,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.recenter_arch,
+    ``RHLean.Analysis.AlpogeThin.PairedIndex.reciprocal_witness,
     ``RHLean.Analysis.AlpogeThin.WheelFit.zero_depth_le,
     ``RHLean.Analysis.AlpogeThin.WheelFit.nominal_signed_witness,
     ``RHLean.Analysis.AlpogeThin.WheelFit.outside_wheel_price,
