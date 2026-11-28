@@ -1,0 +1,212 @@
+import «research.NativeSignSchurHandoff»
+import Mathlib.NumberTheory.Padics.PadicNorm
+
+/-! Sparse physical anchors remove all accidental cofactor primes.
+Their local determinant changes are exactly the admitted Euler factors.
+The global signed price is computed rather than discarded. -/
+
+set_option autoImplicit false
+noncomputable section
+open scoped Classical BigOperators
+
+namespace RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight
+
+open TrueZeroSchur
+
+/-- The indicator of one original layer, not an additional top. -/
+def anchor {r : ℕ} (j : Fin (r+1)) (i : Fin (r+1)) : ℝ :=
+  if i=j then 1 else 0
+
+theorem anchor_normal {r : ℕ} (D : Fin (r+1) → ℕ) (j : Fin (r+1)) :
+    (∑ i, (wheelNormal D i:ℝ)*anchor j i) = wheelNormal D j := by
+  classical
+  simp [anchor, mul_ite]
+
+theorem sparse_amplitude_det {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
+    (j : Fin (r+1)) :
+    (amplitude (fun i => (D i:ℝ)) (anchor j)).det = wheelNormal D j := by
+  rw [amplitude_det D hD, anchor_normal]
+
+theorem sparse_gram_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (j : Fin (r+1)) :
+    (WheelNNS.coDiv (anchoredColumns S D (anchor j))).det =
+      (∏ i, ((S i).card:ℝ))*(wheelNormal D j:ℝ)^2 := by
+  rw [augmented_det S D hD, anchor_normal]
+
+theorem sparse_pivot {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D : Fin (r+1) → ℕ) (j : Fin (r+1)) :
+    WheelNNS.coDiv (anchoredColumns S D (anchor j)) 0 0 = (S j).card := by
+  classical
+  rw [WheelNNS.coDiv_eq, Matrix.mul_apply]
+  simp only [Matrix.transpose_apply, anchoredColumns_zero]
+  rw [Fintype.sum_sigma]
+  simp [anchor, ite_mul]
+
+theorem sparse_schur_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (j : Fin (r+1))
+    (hS : (S j).Nonempty) :
+    (schur (WheelNNS.coDiv (anchoredColumns S D (anchor j)))).det =
+      (∏ i, ((S i).card:ℝ))*(wheelNormal D j:ℝ)^2/(S j).card := by
+  have hp : WheelNNS.coDiv (anchoredColumns S D (anchor j)) 0 0 ≠ 0 := by
+    rw [sparse_pivot]
+    exact_mod_cast hS.card_pos.ne'
+  rw [native_schur_det S D hD (anchor j) hp, anchor_normal, sparse_pivot]
+
+/-- The local omitted normal is literally the product of the remaining
+prime powers; this is a rational certificate of the actual determinant. -/
+def factor (p u v : ℕ) : ℚ := (p:ℚ)^u/(p:ℚ)^v
+
+def ratio {I : Type*} [Fintype I] (p b a : I → ℕ) : ℚ :=
+  ∏ i, factor (p i) (b i) (a i)
+
+def omitted {I : Type*} [Fintype I] [DecidableEq I] (p b a : I → ℕ) (j : I) : ℚ :=
+  ∏ i ∈ Finset.univ.erase j, factor (p i) (b i) (a i)
+
+theorem omitted_mul {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (j : I) :
+    omitted p b a j * factor (p j) (b j) (a j) = ratio p b a :=
+  Finset.prod_erase_mul Finset.univ _ (Finset.mem_univ j)
+
+theorem omitted_eq_normal {r : ℕ} (p b a : Fin (r+1) → ℕ) :
+    ∀ j, omitted p b a j =
+      (wheelNormal (fun i => (p i)^(b i)) j:ℚ)/
+        (wheelNormal (fun i => (p i)^(a i)) j:ℚ) := by
+  intro j
+  simp only [omitted,factor,wheelNormal,Nat.cast_prod,Nat.cast_pow,Finset.prod_div_distrib]
+
+private theorem factor_pos (p u v : ℕ) (hp : 0 < p) : 0 < factor p u v := by
+  unfold factor
+  positivity
+
+/-- Restore the omitted coordinate exactly: no estimate of prime
+distribution is used in this finite log identity. -/
+theorem log_omitted_add {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, 0 < p i) (j : I) :
+    Real.log (omitted p b a j:ℝ) +
+      ((b j:ℝ)-a j)*Real.log (p j) = Real.log (ratio p b a:ℝ) := by
+  have hO : 0 < omitted p b a j := Finset.prod_pos fun i _ => factor_pos _ _ _ (hp i)
+  have hF := factor_pos (p j) (b j) (a j) (hp j)
+  have eqn := congrArg (fun q : ℚ => Real.log (q:ℝ)) (omitted_mul p b a j)
+  simp only [Rat.cast_mul] at eqn
+  rw [Real.log_mul (by exact_mod_cast hO.ne') (by exact_mod_cast hF.ne')] at eqn
+  have term : Real.log (factor (p j) (b j) (a j):ℝ) =
+      ((b j:ℝ)-a j)*Real.log (p j) := by
+    simp only [factor,Rat.cast_div,Rat.cast_pow,Rat.cast_natCast]
+    have h : (p j:ℝ) ≠ 0 := by exact_mod_cast (hp j).ne'
+    rw [Real.log_div (pow_ne_zero _ h) (pow_ne_zero _ h),Real.log_pow,Real.log_pow]
+    ring
+  rw [term] at eqn
+  exact eqn
+
+theorem log_ratio {I : Type*} [Fintype I]
+    (p b a : I → ℕ) (hp : ∀ i, 0 < p i) :
+    Real.log (ratio p b a:ℝ) = ∑ i, ((b i:ℝ)-a i)*Real.log (p i) := by
+  classical
+  unfold ratio
+  rw [Rat.cast_prod, Real.log_prod (fun i _ => by exact_mod_cast (factor_pos _ _ _ (hp i)).ne')]
+  apply Finset.sum_congr rfl
+  intro i _
+  simp only [factor,Rat.cast_div,Rat.cast_pow,Rat.cast_natCast]
+  have h : (p i:ℝ) ≠ 0 := by exact_mod_cast (hp i).ne'
+  rw [Real.log_div (pow_ne_zero _ h) (pow_ne_zero _ h),Real.log_pow,Real.log_pow]
+  ring
+
+private theorem norm_prod {I : Type*} (l : ℕ) [Fact l.Prime]
+    (s : Finset I) (f : I → ℚ) :
+    padicNorm l (∏ i ∈ s, f i) = ∏ i ∈ s, padicNorm l (f i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert i s hi ih =>
+    rw [Finset.prod_insert hi, Finset.prod_insert hi, padicNorm.mul, ih]
+
+private theorem norm_pow (l : ℕ) [Fact l.Prime] (q : ℚ) (k : ℕ) :
+    padicNorm l (q^k) = (padicNorm l q)^k := by
+  induction k with
+  | zero => simp
+  | succ k ih => rw [pow_succ,padicNorm.mul,ih,pow_succ]
+
+theorem factor_norm_other (l p b a : ℕ) [Fact l.Prime] (hp : p.Prime) (hne : l ≠ p) :
+    padicNorm l (factor p b a) = 1 := by
+  letI : Fact p.Prime := ⟨hp⟩
+  rw [factor,padicNorm.div,norm_pow,norm_pow,padicNorm.padicNorm_of_prime_of_ne hne]
+  simp
+
+theorem factor_norm_self (p b a : ℕ) [Fact p.Prime] :
+    padicNorm p (factor p b a) = ((p:ℚ)⁻¹)^b/((p:ℚ)⁻¹)^a := by
+  rw [factor,padicNorm.div,norm_pow,norm_pow,padicNorm.padicNorm_p_of_prime]
+
+/-- At the admitted place the sparse pivot is exactly the one that
+removes that place's Euler factor; all remaining factors are units. -/
+theorem omitted_norm_self {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (hi : Function.Injective p) (j : I)
+    [Fact (p j).Prime] :
+    padicNorm (p j) (omitted p b a j) = 1 := by
+  rw [omitted,norm_prod]
+  apply Finset.prod_eq_one
+  intro i hm
+  exact factor_norm_other _ _ _ _ (hp i) (fun h => (Finset.mem_erase.mp hm).1 (hi h).symm)
+
+/-- There are no accidental finite primes in the sparse determinant. -/
+theorem omitted_norm_outside {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (l : ℕ) [Fact l.Prime]
+    (hl : ∀ i, l ≠ p i) (j : I) :
+    padicNorm l (omitted p b a j) = 1 := by
+  rw [omitted,norm_prod]
+  exact Finset.prod_eq_one fun i _ => factor_norm_other _ _ _ _ (hp i) (hl i)
+
+theorem ratio_norm_self {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (hi : Function.Injective p) (j : I)
+    [Fact (p j).Prime] :
+    padicNorm (p j) (ratio p b a) =
+      (((p j):ℚ)⁻¹)^(b j)/(((p j):ℚ)⁻¹)^(a j) := by
+  rw [← omitted_mul p b a j,padicNorm.mul,omitted_norm_self p b a hp hi j,
+    one_mul,factor_norm_self]
+
+theorem ratio_norm_outside {I : Type*} [Fintype I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (l : ℕ) [Fact l.Prime]
+    (hl : ∀ i, l ≠ p i) :
+    padicNorm l (ratio p b a) = 1 := by
+  rw [ratio,norm_prod]
+  exact Finset.prod_eq_one fun i _ => factor_norm_other _ _ _ _ (hp i) (hl i)
+
+/-- The precise all-place log price of one fixed global ratio. -/
+theorem log_norm_ratio {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (hi : Function.Injective p) (j : I) :
+    Real.log (padicNorm (p j) (ratio p b a):ℝ) =
+      -((b j:ℝ)-a j)*Real.log (p j) := by
+  letI : Fact (p j).Prime := ⟨hp j⟩
+  rw [ratio_norm_self p b a hp hi j,Rat.cast_div,Rat.cast_pow,Rat.cast_pow,
+    Rat.cast_inv,Rat.cast_natCast]
+  have h : (p j:ℝ) ≠ 0 := by exact_mod_cast (hp j).ne_zero
+  rw [Real.log_div (pow_ne_zero _ (inv_ne_zero h)) (pow_ne_zero _ (inv_ne_zero h)),
+    Real.log_pow,Real.log_pow,Real.log_inv]
+  ring
+
+/-- For the fixed ratio the product formula is exact on the original
+admitted primes. Its local-unit replacements have removed precisely
+the signed price, not a harmless auxiliary normalization. -/
+theorem ratio_log_product {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (hi : Function.Injective p) :
+    Real.log (ratio p b a:ℝ) +
+      ∑ i, Real.log (padicNorm (p i) (ratio p b a):ℝ) = 0 := by
+  rw [log_ratio p b a (fun i => (hp i).pos)]
+  simp_rw [log_norm_ratio p b a hp hi, neg_mul, Finset.sum_neg_distrib]
+  ring
+
+/-- Global recovery of the signed arithmetic amount: all pivots
+together include each admitted factor exactly d-1 times. -/
+theorem all_pivot_log {I : Type*} [Fintype I] [DecidableEq I]
+    (p b a : I → ℕ) (hp : ∀ i, 0 < p i) :
+    (∑ j, Real.log (omitted p b a j:ℝ)) =
+      ((Fintype.card I:ℝ)-1)*Real.log (ratio p b a:ℝ) := by
+  classical
+  have eqn : (∑ j, (Real.log (omitted p b a j:ℝ) +
+      ((b j:ℝ)-a j)*Real.log (p j))) =
+      ∑ _j : I, Real.log (ratio p b a:ℝ) :=
+    Finset.sum_congr rfl fun j _ => log_omitted_add p b a hp j
+  rw [Finset.sum_add_distrib,← log_ratio p b a hp] at eqn
+  simp only [Finset.sum_const,Finset.card_univ,nsmul_eq_mul] at eqn
+  linarith only [eqn]
+
+end RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight
