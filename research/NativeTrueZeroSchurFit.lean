@@ -103,7 +103,7 @@ theorem augmented_gram {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   apply Finset.sum_congr rfl
   intro k _
   rw [Matrix.diagonal_mul]
-  simp [mul_left_comm]
+  simp [nsmul_eq_mul, mul_assoc, mul_left_comm, mul_comm]
 
 theorem augmented_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (a : Fin (r+1) → ℝ) :
@@ -213,7 +213,7 @@ theorem partition_log_loss {I K : Type*} [Fintype I] [Fintype K] [DecidableEq K]
     dsimp only [b]
     rw [Finset.sum_comm]
     simp
-  have h' : (∑ k, b k) < 1 := hsum ▸ h
+  have h' : (∑ k, b k) < 1 := by rw [hsum]; exact h
   simpa only [hsum] using (joint_log_loss Finset.univ b (fun k _ => hb k) h')
 
 /-- The same joint charge works for signed cell weights. -/
