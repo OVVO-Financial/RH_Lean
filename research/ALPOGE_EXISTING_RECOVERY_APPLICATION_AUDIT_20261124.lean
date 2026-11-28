@@ -10,6 +10,7 @@ import «research.NativeLevelBranching»
 import «research.NativeWheelLevelAttachment»
 import «research.NativeRetainedDegreePreimage»
 import «research.NativePhysicalJetTransport»
+import «research.NativeCoDivSynthesis»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -114,6 +115,24 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.NNSCoDiv.divergent_transpose,
+    ``RHLean.Analysis.NNSCoDiv.clpm_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.cupm_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.co_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.div_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.three_matrix,
+    ``RHLean.Analysis.NNSCoDiv.two_matrix,
+    ``RHLean.Analysis.NNSCoDiv.absolute_synthesis,
+    ``RHLean.Analysis.NNSCoDiv.divergent_diagonal_zero,
+    ``RHLean.Analysis.NNSCoDiv.scaled_schur_two_matrix,
+    ``RHLean.Analysis.NNSCoDiv.second_moment_psd,
+    ``RHLean.Analysis.NNSCoDiv.synthesis_psd,
+    ``RHLean.Analysis.NNSCoDiv.normalized_certificate,
+    ``RHLean.Analysis.NNSCoDiv.spectrum_factor,
+    ``RHLean.Analysis.NNSCoDiv.finite_spectral_synthesis,
+    ``RHLean.Analysis.NNSCoDiv.finite_log_synthesis,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_two_matrix,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_spectral,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.restricted_mul,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.translation_dilation,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_val,
@@ -646,3 +665,22 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.energy_bound
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_energy
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physical_coDiv_decode
+
+#print axioms RHLean.Analysis.NNSCoDiv.divergent_transpose
+#print axioms RHLean.Analysis.NNSCoDiv.clpm_symmetric
+#print axioms RHLean.Analysis.NNSCoDiv.cupm_symmetric
+#print axioms RHLean.Analysis.NNSCoDiv.co_symmetric
+#print axioms RHLean.Analysis.NNSCoDiv.div_symmetric
+#print axioms RHLean.Analysis.NNSCoDiv.three_matrix
+#print axioms RHLean.Analysis.NNSCoDiv.two_matrix
+#print axioms RHLean.Analysis.NNSCoDiv.absolute_synthesis
+#print axioms RHLean.Analysis.NNSCoDiv.divergent_diagonal_zero
+#print axioms RHLean.Analysis.NNSCoDiv.scaled_schur_two_matrix
+#print axioms RHLean.Analysis.NNSCoDiv.second_moment_psd
+#print axioms RHLean.Analysis.NNSCoDiv.synthesis_psd
+#print axioms RHLean.Analysis.NNSCoDiv.normalized_certificate
+#print axioms RHLean.Analysis.NNSCoDiv.spectrum_factor
+#print axioms RHLean.Analysis.NNSCoDiv.finite_spectral_synthesis
+#print axioms RHLean.Analysis.NNSCoDiv.finite_log_synthesis
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_two_matrix
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_spectral

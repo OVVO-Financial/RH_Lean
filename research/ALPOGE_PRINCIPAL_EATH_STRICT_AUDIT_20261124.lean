@@ -9,6 +9,7 @@ import «research.NativeLevelBranching»
 import «research.NativeWheelLevelAttachment»
 import «research.NativeRetainedDegreePreimage»
 import «research.NativePhysicalJetTransport»
+import «research.NativeCoDivSynthesis»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -78,6 +79,24 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.NNSCoDiv.divergent_transpose,
+    ``RHLean.Analysis.NNSCoDiv.clpm_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.cupm_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.co_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.div_symmetric,
+    ``RHLean.Analysis.NNSCoDiv.three_matrix,
+    ``RHLean.Analysis.NNSCoDiv.two_matrix,
+    ``RHLean.Analysis.NNSCoDiv.absolute_synthesis,
+    ``RHLean.Analysis.NNSCoDiv.divergent_diagonal_zero,
+    ``RHLean.Analysis.NNSCoDiv.scaled_schur_two_matrix,
+    ``RHLean.Analysis.NNSCoDiv.second_moment_psd,
+    ``RHLean.Analysis.NNSCoDiv.synthesis_psd,
+    ``RHLean.Analysis.NNSCoDiv.normalized_certificate,
+    ``RHLean.Analysis.NNSCoDiv.spectrum_factor,
+    ``RHLean.Analysis.NNSCoDiv.finite_spectral_synthesis,
+    ``RHLean.Analysis.NNSCoDiv.finite_log_synthesis,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_two_matrix,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_spectral,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.restricted_mul,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.translation_dilation,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.PhysicalJet.physicalEmbedding_val,

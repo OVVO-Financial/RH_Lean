@@ -36,8 +36,11 @@ theorem restricted_mul {I J σ : Type} [Fintype I] [Fintype J] [Fintype σ]
       _ = ∑ k : Set.range f, g k.val :=
         Fintype.sum_equiv (Equiv.ofInjective f f.injective) _ _ fun _ => rfl
       _ = _ := by
-        rw [← Fintype.sum_subtype_add_sum_subtype (fun k : I => k ∈ Set.range f) g]
-        simp only [hzero, Finset.sum_const_zero, add_zero]
+        have hz : (∑ k : {k : I // k ∉ Set.range f}, g k.val) = 0 :=
+          Finset.sum_eq_zero fun k _ => hzero k
+        have hh := Fintype.sum_subtype_add_sum_subtype (fun k : I => k ∈ Set.range f) g
+        rw [hz, add_zero] at hh
+        exact hh
   change (∑ k : J, g (f k)) = translation e (s+t) (f i) (f j)
   rw [hs]
   exact congrArg (fun M : Matrix I I ℤ => M (f i) (f j))
@@ -93,7 +96,7 @@ def physicalEmbedding {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
   { toFun := fun a => ⟨(e a).val, Finset.mem_Ioc.mpr
       ⟨(Nat.zero_le _).trans_lt (Finset.mem_Ioc.mp (e a).property).1,
         (Finset.mem_Ioc.mp (e a).property).2⟩⟩
-    inj' := fun a b hab => e.injective (Subtype.ext (congrArg Subtype.val hab)) }
+    inj' := fun a b hab => e.injective (Subtype.ext (congrArg (fun k : Prefix ⌊h 0⌋₊ => k.val) hab)) }
 
 theorem physicalEmbedding_val {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
     (hne : ∀ i, (bands h v i).Nonempty) (a : Address (bands h v)) :
@@ -113,7 +116,6 @@ theorem physicalEmbedding_range {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
     refine ⟨e.symm j, Subtype.ext ?_⟩
     change (e (e.symm j)).val = k.val
     rw [e.apply_symm_apply]
-    rfl
 
 /-- Original physical quotient slots carry their genuine prime
 factorization profile. -/
@@ -184,7 +186,7 @@ private theorem prefix_degree_cap (u : ℕ) (a : Prefix u) :
   rw [factorizationProfile_degree, ← Finset.prod_pow_eq_pow_sum]
   calc
     _ ≤ ∏ p ∈ a.val.primeFactors, p ^ a.val.factorization p := by
-      exact Finset.prod_le_prod (fun _ _ => Nat.zero_le _) (fun p hp =>
+      exact Finset.prod_le_prod (fun p hp =>
         Nat.pow_le_pow_left (Nat.prime_of_mem_primeFactors hp).two_le _)
     _ = _ := Nat.prod_factorization_pow_eq_self (prefix_pos u a.val a.property)
 
@@ -236,7 +238,7 @@ theorem energy_bound {J : Type} [Fintype J] (T : Matrix J J ℝ)
       ring
     _ ≤ U^4 * ∑ j, (z j)^2 := by
       have H : (Fintype.card J:ℝ)^2 ≤ U^2 := by
-        nlinarith only [mul_nonneg (sub_nonneg.mpr hcard) (add_nonneg hu (Nat.cast_nonneg _))]
+        nlinarith only [mul_nonneg (sub_nonneg.mpr hcard) (add_nonneg hu (Nat.cast_nonneg (Fintype.card J)))]
       calc
         _ ≤ U^2*U^2 * ∑ j, (z j)^2 :=
           mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right H (sq_nonneg _)) (by positivity)
@@ -256,9 +258,11 @@ theorem physical_energy {r : ℕ} (h : Fin (r+1) → ℝ) (v : ℝ)
   constructor
   · apply energy_bound _ _ (by exact_mod_cast hc)
     intro i j
+    change |(translation (profile h v hne) 1 i j : ℝ)| ≤ (⌊h 0⌋₊:ℝ)
     exact_mod_cast (physical_entry_cap h v hne i j).1
   · apply energy_bound _ _ (by exact_mod_cast hc)
     intro i j
+    change |(translation (profile h v hne) (-1) i j : ℝ)| ≤ (⌊h 0⌋₊:ℝ)
     exact_mod_cast (physical_entry_cap h v hne i j).2
 
 /-- The NNS four-sector reconstruction reads exactly the original
