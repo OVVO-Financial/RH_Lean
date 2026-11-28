@@ -344,7 +344,11 @@ $B_-=\prod_{a_n<0}D_n^{-a_n}$.
 The residual has two fixed closed intervals of positive length in
 $(0,1/6)$, on which it is respectively above $\delta$ and below
 $-\delta$ for some $\delta>0$, by the strict values at
-$1/10$ and $1/7$. Hence on those intervals
+$1/10$ and $1/7$. There is also a proof independent of the numerical
+enclosure for the calibration. Those two values, as affine functions of
+$\eta$, have distinct roots $85/1008$ and $7/108$. Thus $E$ is nonzero,
+and its calibrated integral is zero. Continuity then forces both open sign
+intervals. Hence on those intervals
 $|a_n|\ge c\delta/2$ eventually. For a fixed interval
 $[u,v]\subset(0,1)$, the totient sum on $[ux,vx]$ is
 $(v^2-u^2)x^2/(2\zeta(2))+O(x\log(2x))$. This follows by summing
@@ -363,6 +367,26 @@ Every $D_n$ is coprime to $q$. Inserting $q^{-M}$ cannot cancel
 any of the remaining numerator or denominator factors. This proves the
 claim for both signs. The upstream signed, place-dependent
 `HeightLe` has different allowances, as the last row of the table shows.
+
+In fact the numerator and denominator already have this growth *at primes
+larger than the entire original population*. Fix any $A\ge1$. At most
+$\pi(Ax)=O_A(x/\log x)$ distinct base indices $h$ can occur at primes
+$\ell\le Ax$, since each such prime has only one order. Discard those
+indices from each of the two fixed sign intervals. Their total totient
+mass is at most $O_A(x^2/\log x)$, leaving $\gg_E x^2$ in each interval.
+At every remaining $n$ the only possible nonbase prime factor of $D_n$
+is its largest prime factor and occurs to the first power. Its log
+contribution is at most $\log N$. All other factors are at base primes
+$\ell>Ax$, and each of these occurs in only one label $n\le N$. They
+cannot cancel when $Y$ is reduced. Consequently
+$$
+ \frac1c\sum_{\ell>Ax} (v_\ell Y)_+\log\ell\gg_{E,A}x^2\log x,\qquad
+ \frac1c\sum_{\ell>Ax} (-v_\ell Y)_+\log\ell\gg_{E,A}x^2\log x.
+$$
+This locates the large unsigned costs of *both* reciprocal certificates
+outside any fixed multiple of the prime cutoff. It uses Chebyshev's upper
+bound on the number of small primes and keeps the large base valuations
+with their full multiplicities.
 
 ### An independently priced part of the normalization
 
@@ -446,13 +470,17 @@ lower bound for this last term outstanding.
 ## 8. Detection on the original star and its scope
 
 For the determinant numerators on the served population there is an
-original-rank calculation. At $\ell\nmid cq$, **at most one distinct
-served large-prime label** $p>x^{3/4}$ can have any block
-$\ell\mid D_{pk}$, $pk\le N$. At the base, $h$ has at most one
-such factor. At any higher level, if $p\mid h$ then $\ell>h\ge p$
-and $h\ell>x$, an impossibility. Thus the upper level would require
-$p=\ell$, $j=1$, and $h\le x/\ell<x^{1/4}$, precluding a
-served base in that tower.
+original-rank calculation. At $\ell\nmid cq$, **at most one distinct original
+prime label $p\ge\sqrt{x}$** can divide any exceptional index $n=pk\le N$.
+Indeed the exceptional indices up to $N$ form a divisibility chain. Their
+largest element, if present, is at most $N$ and is divisible by every
+prime label appearing in the chain. Two distinct primes at least
+$\sqrt{x}$ have product strictly greater than $x$. This covers the
+endpoint $x=p^2$ and improves the $x^{3/4}$ cutoff used in the
+archimedean expansion. At the primes dividing $cq$ all the $D_n$ are
+units. It follows that the products of determinant numerators on distinct
+original large-prime labels are **pairwise coprime globally**, even before
+restricting to a site.
 
 The explicit maps use distinct original labels at a site. For each
 label $p$, multiply the factors $D_{pk}$ for positive and negative
@@ -466,7 +494,15 @@ label, or any coordinate if there is none. Deletion of $b$ on $S$
 is a lattice isomorphism with inverse inserting
 $z_b=-\sum_{i\ne b}z_i$. The selected minors of the two maps equal,
 up to sign, $\prod_{i\ne b}B_{p_i,\pm}$, both local units. The
-localized image has full original rank and saturation index one.
+localized image has full original rank and saturation index one. At primes
+dividing $cq$ all coordinate multipliers are units as well. Therefore the
+maximal minors generate the unit ideal over $\mathbb Z$: the global image
+of each numerator map is saturated, with quotient free of rank one in
+$\mathbb Z^s$. Repeating each coordinate on a nonempty physical layer
+preserves saturation by the integral retraction reading one copy. The
+pairwise coprimality also supplies the precise input of the existing
+[bounded dual on physical slots](NativeMeasuredSlotProjector.lean). Its
+global size bound depends on the product of the multipliers.
 No independence of the occurrences of rational primes enters this
 calculation. The finite unit tests can read any one copy of a constant
 amplitude from each nonempty physical layer. In unweighted Euclidean
