@@ -29,7 +29,13 @@ theorem eigen_gap_realizable (u a b : ℤ)
       -u*A+B = -u*b ∧ -u*B+C=b := by
   obtain ⟨k,hk⟩ := h
   have ha : a = b+(1+u^2)*k := by linarith only [hk]
-  refine ⟨b+k,u*k,b+u^2*k,?_,?_,?_,?_⟩ <;> try rw [ha] <;> ring
+  refine ⟨b+k,u*k,b+u^2*k,?_,?_,?_,?_⟩
+  · rw [ha]
+    ring
+  · rw [ha]
+    ring
+  · ring
+  · ring
 
 /-- Exact primitive tensor/Pluecker coordinates of the retained
 coupled profile graph. A coordinate equal to one is present globally. -/
@@ -57,7 +63,7 @@ theorem coeff_normSq {I : Type*} [Fintype I] (u : I → ℕ) :
     _ = _ := by
       apply Finset.prod_congr rfl
       intro i _
-      simp [Fintype.sum_bool, add_comm]
+      simp [add_comm]
 
 /-- The actual orthogonal projection onto the exterior graph line. -/
 def entry {I : Type*} [Fintype I] (u : I → ℕ) (x y : I → Bool) : ℚ :=
@@ -88,7 +94,7 @@ theorem projector_clear_iff {I : Type*} [Fintype I] (u : I → ℕ) (h M : ℕ) 
     refine ⟨(k:ℤ)*coeff u x*coeff u y,?_⟩
     rw [hk,entry]
     push_cast
-    field_simp [hn] <;> ring
+    field_simp [hn]
 
 /-- Even allowing arbitrary mixed rational retractions of the
 primitive exterior line, clearing the global coefficients and
