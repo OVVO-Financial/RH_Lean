@@ -28,8 +28,8 @@ def reweight (u : (S →₀ ℕ) → ℂ) (P : MvPolynomial S ℂ) : MvPolynomia
   rw [reweight, MvPolynomial.coeff_sum]
   simp only [MvPolynomial.coeff_monomial, Finset.sum_ite_eq']
   by_cases ha : a ∈ P.support
-  · simp only [ha, if_true]
-  · simp only [ha, if_false, MvPolynomial.notMem_support_iff.mp ha, mul_zero]
+  · simp only [ha, ite_true]
+  · simp only [ha, ite_false, MvPolynomial.notMem_support_iff.mp ha, mul_zero]
 
 theorem support_reweight (u : (S →₀ ℕ) → ℂ) (P : MvPolynomial S ℂ) :
     (reweight u P).support ⊆ P.support := by
@@ -46,11 +46,11 @@ def reweightLinear (u : (S →₀ ℕ) → ℂ) :
   map_add' := by
     intro P Q
     ext a
-    simp only [coeff_reweight, AddMonoidAlgebra.coeff_add, mul_add]
+    simp only [coeff_reweight, AddMonoidAlgebra.coeff_add, Finsupp.add_apply, mul_add]
   map_smul' := by
     intro c P
     ext a
-    simp only [coeff_reweight, coeff_smul, smul_eq_mul]
+    simp only [coeff_reweight, coeff_smul, smul_eq_mul, RingHom.id_apply]
     ring
 
 theorem reweight_norm_le (u : (S →₀ ℕ) → ℂ) (P : MvPolynomial S ℂ)
@@ -87,8 +87,8 @@ theorem restriction_norm (t : S) (h : ℕ) (v : ℂ)
   apply reweight_norm_le
   intro a
   by_cases ha : a t = h
-  · simp only [ha, if_true, le_refl]
-  · simp only [ha, if_false, norm_zero, norm_nonneg]
+  · simp only [ha, ite_true, le_refl]
+  · simp only [ha, ite_false, norm_zero, norm_nonneg]
 
 /-- Exact counterpart of the finite-gauge identity: the degree h
 dilation cancels the degree h pole, leaving the integral companion. -/
@@ -99,12 +99,12 @@ theorem restriction_dilate (t : S) (h : ℕ) (u v N : ℂ)
   ext a
   simp only [restrictDegree, dilate, coeff_reweight]
   by_cases ha : a t = h
-  · simp only [ha, if_true]
+  · simp only [ha, ite_true]
     rw [← mul_assoc, ← mul_pow, ← hN]
     have he : v⁻¹ * (u*v) = u := by
       field_simp
     rw [he]
-  · simp only [ha, if_false, zero_mul]
+  · simp only [ha, ite_false, zero_mul]
 
 /-- Finite integrality is measured on the same coefficients as the
 real norm, rather than imposed by an assigned height. -/
@@ -115,7 +115,8 @@ theorem compensated_integral (t : S) (h : ℕ) (u v N : ℂ)
   rw [restriction_dilate t h u v N hv hN, coeff_reweight]
   split_ifs
   · exact (hu.pow h).mul (hP a)
-  · simp
+  · rw [zero_mul]
+    exact isIntegral_zero
 
 /-- Genuine Fourier transport on cyclic residue labels with values in
 the original polynomial space. The phase is not replaced by its norm. -/
@@ -150,8 +151,8 @@ theorem mean_degree {I J : Type*} [Fintype I] [Fintype J]
     (hd : ∀ i, ∑ k, d i k = a) :
     Fintype.card J * (∑ i, d i j) = Fintype.card I * a := by
   calc
-    _ = ∑ k : J, ∑ i, d i k := by simp_rw [hs]; simp [nsmul_eq_mul]
+    _ = ∑ k : J, ∑ i, d i k := by simp_rw [hs]; simp
     _ = ∑ i : I, ∑ k, d i k := Finset.sum_comm
-    _ = _ := by simp [hd, nsmul_eq_mul]
+    _ = _ := by simp [hd]
 
 end RHLean.Analysis.NativeLevelBranching
