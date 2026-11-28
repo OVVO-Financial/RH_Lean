@@ -12,7 +12,7 @@ noncomputable section
 
 namespace RHLean.Analysis.NativeSignLift
 
-variable {R ι : Type*} [CommRing R] [Fintype ι] [DecidableEq ι]
+variable {R ι : Type*} [CommRing R] [Fintype ι]
 
 /-- Four positive/negative channels; A and B need not commute. -/
 def lift (A B : Matrix ι ι R) : Matrix (ι ⊕ ι) (ι ⊕ ι) R :=
@@ -39,6 +39,8 @@ theorem unsigned_mul (A B C D : Matrix ι ι R) :
   simp only [evenPath,oddPath,Matrix.add_mul,Matrix.mul_add]
   abel
 
+variable [DecidableEq ι]
+
 /-- Coordinates (x+y,x), not the half-integral even/odd eigenbasis. -/
 def changeBasis : Matrix (ι ⊕ ι) (ι ⊕ ι) R :=
   Matrix.fromBlocks 1 1 1 0
@@ -62,7 +64,7 @@ def triangular (A B : Matrix ι ι R) : Matrix (ι ⊕ ι) (ι ⊕ ι) R :=
 theorem triangular_intertwine (A B : Matrix ι ι R) :
     changeBasis*lift A B = triangular A B*changeBasis := by
   simp only [changeBasis,lift,triangular,Matrix.fromBlocks_multiply,
-    Matrix.one_mul,Matrix.mul_one,Matrix.zero_mul,Matrix.mul_zero,add_zero,zero_add]
+    Matrix.one_mul,Matrix.mul_one,Matrix.zero_mul,Matrix.mul_zero,add_zero]
   rw [add_comm B A, show B+(A-B)=A by abel]
 
 theorem triangular_conjugate (A B : Matrix ι ι R) :
