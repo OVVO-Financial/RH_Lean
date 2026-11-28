@@ -265,6 +265,23 @@ theorem ratio_place_norm (p : ℕ) [Fact p.Prime] (ι : ℂ →+* PadicAlgCl p)
     _ = ‖ι ((Q/Q':ℚ):ℂ)‖ := by rw [Rat.cast_div, map_div₀, norm_div]
     _ = _ := place_rat p ι _
 
+/-- Direct specialization to two native measured wheel rows, keeping both
+character channels, both class factors, and their distinct nominal orders. -/
+theorem native_test_ratio (e q d N p : ℕ) [Fact q.Prime] [Fact d.Prime] [Fact p.Prime]
+    (hH : Formalism.FrobeniusOrbits.HostHyp q d) (ι : ℂ →+* PadicAlgCl p) (P : Finset ℕ)
+    (w w' : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    {S : Type*} (α α' : S →₀ ℕ) (r r' : ℚ) (hr : 0 < r) (hr' : 0 < r')
+    (h h' : ℕ) (χ ψ χ' ψ' : AddChar ((alpogeNativeHostData e q d).inertia p) ℂ)
+    (hn : tested α r h (readAt e q d N P w p χ) (readAt e q d N P w p ψ) ≠ 0)
+    (hn' : tested α' r' h' (readAt e q d N P w' p χ') (readAt e q d N P w' p ψ') ≠ 0) :
+    ‖ι (tested α r h (readAt e q d N P w p χ) (readAt e q d N P w p ψ) /
+      tested α' r' h' (readAt e q d N P w' p χ') (readAt e q d N P w' p ψ'))‖ =
+      (padicNorm p (payment α r h (wheel e q d N P w) /
+        payment α' r' h' (wheel e q d N P w')):ℝ) := by
+  exact ratio_place_norm p ι _ _ _ _
+    (nonzero_projector_price e q d N p hH ι P w α r hr h χ ψ hn)
+    (nonzero_projector_price e q d N p hH ι P w' α' r' hr' h' χ' ψ' hn')
+
 /-- Recenter any auxiliary height witness, not just rational ones.
 The equality of all local bounds is literal and leaves the same finite
 allowances for the constant family. -/
