@@ -3,6 +3,7 @@ import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
+import «research.NativeDepthCongruence»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -475,3 +476,15 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.nat_log_product
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.quotient_log_product
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.common_witness_log
+
+#print axioms RHLean.Analysis.NativeDepthCongruence.eigen_gap_dvd
+#print axioms RHLean.Analysis.NativeDepthCongruence.eigen_gap_realizable
+#print axioms RHLean.Analysis.NativeDepthCongruence.coeff_zero
+#print axioms RHLean.Analysis.NativeDepthCongruence.content_pos
+#print axioms RHLean.Analysis.NativeDepthCongruence.coeff_normSq
+#print axioms RHLean.Analysis.NativeDepthCongruence.entry_pivot
+#print axioms RHLean.Analysis.NativeDepthCongruence.projector_clear_iff
+#print axioms RHLean.Analysis.NativeDepthCongruence.cleared_retraction_energy
+#print axioms RHLean.Analysis.NativeDepthCongruence.unit_retraction
+#print axioms RHLean.Analysis.NativeDepthCongruence.signed_swap_read
+#print axioms RHLean.Analysis.NativeDepthCongruence.signed_swap_clearing
