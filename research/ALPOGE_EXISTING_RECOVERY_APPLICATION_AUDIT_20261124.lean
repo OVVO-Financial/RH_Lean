@@ -1,5 +1,6 @@
 import «research.NativePrimitiveDeterminantCertificate»
 import «research.NativeTrueZeroSchurFit»
+import «research.NativeSignLift»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -426,3 +427,13 @@ run_cmd do
 #print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_add_residual
 #print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_rounded_residual
 #print axioms RHLean.Analysis.PrimitiveCertificate.statementOCGz_sub_trace
+
+#print axioms RHLean.Analysis.NativeSignLift.lift_mul
+#print axioms RHLean.Analysis.NativeSignLift.signed_mul
+#print axioms RHLean.Analysis.NativeSignLift.unsigned_mul
+#print axioms RHLean.Analysis.NativeSignLift.change_restore
+#print axioms RHLean.Analysis.NativeSignLift.restore_change
+#print axioms RHLean.Analysis.NativeSignLift.triangular_intertwine
+#print axioms RHLean.Analysis.NativeSignLift.triangular_conjugate
+#print axioms RHLean.Analysis.NativeSignLift.lift_det
+#print axioms RHLean.Analysis.NativeSignLift.euler_lift_det
