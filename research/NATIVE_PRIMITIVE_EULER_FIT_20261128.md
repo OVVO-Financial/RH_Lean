@@ -210,10 +210,9 @@ remain the sole terminal acceptance criteria.
 The independent finite regression scripts/research/check_primitive_euler_fit.js
 checks the frequency law, order towers, admission valuations, companion
 determinants, exact mod-l ranks, repairs, and tensor Gram regularization
-with BigInt arithmetic and Bareiss elimination. These checks are not
-asymptotic proofs. This note supplies paper proofs; no new Lean theorem
-has been kernel-checked here. Retain the original alternating-exchange
-benchmark and source notes; do not relabel them as terminal closure.
+with BigInt arithmetic and Bareiss elimination. The proofs of §§1–5 are
+on paper. The original alternating-exchange benchmark and source notes
+remain part of the construction.
 
 Finite checks executed in this session: {"frequencyOrders":1098,"orderTowerCases":40185,"higherTowerCases":40,"nonunitCases":357,"companionDeterminants":124,"rankCases":1860,"rankDefects":52,"unitRepairs":52,"physicalGramCases":744,"admissionCases":442}.
 
@@ -260,6 +259,20 @@ $$
 $$
 Indeed, multiplying the dilation sum defining $E(d/x)$ by $\Lambda(d)$
 and grouping by $k=dj$ gives $\sum_{d\mid k}\Lambda(d)=\log k$.
+The same integer exponents used in $Y$ can be read at this endpoint.
+For every real $x\ge4$, replacing $P_E$ in this formula by
+$\sum_{n\le x}(a_n/c)\Lambda(n)$ changes it by at most
+$(\log 4+4)\sqrt x$. Its entire rounding charge is bounded by
+$\psi(x)/(2c)$, and Chebyshev gives $\psi(x)\le(\log 4+4)x$.
+The hosted kernel checked `statementOCGz_add_residual`,
+`statementOCGz_rounded_residual`, `block_eq_cyclotomic`,
+`trace_reference_uniform` and `statementOCGz_sub_trace` at `8a2d6dd`,
+each with exactly `propext`, `Classical.choice` and `Quot.sound`.
+The last declaration exposes the two real quadratures and the finite
+trace tail with their signs. The analytic estimates for the quadratures
+and the original-star comparisons in §§7–8 are paper deductions.
+[Hosted Lean output](https://github.com/OVVO-Financial/RH_Lean/actions/runs/46152415082/job/141001861160)
+
 For the term on the right, $\int V=1$ and
 $\int V(t)\log t\,dt=-(1+\gamma)$ by the calibration in the split note.
 The Riemann sum has error $O_V(1+\log x)$.
@@ -537,6 +550,14 @@ $\gcd(I_+,I_-)=1$, and the map $z\mapsto(M_+z,M_-z)$ has globally
 saturated image of rank $s-1$. Both measurements use disjoint actual
 copies of each nonempty layer, which the slot bounds in §§3–4 provide.
 Reading a representative of each constant layer is an integral retraction.
+Concretely, once a layer has $n_i\ge2$ addresses, give each sign
+$\lfloor n_i/2\rfloor$ disjoint addresses and leave at most one unused.
+The full metric weight divided by the retained weight is at most three.
+Thus on $s-1$ columns, returning either profile to its full counting
+metric costs at most $(s-1)\log(3)/2$ in log covolume. The site-incidence
+sum below prices even this absolute change at $O(\sqrt{x})$ after the
+original normalization. The sharper signed comparison below applies to
+either choice of counts directly.
 
 Indeed only the coordinate with $p_i=\ell$ can carry a depth at $\ell$.
 If there is no other exceptional label, deleting the potentially bad
