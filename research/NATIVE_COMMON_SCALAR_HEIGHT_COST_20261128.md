@@ -143,9 +143,150 @@ source cannot be discarded. No bound on log R_full, no cofinal
 window supplier, and no native_riemannHypothesis are claimed.
 Preserve the #1214 acceptance gate and #1205 consumer.
 
+## 6. The forward height and its independent supplier
+
+Write $H=D.\mathrm{mainHeight}$, $R=D.\mathrm{remainder}$ and
+$L=D.\log B\cdot D.\mathrm{budget}$ in the pinned compact edition. For
+a fixed family of $n$ independent rows, $V$ bounds the log squared
+covolume of their untwisted lifts at every complex embedding and
+$\delta$ bounds their finite clearing index. The forward conclusion is
+\[
+\mathrm{HeightLe}\!\left(V+2\delta+D.\mathrm{rowDim}\,D.b,\
+     \iota\mapsto\mathfrak z(\theta_\iota)/\mathfrak z(1)\right).
+\]
+Here $\mathfrak z$ is already a squared lift volume. The
+$D.\mathrm{rowDim}\,D.b$ term pays for completing those same rows to a
+basis with the crude rows. When combined with the independently bounded
+inverse ratio, this gives $D.\mathrm{rowDim}(H-3L)\le V+2\delta$.
+The upper bound $V\le n(H-mR+L)$ comes from A and B.
+[Forward height and use in C](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/LongForms.lean#L34-L92).
+
+The independent size input is the all-conjugate jet norm estimate on
+the actual composite lift $B_\mu$. For a source column of log squared
+size at most $b_\phi$, it bounds the log squared size of the image by
+\[
+ b_\phi+h_0+2\sum_p g_p\log p+D.\mathrm{budget}.
+\]
+Here $g_p$ is the local Euler gain, zero outside the specified nonsplit
+set, and $h_0$ contains the real level term $-|\mathrm{tops}|a\log N$.
+The level window gives $h_0\le H-mR+D.\mathrm{budget}$ by Stirling.
+The same maps have independently proved finite-place divisibility
+$g_p-\mathrm{allowedLoss}(p)$ on submodules of controlled index,
+with rounding as in the cited declarations. Therefore scaling the
+images by $\prod_p p^{\lfloor\mathrm{allowedLoss}(p)-g_p\rfloor}$
+subtracts the gross $2\sum_p g_p\log p$ from the size bound and
+charges the allowed losses in the index. At the level prime $N$,
+the finite index is bounded through the Fourier operator on the
+ramified columns. That is the separate input needed to use the
+real level term on the same images.
+[Jet norm and local divisibility](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Columns/LocalStatement.lean#L198-L226) ·
+[Level-prime index](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Seesaw/LiftCharacters.lean#L125-L167) ·
+[Short rows and their index](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/ShortAndEnough.lean#L44-L70)
+([scaling and index](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/ShortAndEnough.lean#L128-L168)).
+
+## 7. Optimal forward cost over mixed retained frames
+
+Use the physical amplitudes of the fixed sparse star. The incidence
+change of coordinates is unimodular and the untwisted counting weights
+are $w_i=n_i>0$. Put $r_i=D_i/E_i$. In the existing positive-twist
+construction the inverse normalized relative lift at $\iota$ is diagonal
+with entries
+\[
+\eta_{\iota,i}=\frac{t_\iota(E_i)/E_i}{t_\iota(D_i)/D_i},
+\qquad
+v_\iota(\eta_{\iota,i})=v_p(r_i)
+\]
+because the two chosen roots are units. The untwisted relative lift is
+the identity in physical amplitudes. At full rank the squared volume
+ratio is $\prod_i\eta_{\iota,i}^2$. Its finite norm agrees with that of
+$(\prod_i r_i)^2$, so this orientation has height $-2\log\prod_i r_i$.
+[Positive twist and its exact height](NATIVE_POSITIVE_TWIST_TEST_HEIGHT_20261128.md#4-exact-reciprocal-height-computation).
+
+Take any fixed rank-$n$ frame $Y$ with algebraic entries on these $r$
+directions. Let $V(Y)$ be the supremum over complex embeddings $\sigma$
+of $\log\det(\sigma(Y)^*\operatorname{diag}(w_i)\sigma(Y))$.
+At $p$, use one upper allowance $e_p$ for the log determinant index of
+the column-clearing matrices. They can vary with the embedding and
+with the tested lift. The compact index condition includes the
+untwisted lift as well as the selected fitted lift. Use $\delta=\sum_p e_p$.
+
+For any $n$-element set $I$ with $d_I=\det Y_I\ne0$, entrywise finite
+integrality after clearing gives
+\[
+v_\iota(d_I)\log p+e_p\ \ge\
+   \log p\ \max\!\left(0,-\sum_{i\in I}v_p(r_i)\right).
+\]
+Indeed, the $I$ minor of the cleared untwisted frame contributes
+$v_\iota(d_I)+v_\iota(\det C_1)$. The fitted minor contributes that of
+$d_I$, its own clearing matrix, and the sum of the displayed
+valuations of the fitted lift. The two clearing matrices may be
+different. Cauchy–Binet gives
+$V(Y)\ge\sum_{i\in I}\log w_i+2\log|\sigma(d_I)|$ at each
+$\sigma$. Average the finite inequalities over the embeddings of a
+number field containing $Y$, and use the product formula on $d_I$.
+Averaging the real inequality then gives
+\[
+ V(Y)+2\delta\ \ge\ \sum_{i\in I}\log w_i+
+     2\sum_p\log p\ \max\!\left(0,-\sum_{i\in I}v_p(r_i)\right).
+\]
+The proof uses a fixed nonzero minor. Thus it permits arbitrary mixing
+and algebraic phases, including different clearing matrices on the
+ordinary and conjugate sides. It also works for repeated physical
+incidences with the displayed sum taken before the positive part.
+
+When the prime labels are distinct and $r_i=p_i^{s_i}$, the exact
+minimum of $V+2\delta$ over all rank-$n$ frames is the sum of the $n$
+smallest numbers
+\[
+              \log w_i+2(-s_i)_+\log p_i.
+\]
+For equality, take the corresponding coordinate columns
+$p_i^{(-s_i)_+}e_i$. Both lifts are integral at every selected
+embedding with zero clearing cost. This is the forward cost with
+the compact index condition on the literal fixed-depth lifts.
+If the only finite requirement is the selected fitted lift, the
+same argument removes the maximum with zero. The exact minimum
+then sums the $n$ smallest numbers $\log w_i-2s_i\log p_i$,
+attained by the columns $r_i^{-1}e_i$. At full rank, after removing
+the common counting volume $\sum_i\log w_i$, that is exactly
+$-2\log R$. Specializing to the selected twist therefore leaves the
+signed size to be bounded independently.
+
+On the complete calibrated arithmetic direct sum, distinct labels
+and ordinary PNT give
+$(6/c)\sum_i(-s_i)_+\log p_i=\kappa x+o(x)$ with $\kappa>0$.
+Each $|s_i|\log p_i=O(c\log x)$. Hence omitting $o(r)$ directions,
+where $r\asymp x/\log x$, saves only $o(cx)$ in the prime part.
+Even after subtracting the minimum rank-$n$ counting volume,
+the first minimum still has a linear cost on the $G_z$ scale.
+The exact minor inequality applies separately to the physical retained
+stars. This asymptotic uses the complete prime population including
+the unserved labels.
+[Calibration and both sign masses](SIGNED_MOBIUS_SPLIT_COMPENSATION_20261127.md#4-the-signed-prime-sum-that-survives) ·
+[Complete source and per-layer size](NATIVE_SPARSE_ANCHOR_GLOBAL_HEIGHT_20261128.md#5-complete-the-arithmetic-handoff-including-the-unserved-labels).
+
+The native level-prime construction supplies a norm element
+$\pi\bar\pi=N$. On the fixed-depth lifts, using a fresh level prime to
+rescale the frame cannot improve the preceding optima. Recovering the
+upstream level benefit requires a tested lift with an independent
+all-conjugate norm estimate and a finite repair on the same ramified
+images. The positive-root construction and the fixed-depth forward
+optimization leave the square-root bound on $R_{\mathrm{full}}$ open.
+[Native level-prime construction](../RHLean/Analysis/AlpogeThin/NativeRayHostLevelPrime.lean).
+
+## Verification
+
 Exact integer-scaled regression: scripts/research/check_native_common_scalar_cost.js.
 67,518 paired-phase checks, 744 balanced equality checks,
 105,056 multiplicity checks. Finite regressions do not prove the
 asymptotic bound or Lean elaboration. Five proof roots are submitted
-to the existing strict and explicit hosted audits; kernel status
-pending.
+to the existing strict and explicit hosted audits. At `02df460`, the
+research job emitted `NativeCommonScalarCost` and then failed in
+`NativePositiveTwist`. The repair evaluates the two constant
+coefficients before cast simplification and removes the unreachable
+tactic from `class_scalar`. [Hosted log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/46156778872/job/141015191744).
+
+For Section 7 an exact rational check compared the lower bound for
+each nonzero maximal minor in 640 mixed frames with the actual minimal
+local Smith indices. It attained both stated minima in 1,300 coordinate
+cases. Section 7 is a paper result.

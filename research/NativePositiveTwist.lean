@@ -55,13 +55,16 @@ theorem root_integral (n : ℕ) :
     apply max_lt
     · exact (Polynomial.degree_C_mul_X_le _).trans_lt (by norm_num)
     · exact Polynomial.degree_C_le.trans_lt (by norm_num)
+  have eval_eq (t : ℂ) : Polynomial.aeval t p = t^2 - (2*(n:ℂ)+1)*t + (n:ℂ)^2 := by
+    change Polynomial.eval₂ (Int.castRingHom ℂ) t p = _
+    simp only [p, Polynomial.eval₂_sub, Polynomial.eval₂_pow, Polynomial.eval₂_mul,
+      Polynomial.eval₂_X, Polynomial.eval₂_C]
+    simp [sub_sub]
   refine ⟨⟨p,hm,?_⟩,⟨p,hm,?_⟩⟩
-  · have h : (upper n:ℂ)^2-(2*(n:ℂ)+1)*(upper n:ℂ)+(n:ℂ)^2=0 := by
-      exact_mod_cast upper_quadratic n
-    simpa [p,sub_sub] using h
-  · have h : (lower n:ℂ)^2-(2*(n:ℂ)+1)*(lower n:ℂ)+(n:ℂ)^2=0 := by
-      exact_mod_cast lower_quadratic n
-    simpa [p,sub_sub] using h
+  · rw [eval_eq]
+    exact_mod_cast upper_quadratic n
+  · rw [eval_eq]
+    exact_mod_cast lower_quadratic n
 
 /-- At every embedding the two roots of the same monic equation are
 integral; the chosen root is a unit. The companion root has exactly
@@ -196,7 +199,7 @@ theorem class_lift_energy {I : Type*} [Fintype I] (t : ℝ) :
 theorem class_scalar {I : Type*} [Fintype I] (N t : ℝ) (hN : N≠0) :
     (∑ _i : I, t) = (t/N)*(∑ _i : I, N) := by
   simp only [Finset.sum_const,Finset.card_univ,nsmul_eq_mul]
-  field_simp [hN] <;> ring
+  field_simp [hN]
 
 theorem class_norm_ratio {I : Type*} [Fintype I] (N t : ℝ)
     (h : 0 < Fintype.card I) (hN : N≠0) :
