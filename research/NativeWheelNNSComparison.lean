@@ -794,7 +794,7 @@ theorem fine_metric_lower (e q d n : ℕ) [Fact q.Prime] [Fact d.Prime] (tops T 
     have cheap : (k:ℝ) ≤ 2*(PrincipalCofactor.oddCofactor k+1) := by dsimp [PrincipalCofactor.oddCofactor]; linarith
     calc
       _ ≤ PrincipalCofactor.cellWeight k*((t k-t (k+1))+cost) :=
-        mul_le_mul_of_nonneg_left ((per k).trans (add_le_add_right (edge k) _)) (wpos k)
+        mul_le_mul_of_nonneg_left (by linarith only [per k, edge k]) (wpos k)
       _ ≤ _ := by
         rw [mul_add]
         exact add_le_add (mul_le_mul_of_nonneg_right (one_div_le_one_div_of_le (dpos K) den) monot)
