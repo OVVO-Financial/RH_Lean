@@ -28,7 +28,7 @@ theorem upper_pos (n : ℕ) : 0 < upper n := by
 
 theorem lower_pos (n : ℕ) (hn : 0 < n) : 0 < lower n := by
   have h : 0 < upper n*lower n := by rw [root_product]; positivity
-  exact (mul_pos_iff.mp h).resolve_right (fun z => (upper_pos n).not_gt z.1) |>.2
+  exact (mul_pos_iff_of_pos_left (upper_pos n)).mp h
 
 theorem root_upper_le (n : ℕ) : lower n ≤ upper n := by
   unfold upper lower
@@ -54,16 +54,14 @@ theorem root_integral (n : ℕ) :
     apply lt_of_le_of_lt (Polynomial.degree_sub_le _ _)
     apply max_lt
     · exact (Polynomial.degree_C_mul_X_le _).trans_lt (by norm_num)
-    · exact Polynomial.degree_C_lt (by norm_num)
+    · exact Polynomial.degree_C_le.trans_lt (by norm_num)
   refine ⟨⟨p,hm,?_⟩,⟨p,hm,?_⟩⟩
-  · have h := congrArg (fun x : ℝ => (x:ℂ)) (upper_quadratic n)
-    simp [p,Polynomial.aeval_def] 
-    push_cast at h
-    linarith only [h]
-  · have h := congrArg (fun x : ℝ => (x:ℂ)) (lower_quadratic n)
-    simp [p,Polynomial.aeval_def]
-    push_cast at h
-    linarith only [h]
+  · have h : (upper n:ℂ)^2-(2*(n:ℂ)+1)*(upper n:ℂ)+(n:ℂ)^2=0 := by
+      exact_mod_cast upper_quadratic n
+    simpa [p,sub_sub] using h
+  · have h : (lower n:ℂ)^2-(2*(n:ℂ)+1)*(lower n:ℂ)+(n:ℂ)^2=0 := by
+      exact_mod_cast lower_quadratic n
+    simpa [p,sub_sub] using h
 
 /-- At every embedding the two roots of the same monic equation are
 integral; the chosen root is a unit. The companion root has exactly
@@ -75,8 +73,10 @@ theorem unit_root {K : Type*} [NormedField K] [IsUltrametricDist K]
     rw [hs]
     calc
       _ ≤ max ‖(2:K)*N‖ ‖(1:K)‖ := IsUltrametricDist.norm_add_le_max _ _
-      _ ≤ 1 := max_le (by rw [norm_mul]; exact mul_le_one₀
-        (by exact_mod_cast IsUltrametricDist.norm_natCast_le_one K 2) (norm_nonneg _) hN) (by simp)
+      _ ≤ 1 := max_le (by
+        rw [norm_mul]
+        exact (mul_le_of_le_one_left (norm_nonneg N)
+          (by exact_mod_cast IsUltrametricDist.norm_natCast_le_one K 2)).trans hN) (by simp)
   have hprod : ‖a‖*‖b‖≤1 := by
     rw [← norm_mul,hp,norm_pow]
     exact pow_le_one₀ (norm_nonneg _) hN
@@ -84,7 +84,10 @@ theorem unit_root {K : Type*} [NormedField K] [IsUltrametricDist K]
     by_contra! h
     have hb : ‖b‖≤1 := by
       by_contra! hb
-      nlinarith only [hprod,h,hb,mul_pos (sub_pos.mpr h) (sub_pos.mpr hb)]
+      exact (not_lt_of_ge hprod) (by
+        calc
+          1 < ‖b‖ := hb
+          _ ≤ ‖a‖*‖b‖ := le_mul_of_one_le_left (norm_nonneg b) h.le)
     have hh := IsUltrametricDist.norm_add_le_max (a+b) (-b)
     rw [add_neg_cancel_right,norm_neg] at hh
     exact h.not_ge (hh.trans (max_le hsum hb))
@@ -100,8 +103,7 @@ theorem unit_root {K : Type*} [NormedField K] [IsUltrametricDist K]
   have hS : ‖a+b‖<1 := (IsUltrametricDist.norm_add_le_max a b).trans_lt (max_lt hA hB)
   by_cases hNu : ‖N‖=1
   · have eqn : ‖a‖*‖b‖=1 := by rw [← norm_mul,hp,norm_pow,hNu,one_pow]
-    nlinarith only [eqn,hA,hB,norm_nonneg a,norm_nonneg b,
-      mul_nonneg (norm_nonneg a) (sub_nonneg.mpr hb)]
+    exact (ne_of_lt ((mul_le_of_le_one_left (norm_nonneg b) ha).trans_lt hB)) eqn
   · have hNt := lt_of_le_of_ne hN hNu
     have ht : ‖(2:K)*N‖<1 := by
       rw [norm_mul]
@@ -113,8 +115,8 @@ theorem unit_root {K : Type*} [NormedField K] [IsUltrametricDist K]
     exact (not_lt_of_ge h) (max_lt hS ht)
 
 theorem chosen_norm_ratio {K : Type*} [NormedField K]
-    (N t : K) (hN : N ≠ 0) (ht : ‖t‖=1) :
-    ‖(N/t)^2‖=‖N‖^2 ∧ ‖(t/N)^2‖=‖N‖⁻¹^2 := by
+    (N t : K) (ht : ‖t‖=1) :
+    ‖(N/t)^2‖=‖N‖^2 ∧ ‖(t/N)^2‖=(‖N‖⁻¹)^2 := by
   simp [norm_pow,norm_div,ht,one_div]
 
 /-- Independent physical line test: normalized indicator paired with
@@ -137,7 +139,7 @@ theorem indicator_energy {I : Type*} [Fintype I]
 depths is exactly the original signed rational factor, not an
 additional directional gain. -/
 theorem signed_ratio_norm {K : Type*} [NormedField K]
-    (D E a b : K) (hD : D≠0) (hE : E≠0)
+    (D E a b : K)
     (ha : ‖a‖=1) (hb : ‖b‖=1) :
     ‖((D/a)/(E/b))^2‖=‖(D/E)^2‖ := by
   simp [norm_pow,norm_div,ha,hb]
