@@ -188,7 +188,6 @@ theorem dyadic_nonzero_channels (e q d p N : ℕ) [Fact q.Prime] [Fact d.Prime] 
   classical
   let D := alpogeNativeHostData e q d
   let f := fun v : D.inertia p => chartRead w D.frob N p v
-  change ∀ χ, channel f χ ≠ 0 → ‖ι (channel f χ)‖ = ‖ι (f 0:ℂ)‖
   change ∀ χ : AddChar (D.inertia p) ℂ, channel f χ ≠ 0 → ‖ι (channel f χ)‖ = ‖ι (f 0:ℂ)‖
   have constant (hc : ∀ v, f v = f 0) :
       ∀ χ, channel f χ ≠ 0 → ‖ι (channel f χ)‖ = ‖ι (f 0:ℂ)‖ := by
