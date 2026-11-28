@@ -40,7 +40,7 @@ theorem sparse_pivot {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   rw [WheelNNS.coDiv_eq, Matrix.mul_apply]
   simp only [Matrix.transpose_apply, anchoredColumns_zero]
   rw [Fintype.sum_sigma]
-  simp [anchor, ite_mul]
+  simp [anchor]
 
 theorem sparse_schur_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (j : Fin (r+1))
@@ -128,7 +128,7 @@ private theorem norm_pow (l : ℕ) [Fact l.Prime] (q : ℚ) (k : ℕ) :
 
 theorem factor_norm_other (l p b a : ℕ) [Fact l.Prime] (hp : p.Prime) (hne : l ≠ p) :
     padicNorm l (factor p b a) = 1 := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let : Fact p.Prime := ⟨hp⟩
   rw [factor,padicNorm.div,norm_pow,norm_pow,padicNorm.padicNorm_of_prime_of_ne hne]
   simp
 
@@ -175,7 +175,7 @@ theorem log_norm_ratio {I : Type*} [Fintype I] [DecidableEq I]
     (p b a : I → ℕ) (hp : ∀ i, (p i).Prime) (hi : Function.Injective p) (j : I) :
     Real.log (padicNorm (p j) (ratio p b a):ℝ) =
       -((b j:ℝ)-a j)*Real.log (p j) := by
-  letI : Fact (p j).Prime := ⟨hp j⟩
+  let : Fact (p j).Prime := ⟨hp j⟩
   rw [ratio_norm_self p b a hp hi j,Rat.cast_div,Rat.cast_pow,Rat.cast_pow,
     Rat.cast_inv,Rat.cast_natCast]
   have h : (p j:ℝ) ≠ 0 := by exact_mod_cast (hp j).ne_zero
@@ -216,6 +216,14 @@ def test {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
   ((if i=k.succ then 1 else 0)-(if j=k.succ then 1 else 0))/
     (((S i).card:ℚ)*(D i:ℚ))
 
+private theorem test_cast {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (j : Fin (r+1)) (k : Fin r) (i : Fin (r+1)) :
+    (test S D j k i : ℝ) =
+      ((if i = k.succ then 1 else 0) - (if j = k.succ then 1 else 0)) /
+        (((S i).card : ℝ) * (D i : ℝ)) := by
+  simp only [test, Rat.cast_div, Rat.cast_sub, Rat.cast_mul, Rat.cast_natCast,
+    apply_ite (Rat.cast : ℚ → ℝ), Rat.cast_zero, Rat.cast_one]
+
 @[simp] theorem test_pivot {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (j : Fin (r+1)) (k : Fin r) : test S D j k j = 0 := by
   simp [test]
@@ -236,10 +244,12 @@ theorem test_pair {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → �
       ((if i=l.succ then 1 else 0)-(if i=0 then 1 else 0))*B i := by
     have hn : ((S i).card:ℝ) ≠ 0 := by exact_mod_cast (hS i).card_pos.ne'
     have hd : (D i:ℝ) ≠ 0 := by exact_mod_cast (hD i).ne'
-    simp only [test,amplitude,Fin.cases_succ,Rat.cast_div,Rat.cast_mul,
-      Rat.cast_sub,Rat.cast_ite,Rat.cast_one,Rat.cast_zero,Rat.cast_natCast,B]
-    field_simp [hn,hd]
-    ring
+    rw [test_cast]
+    let e : ℝ := (if i = l.succ then 1 else 0) - (if i = 0 then 1 else 0)
+    change ((S i).card : ℝ) * ((D i : ℝ) * e) *
+        (B i / (((S i).card : ℝ) * (D i : ℝ))) = e * B i
+    rw [← mul_assoc ((S i).card : ℝ) (D i : ℝ), ← mul_div_assoc, mul_assoc,
+      mul_div_cancel_left₀ _ (mul_ne_zero hn hd)]
   rw [Finset.sum_congr rfl (fun i _ => term i)]
   have hsum : (∑ i, ((if i=l.succ then 1 else 0)-(if i=0 then 1 else 0))*B i) =
       B l.succ-B 0 := by
@@ -255,7 +265,7 @@ theorem test_pair {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → �
 /-- Actual measured real energy, with no inverse Gram determinant.
 A sharper rowwise sum is given in the companion paper derivation. -/
 theorem test_energy {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
-    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (_hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
     (j : Fin (r+1)) (k : Fin r) (m : ℝ) (hm : 0 < m)
     (hmin : ∀ i, m ≤ ((S i).card:ℝ)) :
     slotEnergy S (fun i => (test S D j k i:ℝ)) ≤ (r+1:ℕ)/m := by
@@ -268,20 +278,20 @@ theorem test_energy {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → 
       let n : ℝ := (S i).card
       let d : ℝ := D i
       have hn : 0 < n := hm.trans_le (hmin i)
-      have hd : 1 ≤ d := by exact_mod_cast hD i
+      have hd : 1 ≤ d := by
+        change (1 : ℝ) ≤ (D i : ℝ)
+        exact_mod_cast (Nat.succ_le_of_lt (hD i))
       have hdn : 0 < d := by linarith
       let b : ℝ := (if i=k.succ then 1 else 0)-(if j=k.succ then 1 else 0)
       have hb : b^2 ≤ 1 := by
         dsimp only [b]
         split_ifs <;> norm_num
-      have hf : (test S D j k i:ℝ) = b/(n*d) := by
-        simp only [test,Rat.cast_div,Rat.cast_mul,Rat.cast_sub,
-          Rat.cast_ite,Rat.cast_one,Rat.cast_zero,Rat.cast_natCast,b,n,d]
+      have hf : (test S D j k i:ℝ) = b/(n*d) := test_cast S D j k i
       change n*(test S D j k i:ℝ)^2 ≤ _
       rw [hf]
       have hnd : 0 < n*d^2 := mul_pos hn (sq_pos_of_pos hdn)
       calc
-        _ = b^2/(n*d^2) := by field_simp [hn.ne',hdn.ne']; ring
+        _ = b^2/(n*d^2) := by field_simp [hn.ne',hdn.ne']
         _ ≤ 1/(n*d^2) := div_le_div_of_nonneg_right hb hnd.le
         _ ≤ 1/m := by
           have hh : 1 ≤ d^2 := by nlinarith only [hd, sq_nonneg (d-1)]
@@ -317,8 +327,9 @@ theorem nat_log_product (n M : ℕ) (hn : 0 < n) (hM : n < M) :
   have hprod := congrArg (fun k : ℕ => Real.log (k:ℝ))
     (Nat.prod_pow_prime_padicValNat n hn.ne' M hM)
   change Real.log ((↑(∏ l ∈ S, l^padicValNat l n):ℝ)) = Real.log (n:ℝ) at hprod
-  rw [Nat.cast_prod, Real.log_prod (fun l hl => pow_ne_zero _ (by exact_mod_cast (hp l hl).ne_zero))] at hprod
-  simp only [Nat.cast_pow,Real.log_pow] at hprod
+  simp only [Nat.cast_prod, Nat.cast_pow] at hprod
+  rw [Real.log_prod (fun l hl => pow_ne_zero _ (by exact_mod_cast (hp l hl).ne_zero))] at hprod
+  simp only [Real.log_pow] at hprod
   have term (l : ℕ) (hl : l ∈ S) : Real.log (padicNorm l (n:ℚ):ℝ) =
       -(padicValNat l n:ℝ)*Real.log (l:ℝ) := by
     have hnq : (n:ℚ) ≠ 0 := by exact_mod_cast hn.ne'
@@ -344,7 +355,7 @@ theorem quotient_log_product (A B M : ℕ) (hA : 0 < A) (hB : 0 < B)
   have term (l : ℕ) (hl : l ∈ S) :
       Real.log (padicNorm l ((A:ℚ)/B):ℝ) =
         Real.log (padicNorm l (A:ℚ):ℝ)-Real.log (padicNorm l (B:ℚ):ℝ) := by
-    letI : Fact l.Prime := ⟨(Finset.mem_filter.mp hl).2⟩
+    let : Fact l.Prime := ⟨(Finset.mem_filter.mp hl).2⟩
     rw [padicNorm.div,Rat.cast_div,Real.log_div
       (by exact_mod_cast padicNorm.nonzero hAq)
       (by exact_mod_cast padicNorm.nonzero hBq)]
