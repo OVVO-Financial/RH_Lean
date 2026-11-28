@@ -27,15 +27,21 @@ private theorem unitAmplitude_det {r : ℕ} (a : Fin (r+1) → ℝ) :
     simpa only [C, one_smul] using
       Matrix.det_updateRow_sum B 0 (fun _ => (1:ℝ))
   have h0 : C 0 0 = ∑ i, a i := by
-    simp [C, B, amplitude, Finset.sum_apply]
+    rw [show C 0 = ∑ i, B i from Matrix.updateRow_self]
+    change (∑ i, (B i : Fin (r+1) → ℝ)) 0 = _
+    rw [Finset.sum_apply]
+    rfl
   have h1 (j : Fin r) : C 0 j.succ = 0 := by
-    simp [C, B, amplitude, Finset.sum_apply, Finset.sum_sub_distrib]
+    rw [show C 0 = ∑ i, B i from Matrix.updateRow_self]
+    change (∑ i, (B i : Fin (r+1) → ℝ)) j.succ = _
+    rw [Finset.sum_apply]
+    simp [B, amplitude, Finset.sum_sub_distrib]
   have hminor : C.submatrix Fin.succ Fin.succ = (1 : Matrix (Fin r) (Fin r) ℝ) := by
     ext i j
-    simp [C, B, amplitude, Matrix.updateRow_ne (Fin.succ_ne_zero i), Matrix.one_apply]
+    simp [C, B, amplitude, Matrix.one_apply]
   change B.det = _
   rw [← hc, Matrix.det_succ_row_zero, Fin.sum_univ_succ]
-  simp [h0, h1, Fin.zero_succAbove, hminor]
+  simp [h0, h1, hminor]
 
 theorem normal_div {r : ℕ} (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i)
     (i : Fin (r+1)) :
@@ -80,10 +86,10 @@ theorem anchoredColumns_star {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     anchoredColumns S D a z j.succ = (columns S D z j:ℝ) := by
   by_cases h0 : z.1=0
   · have hne : z.1 ≠ j.succ := by rw [h0]; exact (Fin.succ_ne_zero j).symm
-    simp [anchoredColumns, amplitude, columns, starColumn, h0, hne,
+    simp [anchoredColumns, amplitude, columns, starColumn, h0,
       (Fin.succ_ne_zero j).symm]
   · by_cases h1 : z.1=j.succ
-    · simp [anchoredColumns, amplitude, columns, starColumn, h0, h1]
+    · simp [anchoredColumns, amplitude, columns, starColumn, h1]
     · simp [anchoredColumns, amplitude, columns, starColumn, h0, h1]
 
 /-- The actual four-sector NNS reassembly is the layer-weighted
@@ -103,7 +109,7 @@ theorem augmented_gram {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   apply Finset.sum_congr rfl
   intro k _
   rw [Matrix.diagonal_mul]
-  simp [nsmul_eq_mul, mul_assoc, mul_left_comm, mul_comm]
+  simp [nsmul_eq_mul, mul_left_comm]
 
 theorem augmented_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (a : Fin (r+1) → ℝ) :
@@ -130,7 +136,7 @@ private theorem eliminate_det {r : ℕ} (v : Fin r → ℝ) :
     ext i j
     simp [eliminate, Matrix.one_apply]
   rw [Matrix.det_succ_row_zero, Fin.sum_univ_succ]
-  simp [eliminate, Fin.zero_succAbove, h]
+  simp [eliminate, h]
 
 /-- Determinant reconciliation is exact and does not need the
 Gram itself to be nonsingular. -/
@@ -146,17 +152,17 @@ theorem schur_det {r : ℕ} (H : Matrix (Fin (r+1)) (Fin (r+1)) ℝ)
   have h1 (i : Fin r) : J i.succ 0 = 0 := by
     simp only [J, T, eliminate, Matrix.mul_apply, Fin.sum_univ_succ,
       Fin.cases_succ, Fin.cases_zero, ite_mul, one_mul, zero_mul, Finset.sum_ite_eq,
-      Finset.mem_univ, if_true]
+      Finset.mem_univ, ite_true]
     field_simp [hW]
     ring
   have hminor : J.submatrix Fin.succ Fin.succ = schur H := by
     ext i j
     simp only [J, T, eliminate, Matrix.submatrix_apply, Matrix.mul_apply,
       Fin.sum_univ_succ, Fin.cases_succ, Fin.cases_zero, ite_mul, one_mul, zero_mul,
-      Finset.sum_ite_eq, Finset.mem_univ, if_true, schur]
+      Finset.sum_ite_eq, Finset.mem_univ, ite_true, schur]
     ring
   rw [← dJ, Matrix.det_succ_column_zero, Fin.sum_univ_succ]
-  simp [h0, h1, Fin.zero_succAbove, hminor]
+  simp [h0, h1, hminor]
 
 theorem native_schur_det {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (hD : ∀ i, 0 < D i) (a : Fin (r+1) → ℝ)
@@ -203,8 +209,8 @@ theorem joint_log_loss {ι : Type*} (s : Finset ι) (z : ι → ℝ)
 cells. No independent random prime hypothesis is needed. -/
 theorem partition_log_loss {I K : Type*} [Fintype I] [Fintype K] [DecidableEq K]
     (g : I → K) (z : I → ℝ) (hz : ∀ i, 0 ≤ z i) (h : (∑ i, z i) < 1) :
-    let b := fun k => ∑ i, if g i=k then z i else 0
-    -(∑ k, Real.log (1-b k)) ≤ -Real.log (1-∑ i, z i) := by
+    let b : K → ℝ := fun k => ∑ i, if g i=k then z i else 0
+    ; -(∑ k, Real.log (1-b k)) ≤ -Real.log (1-∑ i, z i) := by
   classical
   intro b
   have hb (k : K) : 0 ≤ b k := Finset.sum_nonneg fun i _ => by
