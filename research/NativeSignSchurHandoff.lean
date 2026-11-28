@@ -81,7 +81,9 @@ theorem normal_angle_bounds {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   have qpos (i : Fin (r+1)) : 0 < q i := by
     dsimp [q,wheelNormal]
     exact_mod_cast (Finset.prod_pos fun j _ => hD j)
-  have npos i : 0 < n i := by exact_mod_cast (hS i).card_pos
+  have npos i : 0 < n i := by
+    change (0 : ℝ) < ((S i).card : ℝ)
+    exact_mod_cast (hS i).card_pos
   have qle i : q i ≤ Q := Finset.single_le_sum
     (s := Finset.univ) (f := q) (fun j _ => (qpos j).le) (Finset.mem_univ i)
   constructor
@@ -123,7 +125,6 @@ theorem angleLog_bounds {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     angleLog S D ∈ Set.Icc (Real.log m/2)
       (Real.log (∑ i, ((S i).card:ℝ))/2) := by
   obtain ⟨hl,hu⟩ := normal_angle_bounds S D hS hD m hm hmin
-  dsimp only at hl hu
   have hE := dualEnergy_pos S D hS hD
   have lo := (le_div_iff₀ hE).2 hl
   have hi := (div_le_iff₀ hE).2 (by linarith only [hu])
@@ -294,7 +295,9 @@ theorem originalGx_price {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H
       liftedVolume (S s j) (commonProfile (D s) (E s)) (E s)
   let A := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
     logVolume (S s j) (D s)-logVolume (S s j) (E s)
-  have kt : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have kt : 0 < k := by
+    change (0 : ℝ) < ((T.card * n : ℕ) : ℝ)
+    exact_mod_cast Nat.mul_pos hT.card_pos hn
   have tt : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
   have pos : 0 < c*k*tops.card := mul_pos (mul_pos hc kt) tt
   have bound (s : ↥V) (j : ↥(siteRows T n s.val)) : |B s j-A s j| ≤ L :=
