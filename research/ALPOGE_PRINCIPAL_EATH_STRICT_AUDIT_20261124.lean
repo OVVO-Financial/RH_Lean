@@ -1,5 +1,6 @@
 import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
+import «research.NativeSignSchurHandoff»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -341,6 +342,15 @@ run_cmd do
     ``RHLean.Analysis.NativeSignLift.triangular_conjugate,
     ``RHLean.Analysis.NativeSignLift.lift_det,
     ``RHLean.Analysis.NativeSignLift.euler_lift_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.observations_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.relative_log,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.normal_angle_bounds,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.angleLog_bounds,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.anchor_relative,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.anchor_relative_price,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative_price,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.originalGx_price,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss,
     ``RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss,
