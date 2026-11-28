@@ -2,6 +2,7 @@ import «research.NativePrimitiveDeterminantCertificate»
 import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
+import «research.NativeSparseAnchorHeight»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -448,3 +449,29 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative_price
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.originalGx_price
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.anchor_normal
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_amplitude_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_gram_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_pivot
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.sparse_schur_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_mul
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_eq_normal
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_omitted_add
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_ratio
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.factor_norm_other
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.factor_norm_self
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_norm_self
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.omitted_norm_outside
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_norm_self
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_norm_outside
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.log_norm_ratio
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.ratio_log_product
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.all_pivot_log
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_pivot
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_pair
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_energy
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.test_place
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.nat_log_product
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.quotient_log_product
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight.common_witness_log
