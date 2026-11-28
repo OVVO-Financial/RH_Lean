@@ -180,5 +180,146 @@ theorem anchor_relative_price {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   apply abs_le.mpr
   exact ⟨by linarith only [h1.1,h2.2],by linarith only [h1.2,h2.1]⟩
 
+/-- The unsigned profile is the coordinatewise maximum of the actual
+two profiles, not a free reference whose determinant is assumed to be one. -/
+def commonProfile {r : ℕ} (D E : Fin (r+1) → ℕ) : Fin (r+1) → ℕ :=
+  fun i => max (D i) (E i)
+
+def liftedVolume {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (M D : Fin (r+1) → ℕ) : ℝ :=
+  Real.log (WheelNNS.coDiv (observations
+    (anchoredColumns S M (fun _ => 1))
+    (anchoredColumns S D (fun _ => 1)))).det/2
+
+private theorem anchor_det_ne {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D : Fin (r+1) → ℕ) (hS : ∀ i, (S i).Nonempty)
+    (hD : ∀ i, 0 < D i) :
+    (WheelNNS.coDiv (anchoredColumns S D (fun _ => 1))).det ≠ 0 := by
+  rw [augmented_det S D hD]
+  have hq (i : Fin (r+1)) : 0 < (wheelNormal D i:ℝ) := by
+    exact_mod_cast (Finset.prod_pos fun j _ => hD j)
+  have hQ : 0 < ∑ i, (wheelNormal D i:ℝ)*1 :=
+    Finset.sum_pos (fun i _ => by simpa using hq i) Finset.univ_nonempty
+  have hL : 0 < ∏ i, ((S i).card:ℝ) :=
+    Finset.prod_pos fun i _ => by exact_mod_cast (hS i).card_pos
+  exact (mul_pos hL (sq_pos_of_pos hQ)).ne'
+
+theorem lifted_relative {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D E : Fin (r+1) → ℕ) (hS : ∀ i, (S i).Nonempty)
+    (hD : ∀ i, 0 < D i) (hE : ∀ i, 0 < E i) :
+    liftedVolume S (commonProfile D E) D-liftedVolume S (commonProfile D E) E =
+      anchorVolume S D-anchorVolume S E := by
+  have hM : ∀ i, 0 < commonProfile D E i :=
+    fun i => (hD i).trans_le (le_max_left _ _)
+  have h := relative_log (anchoredColumns S (commonProfile D E) (fun _ => 1))
+    (anchoredColumns S D (fun _ => 1)) (anchoredColumns S E (fun _ => 1))
+    (anchor_det_ne S _ hS hM) (anchor_det_ne S _ hS hD) (anchor_det_ne S _ hS hE)
+  unfold liftedVolume anchorVolume
+  linarith only [h]
+
+/-- Exact local handoff to G_x's original volume difference. -/
+theorem lifted_relative_price {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D E : Fin (r+1) → ℕ) (hS : ∀ i, (S i).Nonempty)
+    (hD : ∀ i, 0 < D i) (hE : ∀ i, 0 < E i) (m : ℝ) (hm : 0 < m)
+    (hmin : ∀ i, m ≤ ((S i).card:ℝ)) :
+    |(liftedVolume S (commonProfile D E) D-liftedVolume S (commonProfile D E) E)-
+      (logVolume S D-logVolume S E)| ≤
+        (Real.log (∑ i, ((S i).card:ℝ))-Real.log m)/2 := by
+  rw [lifted_relative S D E hS hD hE]
+  exact anchor_relative_price S D E hS hD hE m hm hmin
+
+/-- The two actual sums over the original partner sites and translates.
+The depth functions are the two integral split-factorial removals in
+SIGNED_MOBIUS_SPLIT_COMPENSATION_20261127.md. -/
+def originalGx {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
+    (tops T : Finset H) (P : Finset ℕ) (g : ℕ → H) (n : ℕ)
+    (a : H → ℝ) (width : H × Fin n → H → ℝ)
+    (beta alpha : ℕ → ℕ) (c : ℝ) : ℝ :=
+  let V := occupied tops P g
+  let p := primeAt tops P g
+  let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    bands (fun i => a (s.val-g (p s i))/(p s i:ℝ)) (width j.val s.val)
+  let k : ℝ := (T.card*n:ℕ)
+  6*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val),
+    (logVolume (S s j) (fun i => (p s i)^(beta (p s i))) -
+      logVolume (S s j) (fun i => (p s i)^(alpha (p s i)))))/(c*k*tops.card)
+
+def liftedGx {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
+    (tops T : Finset H) (P : Finset ℕ) (g : ℕ → H) (n : ℕ)
+    (a : H → ℝ) (width : H × Fin n → H → ℝ)
+    (beta alpha : ℕ → ℕ) (c : ℝ) : ℝ :=
+  let V := occupied tops P g
+  let p := primeAt tops P g
+  let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    bands (fun i => a (s.val-g (p s i))/(p s i:ℝ)) (width j.val s.val)
+  let k : ℝ := (T.card*n:ℕ)
+  let D := fun (s : ↥V) i => (p s i)^(beta (p s i))
+  let E := fun (s : ↥V) i => (p s i)^(alpha (p s i))
+  6*(∑ s : ↥V, ∑ j : ↥(siteRows T n s.val),
+    (liftedVolume (S s j) (commonProfile (D s) (E s)) (D s) -
+      liftedVolume (S s j) (commonProfile (D s) (E s)) (E s)))/(c*k*tops.card)
+
+/-- Sum the independent correction on the original native incidence
+family. The number of translates cancels, and no new tops or signed
+rows are inserted into the normalization. -/
+theorem originalGx_price {H : Type*} [AddCommGroup H] [DecidableEq H] [Fintype H]
+    (tops T : Finset H) (P : Finset ℕ) (g : ℕ → H) (n : ℕ)
+    (a : H → ℝ) (width : H × Fin n → H → ℝ)
+    (beta alpha : ℕ → ℕ) (c L m : ℝ)
+    (hc : 0 < c) (ht : tops.Nonempty) (hT : T.Nonempty) (hn : 0 < n)
+    (hm : 0 < m)
+    (hp : ∀ s : ↥(occupied tops P g), ∀ i, 0 < primeAt tops P g s i)
+    (hS : ∀ s : ↥(occupied tops P g), ∀ j : ↥(siteRows T n s.val), ∀ i,
+      (bands (fun i => a (s.val-g (primeAt tops P g s i))/(primeAt tops P g s i:ℝ))
+        (width j.val s.val) i).Nonempty)
+    (hmin : ∀ s : ↥(occupied tops P g), ∀ j : ↥(siteRows T n s.val), ∀ i,
+      m ≤ ((bands (fun i => a (s.val-g (primeAt tops P g s i))/(primeAt tops P g s i:ℝ))
+        (width j.val s.val) i).card:ℝ))
+    (hL : ∀ s : ↥(occupied tops P g), ∀ j : ↥(siteRows T n s.val),
+      (Real.log (∑ i, ((bands (fun i => a (s.val-g (primeAt tops P g s i))/(primeAt tops P g s i:ℝ))
+        (width j.val s.val) i).card:ℝ))-Real.log m)/2 ≤ L) :
+    |liftedGx tops T P g n a width beta alpha c -
+      originalGx tops T P g n a width beta alpha c| ≤
+      6*((occupied tops P g).card:ℝ)*L/(c*tops.card) := by
+  classical
+  let V := occupied tops P g
+  let p := primeAt tops P g
+  let S := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    bands (fun i => a (s.val-g (p s i))/(p s i:ℝ)) (width j.val s.val)
+  let D := fun (s : ↥V) i => (p s i)^(beta (p s i))
+  let E := fun (s : ↥V) i => (p s i)^(alpha (p s i))
+  let k : ℝ := (T.card*n:ℕ)
+  let B := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    liftedVolume (S s j) (commonProfile (D s) (E s)) (D s) -
+      liftedVolume (S s j) (commonProfile (D s) (E s)) (E s)
+  let A := fun (s : ↥V) (j : ↥(siteRows T n s.val)) =>
+    logVolume (S s j) (D s)-logVolume (S s j) (E s)
+  have kt : 0 < k := by exact_mod_cast Nat.mul_pos hT.card_pos hn
+  have tt : (0:ℝ) < tops.card := by exact_mod_cast ht.card_pos
+  have pos : 0 < c*k*tops.card := mul_pos (mul_pos hc kt) tt
+  have bound (s : ↥V) (j : ↥(siteRows T n s.val)) : |B s j-A s j| ≤ L :=
+    (lifted_relative_price (S s j) (D s) (E s) (hS s j)
+      (fun i => pow_pos (hp s i) _) (fun i => pow_pos (hp s i) _)
+      m hm (hmin s j)).trans (hL s j)
+  have total : |∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), (B s j-A s j)| ≤
+      (V.card:ℝ)*k*L := by
+    calc
+      _ ≤ ∑ s : ↥V, |∑ j : ↥(siteRows T n s.val), (B s j-A s j)| :=
+        Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ s : ↥V, ∑ j : ↥(siteRows T n s.val), |B s j-A s j| :=
+        Finset.sum_le_sum fun s _ => Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ s : ↥V, ∑ _j : ↥(siteRows T n s.val), L :=
+        Finset.sum_le_sum fun s _ => Finset.sum_le_sum fun j _ => bound s j
+      _ = _ := by simp [k,siteRows_card,mul_assoc]
+  change |6*(∑ s, ∑ j, B s j)/(c*k*tops.card) -
+    6*(∑ s, ∑ j, A s j)/(c*k*tops.card)| ≤ _
+  rw [← sub_div,← mul_sub,abs_div,abs_mul,abs_of_pos pos,
+    abs_of_nonneg (by norm_num : (0:ℝ) ≤ 6),← Finset.sum_sub_distrib]
+  simp_rw [← Finset.sum_sub_distrib]
+  calc
+    _ ≤ 6*((V.card:ℝ)*k*L)/(c*k*tops.card) :=
+      div_le_div_of_nonneg_right (mul_le_mul_of_nonneg_left total (by norm_num)) pos.le
+    _ = _ := by field_simp [hc.ne',kt.ne',tt.ne']; ring
+
 end SignSchurHandoff
 end RHLean.Analysis.AlpogeThin.SlotProjector
