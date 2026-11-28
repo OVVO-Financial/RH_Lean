@@ -216,3 +216,215 @@ has been kernel-checked here. Retain the original alternating-exchange
 benchmark and source notes; do not relabel them as terminal closure.
 
 Finite checks executed in this session: {"frequencyOrders":1098,"orderTowerCases":40185,"higherTowerCases":40,"nonunitCases":357,"companionDeterminants":124,"rankCases":1860,"rankDefects":52,"unitRepairs":52,"physicalGramCases":744,"admissionCases":442}.
+
+## 6. The rational product and the complete real clock
+
+Write $N=\lfloor x\rfloor$, $c=\lfloor\sqrt{x}\rfloor$, $q=c+1$,
+$r=c/q$, and use the calibrated $V,E$, cutoff $H$ and reference
+$R_E$ of the two source notes. Here $x\ge4$ can be any real number.
+The new Lean source is [NativePrimitiveDeterminantCertificate.lean](NativePrimitiveDeterminantCertificate.lean).
+
+For $a_n=\operatorname{round}(cE(n/x))$ and $2\le n\le N$, put
+$$
+Y=\prod_n(D_n/q^{\varphi(n)})^{a_n}\in\mathbb Q_{>0},
+\qquad W=\sum_n E(n/x)\log F_n(r).
+$$
+Möbius inversion of the complete cyclic characteristic polynomial gives
+$F_n(r)=\prod_{d\mid n}(1-r^d)^{\mu(n/d)} =r^{\varphi(n)}\Phi_n(1/r)$. Thus the construction only uses integer powers.
+The triangle inequality is needed only on the fractional rounding errors.
+Since $q^{-1}\le1-r^d\le1$ for $d\ge1$, it gives
+$$
+ |c^{-1}\log Y-W|\le {\log q\over2c}\sum_{n\le N}\tau(n)
+ \le {N(1+\log N)\log q\over2c}.
+$$
+The last inequality counts divisor pairs in the hyperbola by the first
+coordinate. For the trace error, expand each $\log(1-r^d)$ through
+degree $\lfloor H/d\rfloor$. Its remainder has magnitude at most
+$r^{d(\lfloor H/d\rfloor+1)}/(1-r^d)\le r^H/(1-r)$.
+Collecting the terms with $d\mid j$ gives the actual Ramanujan trace.
+In particular, with $\mathcal S_x=\sum_{j\le H}r^jT_j(x)/j+R_E(x)$,
+$$
+ \left|\mathcal S_x-\left(R_E(x)-{\log Y\over c}\right)\right|
+ \le {r^H\over 1-r}\sum_{2\le n\le N}|E(n/x)|\tau(n)
+       +{N(1+\log N)\log q\over 2c}.
+$$
+Here $r^H\le(2x)^{-4}$, so the first error is bounded using the
+boundedness of the fixed residual and the second is $O(\sqrt{x}\log^2(2x))$.
+This retains the independently evaluated reference including its sign.
+
+There is a direct exact transfer at *every* real argument. The definition
+of the residual and the von Mangoldt divisor identity give
+$$
+ \mathrm{statementOCGz}(x)+P_E(x)
+ =\sum_{k\le x} V(k/x)\log k-x\log x+(1+\gamma)x.
+$$
+Indeed, multiplying the dilation sum defining $E(d/x)$ by $\Lambda(d)$
+and grouping by $k=dj$ gives $\sum_{d\mid k}\Lambda(d)=\log k$.
+For the term on the right, $\int V=1$ and
+$\int V(t)\log t\,dt=-(1+\gamma)$ by the calibration in the split note.
+The Riemann sum has error $O_V(1+\log x)$.
+On $[1/x,1]$ the variation of $V(t)\log(xt)$ is at most
+$(\operatorname{Var}V+\|V\|_\infty)\log x$. The contribution of the
+first mesh cell, after multiplying the integral by $x$, is at most
+$\|V\|_\infty\int_0^1|\log u|\,du$. Any final fractional cell costs
+$O_V(\log x)$. Thus the reference estimate in the admissions note gives
+$\mathrm{statementOCGz}(x)=\mathcal S_x+O_E(\sqrt{x}\log(2x))$.
+There is also a square-root error estimate on the whole large-prime part of $W$ that keeps its signed first-order correction. Let $u=\log(1+1/c)$, and take all $p>x^{3/4}$ and $pk\le x$. The same estimate holds for any subset of these $p$ owing to the uniform error bound. Then
+$$
+\begin{aligned}
+\sum_{p,k}E(pk/x)\log F_{pk}(r)
+={}&\log q\sum_p E(p/x)
+-\sum_{p,\,k\ge2}E(pk/x)\Lambda(k)\\
+&+\frac{u}{2}\sum_{p,\,k\ge2}E(pk/x)\varphi(k)
++O_E(\sqrt{x}).
+\end{aligned}
+$$
+The $k=1$ factor is $q(1-r^p)$. At $k\ge2$, use $F_{pk}(r)F_k(r)=F_k(r^p)$ and the exponential bound on the $r^p$ terms from the admissions note. In the cyclotomic divisor sum for $\log F_k(r)$ write
+$\log(1-e^{-z})=\log z-z/2+O(z^2)$, uniformly for $0<z\le1$.
+The constant, logarithmic and linear sums use $\sum_{d\mid k}\mu(k/d)=0$, $\sum_{d\mid k}\mu(k/d)\log d=\Lambda(k)$ and $\sum_{d\mid k}d\mu(k/d)=\varphi(k)$. The remainder is bounded by $C u^2\sigma_2(k)$. Since $k\le x^{1/4}$, $\sigma_2(k)\le\zeta(2)k^2$, and there are at most $x/k$ possible $p$ for a fixed $k$, the entire remainder costs $O_E(u^2 x\sum_{k\le x^{1/4}}k)=O_E(\sqrt{x})$. The complementary population in $W$ must be carried through without this expansion.
+
+The [Parseval path note](NATIVE_PARSEVAL_PATH_AMPLIFICATION_20261128.md) sharpens the integer quadrature to $O(1)$ by applying the trapezoidal rule to its derivative of bounded variation.
+
+Both errors in the transfer to the full real window are uniform on the entire real half-line from any sufficiently
+large absolute threshold. A fixed positive exponent margin absorbs their
+logarithms with one constant per epsilon before the window is chosen.
+
+## 7. Both reciprocal rational certificates at all places
+
+Set $M=\sum_n a_n\varphi(n)$ with $a_k=0$ outside $[2,N]$.
+When $\ell\nmid cq$, let $h=\operatorname{ord}_\ell(q/c)$,
+$b_\ell=v_\ell(D_h)$, and
+$J_\ell=b_\ell a_h+\sum_{j\ge1}a_{h\ell^j}$. The sum is finite.
+For the rational witness $1$ the exact allowances, in unnormalized
+natural logarithms, are as follows. The finite rows use
+$\log|z|_\ell=-v_\ell(z)\log\ell$.
+
+| Place | $Y$ | $1/Y$ |
+| --- | ---: | ---: |
+| Real log absolute value of the object | $\sum_n a_n\log D_n-M\log q$ | $M\log q-\sum_n a_n\log D_n$ |
+| Real log absolute value of the common witness | $0$ | $0$ |
+| $\ell\mid c$ | $0$ | $0$ |
+| $\ell\mid q$ | $M v_\ell(q)\log\ell$ | $-M v_\ell(q)\log\ell$ |
+| $\ell\nmid cq$, base and higher levels together | $-J_\ell\log\ell$ | $J_\ell\log\ell$ |
+| Witness real allowance plus all finite allowances | $-\log Y$ | $\log Y$ |
+
+Unique factorization proves these are all the entries. A common nonzero
+rational coefficient $u$ adds $\log|u|$ at infinity and
+$-v_\ell(u)\log\ell$ at each finite place. Their sum is zero.
+Consequently this exact table supplies neither independent half of the
+desired signed height comparison.
+
+Two groups of finite-place terms can be paid at the requested scale from
+the arithmetic alone. First, the total absolute base charge at *every*
+place of order $h\le c$, divided by $c$, is at most
+$$
+ \sum_{2\le h\le c}\bigl(|E(h/x)|+1/(2c)\bigr)\log D_h
+ \ll_E \sum_{h\le c}(h/x+1/c)h\log(2c+1)
+ \ll_E \sqrt{x}\log(2x).
+$$
+Here all prime divisors of base order $h$, with their actual valuations,
+divide the same $D_h$ in aggregate. This includes arbitrarily large
+primes. Second, for $\ell\le c$ all the higher levels at a fixed place
+cost at most $(\|E\|_\infty+1)\log N$ after division by $c$.
+For $\ell>x^{3/4}$, a higher level requires $j=1$ and
+$h\le x^{1/4}$. Such primes at each $h$ divide $D_h$, so their
+total higher-level charge is $O_E(\sum_{h\le x^{1/4}}\log D_h) =O_E(\sqrt{x}\log(2x))$. Primes dividing $q$ retain the separate
+normalization row of the table. The still-exposed base levels have
+$h>c$, and the remaining higher levels have $c<\ell\le x^{3/4}$
+and $j=1$. All these entries keep their signs in the table.
+
+### The ordinary absolute height of this particular rational
+
+The positive numerator and denominator of the reduced $Y$ each have
+logarithm $\gg_E cx^2\log x$ for all sufficiently large $x$.
+This rules out paying a usual absolute rational height at the target scale.
+
+To see this, set $B_+=\prod_{a_n>0}D_n^{a_n}$ and
+$B_-=\prod_{a_n<0}D_n^{-a_n}$.
+The residual has two fixed closed intervals of positive length in
+$(0,1/6)$, on which it is respectively above $\delta$ and below
+$-\delta$ for some $\delta>0$, by the strict values at
+$1/10$ and $1/7$. Hence on those intervals
+$|a_n|\ge c\delta/2$ eventually. For a fixed interval
+$[u,v]\subset(0,1)$, the totient sum on $[ux,vx]$ is
+$(v^2-u^2)x^2/(2\zeta(2))+O(x\log(2x))$. This follows by summing
+$\varphi(n)=n\sum_{d\mid n}\mu(d)/d$ and replacing each floor by
+its argument with error at most one. Since
+$\log D_n=\varphi(n)\log q+O(\tau(n)\log q)$ and all $D_n\ge1$,
+it follows that $\log B_+,\log B_-\gg_E cx^2\log x$.
+
+At a given prime, the base valuation has just one sign, so cancellation
+in $\gcd(B_+,B_-)$ is at most the total absolute higher-level
+valuation. Each higher-level index $n=h\ell^j$ has $h\mid\ell-1$.
+Its prime $\ell$ is uniquely the largest prime factor of $n$, and
+its valuation in $D_n$ is one. The total common log divisor is thus at
+most $(c\|E\|_\infty+1)\sum_{n\le N}\log n=O_E(cx\log x)$.
+Every $D_n$ is coprime to $q$. Inserting $q^{-M}$ cannot cancel
+any of the remaining numerator or denominator factors. This proves the
+claim for both signs. The upstream signed, place-dependent
+`HeightLe` has different allowances, as the last row of the table shows.
+
+## 8. Detection on the original star and its scope
+
+For the determinant numerators on the served population there is an
+original-rank calculation. At $\ell\nmid cq$, **at most one distinct
+served large-prime label** $p>x^{3/4}$ can have any block
+$\ell\mid D_{pk}$, $pk\le N$. At the base, $h$ has at most one
+such factor. At any higher level, if $p\mid h$ then $\ell>h\ge p$
+and $h\ell>x$, an impossibility. Thus the upper level would require
+$p=\ell$, $j=1$, and $h\le x/\ell<x^{1/4}$, precluding a
+served base in that tower.
+
+The explicit maps use distinct original labels at a site. For each
+label $p$, multiply the factors $D_{pk}$ for positive and negative
+multiplicities into two separate positive integers $B_{p,+},B_{p,-}$.
+On $S=\{z\in\mathbb Z^s:\sum_i z_i=0\}$, use the two column maps
+$z\mapsto(B_{p_i,\pm}z_i)_i$. The existing star uses the basis
+$e_i-e_0$, so this has exactly $s-1$ columns per original row.
+Both maps are injective in characteristic zero. At the above $\ell$,
+choose a common omitted coordinate $b$ supporting the exceptional
+label, or any coordinate if there is none. Deletion of $b$ on $S$
+is a lattice isomorphism with inverse inserting
+$z_b=-\sum_{i\ne b}z_i$. The selected minors of the two maps equal,
+up to sign, $\prod_{i\ne b}B_{p_i,\pm}$, both local units. The
+localized image has full original rank and saturation index one.
+No independence of the occurrences of rational primes enters this
+calculation. The finite unit tests can read any one copy of a constant
+amplitude from each nonempty physical layer. In unweighted Euclidean
+coordinates deletion has norm at most one, and its inverse has norm at
+most $\sqrt s$ by Cauchy-Schwarz. With layer sizes $m_i$, the exact
+squared inverse norm for deletion in the counting metrics, for $s\ge2$,
+is $1+m_b\sum_{i\ne b}m_i^{-1}$. For a vector $z$ on the retained
+layers, the added squared norm is $m_b|\sum z_i|^2$, with equality
+in the weighted Cauchy-Schwarz bound at $z_i=1/m_i$.
+The integral diagonal multipliers have norm at most their largest entry.
+They can be very large.
+
+For the uniform primitive frequency experiment of §1 the probability of a
+nonprimitive $p$-coordinate is $1/p$. For a separate experiment
+choosing the omitted star coordinate uniformly when $s\ge1$,
+if exactly one label has a nonunit for at least one of the two numerator
+profiles, the probability that both selected minors are units is exactly
+$1/s$. If there is no exceptional label it is one. Choosing the pivot
+from the order tower makes this particular test succeed deterministically.
+The large retained frequency weight alone does not estimate the probability
+of success of the full common-coefficient and metric test.
+
+These maps price the determinant numerators before the original prime-depth
+multipliers and the $q$-normalization. A prime appearing in a depth and an
+exceptional determinant at another layer can eliminate two possible pivots.
+Repeated occurrences across different sites must still carry their original
+multiplicities. The complementary labels occur in §§6–7 in full.
+
+In the pinned compact source, `heightLe_inv_ratio` uses the independently
+bounded conjugates of a common coefficient $V$, tests detecting $V$
+at each place after the forced loss, and a fitted rank-one congruence
+bound for their pairings. `integral_forms_long` combines this with a
+different estimate from almost-spanning independent rows of controlled
+index and their measured untwisted covolume. The scalar table above
+does not supply either the common detected coefficient on those rows or
+its two independent bounds. The unresolved inequality is still
+$c^{-1}\log Y\ge R_E(x)-C_\varepsilon x^{1/2+K\varepsilon}$
+uniformly on the original complete windows.
+[One-direction height comparison](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Rows/HeckeValueHeight.lean#L154-L215)
+· [Covolume comparison](https://github.com/lsernau/grh-lean/blob/72fead102f663d5c7a407964a13dc0cf9d977207/grh-compact/src/New/Endgame/LongForms.lean#L33-L73)

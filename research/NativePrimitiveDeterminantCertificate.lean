@@ -74,9 +74,12 @@ theorem statementOCGz_add_residual {x : ℝ} (hx : 0 < x) :
     have inv : 1 / ((d : ℝ) / x) = x / d := by simp [div_eq_mul_inv, mul_comm]
     have hy : 0 < (d : ℝ) / x ∧ (d : ℝ) / x ≤ 1 :=
       ⟨div_pos hd0 hx, (div_le_one hx).mpr hdx⟩
-    simp only [residual, hy, ↓reduceIte, inv, Nat.floor_div_natCast]
+    simp only [residual, hy.1, hy.2, and_self, ↓reduceIte, inv, Nat.floor_div_natCast]
     calc
-      _ = Λ d * ∑ j ∈ Icc 1 (N / d), profile (j * ((d : ℝ) / x)) := by dsimp only [N]; ring
+      _ = Λ d * ∑ j ∈ Icc 1 (N / d), profile (j * ((d : ℝ) / x)) := by
+        rw [← mul_add]
+        congr 1
+        abel
       _ = _ := by
         rw [mul_sum]
         apply sum_congr rfl
@@ -136,7 +139,7 @@ private theorem log_factor_bound (c : ℕ) {d : ℕ} (hd : 0 < d) :
   have hu : (1 - radius c ^ d : ℚ) ≤ 1 := sub_le_self _ (pow_nonneg (radius_mem c).1 _)
   have hq : 1 / ((c : ℚ) + 1) ≤ 1 - radius c ^ d := by
     have h := pow_le_of_le_one (radius_mem c).1 (radius_mem c).2.le hd.ne'
-    rw [show 1 / ((c : ℚ) + 1) = 1 - radius c by unfold radius; field_simp <;> ring]
+    rw [show 1 / ((c : ℚ) + 1) = 1 - radius c by unfold radius; field_simp; ring]
     linarith
   have hl : 1 / ((c : ℝ) + 1) ≤ ((1 - radius c ^ d : ℚ) : ℝ) := calc
     _ = ((1 / ((c : ℚ) + 1) : ℚ) : ℝ) := by simp
@@ -268,15 +271,19 @@ private theorem trace_divisors (n H : ℕ) (r : ℝ) :
   apply sum_congr rfl
   intro i _
   simp only [pow_mul, Nat.cast_mul, Nat.cast_add, Nat.cast_one]
-  field_simp [hdR] <;> ring
+  field_simp [hdR]
 
 private theorem trace_tail (c n H : ℕ) :
     |(∑ j ∈ Icc 1 H, (radius c : ℝ) ^ j / j * (ramanujanDivisorKernel n j 0 : ℝ)) +
       Real.log (block c n : ℝ)| ≤
     n.divisors.card * ((radius c : ℝ) ^ H / (1 - (radius c : ℝ))) := by
   let r : ℝ := radius c
-  have hr₀ : 0 ≤ r := by exact_mod_cast (radius_mem c).1
-  have hr₁ : r < 1 := by exact_mod_cast (radius_mem c).2
+  have hr₀ : 0 ≤ r := by
+    change (0 : ℝ) ≤ (radius c : ℝ)
+    exact_mod_cast (radius_mem c).1
+  have hr₁ : r < 1 := by
+    change (radius c : ℝ) < (1 : ℝ)
+    exact_mod_cast (radius_mem c).2
   rw [trace_divisors, log_block, ← sum_add_distrib]
   calc
     _ ≤ _ := abs_sum_le_sum_abs _ _
@@ -364,9 +371,197 @@ theorem trace_reference_rounding {x : ℝ} (hc : 0 < scale x) :
   have hp := div_le_div_of_nonneg_right (certificate_rounding x) hcR.le
   have split : T + reference x - (reference x - Real.log (certificate x : ℝ) / c) =
       (T + W) + (Real.log (certificate x : ℝ) - (c : ℝ) * W) / c := by
-    field_simp [hcR.ne'] <;> ring
+    field_simp [hcR.ne']; ring
   rw [split]
   refine (abs_add_le ..).trans (add_le_add ht ?_)
   rwa [abs_div, abs_of_pos hcR]
+
+private theorem reflect_abs_le (total : ℝ) {f : ℝ → ℝ} {B : ℝ} (hB : 0 ≤ B)
+    (hf : ∀ t : ℝ, 1 / 2 ≤ t → t ≤ 1 → |f t| ≤ B) (y : ℝ) :
+    |reflect total f y| ≤ |total| + B := by
+  unfold reflect
+  split_ifs with h hlt
+  · exact (abs_sub _ _).trans (add_le_add_left
+      (hf _ (by linarith) (by linarith [(Set.mem_Icc.mp h).1])) _)
+  · linarith only [hf y (le_of_not_gt hlt) (Set.mem_Icc.mp h).2, abs_nonneg total]
+  · simpa only [abs_zero] using add_nonneg (abs_nonneg total) hB
+
+private theorem invertedRamp_bound {y : ℝ} (hy : 1 / 8 ≤ y) : |invertedRamp y| ≤ 64 := by
+  have hy₀ : 0 < y := by linarith
+  have inv : 1 / y ≤ 8 := (div_le_iff₀ hy₀).mpr (by linarith)
+  unfold invertedRamp
+  calc
+    _ ≤ _ := abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _j ∈ Icc 1 ⌊1 / y⌋₊, (8 : ℝ) := by
+      apply sum_le_sum
+      intro j hj
+      have hj₁ : 1 ≤ (j : ℝ) := by exact_mod_cast (mem_Icc.mp hj).1
+      have hprod : y ≤ (j : ℝ) * y := le_mul_of_one_le_left hy₀.le hj₁
+      have hp₀ := hy₀.trans_le hprod
+      have rb : |ramp (j * y)| ≤ 8 := by
+        unfold ramp
+        split_ifs
+        · exact abs_le.mpr ⟨by linarith [div_nonneg zero_le_one hp₀.le],
+            by linarith [(div_le_iff₀ hp₀).mpr (show 1 ≤ 8 * (j * y) by linarith)]⟩
+        · norm_num
+      have hm : |((μ j : ℤ) : ℝ)| ≤ 1 := by exact_mod_cast (ArithmeticFunction.abs_moebius_le_one (n := j))
+      rw [abs_mul]
+      simpa only [one_mul] using mul_le_mul hm rb (abs_nonneg _) zero_le_one
+    _ ≤ _ := by
+      simp only [sum_const, nsmul_eq_mul, Nat.card_Icc, Nat.add_sub_cancel]
+      linarith [(Nat.floor_le (div_nonneg zero_le_one hy₀.le)).trans inv]
+
+private theorem bounded_profile (y : ℝ) : |profile y| ≤ 204 + |calibration| := by
+  have A (t : ℝ) : |profileA t| ≤ 3 := by
+    refine (reflect_abs_le 2 (B := 1) (by norm_num) (fun s hs _ => ?_) t).trans (by norm_num)
+    have hs₀ : 0 < s := by linarith
+    have hu : 1 / s ≤ 2 := (div_le_iff₀ hs₀).mpr (by linarith)
+    exact abs_le.mpr ⟨by linarith [div_nonneg zero_le_one hs₀.le], by linarith⟩
+  have B (t : ℝ) : |profileB t| ≤ 67 := by
+    refine (reflect_abs_le 0 (B := 67) (by norm_num) (fun s hs _ => ?_) t).trans (by norm_num)
+    exact (abs_sub _ _).trans (by linarith only [
+      invertedRamp_bound (show 1 / 8 ≤ s / 2 by linarith), A (s / 2)])
+  have C (t : ℝ) : |profileC₀ t| ≤ 134 := by
+    refine (reflect_abs_le 0 (B := 134) (by norm_num) (fun s hs _ => ?_) t).trans (by norm_num)
+    split_ifs
+    · norm_num
+    · exact (abs_sub _ _).trans (by linarith only [abs_sub (invertedRamp (s/4)) (profileA (s/4)),
+        invertedRamp_bound (show 1 / 8 ≤ s / 4 by linarith), A (s / 4), B (s / 2)])
+  have D (t : ℝ) : |tent t| ≤ 1 := by
+    refine (reflect_abs_le 0 (B := 1) (by norm_num) (fun s _ _ => ?_) t).trans (by norm_num)
+    rw [abs_of_nonneg (le_max_right _ _)]
+    exact max_le (by linarith [abs_nonneg (12*s-7)]) zero_le_one
+  have cost := mul_le_mul_of_nonneg_left (D (4*y)) (abs_nonneg calibration)
+  unfold profile
+  rw [mul_one, ← abs_mul] at cost
+  linarith only [abs_add_le (profileA y + profileB (2*y)) (profileC₀ (4*y) + calibration * tent (4*y)),
+    abs_add_le (profileA y) (profileB (2*y)), abs_add_le (profileC₀ (4*y)) (calibration * tent (4*y)),
+    A y, B (2*y), C (4*y), cost]
+
+private theorem residual_bound {x : ℝ} (hx : 1 ≤ x) {n : ℕ} (hn : 1 ≤ n) :
+    |residual (n / x)| ≤ (205 + |calibration|) * x := by
+  have hn₁ : 1 ≤ (n : ℝ) := by exact_mod_cast hn
+  have hx₀ : 0 < x := by linarith
+  have hd : 0 < (n : ℝ) / x := div_pos (by linarith) hx₀
+  have hi : 1 / ((n : ℝ) / x) ≤ x := by
+    rw [show 1 / ((n : ℝ) / x) = x / n by simp [div_eq_mul_inv, mul_comm]]
+    exact div_le_self hx₀.le hn₁
+  unfold residual
+  split_ifs
+  · have hs : |∑ j ∈ Icc 1 ⌊1 / ((n : ℝ) / x)⌋₊, profile (j * ((n : ℝ) / x))| ≤
+        x * (204 + |calibration|) := by
+      refine (abs_sum_le_sum_abs _ _).trans ((sum_le_sum (fun _j _ => bounded_profile _)).trans ?_)
+      simp only [sum_const, nsmul_eq_mul, Nat.card_Icc, Nat.add_sub_cancel]
+      exact mul_le_mul_of_nonneg_right ((Nat.floor_le (div_nonneg zero_le_one hd.le)).trans hi) (by positivity)
+    have hm : |1 / ((n : ℝ) / x) - 1| ≤ x := abs_le.mpr
+      ⟨by linarith [div_nonneg zero_le_one hd.le], by linarith⟩
+    exact (abs_sub _ _).trans (by linarith only [hs, hm])
+  · rw [abs_zero]
+    positivity
+
+private theorem scale_bounds {x : ℝ} (hx : 4 ≤ x) :
+    0 < scale x ∧ (scale x : ℝ) ≤ Real.sqrt x ∧ Real.sqrt x ≤ 2 * (scale x : ℝ) := by
+  have hs : (2 : ℝ) ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) (by linarith)).mpr (by linarith)
+  have hc : 1 ≤ scale x := (Nat.one_le_floor_iff _).mpr (by linarith)
+  have hc₁ : 1 ≤ (scale x : ℝ) := by exact_mod_cast hc
+  exact ⟨hc, Nat.floor_le (Real.sqrt_nonneg _),
+    by linarith only [show Real.sqrt x < (scale x : ℝ) + 1 from Nat.lt_floor_add_one _, hc₁]⟩
+
+private theorem cutoff_decay {x : ℝ} (hx : 4 ≤ x) :
+    ((radius (scale x) : ℝ) ^ traceCutoff x) * (2*x)^4 ≤ 1 := by
+  let c : ℝ := scale x
+  let r : ℝ := radius (scale x)
+  have hc : 0 < c := by exact_mod_cast (scale_bounds hx).1
+  have hs : 0 < stepSize x := Real.log_pos (by change 1 < 1 + 1/c; linarith [one_div_pos.mpr hc])
+  have rinv : r = (1 + 1/c)⁻¹ := by
+    dsimp [r, radius, c]
+    push_cast
+    field_simp [hc.ne'] <;> ring
+  have hr : 0 < r := rinv ▸ inv_pos.mpr (by positivity)
+  have hlog : Real.log r = -stepSize x := by rw [rinv, Real.log_inv]; rfl
+  have hH : 4 * Real.log (2*x) ≤ (traceCutoff x : ℝ) * stepSize x :=
+    (div_le_iff₀ hs).mp (Nat.le_ceil _)
+  change r ^ traceCutoff x * (2*x)^4 ≤ 1
+  apply (Real.log_le_log_iff (mul_pos (pow_pos hr _) (by positivity)) zero_lt_one).mp
+  rw [Real.log_mul (pow_ne_zero _ hr.ne') (by positivity), Real.log_pow, Real.log_pow, hlog, Real.log_one]
+  norm_num
+  linarith only [hH]
+
+/-- Uniform error at every real x ≥ 4. The constant comes only from the
+ordinary integrals in the fixed three-scale calibration. -/
+theorem trace_reference_uniform {x : ℝ} (hx : 4 ≤ x) :
+    let c := scale x
+    let r : ℝ := radius c
+    |((∑ j ∈ Icc 1 (traceCutoff x), r ^ j / j * tracePopulation x j) + reference x) -
+      (reference x - Real.log (certificate x : ℝ) / c)| ≤
+    (205 + |calibration|) + Real.sqrt x * (1 + Real.log x)^2 := by
+  intro c r
+  let N := ⌊x⌋₊
+  let B := 205 + |calibration|
+  have hx₁ : 1 ≤ x := by linarith
+  have hx₀ : 0 < x := by linarith
+  obtain ⟨hc, hcs, hsc⟩ := scale_bounds hx
+  have hcR : (0 : ℝ) < c := by exact_mod_cast hc
+  change (c:ℝ) ≤ Real.sqrt x at hcs
+  change Real.sqrt x ≤ 2*(c:ℝ) at hsc
+  have hN₁ : 1 ≤ N := (Nat.one_le_floor_iff _).mpr hx₁
+  have hNpos : (0 : ℝ) < N := by exact_mod_cast hN₁
+  have hN : (N : ℝ) ≤ x := Nat.floor_le hx₀.le
+  have hB : 0 ≤ B := by dsimp [B]; positivity
+  have hsq := Real.sq_sqrt hx₀.le
+  have hs : 2 ≤ Real.sqrt x := (Real.le_sqrt (by norm_num) hx₀.le).mpr (by linarith)
+  have hcx : (c:ℝ)+1 ≤ x := by nlinarith only [hcs, hs, hsq, mul_nonneg
+    (show 0 ≤ Real.sqrt x - 2 by linarith) (Real.sqrt_nonneg x)]
+  have count : (∑ n ∈ Icc 2 N, (n.divisors.card : ℝ)) ≤ x*x := by
+    refine (divisor_count_le N).trans (mul_le_mul hN ?_ (by positivity) hx₀.le)
+    linarith only [Real.log_le_sub_one_of_pos hNpos, hN]
+  have mass : (∑ n ∈ Icc 2 N, |residual (n / x)| * n.divisors.card) ≤ (B*x)*(x*x) := by
+    calc
+      _ ≤ ∑ n ∈ Icc 2 N, (B*x) * n.divisors.card := by
+        apply sum_le_sum
+        intro n hn
+        exact mul_le_mul_of_nonneg_right (residual_bound hx₁ (by have := (mem_Icc.mp hn).1; omega))
+          (Nat.cast_nonneg _)
+      _ = _ := (mul_sum ..).symm
+      _ ≤ _ := mul_le_mul_of_nonneg_left count (mul_nonneg hB hx₀.le)
+  have r₀ : 0 ≤ r := by
+    change (0 : ℝ) ≤ (radius c : ℝ)
+    exact_mod_cast (radius_mem c).1
+  have r₁ : r < 1 := by
+    change (radius c : ℝ) < (1 : ℝ)
+    exact_mod_cast (radius_mem c).2
+  have norm : 1 / (1 - r) = (c:ℝ)+1 := by
+    dsimp [r, radius]
+    push_cast
+    field_simp <;> ring
+  have decay := cutoff_decay hx
+  change r ^ traceCutoff x * (2*x)^4 ≤ 1 at decay
+  have tail : (∑ n ∈ Icc 2 N, |residual (n / x)| * n.divisors.card) *
+      (r ^ traceCutoff x / (1-r)) ≤ B := by
+    calc
+      _ ≤ ((B*x)*(x*x)) * (r ^ traceCutoff x / (1-r)) := mul_le_mul_of_nonneg_right mass
+        (div_nonneg (pow_nonneg r₀ _) (sub_pos.mpr r₁).le)
+      _ = B * (r ^ traceCutoff x * (x^3 * ((c:ℝ)+1))) := by
+        rw [div_eq_mul_one_div _ (1-r), norm]; ring
+      _ ≤ B * (r ^ traceCutoff x * (2*x)^4) := by
+        apply mul_le_mul_of_nonneg_left _ hB
+        apply mul_le_mul_of_nonneg_left _ (pow_nonneg r₀ _)
+        calc
+          _ ≤ x^3*x := mul_le_mul_of_nonneg_left hcx (by positivity)
+          _ ≤ _ := by nlinarith only [show 0 ≤ x^4 by positivity]
+      _ ≤ B := by simpa only [mul_one] using mul_le_mul_of_nonneg_left decay hB
+  have hcLog := Real.log_le_log (show (0:ℝ)<c+1 by positivity) hcx
+  have hNLog := Real.log_le_log hNpos hN
+  have lN := Real.log_natCast_nonneg N
+  have lx := Real.log_nonneg hx₁
+  have bill : ((N:ℝ) * (1 + Real.log N)) * (Real.log ((c:ℝ)+1) / 2) / c ≤
+      Real.sqrt x * (1 + Real.log x)^2 := by
+    have cx : (N:ℝ) ≤ 2*(c:ℝ)*Real.sqrt x := hN.trans (by
+      nlinarith only [hsq, mul_le_mul_of_nonneg_right hsc (Real.sqrt_nonneg x)])
+    have h := mul_le_mul (mul_le_mul cx (add_le_add_left hNLog 1) (by linarith) (by positivity))
+      (show Real.log ((c:ℝ)+1) ≤ 1 + Real.log x by linarith) (Real.log_nonneg (by linarith)) (by positivity)
+    apply (div_le_iff₀ hcR).mpr
+    linarith only [h]
+  exact (trace_reference_rounding hc).trans (add_le_add tail bill)
 
 end RHLean.Analysis.PrimitiveCertificate
