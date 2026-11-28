@@ -115,6 +115,9 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.NNSCoDiv.co_posDef_of_second_moment,
+    ``RHLean.Analysis.NNSCoDiv.log_spectrum_le_neg_sum,
+    ``RHLean.Analysis.NNSCoDiv.finite_log_trace_bound,
     ``RHLean.Analysis.NNSCoDiv.divergent_transpose,
     ``RHLean.Analysis.NNSCoDiv.clpm_symmetric,
     ``RHLean.Analysis.NNSCoDiv.cupm_symmetric,
@@ -684,3 +687,7 @@ run_cmd do
 #print axioms RHLean.Analysis.NNSCoDiv.finite_log_synthesis
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_two_matrix
 #print axioms RHLean.Analysis.AlpogeThin.SlotProjector.WheelNNS.coDiv_spectral
+
+#print axioms RHLean.Analysis.NNSCoDiv.co_posDef_of_second_moment
+#print axioms RHLean.Analysis.NNSCoDiv.log_spectrum_le_neg_sum
+#print axioms RHLean.Analysis.NNSCoDiv.finite_log_trace_bound

@@ -107,7 +107,7 @@ theorem scaled_schur_two_matrix (S : Finset α) (w : α → ℝ) (x : α → ι 
   exact finiteTargetScaledSchur_target_invariant S w x s t
 
 /-- Nonnegative weights give the original weighted Gram, at any target. -/
-theorem second_moment_psd (S : Finset α) (w : α → ℝ) (x : α → ι → ℝ)
+theorem second_moment_psd [Finite ι] (S : Finset α) (w : α → ℝ) (x : α → ι → ℝ)
     (t : ι → ℝ) (hw : ∀ a ∈ S, 0 ≤ w a) :
     (finiteTargetSecondMoment S w x t).PosSemidef := by
   let z (a : α) (i : ι) := x a i - t i
@@ -123,7 +123,7 @@ theorem second_moment_psd (S : Finset α) (w : α → ℝ) (x : α → ι → �
       (Matrix.posSemidef_vecMulVec_self_star (z a)) :
       (vecMulVec (z a) (z a)).PosSemidef).smul (hw a ha)
 
-theorem synthesis_psd (S : Finset α) (w : α → ℝ) (x : α → ι → ℝ)
+theorem synthesis_psd [Finite ι] (S : Finset α) (w : α → ℝ) (x : α → ι → ℝ)
     (t : ι → ℝ) (hw : ∀ a ∈ S, 0 ≤ w a) :
     (finiteCo S w x t - finiteDiv S w x t).PosSemidef ∧
     (finiteCo S w x t + finiteDiv S w x t).PosSemidef := by
@@ -146,7 +146,7 @@ private theorem whitening (C : Matrix ι ι ℝ) (hc : C.PosDef) :
     Rᴴ = R ∧ R * C * R = 1 := by
   let S := CFC.sqrt C
   have hs : S * S = C := by
-    simpa only [S, pow_two] using CFC.sq_sqrt C
+    simpa only [S, pow_two] using CFC.sq_sqrt C hc.posSemidef.nonneg
   have hsd : S.det ≠ 0 := by
     intro hz
     have h := congrArg Matrix.det hs
@@ -211,8 +211,10 @@ theorem spectrum_factor (K : Matrix ι ι ℝ) (hK : K.IsHermitian)
     ext i j
     rw [Matrix.add_apply, Matrix.one_apply, Matrix.diagonal_apply, Matrix.diagonal_apply]
     split_ifs <;> ring
-  have hmP := hm' ▸ hm.conjTranspose_mul_mul_same V
-  have hpP := hp' ▸ hp.conjTranspose_mul_mul_same V
+  have hmP : (diagonal (fun i => 1-hK.eigenvalues i)).PosSemidef :=
+    hm' ▸ hm.conjTranspose_mul_mul_same V
+  have hpP : (diagonal (fun i => 1+hK.eigenvalues i)).PosSemidef :=
+    hp' ▸ hp.conjTranspose_mul_mul_same V
   constructor
   · intro i
     have a : 0 ≤ 1-hK.eigenvalues i := by simpa only [Matrix.diagonal_apply_eq] using
@@ -264,6 +266,47 @@ theorem finite_log_synthesis {α : Type*} (S : Finset α) (w : α → ℝ)
     fun i => Finset.prod_ne_zero_iff.mp hn i (Finset.mem_univ i)
   refine ⟨hk,fun i => ⟨(he i).1,lt_of_le_of_ne (he i).2 (fun h => hs i (by rw [h, sub_self]))⟩,?_⟩
   rw [hf, Real.log_mul hc.det_pos.ne' hn, Real.log_prod (fun i _ => hs i)]
+
+/-- A nonsingular original Gram automatically has a positive definite
+convergent baseline; no independent full-rank assumption is needed. -/
+theorem co_posDef_of_second_moment {α : Type*} (S : Finset α) (w : α → ℝ)
+    (x : α → ι → ℝ) (t : ι → ℝ) (hw : ∀ a ∈ S, 0 ≤ w a)
+    (hg : (finiteTargetSecondMoment S w x t).PosDef) :
+    (finiteCo S w x t).PosDef := by
+  rw [two_matrix] at hg
+  have he : finiteCo S w x t =
+      (1/2:ℝ) • ((finiteCo S w x t-finiteDiv S w x t)+
+        (finiteCo S w x t+finiteDiv S w x t)) := by
+    ext i j
+    simp only [Matrix.smul_apply, smul_eq_mul, Matrix.add_apply, Matrix.sub_apply]
+    ring
+  rw [he]
+  exact (hg.add_posSemidef (synthesis_psd S w x t hw).2).smul (by norm_num)
+
+/-- A rigorous sufficient bound for net synthesis gain. The trace has
+its actual sign; it is not replaced by an unsigned estimate. -/
+theorem log_spectrum_le_neg_sum {λ : ι → ℝ} (h : ∀ i, λ i < 1) :
+    (∑ i, Real.log (1-λ i)) ≤ -(∑ i, λ i) := by
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_le_sum
+  intro i _
+  have H := Real.log_le_sub_one_of_pos (sub_pos.mpr (h i))
+  linarith only [H]
+
+/-- Direct signed bound on the original second moment, with no guessed
+synthesis factor and no positive-definiteness assumption on Div. -/
+theorem finite_log_trace_bound {α : Type*} (S : Finset α) (w : α → ℝ)
+    (x : α → ι → ℝ) (t : ι → ℝ) (hw : ∀ a ∈ S, 0 ≤ w a)
+    (hg : (finiteTargetSecondMoment S w x t).PosDef) :
+    Real.log (finiteTargetSecondMoment S w x t).det ≤
+      Real.log (finiteCo S w x t).det -
+        (normalized (finiteCo S w x t) (finiteDiv S w x t)).trace := by
+  obtain ⟨hk,he,hf⟩ := finite_log_synthesis S w x t hw
+    (co_posDef_of_second_moment S w x t hw hg) hg
+  have ht : (normalized (finiteCo S w x t) (finiteDiv S w x t)).trace =
+      ∑ i, hk.eigenvalues i := hk.trace_eq_sum_eigenvalues
+  rw [hf, ht]
+  linarith only [log_spectrum_le_neg_sum (fun i => (he i).2)]
 
 end Normalized
 

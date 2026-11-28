@@ -79,6 +79,9 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.NNSCoDiv.co_posDef_of_second_moment,
+    ``RHLean.Analysis.NNSCoDiv.log_spectrum_le_neg_sum,
+    ``RHLean.Analysis.NNSCoDiv.finite_log_trace_bound,
     ``RHLean.Analysis.NNSCoDiv.divergent_transpose,
     ``RHLean.Analysis.NNSCoDiv.clpm_symmetric,
     ``RHLean.Analysis.NNSCoDiv.cupm_symmetric,
