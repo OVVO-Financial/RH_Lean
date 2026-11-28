@@ -28,14 +28,14 @@ theorem seed_at (e : J ↪ ZMod N) (X : Matrix J I R) (a : J) (i : I) :
   rw [Finset.sum_eq_single a]
   · simp
   · intro b _ hb
-    exact if_neg (fun h => hb (e.injective h))
+    exact ite_eq_right (fun h => hb (e.injective h))
   · simp
 
 theorem seed_at_neg (e : J ↪ ZMod N) (X : Matrix J I R)
     (apart : ∀ a b : J, e a ≠ -e b) (a : J) (i : I) :
     seed e X (-e a) i = 0 := by
   unfold seed
-  exact Finset.sum_eq_zero fun b _ => if_neg (apart b a)
+  exact Finset.sum_eq_zero fun b _ => ite_eq_right (apart b a)
 
 /-- The signed primitive channel, exactly the image of 1 minus
 reflection. The unsigned channel is handled separately as in
@@ -126,6 +126,7 @@ def levelAddress (N : ℕ) (e : J ↪ ℕ) (hlt : ∀ a, e a < N) : J ↪ ZMod N
     have h := congrArg ZMod.val hab
     simpa only [ZMod.val_natCast_of_lt (hlt a), ZMod.val_natCast_of_lt (hlt b)] using h
 
+omit [Fintype J] in
 theorem levelAddress_apart (N : ℕ) (e : J ↪ ℕ) (hlt : ∀ a, e a < N)
     (hpos : ∀ a, 0 < e a) (hhalf : ∀ a, 2 * e a < N)
     (a b : J) : levelAddress N e hlt a ≠ -levelAddress N e hlt b := by
@@ -173,7 +174,11 @@ theorem poly_ramified (e : J ↪ ZMod N) (X : Matrix J I ℂ) (a : S →₀ ℕ)
       monomial a (signed e X z i) := by
   classical
   ext b
-  simp [ramifiedResidue, polySeed, signed, coeff_monomial, apply_ite]
+  change (monomial a (seed e X z i) - monomial a (seed e X ((↑(-1 : (ZMod N)ˣ) : ZMod N) * z) i)).coeff b =
+    (monomial a (signed e X z i)).coeff b
+  rw [show (↑(-1 : (ZMod N)ˣ) : ZMod N) * z = -z by simp]
+  simp only [coeff_sub, coeff_monomial, signed]
+  split_ifs <;> simp
 
 /-- A scalar dilation on the original wheel can be cancelled
 integrally using its actual CRT left inverse. This applies to all
@@ -212,7 +217,8 @@ theorem positive_degree_preimage_readout [NeZero N] (t : S) (q h : ℕ)
         q = 1*q := by simp
         _ ≤ (2 * a t)*q := Nat.mul_le_mul_right q h2
         _ ≤ _ := Nat.le_add_right _ _
-    simp [ha, Nat.sub_eq_zero_of_le hle]
+    have hz : q - (2 * a t * q + a t) = 0 := Nat.sub_eq_zero_of_le hle
+    rw [hz, pow_zero, one_mul]
   · simp [ha]
 
 end RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment
