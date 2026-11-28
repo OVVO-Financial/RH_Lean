@@ -121,6 +121,15 @@ run_cmd do
     ``RHLean.Analysis.NativeLevelBranching.fourier_pair,
     ``RHLean.Analysis.NativeLevelBranching.fourier_pair_restrict,
     ``RHLean.Analysis.NativeLevelBranching.mean_degree,
+    ``RHLean.Analysis.NativeLevelBranching.dft_ramifiedResidue,
+    ``RHLean.Analysis.NativeLevelBranching.coeff_pairedFourier,
+    ``RHLean.Analysis.NativeLevelBranching.coeff_pairedFourier_iterate,
+    ``RHLean.Analysis.NativeLevelBranching.pairedFourier_preimage,
+    ``RHLean.Analysis.NativeLevelBranching.pairedFourier_integral_preimage,
+    ``RHLean.Analysis.NativeLevelBranching.pairedFourier_restriction_integral,
+    ``RHLean.Analysis.NativeLevelBranching.pairedFourier_ramified_preimage,
+    ``RHLean.Analysis.NativeLevelBranching.pairedFourier_preimage_det,
+    ``RHLean.Analysis.NativeLevelBranching.pairedClearingDegree_sum_le_mean,
     ``RHLean.Analysis.NativeCommonScalarCost.paired_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_row,
     ``RHLean.Analysis.NativeCommonScalarCost.balanced_total,
@@ -543,3 +552,7 @@ run_cmd do
 #print axioms RHLean.Analysis.NativeLevelBranching.fourier_pair
 #print axioms RHLean.Analysis.NativeLevelBranching.fourier_pair_restrict
 #print axioms RHLean.Analysis.NativeLevelBranching.mean_degree
+#print axioms RHLean.Analysis.NativeLevelBranching.pairedFourier_ramified_preimage
+#print axioms RHLean.Analysis.NativeLevelBranching.pairedFourier_restriction_integral
+#print axioms RHLean.Analysis.NativeLevelBranching.pairedFourier_preimage_det
+#print axioms RHLean.Analysis.NativeLevelBranching.pairedClearingDegree_sum_le_mean

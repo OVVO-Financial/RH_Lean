@@ -70,7 +70,7 @@ theorem relative_log {J I : Type*} [Fintype J] [Fintype I] [DecidableEq I]
 is independently paid by the measured normal angle. -/
 theorem normal_angle_bounds {r : ℕ} (S : Fin (r+1) → Finset ℕ)
     (D : Fin (r+1) → ℕ) (hS : ∀ i, (S i).Nonempty)
-    (hD : ∀ i, 0 < D i) (m : ℝ) (hm : 0 < m)
+    (hD : ∀ i, 0 < D i) (m : ℝ) (_hm : 0 < m)
     (hmin : ∀ i, m ≤ ((S i).card:ℝ)) :
     let W := ∑ i, ((S i).card:ℝ)
     let Q := ∑ i, (wheelNormal D i:ℝ)
@@ -127,7 +127,7 @@ theorem angleLog_bounds {r : ℕ} (S : Fin (r+1) → Finset ℕ)
   obtain ⟨hl,hu⟩ := normal_angle_bounds S D hS hD m hm hmin
   have hE := dualEnergy_pos S D hS hD
   have lo := (le_div_iff₀ hE).2 hl
-  have hi := (div_le_iff₀ hE).2 (by linarith only [hu])
+  have hi := (div_le_iff₀ hE).2 hu
   exact ⟨div_le_div_of_nonneg_right (Real.log_le_log hm lo) (by norm_num),
     div_le_div_of_nonneg_right (Real.log_le_log (hm.trans_le lo) hi) (by norm_num)⟩
 
