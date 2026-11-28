@@ -4,6 +4,7 @@ import «research.NativeSignLift»
 import «research.NativeSignSchurHandoff»
 import «research.NativeSparseAnchorHeight»
 import «research.NativeDepthCongruence»
+import «research.NativePositiveTwist»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -488,3 +489,23 @@ run_cmd do
 #print axioms RHLean.Analysis.NativeDepthCongruence.unit_retraction
 #print axioms RHLean.Analysis.NativeDepthCongruence.signed_swap_read
 #print axioms RHLean.Analysis.NativeDepthCongruence.signed_swap_clearing
+
+#print axioms RHLean.Analysis.NativePositiveTwist.root_sum
+#print axioms RHLean.Analysis.NativePositiveTwist.root_product
+#print axioms RHLean.Analysis.NativePositiveTwist.upper_pos
+#print axioms RHLean.Analysis.NativePositiveTwist.lower_pos
+#print axioms RHLean.Analysis.NativePositiveTwist.root_upper_le
+#print axioms RHLean.Analysis.NativePositiveTwist.upper_quadratic
+#print axioms RHLean.Analysis.NativePositiveTwist.lower_quadratic
+#print axioms RHLean.Analysis.NativePositiveTwist.root_integral
+#print axioms RHLean.Analysis.NativePositiveTwist.unit_root
+#print axioms RHLean.Analysis.NativePositiveTwist.chosen_norm_ratio
+#print axioms RHLean.Analysis.NativePositiveTwist.indicator_pair
+#print axioms RHLean.Analysis.NativePositiveTwist.indicator_energy
+#print axioms RHLean.Analysis.NativePositiveTwist.signed_ratio_norm
+#print axioms RHLean.Analysis.NativePositiveTwist.class_pair
+#print axioms RHLean.Analysis.NativePositiveTwist.class_projector_bound
+#print axioms RHLean.Analysis.NativePositiveTwist.class_indicator_read
+#print axioms RHLean.Analysis.NativePositiveTwist.class_lift_energy
+#print axioms RHLean.Analysis.NativePositiveTwist.class_scalar
+#print axioms RHLean.Analysis.NativePositiveTwist.class_norm_ratio
