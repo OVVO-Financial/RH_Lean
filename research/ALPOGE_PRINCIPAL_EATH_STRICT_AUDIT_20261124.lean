@@ -6,6 +6,7 @@ import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
 import «research.NativeLevelBranching»
+import «research.NativeWheelLevelAttachment»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -75,6 +76,19 @@ private partial def strictClosure (env : Environment) (todo : List Name)
 run_cmd do
   let env ← getEnv
   let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at_neg,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_at,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_neg,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_pair,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_gram,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_relative,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.levelAddress_apart,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.exists_physical_levelAddress,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.poly_ramified,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.original_star_dilation_cancel,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.positive_degree_preimage_readout,
     ``RHLean.Analysis.NativeLevelBranching.coeff_reweight,
     ``RHLean.Analysis.NativeLevelBranching.support_reweight,
     ``RHLean.Analysis.NativeLevelBranching.reweight_norm_le,

@@ -7,6 +7,7 @@ import «research.NativeDepthCongruence»
 import «research.NativePositiveTwist»
 import «research.NativeCommonScalarCost»
 import «research.NativeLevelBranching»
+import «research.NativeWheelLevelAttachment»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -111,6 +112,19 @@ open Lean Elab Command in
 run_cmd do
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at_neg,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_at,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_neg,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_pair,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_gram,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_det,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_relative,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.levelAddress_apart,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.exists_physical_levelAddress,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.poly_ramified,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.original_star_dilation_cancel,
+    ``RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.positive_degree_preimage_readout,
     ``RHLean.Analysis.NativeLevelBranching.coeff_reweight,
     ``RHLean.Analysis.NativeLevelBranching.support_reweight,
     ``RHLean.Analysis.NativeLevelBranching.reweight_norm_le,
@@ -556,3 +570,17 @@ run_cmd do
 #print axioms RHLean.Analysis.NativeLevelBranching.pairedFourier_restriction_integral
 #print axioms RHLean.Analysis.NativeLevelBranching.pairedFourier_preimage_det
 #print axioms RHLean.Analysis.NativeLevelBranching.pairedClearingDegree_sum_le_mean
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_at_neg
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_at
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_neg
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.seed_pair
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_gram
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.signed_relative
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.levelAddress_apart
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.exists_physical_levelAddress
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.poly_ramified
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.original_star_dilation_cancel
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.LevelAttachment.positive_degree_preimage_readout
