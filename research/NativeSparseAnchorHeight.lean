@@ -209,4 +209,100 @@ theorem all_pivot_log {I : Type*} [Fintype I] [DecidableEq I]
   simp only [Finset.sum_const,Finset.card_univ,nsmul_eq_mul] at eqn
   linarith only [eqn]
 
+/-- The primitive sparse dual on one physical layer. Only the original
+depth and measured layer cardinality occur in the denominator. -/
+def test {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (j : Fin (r+1)) (k : Fin r) (i : Fin (r+1)) : ℚ :=
+  ((if i=k.succ then 1 else 0)-(if j=k.succ then 1 else 0))/
+    (((S i).card:ℚ)*(D i:ℚ))
+
+@[simp] theorem test_pivot {r : ℕ} (S : Fin (r+1) → Finset ℕ)
+    (D : Fin (r+1) → ℕ) (j : Fin (r+1)) (k : Fin r) : test S D j k j = 0 := by
+  simp [test]
+
+/-- Both the original signed star and its projection off the sparse
+anchor pair with the same actual test. The removed layer is zero
+in that test, not discarded from the arithmetic source. -/
+theorem test_pair {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (j : Fin (r+1)) (k l : Fin r) :
+    (∑ i, ((S i).card:ℝ)*(amplitude (fun i => (D i:ℝ)) (anchor j) i l.succ)*
+      (test S D j k i:ℝ)) = if k=l then 1 else 0 := by
+  classical
+  let B : Fin (r+1) → ℝ := fun i => (if i=k.succ then 1 else 0)-(if j=k.succ then 1 else 0)
+  have term (i : Fin (r+1)) :
+      ((S i).card:ℝ)*(amplitude (fun i => (D i:ℝ)) (anchor j) i l.succ)*
+        (test S D j k i:ℝ) =
+      ((if i=l.succ then 1 else 0)-(if i=0 then 1 else 0))*B i := by
+    have hn : ((S i).card:ℝ) ≠ 0 := by exact_mod_cast (hS i).card_pos.ne'
+    have hd : (D i:ℝ) ≠ 0 := by exact_mod_cast (hD i).ne'
+    simp only [test,amplitude,Fin.cases_succ,Rat.cast_div,Rat.cast_mul,
+      Rat.cast_sub,Rat.cast_ite,Rat.cast_one,Rat.cast_zero,Rat.cast_natCast,B]
+    field_simp [hn,hd]
+    ring
+  rw [Finset.sum_congr rfl (fun i _ => term i)]
+  have hsum : (∑ i, ((if i=l.succ then 1 else 0)-(if i=0 then 1 else 0))*B i) =
+      B l.succ-B 0 := by
+    simp only [sub_mul,Finset.sum_sub_distrib,ite_mul,one_mul,zero_mul]
+    simp
+  rw [hsum]
+  by_cases h : k=l
+  · subst l
+    simp [B, (Fin.succ_ne_zero k).symm]
+  · have hn : l.succ ≠ k.succ := fun he => h ((Fin.succ_injective r he).symm)
+    simp [B, h, hn, (Fin.succ_ne_zero k).symm]
+
+/-- Actual measured real energy, with no inverse Gram determinant.
+A sharper rowwise sum is given in the companion paper derivation. -/
+theorem test_energy {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (hS : ∀ i, (S i).Nonempty) (hD : ∀ i, 0 < D i)
+    (j : Fin (r+1)) (k : Fin r) (m : ℝ) (hm : 0 < m)
+    (hmin : ∀ i, m ≤ ((S i).card:ℝ)) :
+    slotEnergy S (fun i => (test S D j k i:ℝ)) ≤ (r+1:ℕ)/m := by
+  classical
+  unfold slotEnergy
+  calc
+    _ ≤ ∑ _i : Fin (r+1), (1/m:ℝ) := by
+      apply Finset.sum_le_sum
+      intro i _
+      let n : ℝ := (S i).card
+      let d : ℝ := D i
+      have hn : 0 < n := hm.trans_le (hmin i)
+      have hd : 1 ≤ d := by exact_mod_cast hD i
+      have hdn : 0 < d := by linarith
+      let b : ℝ := (if i=k.succ then 1 else 0)-(if j=k.succ then 1 else 0)
+      have hb : b^2 ≤ 1 := by
+        dsimp only [b]
+        split_ifs <;> norm_num
+      have hf : (test S D j k i:ℝ) = b/(n*d) := by
+        simp only [test,Rat.cast_div,Rat.cast_mul,Rat.cast_sub,
+          Rat.cast_ite,Rat.cast_one,Rat.cast_zero,Rat.cast_natCast,b,n,d]
+      change n*(test S D j k i:ℝ)^2 ≤ _
+      rw [hf]
+      have hnd : 0 < n*d^2 := mul_pos hn (sq_pos_of_pos hdn)
+      calc
+        _ = b^2/(n*d^2) := by field_simp [hn.ne',hdn.ne']; ring
+        _ ≤ 1/(n*d^2) := div_le_div_of_nonneg_right hb hnd.le
+        _ ≤ 1/m := by
+          have hh : 1 ≤ d^2 := by nlinarith only [hd, sq_nonneg (d-1)]
+          have hmul := mul_le_mul_of_nonneg_left hh hn.le
+          exact one_div_le_one_div_of_le hm ((hmin i).trans (by simpa using hmul))
+    _ = _ := by simp [div_eq_mul_inv]
+
+/-- The same coefficient formula is integral at every place where the
+retained depth and measured cardinality are units. No condition on the
+pivot's depth is imposed. -/
+theorem test_place {r : ℕ} (S : Fin (r+1) → Finset ℕ) (D : Fin (r+1) → ℕ)
+    (j : Fin (r+1)) (k : Fin r) (l : ℕ) [Fact l.Prime]
+    (hu : ∀ i, i ≠ j → ¬ l ∣ (S i).card ∧ ¬ l ∣ D i) :
+    ∀ i, padicNorm l (test S D j k i) ≤ 1 := by
+  intro i
+  by_cases hi : i=j
+  · subst i
+    simp
+  · have hN := (padicNorm.nat_eq_one_iff ((S i).card)).2 (hu i hi).1
+    have hD := (padicNorm.nat_eq_one_iff (D i)).2 (hu i hi).2
+    rw [test,padicNorm.div,padicNorm.mul,hN,hD,mul_one,div_one]
+    split_ifs <;> norm_num [padicNorm.neg,padicNorm.one,padicNorm.zero]
+
 end RHLean.Analysis.AlpogeThin.SlotProjector.SparseHeight
