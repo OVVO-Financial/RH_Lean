@@ -1,3 +1,4 @@
+import «research.NativeTrueZeroSchurFit»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -402,3 +403,16 @@ run_cmd do
 #print axioms RHLean.Analysis.AlpogeThin.PairedIndex.recenter_finite
 #print axioms RHLean.Analysis.AlpogeThin.PairedIndex.recenter_arch
 #print axioms RHLean.Analysis.AlpogeThin.PairedIndex.reciprocal_witness
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.normal_div
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.amplitude_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.anchoredColumns_zero
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.anchoredColumns_star
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.augmented_gram
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.augmented_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.schur_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.native_schur_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.prod_one_sub_ge
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.joint_log_loss
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.partition_log_loss
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.TrueZeroSchur.signed_joint_log_loss
