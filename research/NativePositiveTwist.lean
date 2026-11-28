@@ -55,11 +55,12 @@ theorem root_integral (n : ℕ) :
     apply max_lt
     · exact (Polynomial.degree_C_mul_X_le _).trans_lt (by norm_num)
     · exact Polynomial.degree_C_le.trans_lt (by norm_num)
-  have eval_eq (t : ℂ) : Polynomial.aeval t p = t^2 - (2*(n:ℂ)+1)*t + (n:ℂ)^2 := by
-    change Polynomial.eval₂ (Int.castRingHom ℂ) t p = _
+  have eval_eq (t : ℂ) : Polynomial.eval₂ (algebraMap ℤ ℂ) t p =
+      t^2 - (2*(n:ℂ)+1)*t + (n:ℂ)^2 := by
     simp only [p, Polynomial.eval₂_sub, Polynomial.eval₂_pow, Polynomial.eval₂_mul,
       Polynomial.eval₂_X, Polynomial.eval₂_C]
-    simp [sub_sub]
+    simp
+    ring
   refine ⟨⟨p,hm,?_⟩,⟨p,hm,?_⟩⟩
   · rw [eval_eq]
     exact_mod_cast upper_quadratic n
