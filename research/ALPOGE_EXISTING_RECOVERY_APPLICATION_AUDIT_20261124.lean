@@ -1,6 +1,7 @@
 import «research.NativePrimitiveDeterminantCertificate»
 import «research.NativeTrueZeroSchurFit»
 import «research.NativeSignLift»
+import «research.NativeSignSchurHandoff»
 import «research.NativeCenteredThickCompensation»
 import «research.NativeAnchoredMain»
 import «research.NativePrimitiveSlotSplitting»
@@ -437,3 +438,13 @@ run_cmd do
 #print axioms RHLean.Analysis.NativeSignLift.triangular_conjugate
 #print axioms RHLean.Analysis.NativeSignLift.lift_det
 #print axioms RHLean.Analysis.NativeSignLift.euler_lift_det
+
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.observations_det
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.relative_log
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.normal_angle_bounds
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.angleLog_bounds
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.anchor_relative
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.anchor_relative_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.lifted_relative_price
+#print axioms RHLean.Analysis.AlpogeThin.SlotProjector.SignSchurHandoff.originalGx_price
